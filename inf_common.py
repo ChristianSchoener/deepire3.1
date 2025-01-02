@@ -444,9 +444,9 @@ class LearningModel(torch.nn.Module):
     self.init = []
     for id, (thax,sine) in init:
       if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        self.init.append(id,(0,sine))
+        self.init.append((id,(0,sine)))
       else:
-        self.init.append(id,(thax,sine))
+        self.init.append((id,(thax,sine)))
     self.deriv = deriv
     self.pars = pars
     self.pos_vals = pos_vals
