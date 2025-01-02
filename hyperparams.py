@@ -6,7 +6,7 @@ import torch
 
 # multi_inf_paralels_config:
 
-SCRATCH = "/scratch/sudamar2/" # add /raid/. for dgx
+SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing/pieces" # add /raid/. for dgx
 MAX_EPOCH = 100
 
 # DATA PREPARATION PARAMS:
@@ -40,7 +40,7 @@ ONLY_GENERATING_PARENTS = False
 # this needs to be done before/during the compression phase
 # note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
-MAX_USED_AXIOM_CNT = 5000
+MAX_USED_AXIOM_CNT = 0
 
 COMPRESSION_THRESHOLD = 20000
 
@@ -85,7 +85,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 20
+NUMPROCESSES = 12
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -98,7 +98,7 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.0
+SWAPOUT = 0.1
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
@@ -123,4 +123,10 @@ OPTIMIZER = Optimizer_ADAM
 
 POS_WEIGHT_EXTRA = 1.0
 
-FRACTIONAL_CHECKPOINTING = 5 # 0 means disabled, 1 does not make sense
+FRACTIONAL_CHECKPOINTING = 0 # 0 means disabled, 1 does not make sense
+
+ALL_ONCE = True
+
+MAX_ADDITIONAL_AXIOMS = 1500
+
+ALIGN_INTERSECTION_FREE = True

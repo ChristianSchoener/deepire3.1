@@ -188,12 +188,11 @@ class EmptySineEmbellisher(torch.nn.Module):
 
 def get_initial_model(thax_sign,sine_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
-  '''
   if HP.SWAPOUT > 0.0:
-    assert(-1 in thax_sign) # to have conjecture embedding
-    assert(0 in thax_sign)  # to have user-fla embedding
-  '''
-  
+    if 0 not in thax_sign:
+      init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
+  # assert(-1 in thax_sign) # to have conjecture embedding
+
   if HP.USE_SINE:
     sine_sign.remove(255)
     sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
@@ -207,11 +206,11 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits):
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
 
-  if HP.SWAPOUT > 0.0:
-    # to have the arity 1 and 2 defaults
-    # NOTE: 1 and 2 don't conflict with proper rule indexes
-    deriv_arits[1] = 1
-    deriv_arits[2] = 3 # use the multiary for anything else than unary
+  # if HP.SWAPOUT > 0.0:
+  #   # to have the arity 1 and 2 defaults
+  #   # NOTE: 1 and 2 don't conflict with proper rule indexes
+  #   deriv_arits[1] = 1
+  #   deriv_arits[2] = 3 # use the multiary for anything else than unary
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
@@ -510,12 +509,10 @@ class LearningModel(torch.nn.Module):
     loss = torch.zeros(1)
     
     for id, (thax,sine) in self.init:
-      '''
       if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
         embed = self.init_embeds[str(0)]()
       else:
-      '''
-      embed = self.init_embeds[str(thax)]()
+        embed = self.init_embeds[str(thax)]()
     
       if HP.USE_SINE:
         embed = self.sine_embellisher(sine,embed)
@@ -529,14 +526,14 @@ class LearningModel(torch.nn.Module):
       
       par_embeds = [store[par] for par in self.pars[id]]
       
-      if self.training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        arit = len(self.pars[id])
-        if arit == 1:
-          embed = self.deriv_mlps["1"](par_embeds)
-        else:
-          embed = self.deriv_mlps["2"](par_embeds)
-      else:
-        embed = self.deriv_mlps[str(rule)](par_embeds)
+      # if self.training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
+      #   arit = len(self.pars[id])
+      #   if arit == 1:
+      #     embed = self.deriv_mlps["1"](par_embeds)
+      #   else:
+      #     embed = self.deriv_mlps["2"](par_embeds)
+      # else:
+      embed = self.deriv_mlps[str(rule)](par_embeds)
       
       store[id] = embed
       if id in self.pos_vals or id in self.neg_vals:

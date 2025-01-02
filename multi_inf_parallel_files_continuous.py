@@ -12,6 +12,8 @@ torch.set_num_interop_threads(1)
 
 from torch import Tensor
 
+from copy import deepcopy
+
 import time
 
 from typing import Dict, List, Tuple, Optional
@@ -48,7 +50,7 @@ def eval_and_or_learn_on_one(probname,parts_file,training,log):
   for param in myparts.parameters():
     # taken from Optmizier zero_grad, roughly
     if param.grad is not None:
-      print("Loaded param with with a grad",log)
+      print("Loaded param with a grad",log)
       param.grad.detach_()
       param.grad.zero_()
 
@@ -153,6 +155,10 @@ if __name__ == "__main__":
     valid_data_idx = []
     print("Merged valid with train; final:",len(train_data_idx))
 
+  if HP.ALL_ONCE:
+    train_data_idx = [(x,y) for (x,y) in train_data_idx if x < HP.WHAT_IS_HUGE]
+    print("Removed HUGE data from training, remaining:",len(train_data_idx))
+
   print()
   print(time.time() - start_time,"Initialization finished",flush=True)
 
@@ -220,30 +226,36 @@ if __name__ == "__main__":
    
   # with 3500000 there was still a slowdown (thax2000, emb 256) probably cause by a swapping period?
 
-  MAX_CAPACITY = 5000000 # a total size of 4653978 caused a crash on air05 with 300G RAM (maybe air04 would still be able to cope with 5M?)
+  MAX_CAPACITY = 1000000 # a total size of 4653978 caused a crash on air05 with 300G RAM (maybe air04 would still be able to cope with 5M?)
   # note that that was a run on thax1000, i.e. 1000 embeddings of axioms (how much do these actually take up in comparison to the proper matrices?)
   assert HP.NUMPROCESSES * HP.COMPRESSION_THRESHOLD * 5 // 4 < MAX_CAPACITY
   cur_allocated = 0
 
+  if HP.ALL_ONCE:
+    train_data_idx_orig = deepcopy(train_data_idx)
   while True:
-    while num_active_tasks < MAX_ACTIVE_TASKS:
+    while num_active_tasks < MAX_ACTIVE_TASKS and len(train_data_idx) > 0:
       num_active_tasks += 1
-      
-      while True:
-        (size,probname) = random.choice(train_data_idx)
-        print("Picking",probname,"of size",size,end="...")
-        
-        if size >= HP.WHAT_IS_HUGE:
-          print("Is huge, skipping.")
-        elif cur_allocated + size > MAX_CAPACITY - (MAX_ACTIVE_TASKS-num_active_tasks) * (HP.COMPRESSION_THRESHOLD * 5 // 4):
-          print(f"too big! (cur_allocated is {cur_allocated} and still {(MAX_ACTIVE_TASKS-num_active_tasks)} tasks need to allocate)")
-        else:
-          print()
-          break
+      if len(train_data_idx) > 0:
+        while True:
+          (size,probname) = random.choice(train_data_idx)
+          print("Picking",probname,"of size",size,end="...")
+          
+          if size >= HP.WHAT_IS_HUGE:
+            print("Is huge, skipping.")
+          elif cur_allocated + size > MAX_CAPACITY - (MAX_ACTIVE_TASKS-num_active_tasks) * (HP.COMPRESSION_THRESHOLD * 5 // 4):
+            print(f"too big! (cur_allocated is {cur_allocated} and still {(MAX_ACTIVE_TASKS-num_active_tasks)} tasks need to allocate)")
+          else:
+            print()
+            break
       cur_allocated += size
     
       print(time.time() - start_time,"starting job on problem",probname,"of size",size,flush=True)
-      
+
+      if HP.ALL_ONCE:
+        train_data_idx = [(x,y) for (x,y) in train_data_idx if not (x,y) == (size,probname)]
+        print(len(train_data_idx),"pieces remaining for this epoch.")
+
       id += 1
       parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
       torch.save(master_parts,parts_file)
@@ -302,6 +314,9 @@ if __name__ == "__main__":
     modulus = t % samples_per_epoch
     if modulus == 0:
       epoch += 1
+
+      if HP.ALL_ONCE:
+        train_data_idx = deepcopy(train_data_idx_orig)
     
       print("Epoch",epoch,"finished at",time.time() - start_time)
       save_checkpoint(epoch,epoch,master_parts,optimizer)

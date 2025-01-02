@@ -64,7 +64,7 @@ if __name__ == "__main__":
       for i,line in enumerate(f):
         logname = line[:-1]
         tasks.append((i,logname))
-    pool = Pool(processes=50) # number of cores to use
+    pool = Pool(processes=12) # number of cores to use
     results = pool.map(load_one, tasks, chunksize = 100)
     pool.close()
     pool.join()
@@ -120,7 +120,7 @@ if __name__ == "__main__":
   print("thax_to_str",thax_to_str)
 
   filename = "{}/data_sign.pt".format(sys.argv[1])
-  print("Saving singature to",filename)
+  print("Saving signature to",filename)
   torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str), filename)
   print()
 

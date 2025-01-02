@@ -113,6 +113,51 @@ def compress_to_treshold(prob_data_list,treshold):
   print("Compressed to",len(compressed),"merged problems")
   return compressed
 
+def align_additional_axioms_intersection_free(prob_data_list):
+  iList = []
+  iExtra = set()
+  for (metainfo,(init,deriv,pars,selec,good)) in prob_data_list:
+    iList.append([])
+    for id, (thax,sine) in init:
+      iList[-1].append((thax,sine))
+      if thax > HP.MAX_USED_AXIOM_CNT:
+        iExtra.add((thax,sine))
+  iExtra = list(iExtra)
+  mod = len(iExtra) > 0
+  if not mod:
+    return prob_data_list
+  else:
+    iDict = defaultdict(lambda: set(), dict())
+    for init in iList:
+      temp = list(set(init))
+      for i in range(len(temp)):
+        for j in range(len(temp)):
+          iDict[temp[i]].add(temp[j])
+    newspots = defaultdict(lambda:set(), dict())
+    pos = HP.MAX_USED_AXIOM_CNT
+    while len(iExtra)>0:
+      while len(iExtra)>0 and not iExtra[0] in iDict:
+        iExtra.pop(0)
+      if pos not in newspots:
+        newspots[pos] = {iExtra[0]}
+        del iDict[iExtra.pop(0)]
+        pos = HP.MAX_USED_AXIOM_CNT
+      elif (not newspots[pos].intersection(iDict[iExtra[0]])) and (list(newspots[pos])[0][1] == iExtra[0][1]):
+        newspots[pos].add(iExtra[0])
+        del iDict[iExtra.pop(0)]
+        pos = HP.MAX_USED_AXIOM_CNT
+      else:
+        pos += 1
+    reverse_newspots = {val: key for key, vals in newspots.items() for val in vals}
+    iList = [[(reverse_newspots[iList[i][j]],iList[i][j][1]) if iList[i][j][0] > HP.MAX_USED_AXIOM_CNT else iList[i][j] for j in range(len(iList[i]))]  for i in range(len(iList))]
+    print("Additional axioms for embedding:",len(list(newspots.keys())))
+    new_prob_data_list = []
+    for i in range(len(prob_data_list)):
+      (metainfo,(init,deriv,pars,selec,good)) = prob_data_list.pop(0)
+      init = [(init[j][0],(iList[i][j])) for j in range(len(init))]
+      new_prob_data_list.append((metainfo,(init,deriv,pars,selec,good)))
+    return new_prob_data_list
+
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
   # what can be learned from a super-simple TreeNN
@@ -148,6 +193,15 @@ if __name__ == "__main__":
     pass # keep as it is
 
   print("Smoothed representation and axiom bounding")
+
+  prob_data_list = [(metainfo,(init,deriv,pars,selec,good)) for (metainfo,(init,deriv,pars,selec,good)) in prob_data_list if len(set([init[i][1] for i in range(len(init))])) <= HP.MAX_ADDITIONAL_AXIOMS and len(init)+len(deriv) <= HP.WHAT_IS_HUGE]
+  print("Removed problems with more than",HP.MAX_ADDITIONAL_AXIOMS,"axioms and those with more than",HP.WHAT_IS_HUGE,"combined length of inits + derivs" )
+
+  if HP.ALIGN_INTERSECTION_FREE:
+    print("Arranging additional axioms intersection-free.")
+    prob_data_list = align_additional_axioms_intersection_free(prob_data_list)
+    print("Arranged additional axioms intersection-free.")
+    
   for i, ((probname,probweight),(init,deriv,pars,selec,good)) in enumerate(prob_data_list):
     print(probname,len(init),len(deriv),len(pars),len(selec),len(good))
   
@@ -170,8 +224,8 @@ if __name__ == "__main__":
     if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
       new_init = []
       for id, (thax,sine) in init:
-        if thax > HP.MAX_USED_AXIOM_CNT:
-          thax = 0
+#        if thax > HP.MAX_USED_AXIOM_CNT:
+#          thax = 0
         
         thax_sign.add(thax)
         
@@ -250,7 +304,7 @@ if __name__ == "__main__":
           pos_vals[id] = 1.0 # pos counts as one too
           tot_pos += 1.0
 
-      # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that tha whole problem has a sum of probweight
+      # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that the whole problem has a sum of probweight
       factor = probweight/(tot_pos+tot_neg)
       for id,val in pos_vals.items():
         pos_vals[id] *= factor
