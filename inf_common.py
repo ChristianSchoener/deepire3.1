@@ -188,9 +188,8 @@ class EmptySineEmbellisher(torch.nn.Module):
 
 def get_initial_model(thax_sign,sine_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
-  if HP.SWAPOUT > 0.0:
-    if 0 not in thax_sign:
-      init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
+  if str(0) not in init_embeds:
+    init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
   # assert(-1 in thax_sign) # to have conjecture embedding
 
   if HP.USE_SINE:
@@ -442,7 +441,12 @@ class LearningModel(torch.nn.Module):
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
     
-    self.init = init
+    self.init = []
+    for id, (thax,sine) in init:
+      if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
+        self.init.append(id,(0,sine))
+      else:
+        self.init.append(id,(thax,sine))
     self.deriv = deriv
     self.pars = pars
     self.pos_vals = pos_vals
@@ -509,10 +513,10 @@ class LearningModel(torch.nn.Module):
     loss = torch.zeros(1)
     
     for id, (thax,sine) in self.init:
-      if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        embed = self.init_embeds[str(0)]()
-      else:
-        embed = self.init_embeds[str(thax)]()
+      # if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
+      #   embed = self.init_embeds[str(0)]()
+      # else:
+      embed = self.init_embeds[str(thax)]()
     
       if HP.USE_SINE:
         embed = self.sine_embellisher(sine,embed)
@@ -868,10 +872,10 @@ def prepare_signature(prob_data_list):
       else:
         deriv_arits[rule] = arit
 
-    if HP.SWAPOUT > 0.0:
-      # make sure we have arity 1 and 2 defaults
-      deriv_arits[1] = 1
-      deriv_arits[2] = 3 # an experiment: # use the multiary for anything else than unary
+    # if HP.SWAPOUT > 0.0:
+    #   # make sure we have arity 1 and 2 defaults
+    #   deriv_arits[1] = 1
+    #   deriv_arits[2] = 3 # an experiment: # use the multiary for anything else than unary
   
     for id,ax in axioms.items():
       axiom_hist[ax] += probweight
