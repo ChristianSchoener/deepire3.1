@@ -38,7 +38,7 @@ def compress_by_probname(prob_data_list):
   return compressed
 
 
-def compress_to_treshold(prob_data_list,treshold):
+def compress_to_treshold(prob_data_list,thax_number_mapping,treshold):
   
   size_hist = defaultdict(int)
   
@@ -82,6 +82,10 @@ def compress_to_treshold(prob_data_list,treshold):
     size, my_rest = size_and_prob.pop()
 
     # print("Popped guy of size",size)
+    metainfo, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = my_rest
+    this_thax_number_mapping = dict()
+    for _,(thax,_) in init:
+      this_thax_number_mapping[thax] = thax_number_mapping[thax]    
 
     while size < treshold and size_and_prob:
       # print("Looking for a friend")
@@ -96,6 +100,10 @@ def compress_to_treshold(prob_data_list,treshold):
       # print("Idxupper",idx_upper,"idx",idx)
 
       friend_size, friend_rest = size_and_prob[idx]
+      metainfo, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = friend_rest      
+      for _,(thax,_) in init:
+        this_thax_number_mapping[thax] = thax_number_mapping[thax]
+
       del size_and_prob[idx]
 
       # print("friend_size",friend_size)
@@ -107,11 +115,12 @@ def compress_to_treshold(prob_data_list,treshold):
       # print("aftermerge",size)
 
     print("Storing a guy of size",size,"weight",metainfo[-1])
+    my_rest = (my_rest[0], (my_rest[1], this_thax_number_mapping))
     compressed.append(my_rest)
 
   print()
   print("Compressed to",len(compressed),"merged problems")
-  return compressed
+  return (compressed)
 
 def align_additional_axioms_intersection_free(prob_data_list):
   iList = []
@@ -134,29 +143,38 @@ def align_additional_axioms_intersection_free(prob_data_list):
         for j in range(len(temp)):
           iDict[temp[i]].add(temp[j])
     newspots = defaultdict(lambda:set(), dict())
-    pos = HP.MAX_USED_AXIOM_CNT
     while len(iExtra)>0:
       while len(iExtra)>0 and not iExtra[0] in iDict:
         iExtra.pop(0)
-      if pos not in newspots:
-        newspots[pos] = {iExtra[0]}
-        del iDict[iExtra.pop(0)]
-        pos = HP.MAX_USED_AXIOM_CNT
-      elif (not newspots[pos].intersection(iDict[iExtra[0]])) and (list(newspots[pos])[0][1] == iExtra[0][1]):
-        newspots[pos].add(iExtra[0])
-        del iDict[iExtra.pop(0)]
-        pos = HP.MAX_USED_AXIOM_CNT
+      if len(iExtra) == 0:
+        break
+      mini = 100000000
+      found = False
+      if len(newspots) > 0:
+        for i in range(HP.MAX_USED_AXIOM_CNT+1,max(list(newspots.keys()))+1):
+          if (not newspots[i].intersection(iDict[iExtra[0]])) and (list(newspots[i])[0][1] == iExtra[0][1]) and (len(newspots[i]) < mini):
+            pos = i
+            mini = len(newspots[i])
+            found = True
+        if found:
+          newspots[pos].add(iExtra[0])
+          del iDict[iExtra.pop(0)]
+        else:
+          newspots[max(list(newspots.keys()))+1] = {iExtra[0]}
+          del iDict[iExtra.pop(0)]
       else:
-        pos += 1
+        newspots[HP.MAX_USED_AXIOM_CNT+1] = {iExtra[0]}
+        del iDict[iExtra.pop(0)]
     reverse_newspots = {val: key for key, vals in newspots.items() for val in vals}
-    iList = [[(reverse_newspots[iList[i][j]],iList[i][j][1]) if iList[i][j][0] > HP.MAX_USED_AXIOM_CNT else iList[i][j] for j in range(len(iList[i]))]  for i in range(len(iList))]
+    thax_number_mapping = dict()
+    for i in range(len(iList)):
+      for j in range(len(iList[i])):
+        if iList[i][j][0] > HP.MAX_ADDITIONAL_AXIOMS:
+          thax_number_mapping[iList[i][j][0]] = reverse_newspots[iList[i][j]]
+        else:
+          thax_number_mapping[iList[i][j][0]] = iList[i][j][0]
     print("Additional axioms for embedding:",len(list(newspots.keys())))
-    new_prob_data_list = []
-    for i in range(len(prob_data_list)):
-      (metainfo,(init,deriv,pars,selec,good)) = prob_data_list.pop(0)
-      init = [(init[j][0],(iList[i][j])) for j in range(len(init))]
-      new_prob_data_list.append((metainfo,(init,deriv,pars,selec,good)))
-    return new_prob_data_list
+    return thax_number_mapping
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -187,19 +205,16 @@ if __name__ == "__main__":
   prob_data_list = [(metainfo,(init,deriv,pars,selec,good)) for (metainfo,(init,deriv,pars,selec,good,axioms)) in prob_data_list]
   print("Done")
 
-  if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
-    thax_sign = set() # will get loaded with better stuff below
-  else:
-    pass # keep as it is
-
-  print("Smoothed representation and axiom bounding")
-
   prob_data_list = [(metainfo,(init,deriv,pars,selec,good)) for (metainfo,(init,deriv,pars,selec,good)) in prob_data_list if len(set([init[i][1] for i in range(len(init))])) <= HP.MAX_ADDITIONAL_AXIOMS and len(init)+len(deriv) <= HP.WHAT_IS_HUGE]
   print("Removed problems with more than",HP.MAX_ADDITIONAL_AXIOMS,"axioms and those with more than",HP.WHAT_IS_HUGE,"combined length of inits + derivs" )
 
+  thax_number_mapping = []
   if HP.ALIGN_INTERSECTION_FREE:
     print("Arranging additional axioms intersection-free.")
-    prob_data_list = align_additional_axioms_intersection_free(prob_data_list)
+    thax_number_mapping = align_additional_axioms_intersection_free(prob_data_list)
+    thax_number_mapping[-1] = -1
+    thax_number_mapping[0] = 0
+
     print("Arranged additional axioms intersection-free.")
     
   for i, ((probname,probweight),(init,deriv,pars,selec,good)) in enumerate(prob_data_list):
@@ -221,25 +236,15 @@ if __name__ == "__main__":
         neg_vals[id] = one_clause_weigth
         tot_neg += one_clause_weigth
 
-    if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
-      new_init = []
-      for id, (thax,sine) in init:
-#        if thax > HP.MAX_USED_AXIOM_CNT:
-#          thax = 0
-        
-        thax_sign.add(thax)
-        
-        new_init.append((id,(thax,sine)))
-    else:
-      new_init = init
+    prob_data_list[i] = ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))
 
-    prob_data_list[i] = ((probname,probweight),(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))
+## Add thax->0 mapping values for missing values
+  for i in thax_to_str:
+    if i not in thax_number_mapping:
+      thax_number_mapping[i] = 0
 
-
-  # thax_to_str can be kept; we will just know the names of axioms we don't use
-
-  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str), "{}/data_sign.pt".format(sys.argv[1]))
-  print(f"Done; data_sign updated (and saved to {sys.argv[1]})")
+  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping), "{}/data_sign_mapping.pt".format(sys.argv[1]))
+  print(f"Done; data_sign_mapping created (and saved to {sys.argv[1]})")
 
   if True: # is this a good idea with many copies of the same problem?
     prob_data_list = compress_by_probname(prob_data_list)
@@ -335,7 +340,7 @@ if __name__ == "__main__":
     print("Done")
 
   if True:
-    prob_data_list = compress_to_treshold(prob_data_list,treshold = HP.COMPRESSION_THRESHOLD)
+    prob_data_list = compress_to_treshold(prob_data_list,thax_number_mapping,treshold = HP.COMPRESSION_THRESHOLD)
 
   SAVE_PIECES = True
 

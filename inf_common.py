@@ -186,10 +186,9 @@ class EmptySineEmbellisher(torch.nn.Module):
   def forward(self,sine : int, embed : Tensor) -> Tensor:
     return embed # simply ignoring sine
 
-def get_initial_model(thax_sign,sine_sign,deriv_arits):
+def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
   init_embeds = torch.nn.ModuleDict()
-  if str(0) not in init_embeds:
-    init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
+  init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
   # assert(-1 in thax_sign) # to have conjecture embedding
 
   if HP.USE_SINE:
@@ -202,7 +201,7 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits):
     sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
     # sine_embedder = EmptySineEmbedder(HP.EMBED_SIZE)
 
-  for i in thax_sign:
+  for i in set([thax_number_mapping[i] for i in thax_sign]):
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
 
   # if HP.SWAPOUT > 0.0:
@@ -262,7 +261,7 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name,parts,parts_copies,thax_to_str):
+def save_net(name,parts,parts_copies,thax_to_str,thax_number_mapping):
   for part,part_copy in zip(parts,parts_copies):
     part_copy.load_state_dict(part.state_dict())
     
@@ -276,11 +275,11 @@ def save_net(name,parts,parts_copies,thax_to_str):
   
   initEmbeds = {}
   for thax,embed in init_embeds.items():
-    thax = int(thax)
+    thax = int(thax_number_mapping(thax))
     if thax == -1:
       st = "-1"
     elif thax in thax_to_str:
-      st = thax_to_str[thax]
+      st = thax_to_str(thax)
     else:
       assert len(thax_to_str) == 0 or thax == 0, thax
       st = str(thax)
@@ -433,20 +432,23 @@ class LearningModel(torch.nn.Module):
       sine_embellisher: torch.nn.Module,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,save_logits = False):
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False):
     super(LearningModel,self).__init__()
   
     self.init_embeds = init_embeds
     self.sine_embellisher = sine_embellisher
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
-    
-    self.init = []
-    for id, (thax,sine) in init:
+
+    self.init = init
+
+    self.this_thax_mapping = dict()
+    for _, (thax, _) in init:
       if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        self.init.append((id,(0,sine)))
+        self.this_thax_mapping[thax] = 0
       else:
-        self.init.append((id,(thax,sine)))
+        self.this_thax_mapping[thax] = this_thax_mapping[thax] 
+
     self.deriv = deriv
     self.pars = pars
     self.pos_vals = pos_vals
@@ -513,10 +515,7 @@ class LearningModel(torch.nn.Module):
     loss = torch.zeros(1)
     
     for id, (thax,sine) in self.init:
-      # if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-      #   embed = self.init_embeds[str(0)]()
-      # else:
-      embed = self.init_embeds[str(thax)]()
+      embed = self.init_embeds[str(self.this_thax_mapping[thax])]()
     
       if HP.USE_SINE:
         embed = self.sine_embellisher(sine,embed)
@@ -548,7 +547,7 @@ class LearningModel(torch.nn.Module):
 # EvalMultiModel model class - an ugly copy-paste-modify of LearningModel above (try keeping in sync)
 class EvalMultiModel(torch.nn.Module):
   def __init__(self,models,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg):
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,thax_number_mapping):
     super().__init__()
   
     self.dim = len(models)
@@ -562,6 +561,8 @@ class EvalMultiModel(torch.nn.Module):
     self.pars = pars
     self.pos_vals = pos_vals
     self.neg_vals = neg_vals
+
+    self.thax_number_mapping
   
     pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
     
@@ -597,7 +598,7 @@ class EvalMultiModel(torch.nn.Module):
     for id, (thax,sine) in self.init:
       # print("init",id)
       
-      str_thax = str(thax)
+      str_thax = str(self.thax_mapping(thax))
       embeds = [ sine_embellisher(sine,init_embeds[str_thax]()) for (init_embeds,sine_embellisher,deriv_mlps,eval_net) in self.models]
       
       store[id] = embeds
