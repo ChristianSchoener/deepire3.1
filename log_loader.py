@@ -108,20 +108,18 @@ if __name__ == "__main__":
 
   thax_sign,sine_sign,deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
 
-  if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES: # We want to use axiom names rather than theory_axiom ids:
-    thax_sign,prob_data_list,thax_to_str = IC.axiom_names_instead_of_thax(thax_sign,axiom_hist,prob_data_list)
-  else:
-    thax_to_str = {}
+  thax_sign,prob_data_list,thax_to_str,thax_number_mapping = IC.axiom_names_instead_of_thax(thax_sign,axiom_hist,prob_data_list)
 
   print("thax_sign",thax_sign)
   print("sine_sign",sine_sign)
   print("deriv_arits",deriv_arits)
   # print("axiom_hist",axiom_hist)
   print("thax_to_str",thax_to_str)
+  print("thax_number_mapping",thax_number_mapping)
 
   filename = "{}/data_sign.pt".format(sys.argv[1])
   print("Saving signature to",filename)
-  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str), filename)
+  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping), filename)
   print()
 
   filename = "{}/raw_log_data{}".format(sys.argv[1],IC.name_raw_data_suffix())

@@ -42,7 +42,7 @@ def eval_and_or_learn_on_one(probname,parts_file,training,log):
   # print("{}/pieces/{}".format(sys.argv[1],probname))
 
   data = torch.load("{}/pieces/{}".format(sys.argv[1],probname))
-  ((init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg),this_thax_mapping) = data
+  (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping) = data
 
   myparts = torch.load(parts_file)
   
@@ -178,7 +178,7 @@ if __name__ == "__main__":
         param_group['lr'] = HP.LEARN_RATE
     print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
   else:
-    thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping = torch.load("{}/data_sign_mapping.pt".format(sys.argv[1]))
+    thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping = torch.load("{}/data_sign.pt".format(sys.argv[1]))
     master_parts = IC.get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping)
     model_name = "{}/initial{}".format(sys.argv[2],IC.name_initial_model_suffix())
     torch.save(master_parts,model_name)

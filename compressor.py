@@ -25,7 +25,7 @@ def compress_by_probname(prob_data_list):
   compressed = []
 
   for probname,bucket in by_probname.items():
-    print("Compressing bucket of size",len(bucket),"for",probname,"of total weight",sum(metainfo[1] for metainfo,rest in bucket),"and sizes",[len(rest[0])+len(rest[1]) for metainfo,rest in bucket],"and posval sizes",[len(rest[3]) for metainfo,rest in bucket])
+    print("Compressing bucket of size",len(bucket),"for",probname,"of total weight",sum(metainfo[1] for metainfo,_ in bucket),"and sizes",[len(rest[0])+len(rest[1]) for _,rest in bucket],"and posval sizes",[len(rest[3]) for _,rest in bucket])
 
     metainfo,rest = IC.compress_prob_data(bucket)
 
@@ -38,104 +38,51 @@ def compress_by_probname(prob_data_list):
   return compressed
 
 
-def compress_to_treshold(prob_data_list,thax_number_mapping,treshold):
-  
-  size_hist = defaultdict(int)
-  
-  sizes = []
-  times = []
-  
-  size_and_prob = []
-  
-  for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)) in enumerate(prob_data_list):
-    print(metainfo)
-
-    size = len(init)+len(deriv)
-    
-    size_and_prob.append((size,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))))
-    
-    size_hist[len(init)+len(deriv)] += 1
-
-  print("size_hist")
-  tot = 0
-  sum = 0
-  small = 0
-  big = 0
-  for val,cnt in sorted(size_hist.items()):
-    sum += val*cnt
-    tot += cnt
-    # print(val,cnt)
-    if val > treshold:
-      big += cnt
-    else:
-      small += cnt
-  print("Average",sum/tot)
-  print("Big",big)
-  print("Small",small)
-
+def compress_to_treshold(prob_data_list,treshold):
+   
   print("Compressing for treshold",treshold)
-  size_and_prob.sort(key=lambda x : x[0])
-  
-  compressed = []
-  
-  while size_and_prob:
-    size, my_rest = size_and_prob.pop()
+  prob_data_list = [((name,weight,len(init)+len(deriv)),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map)) for (name,weight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map) in prob_data_list]
 
-    # print("Popped guy of size",size)
-    metainfo, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = my_rest
-    this_thax_number_mapping = dict()
-    for _,(thax,_) in init:
-      this_thax_number_mapping[thax] = thax_number_mapping[thax]    
+## Huffmann-encoding
+  if len(prob_data_list) > 1:
+    prob_data_list.sort(key=lambda x : x[0][2])
+    (name,weight,size), my_rest = prob_data_list[0]
+    (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
+    # print(size,friend_size,len(prob_data_list))
+    while size + friend_size < treshold:
 
-    while size < treshold and size_and_prob:
-      # print("Looking for a friend")
-      likes_sizes = int((treshold-size)*1.2)
-      idx_upper = bisect.bisect_right(size_and_prob,(likes_sizes, my_rest))
+      rest = IC.compress_prob_data([((name,weight,size), my_rest),((friend_name,friend_weight,friend_size), friend_rest)])
+      prob_data_list.pop(0)
+      prob_data_list.pop(0)
+      prob_data_list.append(rest)
+      # print(size,friend_size,rest[0][2],len(prob_data_list))
 
-      if not idx_upper:
-        idx_upper = 1
+      if len(prob_data_list) == 1:
+        break
+      prob_data_list.sort(key=lambda x : x[0][2])
+      (name,weight,size), my_rest = prob_data_list[0]
+      (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
 
-      idx = random.randrange(idx_upper)
-    
-      # print("Idxupper",idx_upper,"idx",idx)
+    print()
+    print("Compressed to",len(prob_data_list),"merged problems")
+    prob_data_list.sort(key=lambda x : -x[0][2])
+    sizes = dict()
+    for i,((_,_,size),_) in enumerate(prob_data_list):
+      sizes["piece "+ str(i)] = size
+    print("Sizes:",sizes)
+    return prob_data_list
 
-      friend_size, friend_rest = size_and_prob[idx]
-      metainfo, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = friend_rest      
-      for _,(thax,_) in init:
-        this_thax_number_mapping[thax] = thax_number_mapping[thax]
-
-      del size_and_prob[idx]
-
-      # print("friend_size",friend_size)
-
-      my_rest = IC.compress_prob_data([my_rest,friend_rest])
-      metainfo, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = my_rest
-      size = len(init)+len(deriv)
-    
-      # print("aftermerge",size)
-
-    print("Storing a guy of size",size,"weight",metainfo[-1])
-    my_rest = (my_rest[0], (my_rest[1], this_thax_number_mapping))
-    compressed.append(my_rest)
-
-  print()
-  print("Compressed to",len(compressed),"merged problems")
-  return (compressed)
-
-def align_additional_axioms_intersection_free(prob_data_list):
+def align_additional_axioms_intersection_free(prob_data_list, thax_number_mapping):
   iList = []
   iExtra = set()
-  for (metainfo,(init,deriv,pars,selec,good)) in prob_data_list:
+  for (_,(init,_,_,_,_,_)) in prob_data_list:
     iList.append([])
-    for id, (thax,sine) in init:
+    for _, (thax,sine) in init:
       iList[-1].append((thax,sine))
       if thax > HP.MAX_USED_AXIOM_CNT:
         iExtra.add((thax,sine))
   iExtra = list(iExtra)
-  mod = len(iExtra) > 0
-  if not mod:
-    return prob_data_list
-  else:
+  if len(iExtra) > 0:
     iDict = defaultdict(lambda: set(), dict())
     for init in iList:
       temp = list(set(init))
@@ -166,15 +113,16 @@ def align_additional_axioms_intersection_free(prob_data_list):
         newspots[HP.MAX_USED_AXIOM_CNT+1] = {iExtra[0]}
         del iDict[iExtra.pop(0)]
     reverse_newspots = {val: key for key, vals in newspots.items() for val in vals}
-    thax_number_mapping = dict()
     for i in range(len(iList)):
       for j in range(len(iList[i])):
         if iList[i][j][0] > HP.MAX_ADDITIONAL_AXIOMS:
           thax_number_mapping[iList[i][j][0]] = reverse_newspots[iList[i][j]]
-        else:
-          thax_number_mapping[iList[i][j][0]] = iList[i][j][0]
+    for i,(info,(init,deriv,pars,selec,good,this_map)) in enumerate(prob_data_list):
+      for _,(ax,_) in init:
+        this_map[ax] = thax_number_mapping[ax]
+      prob_data_list[i]  = (info,(init,deriv,pars,selec,good,this_map))
     print("Additional axioms for embedding:",len(list(newspots.keys())))
-    return thax_number_mapping
+  return prob_data_list,thax_number_mapping
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -195,30 +143,28 @@ if __name__ == "__main__":
 
   prob_data_list = torch.load(sys.argv[2])
 
-  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[3])
+  thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping = torch.load(sys.argv[3])
 
   # prob_data_list = prob_data_list[:10]
   
   print("Loaded raw prob_data_list of len:",len(prob_data_list))
 
   print("Dropping axiom information, not needed anymore")
-  prob_data_list = [(metainfo,(init,deriv,pars,selec,good)) for (metainfo,(init,deriv,pars,selec,good,axioms)) in prob_data_list]
+  prob_data_list = [(metainfo,(init,deriv,pars,selec,good,this_map)) for (metainfo,(init,deriv,pars,selec,good,_,this_map)) in prob_data_list]
   print("Done")
 
-  prob_data_list = [(metainfo,(init,deriv,pars,selec,good)) for (metainfo,(init,deriv,pars,selec,good)) in prob_data_list if len(set([init[i][1] for i in range(len(init))])) <= HP.MAX_ADDITIONAL_AXIOMS and len(init)+len(deriv) <= HP.WHAT_IS_HUGE]
+  prob_data_list = [(info,(init,deriv,pars,selec,good,this_map)) for (info,(init,deriv,pars,selec,good,this_map)) in prob_data_list if len(set([init[i][1] for i in range(len(init))])) <= HP.MAX_ADDITIONAL_AXIOMS and len(init)+len(deriv) <= HP.WHAT_IS_HUGE]
   print("Removed problems with more than",HP.MAX_ADDITIONAL_AXIOMS,"axioms and those with more than",HP.WHAT_IS_HUGE,"combined length of inits + derivs" )
 
-  thax_number_mapping = []
   if HP.ALIGN_INTERSECTION_FREE:
     print("Arranging additional axioms intersection-free.")
-    thax_number_mapping = align_additional_axioms_intersection_free(prob_data_list)
-    thax_number_mapping[-1] = -1
-    thax_number_mapping[0] = 0
+    prob_data_list, thax_number_mapping = align_additional_axioms_intersection_free(prob_data_list, thax_number_mapping)
 
     print("Arranged additional axioms intersection-free.")
-    
-  for i, ((probname,probweight),(init,deriv,pars,selec,good)) in enumerate(prob_data_list):
-    print(probname,len(init),len(deriv),len(pars),len(selec),len(good))
+
+
+  for i, ((probname,probweight),(init,deriv,pars,selec,good,this_map)) in enumerate(prob_data_list):
+    print(probname,len(init),len(deriv),len(pars),len(selec),len(good),len(this_map))
   
     pos_vals = defaultdict(float)
     neg_vals = defaultdict(float)
@@ -236,44 +182,21 @@ if __name__ == "__main__":
         neg_vals[id] = one_clause_weigth
         tot_neg += one_clause_weigth
 
-    prob_data_list[i] = ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))
+    prob_data_list[i] = ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map))
 
 ## Add thax->0 mapping values for missing values
   for i in thax_to_str:
     if i not in thax_number_mapping:
       thax_number_mapping[i] = 0
 
-  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping), "{}/data_sign_mapping.pt".format(sys.argv[1]))
-  print(f"Done; data_sign_mapping created (and saved to {sys.argv[1]})")
+  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping), "{}/data_sign.pt".format(sys.argv[1]))
+  print(f"Done; data_sign updated (and saved to {sys.argv[1]})")
 
-  if True: # is this a good idea with many copies of the same problem?
-    prob_data_list = compress_by_probname(prob_data_list)
-  else:
-    print("Compressing")
-    for i, (metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)) in enumerate(prob_data_list):
-      print(metainfo,"init: {}, deriv: {}, pos_vals: {}, neg_vals: {}".format(len(init),len(deriv),len(pos_vals),len(neg_vals)))
-      prob_data_list[i] = IC.compress_prob_data([(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))])
-    print("Done")
-
-  '''
-  size_sum = 0
-  selec_sum = 0
-  good_sum = 0
-  for i, ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)) in enumerate(prob_data_list):
-    size_sum += len(init)+len(deriv)
-    selec_sum += len(set(pos_vals) | set(neg_vals))
-    good_sum += len(pos_vals)
-
-  print("stats")
-  print(size_sum)
-  print(selec_sum)
-  print(good_sum)
-  exit(0)
-  '''
+  # prob_data_list = compress_by_probname(prob_data_list)
 
   if True:
     print("Making smooth compression discreet again (and forcing weight back to 1.0!)")
-    for i, ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)) in enumerate(prob_data_list):
+    for i, ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map)) in enumerate(prob_data_list):
       print()
     
       if True:
@@ -320,27 +243,9 @@ if __name__ == "__main__":
 
       print(tot_pos,tot_neg)
 
-      prob_data_list[i] = ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg))
+      prob_data_list[i] = ((probname,probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map))
 
-  if False: # Big compression now:
-    print("Grand compression")
-    (joint_probname,joint_probweight),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = IC.compress_prob_data(prob_data_list)
-
-    '''
-    for id in sorted(set(pos_vals) | set(neg_vals)):
-      print(id, pos_vals[id], neg_vals[id])
-    print(tot_pos)
-    print(tot_neg)
-    '''
-
-    filename = "{}/big_blob.pt".format(sys.argv[1])
-    print("Saving big blob to",filename)
-    torch.save((init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg), filename)
-
-    print("Done")
-
-  if True:
-    prob_data_list = compress_to_treshold(prob_data_list,thax_number_mapping,treshold = HP.COMPRESSION_THRESHOLD)
+  prob_data_list = compress_to_treshold(prob_data_list,treshold = HP.COMPRESSION_THRESHOLD)
 
   SAVE_PIECES = True
 
@@ -356,7 +261,7 @@ if __name__ == "__main__":
     for i,(metainfo,rest) in enumerate(prob_data_list):
       piece_name = "piece{}.pt".format(i)
       torch.save(rest, "{}/{}".format(dir,piece_name))
-      prob_data_list[i] = (len(rest[0])+len(rest[1]),piece_name)
+      prob_data_list[i] = (metainfo[2],piece_name)
     print("Done")
 
   random.shuffle(prob_data_list)

@@ -461,16 +461,6 @@ class LearningModel(torch.nn.Module):
     else:
       self.logits = None
   
-    '''
-    print()
-    print("LearningModel")
-    print("HP.POS_BIAS",HP.POS_WEIGHT_EXTRA)
-    print("tot_pos",tot_pos)
-    print("tot_neg",tot_neg)
-  
-    print("pos_weight",pos_weight)
-    '''
-    
     self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]))
   
   def contribute(self, id: int, embed : Tensor):
@@ -488,20 +478,7 @@ class LearningModel(torch.nn.Module):
       self.negOK += neg
   
     contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
-    
-    '''
-    print("contribute",id,pos,neg)
-    print("logit",val[0].item())
-    print("(val {})".format(1.0 if val[0].item() >= 0.0 else 0.0))
-    print("gold",pos/(pos+neg))
-    
-    print("self.posOK",self.posOK)
-    print("self.negOK",self.negOK)
-    
-    print("loss",(pos+neg),"*",contrib.item())
-    print(flush=True)
-    '''
-    
+        
     return (pos+neg)*contrib
 
   # Construct the whole graph and return its loss
@@ -562,7 +539,7 @@ class EvalMultiModel(torch.nn.Module):
     self.pos_vals = pos_vals
     self.neg_vals = neg_vals
 
-    self.thax_number_mapping
+    self.thax_number_mapping = thax_number_mapping
   
     pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
     
@@ -856,7 +833,7 @@ def prepare_signature(prob_data_list):
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (probname,probweight), (init,deriv,pars,selec,good,axioms) in prob_data_list:
+  for (_,probweight), (init,deriv,pars,_,_,axioms) in prob_data_list:
     for id, (thax,sine) in init:
       thax_sign.add(thax)
       sine_sign.add(sine)
@@ -887,79 +864,44 @@ def axiom_names_instead_of_thax(thax_sign,axiom_hist,prob_data_list):
   # (we didn't parse anything than 0 and -1 anyway:)
   # well, actually, in HOL/Sledgehammer we have both thax and user axioms
   # (and we treat all as user axioms (using a modified Vampire)
-  # assert(0 in thax_sign and (len(thax_sign) == 1 or len(thax_sign) == 2 and -1 in thax_sign))
   
-  new_prob_data_list = []
+  thax_number_mapping = dict()
+  thax_number_mapping[-1] = -1
+  thax_number_mapping[0] = 0
   
   ax_idx = {}
   thax_to_str = {}
   good_ax_cnt = 0
-  for i,(ax,num) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
+  for _,(ax,_) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
     good_ax_cnt += 1
     ax_idx[ax] = good_ax_cnt
     thax_to_str[good_ax_cnt] = ax
+    thax_number_mapping[good_ax_cnt] = good_ax_cnt
 
-  for (metainfo,(init,deriv,pars,selec,good,axioms)) in prob_data_list:
+  for i,(metainfo,(init,deriv,pars,selec,good,axioms)) in enumerate(prob_data_list):
     new_init = []
+    this_thax_number_mapping = dict()
+    this_thax_number_mapping[-1] = -1
+    this_thax_number_mapping[0] = 0
     for id, (thax,sine) in init:
       if thax == 0: # don't name the conjecture
         if id in axioms and axioms[id] in ax_idx:
           thax = ax_idx[axioms[id]]
       new_init.append((id,(thax,sine)))
       thax_sign.add(thax)
+      this_thax_number_mapping[thax] = thax
+    prob_data_list[i] = metainfo,(new_init,deriv,pars,selec,good,axioms,this_thax_number_mapping)
 
-    new_prob_data_list.append((metainfo,(new_init,deriv,pars,selec,good,axioms)))
-
-  return thax_sign,new_prob_data_list,thax_to_str
-
-def normalize_prob_data(prob_data):
-  # 1) it's better to have them in a list (for random.choice)
-  # 2) it's better to just keep the relevant information (more compact memory footprint)
-  # 3) it's better to disambiguate clause indices, so that any union of problems will make sense as on big graph
-  
-  prob_data_list = []
-  clause_offset = 0
-
-  for probname, (init,deriv,pars,selec,good) in prob_data.items():
-    id_max = 0
-    new_init = []
-    for id, features in init:
-      new_init.append((id+clause_offset, features))
-    
-      if id > id_max:
-        id_max = id
-
-    new_deriv = []
-    for id, features in deriv:
-      new_deriv.append((id+clause_offset, features))
-      
-      if id > id_max:
-        id_max = id
-
-    new_pars = {}
-    for id, ids_pars in pars.items():
-      new_pars[id+clause_offset] = [par+clause_offset for par in ids_pars]
-
-    new_selec = {id + clause_offset for id in selec}
-    new_good = {id + clause_offset for id in good}
-
-    prob_data_list.append((probname,(new_init,new_deriv,new_pars,new_selec,new_good)))
-
-    clause_offset += (id_max+1)
-
-  return prob_data_list
+  return thax_sign,prob_data_list,thax_to_str,thax_number_mapping
 
 def compress_prob_data(some_probs):
-  # Takes an iterable of "probname, (init,deriv,pars,selec,good)" and
+  # Takes an iterable of "probname, (init,deriv,pars,selec,good,this_map)" and
   # "hashes them structurally" (modulo the features we care about) to just one graph to learn from
   # initially intended to be used with just a singleton some_probs
   # (possible to compress pairs and triples, etc, to obtain "larger minibatches")
   #
-  # Should replace normalize_prob_data above, although that one processes the whole dataset
-  # and the new one should be applied piece-by-piece
-  #
   # The selected features are
-  # *) "thax" for init (can be -1 signifying conjecture clause, 0 for regular input and thax_ids otherwise)
+  # *) "thax" for init (can be -1 signifying conjecture clause, 0 for SWAPOUT+unseen and thax_ids otherwise)
   # *) and "rule" for deriv (arity is implict in the number of parents
 
   id_cnt = 0
@@ -975,8 +917,11 @@ def compress_prob_data(some_probs):
   out_neg_vals = defaultdict(float)
   out_tot_pos = 0.0
   out_tot_neg = 0.0
+  out_map = dict()
+  out_map[0] = 0
+  out_map[-1] = -1
 
-  for (probname,probweight), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) in some_probs:
+  for (probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map) in some_probs:
     # reset for evey problem in the list
     old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
   
@@ -990,6 +935,7 @@ def compress_prob_data(some_probs):
 
     for old_id, features in init:
       abskey = features # TODO: we might want to kick out SINE when not using it!
+      out_map[features[0]] = this_map[features[0]]
 
       if abskey not in abs2new:
         new_id = id_cnt
@@ -997,6 +943,7 @@ def compress_prob_data(some_probs):
 
         abs2new[abskey] = new_id
         out_init.append((new_id,features))
+        
       else:
         new_id = abs2new[abskey]
 
@@ -1028,23 +975,8 @@ def compress_prob_data(some_probs):
     out_tot_pos += tot_pos
     out_tot_neg += tot_neg
 
-  print("Compressed to",len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
-  return (out_probname,out_probweight), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg)
-
-def big_data_prob(prob_data_list):
-  # compute the big graph union - currently unused - was too big to use at once
-  
-  # print(prob_data_list)
-
-  big_init = list(itertools.chain.from_iterable(init for probname, (init,deriv,pars,selec,good) in prob_data_list ))
-  big_deriv = list(itertools.chain.from_iterable(deriv for probname, (init,deriv,pars,selec,good) in prob_data_list ))
-  big_pars = dict(ChainMap(*(pars for probname, (init,deriv,pars,selec,good) in prob_data_list )))
-  big_selec = set(itertools.chain.from_iterable(selec for probname, (init,deriv,pars,selec,good) in prob_data_list ))
-  big_good = set(itertools.chain.from_iterable(good for probname, (init,deriv,pars,selec,good) in prob_data_list ))
-
-  # print(big_init)
-
-  return (big_init,big_deriv,big_pars,big_selec,big_good)
+  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg,len(out_map))
+  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,out_map)
 
 import matplotlib.pyplot as plt
 
