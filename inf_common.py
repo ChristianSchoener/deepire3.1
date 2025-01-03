@@ -274,16 +274,18 @@ def save_net(name,parts,parts_copies,thax_to_str,thax_number_mapping):
   (init_embeds,sine_embellisher,deriv_mlps,eval_net) = parts_copies
   
   initEmbeds = {}
+  reverse_thax_num = defaultdict(lambda:set(),dict())
+  for key,val in thax_number_mapping.items():
+    reverse_thax_num[val].add(key)
   for thax,embed in init_embeds.items():
-    thax = int(thax_number_mapping(thax))
+    thax = int(thax)
     if thax == -1:
-      st = "-1"
-    elif thax in thax_to_str:
-      st = thax_to_str(thax)
-    else:
-      assert len(thax_to_str) == 0 or thax == 0, thax
-      st = str(thax)
-    initEmbeds[st] = embed.weight
+      initEmbeds[str(thax)] = embed.weight
+    elif thax == 0:
+      initEmbeds[str(thax)] = embed.weight
+    elif thax in reverse_thax_num:
+      for num in reverse_thax_num[thax]:
+        initEmbeds[thax_to_str[num]] = embed.weight
   
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
