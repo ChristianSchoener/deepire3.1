@@ -19,6 +19,8 @@ from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 
+from fft_conv_pytorch import fft_conv, FFTConv1d
+
 try:
     from typing_extensions import Final
 except:
@@ -53,14 +55,58 @@ def logname_to_probname(logname):
     assert(spl[-1].startswith("m"))
     return "_".join(spl[:-1]) # drop the m<something> part altogether, because why not?
 
+class circulant_fft_conv(torch.nn.Module):
+  """Does convolution by fft/ifft with a circulant matrix, so we can have big embedding dimension for the axioms but only diagonal matrix kernel (=vector of same length) for the derivations instead of quadratic, i.e.. Also very fast to evaluate, since only vector addition & componentwise vector multiplication & fft/ifft by divide-and-conquer."""
+
+  def __init__(
+      self,
+      in_size: int,
+      out_size: int,
+      bias: bool = True,
+  ):
+    super().__init__()
+    self.in_size = in_size
+    self.out_size = out_size
+# we always choose the bigger size or even bigger, so we can pick every second or third component of the result vector.
+    if self.in_size == self.out_size or self.in_size == 2*self.out_size:
+      self.kernel_size = self.in_size
+    elif 2*self.in_size == 3*self.out_size:
+      assert not self.in_size % 3
+      self.kernel_size = 2*self.in_size
+    elif 2*self.in_size == self.out_size:
+      self.kernel_size = self.out_size
+
+    self.use_bias = bias
+    self.weight = torch.nn.Parameter(torch.randn(self.kernel_size))
+    self.bias = torch.nn.Parameter(torch.randn(self.out_size)) if bias else None
+
+  def forward(self, signal):
+    if 2*self.in_size == 3*self.out_size:
+      signal = torch.cat((signal,signal),0)
+    elif 2*self.in_size == self.out_size:
+      signal = torch.cat((signal,signal),0)
+    result = torch.fft.ifft(signal)
+    result = torch.mul(self.weight, result)
+    result = torch.fft.fft(result)
+    if 2*self.in_size == 3*self.out_size:
+      result = result[::3]
+    elif self.in_size == 2*self.out_size:
+      result = result[::2]
+    if self.use_bias:
+      result += self.bias
+    return result.real
+
 class Embed(torch.nn.Module):
   weight: Tensor
   
-  def __init__(self, dim : int):
+  def __init__(self, num: int, dim : int):
     super().__init__()
     
-    self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
-    self.reset_parameters()
+    if not num == 0:
+      self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
+      self.reset_parameters()
+    else:
+      self.weight = torch.zeros(dim)
   
   def reset_parameters(self):
     torch.nn.init.normal_(self.weight)
@@ -81,10 +127,14 @@ class CatAndNonLinear(torch.nn.Module):
       self.nonlin = torch.nn.Tanh()
     else:
       self.nonlin = torch.nn.ReLU()
-    
-    self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
-    self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
-    
+
+    if HP.USE_FFT_CONV:
+      self.first = circulant_fft_conv(arit*dim,dim*2)
+      self.second = circulant_fft_conv(dim*2,dim)
+    else:
+      self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
+      self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
+
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
@@ -188,7 +238,7 @@ class EmptySineEmbellisher(torch.nn.Module):
 
 def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
   init_embeds = torch.nn.ModuleDict()
-  init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
+  # init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
   # assert(-1 in thax_sign) # to have conjecture embedding
 
   if HP.USE_SINE:
@@ -202,7 +252,7 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
     # sine_embedder = EmptySineEmbedder(HP.EMBED_SIZE)
 
   for i in set([thax_number_mapping[i] for i in thax_sign]):
-    init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
+    init_embeds[str(i)] = Embed(i,HP.EMBED_SIZE)
 
   # if HP.SWAPOUT > 0.0:
   #   # to have the arity 1 and 2 defaults
@@ -218,14 +268,21 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
       assert(arit == 3)
       deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2) # binary tree builder
 
-  eval_net = torch.nn.Sequential(
-     torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-     torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
-     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-     torch.nn.Linear(HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2,1))
+  if HP.USE_FFT_CONV:
+    eval_net = torch.nn.Sequential(
+      torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
+      circulant_fft_conv(HP.EMBED_SIZE,HP.EMBED_SIZE),
+      torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+      torch.nn.Linear(HP.EMBED_SIZE,1))
+  else:
+    eval_net = torch.nn.Sequential(
+      torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
+      torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
+      torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+      torch.nn.Linear(HP.EMBED_SIZE,1))
 
   return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
-
+  
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
     HP.EMBED_SIZE,
@@ -434,7 +491,7 @@ class LearningModel(torch.nn.Module):
       sine_embellisher: torch.nn.Module,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False):
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False,training = True):
     super(LearningModel,self).__init__()
   
     self.init_embeds = init_embeds
@@ -444,12 +501,10 @@ class LearningModel(torch.nn.Module):
 
     self.init = init
 
-    self.this_thax_mapping = dict()
+    self.this_thax_mapping = this_thax_mapping
     for _, (thax, _) in init:
-      if HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
+      if training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
         self.this_thax_mapping[thax] = 0
-      else:
-        self.this_thax_mapping[thax] = this_thax_mapping[thax] 
 
     self.deriv = deriv
     self.pars = pars
@@ -905,6 +960,8 @@ def compress_prob_data(some_probs):
   # The selected features are
   # *) "thax" for init (can be -1 signifying conjecture clause, 0 for SWAPOUT+unseen and thax_ids otherwise)
   # *) and "rule" for deriv (arity is implict in the number of parents
+  #
+  # Remark: We could leave just one id for every thax, but then SWAPOUT acts also entirely on a batch. 
 
   id_cnt = 0
   out_probname = ""

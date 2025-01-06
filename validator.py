@@ -32,10 +32,10 @@ libc = ctypes.CDLL(ctypes.util.find_library('c'))
 
 def eval_on_one(my_parts,piece_name):
   data = torch.load("{}/pieces/{}".format(sys.argv[1],piece_name))
-  (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg) = data
+  (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg),this_thax_map = data
   
   with torch.no_grad():
-    model = IC.LearningModel(*my_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)
+    model = IC.LearningModel(*my_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_map,False,False)
     model.eval()
     (loss_sum,posOK_sum,negOK_sum) = model()
 
@@ -176,7 +176,7 @@ if __name__ == "__main__":
   if len(datapoints) > 0:
     plot_summary_and_report_best(datapoints)
 
-  MAX_ACTIVE_TASKS = 50
+  MAX_ACTIVE_TASKS = 12
   num_active_tasks = 0
 
   q_in = torch.multiprocessing.Queue()

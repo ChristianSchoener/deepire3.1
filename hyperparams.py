@@ -51,7 +51,7 @@ WHAT_IS_BIG = 12000
 WHAT_IS_HUGE = 120000
 
 # used for both training and model export (should be kept the same)
-USE_SINE = True
+USE_SINE = False
 
 # any other value than -1 (which means "off") will get hardwired during export into the model
 FAKE_CONST_SINE_LEVEL = -1
@@ -98,7 +98,7 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.1
+SWAPOUT = 0.0
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
@@ -130,3 +130,5 @@ ALL_ONCE = True
 MAX_ADDITIONAL_AXIOMS = 1500
 
 ALIGN_INTERSECTION_FREE = True
+
+USE_FFT_CONV = False

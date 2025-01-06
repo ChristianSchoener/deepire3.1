@@ -89,7 +89,7 @@ def align_additional_axioms_intersection_free(prob_data_list, thax_number_mappin
       for i in range(len(temp)):
         for j in range(len(temp)):
           iDict[temp[i]].add(temp[j])
-    newspots = defaultdict(lambda:set(), dict())
+    newspots = dict()
     while len(iExtra)>0:
       while len(iExtra)>0 and not iExtra[0] in iDict:
         iExtra.pop(0)
@@ -99,7 +99,7 @@ def align_additional_axioms_intersection_free(prob_data_list, thax_number_mappin
       found = False
       if len(newspots) > 0:
         for i in range(HP.MAX_USED_AXIOM_CNT+1,max(list(newspots.keys()))+1):
-          if (not newspots[i].intersection(iDict[iExtra[0]])) and (list(newspots[i])[0][1] == iExtra[0][1]) and (len(newspots[i]) < mini):
+          if (not newspots[i].intersection(iDict[iExtra[0]])) and (not HP.USE_SINE or (list(newspots[i])[0][1] == iExtra[0][1])) and (len(newspots[i]) < mini):
             pos = i
             mini = len(newspots[i])
             found = True
@@ -107,7 +107,7 @@ def align_additional_axioms_intersection_free(prob_data_list, thax_number_mappin
           newspots[pos].add(iExtra[0])
           del iDict[iExtra.pop(0)]
         else:
-          newspots[max(list(newspots.keys()))+1] = {iExtra[0]}
+          newspots[max(newspots.keys())+1] = {iExtra[0]}
           del iDict[iExtra.pop(0)]
       else:
         newspots[HP.MAX_USED_AXIOM_CNT+1] = {iExtra[0]}
@@ -117,11 +117,15 @@ def align_additional_axioms_intersection_free(prob_data_list, thax_number_mappin
       for j in range(len(iList[i])):
         if iList[i][j][0] > HP.MAX_ADDITIONAL_AXIOMS:
           thax_number_mapping[iList[i][j][0]] = reverse_newspots[iList[i][j]]
+    rev_newspots_keylist = [x for x,_ in reverse_newspots.keys()]
+    for i in thax_number_mapping.keys():
+      if i not in rev_newspots_keylist:
+        thax_number_mapping[i] = 0
     for i,(info,(init,deriv,pars,selec,good,this_map)) in enumerate(prob_data_list):
       for _,(ax,_) in init:
         this_map[ax] = thax_number_mapping[ax]
       prob_data_list[i]  = (info,(init,deriv,pars,selec,good,this_map))
-    print("Additional axioms for embedding:",len(list(newspots.keys())))
+    print("Additional axioms for embedding:",len(newspots.keys()))
   return prob_data_list,thax_number_mapping
 
 if __name__ == "__main__":
