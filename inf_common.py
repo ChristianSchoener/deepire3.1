@@ -101,12 +101,16 @@ class Embed(torch.nn.Module):
   
   def __init__(self, num: int, dim : int):
     super().__init__()
-    
-    if not num == 0:
+
+    if HP.ZEROS_FOR_AX_ZERO:    
+      if not num == 0:
+        self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
+        self.reset_parameters()
+      else:
+        self.weight = torch.zeros(dim)
+    else:
       self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
       self.reset_parameters()
-    else:
-      self.weight = torch.zeros(dim)
   
   def reset_parameters(self):
     torch.nn.init.normal_(self.weight)

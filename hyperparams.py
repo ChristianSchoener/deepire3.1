@@ -98,7 +98,7 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.0
+SWAPOUT = 0.1
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
@@ -132,3 +132,5 @@ MAX_ADDITIONAL_AXIOMS = 1500
 ALIGN_INTERSECTION_FREE = True
 
 USE_FFT_CONV = False
+
+ZEROS_FOR_AX_ZERO = False
