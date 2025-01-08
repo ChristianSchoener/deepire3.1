@@ -42,7 +42,7 @@ ONLY_GENERATING_PARENTS = False
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
 MAX_USED_AXIOM_CNT = 0
 
-COMPRESSION_THRESHOLD = 20000
+COMPRESSION_THRESHOLD = 40000
 
 VALID_SPLIT_RATIO = 0.9
 
@@ -51,7 +51,7 @@ WHAT_IS_BIG = 12000
 WHAT_IS_HUGE = 120000
 
 # used for both training and model export (should be kept the same)
-USE_SINE = False
+USE_SINE = True
 
 # any other value than -1 (which means "off") will get hardwired during export into the model
 FAKE_CONST_SINE_LEVEL = -1
@@ -98,7 +98,7 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.1
+SWAPOUT = 0.05
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
@@ -132,5 +132,3 @@ MAX_ADDITIONAL_AXIOMS = 1500
 ALIGN_INTERSECTION_FREE = True
 
 USE_FFT_CONV = False
-
-ZEROS_FOR_AX_ZERO = False

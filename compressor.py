@@ -55,7 +55,6 @@ def compress_to_treshold(prob_data_list,treshold):
       prob_data_list.pop(0)
       prob_data_list.pop(0)
       prob_data_list.append(rest)
-      # print(size,friend_size,rest[0][2],len(prob_data_list))
 
       if len(prob_data_list) == 1:
         break
@@ -119,7 +118,7 @@ def align_additional_axioms_intersection_free(prob_data_list, thax_number_mappin
           thax_number_mapping[iList[i][j][0]] = reverse_newspots[iList[i][j]]
     rev_newspots_keylist = [x for x,_ in reverse_newspots.keys()]
     for i in thax_number_mapping.keys():
-      if i not in rev_newspots_keylist:
+      if (not i == -1) and (i not in rev_newspots_keylist):
         thax_number_mapping[i] = 0
     for i,(info,(init,deriv,pars,selec,good,this_map)) in enumerate(prob_data_list):
       for _,(ax,_) in init:

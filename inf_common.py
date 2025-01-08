@@ -19,8 +19,6 @@ from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 
-from fft_conv_pytorch import fft_conv, FFTConv1d
-
 try:
     from typing_extensions import Final
 except:
@@ -55,62 +53,14 @@ def logname_to_probname(logname):
     assert(spl[-1].startswith("m"))
     return "_".join(spl[:-1]) # drop the m<something> part altogether, because why not?
 
-class circulant_fft_conv(torch.nn.Module):
-  """Does convolution by fft/ifft with a circulant matrix, so we can have big embedding dimension for the axioms but only diagonal matrix kernel (=vector of same length) for the derivations instead of quadratic, i.e.. Also very fast to evaluate, since only vector addition & componentwise vector multiplication & fft/ifft by divide-and-conquer."""
-
-  def __init__(
-      self,
-      in_size: int,
-      out_size: int,
-      bias: bool = True,
-  ):
-    super().__init__()
-    self.in_size = in_size
-    self.out_size = out_size
-# we always choose the bigger size or even bigger, so we can pick every second or third component of the result vector.
-    if self.in_size == self.out_size or self.in_size == 2*self.out_size:
-      self.kernel_size = self.in_size
-    elif 2*self.in_size == 3*self.out_size:
-      assert not self.in_size % 3
-      self.kernel_size = 2*self.in_size
-    elif 2*self.in_size == self.out_size:
-      self.kernel_size = self.out_size
-
-    self.use_bias = bias
-    self.weight = torch.nn.Parameter(torch.randn(self.kernel_size))
-    self.bias = torch.nn.Parameter(torch.randn(self.out_size)) if bias else None
-
-  def forward(self, signal):
-    if 2*self.in_size == 3*self.out_size:
-      signal = torch.cat((signal,signal),0)
-    elif 2*self.in_size == self.out_size:
-      signal = torch.cat((signal,signal),0)
-    result = torch.fft.ifft(signal)
-    result = torch.mul(self.weight, result)
-    result = torch.fft.fft(result)
-    if 2*self.in_size == 3*self.out_size:
-      result = result[::3]
-    elif self.in_size == 2*self.out_size:
-      result = result[::2]
-    if self.use_bias:
-      result += self.bias
-    return result.real
-
 class Embed(torch.nn.Module):
   weight: Tensor
   
-  def __init__(self, num: int, dim : int):
+  def __init__(self, dim : int):
     super().__init__()
 
-    if HP.ZEROS_FOR_AX_ZERO:    
-      if not num == 0:
-        self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
-        self.reset_parameters()
-      else:
-        self.weight = torch.zeros(dim)
-    else:
-      self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
-      self.reset_parameters()
+    self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
+    self.reset_parameters()
   
   def reset_parameters(self):
     torch.nn.init.normal_(self.weight)
@@ -132,12 +82,8 @@ class CatAndNonLinear(torch.nn.Module):
     else:
       self.nonlin = torch.nn.ReLU()
 
-    if HP.USE_FFT_CONV:
-      self.first = circulant_fft_conv(arit*dim,dim*2)
-      self.second = circulant_fft_conv(dim*2,dim)
-    else:
-      self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
-      self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
+    self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
+    self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
 
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
@@ -242,8 +188,6 @@ class EmptySineEmbellisher(torch.nn.Module):
 
 def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
   init_embeds = torch.nn.ModuleDict()
-  # init_embeds[str(0)] = Embed(HP.EMBED_SIZE)
-  # assert(-1 in thax_sign) # to have conjecture embedding
 
   if HP.USE_SINE:
     sine_sign.remove(255)
@@ -256,13 +200,7 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
     # sine_embedder = EmptySineEmbedder(HP.EMBED_SIZE)
 
   for i in set([thax_number_mapping[i] for i in thax_sign]):
-    init_embeds[str(i)] = Embed(i,HP.EMBED_SIZE)
-
-  # if HP.SWAPOUT > 0.0:
-  #   # to have the arity 1 and 2 defaults
-  #   # NOTE: 1 and 2 don't conflict with proper rule indexes
-  #   deriv_arits[1] = 1
-  #   deriv_arits[2] = 3 # use the multiary for anything else than unary
+    init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
@@ -272,18 +210,11 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
       assert(arit == 3)
       deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2) # binary tree builder
 
-  if HP.USE_FFT_CONV:
-    eval_net = torch.nn.Sequential(
-      torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-      circulant_fft_conv(HP.EMBED_SIZE,HP.EMBED_SIZE),
-      torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-      torch.nn.Linear(HP.EMBED_SIZE,1))
-  else:
-    eval_net = torch.nn.Sequential(
-      torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-      torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
-      torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-      torch.nn.Linear(HP.EMBED_SIZE,1))
+  eval_net = torch.nn.Sequential(
+    torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
+    torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
+    torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+    torch.nn.Linear(HP.EMBED_SIZE,1))
 
   return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
   
@@ -506,7 +437,7 @@ class LearningModel(torch.nn.Module):
     self.init = init
 
     self.this_thax_mapping = this_thax_mapping
-    for _, (thax, _) in init:
+    for thax in this_thax_mapping.keys():
       if training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
         self.this_thax_mapping[thax] = 0
 
@@ -566,14 +497,6 @@ class LearningModel(torch.nn.Module):
       # print("deriv",id)
       
       par_embeds = [store[par] for par in self.pars[id]]
-      
-      # if self.training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-      #   arit = len(self.pars[id])
-      #   if arit == 1:
-      #     embed = self.deriv_mlps["1"](par_embeds)
-      #   else:
-      #     embed = self.deriv_mlps["2"](par_embeds)
-      # else:
       embed = self.deriv_mlps[str(rule)](par_embeds)
       
       store[id] = embed
@@ -613,7 +536,7 @@ class EvalMultiModel(torch.nn.Module):
     
     contrib = torch.zeros(self.dim)
     
-    for i,(init_embeds,sine_embellisher,deriv_mlps,eval_net) in enumerate(self.models):
+    for i,(_,_,_,eval_net) in enumerate(self.models):
       val = eval_net(embeds[i])
     
       if val[0].item() >= 0.0:
@@ -637,7 +560,7 @@ class EvalMultiModel(torch.nn.Module):
       # print("init",id)
       
       str_thax = str(self.thax_mapping(thax))
-      embeds = [ sine_embellisher(sine,init_embeds[str_thax]()) for (init_embeds,sine_embellisher,deriv_mlps,eval_net) in self.models]
+      embeds = [ sine_embellisher(sine,init_embeds[str_thax]()) for (init_embeds,sine_embellisher,_,_) in self.models]
       
       store[id] = embeds
       
@@ -649,7 +572,7 @@ class EvalMultiModel(torch.nn.Module):
       
       par_embeds = [store[par] for par in self.pars[id]]
       str_rule = str(rule)
-      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(init_embeds,sine_embellisher,deriv_mlps,eval_net) in enumerate(self.models)]
+      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,_,deriv_mlps,_) in enumerate(self.models)]
       
       store[id] = embeds
       
@@ -910,11 +833,6 @@ def prepare_signature(prob_data_list):
         deriv_arits[rule] = 3 # mixing 1 and 2?
       else:
         deriv_arits[rule] = arit
-
-    # if HP.SWAPOUT > 0.0:
-    #   # make sure we have arity 1 and 2 defaults
-    #   deriv_arits[1] = 1
-    #   deriv_arits[2] = 3 # an experiment: # use the multiary for anything else than unary
   
     for id,ax in axioms.items():
       axiom_hist[ax] += probweight
