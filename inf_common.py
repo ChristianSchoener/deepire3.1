@@ -69,11 +69,9 @@ class Embed(torch.nn.Module):
     return self.weight
   
 class TreeLSTM(torch.nn.Module):
-  def __init__(self, rule: int, dim : int, arit: int):
+  def __init__(self, dim : int, arit: int):
     super().__init__()
     
-    self.rule = rule
-
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -85,21 +83,15 @@ class TreeLSTM(torch.nn.Module):
     self.Wi = torch.nn.Linear(arit*dim,dim)
     self.Wo = torch.nn.Linear(arit*dim,dim)
     self.Wu = torch.nn.Linear(arit*dim,dim)
-    self.Wf = torch.nn.Linear(arit*dim,dim)
+    self.Wf = torch.nn.Linear(arit*dim,arit*dim)
     
     self.Ui = torch.nn.Linear(arit*dim,dim, bias=False)
     self.Uo = torch.nn.Linear(arit*dim,dim, bias=False)
     self.Uu = torch.nn.Linear(arit*dim,dim, bias=False)
-    for ind in range(arit):
-      self.Uf[ind] = torch.nn.Linear(arit*dim,dim, bias=False)
+    self.Uf = torch.nn.Linear(arit*dim,arit*dim, bias=False)
 
-    self.i = torch.Tensor(dim)
-    self.o = torch.Tensor(dim)
-    self.u = torch.Tensor(dim)
-    self.f = torch.Tensor(arit*dim)
-    self.save = torch.Tensor(arit*dim)
-    self.c = torch.Tensor(dim)
-    self.h = torch.Tensor(dim)
+    self.save = torch.Tensor(arit*dim, requires_grad = False)
+    self.cell = torch.Tensor(dim, requires_grad = False)
 
   def forward_impl(self,args : List[Tuple[Tensor,Tensor]]) -> Tensor:
     x = torch.cat([x for x,_ in args])
@@ -107,15 +99,14 @@ class TreeLSTM(torch.nn.Module):
     save = torch.cat(self.save)
     x = self.prolog(x)
 
-    self.i = torch.nn.Sigmoid(self.Wi(x) + self.Ui(save))
-    self.o = torch.nn.Sigmoid(self.Wo(x) + self.Uo(save))
-    self.u = torch.nn.Tanh(self.Wu(x) + self.Uu(save))
-    for ind in range(self.arit):
-      self.f[ind*self.dim:(ind+1)*self.dim] = torch.nn.Sigmoid(self.Wf(x) + self.Uf[ind](save)) 
-    self.c = torch.mul(self.i,self.u) + torch.sum(torch.mul(self.f, cells))
-    self.h = torch.mul(self.o, torch.nn.Tanh(self.c))
+    i = torch.nn.Sigmoid(self.Wi(x) + self.Ui(save))
+    o = torch.nn.Sigmoid(self.Wo(x) + self.Uo(save))
+    u = torch.nn.Tanh(self.Wu(x) + self.Uu(save))
+    f = torch.nn.Sigmoid(self.Wf(x) + self.Uf(save)) 
+    self.cell = torch.mul(i,u) + torch.sum(torch.mul(f, cells))
+    h = torch.mul(o, torch.nn.Tanh(self.cell))
 
-    return self.h
+    return h
     
   # this whole method is bogus, just to make torch.jit.script happy
   def forward(self,args : List[Tensor,Tensor]) -> Tensor:
@@ -132,7 +123,7 @@ class TreeLSTMMultiary(TreeLSTM):
       pair = args[i:i+2]
       
       if len(pair) == 2:
-        args.append((self.forward_impl(pair),self.c))
+        args.append((self.forward_impl(pair),self.cell))
         i += 2
       else:
         assert(len(pair) == 1)
@@ -250,10 +241,10 @@ class LearningModelTreeLSTM(torch.nn.Module):
       for par in self.pars[id]:
         match = [x for [x,y] in np.argwhere(np.array(self.deriv) == par).tolist() if y == 0]
         if len(match) == 0:
-          prev_rule_c = torch.zeros(HP.EMBED_SIZE)
+          prev_rule_cell = torch.zeros(HP.EMBED_SIZE)
         else:
-          prev_rule_c = self.deriv_mlps[str(self.derivs[match[0]][1])].c
-        par_embeds = [(store[par], prev_rule_c) for par in self.pars[id]]
+          prev_rule_cell = self.deriv_mlps[str(self.derivs[match[0]][1])].cell
+        par_embeds = [(store[par], prev_rule_cell) for par in self.pars[id]]
       embed = self.deriv_mlps[str(rule)](par_embeds)
       
       store[id] = embed
