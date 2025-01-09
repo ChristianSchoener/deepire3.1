@@ -93,13 +93,13 @@ class TreeLSTM(torch.nn.Module):
     for ind in range(arit):
       self.Uf[ind] = torch.nn.Linear(arit*dim,dim, bias=False)
 
-    self.i = torch.Tensor(dim, requires_grad = False)
-    self.o = torch.Tensor(dim, requires_grad = False)
-    self.u = torch.Tensor(dim, requires_grad = False)
-    self.f = torch.Tensor(arit*dim, requires_grad = False)
-    self.save = torch.Tensor(arit*dim, requires_grad = False)
-    self.c = torch.Tensor(dim, requires_grad = False)
-    self.h = torch.Tensor(dim, requires_grad = False)
+    self.i = torch.Tensor(dim)
+    self.o = torch.Tensor(dim)
+    self.u = torch.Tensor(dim)
+    self.f = torch.Tensor(arit*dim)
+    self.save = torch.Tensor(arit*dim)
+    self.c = torch.Tensor(dim)
+    self.h = torch.Tensor(dim)
 
   def forward_impl(self,args : List[Tuple[Tensor,Tensor]]) -> Tensor:
     x = torch.cat([x for x,_ in args])
@@ -420,8 +420,9 @@ def name_initial_model_suffix():
     HP.NonLinKindName(HP.NONLIN),
     HP.BOTTLENECK_EXPANSION_RATIO,
     HP.LAYER_NORM,
-    HP.DROPOUT,
-    "_UseSine" if HP.USE_SINE else "")
+    HP.DROPOUT, 
+    "_UseSine" if HP.USE_SINE else "",
+    "_TreeLSTM" if HP.TreeLSTM else "")
 
 def name_learning_regime_suffix():
   return "_o{}_lr{}{}{}{}{}_wd{}_numproc{}_p{}{}_trr{}.txt".format(
