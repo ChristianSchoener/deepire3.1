@@ -57,7 +57,10 @@ def eval_and_or_learn_on_one(probname,parts_file,training,log):
   # print("Datum of size",len(init)+len(deriv))
 
   if training:
-    model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
+    if HP.TreeLSTM:
+      model = IC.LearningModelTreeLSTM(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
+    else:
+      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
     model.train()
     (loss_sum,posOK_sum,negOK_sum) = model()
   
@@ -75,7 +78,10 @@ def eval_and_or_learn_on_one(probname,parts_file,training,log):
   
   else:
     with torch.no_grad():
-      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
+      if HP.TreeLSTM:
+        model = IC.LearningModelTreeLSTM(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
+      else:
+        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping)
       model.eval()
       (loss_sum,posOK_sum,negOK_sum) = model()
 
@@ -179,7 +185,10 @@ if __name__ == "__main__":
     print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
   else:
     thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping = torch.load("{}/data_sign.pt".format(sys.argv[1]))
-    master_parts = IC.get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping)
+    if HP.TreeLSTM:
+      master_parts = IC.get_initial_tree_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping)      
+    else:
+      master_parts = IC.get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping)
     model_name = "{}/initial{}".format(sys.argv[2],IC.name_initial_model_suffix())
     torch.save(master_parts,model_name)
     print("Created model parts and saved to",model_name,flush=True)

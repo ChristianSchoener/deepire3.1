@@ -67,6 +67,202 @@ class Embed(torch.nn.Module):
 
   def forward(self) -> Tensor:
     return self.weight
+  
+class TreeLSTM(torch.nn.Module):
+  def __init__(self, rule: int, dim : int, arit: int):
+    super().__init__()
+    
+    self.rule = rule
+
+    if HP.DROPOUT > 0.0:
+      self.prolog = torch.nn.Dropout(HP.DROPOUT)
+    else:
+      self.prolog = torch.nn.Identity(dim)
+    
+    self.arit = arit
+    self.dim = dim
+
+    self.Wi = torch.nn.Linear(arit*dim,dim)
+    self.Wo = torch.nn.Linear(arit*dim,dim)
+    self.Wu = torch.nn.Linear(arit*dim,dim)
+    self.Wf = torch.nn.Linear(arit*dim,dim)
+    
+    self.Ui = torch.nn.Linear(arit*dim,dim, bias=False)
+    self.Uo = torch.nn.Linear(arit*dim,dim, bias=False)
+    self.Uu = torch.nn.Linear(arit*dim,dim, bias=False)
+    for ind in range(arit):
+      self.Uf[ind] = torch.nn.Linear(arit*dim,dim, bias=False)
+
+    self.i = torch.Tensor(dim, requires_grad = False)
+    self.o = torch.Tensor(dim, requires_grad = False)
+    self.u = torch.Tensor(dim, requires_grad = False)
+    self.f = torch.Tensor(arit*dim, requires_grad = False)
+    self.save = torch.Tensor(arit*dim, requires_grad = False)
+    self.c = torch.Tensor(dim, requires_grad = False)
+    self.h = torch.Tensor(dim, requires_grad = False)
+
+  def forward_impl(self,args : List[Tuple[Tensor,Tensor]]) -> Tensor:
+    x = torch.cat([x for x,_ in args])
+    cells = torch.cat([y for _,y in args])
+    save = torch.cat(self.save)
+    x = self.prolog(x)
+
+    self.i = torch.nn.Sigmoid(self.Wi(x) + self.Ui(save))
+    self.o = torch.nn.Sigmoid(self.Wo(x) + self.Uo(save))
+    self.u = torch.nn.Tanh(self.Wu(x) + self.Uu(save))
+    for ind in range(self.arit):
+      self.f[ind*self.dim:(ind+1)*self.dim] = torch.nn.Sigmoid(self.Wf(x) + self.Uf[ind](save)) 
+    self.c = torch.mul(self.i,self.u) + torch.sum(torch.mul(self.f, cells))
+    self.h = torch.mul(self.o, torch.nn.Tanh(self.c))
+
+    return self.h
+    
+  # this whole method is bogus, just to make torch.jit.script happy
+  def forward(self,args : List[Tensor,Tensor]) -> Tensor:
+    return args[0][0]
+  
+class TreeLSTMBinary(TreeLSTM):
+  def forward(self, args : List[Tuple[Tensor,Tensor]]) -> Tensor:
+    return self.forward_impl(args)
+  
+class TreeLSTMMultiary(TreeLSTM):
+  def forward(self, args : List[Tuple[Tensor,Tensor]]) -> Tensor:
+    i = 0
+    while True:
+      pair = args[i:i+2]
+      
+      if len(pair) == 2:
+        args.append((self.forward_impl(pair),self.c))
+        i += 2
+      else:
+        assert(len(pair) == 1)
+        return pair[0][0]
+    return args[0][0]
+  
+def get_initial_tree_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
+  init_embeds = torch.nn.ModuleDict()
+
+  if HP.USE_SINE:
+    sine_sign.remove(255)
+    sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
+    sine_embellisher = SineEmbellisher(HP.EMBED_SIZE,sine_effective_max)
+  else:
+    sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
+
+  for i in set([thax_number_mapping[i] for i in thax_sign]):
+    init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
+
+  deriv_mlps = torch.nn.ModuleDict()
+  for rule,arit in deriv_arits.items():
+    if arit <= 2:
+      deriv_mlps[str(rule)] = TreeLSTMBinary(HP.EMBED_SIZE,arit)
+    else:
+      assert(arit == 3)
+      deriv_mlps[str(rule)] = TreeLSTMMultiary(HP.EMBED_SIZE,2) # binary tree builder
+
+  eval_net = torch.nn.Sequential(
+    torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
+    torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
+    torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+    torch.nn.Linear(HP.EMBED_SIZE,1))
+
+  return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
+
+# Learning model class for TreeLSTM
+class LearningModelTreeLSTM(torch.nn.Module):
+  def __init__(self,
+      init_embeds : torch.nn.ModuleDict,
+      sine_embellisher: torch.nn.Module,
+      deriv_mlps : torch.nn.ModuleDict,
+      eval_net : torch.nn.Module,
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False,training = True):
+    super(LearningModel,self).__init__()
+  
+    self.init_embeds = init_embeds
+    self.sine_embellisher = sine_embellisher
+    self.deriv_mlps = deriv_mlps
+    self.eval_net = eval_net
+
+    self.init = init
+
+    self.this_thax_mapping = this_thax_mapping
+    for thax in this_thax_mapping.keys():
+      if training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
+        self.this_thax_mapping[thax] = 0
+
+    self.deriv = deriv
+    self.pars = pars
+    self.pos_vals = pos_vals
+    self.neg_vals = neg_vals
+  
+    pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
+  
+    if save_logits:
+      self.logits = {}
+    else:
+      self.logits = None
+  
+    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]))
+  
+  def contribute(self, id: int, embed : Tensor):
+    val = self.eval_net(embed)
+    
+    if self.logits is not None:
+      self.logits[id] = val.item()
+    
+    pos = self.pos_vals[id]
+    neg = self.neg_vals[id]
+    
+    if val[0].item() >= 0.0:
+      self.posOK += pos
+    else:
+      self.negOK += neg
+  
+    contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
+        
+    return (pos+neg)*contrib
+
+  # Construct the whole graph and return its loss
+  # TODO: can we keep the graph after an update?
+  def forward(self):
+    store : Dict[int, Tensor] = {} # each id stores its embedding
+    
+    self.posOK = 0.0
+    self.negOK = 0.0
+    
+    loss = torch.zeros(1)
+    
+    for id, (thax,sine) in self.init:
+      embed = self.init_embeds[str(self.this_thax_mapping[thax])]()
+    
+      if HP.USE_SINE:
+        embed = self.sine_embellisher(sine,embed)
+      
+      store[id] = embed
+      if id in self.pos_vals or id in self.neg_vals:
+        loss += self.contribute(id,embed)
+    
+    for id, rule in self.deriv:
+      # print("deriv",id)
+## For every parent id, get the rule by which is was derived, and from the corresponding module the memory cell c.
+## If it was an initial axiom, we put zero.
+      par_embeds = []
+      for par in self.pars[id]:
+        match = [x for [x,y] in np.argwhere(np.array(self.deriv) == par).tolist() if y == 0]
+        if len(match) == 0:
+          prev_rule_c = torch.zeros(HP.EMBED_SIZE)
+        else:
+          prev_rule_c = self.deriv_mlps[str(self.derivs[match[0]][1])].c
+        par_embeds = [(store[par], prev_rule_c) for par in self.pars[id]]
+      embed = self.deriv_mlps[str(rule)](par_embeds)
+      
+      store[id] = embed
+      if id in self.pos_vals or id in self.neg_vals:
+        loss += self.contribute(id,embed)
+
+    return (loss,self.posOK,self.negOK)
+
+
 
 class CatAndNonLinear(torch.nn.Module):
   def __init__(self, dim : int, arit: int):
@@ -237,6 +433,7 @@ def name_learning_regime_suffix():
     HP.NUMPROCESSES,
     HP.POS_WEIGHT_EXTRA,
     f"_swapout{HP.SWAPOUT}" if HP.SWAPOUT > 0.0 else "",
+    "_TreeLSTM" if HP.TreeLSTM else "",
     HP.TestRiskRegimenName(HP.TRR))
 
 def name_raw_data_suffix():
@@ -915,25 +1112,24 @@ def compress_prob_data(some_probs):
     out_probweight += probweight
 
     for old_id, features in init:
-      abskey = features # TODO: we might want to kick out SINE when not using it!
       out_map[features[0]] = this_map[features[0]]
 
-      if abskey not in abs2new:
+      if features not in abs2new:
         new_id = id_cnt
         id_cnt += 1
 
-        abs2new[abskey] = new_id
+        abs2new[features] = new_id
         out_init.append((new_id,features))
         
       else:
-        new_id = abs2new[abskey]
+        new_id = abs2new[features]
 
       old2new[old_id] = new_id
 
     for old_id, features in deriv:
       new_pars = [old2new[par] for par in pars[old_id]]
       
-      abskey = tuple([features]+new_pars)
+      abskey = (features,tuple(new_pars))
 
       if abskey not in abs2new:
         new_id = id_cnt
