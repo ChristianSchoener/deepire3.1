@@ -80,50 +80,45 @@ class TreeLSTM(torch.nn.Module):
     self.arit = arit
     self.dim = dim
 
-    self.Wi = torch.nn.Linear(arit*dim,dim)
-    self.Wo = torch.nn.Linear(arit*dim,dim)
-    self.Wu = torch.nn.Linear(arit*dim,dim)
-    self.Wf = torch.nn.Linear(arit*dim,arit*dim)
-    
-    self.Ui = torch.nn.Linear(arit*dim,dim, bias=False)
-    self.Uo = torch.nn.Linear(arit*dim,dim, bias=False)
-    self.Uu = torch.nn.Linear(arit*dim,dim, bias=False)
-    self.Uf = torch.nn.Linear(arit*dim,arit*dim, bias=False)
+    self.ingate = torch.nn.Linear(2*arit*dim,dim)
+    self.outgate = torch.nn.Linear(2*arit*dim,dim)
+    self.u = torch.nn.Linear(2*arit*dim,dim)
+    self.forgetgates = torch.nn.Linear(2*arit*dim,arit*dim)
 
-    self.save = torch.Tensor(arit*dim, requires_grad = False)
-    self.cell = torch.Tensor(dim, requires_grad = False)
+    self.memory = torch.zeros(dim)
 
-  def forward_impl(self,args : List[Tuple[Tensor,Tensor]]) -> Tensor:
-    x = torch.cat([x for x,_ in args])
-    cells = torch.cat([y for _,y in args])
-    save = torch.cat(self.save)
+  def forward_impl(self,args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
+    x = torch.cat([x for x,_,_ in args])
+    inner = torch.cat([y for _,y,_ in args])
+    memories = torch.cat([z for _,_,z in args])
     x = self.prolog(x)
-
-    i = torch.nn.Sigmoid(self.Wi(x) + self.Ui(save))
-    o = torch.nn.Sigmoid(self.Wo(x) + self.Uo(save))
-    u = torch.nn.Tanh(self.Wu(x) + self.Uu(save))
-    f = torch.nn.Sigmoid(self.Wf(x) + self.Uf(save)) 
-    self.cell = torch.mul(i,u) + torch.sum(torch.mul(f, cells))
-    h = torch.mul(o, torch.nn.Tanh(self.cell))
-
-    return h
+    x = torch.cat((x, inner))
+    ingate = torch.sigmoid(self.ingate(x))
+    outgate = torch.sigmoid(self.outgate(x))
+    u = torch.tanh(self.u(x))
+    forgetgates = torch.sigmoid(self.forgetgates(x))
+    self.memory = torch.mul(ingate,u)
+    for ind in range(self.arit):
+      self.memory += torch.mul(forgetgates[ind*self.dim:(ind+1)*self.dim], memories[ind*self.dim:(ind+1)*self.dim])
+    
+    return torch.mul(outgate, torch.tanh(self.memory))
     
   # this whole method is bogus, just to make torch.jit.script happy
-  def forward(self,args : List[Tensor,Tensor]) -> Tensor:
+  def forward(self,args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
     return args[0][0]
   
 class TreeLSTMBinary(TreeLSTM):
-  def forward(self, args : List[Tuple[Tensor,Tensor]]) -> Tensor:
+  def forward(self, args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
     return self.forward_impl(args)
   
 class TreeLSTMMultiary(TreeLSTM):
-  def forward(self, args : List[Tuple[Tensor,Tensor]]) -> Tensor:
+  def forward(self, args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
     i = 0
     while True:
       pair = args[i:i+2]
       
       if len(pair) == 2:
-        args.append((self.forward_impl(pair),self.cell))
+        args.append((torch.zeros(self.dim),self.memory,self.forward_impl(pair)))
         i += 2
       else:
         assert(len(pair) == 1)
@@ -167,7 +162,7 @@ class LearningModelTreeLSTM(torch.nn.Module):
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
       init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False,training = True):
-    super(LearningModel,self).__init__()
+    super(LearningModelTreeLSTM,self).__init__()
   
     self.init_embeds = init_embeds
     self.sine_embellisher = sine_embellisher
@@ -217,7 +212,7 @@ class LearningModelTreeLSTM(torch.nn.Module):
   # TODO: can we keep the graph after an update?
   def forward(self):
     store : Dict[int, Tensor] = {} # each id stores its embedding
-    
+    initIdStore = set()
     self.posOK = 0.0
     self.negOK = 0.0
     
@@ -225,7 +220,7 @@ class LearningModelTreeLSTM(torch.nn.Module):
     
     for id, (thax,sine) in self.init:
       embed = self.init_embeds[str(self.this_thax_mapping[thax])]()
-    
+      initIdStore.add(id)
       if HP.USE_SINE:
         embed = self.sine_embellisher(sine,embed)
       
@@ -235,16 +230,20 @@ class LearningModelTreeLSTM(torch.nn.Module):
     
     for id, rule in self.deriv:
       # print("deriv",id)
-## For every parent id, get the rule by which is was derived, and from the corresponding module the memory cell c.
+## For every parent id, get the rule by which is was derived, and from the corresponding module the memory cell.
 ## If it was an initial axiom, we put zero.
       par_embeds = []
       for par in self.pars[id]:
         match = [x for [x,y] in np.argwhere(np.array(self.deriv) == par).tolist() if y == 0]
         if len(match) == 0:
-          prev_rule_cell = torch.zeros(HP.EMBED_SIZE)
+          par_rule_memory = torch.zeros(HP.EMBED_SIZE)
         else:
-          prev_rule_cell = self.deriv_mlps[str(self.derivs[match[0]][1])].cell
-        par_embeds = [(store[par], prev_rule_cell) for par in self.pars[id]]
+          par_rule_memory = self.deriv_mlps[str(self.deriv[match[0]][1])].memory
+## If it is an initial, one set of matrices shall be trained, but not the other, and reversed for non-initials axioms.
+        if par in initIdStore:
+          par_embeds.append((store[par], torch.zeros(HP.EMBED_SIZE), par_rule_memory))
+        else:
+          par_embeds.append((torch.zeros(HP.EMBED_SIZE), store[par], par_rule_memory))
       embed = self.deriv_mlps[str(rule)](par_embeds)
       
       store[id] = embed
@@ -252,7 +251,6 @@ class LearningModelTreeLSTM(torch.nn.Module):
         loss += self.contribute(id,embed)
 
     return (loss,self.posOK,self.negOK)
-
 
 
 class CatAndNonLinear(torch.nn.Module):
