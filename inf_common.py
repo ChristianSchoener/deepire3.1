@@ -68,191 +68,6 @@ class Embed(torch.nn.Module):
   def forward(self) -> Tensor:
     return self.weight
   
-class TreeLSTM(torch.nn.Module):
-  def __init__(self, dim : int, arit: int):
-    super().__init__()
-    
-    if HP.DROPOUT > 0.0:
-      self.prolog = torch.nn.Dropout(HP.DROPOUT)
-    else:
-      self.prolog = torch.nn.Identity(dim)
-    
-    self.arit = arit
-    self.dim = dim
-
-    self.ingate = torch.nn.Linear(2*arit*dim,dim)
-    self.outgate = torch.nn.Linear(2*arit*dim,dim)
-    self.u = torch.nn.Linear(2*arit*dim,dim)
-    self.forgetgates = torch.nn.Linear(2*arit*dim,arit*dim)
-
-    self.memory = torch.zeros(dim)
-
-  def forward_impl(self,args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
-    x = torch.cat([x for x,_,_ in args])
-    inner = torch.cat([y for _,y,_ in args])
-    memories = torch.cat([z for _,_,z in args])
-    x = self.prolog(x)
-    x = torch.cat((x, inner))
-    ingate = torch.sigmoid(self.ingate(x))
-    outgate = torch.sigmoid(self.outgate(x))
-    u = torch.tanh(self.u(x))
-    forgetgates = torch.sigmoid(self.forgetgates(x))
-    self.memory = torch.mul(ingate,u)
-    for ind in range(self.arit):
-      self.memory += torch.mul(forgetgates[ind*self.dim:(ind+1)*self.dim], memories[ind*self.dim:(ind+1)*self.dim])
-    
-    return torch.mul(outgate, torch.tanh(self.memory))
-    
-  # this whole method is bogus, just to make torch.jit.script happy
-  def forward(self,args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
-    return args[0][0]
-  
-class TreeLSTMBinary(TreeLSTM):
-  def forward(self, args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
-    return self.forward_impl(args)
-  
-class TreeLSTMMultiary(TreeLSTM):
-  def forward(self, args : List[Tuple[Tensor,Tensor,Tensor]]) -> Tensor:
-    i = 0
-    while True:
-      pair = args[i:i+2]
-      
-      if len(pair) == 2:
-        args.append((torch.zeros(self.dim),self.memory,self.forward_impl(pair)))
-        i += 2
-      else:
-        assert(len(pair) == 1)
-        return pair[0][0]
-    return args[0][0]
-  
-def get_initial_tree_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
-  init_embeds = torch.nn.ModuleDict()
-
-  if HP.USE_SINE:
-    sine_sign.remove(255)
-    sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
-    sine_embellisher = SineEmbellisher(HP.EMBED_SIZE,sine_effective_max)
-  else:
-    sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
-
-  for i in set([thax_number_mapping[i] for i in thax_sign]):
-    init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
-
-  deriv_mlps = torch.nn.ModuleDict()
-  for rule,arit in deriv_arits.items():
-    if arit <= 2:
-      deriv_mlps[str(rule)] = TreeLSTMBinary(HP.EMBED_SIZE,arit)
-    else:
-      assert(arit == 3)
-      deriv_mlps[str(rule)] = TreeLSTMMultiary(HP.EMBED_SIZE,2) # binary tree builder
-
-  eval_net = torch.nn.Sequential(
-    torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-    torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
-    torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-    torch.nn.Linear(HP.EMBED_SIZE,1))
-
-  return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
-
-# Learning model class for TreeLSTM
-class LearningModelTreeLSTM(torch.nn.Module):
-  def __init__(self,
-      init_embeds : torch.nn.ModuleDict,
-      sine_embellisher: torch.nn.Module,
-      deriv_mlps : torch.nn.ModuleDict,
-      eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False,training = True):
-    super(LearningModelTreeLSTM,self).__init__()
-  
-    self.init_embeds = init_embeds
-    self.sine_embellisher = sine_embellisher
-    self.deriv_mlps = deriv_mlps
-    self.eval_net = eval_net
-
-    self.init = init
-
-    self.this_thax_mapping = this_thax_mapping
-    for thax in this_thax_mapping.keys():
-      if training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        self.this_thax_mapping[thax] = 0
-
-    self.deriv = deriv
-    self.pars = pars
-    self.pos_vals = pos_vals
-    self.neg_vals = neg_vals
-  
-    pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
-  
-    if save_logits:
-      self.logits = {}
-    else:
-      self.logits = None
-  
-    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]))
-  
-  def contribute(self, id: int, embed : Tensor):
-    val = self.eval_net(embed)
-    
-    if self.logits is not None:
-      self.logits[id] = val.item()
-    
-    pos = self.pos_vals[id]
-    neg = self.neg_vals[id]
-    
-    if val[0].item() >= 0.0:
-      self.posOK += pos
-    else:
-      self.negOK += neg
-  
-    contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
-        
-    return (pos+neg)*contrib
-
-  # Construct the whole graph and return its loss
-  # TODO: can we keep the graph after an update?
-  def forward(self):
-    store : Dict[int, Tensor] = {} # each id stores its embedding
-    initIdStore = set()
-    self.posOK = 0.0
-    self.negOK = 0.0
-    
-    loss = torch.zeros(1)
-    
-    for id, (thax,sine) in self.init:
-      embed = self.init_embeds[str(self.this_thax_mapping[thax])]()
-      initIdStore.add(id)
-      if HP.USE_SINE:
-        embed = self.sine_embellisher(sine,embed)
-      
-      store[id] = embed
-      if id in self.pos_vals or id in self.neg_vals:
-        loss += self.contribute(id,embed)
-    
-    for id, rule in self.deriv:
-      # print("deriv",id)
-## For every parent id, get the rule by which is was derived, and from the corresponding module the memory cell.
-## If it was an initial axiom, we put zero.
-      par_embeds = []
-      for par in self.pars[id]:
-        match = [x for [x,y] in np.argwhere(np.array(self.deriv) == par).tolist() if y == 0]
-        if len(match) == 0:
-          par_rule_memory = torch.zeros(HP.EMBED_SIZE)
-        else:
-          par_rule_memory = self.deriv_mlps[str(self.deriv[match[0]][1])].memory
-## If it is an initial, one set of matrices shall be trained, but not the other, and reversed for non-initials axioms.
-        if par in initIdStore:
-          par_embeds.append((store[par], torch.zeros(HP.EMBED_SIZE), par_rule_memory))
-        else:
-          par_embeds.append((torch.zeros(HP.EMBED_SIZE), store[par], par_rule_memory))
-      embed = self.deriv_mlps[str(rule)](par_embeds)
-      
-      store[id] = embed
-      if id in self.pos_vals or id in self.neg_vals:
-        loss += self.contribute(id,embed)
-
-    return (loss,self.posOK,self.negOK)
-
-
 class CatAndNonLinear(torch.nn.Module):
   def __init__(self, dim : int, arit: int):
     super().__init__()
@@ -320,72 +135,13 @@ class PairUp(torch.nn.Module): # we need this (instead of Sequential), because o
     x = self.m1(args)
     return self.m2(x)
 
-class SineEmbedder(torch.nn.Module):
-  effective_max: Final[int]
-
-  def __init__(self, dim : int, effective_max : int):
-    super(SineEmbedder, self).__init__()
-    self.net = torch.nn.Linear(1,dim)
-    self.effective_max = effective_max
-
-  def forward(self,sine : int) -> Tensor:
-    if sine == 255:
-      sine = self.effective_max
-    val = 1.0-sine/self.effective_max
-    return self.net(torch.tensor([val]))
-
-class EmptySineEmbedder(torch.nn.Module):
-  def __init__(self, dim : int):
-    super(EmptySineEmbedder, self).__init__()
-    self.dim = dim
-
-  def forward(self,sine : int) -> Tensor:
-    return torch.zeros(self.dim) # ignoring sine
-
-class SineEmbellisher(torch.nn.Module):
-  effective_max: Final[int]
-
-  def __init__(self, dim : int, effective_max : int):
-    super().__init__()
-    
-    self.net = torch.nn.Sequential(
-     torch.nn.Linear(dim+1,dim*HP.BOTTLENECK_EXPANSION_RATIO//2),
-     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-     torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO//2,dim))
-    
-    self.effective_max = effective_max
-
-  def forward(self,sine : int, embed : Tensor) -> Tensor:
-    if sine == 255:
-      sine_float = self.effective_max
-    else:
-      sine_float = float(sine)
-    val = sine_float/self.effective_max
-    return self.net(torch.cat((embed,torch.tensor([val]))))
-
-class EmptySineEmbellisher(torch.nn.Module):
-  def __init__(self, dim : int):
-    super().__init__()
-    self.dim = dim
-
-  def forward(self,sine : int, embed : Tensor) -> Tensor:
-    return embed # simply ignoring sine
-
-def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
+def get_initial_model(thax_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
+  init_embed_mod = torch.nn.ModuleDict()
 
-  if HP.USE_SINE:
-    sine_sign.remove(255)
-    sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
-    sine_embellisher = SineEmbellisher(HP.EMBED_SIZE,sine_effective_max)
-    # sine_effective_max = max(sine_sign)+1
-    # sine_embedder = SineEmbedder(HP.EMBED_SIZE,sine_effective_max)
-  else:
-    sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
-    # sine_embedder = EmptySineEmbedder(HP.EMBED_SIZE)
-
-  for i in set([thax_number_mapping[i] for i in thax_sign]):
+  for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
+    init_embed_mod[str(i)] = Embed(HP.EMBED_SIZE)
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
@@ -401,7 +157,7 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits,thax_number_mapping):
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
     torch.nn.Linear(HP.EMBED_SIZE,1))
 
-  return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
+  return torch.nn.ModuleList([init_embeds,init_embed_mod,deriv_mlps,eval_net])
   
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
@@ -440,7 +196,7 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name,parts,parts_copies,thax_to_str,thax_number_mapping):
+def save_net(name,parts,parts_copies,thax_to_str):
   for part,part_copy in zip(parts,parts_copies):
     part_copy.load_state_dict(part.state_dict())
     
@@ -450,7 +206,7 @@ def save_net(name,parts,parts_copies,thax_to_str,thax_number_mapping):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,sine_embellisher,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,deriv_mlps,eval_net) = parts_copies
   
   initEmbeds = {}
   reverse_thax_num = defaultdict(lambda:set(),dict())
@@ -478,8 +234,7 @@ def save_net(name,parts,parts_copies,thax_to_str,thax_number_mapping):
     initEmbeds : Dict[str, Tensor]
     
     def __init__(self,
-        initEmbeds : Dict[str, Tensor],
-        sine_embedder : torch.nn.Module,'''
+        initEmbeds : Dict[str, Tensor]'''
 
 bigpart2 ='''        eval_net : torch.nn.Module):
       super().__init__()
@@ -490,8 +245,7 @@ bigpart2 ='''        eval_net : torch.nn.Module):
       self.embed_store = {}
       self.eval_store = {}
       
-      self.initEmbeds = initEmbeds
-      self.sine_embellisher = sine_embellisher'''
+      self.initEmbeds = initEmbeds'''
 
 sine_val_prog = "features[-1]" if HP.FAKE_CONST_SINE_LEVEL == -1 else str(HP.FAKE_CONST_SINE_LEVEL)
 
@@ -523,9 +277,7 @@ bigpart_no_longer_rec1 = '''
         if name in self.initEmbeds:
           embed = self.initEmbeds[name]
         else:
-          embed = self.initEmbeds["0"]
-        if {}:
-          embed = self.sine_embellisher({},embed)
+          embed = self.initEmbeds["0"])
         self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "",HP.USE_SINE,sine_val_prog)
 
 bigpart_rec2='''
@@ -570,8 +322,7 @@ bigpart_avat = '''
 
 bigpart3 = '''
   module = InfRecNet(
-    initEmbeds,
-    sine_embellisher,'''
+    initEmbeds,'''
 
 bigpart4 = '''    eval_net
     )
@@ -610,23 +361,22 @@ def create_saver(deriv_arits):
 class LearningModel(torch.nn.Module):
   def __init__(self,
       init_embeds : torch.nn.ModuleDict,
-      sine_embellisher: torch.nn.Module,
+      init_embed_mod : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_mapping,save_logits = False,training = True):
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,save_logits = False,training = True):
     super(LearningModel,self).__init__()
   
     self.init_embeds = init_embeds
-    self.sine_embellisher = sine_embellisher
+    self.init_embed_mod = init_embed_mod
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
-    self.init = init
+    self.thax_sign = set()
+    for _,thax in init:
+      self.thax_sign.add(thax)
 
-    self.this_thax_mapping = this_thax_mapping
-    for thax in this_thax_mapping.keys():
-      if training and HP.SWAPOUT > 0.0 and random.random() < HP.SWAPOUT:
-        self.this_thax_mapping[thax] = 0
+    self.init = init
 
     self.deriv = deriv
     self.pars = pars
@@ -669,13 +419,15 @@ class LearningModel(torch.nn.Module):
     self.negOK = 0.0
     
     loss = torch.zeros(1)
-    
-    for id, (thax,sine) in self.init:
-      embed = self.init_embeds[str(self.this_thax_mapping[thax])]()
-    
-      if HP.USE_SINE:
-        embed = self.sine_embellisher(sine,embed)
-      
+
+    temp = torch.zeros(HP.EMBED_SIZE)
+    for thax in self.thax_sign:
+      temp += self.init_embeds[str(thax)]()
+
+
+    for id, thax in self.init:
+      embed = torch.mul(self.init_embed_mod[str(thax)](),self.init_embeds[str(thax)]()) + torch.mul(torch.ones(HP.EMBED_SIZE) - self.init_embed_mod[str(thax)](),(temp-self.init_embeds[str(thax)]())/(len(self.init)-1))
+
       store[id] = embed
       if id in self.pos_vals or id in self.neg_vals:
         loss += self.contribute(id,embed)
@@ -702,7 +454,7 @@ class EvalMultiModel(torch.nn.Module):
     
     # properly wrap in ModuleList, so that eval from self propages all the way to pieces, and turns off dropout!
     
-    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,sine_embellisher,deriv_mlps,eval_net)) for (init_embeds,sine_embellisher,deriv_mlps,eval_net) in models])
+    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,deriv_mlps,eval_net)) for (init_embeds,deriv_mlps,eval_net) in models])
     
     self.init = init
     self.deriv = deriv
@@ -743,11 +495,10 @@ class EvalMultiModel(torch.nn.Module):
     self.posOK = torch.zeros(self.dim)
     self.negOK = torch.zeros(self.dim)
     
-    for id, (thax,sine) in self.init:
+    for id, thax in self.init:
       # print("init",id)
       
-      str_thax = str(self.thax_mapping(thax))
-      embeds = [ sine_embellisher(sine,init_embeds[str_thax]()) for (init_embeds,sine_embellisher,_,_) in self.models]
+      embeds = [ init_embeds[thax]() for (init_embeds,_,_) in self.models]
       
       store[id] = embeds
       
@@ -759,7 +510,7 @@ class EvalMultiModel(torch.nn.Module):
       
       par_embeds = [store[par] for par in self.pars[id]]
       str_rule = str(rule)
-      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,_,deriv_mlps,_) in enumerate(self.models)]
+      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,deriv_mlps,_) in enumerate(self.models)]
       
       store[id] = embeds
       
@@ -796,11 +547,11 @@ def get_ancestors(seed,pars,rules,goods_generating_parents,**kwargs):
 def abstract_initial(features):
   goal = features[-3]
   thax = -1 if goal else features[-2]
-  if HP.USE_SINE:
-    sine = features[-1]
-  else:
-    sine = 0
-  return (thax,sine)
+  # if HP.USE_SINE:
+  #   sine = features[-1]
+  # else:
+  #   sine = 0
+  return thax
 
 def abstract_deriv(features):
   rule = features[-1]
@@ -923,24 +674,6 @@ def load_one(filename,max_size = None):
   if time_limit_reached:
     print("Warning: time limit reached for",filename)
 
-  # NOTE: there are some things that should/could be done differently in the future
-  #
-  # *) in non-discount saturation algorithms, not every selection which participates in
-  #  a proof needs to be good one. If the said selected clause does not participate
-  #  in a generating inference necessary for the proof, it could have stayed "passive"
-  #
-  # *) for AVATAR one could consider learning from all the empty clauses rather than just
-  #  the ones connected to "f"; it would then also become relevant that clauses get
-  #  "retracted" from active as the model changes, so a selection long time ago,
-  #  that got retracted in the meantime anyway, should not be considered bad
-  #  for the current empty clause
-  #  Note, however, that when learning from more than one empty clause indepentently,
-  #  we would start getting clauses which are both good and bad; if we were to call
-  #  all of these good anyway (because we only ever want to err on "the other side")
-  #  this whole considiration becomes moot
-
-  # one more goodness-collecting run;
-  # for the sake of the "f"-empty clause or the last "e:" which can close even an avatar proof (the SAT-solver-was-useless case)
   if empty:
     good = good | get_ancestors(empty,pars,rules,goods_generating_parents,known_ancestors=good)
     good = good & selec # proof clauses that were never selected don't count
@@ -960,57 +693,17 @@ def load_one(filename,max_size = None):
     print("Skipping, degenerate!")
     return None
 
-  # Don't be afraid of depth!
-  '''
-  if max_depth > 100:
-    print("Skipping, is too deep.")
-    return None
-  '''
-
   print("init: {}, deriv: {}, select: {}, good: {}, axioms: {}, time: {}".format(len(init),len(deriv),len(selec),len(good),len(axioms),time_elapsed))
 
-  '''  ---  some periliminary quagmire debugging output
-  ancestors = {} # id -> set_of_ancestors
-  times_seen_as_an_acestor = defaultdict(int) # for every id, let's make a stroke when for each clause we see among the ancestors
-
-  for id,something in init:
-    ancestors[id] = {id}
-    times_seen_as_an_acestor[id] += 1
-  
-  for id,something in deriv:
-    my_ancstors = {id}
-    for par in pars[id]:
-      my_ancstors = my_ancstors | ancestors[par]
-    for anc in my_ancstors:
-      times_seen_as_an_acestor[anc] += 1
-    ancestors[id] = my_ancstors
-
-  total = len(init)+len(deriv)
-  for id,something in init:
-    if id in selec:
-      print("i {:6d} {:4d} {:4d}".format(id,times_seen_as_an_acestor[id],total),id in good, something)
-    total -= 1
-  for id,something in deriv:
-    if id in selec:
-      print("d {:6d} {:4d} {:4d}".format(id,times_seen_as_an_acestor[id],total),id in good,pars[id])
-    total -= 1
-  '''
-
-  return (init,deriv,pars,selec,good,axioms),time_elapsed
+  return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
 
 def prepare_signature(prob_data_list):
-  thax_sign = set()
-  sine_sign = set()
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight), (init,deriv,pars,_,_,axioms) in prob_data_list:
-    for id, (thax,sine) in init:
-      thax_sign.add(thax)
-      sine_sign.add(sine)
+  for (_,probweight,_), (_,deriv,pars,_,_,_,_,axioms) in prob_data_list:
 
     for id, features in deriv:
-      # already abstracted
       rule = features
       arit = len(pars[id])
 
@@ -1024,41 +717,67 @@ def prepare_signature(prob_data_list):
     for id,ax in axioms.items():
       axiom_hist[ax] += probweight
 
-  return (thax_sign,sine_sign,deriv_arits,axiom_hist)
+  return (deriv_arits,axiom_hist)
 
-def axiom_names_instead_of_thax(thax_sign,axiom_hist,prob_data_list):
+# def replace_axioms(probdata):
+#   metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms) = probdata
+#   for i,id,thax in enumerate(init):
+#     # if thax == 0: # don't name the conjecture
+#     if id in axioms:
+#       thax = axioms[id]
+#     init[i] = id, thax
+#   return (metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
+
+def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
   # (we didn't parse anything than 0 and -1 anyway:)
   # well, actually, in HOL/Sledgehammer we have both thax and user axioms
   # (and we treat all as user axioms (using a modified Vampire)
   
-  thax_number_mapping = dict()
-  thax_number_mapping[-1] = -1
-  thax_number_mapping[0] = 0
-  
-  ax_idx = {}
-  thax_to_str = {}
+  thax_sign = set()
+  ax_idx = dict()
+  thax_to_str = dict()
   good_ax_cnt = 0
   for _,(ax,_) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
     good_ax_cnt += 1
-    ax_idx[ax] = good_ax_cnt
+    if good_ax_cnt <= HP.MAX_USED_AXIOM_CNT:
+      ax_idx[ax] = good_ax_cnt
+    else:
+      ax_idx[ax] = 0
     thax_to_str[good_ax_cnt] = ax
-    thax_number_mapping[good_ax_cnt] = good_ax_cnt
 
-  for i,(metainfo,(init,deriv,pars,selec,good,axioms)) in enumerate(prob_data_list):
+  for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
     new_init = []
-    this_thax_number_mapping = dict()
-    this_thax_number_mapping[-1] = -1
-    this_thax_number_mapping[0] = 0
-    for id, (thax,sine) in init:
-      if thax == 0: # don't name the conjecture
+    for id, thax in init:
+      if thax == 0:
         if id in axioms and axioms[id] in ax_idx:
           thax = ax_idx[axioms[id]]
-      new_init.append((id,(thax,sine)))
+      new_init.append((id,thax))
       thax_sign.add(thax)
-      this_thax_number_mapping[thax] = thax
-    prob_data_list[i] = metainfo,(new_init,deriv,pars,selec,good,axioms,this_thax_number_mapping)
+    prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
 
-  return thax_sign,prob_data_list,thax_to_str,thax_number_mapping
+  return thax_sign,prob_data_list,thax_to_str
+
+def setup_pos_vals_neg_vals(prob_data):
+  (probname,probweight,size),(init,deriv,pars,selec,good,axioms) = prob_data
+  print(probname,len(init),len(deriv),len(pars),len(selec),len(good),len(axioms))
+
+  pos_vals = defaultdict(float)
+  neg_vals = defaultdict(float)
+  tot_pos = 0.0
+  tot_neg = 0.0
+
+  # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
+  one_clause_weigth = 1.0/len(selec)
+
+  for id in selec:
+    if id in good:
+      pos_vals[id] = one_clause_weigth
+      tot_pos += one_clause_weigth
+    else:
+      neg_vals[id] = one_clause_weigth
+      tot_neg += one_clause_weigth
+
+  return ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
 
 def compress_prob_data(some_probs):
   # Takes an iterable of "probname, (init,deriv,pars,selec,good,this_map)" and
@@ -1085,11 +804,10 @@ def compress_prob_data(some_probs):
   out_neg_vals = defaultdict(float)
   out_tot_pos = 0.0
   out_tot_neg = 0.0
-  out_map = dict()
-  out_map[0] = 0
-  out_map[-1] = -1
 
-  for (probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_map) in some_probs:
+  out_axioms : Dict[int, str] = {}
+
+  for (probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms) in some_probs:
     # reset for evey problem in the list
     old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
   
@@ -1099,22 +817,23 @@ def compress_prob_data(some_probs):
     else:
       out_probname = just_file
     
-    out_probweight += probweight
+    out_probweight += probweight  
 
-    for old_id, features in init:
-      out_map[features[0]] = this_map[features[0]]
-
-      if features not in abs2new:
+    for old_id, thax in init:
+      if thax not in abs2new:
         new_id = id_cnt
         id_cnt += 1
 
-        abs2new[features] = new_id
-        out_init.append((new_id,features))
+        abs2new[thax] = new_id
+        out_init.append((new_id,thax))
         
       else:
-        new_id = abs2new[features]
+        new_id = abs2new[thax]
 
       old2new[old_id] = new_id
+
+    for ax in axioms:
+      out_axioms[old2new[ax]] = axioms[ax]
 
     for old_id, features in deriv:
       new_pars = [old2new[par] for par in pars[old_id]]
@@ -1142,8 +861,8 @@ def compress_prob_data(some_probs):
     out_tot_pos += tot_pos
     out_tot_neg += tot_neg
 
-  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg,len(out_map))
-  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,out_map)
+  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
+  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,out_axioms)
 
 import matplotlib.pyplot as plt
 

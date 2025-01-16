@@ -6,7 +6,7 @@ import torch
 
 # multi_inf_paralels_config:
 
-SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing/pieces" # add /raid/. for dgx
+SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing_compress/pieces" # add /raid/. for dgx
 MAX_EPOCH = 100
 
 # DATA PREPARATION PARAMS:
@@ -40,9 +40,9 @@ ONLY_GENERATING_PARENTS = False
 # this needs to be done before/during the compression phase
 # note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
-MAX_USED_AXIOM_CNT = 0
+MAX_USED_AXIOM_CNT = 500
 
-COMPRESSION_THRESHOLD = 40000
+COMPRESSION_THRESHOLD = 0
 
 VALID_SPLIT_RATIO = 0.9
 
@@ -51,7 +51,7 @@ WHAT_IS_BIG = 12000
 WHAT_IS_HUGE = 120000
 
 # used for both training and model export (should be kept the same)
-USE_SINE = True
+USE_SINE = False
 
 # any other value than -1 (which means "off") will get hardwired during export into the model
 FAKE_CONST_SINE_LEVEL = -1
@@ -98,11 +98,11 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.05
+SWAPOUT = 0.0
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
-NON_CONSTANT_10_50_250_LR = True
+NON_CONSTANT_10_50_250_LR = False
 
 # Corresponds to L2 regularization
 WEIGHT_DECAY = 0.0
@@ -127,8 +127,10 @@ FRACTIONAL_CHECKPOINTING = 0 # 0 means disabled, 1 does not make sense
 
 ALL_ONCE = True
 
-MAX_ADDITIONAL_AXIOMS = 1500
+MAX_ADDITIONAL_AXIOMS = 0
 
-ALIGN_INTERSECTION_FREE = True
+ALIGN_INTERSECTION_FREE = False
 
-TreeLSTM = True
+TreeLSTM = False
+
+NUM_PIECES_SIMULTANEOUS = 10

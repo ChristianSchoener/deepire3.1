@@ -27,13 +27,16 @@ def load_one(task):
   print("Took",time.time()-start_time)
   if result:
     probdata,time_elapsed = result
+    probdata = IC.setup_pos_vals_neg_vals(probdata)
+    # probdata = IC.replace_axioms(probdata)
+    # probdata = IC.compress_prob_data([probdata])
     return (logname,time_elapsed),probdata
   else:
     None
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
-  # what can be learned from a super-simple TreeNN
+  # what can be learned from a super-simple TreeNNaxiom_names_instead_of_thax
   # which distinguishes:
   # 1) conj, user_ax, theory_ax_kind in the leaves
   # 2) what inference leads to this in the tree nodes
@@ -49,12 +52,12 @@ if __name__ == "__main__":
   #
   # data_sign.pt and raw_log_data_*.pt are created in <folder>
 
-  prob_easiness = {}
-  if len(sys.argv) > 3:
-    with open(sys.argv[3],"r") as f:
-      for line in f:
-        spl = line.split()
-        prob_easiness[spl[0]] = int(spl[1])
+  # prob_easiness = {}
+  # if len(sys.argv) > 3:
+  #   with open(sys.argv[3],"r") as f:
+  #     for line in f:
+  #       spl = line.split()
+  #       prob_easiness[spl[0]] = int(spl[1])
 
   prob_data_list = [] # [(logname,(init,deriv,pars,selec,good)]
 
@@ -85,41 +88,43 @@ if __name__ == "__main__":
   times = []
   sizes = []
   easies = []
-  for i,((logname,time_elapsed),probdata) in enumerate(prob_data_list):
+  prob_data_list = [((logname,time_elapsed),((name,weight,size),rest)) for ((logname,time_elapsed),((name,weight,size),rest)) in prob_data_list if size < 30000]
+  for i,((logname,time_elapsed),((_,_,size),rest)) in enumerate(prob_data_list):
     probname = IC.logname_to_probname(logname)
-    easy = prob_easiness[probname] if probname in prob_easiness else 1
+    # easy = prob_easiness[probname] if probname in prob_easiness else 1
+
+    probweight = 1.0    
+    # probweight = 1.0/easy
     
-    probweight = 1.0/easy
-    
-    prob_data_list[i] = (probname,probweight),probdata
+    prob_data_list[i] = (probname,probweight,size),rest
     
     # uncomment for plotting below:
     times.append(time_elapsed)
-    sizes.append(len(probdata[0])+len(probdata[1])) # len(init)+len(deriv)
-    easies.append(easy)
+    sizes.append(size) # len(init)+len(deriv)
+    # easies.append(easy)
 
   # plot the time_elapsed vs size distribution
-  import matplotlib.pyplot as plt
-  fig, ax = plt.subplots(figsize=(20,10))
-  ax.set_yscale('log')
-  sc = plt.scatter(times,sizes,c=easies,marker="+")
-  plt.colorbar(sc)
-  plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
+  # import matplotlib.pyplot as plt
+  # fig, ax = plt.subplots(figsize=(20,10))
+  # ax.set_yscale('log')
+  # sc = plt.scatter(times,sizes,c=easies,marker="+")
+  # plt.colorbar(sc)
+  # plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
 
-  thax_sign,sine_sign,deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
+  deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
 
-  thax_sign,prob_data_list,thax_to_str,thax_number_mapping = IC.axiom_names_instead_of_thax(thax_sign,axiom_hist,prob_data_list)
-
+  thax_sign,prob_data_list,thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist,prob_data_list)
+  for i,prob in enumerate(prob_data_list):
+    prob_data_list[i] = IC.compress_prob_data([prob])
+  
   print("thax_sign",thax_sign)
-  print("sine_sign",sine_sign)
   print("deriv_arits",deriv_arits)
   # print("axiom_hist",axiom_hist)
   print("thax_to_str",thax_to_str)
-  print("thax_number_mapping",thax_number_mapping)
 
   filename = "{}/data_sign.pt".format(sys.argv[1])
   print("Saving signature to",filename)
-  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str,thax_number_mapping), filename)
+  torch.save((thax_sign,deriv_arits,thax_to_str), filename)
   print()
 
   filename = "{}/raw_log_data{}".format(sys.argv[1],IC.name_raw_data_suffix())
