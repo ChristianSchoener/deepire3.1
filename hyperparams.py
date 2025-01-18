@@ -59,7 +59,7 @@ FAKE_CONST_SINE_LEVEL = -1
 # MODEL PARAMS:
 
 # a hyper-parameter of the future model
-EMBED_SIZE = 128
+EMBED_SIZE = 64
 
 NonLinKind_TANH = 1
 NonLinKind_RELU = 2
@@ -105,7 +105,7 @@ MOMENTUM = 0.9 # only for SGD
 NON_CONSTANT_10_50_250_LR = False
 
 # Corresponds to L2 regularization
-WEIGHT_DECAY = 0.0
+WEIGHT_DECAY = 1.e-3
 
 Optimizer_SGD = 1
 Optimizer_ADAM = 2
@@ -131,6 +131,8 @@ MAX_ADDITIONAL_AXIOMS = 0
 
 ALIGN_INTERSECTION_FREE = False
 
-TreeLSTM = False
-
 NUM_PIECES_SIMULTANEOUS = 10
+
+WORKER_LOAD = 20000
+
+TRANSFORM_EMBEDDING = True

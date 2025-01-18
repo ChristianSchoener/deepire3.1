@@ -61,7 +61,7 @@ class Embed(torch.nn.Module):
 
     self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
     self.reset_parameters()
-  
+ 
   def reset_parameters(self):
     torch.nn.init.normal_(self.weight)
 
@@ -141,7 +141,10 @@ def get_initial_model(thax_sign,deriv_arits):
 
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
-    init_embed_mod[str(i)] = Embed(HP.EMBED_SIZE)
+    if HP.TRANSFORM_EMBEDDING == "Diagonal":
+      init_embed_mod[str(i)] = Embed(HP.EMBED_SIZE)
+    elif HP.TRANSFORM_EMBEDDING == "Matrix":
+      init_embed_mod[str(i)] = torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE)
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
@@ -166,8 +169,7 @@ def name_initial_model_suffix():
     HP.BOTTLENECK_EXPANSION_RATIO,
     HP.LAYER_NORM,
     HP.DROPOUT, 
-    "_UseSine" if HP.USE_SINE else "",
-    "_TreeLSTM" if HP.TreeLSTM else "")
+    "_UseSine" if HP.USE_SINE else "")
 
 def name_learning_regime_suffix():
   return "_o{}_lr{}{}{}{}{}_wd{}_numproc{}_p{}{}_trr{}.txt".format(
@@ -179,7 +181,6 @@ def name_learning_regime_suffix():
     HP.NUMPROCESSES,
     HP.POS_WEIGHT_EXTRA,
     f"_swapout{HP.SWAPOUT}" if HP.SWAPOUT > 0.0 else "",
-    "_TreeLSTM" if HP.TreeLSTM else "",
     HP.TestRiskRegimenName(HP.TRR))
 
 def name_raw_data_suffix():
@@ -206,22 +207,22 @@ def save_net(name,parts,parts_copies,thax_to_str):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,init_embed_mods,deriv_mlps,eval_net) = parts_copies
   
-  initEmbeds = {}
-  reverse_thax_num = defaultdict(lambda:set(),dict())
-  for key,val in thax_number_mapping.items():
-    reverse_thax_num[val].add(key)
+  initEmbeds = dict()
+  initEmbedMods = dict()
   for thax,embed in init_embeds.items():
     thax = int(thax)
-    if thax == -1:
+    if thax == 0 or thax == -1:
       initEmbeds[str(thax)] = embed.weight
-    elif thax == 0:
-      initEmbeds[str(thax)] = embed.weight
-    elif thax in reverse_thax_num:
-      for num in reverse_thax_num[thax]:
-        initEmbeds[thax_to_str[num]] = embed.weight
-  
+    else:
+      initEmbeds[thax_to_str[thax]] = embed.weight
+  for thax,embed in init_embed_mods.items():
+    thax = int(thax)
+    if thax == 0 or thax == -1:
+      initEmbedMods[str(thax)] = embed.weight
+    else:
+      initEmbedMods[thax_to_str[thax]] = embed.weight
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
     init_abstractions : Dict[str, int]
@@ -232,9 +233,12 @@ def save_net(name,parts,parts_copies,thax_to_str):
     eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
 
     initEmbeds : Dict[str, Tensor]
+    initEmbedMods : Dict[str, Tensor]
     
     def __init__(self,
-        initEmbeds : Dict[str, Tensor]'''
+        initEmbeds : Dict[str, Tensor],
+        initEmbedMods : Dict[str, Tensor],
+        '''
 
 bigpart2 ='''        eval_net : torch.nn.Module):
       super().__init__()
@@ -245,7 +249,8 @@ bigpart2 ='''        eval_net : torch.nn.Module):
       self.embed_store = {}
       self.eval_store = {}
       
-      self.initEmbeds = initEmbeds'''
+      self.initEmbeds = initEmbeds
+      self.initEmbedMods = initEmbedMods'''
 
 sine_val_prog = "features[-1]" if HP.FAKE_CONST_SINE_LEVEL == -1 else str(HP.FAKE_CONST_SINE_LEVEL)
 
@@ -277,7 +282,7 @@ bigpart_no_longer_rec1 = '''
         if name in self.initEmbeds:
           embed = self.initEmbeds[name]
         else:
-          embed = self.initEmbeds["0"])
+          embed = self.initEmbeds["0"]
         self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "",HP.USE_SINE,sine_val_prog)
 
 bigpart_rec2='''
@@ -322,7 +327,8 @@ bigpart_avat = '''
 
 bigpart3 = '''
   module = InfRecNet(
-    initEmbeds,'''
+    initEmbeds,
+    initEmbedMods,'''
 
 bigpart4 = '''    eval_net
     )
@@ -405,7 +411,7 @@ class LearningModel(torch.nn.Module):
       self.posOK += pos
     else:
       self.negOK += neg
-  
+
     contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
         
     return (pos+neg)*contrib
@@ -420,27 +426,46 @@ class LearningModel(torch.nn.Module):
     
     loss = torch.zeros(1)
 
-    temp = torch.zeros(HP.EMBED_SIZE)
-    for thax in self.thax_sign:
-      temp += self.init_embeds[str(thax)]()
-
+    if HP.TRANSFORM_EMBEDDING:
+      temp = torch.zeros(HP.EMBED_SIZE)
+      for thax in self.thax_sign:
+        temp += self.init_embeds[str(thax)]()
 
     for id, thax in self.init:
-      embed = torch.mul(self.init_embed_mod[str(thax)](),self.init_embeds[str(thax)]()) + torch.mul(torch.ones(HP.EMBED_SIZE) - self.init_embed_mod[str(thax)](),(temp-self.init_embeds[str(thax)]())/(len(self.init)-1))
+      if HP.TRANSFORM_EMBEDDING:
+        embed = self.init_embed_mod[str(thax)](temp)
+      else:
+        embed = self.init_embeds[str(thax)]
 
       store[id] = embed
+      lossDone = False
       if id in self.pos_vals or id in self.neg_vals:
-        loss += self.contribute(id,embed)
-    
-    for id, rule in self.deriv:
-      # print("deriv",id)
-      
+        if self.pos_vals[id] > 0.0:
+          loss += self.contribute(id,embed)
+          lossDone = True
+      if not lossDone:
+        if id in self.neg_vals:
+          if self.neg_vals[id] > 0.0:
+            loss += self.contribute(id,embed)
+            lossDone = True
+
+    for id, rule in self.deriv:     
       par_embeds = [store[par] for par in self.pars[id]]
       embed = self.deriv_mlps[str(rule)](par_embeds)
       
       store[id] = embed
-      if id in self.pos_vals or id in self.neg_vals:
-        loss += self.contribute(id,embed)
+      lossDone = False
+      if id in self.pos_vals:
+        if self.pos_vals[id] > 0.0:
+          loss += self.contribute(id,embed)
+          lossDone = True
+      if not lossDone:
+        if id in self.neg_vals:
+          if self.neg_vals[id] > 0.0:
+            loss += self.contribute(id,embed)
+            lossDone = True
+      # if id in self.pos_vals or id in self.neg_vals:
+      #   loss += self.contribute(id,embed)
 
     return (loss,self.posOK,self.negOK)
 
