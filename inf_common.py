@@ -141,10 +141,10 @@ def get_initial_model(thax_sign,deriv_arits):
 
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
-    if HP.TRANSFORM_EMBEDDING == "Diagonal":
-      init_embed_mod[str(i)] = Embed(HP.EMBED_SIZE)
-    elif HP.TRANSFORM_EMBEDDING == "Matrix":
+    if HP.TRANSFORM_EMBEDDING:
       init_embed_mod[str(i)] = torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE)
+    else:
+      init_embed_mod[str(i)] = None
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
@@ -189,6 +189,30 @@ def name_raw_data_suffix():
     HP.ThaxSourceName(HP.THAX_SOURCE),
     HP.USE_SINE)
 
+bigpart1_matrix = '''#!/usr/bin/env python3
+
+import torch
+from torch import Tensor
+from typing import Dict, List, Tuple, Optional
+from collections import defaultdict
+import sys,random
+
+def save_net_matrix(folder,problem,initEmbeds,deriv_mlps,eval_net):
+  
+  # This is, how we envision inference:
+  class InfRecNet(torch.nn.Module):
+    init_abstractions : Dict[str, int]
+    deriv_abstractions : Dict[str, int]
+    
+    abs_ids : Dict[int, int] # each id gets its abs_id
+    embed_store : Dict[int, Tensor] # each abs_id (lazily) stores its embedding
+    eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
+
+    initEmbeds : Dict[str, Tensor]
+    
+    def __init__(self,
+        initEmbeds : Dict[str, Tensor],'''
+
 bigpart1 = '''#!/usr/bin/env python3
 
 import torch
@@ -207,22 +231,20 @@ def save_net(name,parts,parts_copies,thax_to_str):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,init_embed_mods,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,deriv_mlps,eval_net) = parts_copies
   
-  initEmbeds = dict()
-  initEmbedMods = dict()
+  initEmbeds = {}
   for thax,embed in init_embeds.items():
     thax = int(thax)
-    if thax == 0 or thax == -1:
-      initEmbeds[str(thax)] = embed.weight
+    if thax == -1:
+      st = "-1"
+    elif thax in thax_to_str:
+      st = thax_to_str[thax]
     else:
-      initEmbeds[thax_to_str[thax]] = embed.weight
-  for thax,embed in init_embed_mods.items():
-    thax = int(thax)
-    if thax == 0 or thax == -1:
-      initEmbedMods[str(thax)] = embed.weight
-    else:
-      initEmbedMods[thax_to_str[thax]] = embed.weight
+      assert len(thax_to_str) == 0 or thax == 0, thax
+      st = str(thax)
+    initEmbeds[st] = embed.weight
+  
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
     init_abstractions : Dict[str, int]
@@ -233,12 +255,9 @@ def save_net(name,parts,parts_copies,thax_to_str):
     eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
 
     initEmbeds : Dict[str, Tensor]
-    initEmbedMods : Dict[str, Tensor]
     
     def __init__(self,
-        initEmbeds : Dict[str, Tensor],
-        initEmbedMods : Dict[str, Tensor],
-        '''
+        initEmbeds : Dict[str, Tensor],'''
 
 bigpart2 ='''        eval_net : torch.nn.Module):
       super().__init__()
@@ -249,8 +268,7 @@ bigpart2 ='''        eval_net : torch.nn.Module):
       self.embed_store = {}
       self.eval_store = {}
       
-      self.initEmbeds = initEmbeds
-      self.initEmbedMods = initEmbedMods'''
+      self.initEmbeds = initEmbeds'''
 
 sine_val_prog = "features[-1]" if HP.FAKE_CONST_SINE_LEVEL == -1 else str(HP.FAKE_CONST_SINE_LEVEL)
 
@@ -268,7 +286,7 @@ bigpart_no_longer_rec1 = '''
     @torch.jit.export
     def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
       # an init record is abstracted just by the name str
-      abskey = name{}
+      abskey = name
       if abskey not in self.init_abstractions:
         abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
         self.init_abstractions[abskey] = abs_id
@@ -283,7 +301,7 @@ bigpart_no_longer_rec1 = '''
           embed = self.initEmbeds[name]
         else:
           embed = self.initEmbeds["0"]
-        self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "",HP.USE_SINE,sine_val_prog)
+        self.embed_store[abs_id] = embed'''
 
 bigpart_rec2='''
     @torch.jit.export
@@ -327,8 +345,12 @@ bigpart_avat = '''
 
 bigpart3 = '''
   module = InfRecNet(
-    initEmbeds,
-    initEmbedMods,'''
+    initEmbeds,'''
+
+bigpart4_matrix = '''    eval_net
+    )
+  script = torch.jit.script(module)
+  script.save(folder+"/"+problem+".model")'''
 
 bigpart4 = '''    eval_net
     )
@@ -336,33 +358,62 @@ bigpart4 = '''    eval_net
   script.save(name)'''
 
 def create_saver(deriv_arits):
-  with open("inf_saver.py","w") as f:
-    print(bigpart1,file=f)
+  if HP.TRANSFORM_EMBEDDING:
+    with open("inf_saver_matrix.py","w") as f:
+      print(bigpart1_matrix,file=f)
+      for rule in sorted(deriv_arits):
+        print("        deriv_{} : torch.nn.Module,".format(rule),file=f)
 
-    for rule in sorted(deriv_arits):
-      print("        deriv_{} : torch.nn.Module,".format(rule),file=f)
+      print(bigpart2,file=f)
 
-    print(bigpart2,file=f)
+      for rule in sorted(deriv_arits):
+        print("      self.deriv_{} = deriv_{}".format(rule,rule),file=f)
+      print("      self.eval_net = eval_net",file=f)
 
-    for rule in sorted(deriv_arits):
-      print("      self.deriv_{} = deriv_{}".format(rule,rule),file=f)
-    print("      self.eval_net = eval_net",file=f)
+      print(bigpart_no_longer_rec1,file=f)
 
-    print(bigpart_no_longer_rec1,file=f)
+      for rule in sorted(deriv_arits):
+        if rule < 666: # avatar done differently in bigpart3
+          print(bigpart_rec2.format(str(rule),str(rule)),file=f)
 
-    for rule in sorted(deriv_arits):
-      if rule < 666: # avatar done differently in bigpart3
-        print(bigpart_rec2.format(str(rule),str(rule)),file=f)
+      if 666 in deriv_arits:
+        print(bigpart_avat,file=f)
 
-    if 666 in deriv_arits:
-      print(bigpart_avat,file=f)
+      print(bigpart3,file=f)
 
-    print(bigpart3,file=f)
+      for rule in sorted(deriv_arits):
+        print("    deriv_mlps['{}'],".format(rule),file=f)
+      if HP.TRANSFORM_EMBEDDING:
+        print(bigpart4_matrix,file=f)
+  else:
+    with open("inf_saver.py","w") as f:
 
-    for rule in sorted(deriv_arits):
-      print("    deriv_mlps['{}'],".format(rule),file=f)
-    print(bigpart4,file=f)
+      print(bigpart1,file=f)
 
+      for rule in sorted(deriv_arits):
+        print("        deriv_{} : torch.nn.Module,".format(rule),file=f)
+
+      print(bigpart2,file=f)
+
+      for rule in sorted(deriv_arits):
+        print("      self.deriv_{} = deriv_{}".format(rule,rule),file=f)
+      print("      self.eval_net = eval_net",file=f)
+
+      print(bigpart_no_longer_rec1,file=f)
+
+      for rule in sorted(deriv_arits):
+        if rule < 666: # avatar done differently in bigpart3
+          print(bigpart_rec2.format(str(rule),str(rule)),file=f)
+
+      if 666 in deriv_arits:
+        print(bigpart_avat,file=f)
+
+      print(bigpart3,file=f)
+
+      for rule in sorted(deriv_arits):
+        print("    deriv_mlps['{}'],".format(rule),file=f)
+      print(bigpart4,file=f)
+ 
 # Learning model class
 class LearningModel(torch.nn.Module):
   def __init__(self,
@@ -378,6 +429,8 @@ class LearningModel(torch.nn.Module):
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
+    self.training = training
+
     self.thax_sign = set()
     for _,thax in init:
       self.thax_sign.add(thax)
@@ -389,14 +442,14 @@ class LearningModel(torch.nn.Module):
     self.pos_vals = pos_vals
     self.neg_vals = neg_vals
   
-    pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
+    self.pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
   
     if save_logits:
       self.logits = {}
     else:
       self.logits = None
   
-    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([pos_weight]))
+    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([self.pos_weight]))
   
   def contribute(self, id: int, embed : Tensor):
     val = self.eval_net(embed)
@@ -413,7 +466,10 @@ class LearningModel(torch.nn.Module):
       self.negOK += neg
 
     contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
-        
+
+    # val_sigmoid = torch.clip(torch.sigmoid(val), min=1.e-5, max=1.-1.e-5)
+    # target = pos/(pos+neg)
+    # contrib = -self.pos_weight * target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
     return (pos+neg)*contrib
 
   # Construct the whole graph and return its loss
@@ -429,11 +485,18 @@ class LearningModel(torch.nn.Module):
     if HP.TRANSFORM_EMBEDDING:
       temp = torch.zeros(HP.EMBED_SIZE)
       for thax in self.thax_sign:
-        temp += self.init_embeds[str(thax)]()
+        if not self.training or (self.training and np.random.random() > HP.EMBEDDING_SUM_DROPOUT):
+          temp += self.init_embeds[str(thax)]()
+      norm_test = torch.norm(temp,p=2)
+      if norm_test > 0.0:
+        temp2 = temp/torch.norm(temp,p=2)
+      else:
+        temp3 = torch.ones(HP.EMBED_SIZE)
+        temp2 = temp3/torch.norm(temp3,p=2)
 
     for id, thax in self.init:
       if HP.TRANSFORM_EMBEDDING:
-        embed = self.init_embed_mod[str(thax)](temp)
+        embed = self.init_embed_mod[str(thax)](temp2)
       else:
         embed = self.init_embeds[str(thax)]
 
@@ -464,30 +527,26 @@ class LearningModel(torch.nn.Module):
           if self.neg_vals[id] > 0.0:
             loss += self.contribute(id,embed)
             lossDone = True
-      # if id in self.pos_vals or id in self.neg_vals:
-      #   loss += self.contribute(id,embed)
 
     return (loss,self.posOK,self.negOK)
 
 # EvalMultiModel model class - an ugly copy-paste-modify of LearningModel above (try keeping in sync)
 class EvalMultiModel(torch.nn.Module):
-  def __init__(self,models,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,thax_number_mapping):
+  def __init__(self,models,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg):
     super().__init__()
   
     self.dim = len(models)
     
     # properly wrap in ModuleList, so that eval from self propages all the way to pieces, and turns off dropout!
-    
-    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,deriv_mlps,eval_net)) for (init_embeds,deriv_mlps,eval_net) in models])
+    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,init_embed_mods,deriv_mlps,eval_net)) for (init_embeds,init_embed_mods,deriv_mlps,eval_net) in models])
+    print(len(self.models))
+    print("HALLO")
     
     self.init = init
     self.deriv = deriv
     self.pars = pars
     self.pos_vals = pos_vals
     self.neg_vals = neg_vals
-
-    self.thax_number_mapping = thax_number_mapping
   
     pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
     
@@ -520,10 +579,21 @@ class EvalMultiModel(torch.nn.Module):
     self.posOK = torch.zeros(self.dim)
     self.negOK = torch.zeros(self.dim)
     
+    if HP.TRANSFORM_EMBEDDING:
+      temp = [torch.zeros(HP.EMBED_SIZE) for _ in self.models]
+      for i in range(len(temp)):
+        temp[i] = sum([self.models[i][0][thax]/len(set([thax for _,thax in self.init])) for thax in set([thax for _,thax in self.init])])
+
     for id, thax in self.init:
-      # print("init",id)
+      if HP.TRANSFORM_EMBEDDING:
+        embeds = [init_embed_mods[thax](temp[i]) for (_,init_embed_mods,_,_) in self.models]
+      else:
+        embeds = [init_embeds[thax]() for (init_embeds,_,_,_) in self.models] 
+
+    # for id, thax in self.init:
+    #   # print("init",id)
       
-      embeds = [ init_embeds[thax]() for (init_embeds,_,_) in self.models]
+    #   embeds = [ init_embeds[thax]() for (init_embeds,_,_,_) in self.models]
       
       store[id] = embeds
       
@@ -535,7 +605,7 @@ class EvalMultiModel(torch.nn.Module):
       
       par_embeds = [store[par] for par in self.pars[id]]
       str_rule = str(rule)
-      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,deriv_mlps,_) in enumerate(self.models)]
+      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,_,deriv_mlps,_) in enumerate(self.models)]
       
       store[id] = embeds
       

@@ -32,10 +32,10 @@ libc = ctypes.CDLL(ctypes.util.find_library('c'))
 
 def eval_on_one(my_parts,piece_name):
   data = torch.load("{}/pieces/{}".format(sys.argv[1],piece_name))
-  (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg),this_thax_map = data
+  init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms = data
   
   with torch.no_grad():
-    model = IC.LearningModel(*my_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,this_thax_map,False,False)
+    model = IC.LearningModel(*my_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,False,False)
     model.eval()
     (loss_sum,posOK_sum,negOK_sum) = model()
 

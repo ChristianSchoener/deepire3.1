@@ -293,6 +293,28 @@ if __name__ == "__main__":
       t += 1
       # print("Counter t=",t)
       # print(time.time() - start_time,"get finished for time_idx",t)
+
+    # sum-up stats over the "samples_per_epoch" entries (retain the var name):
+    loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
+    tot_pos,tot_neg = np.sum(weights,axis=0)
+  
+    print("loss_sum,posOK_sum,negOK_sum",loss_sum,posOK_sum,negOK_sum)
+    print("tot_pos,tot_neg",tot_pos,tot_neg)
+
+    # CAREFULE: could divide by zero!
+    sum_stats = np.sum(stats,axis=0)
+    loss = sum_stats[0]/(tot_pos+tot_neg)
+    posrate = sum_stats[1]/tot_pos
+    negrate = sum_stats[2]/tot_neg
+
+    loss_dev = weighted_std_deviation(loss,stats[:,0],np.sum(weights,axis=1),tot_pos+tot_neg)
+    posrate_dev = weighted_std_deviation(posrate,stats[:,1],weights[:,0],tot_pos)
+    negrate_dev = weighted_std_deviation(negrate,stats[:,2],weights[:,1],tot_neg)
+    
+    print("Training stats:")
+    print("Loss:",loss,"+/-",loss_dev,flush=True)
+    print("Posrate:",posrate,"+/-",posrate_dev,flush=True)
+    print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
   
     if HP.NON_CONSTANT_10_50_250_LR:
       # LATER NORMALIZE THIS:
@@ -301,7 +323,7 @@ if __name__ == "__main__":
       # newly using preferrably n = 128 and 20 processes
       # also chaging warmup to only 40 epochs and the max LR to 4x nominal (older comments left around - TODO clean up properly!)
       if t <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
-        lr = HP.LEARN_RATE*t/(10*samples_per_epoch)
+        lr = HP.LEARN_RATE*(t+samples_per_epoch)/(10*samples_per_epoch)
         print("Increasing effective LR to",lr,flush=True)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
