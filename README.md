@@ -12,5 +12,3 @@ One might argue, that for small problems, preference of positive rating is o.k.,
 But from fixed embedding vectors, positively rated clauses with same derivation history will be rated positively in every problem because of this. Thereby, in large problems (or other small/medium-sized problems), such combinations will always be rated positively as well, which might be wrong.
 
 Hence I modified the strategy for revealed axioms: Instead of a single embedding vector for all problems, they get assigned a vector v_i and a matrix A_i. Then, for every problem P, the embedding vectors concerning P are summed up, and axiom i is assigned the embedding vector A_i * sum_j(P) v_j.
-
-It now remains to find a suitable global value for the class imbalance parameter 70, 35, ..., (?), instead of the dynamic one given by the original compression algorithm. 
