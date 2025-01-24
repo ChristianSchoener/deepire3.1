@@ -111,20 +111,21 @@ if __name__ == "__main__":
   # plt.colorbar(sc)
   # plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
 
-  deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
+  sine_sign,deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
 
   thax_sign,prob_data_list,thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist,prob_data_list)
   for i,prob in enumerate(prob_data_list):
     prob_data_list[i] = IC.compress_prob_data([prob])
   
   print("thax_sign",thax_sign)
+  print("sine_sign",sine_sign) 
   print("deriv_arits",deriv_arits)
   # print("axiom_hist",axiom_hist)
   print("thax_to_str",thax_to_str)
 
   filename = "{}/data_sign.pt".format(sys.argv[1])
   print("Saving signature to",filename)
-  torch.save((thax_sign,deriv_arits,thax_to_str), filename)
+  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str), filename)
   print()
 
   filename = "{}/raw_log_data{}".format(sys.argv[1],IC.name_raw_data_suffix())

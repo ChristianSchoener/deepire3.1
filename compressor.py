@@ -39,36 +39,99 @@ def compress_by_probname(prob_data_list):
 
 
 def compress_to_treshold(prob_data_list,treshold):
-   
+  
+  size_hist = defaultdict(int)
+  
+  sizes = []
+  times = []
+  
+  size_and_prob = []
+  
+  for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
+    print(metainfo)
+
+    size = len(init)+len(deriv)
+    
+    size_and_prob.append((size,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))))
+    
+    size_hist[len(init)+len(deriv)] += 1
+
+  print("size_hist")
+  tot = 0
+  sum = 0
+  small = 0
+  big = 0
+  for val,cnt in sorted(size_hist.items()):
+    sum += val*cnt
+    tot += cnt
+    # print(val,cnt)
+    if val > treshold:
+      big += cnt
+    else:
+      small += cnt
+  print("Average",sum/tot)
+  print("Big",big)
+  print("Small",small)
+
   print("Compressing for treshold",treshold)
 
-## Huffmann-encoding
-  if len(prob_data_list) > 1:
-    prob_data_list.sort(key=lambda x : x[0][2])
-    (name,weight,size), my_rest = prob_data_list[0]
-    (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
-    # print(size,friend_size,len(prob_data_list))
-    while size + friend_size < treshold:
+# ## Huffmann-encoding
+#   if len(prob_data_list) > 1:
+#     prob_data_list.sort(key=lambda x : x[0][2])
+#     (name,weight,size), my_rest = prob_data_list[0]
+#     (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
+#     # print(size,friend_size,len(prob_data_list))
+#     while size + friend_size < treshold:
 
-      rest = IC.compress_prob_data([((name,weight,size), my_rest),((friend_name,friend_weight,friend_size), friend_rest)])
-      prob_data_list.pop(0)
-      prob_data_list.pop(0)
-      prob_data_list.append(rest)
+#       rest = IC.compress_prob_data([((name,weight,size), my_rest),((friend_name,friend_weight,friend_size), friend_rest)])
+#       prob_data_list.pop(0)
+#       prob_data_list.pop(0)
+#       prob_data_list.append(rest)
 
-      if len(prob_data_list) == 1:
-        break
-      prob_data_list.sort(key=lambda x : x[0][2])
-      (name,weight,size), my_rest = prob_data_list[0]
-      (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
+#       if len(prob_data_list) == 1:
+#         break
+#       prob_data_list.sort(key=lambda x : x[0][2])
+#       (name,weight,size), my_rest = prob_data_list[0]
+#       (friend_name,friend_weight,friend_size), friend_rest = prob_data_list[1]
 
-    print()
-    print("Compressed to",len(prob_data_list),"merged problems")
-    prob_data_list.sort(key=lambda x : -x[0][2])
-    sizes = dict()
-    for i,((_,_,size),_) in enumerate(prob_data_list):
-      sizes["piece "+ str(i)] = size
-    print("Sizes:",sizes)
-    return prob_data_list
+  prob_data_list.sort(key=lambda x : x[0][2])
+  
+  compressed = []
+  
+  while size_and_prob:
+    size, my_rest = size_and_prob.pop()
+
+    # print("Popped guy of size",size)
+
+    while size < treshold and size_and_prob:
+      # print("Looking for a friend")
+      likes_sizes = int((treshold-size)*1.2)
+      idx_upper = bisect.bisect_right(size_and_prob,(likes_sizes, my_rest))
+
+      if not idx_upper:
+        idx_upper = 1
+
+      idx = random.randrange(idx_upper)
+    
+      # print("Idxupper",idx_upper,"idx",idx)
+
+      _, friend_rest = size_and_prob[idx]
+      del size_and_prob[idx]
+
+      # print("friend_size",friend_size)
+
+      my_rest = IC.compress_prob_data([my_rest,friend_rest])
+      meta, _ = my_rest
+      size = meta[2]
+    
+      # print("aftermerge",size)
+
+    # print("Storing a guy of size",size,"weight",metainfo[-1])
+    compressed.append(my_rest)
+
+  print()
+  print("Compressed to",len(compressed),"merged problems")
+  return compressed
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -89,7 +152,7 @@ if __name__ == "__main__":
 
   prob_data_list = torch.load(sys.argv[2])
 
-  thax_sign,deriv_arits,thax_to_str = torch.load(sys.argv[3])
+  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[3])
 
   print("Loaded raw prob_data_list of len:",len(prob_data_list))
 
@@ -151,13 +214,35 @@ if __name__ == "__main__":
     for i,(metainfo,rest) in enumerate(prob_data_list):
       piece_name = "piece{}.pt".format(i)
       torch.save(rest, "{}/{}".format(dir,piece_name))
-      prob_data_list[i] = (metainfo[2],piece_name)
     print("Done")
 
-  random.shuffle(prob_data_list)
-  spl = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
-  print("shuffled and split at idx",spl,"out of",len(prob_data_list))
+  all_in_train = False
+  while not all_in_train:
+    random.shuffle(prob_data_list)
+    spl = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
+    train_thax = {}
+    valid_thax = {}
+    counter = 0
+    for _,(init,_,_,_,_,_,_,_) in prob_data_list[spl:]:
+      for _,(thax,_) in init:
+        if not thax in valid_thax:
+          valid_thax[thax] = 1
+        else:
+          valid_thax[thax] += 1
+
+    counter = 0
+    for _,(init,_,_,_,_,_,_,_) in prob_data_list[:spl]:
+      for _,(thax,_) in init:
+        if not thax in train_thax:
+          train_thax[thax] = 1
+        else:
+          train_thax[thax] += 1
+    all_in_train = len(set(valid_thax.keys()).difference(set(train_thax.keys()))) == 0
+  print("shuffled and split at idx",spl,"out of",len(prob_data_list),"and ensured all revealed thax are in a training problem.")
   print()
+
+  for i in range(len(prob_data_list)):
+    prob_data_list[i] = (prob_data_list[i][0][2],"piece{}.pt".format(i))
 
   if SAVE_PIECES:
     # save just names:

@@ -58,16 +58,16 @@ class Embed(torch.nn.Module):
   
   def __init__(self, dim : int):
     super().__init__()
-
+    
     self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
     self.reset_parameters()
- 
+  
   def reset_parameters(self):
     torch.nn.init.normal_(self.weight)
 
   def forward(self) -> Tensor:
     return self.weight
-  
+
 class CatAndNonLinear(torch.nn.Module):
   def __init__(self, dim : int, arit: int):
     super().__init__()
@@ -81,10 +81,10 @@ class CatAndNonLinear(torch.nn.Module):
       self.nonlin = torch.nn.Tanh()
     else:
       self.nonlin = torch.nn.ReLU()
-
+    
     self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
     self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
-
+    
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
@@ -135,9 +135,71 @@ class PairUp(torch.nn.Module): # we need this (instead of Sequential), because o
     x = self.m1(args)
     return self.m2(x)
 
-def get_initial_model(thax_sign,deriv_arits):
+class SineEmbedder(torch.nn.Module):
+  effective_max: Final[int]
+
+  def __init__(self, dim : int, effective_max : int):
+    super(SineEmbedder, self).__init__()
+    self.net = torch.nn.Linear(1,dim)
+    self.effective_max = effective_max
+
+  def forward(self,sine : int) -> Tensor:
+    if sine == 255:
+      sine = self.effective_max
+    val = 1.0-sine/self.effective_max
+    return self.net(torch.tensor([val]))
+
+class EmptySineEmbedder(torch.nn.Module):
+  def __init__(self, dim : int):
+    super(EmptySineEmbedder, self).__init__()
+    self.dim = dim
+
+  def forward(self,sine : int) -> Tensor:
+    return torch.zeros(self.dim) # ignoring sine
+
+class SineEmbellisher(torch.nn.Module):
+  effective_max: Final[int]
+
+  def __init__(self, dim : int, effective_max : int):
+    super().__init__()
+    
+    self.net = torch.nn.Sequential(
+     torch.nn.Linear(dim+1,dim*HP.BOTTLENECK_EXPANSION_RATIO//2),
+     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+     torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO//2,dim))
+    
+    self.effective_max = effective_max
+
+  def forward(self,sine : int, embed : Tensor) -> Tensor:
+    if sine == 255:
+      sine_float = self.effective_max
+    else:
+      sine_float = float(sine)
+    val = sine_float/self.effective_max
+    return self.net(torch.cat((embed,torch.tensor([val]))))
+
+class EmptySineEmbellisher(torch.nn.Module):
+  def __init__(self, dim : int):
+    super().__init__()
+    self.dim = dim
+
+  def forward(self,sine : int, embed : Tensor) -> Tensor:
+    return embed # simply ignoring sine
+
+def get_initial_model(thax_sign,sine_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
   init_embed_mod = torch.nn.ModuleDict()
+
+  
+  if HP.USE_SINE:
+    sine_sign.remove(255)
+    sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
+    sine_embellisher = SineEmbellisher(HP.EMBED_SIZE,sine_effective_max)
+    # sine_effective_max = max(sine_sign)+1
+    # sine_embedder = SineEmbedder(HP.EMBED_SIZE,sine_effective_max)
+  else:
+    sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
+    # sine_embedder = EmptySineEmbedder(HP.EMBED_SIZE)
 
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
@@ -160,7 +222,7 @@ def get_initial_model(thax_sign,deriv_arits):
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
     torch.nn.Linear(HP.EMBED_SIZE,1))
 
-  return torch.nn.ModuleList([init_embeds,init_embed_mod,deriv_mlps,eval_net])
+  return torch.nn.ModuleList([init_embeds,init_embed_mod,sine_embellisher,deriv_mlps,eval_net])
   
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
@@ -168,7 +230,7 @@ def name_initial_model_suffix():
     HP.NonLinKindName(HP.NONLIN),
     HP.BOTTLENECK_EXPANSION_RATIO,
     HP.LAYER_NORM,
-    HP.DROPOUT, 
+    HP.DROPOUT,
     "_UseSine" if HP.USE_SINE else "")
 
 def name_learning_regime_suffix():
@@ -231,7 +293,7 @@ def save_net(name,parts,parts_copies,thax_to_str):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,sine_embellisher,deriv_mlps,eval_net) = parts_copies
   
   initEmbeds = {}
   for thax,embed in init_embeds.items():
@@ -257,7 +319,8 @@ def save_net(name,parts,parts_copies,thax_to_str):
     initEmbeds : Dict[str, Tensor]
     
     def __init__(self,
-        initEmbeds : Dict[str, Tensor],'''
+        initEmbeds : Dict[str, Tensor],
+        sine_embedder : torch.nn.Module,'''
 
 bigpart2 ='''        eval_net : torch.nn.Module):
       super().__init__()
@@ -268,7 +331,8 @@ bigpart2 ='''        eval_net : torch.nn.Module):
       self.embed_store = {}
       self.eval_store = {}
       
-      self.initEmbeds = initEmbeds'''
+      self.initEmbeds = initEmbeds
+      self.sine_embellisher = sine_embellisher'''
 
 sine_val_prog = "features[-1]" if HP.FAKE_CONST_SINE_LEVEL == -1 else str(HP.FAKE_CONST_SINE_LEVEL)
 
@@ -301,7 +365,9 @@ bigpart_no_longer_rec1 = '''
           embed = self.initEmbeds[name]
         else:
           embed = self.initEmbeds["0"]
-        self.embed_store[abs_id] = embed'''
+        if {}:
+          embed = self.sine_embellisher({},embed)
+        self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "",HP.USE_SINE,sine_val_prog)
 
 bigpart_rec2='''
     @torch.jit.export
@@ -345,7 +411,8 @@ bigpart_avat = '''
 
 bigpart3 = '''
   module = InfRecNet(
-    initEmbeds,'''
+    initEmbeds,
+    sine_embellisher,'''
 
 bigpart4_matrix = '''    eval_net
     )
@@ -419,6 +486,7 @@ class LearningModel(torch.nn.Module):
   def __init__(self,
       init_embeds : torch.nn.ModuleDict,
       init_embed_mod : torch.nn.ModuleDict,
+      sine_embellisher: torch.nn.Module,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
       init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,save_logits = False,training = True):
@@ -426,13 +494,14 @@ class LearningModel(torch.nn.Module):
   
     self.init_embeds = init_embeds
     self.init_embed_mod = init_embed_mod
+    self.sine_embellisher = sine_embellisher
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
     self.training = training
 
     self.thax_sign = set()
-    for _,thax in init:
+    for _,(thax,_) in init:
       self.thax_sign.add(thax)
 
     self.init = init
@@ -442,7 +511,8 @@ class LearningModel(torch.nn.Module):
     self.pos_vals = pos_vals
     self.neg_vals = neg_vals
   
-    self.pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
+    pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
+    self.pos_weight = max(HP.GLOBAL_TOT_NEG_TOT_POS_RATIO, pos_weight)
   
     if save_logits:
       self.logits = {}
@@ -464,7 +534,7 @@ class LearningModel(torch.nn.Module):
       self.posOK += pos
     else:
       self.negOK += neg
-
+  
     contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
 
     # val_sigmoid = torch.clip(torch.sigmoid(val), min=1.e-5, max=1.-1.e-5)
@@ -484,22 +554,22 @@ class LearningModel(torch.nn.Module):
 
     if HP.TRANSFORM_EMBEDDING:
       temp = torch.zeros(HP.EMBED_SIZE)
+      counter = 0
       for thax in self.thax_sign:
         if not self.training or (self.training and np.random.random() > HP.EMBEDDING_SUM_DROPOUT):
           temp += self.init_embeds[str(thax)]()
-      norm_test = torch.norm(temp,p=2)
-      if norm_test > 0.0:
-        temp2 = temp/torch.norm(temp,p=2)
+          counter += 1
+      if counter > 0:
+        temp2 = temp/counter
       else:
-        temp3 = torch.ones(HP.EMBED_SIZE)
-        temp2 = temp3/torch.norm(temp3,p=2)
-
-    for id, thax in self.init:
+        temp2 = torch.ones(HP.EMBED_SIZE)
+    for id, (thax,sine) in self.init:
       if HP.TRANSFORM_EMBEDDING:
         embed = self.init_embed_mod[str(thax)](temp2)
       else:
-        embed = self.init_embeds[str(thax)]
-
+        embed = self.init_embeds[str(thax)]()
+      if HP.USE_SINE:
+        embed = self.sine_embellisher(sine,embed)
       store[id] = embed
       lossDone = False
       if id in self.pos_vals or id in self.neg_vals:
@@ -538,9 +608,7 @@ class EvalMultiModel(torch.nn.Module):
     self.dim = len(models)
     
     # properly wrap in ModuleList, so that eval from self propages all the way to pieces, and turns off dropout!
-    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,init_embed_mods,deriv_mlps,eval_net)) for (init_embeds,init_embed_mods,deriv_mlps,eval_net) in models])
-    print(len(self.models))
-    print("HALLO")
+    self.models = torch.nn.ModuleList([torch.nn.ModuleList((init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net)) for (init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net) in models])
     
     self.init = init
     self.deriv = deriv
@@ -559,7 +627,7 @@ class EvalMultiModel(torch.nn.Module):
     
     contrib = torch.zeros(self.dim)
     
-    for i,(_,_,_,eval_net) in enumerate(self.models):
+    for i,(_,_,_,_,eval_net) in enumerate(self.models):
       val = eval_net(embeds[i])
     
       if val[0].item() >= 0.0:
@@ -584,16 +652,16 @@ class EvalMultiModel(torch.nn.Module):
       for i in range(len(temp)):
         temp[i] = sum([self.models[i][0][thax]/len(set([thax for _,thax in self.init])) for thax in set([thax for _,thax in self.init])])
 
-    for id, thax in self.init:
+    for id, (thax,sine) in self.init:
       if HP.TRANSFORM_EMBEDDING:
-        embeds = [init_embed_mods[thax](temp[i]) for (_,init_embed_mods,_,_) in self.models]
+        embeds = [init_embed_mods[thax](temp[i]) for (_,init_embed_mods,_,_,_) in self.models]
       else:
-        embeds = [init_embeds[thax]() for (init_embeds,_,_,_) in self.models] 
+        embeds = [init_embeds[thax]() for (init_embeds,_,_,_,_) in self.models] 
 
     # for id, thax in self.init:
     #   # print("init",id)
       
-    #   embeds = [ init_embeds[thax]() for (init_embeds,_,_,_) in self.models]
+    #   embeds = [ init_embeds[thax]() for (init_embeds,_,_,_,_) in self.models]
       
       store[id] = embeds
       
@@ -605,7 +673,7 @@ class EvalMultiModel(torch.nn.Module):
       
       par_embeds = [store[par] for par in self.pars[id]]
       str_rule = str(rule)
-      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,_,deriv_mlps,_) in enumerate(self.models)]
+      embeds = [ deriv_mlps[str_rule]([par_embed[i] for par_embed in par_embeds]) for i,(_,_,_,deriv_mlps,_) in enumerate(self.models)]
       
       store[id] = embeds
       
@@ -642,11 +710,11 @@ def get_ancestors(seed,pars,rules,goods_generating_parents,**kwargs):
 def abstract_initial(features):
   goal = features[-3]
   thax = -1 if goal else features[-2]
-  # if HP.USE_SINE:
-  #   sine = features[-1]
-  # else:
-  #   sine = 0
-  return thax
+  if HP.USE_SINE:
+    sine = features[-1]
+  else:
+    sine = 0
+  return (thax,sine)
 
 def abstract_deriv(features):
   rule = features[-1]
@@ -793,10 +861,13 @@ def load_one(filename,max_size = None):
   return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
 
 def prepare_signature(prob_data_list):
+  sine_sign = set()
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight,_), (_,deriv,pars,_,_,_,_,axioms) in prob_data_list:
+  for (_,probweight,_), (init,deriv,pars,_,_,_,_,axioms) in prob_data_list:
+    for id, (_,sine) in init:
+      sine_sign.add(sine)
 
     for id, features in deriv:
       rule = features
@@ -812,7 +883,7 @@ def prepare_signature(prob_data_list):
     for id,ax in axioms.items():
       axiom_hist[ax] += probweight
 
-  return (deriv_arits,axiom_hist)
+  return (sine_sign,deriv_arits,axiom_hist)
 
 # def replace_axioms(probdata):
 #   metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms) = probdata
@@ -842,11 +913,11 @@ def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
 
   for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
     new_init = []
-    for id, thax in init:
+    for id, (thax,sine) in init:
       if thax == 0:
         if id in axioms and axioms[id] in ax_idx:
           thax = ax_idx[axioms[id]]
-      new_init.append((id,thax))
+      new_init.append((id,(thax,sine)))
       thax_sign.add(thax)
     prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
 
@@ -912,28 +983,29 @@ def compress_prob_data(some_probs):
     else:
       out_probname = just_file
     
-    out_probweight += probweight  
+    out_probweight += probweight
 
-    for old_id, thax in init:
-      if thax not in abs2new:
+    for old_id, features in init:
+      abskey = features # TODO: we might want to kick out SINE when not using it!
+
+      if abskey not in abs2new:
         new_id = id_cnt
         id_cnt += 1
 
-        abs2new[thax] = new_id
-        out_init.append((new_id,thax))
-        
+        abs2new[abskey] = new_id
+        out_init.append((new_id,features))
       else:
-        new_id = abs2new[thax]
+        new_id = abs2new[abskey]
 
       old2new[old_id] = new_id
 
     for ax in axioms:
-      out_axioms[old2new[ax]] = axioms[ax]
+      out_axioms[ax] = axioms[ax]
 
     for old_id, features in deriv:
       new_pars = [old2new[par] for par in pars[old_id]]
       
-      abskey = (features,tuple(new_pars))
+      abskey = tuple([features]+new_pars)
 
       if abskey not in abs2new:
         new_id = id_cnt

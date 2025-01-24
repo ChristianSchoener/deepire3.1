@@ -191,8 +191,8 @@ if __name__ == "__main__":
         param_group['lr'] = HP.LEARN_RATE
     print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
   else:
-    thax_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]))
-    master_parts = IC.get_initial_model(thax_sign,deriv_arits)
+    thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]))
+    master_parts = IC.get_initial_model(thax_sign,sine_sign,deriv_arits)
     model_name = "{}/initial{}".format(sys.argv[2],IC.name_initial_model_suffix())
     torch.save(master_parts,model_name)
     print("Created model parts and saved to",model_name,flush=True)
@@ -323,7 +323,7 @@ if __name__ == "__main__":
       # newly using preferrably n = 128 and 20 processes
       # also chaging warmup to only 40 epochs and the max LR to 4x nominal (older comments left around - TODO clean up properly!)
       if t <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
-        lr = HP.LEARN_RATE*(t+samples_per_epoch)/(10*samples_per_epoch)
+        lr = HP.LEARN_RATE*t/(10*samples_per_epoch)
         print("Increasing effective LR to",lr,flush=True)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
