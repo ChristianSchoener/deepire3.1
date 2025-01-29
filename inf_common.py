@@ -19,6 +19,8 @@ from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 
+from copy import deepcopy
+
 try:
     from typing_extensions import Final
 except:
@@ -259,7 +261,7 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net_matrix(folder,problem,initEmbeds,deriv_mlps,eval_net):
+def save_net_matrix(folder,problem,initEmbeds,sine_embellisher,deriv_mlps,eval_net):
   
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
@@ -293,7 +295,7 @@ def save_net(name,parts,parts_copies,thax_to_str):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,sine_embellisher,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,_,sine_embellisher,deriv_mlps,eval_net) = parts_copies
   
   initEmbeds = {}
   for thax,embed in init_embeds.items():
@@ -320,7 +322,7 @@ def save_net(name,parts,parts_copies,thax_to_str):
     
     def __init__(self,
         initEmbeds : Dict[str, Tensor],
-        sine_embedder : torch.nn.Module,'''
+        sine_embellisher : torch.nn.Module,'''
 
 bigpart2 ='''        eval_net : torch.nn.Module):
       super().__init__()
@@ -367,7 +369,7 @@ bigpart_no_longer_rec1 = '''
           embed = self.initEmbeds["0"]
         if {}:
           embed = self.sine_embellisher({},embed)
-        self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "",HP.USE_SINE,sine_val_prog)
+        self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "False",HP.USE_SINE,sine_val_prog)
 
 bigpart_rec2='''
     @torch.jit.export
@@ -489,20 +491,30 @@ class LearningModel(torch.nn.Module):
       sine_embellisher: torch.nn.Module,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,save_logits = False,training = True):
+      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,save_logits = False,training = False):
     super(LearningModel,self).__init__()
   
-    self.init_embeds = init_embeds
-    self.init_embed_mod = init_embed_mod
+    self.thax_sign = set()
+    for _,(thax,_) in init:
+      self.thax_sign.add(thax)
+
+    self.init_embeds = torch.nn.ModuleDict()
+    for thax in self.thax_sign:
+      if training and np.random.random() < HP.SWAPOUT:
+        self.init_embeds[str(thax)] = init_embeds[str(0)]
+      else:
+        self.init_embeds[str(thax)] = init_embeds[str(thax)]
+
+    self.init_embed_mod = torch.nn.ModuleDict()
+    if HP.TRANSFORM_EMBEDDING:
+      for thax in self.thax_sign:
+        self.init_embed_mod[str(thax)] = deepcopy(init_embed_mod[str(thax)])
+
     self.sine_embellisher = sine_embellisher
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
     self.training = training
-
-    self.thax_sign = set()
-    for _,(thax,_) in init:
-      self.thax_sign.add(thax)
 
     self.init = init
 
@@ -534,12 +546,14 @@ class LearningModel(torch.nn.Module):
       self.posOK += pos
     else:
       self.negOK += neg
-  
-    contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
 
-    # val_sigmoid = torch.clip(torch.sigmoid(val), min=1.e-5, max=1.-1.e-5)
-    # target = pos/(pos+neg)
-    # contrib = -self.pos_weight * target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+    if HP.FOCAL_LOSS:
+      val_sigmoid = torch.clip(torch.sigmoid(val), min=1.e-5, max=1.-1.e-5)
+      target = pos/(pos+neg)
+      contrib = -self.pos_weight * target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+    else:
+      contrib = self.criterion(val,torch.tensor([pos/(pos+neg)]))
+
     return (pos+neg)*contrib
 
   # Construct the whole graph and return its loss
@@ -901,7 +915,7 @@ def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
   
   thax_sign = set()
   ax_idx = dict()
-  thax_to_str = dict()
+  thax_to_str = dict() 
   good_ax_cnt = 0
   for _,(ax,_) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
     good_ax_cnt += 1
@@ -919,6 +933,7 @@ def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
           thax = ax_idx[axioms[id]]
       new_init.append((id,(thax,sine)))
       thax_sign.add(thax)
+    thax_sign.add(0)
     prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
 
   return thax_sign,prob_data_list,thax_to_str

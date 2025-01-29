@@ -3,6 +3,9 @@
 import torch
 from torch import Tensor
 
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
+
 import time
 
 from typing import Dict, List, Tuple, Optional
@@ -31,7 +34,7 @@ def worker(q_in, q_out):
 
   while True:
 # q_in.put(this_data,(init_embeds,init_embed_mods,deriv_mlps,eval_net,thax_to_str),sys.argv[4])
-    (this_data,init_embeds,init_embed_mods,deriv_mlps,eval_net,thax_to_str,folder) = q_in.get()
+    (this_data,init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net,thax_to_str,folder) = q_in.get()
     # this_data = [file problem, folder/file problem, axiom numbers] 
     initEmbeds = {}
     temp = torch.zeros(len(init_embeds["0"].weight))
@@ -41,8 +44,8 @@ def worker(q_in, q_out):
       initEmbeds[thax_to_str[id]] = torch.mv(init_embed_mods[str(id)].weight,temp)
 
     folder_file = folder+"/"+this_data[0][0]+".model"
-    ISM.save_net_matrix(folder,this_data[0][0],initEmbeds,deriv_mlps,eval_net)
-    command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data[0][1],folder_file,"results"+"/"+"matrix_64" + "/"+this_data[0][1].replace("/","_")+".log")
+    ISM.save_net_matrix(folder,this_data[0][0],initEmbeds,sine_embellisher,deriv_mlps,eval_net)
+    command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data[0][1],folder_file,"results"+"/"+"matrix_128" + "/"+this_data[0][1].replace("/","_")+".log")
     # print(command)
     subprocess.Popen(command,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
     
@@ -53,7 +56,7 @@ def worker(q_in, q_out):
 
 if __name__ == "__main__":
 
-  thax_sign,deriv_arits,thax_to_str = torch.load(sys.argv[1])
+  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[1])
   print("Loaded signature from",sys.argv[1])
 
   IC.create_saver(deriv_arits)
@@ -84,7 +87,7 @@ if __name__ == "__main__":
     param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,init_embed_mods,deriv_mlps,eval_net) = parts_copies
+  (init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net) = parts_copies
 
   thax_to_str[0] = "0"
   thax_to_str[-1] = "-1"
@@ -106,7 +109,7 @@ if __name__ == "__main__":
       this_prob = list(prob_map.items())[numProblem]
       this_data = [this_prob, problem_configuration[this_prob[0]]]
       numProblem += 1
-      q_in.put((this_data,init_embeds,init_embed_mods,deriv_mlps,eval_net,thax_to_str,sys.argv[4]))
+      q_in.put((this_data,init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net,thax_to_str,sys.argv[4]))
     result = q_out.get()
     num_active_tasks -= 1
 

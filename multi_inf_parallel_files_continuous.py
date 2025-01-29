@@ -34,10 +34,26 @@ def copy_grads_back_from_param(parts,parts_copies):
   for param, param_copy in zip(parts.parameters(),parts_copies.parameters()):
     param.grad = param_copy
 
-def eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log):
+def copy_vals_to_his_parts(masterparts,his_parts):
+# Copy gradients from weights to grads and weights from master to part
+  with torch.no_grad():
+    master_dict = dict(masterparts.named_parameters())
+    his_dict = dict(his_parts.named_parameters())
+    for name, _ in his_parts.named_parameters():
+      if "weight" in name:
+        his_dict[name].grad = his_dict[name].data
+        his_dict[name].data = master_dict[name].data
 
-  # print("eval_and_or_learn_on_one",probname,parts_file,training)
-  # print("{}/pieces/{}".format(sys.argv[1],probname))
+def copy_vals_to_master_parts(masterparts,his_parts):
+# Copy just the optimized weights back
+  with torch.no_grad():
+    master_dict = dict(masterparts.named_parameters())
+    his_dict = dict(his_parts.named_parameters()) 
+    for name, _ in his_parts.named_parameters():
+      if "weight" in name:
+        master_dict[name].data = his_dict[name].data
+
+def eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log):
   loss_sum_list = []
   posOK_sum_list = []
   negOK_sum_list = []
@@ -51,14 +67,14 @@ def eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log):
     with torch.no_grad():
       if param.grad is not None:
         param.grad.zero_()
+    param.requires_grad = True
 
   if training:
     for _,prob in size_and_prob_list:
       data = torch.load("{}/pieces/{}".format(sys.argv[1],prob))
       (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
-      # myparts = torch.load(parts_file)
-      # print("Datum of size",len(init)+len(deriv))
-      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)
+
+      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, True)
       model.train()
       (loss_sum,posOK_sum,negOK_sum) = model()
     
@@ -82,7 +98,7 @@ def eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log):
   
   else:
     with torch.no_grad():
-      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg)
+      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, False)
       model.eval()
       (loss_sum,posOK_sum,negOK_sum) = model()
 
@@ -233,16 +249,8 @@ if __name__ == "__main__":
 
   MAX_ACTIVE_TASKS = HP.NUMPROCESSES
   num_active_tasks = 0
-  
-  # NOTE: on air05, 3050189 was swapping (observed with thax500, embeddings 256)
-  
-  # NOTE: on air05, 4000000 was still not enough for a good flow, but we got unstuck aumotmatically after a swapping slowdown
-  # (observed with thax2000, embeddings 256)
-   
-  # with 3500000 there was still a slowdown (thax2000, emb 256) probably cause by a swapping period?
 
-  MAX_CAPACITY = 1000000 # a total size of 4653978 caused a crash on air05 with 300G RAM (maybe air04 would still be able to cope with 5M?)
-  # note that that was a run on thax1000, i.e. 1000 embeddings of axioms (how much do these actually take up in comparison to the proper matrices?)
+  MAX_CAPACITY = 1000000
   assert HP.NUMPROCESSES * HP.COMPRESSION_THRESHOLD * 5 // 4 < MAX_CAPACITY
   cur_allocated = 0
 
@@ -255,44 +263,40 @@ if __name__ == "__main__":
       size_and_prob_list = []
       while len(train_data_idx) > 0 and (pieces_active_task < HP.NUM_PIECES_SIMULTANEOUS or sum([x for x,_ in size_and_prob_list]) < HP.WORKER_LOAD):
         (size,probname) = random.choice(train_data_idx)
-        # print("Picking",probname,"of size",size,end="...")
         size_and_prob_list.append((size,probname))
         pieces_active_task += 1
         if HP.ALL_ONCE:
           train_data_idx  = list(set(train_data_idx).difference({(size,probname)}))
-          # print(len(train_data_idx),"pieces remaining for this epoch.")
         
-      # cur_allocated += sum([size for size,_ in size_and_prob_list])
       print(len(size_and_prob_list),"problems of total size",sum([x for x,_ in size_and_prob_list]),"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
-      # for size,prob in size_and_prob_list:
-        # print(time.time() - start_time,"starting job on problem",prob,"of size",size,flush=True)
-
-      id += 1
-      parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
-      torch.save(master_parts,parts_file)
-      
-      q_in.put((size_and_prob_list, parts_file, True)) # training is always true in continuous! (TODO: factor out worker to inf_common!)
-      # print(time.time() - start_time,"put finished",flush=True)
-      # print()
-
-    # print(time.time() - start_time,"about to call get")
+      # id += 1
+      # parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
+      parts_file = sys.argv[1] + "/pieces/" + size_and_prob_list[0][1].split(".")[0] + "_parts.pt"
+      these_parts = torch.nn.ModuleList()
+      these_parts.append(torch.nn.ModuleDict())
+      with torch.no_grad():
+        for i in range(1,len(master_parts)):
+          these_parts.append(deepcopy(master_parts[i]))
+        data = torch.load("{}/pieces/{}".format(sys.argv[1],size_and_prob_list[0][1]))
+        (init,_,_,_,_,_,_,_) = data
+        this_init = set()
+        for _,(thax,_) in init:
+          this_init.add(str(thax))
+        this_init.add("0")
+        for thax in this_init:
+          these_parts[0][thax] = deepcopy(master_parts[0][thax])
+        torch.save(these_parts,parts_file)
+      q_in.put((size_and_prob_list, parts_file, True))
 
     (size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file,time_start,time_end) = q_out.get() # this may block
 
     cur_allocated -= sum([size for size,_ in size_and_prob_list]) 
 
     for i in range(len(size_and_prob_list)):
-      # print(time.time() - start_time,"job finished at on problem",size_and_prob_list[i][1],"started",time_start-start_time,"finished",time_end-start_time,"took",time_end-time_start,flush=True)
-      # print("Of weight",tot_pos_list[i],tot_neg_list[i],tot_pos_list[i]+tot_neg_list[i])
-      # print("Loss,pos,neg:",loss_sum_list[i]/(tot_pos_list[i]+tot_neg_list[i]),posOK_sum_list[i]/tot_pos_list[i] if tot_pos_list[i] > 0.0 else 1.0,negOK_sum_list[i]/tot_neg_list[i] if tot_neg_list[i] > 0.0 else 1.0)
-      # print()
-
       stats[t % samples_per_epoch] = (loss_sum_list[i],posOK_sum_list[i],negOK_sum_list[i])
       weights[t % samples_per_epoch] = (tot_pos_list[i],tot_neg_list[i])
 
       t += 1
-      # print("Counter t=",t)
-      # print(time.time() - start_time,"get finished for time_idx",t)
 
     # sum-up stats over the "samples_per_epoch" entries (retain the var name):
     loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
@@ -317,11 +321,6 @@ if __name__ == "__main__":
     print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
   
     if HP.NON_CONSTANT_10_50_250_LR:
-      # LATER NORMALIZE THIS:
-      # it worked well with 256 embedding size
-      # it worked well with 40 processes active at a time!
-      # newly using preferrably n = 128 and 20 processes
-      # also chaging warmup to only 40 epochs and the max LR to 4x nominal (older comments left around - TODO clean up properly!)
       if t <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
         lr = HP.LEARN_RATE*t/(10*samples_per_epoch)
         print("Increasing effective LR to",lr,flush=True)
@@ -335,16 +334,21 @@ if __name__ == "__main__":
 
     num_active_tasks -= 1
     his_parts = torch.load(parts_file)
-    os.remove(parts_file)
-    copy_grads_back_from_param(master_parts,his_parts)
+    # os.remove(parts_file)
+    copy_vals_to_his_parts(master_parts,his_parts)
+    this_optimizer = torch.optim.Adam(his_parts.parameters(), lr=HP.LEARN_RATE, weight_decay=HP.WEIGHT_DECAY)
+    this_optimizer.step()
+    copy_vals_to_master_parts(master_parts,his_parts)
+    # copy_grads_back_from_param(master_parts,his_parts)
     # print(time.time() - start_time,"copy_grads_back_from_param finished")
-    if HP.CLIP_GRAD_NORM:
-      torch.nn.utils.clip_grad_norm_(master_parts.parameters(), HP.CLIP_GRAD_NORM)
-    if HP.CLIP_GRAD_VAL:
-      torch.nn.utils.clip_grad_value_(master_parts.parameters(), HP.CLIP_GRAD_VAL)
+    # if HP.CLIP_GRAD_NORM:
+    #   torch.nn.utils.clip_grad_norm_(master_parts.parameters(), HP.CLIP_GRAD_NORM)
+    # if HP.CLIP_GRAD_VAL:
+    #   torch.nn.utils.clip_grad_value_(master_parts.parameters(), HP.CLIP_GRAD_VAL)
       
-    optimizer.step()
-    print(time.time() - start_time,"optimizer.step() finished", flush=True)
+    # optimizer.step()
+
+    print(time.time() - start_time,"optimizer.step() and copying finished", flush=True)
 
     modulus = t % samples_per_epoch
     print("Modulus =",modulus,flush=True)

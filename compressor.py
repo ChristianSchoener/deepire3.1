@@ -216,42 +216,48 @@ if __name__ == "__main__":
       torch.save(rest, "{}/{}".format(dir,piece_name))
     print("Done")
 
-  all_in_train = False
-  while not all_in_train:
-    random.shuffle(prob_data_list)
-    spl = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
-    train_thax = {}
-    valid_thax = {}
-    counter = 0
-    for _,(init,_,_,_,_,_,_,_) in prob_data_list[spl:]:
-      for _,(thax,_) in init:
-        if not thax in valid_thax:
-          valid_thax[thax] = 1
-        else:
-          valid_thax[thax] += 1
+  if HP.VALID_SPLIT_RATIO < 1.0:
+    all_in_train = False
+    while not all_in_train:
+      random.shuffle(prob_data_list)
+      spl = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
+      train_thax = {}
+      valid_thax = {}
+      counter = 0
+      for _,(init,_,_,_,_,_,_,_) in prob_data_list[spl:]:
+        for _,(thax,_) in init:
+          if not thax in valid_thax:
+            valid_thax[thax] = 1
+          else:
+            valid_thax[thax] += 1
 
-    counter = 0
-    for _,(init,_,_,_,_,_,_,_) in prob_data_list[:spl]:
-      for _,(thax,_) in init:
-        if not thax in train_thax:
-          train_thax[thax] = 1
-        else:
-          train_thax[thax] += 1
-    all_in_train = len(set(valid_thax.keys()).difference(set(train_thax.keys()))) == 0
-  print("shuffled and split at idx",spl,"out of",len(prob_data_list),"and ensured all revealed thax are in a training problem.")
-  print()
+      counter = 0
+      for _,(init,_,_,_,_,_,_,_) in prob_data_list[:spl]:
+        for _,(thax,_) in init:
+          if not thax in train_thax:
+            train_thax[thax] = 1
+          else:
+            train_thax[thax] += 1
+      all_in_train = len(set(valid_thax.keys()).difference(set(train_thax.keys()))) == 0
+    print("shuffled and split at idx",spl,"out of",len(prob_data_list),"and ensured all revealed thax are in a training problem.")
+    print()
 
   for i in range(len(prob_data_list)):
     prob_data_list[i] = (prob_data_list[i][0][2],"piece{}.pt".format(i))
 
   if SAVE_PIECES:
-    # save just names:
-    filename = "{}/training_index.pt".format(sys.argv[1])
-    print("Saving training part to",filename)
-    torch.save(prob_data_list[:spl], filename)
-    filename = "{}/validation_index.pt".format(sys.argv[1])
-    print("Saving validation part to",filename)
-    torch.save(prob_data_list[spl:], filename)
+    if HP.VALID_SPLIT_RATIO < 1.0:
+      # save just names:
+      filename = "{}/training_index.pt".format(sys.argv[1])
+      print("Saving training part to",filename)
+      torch.save(prob_data_list[:spl], filename)
+      filename = "{}/validation_index.pt".format(sys.argv[1])
+      print("Saving validation part to",filename)
+      torch.save(prob_data_list[spl:], filename)
+    else:
+      filename = "{}/training_index.pt".format(sys.argv[1])
+      print("Saving training part to",filename)
+      torch.save(prob_data_list, filename)
   else:
     filename = "{}/training_data.pt".format(sys.argv[1])
     print("Saving training part to",filename)

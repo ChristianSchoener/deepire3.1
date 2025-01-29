@@ -40,11 +40,11 @@ ONLY_GENERATING_PARENTS = False
 # this needs to be done before/during the compression phase
 # note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
-MAX_USED_AXIOM_CNT = 500
+MAX_USED_AXIOM_CNT = 50000
 
 COMPRESSION_THRESHOLD = 20000
 
-VALID_SPLIT_RATIO = 0.9
+VALID_SPLIT_RATIO = 1.0
 
 # these are now ignored in multi_inf_parallel_files_continuous.py
 WHAT_IS_BIG = 12000
@@ -98,7 +98,7 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.0
+SWAPOUT = 0.1
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
@@ -135,8 +135,10 @@ NUM_PIECES_SIMULTANEOUS = 1
 
 WORKER_LOAD = 1
 
-TRANSFORM_EMBEDDING = True
+TRANSFORM_EMBEDDING = False
 
 EMBEDDING_SUM_DROPOUT = 0.05
 
-GLOBAL_TOT_NEG_TOT_POS_RATIO = 35.0
+GLOBAL_TOT_NEG_TOT_POS_RATIO = 1.0
+
+FOCAL_LOSS = False
