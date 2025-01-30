@@ -44,7 +44,7 @@ MAX_USED_AXIOM_CNT = 50000
 
 COMPRESSION_THRESHOLD = 20000
 
-VALID_SPLIT_RATIO = 1.0
+VALID_SPLIT_RATIO = 0.9
 
 # these are now ignored in multi_inf_parallel_files_continuous.py
 WHAT_IS_BIG = 12000

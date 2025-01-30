@@ -15,6 +15,8 @@ from collections import ChainMap
 
 import sys,random,itertools
 
+from copy import deepcopy
+
 def compress_by_probname(prob_data_list):
   by_probname = defaultdict(list)
 
@@ -200,68 +202,63 @@ if __name__ == "__main__":
 
   prob_data_list = compress_to_treshold(prob_data_list,treshold = HP.COMPRESSION_THRESHOLD)
 
-  SAVE_PIECES = True
 
-  if SAVE_PIECES:
-    print("Saving pieces")
-    dir = "{}/pieces".format(sys.argv[1])
-    try:
-      os.mkdir(dir)
-    except OSError as exc:
-      if exc.errno != errno.EEXIST:
-          raise
-      pass
-    for i,(metainfo,rest) in enumerate(prob_data_list):
-      piece_name = "piece{}.pt".format(i)
-      torch.save(rest, "{}/{}".format(dir,piece_name))
-    print("Done")
+  ax_to_prob = dict()
+  for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
+    for _,(thax,_) in init:
+      if thax not in ax_to_prob:
+        ax_to_prob[thax] = {i}
+      else:
+        ax_to_prob[thax].add(i)
+  rev_ax_to_prob = dict()
+  for key,vals in ax_to_prob.items():
+    for val in vals:
+      if not val in rev_ax_to_prob:
+        rev_ax_to_prob[val] = {key}
+      else:
+        rev_ax_to_prob[val].add(key)
+  gather = set()
+  train_data_list = []
+  to_delete = []
+  train_length = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
+  while len(set(ax_to_prob.keys()).difference(gather)) > 0:
+    this_ax = list(set(ax_to_prob.keys()).difference(gather))[0]
+    to_delete.append(list(ax_to_prob[this_ax])[0])
+    gather = gather.union(rev_ax_to_prob[list(ax_to_prob[this_ax])[0]])
+  train_data_list = [prob_data_list[i] for i in range(len(prob_data_list)) if i in to_delete] 
+  prob_data_list = [prob_data_list[i] for i in range(len(prob_data_list)) if not i in to_delete]
+  train_length -= len(train_data_list)
+  train_length = max(train_length,0)
+  random.shuffle(prob_data_list)
+  train_data_list += prob_data_list[:train_length]
+  valid_data_list = prob_data_list[train_length:]
+  del prob_data_list
+  print("shuffled and ensured all revealed thax are in a training problem.")
+  print()
 
-  if HP.VALID_SPLIT_RATIO < 1.0:
-    all_in_train = False
-    while not all_in_train:
-      random.shuffle(prob_data_list)
-      spl = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
-      train_thax = {}
-      valid_thax = {}
-      counter = 0
-      for _,(init,_,_,_,_,_,_,_) in prob_data_list[spl:]:
-        for _,(thax,_) in init:
-          if not thax in valid_thax:
-            valid_thax[thax] = 1
-          else:
-            valid_thax[thax] += 1
+  print("Saving pieces")
+  dir = "{}/pieces".format(sys.argv[1])
+  try:
+    os.mkdir(dir)
+  except OSError as exc:
+    if exc.errno != errno.EEXIST:
+        raise
+    pass
+  for i,(metainfo,rest) in enumerate(train_data_list):
+    piece_name = "piece{}.pt".format(i)
+    torch.save(rest, "{}/{}".format(dir,piece_name))
+  for i,(metainfo,rest) in enumerate(valid_data_list):
+    piece_name = "piece{}.pt".format(i+len(train_data_list))
+    torch.save(rest, "{}/{}".format(dir,piece_name))
+  print("Done")
 
-      counter = 0
-      for _,(init,_,_,_,_,_,_,_) in prob_data_list[:spl]:
-        for _,(thax,_) in init:
-          if not thax in train_thax:
-            train_thax[thax] = 1
-          else:
-            train_thax[thax] += 1
-      all_in_train = len(set(valid_thax.keys()).difference(set(train_thax.keys()))) == 0
-    print("shuffled and split at idx",spl,"out of",len(prob_data_list),"and ensured all revealed thax are in a training problem.")
-    print()
+  train_data_list = [(train_data_list[i][0][2],"piece{}.pt".format(i)) for i in range(len(train_data_list))]
+  valid_data_list = [(valid_data_list[i][0][2],"piece{}.pt".format(i+len(train_data_list))) for i in range(len(valid_data_list))]
 
-  for i in range(len(prob_data_list)):
-    prob_data_list[i] = (prob_data_list[i][0][2],"piece{}.pt".format(i))
-
-  if SAVE_PIECES:
-    if HP.VALID_SPLIT_RATIO < 1.0:
-      # save just names:
-      filename = "{}/training_index.pt".format(sys.argv[1])
-      print("Saving training part to",filename)
-      torch.save(prob_data_list[:spl], filename)
-      filename = "{}/validation_index.pt".format(sys.argv[1])
-      print("Saving validation part to",filename)
-      torch.save(prob_data_list[spl:], filename)
-    else:
-      filename = "{}/training_index.pt".format(sys.argv[1])
-      print("Saving training part to",filename)
-      torch.save(prob_data_list, filename)
-  else:
-    filename = "{}/training_data.pt".format(sys.argv[1])
-    print("Saving training part to",filename)
-    torch.save(prob_data_list[:spl], filename)
-    filename = "{}/validation_data.pt".format(sys.argv[1])
-    print("Saving validation part to",filename)
-    torch.save(prob_data_list[spl:], filename)
+  # save just names:
+  filename = "{}/training_index.pt".format(sys.argv[1])
+  print("Saving training part to",filename)
+  torch.save(train_data_list, filename)
+  filename = "{}/validation_index.pt".format(sys.argv[1])
+  print("Saving validation part to",filename)
+  torch.save(valid_data_list, filename)

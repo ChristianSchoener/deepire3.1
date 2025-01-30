@@ -53,74 +53,75 @@ def copy_vals_to_master_parts(masterparts,his_parts):
       if "weight" in name:
         master_dict[name].data = his_dict[name].data
 
-def eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log):
+def eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log):
   loss_sum_list = []
   posOK_sum_list = []
   negOK_sum_list = []
   tot_pos_list = []
   tot_neg_list = []
 
-  myparts = torch.load(parts_file)
-    # not sure if there is any after load -- TODO: check if necessary
-  for param in myparts.parameters():
-    # taken from Optmizier zero_grad, roughly
-    with torch.no_grad():
-      if param.grad is not None:
-        param.grad.zero_()
-    param.requires_grad = True
-
-  if training:
-    for _,prob in size_and_prob_list:
-      data = torch.load("{}/pieces/{}".format(sys.argv[1],prob))
-      (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
-
-      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, True)
-      model.train()
-      (loss_sum,posOK_sum,negOK_sum) = model()
-    
-      loss_sum.backward()
-      loss_sum_list.append(loss_sum[0].detach().item())
-      posOK_sum_list.append(posOK_sum)
-      negOK_sum_list.append(negOK_sum)
-      tot_pos_list.append(tot_pos)
-      tot_neg_list.append(tot_neg)
-    # put grad into actual tensor to be returned below (gradients don't go through the Queue)
+  for parts_file in parts_file_list:
+    myparts = torch.load(parts_file)
+      # not sure if there is any after load -- TODO: check if necessary
     for param in myparts.parameters():
-      grad = param.grad
-      param.requires_grad = False # to allow the in-place operation just below
-      if grad is not None:
-        param.copy_(grad)
-      else:
-        param.zero_()
-    del model
+      # taken from Optmizier zero_grad, roughly
+      with torch.no_grad():
+        if param.grad is not None:
+          param.grad.zero_()
+      param.requires_grad = True
+
+    if training:
+      for _,prob in size_and_prob_list:
+        data = torch.load("{}/pieces/{}".format(sys.argv[1],prob))
+        (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
+
+        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, True)
+        model.train()
+        (loss_sum,posOK_sum,negOK_sum) = model()
+      
+        loss_sum.backward()
+        loss_sum_list.append(loss_sum[0].detach().item())
+        posOK_sum_list.append(posOK_sum)
+        negOK_sum_list.append(negOK_sum)
+        tot_pos_list.append(tot_pos)
+        tot_neg_list.append(tot_neg)
+      # put grad into actual tensor to be returned below (gradients don't go through the Queue)
+      for param in myparts.parameters():
+        grad = param.grad
+        param.requires_grad = False # to allow the in-place operation just below
+        if grad is not None:
+          param.copy_(grad)
+        else:
+          param.zero_()
+      del model
+      
+      torch.save(myparts,parts_file)
     
-    torch.save(myparts,parts_file)
-  
-  else:
-    with torch.no_grad():
-      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, False)
-      model.eval()
-      (loss_sum,posOK_sum,negOK_sum) = model()
+    else:
+      with torch.no_grad():
+        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, False, False)
+        model.eval()
+        (loss_sum,posOK_sum,negOK_sum) = model()
 
-      loss_sum_list.append(loss_sum[0].detach().item())
-      posOK_sum_list.append(posOK_sum)
-      negOK_sum_list.append(negOK_sum)
-      tot_pos_list.append(tot_pos)
-      tot_neg_list.append(tot_neg)
+        loss_sum_list.append(loss_sum[0].detach().item())
+        posOK_sum_list.append(posOK_sum)
+        negOK_sum_list.append(negOK_sum)
+        tot_pos_list.append(tot_pos)
+        tot_neg_list.append(tot_neg)
 
-    del model # I am getting desperate!
+      del model # I am getting desperate!
 
-  return (loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list)
+    return (loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list)
 
 def worker(q_in, q_out):
   log = sys.stdout
 
   while True:
-    (size_and_prob_list,parts_file,training) = q_in.get()
+    (size_and_prob_list,parts_file_list,training) = q_in.get()
     
     start_time = time.time()
     (loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list) = eval_and_or_learn_on_one(size_and_prob_list,parts_file,training,log)
-    q_out.put((size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file,start_time,time.time()))
+    q_out.put((size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file_list,start_time,time.time()))
 
     libc.malloc_trim(ctypes.c_int(0))
 
@@ -271,24 +272,27 @@ if __name__ == "__main__":
       print(len(size_and_prob_list),"problems of total size",sum([x for x,_ in size_and_prob_list]),"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
       # id += 1
       # parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
-      parts_file = sys.argv[1] + "/pieces/" + size_and_prob_list[0][1].split(".")[0] + "_parts.pt"
-      these_parts = torch.nn.ModuleList()
-      these_parts.append(torch.nn.ModuleDict())
-      with torch.no_grad():
-        for i in range(1,len(master_parts)):
-          these_parts.append(deepcopy(master_parts[i]))
-        data = torch.load("{}/pieces/{}".format(sys.argv[1],size_and_prob_list[0][1]))
-        (init,_,_,_,_,_,_,_) = data
-        this_init = set()
-        for _,(thax,_) in init:
-          this_init.add(str(thax))
-        this_init.add("0")
-        for thax in this_init:
-          these_parts[0][thax] = deepcopy(master_parts[0][thax])
-        torch.save(these_parts,parts_file)
-      q_in.put((size_and_prob_list, parts_file, True))
+      parts_file_list = []
+      for size,prob in size_and_prob_list:
+        parts_file = sys.argv[1] + "/pieces/" + prob.split(".")[0] + "_parts.pt"
+        parts_file_list.append(parts_file)
+        these_parts = torch.nn.ModuleList()
+        these_parts.append(torch.nn.ModuleDict())
+        with torch.no_grad():
+          for i in range(1,len(master_parts)):
+            these_parts.append(deepcopy(master_parts[i]))
+          data = torch.load("{}/pieces/{}".format(sys.argv[1],prob))
+          (init,_,_,_,_,_,_,_) = data
+          this_init = set()
+          for _,(thax,_) in init:
+            this_init.add(str(thax))
+          this_init.add("0")
+          for thax in this_init:
+            these_parts[0][thax] = deepcopy(master_parts[0][thax])
+          torch.save(these_parts,parts_file)
+      q_in.put((size_and_prob_list, parts_file_list, True))
 
-    (size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file,time_start,time_end) = q_out.get() # this may block
+    (size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file_list,time_start,time_end) = q_out.get() # this may block
 
     cur_allocated -= sum([size for size,_ in size_and_prob_list]) 
 
@@ -333,12 +337,13 @@ if __name__ == "__main__":
             param_group['lr'] = lr
 
     num_active_tasks -= 1
-    his_parts = torch.load(parts_file)
-    # os.remove(parts_file)
-    copy_vals_to_his_parts(master_parts,his_parts)
-    this_optimizer = torch.optim.Adam(his_parts.parameters(), lr=HP.LEARN_RATE, weight_decay=HP.WEIGHT_DECAY)
-    this_optimizer.step()
-    copy_vals_to_master_parts(master_parts,his_parts)
+    for parts_file in parts_file_list:
+      his_parts = torch.load(parts_file)
+      # os.remove(parts_file)
+      copy_vals_to_his_parts(master_parts,his_parts)
+      this_optimizer = torch.optim.Adam(his_parts.parameters(), lr=HP.LEARN_RATE, weight_decay=HP.WEIGHT_DECAY)
+      this_optimizer.step()
+      copy_vals_to_master_parts(master_parts,his_parts)
     # copy_grads_back_from_param(master_parts,his_parts)
     # print(time.time() - start_time,"copy_grads_back_from_param finished")
     # if HP.CLIP_GRAD_NORM:
