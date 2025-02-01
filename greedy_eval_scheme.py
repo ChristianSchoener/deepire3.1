@@ -1,6 +1,6 @@
 import torch
+import numpy as np
 
-import os
 import sys
 from collections import defaultdict
 
@@ -33,6 +33,10 @@ def doit(data):
   rule_steps = []
   ind_steps = []
   pars_ind_steps = []
+ 
+  ind_start_inds = [0]
+  pars_ind_start_inds = [0]
+  pars_ind_start_inds_52 = []
 
   while remaining_count > 0:
     gain = dict()
@@ -50,21 +54,33 @@ def doit(data):
     rule_steps.append(rules[rule_num])
 
     this_rule = rules[rule_num]
+
     id_pool = [id for id in rule_ids[this_rule] if set(pars[id]).issubset(old_ids)]
     id_to_ind.update([(id_pool[i], len(ids)+i) for i in range(len(id_pool))])
-    ids.extend(id_pool)
-    ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int))
-    if this_rule == 52:
-      pars_ind_steps.append([torch.tensor([id_to_ind[this_id] for this_id in pars[id]], dtype=torch.int) for id in id_pool])
-    else:
-      pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for this_id in pars[id]], dtype=torch.int))
 
+    ids.extend(id_pool)
+    ind_steps.extend([id_to_ind[id] for id in id_pool])
+    ind_start_inds.append(len(ind_steps))
+
+    pars_ind_steps.extend([id_to_ind[this_id] for id in id_pool for this_id in pars[id]])
+    pars_ind_start_inds.append(len(pars_ind_steps))
+    if this_rule == 52:
+      pars_ind_start_inds_52.extend([0]+list(np.cumsum([len(pars[id]) for id in id_pool])))
+      # print("52",ind_start_inds[-1]-ind_start_inds[-2],len([0]+list(np.cumsum([len(pars[id]) for id in id_pool]))),flush=True)
+      
     rule_ids[this_rule].difference_update(id_pool)
 
     remaining_count = sum(map(len, rule_ids.values()))
 
-  ids = torch.tensor(ids, dtype=torch.int)
-  torch.save((ids, rule_steps, pars_ind_steps, ind_steps), folder_path + "/pieces/" + "greedy_eval_" + file)
+  ids = torch.tensor(ids, dtype=torch.int32)
+  rule_steps = torch.tensor(rule_steps, dtype=torch.int32)
+  ind_steps = torch.tensor(ind_steps, dtype=torch.int32)
+  pars_ind_steps = torch.tensor(pars_ind_steps, dtype=torch.int32)
+  ind_start_inds = torch.tensor(ind_start_inds, dtype=torch.int32)
+  pars_ind_start_inds = torch.tensor(pars_ind_start_inds, dtype=torch.int32)
+  pars_ind_start_inds_52 = torch.tensor(pars_ind_start_inds_52, dtype=torch.int32)
+
+  torch.save((ids, rule_steps, pars_ind_steps, ind_start_inds, pars_ind_start_inds, pars_ind_start_inds_52), folder_path + "/pieces/" + "greedy_eval_" + file)
 
   print(num, len(rule_steps), flush=True)
 

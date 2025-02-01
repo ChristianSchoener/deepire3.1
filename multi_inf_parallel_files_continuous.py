@@ -6,6 +6,7 @@ import inf_common as IC
 import hyperparams as HP
 
 import torch
+import torch.jit
 
 from torch.cuda.amp import autocast
 
@@ -13,6 +14,8 @@ torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
 
 from torch import Tensor
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 
 from copy import deepcopy
 
@@ -81,23 +84,23 @@ def eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log,thi
           for i,(id,(thax,sine)) in enumerate(init):
             if np.random.random() < HP.SWAPOUT/len(axiom_counts[thax]):
               init[i] = (id,(0,sine))
-          model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
-          model.train()
-          (loss_sum,posOK_sum,negOK_sum) = model()
-        else:
-          model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
-          model.train()
-          (loss_sum,posOK_sum,negOK_sum) = model()
+          # print("Vor __init__:",torch.any(torch.isnan(torch.stack([myparts[0][x]() for x in myparts[0]]))),flush=True)
+        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
+        model.train()
+        (loss_sum,posOK_sum,negOK_sum) = model()
+        # print("Her02",flush=True)
       
         loss_sum.backward()
+        # print("Her03",flush=True)
         loss_sum_list.append(loss_sum.detach().item())
         posOK_sum_list.append(posOK_sum)
         negOK_sum_list.append(negOK_sum)
         tot_pos_list.append(tot_pos)
         tot_neg_list.append(tot_neg)
-
+        del model
+        # print("Here",flush=True)
         loss_dict = {}
-        factors = [1./64., 1., 1000.]
+        factors = [1./4., 1., 4.]
         # factors2_low = [1./32., 1./16., 1./8., 1./4.]
         # factors2_high = [4., 8., 100., 1000.]
         # these_factors = factors
@@ -121,6 +124,7 @@ def eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log,thi
           model.eval()
           with torch.no_grad():#, torch.autocast(device_type="cpu", dtype=torch.bfloat16):
             (ls,_,_) = model()
+          del model
             # print(ls,flush=True)
           loss_dict[factor] = ls.detach().item()
           # if len(loss_dict.keys()) > 3:
@@ -144,9 +148,9 @@ def eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log,thi
           param.copy_(grad)
         else:
           param.zero_()
-      del model
-      
+      # print("Here2",flush=True)
       torch.save(myparts,parts_file)
+      # print("Here3",flush=True)
     
     else:
       with torch.no_grad():
@@ -279,7 +283,8 @@ if __name__ == "__main__":
     print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
   else:
     thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
-    master_parts = IC.get_initial_model(thax_sign,sine_sign,deriv_arits)
+    master_parts = IC.get_initial_model(thax_sign,deriv_arits)
+    # scripted_model = torch.jit.script(master_parts)
     model_name = "{}/initial{}".format(sys.argv[2],IC.name_initial_model_suffix())
     torch.save(master_parts,model_name)
     print("Created model parts and saved to",model_name,flush=True)
@@ -309,7 +314,18 @@ if __name__ == "__main__":
 
   id = 0 # id synchronizes writes to the worker pipe
 
-  # train_data_idx = train_data_idx[:1]
+  big_rule_52 = [834,1467,1354,267,1095,740,659,332,284,1413]
+  train_data_idx = [train_data_idx[x] for x in range(len(train_data_idx)) if x not in big_rule_52]
+# greedy_eval_piece834.pt,  rule_52_pars = 186846, rule_52_apps = 20983
+# greedy_eval_piece1467.pt, rule_52_pars = 43164,  rule_52_apps = 11703
+# greedy_eval_piece1083.pt, rule_52_pars = 35834,  rule_52_apps = 3986
+# greedy_eval_piece284.pt,  rule_52_pars = 45953,  rule_52_apps = 5607
+# greedy_eval_piece1413.pt, rule_52_pars = 34838,  rule_52_apps = 5390
+# greedy_eval_piece1354.pt, rule_52_pars = 41641,  rule_52_apps = 14337
+# greedy_eval_piece267.pt,  rule_52_pars = 48713,  rule_52_apps = 20100
+# greedy_eval_piece1095.pt, rule_52_pars = 105600, rule_52_apps = 23770
+# greedy_eval_piece332.pt,  rule_52_pars = 118108, rule_52_apps = 24719
+# greedy_eval_piece740.pt,  rule_52_pars = 68701,  rule_52_apps = 17050
 
   samples_per_epoch = len(train_data_idx)
 
@@ -342,7 +358,7 @@ if __name__ == "__main__":
         if HP.ALL_ONCE:
           train_data_idx  = list(set(train_data_idx).difference({(size,probname)}))
         
-      print(len(size_and_prob_list),"problems of total size",sum([x for x,_ in size_and_prob_list]),"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
+      print("Problem(s):",[y for _,y in size_and_prob_list],"of size(s)", [x for x,_ in size_and_prob_list],"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
       # id += 1
       # parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
       parts_file_list = []
@@ -410,6 +426,7 @@ if __name__ == "__main__":
       his_parts = torch.load(parts_file,weights_only=False)
       copy_vals_to_his_parts(master_parts,his_parts)
       params_with_lr = []
+      # print("Vor Update:",torch.any(torch.isnan(torch.stack([his_parts[0][x]() for x in his_parts[0]]))),torch.any(torch.isnan(torch.stack([master_parts[0][x]() for x in master_parts[0]]))),flush=True)
       for i,this_dict in enumerate(his_parts):
         if i == 0:
           params_with_lr += [ {"params": param, "lr": opt_lr_factors[num][1]*(1.+learning_bonus_factors[name.split(".")[0]]*opt_lr_factors[num][0])} for name,param in this_dict.named_parameters()]
@@ -418,8 +435,9 @@ if __name__ == "__main__":
       this_optimizer = torch.optim.Adam(params_with_lr)
       this_optimizer.step()
       copy_vals_to_master_parts(master_parts,his_parts)
+      # print("Nach Update:",torch.any(torch.isnan(torch.stack([his_parts[0][x]() for x in his_parts[0]]))),torch.any(torch.isnan(torch.stack([master_parts[0][x]() for x in master_parts[0]]))),flush=True)
       
-    print(time.time() - start_time,"optimizer.step() and copying finished", flush=True)
+    print(time.time() - start_time,"optimizer.step() and copying finished for",[y for _,y in size_and_prob_list], flush=True)
 
     modulus = tt % samples_per_epoch
     print("Modulus =",modulus,flush=True)

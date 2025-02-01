@@ -72,7 +72,7 @@ class Embed(torch.nn.Module):
   def forward(self) -> Tensor:
     return self.weight
 
-class CatAndNonLinear(torch.nn.Module):
+class CatAndNonLinearBinary(torch.nn.Module):
   def __init__(self, dim : int, arit: int):
     super().__init__()
     
@@ -95,30 +95,48 @@ class CatAndNonLinear(torch.nn.Module):
       self.epilog = torch.nn.LayerNorm(dim)
     else:
       self.epilog = torch.nn.Identity(dim)
-
+  # @torch.jit.script_method
   def forward_impl_stack(self, args : Tensor) -> Tensor:
     x = args
     if self.arit == 2:
       assert args.shape[0] % 2 == 0
       x = args.view(args.shape[0] // 2, -1)
     return self.epilog(self.second(self.nonlin(self.first(self.prolog(x)))))
-  
-  def forward_impl_list(self, args : Tensor) -> Tensor:
-    return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
-    
-  # this whole method is bogus, just to make torch.jit.script happy
-  def forward(self, args : Tensor) -> Tensor:
-    return args[0]
-
-class CatAndNonLinearBinary(CatAndNonLinear):
+  # @torch.jit.script_method
   def forward(self, args : Tensor) -> Tensor:
     return self.forward_impl_stack(args)
 
-class CatAndNonLinearMultiary(CatAndNonLinear):
-# Creating full-sized Tensor and then filling in it instead of dynamically enlarging a List of Tensors.
-# Also does as many calculations simultaneously as possible
-  def forward(self, args : List[Tensor]) -> Tensor:
-    lengths = torch.tensor([x.size(0) for x in args], dtype=torch.int)
+class CatAndNonLinearMultiary(torch.nn.Module):
+  def __init__(self, dim : int, arit: int):
+    super().__init__()
+  
+    if HP.DROPOUT > 0.0:
+      self.prolog = torch.nn.Dropout(HP.DROPOUT)
+    else:
+      self.prolog = torch.nn.Identity(arit*dim)
+    
+    if HP.NONLIN == HP.NonLinKind_TANH:
+      self.nonlin = torch.nn.Tanh()
+    else:
+      self.nonlin = torch.nn.ReLU()
+    
+    self.arit = arit
+    
+    self.first = torch.nn.Linear(arit*dim,dim*2)
+    self.second = torch.nn.Linear(dim*2,dim)
+    
+    if HP.LAYER_NORM:
+      self.epilog = torch.nn.LayerNorm(dim)
+    else:
+      self.epilog = torch.nn.Identity(dim) 
+  # def __getstate__(self):
+  #   return self.__dict__.copy()
+  # @torch.jit.script_method
+  def forward_impl_list(self, args : Tensor) -> Tensor:
+    return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
+  # @torch.jit.script_method
+  def forward(self, args : Tensor, limits : Tensor) -> Tensor:
+    lengths = torch.diff(limits)
     the_len = lengths.numel()
 
     full_lengths = 2*lengths - 1
@@ -128,15 +146,17 @@ class CatAndNonLinearMultiary(CatAndNonLinear):
     fill_end_inds = fill_start_inds + (lengths // 2)
 
     full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
+
     for i in range(the_len):
-      full_sized[start_inds[i]:start_inds[i]+lengths[i]] = args[i]
-    while torch.any(lengths > 1):
+      full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
+
+    while max(lengths) > 1:
       mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
       fill_mask = torch.zeros_like(mask)
 
-      idx_range = torch.arange(full_lengths.sum())
-      mask = ((idx_range >= start_inds.unsqueeze(1)) & (idx_range < end_inds.unsqueeze(1))).any(dim=0)
-      fill_mask = ((idx_range >= fill_start_inds.unsqueeze(1)) & (idx_range < fill_end_inds.unsqueeze(1))).any(dim=0)
+      for i in range(the_len):
+        mask[start_inds[i]:end_inds[i]] = True
+        fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
 
       how_much = mask.sum().item()  # Convert to Python int
       full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
@@ -151,66 +171,8 @@ class CatAndNonLinearMultiary(CatAndNonLinear):
     mask[start_inds] = True
     return full_sized[mask]
 
-class SineEmbedder(torch.nn.Module):
-  effective_max: Final[int]
-
-  def __init__(self, dim : int, effective_max : int):
-    super(SineEmbedder, self).__init__()
-    self.net = torch.nn.Linear(1,dim)
-    self.effective_max = effective_max
-
-  def forward(self,sine : int) -> Tensor:
-    if sine == 255:
-      sine = self.effective_max
-    val = 1.0-sine/self.effective_max
-    return self.net(torch.tensor([val]))
-
-class EmptySineEmbedder(torch.nn.Module):
-  def __init__(self, dim : int):
-    super(EmptySineEmbedder, self).__init__()
-    self.dim = dim
-
-  def forward(self,sine : int) -> Tensor:
-    return torch.zeros(self.dim) # ignoring sine
-
-class SineEmbellisher(torch.nn.Module):
-  effective_max: Final[int]
-
-  def __init__(self, dim : int, effective_max : int):
-    super().__init__()
-    
-    self.net = torch.nn.Sequential(
-     torch.nn.Linear(dim+1,dim*HP.BOTTLENECK_EXPANSION_RATIO//2),
-     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-     torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO//2,dim))
-    
-    self.effective_max = effective_max
-
-  def forward(self,sine : int, embed : Tensor) -> Tensor:
-    if sine == 255:
-      sine_float = self.effective_max
-    else:
-      sine_float = float(sine)
-    val = sine_float/self.effective_max
-    return self.net(torch.cat((embed,torch.tensor([val]))))
-
-class EmptySineEmbellisher(torch.nn.Module):
-  def __init__(self, dim : int):
-    super().__init__()
-    self.dim = dim
-
-  def forward(self,sine : int, embed : Tensor) -> Tensor:
-    return embed # simply ignoring sine
-
-def get_initial_model(thax_sign,sine_sign,deriv_arits):
+def get_initial_model(thax_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
-
-  if HP.USE_SINE:
-    sine_sign.remove(255)
-    sine_effective_max = 1.5*max(sine_sign)+1.0  # greater than zero and definitely more than max by a proportional step
-    sine_embellisher = SineEmbellisher(HP.EMBED_SIZE,sine_effective_max)
-  else:
-    sine_embellisher = EmptySineEmbellisher(HP.EMBED_SIZE)
 
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
@@ -229,7 +191,7 @@ def get_initial_model(thax_sign,sine_sign,deriv_arits):
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
     torch.nn.Linear(HP.EMBED_SIZE,1))
 
-  return torch.nn.ModuleList([init_embeds,sine_embellisher,deriv_mlps,eval_net])
+  return torch.nn.ModuleList([init_embeds,deriv_mlps,eval_net])
   
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
@@ -491,7 +453,6 @@ def create_saver(deriv_arits):
 class LearningModel(torch.nn.Module):
   def __init__(self,
       init_embeds : torch.nn.ModuleDict,
-      sine_embellisher: torch.nn.Module,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
       init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,deriv_arits,greedy_eval_scheme,save_logits = False,training = False):
@@ -499,8 +460,8 @@ class LearningModel(torch.nn.Module):
     
     self.deriv_arits = deriv_arits
 
-    self.ids,self.rule_steps,self.pars_ind_steps,self.ind_steps = greedy_eval_scheme
-    self.vectors = torch.empty(len(self.ids),HP.EMBED_SIZE)
+    self.ids, self.rule_steps, self.pars_ind_steps, self.ind_start_inds, self.pars_ind_start_inds, self.pars_ind_start_inds_52 = greedy_eval_scheme
+    self.vectors = torch.zeros(len(self.ids),HP.EMBED_SIZE)
   
     self.thax_sign = set()
     for _,(thax,_) in init:
@@ -510,7 +471,6 @@ class LearningModel(torch.nn.Module):
     for thax in self.thax_sign:
       self.init_embeds[str(thax)] = init_embeds[str(thax)]
 
-    self.sine_embellisher = sine_embellisher
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
@@ -540,8 +500,8 @@ class LearningModel(torch.nn.Module):
   def contribute(self):
     val = self.eval_net(self.vectors[self.mask]).squeeze()
 
-    pos = [self.pos_vals[id] for id in self.ids[self.mask]]
-    neg = [self.neg_vals[id] for id in self.ids[self.mask]]
+    pos = torch.tensor([self.pos_vals[id] for id in self.ids[self.mask]])
+    neg = torch.tensor([self.neg_vals[id] for id in self.ids[self.mask]])
     
     self.posOK += sum([pos[i] for i in range(len(self.ids[self.mask])) if val[i] >= 0])
     self.negOK += sum([neg[i] for i in range(len(self.ids[self.mask])) if val[i] < 0])
@@ -549,6 +509,8 @@ class LearningModel(torch.nn.Module):
     target = torch.tensor([p / (p + n) for p, n in zip(pos, neg)])
 
     contrib = self.criterion(val,target)
+
+    # print(torch.any(torch.isnan(self.vectors)),torch.any(torch.isnan(val)),torch.any(torch.isnan(pos)),torch.any(torch.isnan(neg)),torch.any(torch.isnan(target)),torch.any(torch.isnan(contrib)),flush=True)
 
     return sum((p + n) * c for p, n, c in zip(pos, neg, contrib))
 
@@ -563,13 +525,21 @@ class LearningModel(torch.nn.Module):
 
     self.vectors[:len(self.init)] = torch.stack([self.init_embeds[str(thax)]() for _, (thax, _) in self.init])
 
+    # if torch.any(torch.isnan(self.vectors)):
+      # print("CORRUPTION",-1,flush=True)
+    rule_52_start = torch.tensor(0,dtype=torch.int32)
     for step in range(len(self.rule_steps)):
       if self.rule_steps[step] == 52:
-        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step])]([self.vectors[x] for x in self.pars_ind_steps[step]])
+        rule_52_end = rule_52_start + self.ind_start_inds[step+1]-self.ind_start_inds[step]+1
+        self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]], self.pars_ind_start_inds_52[torch.arange(rule_52_start,rule_52_end)])
+        rule_52_start = rule_52_end
       else:
-        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step])](self.vectors[self.pars_ind_steps[step]])
-
+        self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]])
+      # if torch.any(torch.isnan(self.vectors)):
+        # print("CORRUPTION",step,self.rule_steps[step],flush=True)
+        
     loss = self.contribute()
+    # loss = self.vectors[:100].sum()
 
     return (loss,self.posOK,self.negOK)
 
