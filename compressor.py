@@ -236,6 +236,8 @@ if __name__ == "__main__":
   print("shuffled and ensured all revealed thax are in a training problem.")
   print()
 
+  torch.save(ax_to_prob, "{}/axiom_counts.pt".format(sys.argv[1]))
+  print("Saved axiom counts for uniformly distributed expectation SWAPOUT")
   print("Saving pieces")
   dir = "{}/pieces".format(sys.argv[1])
   try:
