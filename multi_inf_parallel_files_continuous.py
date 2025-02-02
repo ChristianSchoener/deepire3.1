@@ -56,7 +56,7 @@ def copy_vals_to_master_parts(masterparts,his_parts):
       if "weight" in name or "bias" in name:
         master_dict[name].data = param.data
 
-def eval_and_or_learn_on_one(size_and_prob,parts_file,training,log,base_lr):
+def eval_and_or_learn_on_one(size_and_prob,parts_file,training,log):
 
 
   myparts = torch.load(parts_file,weights_only=False)
@@ -84,32 +84,27 @@ def eval_and_or_learn_on_one(size_and_prob,parts_file,training,log,base_lr):
   
     loss_sum.backward()
     del model
-    loss_dict = {}
-    factors = [1./4., 1., 4.]
-    for factor in factors:
-      these_parts = deepcopy(myparts)
-      these_parts_dict = dict(these_parts.named_parameters())
-      with torch.no_grad():
-        for name,param in myparts.named_parameters():
-          if not param.grad is None:
-            these_parts_dict[name].grad = param.grad
-      params_with_lr = []
-      for i,this_dict in enumerate(these_parts):
-        if i == 0:
-          params_with_lr += [ {"params": param, "lr": base_lr*learning_bonus_factors[name.split(".")[0]]*factor} for name,param in this_dict.named_parameters()]
-        elif not i == 0:
-          params_with_lr += [{"params": param, "lr": base_lr*factor} for _,param in this_dict.named_parameters()]
-      this_optimizer = torch.optim.Adam(params_with_lr)
-      this_optimizer.step()
-      model = IC.LearningModel(*these_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
-      model.eval()
-      with torch.no_grad():#, torch.autocast(device_type="cpu", dtype=torch.bfloat16):
-        (ls,_,_) = model()
-      del model
-        # print(ls,flush=True)
-      loss_dict[factor] = ls.detach().item()
-    print("Losses:",loss_dict,flush=True)
-    opt_lr_factors = (min(loss_dict, key=lambda x: loss_dict[x]),base_lr)
+    # loss_dict = {}
+    # factors = [1./2., 1., 2.]
+    # for factor in factors:
+    #   these_parts = deepcopy(myparts)
+    #   these_parts_dict = dict(these_parts.named_parameters())
+    #   with torch.no_grad():
+    #     for name,param in myparts.named_parameters():
+    #       if not param.grad is None:
+    #         these_parts_dict[name].grad = param.grad
+    #   params_with_lr = []
+    #   this_optimizer = torch.optim.Adam(these_parts.parameters(), lr=base_lr*factor)
+    #   this_optimizer.step()
+    #   model = IC.LearningModel(*these_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
+    #   model.eval()
+    #   with torch.no_grad():#, torch.autocast(device_type="cpu", dtype=torch.bfloat16):
+    #     (ls,_,_) = model()
+    #   del model
+    #     # print(ls,flush=True)
+    #   loss_dict[factor] = ls.detach().item()
+    # print("Losses:",loss_dict,flush=True)
+    # opt_lr_factors = (min(loss_dict, key=lambda x: loss_dict[x]),base_lr)
     # put grad into actual tensor to be returned below (gradients don't go through the Queue)
     for param in myparts.parameters():
       grad = param.grad
@@ -129,17 +124,17 @@ def eval_and_or_learn_on_one(size_and_prob,parts_file,training,log,base_lr):
 
     del model # I am getting desperate!
 
-  return (loss_sum.detach().item(),posOK_sum,negOK_sum,tot_pos,tot_neg, opt_lr_factors)
+  return (loss_sum.detach().item(),posOK_sum,negOK_sum,tot_pos,tot_neg)
 
 def worker(q_in, q_out):
   log = sys.stdout
 
   while True:
-    ((size,probname),parts_file,training,base_lr) = q_in.get()
+    ((size,probname),parts_file,training) = q_in.get()
     
     start_time = time.time()
-    (loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg, opt_lr_factors) = eval_and_or_learn_on_one((size,probname),parts_file,training,log, base_lr)
-    q_out.put(((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,start_time,time.time(),opt_lr_factors))
+    (loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg) = eval_and_or_learn_on_one((size,probname),parts_file,training,log)
+    q_out.put(((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,start_time,time.time()))
 
     libc.malloc_trim(ctypes.c_int(0))
 
@@ -212,39 +207,57 @@ if __name__ == "__main__":
 
   total_count = len(train_data_idx)+len(valid_data_idx)
 
-# calc individual learning rate bonuses:
-# lr(ax) = lr*(1+bonus)
-# After an optimizer step with these learning rates, we evaluate the loss,
-# then we half the learning bonuses and do another optimizer step with these learning rates, evaluate the loss again, ...
-# Thereby, we give rare axioms, maybe only 1 training set in 20000 total, the chance to converge faster.
-# Otherwise with a fixed step size, we have some axioms with occur in almost all training sets, whereby the step size is dictated by them.
-# Applying individual learning rates needs some adaptions, since e.g. 20000 times the default learning rate might be too large.
-# Therefore, we then just try it with the learning bonuses halfed, until we reach a value which lowers the next evaluations loss.    
-  learning_bonus_factors = dict()
-  for ax,val in axiom_counts.items():
-    learning_bonus_factors[str(ax)] = np.sqrt(total_count /len(val))
-  learning_bonus_factors["0"] = 0.0
-
-  chosen_lr = np.ones(100)
-
   print()
   print(time.time() - start_time,"Initialization finished",flush=True)
 
   epoch = 0
+  if len(sys.argv) >= 4:
+   (epoch,master_parts,optimizer) = load_checkpoint(sys.argv[3])
+   print("Loaded checkpoint",sys.argv[3],flush=True)
 
   MAX_EPOCH = HP.MAX_EPOCH
-  
-  if len(sys.argv) >= 4:
-    (epoch,master_parts,optimizer) = load_checkpoint(sys.argv[3])
-    print("Loaded checkpoint",sys.argv[3],flush=True)
+
+  big_rule_52 = [834,1467,1354,267,1095,740,659,332,284,1413]
+  train_data_idx = [train_data_idx[x] for x in range(len(train_data_idx)) if x not in big_rule_52]
+  # train_data_idx = train_data_idx[740:741]
+# greedy_eval_piece834.pt,  rule_52_pars = 186846, rule_52_apps = 20983
+# greedy_eval_piece1467.pt, rule_52_pars = 43164,  rule_52_apps = 11703
+# greedy_eval_piece1083.pt, rule_52_pars = 35834,  rule_52_apps = 3986, 12s
+# greedy_eval_piece284.pt,  rule_52_pars = 45953,  rule_52_apps = 5607, 16s
+# greedy_eval_piece1413.pt, rule_52_pars = 34838,  rule_52_apps = 5390
+# greedy_eval_piece1354.pt, rule_52_pars = 41641,  rule_52_apps = 14337
+# greedy_eval_piece267.pt,  rule_52_pars = 48713,  rule_52_apps = 20100
+# greedy_eval_piece1095.pt, rule_52_pars = 105600, rule_52_apps = 23770
+# greedy_eval_piece332.pt,  rule_52_pars = 118108, rule_52_apps = 24719
+# greedy_eval_piece740.pt,  rule_52_pars = 68701,  rule_52_apps = 17050, 114s
+
+  samples_per_epoch = len(train_data_idx)
+
+  t = epoch*samples_per_epoch # time synchronizes writes to master_parts and the stasts
+  tt = epoch*samples_per_epoch # time synchronizes writes to master_parts and the stasts
+
+  lr = HP.LEARN_RATE
+  if HP.NON_CONSTANT_10_50_250_LR:
+  # LATER NORMALIZE THIS:
+  # it worked well with 256 embedding size
+  # it worked well with 40 processes active at a time!
+  # newly using preferrably n = 128 and 20 processes
+  # also chaging warmup to only 40 epochs and the max LR to 4x nominal (older comments left around - TODO clean up properly!)
+    if tt <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
+      lr = HP.LEARN_RATE*tt/(10*samples_per_epoch)
+      print("Increasing effective LR to",lr,flush=True)
+    else: # hyperbolic cooldown (reach HP.LEARN_RATE at "250 000" = 250 epochs) # newly reaches HP.LEARN_RATE at epoch 160
+      lr = 160*samples_per_epoch/tt*HP.LEARN_RATE
+      print("Dropping effective LR to",lr,flush=True)
   
     if len(sys.argv) >= 5:
       MAX_EPOCH = int(sys.argv[4])
   
     # update the learning rate according to hyperparams
     for param_group in optimizer.param_groups:
-        param_group['lr'] = HP.LEARN_RATE
-    print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
+        param_group['lr'] = lr
+    # print("Set optimizer's (nominal) learning rate to",HP.LEARN_RATE)
+    thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
   else:
     thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
     master_parts = IC.get_initial_model(thax_sign,deriv_arits)
@@ -278,29 +291,6 @@ if __name__ == "__main__":
 
   id = 0 # id synchronizes writes to the worker pipe
 
-  big_rule_52 = [834,1467,1354,267,1095,740,659,332,284,1413]
-  train_data_idx = [train_data_idx[x] for x in range(len(train_data_idx)) if x not in big_rule_52]
-# greedy_eval_piece834.pt,  rule_52_pars = 186846, rule_52_apps = 20983
-# greedy_eval_piece1467.pt, rule_52_pars = 43164,  rule_52_apps = 11703
-# greedy_eval_piece1083.pt, rule_52_pars = 35834,  rule_52_apps = 3986
-# greedy_eval_piece284.pt,  rule_52_pars = 45953,  rule_52_apps = 5607
-# greedy_eval_piece1413.pt, rule_52_pars = 34838,  rule_52_apps = 5390
-# greedy_eval_piece1354.pt, rule_52_pars = 41641,  rule_52_apps = 14337
-# greedy_eval_piece267.pt,  rule_52_pars = 48713,  rule_52_apps = 20100
-# greedy_eval_piece1095.pt, rule_52_pars = 105600, rule_52_apps = 23770
-# greedy_eval_piece332.pt,  rule_52_pars = 118108, rule_52_apps = 24719
-# greedy_eval_piece740.pt,  rule_52_pars = 68701,  rule_52_apps = 17050
-
-  samples_per_epoch = len(train_data_idx)
-
-  t = epoch*samples_per_epoch # time synchronizes writes to master_parts and the stasts
-  tt = epoch*samples_per_epoch # time synchronizes writes to master_parts and the stasts
-
-  lr = HP.LEARN_RATE
-  base_lr = lr
-  print()
-  print("Setting base lr to",base_lr,flush=True)
-  print()
   stats = np.zeros((samples_per_epoch,3)) # loss_sum, posOK_sum, negOK_sum
   weights = np.zeros((samples_per_epoch,2)) # pos_weight, neg_weight
 
@@ -311,9 +301,18 @@ if __name__ == "__main__":
   assert HP.NUMPROCESSES * HP.COMPRESSION_THRESHOLD * 5 // 4 < MAX_CAPACITY
   cur_allocated = 0
 
+  # profiler = torch.profiler.profile(
+  #   activities=[torch.profiler.ProfilerActivity.CPU],
+  #   record_shapes=True,
+  #   profile_memory=True,  
+  #   with_stack=False)
+
+  # profiler.start()
+  
   if HP.ALL_ONCE:
     train_data_idx_orig = deepcopy(train_data_idx)
   while True:
+    # profiler.step()
     while num_active_tasks < MAX_ACTIVE_TASKS and len(train_data_idx) > 0:
       num_active_tasks += 1
       (size,probname) = random.choice(train_data_idx)
@@ -337,13 +336,11 @@ if __name__ == "__main__":
           these_parts[0][thax] = deepcopy(master_parts[0][thax])
         torch.save(these_parts,parts_file)
 
-      q_in.put(((size,probname), parts_file, True, base_lr))
+      q_in.put(((size,probname), parts_file, True))
 
-    ((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,time_start,time_end,opt_lr_factors) = q_out.get() # this may block
+    ((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,time_start,time_end) = q_out.get() # this may block
 
     cur_allocated -= size
-
-    chosen_lr[tt%100] = opt_lr_factors[0]*opt_lr_factors[1]
 
     stats[tt % samples_per_epoch] = (loss_sum,posOK_sum,negOK_sum)
     weights[tt % samples_per_epoch] = (tot_pos,tot_neg)
@@ -370,28 +367,45 @@ if __name__ == "__main__":
     print("Loss:",loss,"+/-",loss_dev,flush=True)
     print("Posrate:",posrate,"+/-",posrate_dev,flush=True)
     print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
+
+    if HP.NON_CONSTANT_10_50_250_LR:
+      # LATER NORMALIZE THIS:
+      # it worked well with 256 embedding size
+      # it worked well with 40 processes active at a time!
+      # newly using preferrably n = 128 and 20 processes
+      # also chaging warmup to only 40 epochs and the max LR to 4x nominal (older comments left around - TODO clean up properly!)
+      if tt <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
+        lr = HP.LEARN_RATE*tt/(10*samples_per_epoch)
+        print("Increasing effective LR to",lr,flush=True)
+      else: # hyperbolic cooldown (reach HP.LEARN_RATE at "250 000" = 250 epochs) # newly reaches HP.LEARN_RATE at epoch 160
+        lr = 160*samples_per_epoch/tt*HP.LEARN_RATE
+        print("Dropping effective LR to",lr,flush=True)
   
     num_active_tasks -= 1
     his_parts = torch.load(parts_file,weights_only=False)
     copy_vals_to_his_parts(master_parts,his_parts)
-    params_with_lr = []
-    for i,this_dict in enumerate(his_parts):
-      if i == 0:
-        params_with_lr += [{"params": param, "lr": opt_lr_factors[0]*opt_lr_factors[1]*learning_bonus_factors[name.split(".")[0]]} for name,param in this_dict.named_parameters()]
-      elif not i == 0:
-        params_with_lr += [{"params": param, "lr": opt_lr_factors[0]*opt_lr_factors[1]} for _,param in this_dict.named_parameters()]
-    this_optimizer = torch.optim.Adam(params_with_lr)
+    this_optimizer = torch.optim.Adam(his_parts.parameters(), lr=lr)
     this_optimizer.step()
     copy_vals_to_master_parts(master_parts,his_parts)
       
     print(time.time() - start_time,"optimizer.step() and copying finished for",probname, flush=True)
 
-    if tt % 100 == 0:
-      print(chosen_lr,flush=True)
-      base_lr = np.mean(chosen_lr)
-      print()
-      print("Setting base lr to",base_lr,flush=True)
-      print()
+
+            
+    # if tt % 100 == 0:
+    #   if old_loss_mean_for_lr > 0:
+    #     print()
+    #     print("Losses old/new", old_loss_mean_for_lr, np.mean(losses_for_lr),flush=True) 
+    #     if np.mean(losses_for_lr) > old_loss_mean_for_lr:
+    #       base_lr = base_lr/2.
+    #     else:
+    #       base_lr = np.mean(np.mean(chosen_lr)/2. + base_lr/2.)
+    #       old_loss_mean_for_lr = np.mean(losses_for_lr)
+    #   else:
+    #     base_lr = np.mean(np.mean(chosen_lr)/2. + base_lr/2.)
+    #   print()
+    #   print("Setting base lr to",base_lr,flush=True)
+    #   print()
 
     modulus = tt % samples_per_epoch
     print("Modulus =",modulus,flush=True)
@@ -456,3 +470,8 @@ if __name__ == "__main__":
   # a final "cleanup"
   for p in my_processes:
     p.kill()
+
+  # profiler.stop() 
+
+# Print results
+  # print(profiler.key_averages().table(sort_by="cpu_time_total", row_limit=100))

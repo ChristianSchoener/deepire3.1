@@ -88,21 +88,20 @@ class CatAndNonLinearBinary(torch.nn.Module):
     
     self.arit = arit
     
-    self.first = torch.nn.Linear(arit*dim,dim*HP.BOTTLENECK_EXPANSION_RATIO)
-    self.second = torch.nn.Linear(dim*HP.BOTTLENECK_EXPANSION_RATIO,dim)
+    self.first = torch.nn.Linear(arit*dim,dim*2)
+    self.second = torch.nn.Linear(dim*2,dim)
     
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
-      self.epilog = torch.nn.Identity(dim)
-  # @torch.jit.script_method
+      self.epilog = torch.nn.Identity(dim) 
+
   def forward_impl_stack(self, args : Tensor) -> Tensor:
-    x = args
     if self.arit == 2:
-      assert args.shape[0] % 2 == 0
-      x = args.view(args.shape[0] // 2, -1)
-    return self.epilog(self.second(self.nonlin(self.first(self.prolog(x)))))
-  # @torch.jit.script_method
+      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(args.shape[0] // 2, -1))))))
+    else:
+      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
+
   def forward(self, args : Tensor) -> Tensor:
     return self.forward_impl_stack(args)
 
@@ -129,47 +128,154 @@ class CatAndNonLinearMultiary(torch.nn.Module):
       self.epilog = torch.nn.LayerNorm(dim)
     else:
       self.epilog = torch.nn.Identity(dim) 
-  # def __getstate__(self):
-  #   return self.__dict__.copy()
-  # @torch.jit.script_method
+
   def forward_impl_list(self, args : Tensor) -> Tensor:
     return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
-  # @torch.jit.script_method
-  def forward(self, args : Tensor, limits : Tensor) -> Tensor:
-    lengths = torch.diff(limits)
-    the_len = lengths.numel()
+  
+  # def forward(self, args : Tensor) -> Tensor:
+  #   x = args
+  #   length = x.size(0)
+  #   limit = torch.tensor([0,length])
 
-    full_lengths = 2*lengths - 1
-    start_inds = torch.cat((torch.tensor([0]), full_lengths[:-1].cumsum(dim=0)))
-    end_inds = start_inds + 2 * (lengths // 2)
-    fill_start_inds = start_inds + lengths
-    fill_end_inds = fill_start_inds + (lengths // 2)
+  #   select_length = 2 * (length // 2)
+  #   fill_length = select_length // 2
+  #   fill_limit = torch.tensor([0,fill_length])
 
-    full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
+  #   end_ind = select_length
 
-    for i in range(the_len):
-      full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
+  #   while length > 1:
+  #     if limit[1] > end_ind:
+  #       # print(torch.cat((x[end_ind], self.forward_impl_list(x[:select_length].view(select_length // 2, -1))[torch.arange(fill_limit[0],fill_limit[1])].ravel())).view(fill_length+1,-1),flush=True)
+  #       x[:fill_length+1] = torch.cat((x[end_ind], self.forward_impl_list(x[:select_length].view(select_length // 2, -1))[torch.arange(fill_limit[0],fill_limit[1])].ravel())).view(fill_length+1,-1)
+  #     else:
+  #       x[:fill_length] = self.forward_impl_list(x[:select_length].view(select_length // 2, -1))[torch.arange(fill_limit[0],fill_limit[1])]
 
-    while max(lengths) > 1:
-      mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
+  #     length = (length + 1) // 2
+  #     limit = torch.tensor([0, length])
+
+  #     select_length = 2 * (length // 2)
+  #     fill_length = select_length // 2
+  #     fill_limit = torch.tensor([0, fill_length])
+
+  #     end_ind = 2 * (length // 2)
+  #     # print(x,flush=True)
+     
+  #   return x[0]
+
+  def forward(self, args : Tensor) -> Tensor: # 19s
+    x = args
+    length = x.size(0)
+
+    full_length = 2*length - 1
+    start_ind = 0
+    end_ind = 2 * (length // 2)
+    fill_start_ind = length
+    fill_end_ind = fill_start_ind + (length // 2)
+
+    full_sized = torch.zeros(full_length, HP.EMBED_SIZE)
+
+    full_sized[:length] = x
+
+    while length > 1:
+      mask = torch.zeros(full_length, dtype=torch.bool)
       fill_mask = torch.zeros_like(mask)
 
-      for i in range(the_len):
-        mask[start_inds[i]:end_inds[i]] = True
-        fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
+      mask[start_ind:end_ind] = True
+      fill_mask[fill_start_ind:fill_end_ind] = True
 
       how_much = mask.sum().item()  # Convert to Python int
       full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
 
-      lengths = (lengths + 1) // 2
-      start_inds = end_inds
-      end_inds = start_inds + 2 * (lengths // 2)
-      fill_start_inds = start_inds + lengths
-      fill_end_inds = fill_start_inds + (lengths // 2)
+      length = (length + 1) // 2
+      start_ind = end_ind
+      end_ind = start_ind + 2 * (length // 2)
+      fill_start_ind = start_ind + length
+      fill_end_ind = fill_start_ind + (length // 2)
      
-    mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
-    mask[start_inds] = True
+    mask = torch.zeros(full_length, dtype=torch.bool)
+    mask[start_ind] = True
     return full_sized[mask]
+
+  # def forward(self, args : Tensor) -> Tensor: # 23s
+  #   x = args
+  #   while x.size(0) > 1:
+  #     x = torch.cat((x[2:],self.forward_impl_list(x[:2].view(1,-1))))
+
+  #   return x
+  
+  # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
+  #   lengths = torch.diff(limits)
+  #   the_len = lengths.numel()
+
+  #   full_lengths = 2*lengths - 1
+  #   start_inds = torch.cat((torch.tensor([0]), full_lengths[:-1].cumsum(dim=0)))
+  #   end_inds = start_inds + 2 * (lengths // 2)
+  #   fill_start_inds = start_inds + lengths
+  #   fill_end_inds = fill_start_inds + (lengths // 2)
+
+  #   full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
+
+  #   for i in range(the_len):
+  #     full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
+
+  #   while max(lengths) > 1:
+  #     mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
+  #     fill_mask = torch.zeros_like(mask)
+
+  #     for i in range(the_len):
+  #       mask[start_inds[i]:end_inds[i]] = True
+  #       fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
+
+  #     how_much = mask.sum().item()  # Convert to Python int
+  #     full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
+
+  #     lengths = (lengths + 1) // 2
+  #     start_inds = end_inds
+  #     end_inds = start_inds + 2 * (lengths // 2)
+  #     fill_start_inds = start_inds + lengths
+  #     fill_end_inds = fill_start_inds + (lengths // 2)
+     
+  #   mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
+  #   mask[start_inds] = True
+  #   return full_sized[mask]
+
+  # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
+  #   lengths = torch.diff(limits)
+  #   the_len = lengths.numel()
+
+  #   select_lengths = 2 * (lengths // 2)
+  #   fill_lengths = select_lengths // 2
+  #   fill_limits = torch.cat((torch.tensor([0]), fill_lengths.cumsum(dim=0)))
+
+  #   end_inds = limits[:-1] + select_lengths
+
+  #   while torch.max(lengths) > 1:
+  #     mask = torch.zeros(args.size(0), dtype=torch.bool)
+
+  #     for i in torch.arange(the_len):
+  #       mask[torch.arange(limits[i],end_inds[i])] = True
+
+  #     how_much = mask.sum().item()  # Convert to Python int
+  #     tmp = self.forward_impl_list(args[mask].view(how_much // 2, -1))
+  #     pos = torch.tensor(0, dtype=torch.int32)
+  #     for i in torch.arange(the_len):
+  #       if limits[i+1] > end_inds[i]:
+  #         args[pos] = args[end_inds[i]]
+  #         pos += 1
+  #       if fill_limits[i+1] > fill_limits[i]:
+  #         args[torch.arange(pos,pos+fill_lengths[i])] = tmp[torch.arange(fill_limits[i],fill_limits[i+1])]
+  #         pos += fill_lengths[i]
+
+  #     lengths = (lengths + 1) // 2
+  #     limits = torch.cat((torch.tensor([0]), lengths.cumsum(dim=0)))
+
+  #     select_lengths = 2 * (lengths // 2)
+  #     fill_lengths = select_lengths // 2
+  #     fill_limits = torch.cat((torch.tensor([0]), fill_lengths.cumsum(dim=0)))
+
+  #     end_inds = limits[:-1] + 2 * (lengths // 2)
+     
+  #   return args[:the_len]
 
 def get_initial_model(thax_sign,deriv_arits):
   init_embeds = torch.nn.ModuleDict()
@@ -461,22 +567,14 @@ class LearningModel(torch.nn.Module):
     self.deriv_arits = deriv_arits
 
     self.ids, self.rule_steps, self.pars_ind_steps, self.ind_start_inds, self.pars_ind_start_inds, self.pars_ind_start_inds_52 = greedy_eval_scheme
-    self.vectors = torch.zeros(len(self.ids),HP.EMBED_SIZE)
-  
-    self.thax_sign = set()
-    for _,(thax,_) in init:
-      self.thax_sign.add(thax)
 
-    self.init_embeds = torch.nn.ModuleDict()
-    for thax in self.thax_sign:
-      self.init_embeds[str(thax)] = init_embeds[str(thax)]
+    self.vectors = torch.zeros(len(self.ids),HP.EMBED_SIZE)
+    self.vectors[:len(init)] = torch.stack([init_embeds[str(thax)]() for _,(thax,_) in init])
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
     self.training = training
-
-    self.init = init
 
     self.pos_vals = torch.zeros(self.ids.numel())
     self.neg_vals = torch.zeros(self.ids.numel())
@@ -510,8 +608,6 @@ class LearningModel(torch.nn.Module):
 
     contrib = self.criterion(val,target)
 
-    # print(torch.any(torch.isnan(self.vectors)),torch.any(torch.isnan(val)),torch.any(torch.isnan(pos)),torch.any(torch.isnan(neg)),torch.any(torch.isnan(target)),torch.any(torch.isnan(contrib)),flush=True)
-
     return sum((p + n) * c for p, n, c in zip(pos, neg, contrib))
 
   # Construct the whole graph and return its loss
@@ -523,23 +619,26 @@ class LearningModel(torch.nn.Module):
     self.negOK = 0.0
     loss = torch.zeros(1)
 
-    self.vectors[:len(self.init)] = torch.stack([self.init_embeds[str(thax)]() for _, (thax, _) in self.init])
-
-    # if torch.any(torch.isnan(self.vectors)):
-      # print("CORRUPTION",-1,flush=True)
     rule_52_start = torch.tensor(0,dtype=torch.int32)
     for step in range(len(self.rule_steps)):
       if self.rule_steps[step] == 52:
         rule_52_end = rule_52_start + self.ind_start_inds[step+1]-self.ind_start_inds[step]+1
-        self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]], self.pars_ind_start_inds_52[torch.arange(rule_52_start,rule_52_end)])
+        for ind in torch.arange(rule_52_start,rule_52_end-1):
+          self.vectors[self.ind_start_inds[step]+ind-rule_52_start] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[self.pars_ind_start_inds[step]+self.pars_ind_start_inds_52[ind:ind+1]]])
         rule_52_start = rule_52_end
       else:
         self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]])
-      # if torch.any(torch.isnan(self.vectors)):
-        # print("CORRUPTION",step,self.rule_steps[step],flush=True)
+
+    # rule_52_start = torch.tensor(0,dtype=torch.int32)
+    # for step in range(len(self.rule_steps)):
+    #   if self.rule_steps[step] == 52:
+    #     rule_52_end = rule_52_start + self.ind_start_inds[step+1]-self.ind_start_inds[step]+1
+    #     self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]], self.pars_ind_start_inds_52[torch.arange(rule_52_start,rule_52_end)])
+    #     rule_52_start = rule_52_end
+    #   else:
+    #     self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]])
         
     loss = self.contribute()
-    # loss = self.vectors[:100].sum()
 
     return (loss,self.posOK,self.negOK)
 
