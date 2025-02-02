@@ -56,128 +56,90 @@ def copy_vals_to_master_parts(masterparts,his_parts):
       if "weight" in name or "bias" in name:
         master_dict[name].data = param.data
 
-def eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log,this_lr):
-  loss_sum_list = []
-  posOK_sum_list = []
-  negOK_sum_list = []
-  tot_pos_list = []
-  tot_neg_list = []
-  opt_lr_factors = []
+def eval_and_or_learn_on_one(size_and_prob,parts_file,training,log,base_lr):
 
-  for parts_file in parts_file_list:
-    myparts = torch.load(parts_file,weights_only=False)
-      # not sure if there is any after load -- TODO: check if necessary
+
+  myparts = torch.load(parts_file,weights_only=False)
+    # not sure if there is any after load -- TODO: check if necessary
+  for param in myparts.parameters():
+    # taken from Optmizier zero_grad, roughly
+    with torch.no_grad():
+      if param.grad is not None:
+        param.grad.zero_()
+    param.requires_grad = True
+
+  if training:
+    _,prob = size_and_prob
+    data = torch.load("{}/pieces/{}".format(sys.argv[1],prob),weights_only=False)
+    (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
+    greedy_eval_scheme = torch.load("{}/pieces/greedy_eval_{}".format(sys.argv[1],prob),weights_only=False)
+
+    if HP.SWAPOUT > 0.0:
+      for i,(id,(thax,sine)) in enumerate(init):
+        if np.random.random() < HP.SWAPOUT/len(axiom_counts[thax]):
+          init[i] = (id,(0,sine))
+    model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
+    model.train()
+    (loss_sum,posOK_sum,negOK_sum) = model()
+  
+    loss_sum.backward()
+    del model
+    loss_dict = {}
+    factors = [1./4., 1., 4.]
+    for factor in factors:
+      these_parts = deepcopy(myparts)
+      these_parts_dict = dict(these_parts.named_parameters())
+      with torch.no_grad():
+        for name,param in myparts.named_parameters():
+          if not param.grad is None:
+            these_parts_dict[name].grad = param.grad
+      params_with_lr = []
+      for i,this_dict in enumerate(these_parts):
+        if i == 0:
+          params_with_lr += [ {"params": param, "lr": base_lr*learning_bonus_factors[name.split(".")[0]]*factor} for name,param in this_dict.named_parameters()]
+        elif not i == 0:
+          params_with_lr += [{"params": param, "lr": base_lr*factor} for _,param in this_dict.named_parameters()]
+      this_optimizer = torch.optim.Adam(params_with_lr)
+      this_optimizer.step()
+      model = IC.LearningModel(*these_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
+      model.eval()
+      with torch.no_grad():#, torch.autocast(device_type="cpu", dtype=torch.bfloat16):
+        (ls,_,_) = model()
+      del model
+        # print(ls,flush=True)
+      loss_dict[factor] = ls.detach().item()
+    print("Losses:",loss_dict,flush=True)
+    opt_lr_factors = (min(loss_dict, key=lambda x: loss_dict[x]),base_lr)
+    # put grad into actual tensor to be returned below (gradients don't go through the Queue)
     for param in myparts.parameters():
-      # taken from Optmizier zero_grad, roughly
+      grad = param.grad
+      param.requires_grad = False # to allow the in-place operation just below
+      if grad is not None:
+        param.copy_(grad)
+      else:
+        param.zero_()
+    torch.save(myparts,parts_file)
+  
+  else:
+    with torch.no_grad():
+      model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, False)
+      model.eval()
       with torch.no_grad():
-        if param.grad is not None:
-          param.grad.zero_()
-      param.requires_grad = True
-
-    if training:
-      for _,prob in size_and_prob_list:
-        data = torch.load("{}/pieces/{}".format(sys.argv[1],prob),weights_only=False)
-        (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
-        greedy_eval_scheme = torch.load("{}/pieces/greedy_eval_{}".format(sys.argv[1],prob),weights_only=False)
-
-        if HP.SWAPOUT > 0.0:
-          for i,(id,(thax,sine)) in enumerate(init):
-            if np.random.random() < HP.SWAPOUT/len(axiom_counts[thax]):
-              init[i] = (id,(0,sine))
-          # print("Vor __init__:",torch.any(torch.isnan(torch.stack([myparts[0][x]() for x in myparts[0]]))),flush=True)
-        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
-        model.train()
         (loss_sum,posOK_sum,negOK_sum) = model()
-        # print("Her02",flush=True)
-      
-        loss_sum.backward()
-        # print("Her03",flush=True)
-        loss_sum_list.append(loss_sum.detach().item())
-        posOK_sum_list.append(posOK_sum)
-        negOK_sum_list.append(negOK_sum)
-        tot_pos_list.append(tot_pos)
-        tot_neg_list.append(tot_neg)
-        del model
-        # print("Here",flush=True)
-        loss_dict = {}
-        factors = [1./4., 1., 4.]
-        # factors2_low = [1./32., 1./16., 1./8., 1./4.]
-        # factors2_high = [4., 8., 100., 1000.]
-        # these_factors = factors
-        # while True:
-        for factor in factors:
-          these_parts = deepcopy(myparts)
-          these_parts_dict = dict(these_parts.named_parameters())
-          with torch.no_grad():
-            for name,param in myparts.named_parameters():
-              if not param.grad is None:
-                these_parts_dict[name].grad = param.grad
-          params_with_lr = []
-          for i,this_dict in enumerate(these_parts):
-            if i == 0:
-              params_with_lr += [ {"params": param, "lr": this_lr*(1.+learning_bonus_factors[name.split(".")[0]]*factor)} for name,param in this_dict.named_parameters()]
-            elif not i == 0:
-              params_with_lr += [{"params": param, "lr": this_lr} for _,param in this_dict.named_parameters()]
-          this_optimizer = torch.optim.Adam(params_with_lr)
-          this_optimizer.step()
-          model = IC.LearningModel(*these_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, True)
-          model.eval()
-          with torch.no_grad():#, torch.autocast(device_type="cpu", dtype=torch.bfloat16):
-            (ls,_,_) = model()
-          del model
-            # print(ls,flush=True)
-          loss_dict[factor] = ls.detach().item()
-          # if len(loss_dict.keys()) > 3:
-          #   break
-          # else:
-          #   the_min = min(loss_dict, key=lambda x: loss_dict[x])
-          #   if the_min > 1.0:
-          #     these_factors = factors2_high
-          #   elif the_min < 1.0:
-          #     these_factors = factors2_low
-          #   else:
-          #     break
-        # print("Losses:",loss_dict,flush=True)
-        # opt_lr_factors.append((1,this_lr))
-        opt_lr_factors.append((min(loss_dict, key=lambda x: loss_dict[x]),this_lr))
-      # put grad into actual tensor to be returned below (gradients don't go through the Queue)
-      for param in myparts.parameters():
-        grad = param.grad
-        param.requires_grad = False # to allow the in-place operation just below
-        if grad is not None:
-          param.copy_(grad)
-        else:
-          param.zero_()
-      # print("Here2",flush=True)
-      torch.save(myparts,parts_file)
-      # print("Here3",flush=True)
-    
-    else:
-      with torch.no_grad():
-        model = IC.LearningModel(*myparts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, deriv_arits, greedy_eval_scheme, False, False)
-        model.eval()
-        with torch.no_grad():
-          (loss_sum,posOK_sum,negOK_sum) = model()
 
-        loss_sum_list.append(loss_sum[0].detach().item())
-        posOK_sum_list.append(posOK_sum)
-        negOK_sum_list.append(negOK_sum)
-        tot_pos_list.append(tot_pos)
-        tot_neg_list.append(tot_neg)
+    del model # I am getting desperate!
 
-      del model # I am getting desperate!
-
-    return (loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list, opt_lr_factors)
+  return (loss_sum.detach().item(),posOK_sum,negOK_sum,tot_pos,tot_neg, opt_lr_factors)
 
 def worker(q_in, q_out):
   log = sys.stdout
 
   while True:
-    (size_and_prob_list,parts_file_list,training,lr) = q_in.get()
+    ((size,probname),parts_file,training,base_lr) = q_in.get()
     
     start_time = time.time()
-    (loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list, opt_lr_factors) = eval_and_or_learn_on_one(size_and_prob_list,parts_file_list,training,log, lr)
-    q_out.put((size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file_list,start_time,time.time(),opt_lr_factors))
+    (loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg, opt_lr_factors) = eval_and_or_learn_on_one((size,probname),parts_file,training,log, base_lr)
+    q_out.put(((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,start_time,time.time(),opt_lr_factors))
 
     libc.malloc_trim(ctypes.c_int(0))
 
@@ -260,8 +222,10 @@ if __name__ == "__main__":
 # Therefore, we then just try it with the learning bonuses halfed, until we reach a value which lowers the next evaluations loss.    
   learning_bonus_factors = dict()
   for ax,val in axiom_counts.items():
-    learning_bonus_factors[str(ax)] = np.sqrt((total_count - len(val))/len(val))
+    learning_bonus_factors[str(ax)] = np.sqrt(total_count /len(val))
   learning_bonus_factors["0"] = 0.0
+
+  chosen_lr = np.ones(100)
 
   print()
   print(time.time() - start_time,"Initialization finished",flush=True)
@@ -333,7 +297,10 @@ if __name__ == "__main__":
   tt = epoch*samples_per_epoch # time synchronizes writes to master_parts and the stasts
 
   lr = HP.LEARN_RATE
-
+  base_lr = lr
+  print()
+  print("Setting base lr to",base_lr,flush=True)
+  print()
   stats = np.zeros((samples_per_epoch,3)) # loss_sum, posOK_sum, negOK_sum
   weights = np.zeros((samples_per_epoch,2)) # pos_weight, neg_weight
 
@@ -349,55 +316,38 @@ if __name__ == "__main__":
   while True:
     while num_active_tasks < MAX_ACTIVE_TASKS and len(train_data_idx) > 0:
       num_active_tasks += 1
-      pieces_active_task = 0
-      size_and_prob_list = []
-      while len(train_data_idx) > 0 and (pieces_active_task < HP.NUM_PIECES_SIMULTANEOUS or sum([x for x,_ in size_and_prob_list]) < HP.WORKER_LOAD):
-        (size,probname) = random.choice(train_data_idx)
-        size_and_prob_list.append((size,probname))
-        pieces_active_task += 1
-        if HP.ALL_ONCE:
-          train_data_idx  = list(set(train_data_idx).difference({(size,probname)}))
+      (size,probname) = random.choice(train_data_idx)
+      if HP.ALL_ONCE:
+        train_data_idx  = list(set(train_data_idx).difference({(size,probname)}))
         
-      print("Problem(s):",[y for _,y in size_and_prob_list],"of size(s)", [x for x,_ in size_and_prob_list],"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
-      # id += 1
-      # parts_file = "{}/parts_{}_{}.pt".format(HP.SCRATCH,os.getpid(),id)
-      parts_file_list = []
-      for size,prob in size_and_prob_list:
-        parts_file = sys.argv[1] + "/pieces/" + prob.split(".")[0] + "_parts.pt"
-        parts_file_list.append(parts_file)
-        these_parts = torch.nn.ModuleList()
-        these_parts.append(torch.nn.ModuleDict())
-        with torch.no_grad():
-          for i in range(1,len(master_parts)):
-            these_parts.append(deepcopy(master_parts[i]))
-          data = torch.load("{}/pieces/{}".format(sys.argv[1],prob),weights_only=False)
-          (init,_,_,_,_,_,_,_) = data
-          this_init = set()
-          for _,(thax,_) in init:
-            this_init.add(str(thax))
-          this_init.add("0")
-          for thax in this_init:
-            these_parts[0][thax] = deepcopy(master_parts[0][thax])
-          torch.save(these_parts,parts_file)
-        t += 1
-        if HP.NON_CONSTANT_10_50_250_LR:
-          if t <= 40*samples_per_epoch: # initial warmup: take "50 000" optimizer steps (= 50 epochs) to reach 5*HP.LEARN_RATE (in 10 epochs, HP.LEARN_RATE has been reached and then it's gradually overshot)
-            lr = HP.LEARN_RATE*t/(10*samples_per_epoch)
-            print("Increasing effective LR to",lr,flush=True)
-          else: # hyperbolic cooldown (reach HP.LEARN_RATE at "250 000" = 250 epochs) # newly reaches HP.LEARN_RATE at epoch 160
-            lr = 160*samples_per_epoch/t*HP.LEARN_RATE
-            print("Dropping effective LR to",lr,flush=True)
+      print("Problem:",probname,"of size", size,"loaded.",len(train_data_idx),"pieces remaining for this epoch.")
+      parts_file = sys.argv[1] + "/pieces/" + probname.split(".")[0] + "_parts.pt"
+      these_parts = torch.nn.ModuleList()
+      these_parts.append(torch.nn.ModuleDict())
+      with torch.no_grad():
+        for i in range(1,len(master_parts)):
+          these_parts.append(deepcopy(master_parts[i]))
+        data = torch.load("{}/pieces/{}".format(sys.argv[1],probname),weights_only=False)
+        (init,_,_,_,_,_,_,_) = data
+        this_init = set()
+        for _,(thax,_) in init:
+          this_init.add(str(thax))
+        this_init.add("0")
+        for thax in this_init:
+          these_parts[0][thax] = deepcopy(master_parts[0][thax])
+        torch.save(these_parts,parts_file)
 
-      q_in.put((size_and_prob_list, parts_file_list, True,lr))
+      q_in.put(((size,probname), parts_file, True, base_lr))
 
-    (size_and_prob_list,loss_sum_list,posOK_sum_list,negOK_sum_list,tot_pos_list,tot_neg_list,parts_file_list,time_start,time_end,opt_lr_factors) = q_out.get() # this may block
+    ((size,probname),loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,parts_file,time_start,time_end,opt_lr_factors) = q_out.get() # this may block
 
-    cur_allocated -= sum([size for size,_ in size_and_prob_list]) 
+    cur_allocated -= size
 
-    for i in range(len(size_and_prob_list)):
-      stats[tt % samples_per_epoch] = (loss_sum_list[i],posOK_sum_list[i],negOK_sum_list[i])
-      weights[tt % samples_per_epoch] = (tot_pos_list[i],tot_neg_list[i])
-      tt += 1
+    chosen_lr[tt%100] = opt_lr_factors[0]*opt_lr_factors[1]
+
+    stats[tt % samples_per_epoch] = (loss_sum,posOK_sum,negOK_sum)
+    weights[tt % samples_per_epoch] = (tot_pos,tot_neg)
+    tt += 1
 
     # sum-up stats over the "samples_per_epoch" entries (retain the var name):
     loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
@@ -422,22 +372,26 @@ if __name__ == "__main__":
     print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
   
     num_active_tasks -= 1
-    for num,parts_file in enumerate(parts_file_list):
-      his_parts = torch.load(parts_file,weights_only=False)
-      copy_vals_to_his_parts(master_parts,his_parts)
-      params_with_lr = []
-      # print("Vor Update:",torch.any(torch.isnan(torch.stack([his_parts[0][x]() for x in his_parts[0]]))),torch.any(torch.isnan(torch.stack([master_parts[0][x]() for x in master_parts[0]]))),flush=True)
-      for i,this_dict in enumerate(his_parts):
-        if i == 0:
-          params_with_lr += [ {"params": param, "lr": opt_lr_factors[num][1]*(1.+learning_bonus_factors[name.split(".")[0]]*opt_lr_factors[num][0])} for name,param in this_dict.named_parameters()]
-        elif not i == 0:
-          params_with_lr += [{"params": param, "lr": opt_lr_factors[num][1]} for _,param in this_dict.named_parameters()]
-      this_optimizer = torch.optim.Adam(params_with_lr)
-      this_optimizer.step()
-      copy_vals_to_master_parts(master_parts,his_parts)
-      # print("Nach Update:",torch.any(torch.isnan(torch.stack([his_parts[0][x]() for x in his_parts[0]]))),torch.any(torch.isnan(torch.stack([master_parts[0][x]() for x in master_parts[0]]))),flush=True)
+    his_parts = torch.load(parts_file,weights_only=False)
+    copy_vals_to_his_parts(master_parts,his_parts)
+    params_with_lr = []
+    for i,this_dict in enumerate(his_parts):
+      if i == 0:
+        params_with_lr += [{"params": param, "lr": opt_lr_factors[0]*opt_lr_factors[1]*learning_bonus_factors[name.split(".")[0]]} for name,param in this_dict.named_parameters()]
+      elif not i == 0:
+        params_with_lr += [{"params": param, "lr": opt_lr_factors[0]*opt_lr_factors[1]} for _,param in this_dict.named_parameters()]
+    this_optimizer = torch.optim.Adam(params_with_lr)
+    this_optimizer.step()
+    copy_vals_to_master_parts(master_parts,his_parts)
       
-    print(time.time() - start_time,"optimizer.step() and copying finished for",[y for _,y in size_and_prob_list], flush=True)
+    print(time.time() - start_time,"optimizer.step() and copying finished for",probname, flush=True)
+
+    if tt % 100 == 0:
+      print(chosen_lr,flush=True)
+      base_lr = np.mean(chosen_lr)
+      print()
+      print("Setting base lr to",base_lr,flush=True)
+      print()
 
     modulus = tt % samples_per_epoch
     print("Modulus =",modulus,flush=True)
