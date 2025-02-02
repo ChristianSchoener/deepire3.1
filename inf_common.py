@@ -163,28 +163,19 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #   return x[0]
 
   def forward(self, args : Tensor) -> Tensor: # 19s
-    x = args
-    length = x.size(0)
+    length = args.size(0)
 
-    full_length = 2*length - 1
     start_ind = 0
     end_ind = 2 * (length // 2)
     fill_start_ind = length
     fill_end_ind = fill_start_ind + (length // 2)
 
-    full_sized = torch.zeros(full_length, HP.EMBED_SIZE)
+    full_sized = torch.zeros(2*length - 1, HP.EMBED_SIZE)
 
-    full_sized[:length] = x
+    full_sized[:length] = args
 
     while length > 1:
-      mask = torch.zeros(full_length, dtype=torch.bool)
-      fill_mask = torch.zeros_like(mask)
-
-      mask[start_ind:end_ind] = True
-      fill_mask[fill_start_ind:fill_end_ind] = True
-
-      how_much = mask.sum().item()  # Convert to Python int
-      full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
+      full_sized[fill_start_ind:fill_end_ind] = self.forward_impl_list(full_sized[start_ind:end_ind].view(length // 2, -1))
 
       length = (length + 1) // 2
       start_ind = end_ind
@@ -192,9 +183,7 @@ class CatAndNonLinearMultiary(torch.nn.Module):
       fill_start_ind = start_ind + length
       fill_end_ind = fill_start_ind + (length // 2)
      
-    mask = torch.zeros(full_length, dtype=torch.bool)
-    mask[start_ind] = True
-    return full_sized[mask]
+    return full_sized[start_ind]
 
   # def forward(self, args : Tensor) -> Tensor: # 23s
   #   x = args
