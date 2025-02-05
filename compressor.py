@@ -349,8 +349,10 @@ if __name__ == "__main__":
   print()
 
   print("Compressing every individual problem for itself first.")
-  for i,prob in enumerate(prob_data_list):
-    prob_data_list[i] = IC.compress_prob_data([prob])
+  for i,prob in enumerate(train_data_list):
+    train_data_list[i] = IC.compress_prob_data([prob])
+  for i,prob in enumerate(valid_data_list):
+    valid_data_list[i] = IC.compress_prob_data([prob])
   print("Done.")
 
   print("Generating evaluation scheme, saving pieces and indices")
