@@ -40,9 +40,9 @@ ONLY_GENERATING_PARENTS = False
 # this needs to be done before/during the compression phase
 # note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
-MAX_USED_AXIOM_CNT = 50000
+MAX_USED_AXIOM_CNT = 500
 
-COMPRESSION_THRESHOLD = 20000
+COMPRESSION_THRESHOLD = 1e6
 
 VALID_SPLIT_RATIO = 0.9
 
@@ -85,7 +85,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 12
+NUMPROCESSES = 1
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -98,11 +98,11 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
-SWAPOUT = 0.25
+SWAPOUT = 0.0
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
-NON_CONSTANT_10_50_250_LR = True
+NON_CONSTANT_10_50_250_LR = False
 
 # Corresponds to L2 regularization
 WEIGHT_DECAY = 0.0
@@ -136,3 +136,9 @@ NUM_PIECES_SIMULTANEOUS = 1
 WORKER_LOAD = 1
 
 GLOBAL_TOT_NEG_TOT_POS_RATIO = 1.0
+
+FOCAL_LOSS = False
+
+MAX_RULE_52_LENGTH = 30000
+
+SAMPLES = 50

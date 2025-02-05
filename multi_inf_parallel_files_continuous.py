@@ -72,7 +72,7 @@ def eval_and_or_learn_on_one(these_problems,training,master_parts,start_time):
       #   for ithax in enumerate(thax):
       #     if np.random.random() < HP.SWAPOUT/len(axiom_counts[thax]):
       #       init[i] = (id,0)
-      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, True)
+      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, True, True)
       # model = IC.LearningModel(*master_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, greedy_eval_scheme, False, True)
       model.train()
       print(time.time() - start_time,"Starting train for",probname,flush=True)
@@ -84,7 +84,7 @@ def eval_and_or_learn_on_one(these_problems,training,master_parts,start_time):
     print(time.time() - start_time,"Finished backward propagation for problems of combined size",sum([size for size,_ in these_problems]),flush=True)
   else:
     with torch.no_grad():
-      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, False)
+      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, False, True)
       model.eval()
       with torch.no_grad():
         (losses,posOK_sum,negOK_sum) = model()

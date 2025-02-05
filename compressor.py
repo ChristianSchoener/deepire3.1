@@ -348,10 +348,12 @@ if __name__ == "__main__":
   print("shuffled and ensured all revealed thax are in a training problem.")
   print()
 
-  train_data_list = compress_to_treshold(train_data_list,treshold = HP.COMPRESSION_THRESHOLD)
-  valid_data_list = compress_to_treshold(valid_data_list,treshold = HP.COMPRESSION_THRESHOLD)
+  print("Compressing every individual problem for itself first.")
+  for i,prob in enumerate(prob_data_list):
+    prob_data_list[i] = IC.compress_prob_data([prob])
+  print("Done.")
 
-  print("Saving pieces")
+  print("Generating evaluation scheme, saving pieces and indices")
   dir = "{}/pieces".format(sys.argv[1])
   try:
     os.mkdir(dir)
@@ -359,21 +361,22 @@ if __name__ == "__main__":
     if exc.errno != errno.EEXIST:
         raise
     pass
-  for i,(metainfo,rest) in enumerate(train_data_list):
-    piece_name = "piece{}.pt".format(i)
-    torch.save(greedy(rest), "{}/{}".format(dir,piece_name))
+
+  valid_data_list = compress_to_treshold(valid_data_list,treshold = HP.COMPRESSION_THRESHOLD)
   for i,(metainfo,rest) in enumerate(valid_data_list):
     piece_name = "piece{}.pt".format(i+len(train_data_list))
     torch.save(greedy(rest), "{}/{}".format(dir,piece_name))
-  print("Done")
-
-  train_data_list = [(train_data_list[i][0][2],"piece{}.pt".format(i)) for i in range(len(train_data_list))]
   valid_data_list = [(valid_data_list[i][0][2],"piece{}.pt".format(i+len(train_data_list))) for i in range(len(valid_data_list))]
-
-  # save just names:
-  filename = "{}/training_index.pt".format(sys.argv[1])
-  print("Saving training part to",filename)
-  torch.save(train_data_list, filename)
   filename = "{}/validation_index.pt".format(sys.argv[1])
   print("Saving validation part to",filename)
   torch.save(valid_data_list, filename)
+
+  train_data_list = compress_to_treshold(train_data_list,treshold = HP.COMPRESSION_THRESHOLD)
+  for i,(metainfo,rest) in enumerate(train_data_list):
+    piece_name = "piece{}.pt".format(i)
+    torch.save(greedy(rest), "{}/{}".format(dir,piece_name))
+  train_data_list = [(train_data_list[i][0][2],"piece{}.pt".format(i)) for i in range(len(train_data_list))]
+  filename = "{}/training_index.pt".format(sys.argv[1])
+  print("Saving training part to",filename)
+  torch.save(train_data_list, filename)
+  print("Done")
