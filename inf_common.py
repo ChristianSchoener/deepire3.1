@@ -194,22 +194,18 @@ class CatAndNonLinearMultiary(torch.nn.Module):
 
   #   return x
   
-  def forward(self, args : Tensor, limits : Tensor) -> Tensor:
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  def forward(self, args : Tensor, limits : Tensor, device = str) -> Tensor:
     limits = limits.to(device)
-    # limits = limits
     lengths = torch.diff(limits)
     the_len = lengths.numel()
 
     full_lengths = 2*lengths - 1
     start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
-    # start_inds = torch.cat((torch.tensor([0]), full_lengths[:-1].cumsum(dim=0)))
     end_inds = start_inds + 2 * (lengths // 2)
     fill_start_inds = start_inds + lengths
     fill_end_inds = fill_start_inds + (lengths // 2)
 
     full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
-    # full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
 
     for i in range(the_len):
       full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
@@ -217,14 +213,12 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     while max(lengths) > 1:
       mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
       fill_mask = torch.zeros_like(mask).to(device)
-      # mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
-      # fill_mask = torch.zeros_like(mask)
 
       for i in range(the_len):
         mask[start_inds[i]:end_inds[i]] = True
         fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
 
-      how_much = mask.sum().item()  # Convert to Python int
+      how_much = mask.sum().item()
       full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
 
       lengths = (lengths + 1) // 2
@@ -234,7 +228,6 @@ class CatAndNonLinearMultiary(torch.nn.Module):
       fill_end_inds = fill_start_inds + (lengths // 2)
      
     mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
-    # mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
     mask[start_inds] = True
     return full_sized[mask]
 
@@ -570,54 +563,47 @@ class LearningModel(torch.nn.Module):
       init_embeds : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, training=True):
+      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, training=True, use_cuda = False):
       # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if use_cuda and torch.cuda.is_available():
+      self.device = "cuda"
+    else:
+      self.device = "cpu"
     
-    self.rule_steps = rule_steps
+    self.rule_steps = rule_steps.to(self.device)
     self.ind_steps = ind_steps
     self.pars_ind_steps = pars_ind_steps
     self.rule_52_limits = rule_52_limits
-    self.ids = ids.to(device)
-    for i in range(len(rule_steps)):
-      self.rule_steps[i] = rule_steps[i].to(device)
-      self.ind_steps[i] = ind_steps[i].to(device)
-      self.pars_ind_steps[i] = pars_ind_steps[i].to(device)
-    for i in rule_52_limits.keys():
-      self.rule_52_limits[i] = rule_52_limits[i].to(device)
+    for i in range(len(self.rule_steps)):
+      self.ind_steps[i] = ind_steps[i].to(self.device)
+      self.pars_ind_steps[i] = pars_ind_steps[i].to(self.device)
+    if i in self.rule_52_limits.keys():
+      self.rule_52_limits[i] = rule_52_limits[i].to(self.device)
+    self.ids = ids.to(self.device)
 
-    self.vectors = torch.empty(len(self.ids), HP.EMBED_SIZE)
-    self.vectors[:len(thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in thax])
-    self.vectors = self.vectors.to(device)
+    self.vectors = torch.empty(len(self.ids), HP.EMBED_SIZE).to(self.device)
+    self.vectors[:len(thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax,_ in thax])
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
-    self.pos_vals = torch.zeros(len(self.ids))
-    self.neg_vals = torch.zeros(len(self.ids))
-    self.pos_vals[list(pos_vals.keys())] = torch.tensor(list(pos_vals.values()))
-    self.neg_vals[list(neg_vals.keys())] = torch.tensor(list(neg_vals.values()))
-    self.pos_vals = self.pos_vals.to(device)
-    self.neg_vals = self.neg_vals.to(device)
-
-    self.mask = (self.pos_vals[self.ids] > 0) | (self.neg_vals[self.ids] > 0)
-    self.mask = self.mask.to(device)
-
-    tot_neg = torch.tensor(tot_neg)
-    tot_pos = torch.tensor(tot_pos)
-    tot_neg = tot_neg.to(device)
-    tot_neg = tot_pos.to(device)
-    self.pos_weight = HP.POS_WEIGHT_EXTRA * tot_neg / tot_pos if tot_pos > 0 else torch.tensor(1.0)
+    self.pos_vals = torch.zeros(len(self.ids)).to(self.device)
+    self.neg_vals = torch.zeros(len(self.ids)).to(self.device)
+    self.pos_vals[list(pos_vals.keys())] = torch.tensor(list(pos_vals.values())).to(self.device)
+    self.neg_vals[list(neg_vals.keys())] = torch.tensor(list(neg_vals.values())).to(self.device)
+   
+    self.mask = (self.pos_vals[self.ids] > 0) | (self.neg_vals[self.ids] > 0).to(self.device)
   
-    self.pos_weight = self.pos_weight.to(device)
-  
+    tot_neg = torch.tensor(tot_neg).to(self.device)
+    tot_pos = torch.tensor(tot_pos).to(self.device)
+    self.pos_weight = (HP.POS_WEIGHT_EXTRA * tot_neg / tot_pos if tot_pos > 0 else torch.tensor(1.0)).to(self.device)
+      
     self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=self.pos_weight, reduction="none")
   
   def contribute(self):
     val = self.eval_net(self.vectors[self.mask]).squeeze()
-    # print("val",val.device,flush=True)
 
     pos = self.pos_vals[self.ids[self.mask]]
     neg = self.neg_vals[self.ids[self.mask]]
@@ -636,15 +622,13 @@ class LearningModel(torch.nn.Module):
     self.loss = ((pos + neg) * contrib).sum()
 
   def forward(self):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    self.loss = torch.zeros(1).to(device)
-    self.posOK = torch.zeros(1).to(device)
-    self.negOK = torch.zeros(1).to(device)
+    self.loss = torch.zeros(1).to(self.device)
+    self.posOK = torch.zeros(1).to(self.device)
+    self.negOK = torch.zeros(1).to(self.device)
 
     for step in range(len(self.rule_steps)):
       if self.rule_steps[step].item() == 52:
-        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step])
+        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step], self.device)
       else:
         self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
     # print("Contiguous:",self.vectors.is_contiguous(),flush=True)
@@ -958,7 +942,10 @@ def compress_prob_data(some_probs):
     out_probweight += probweight
 
     for old_id, features in init:
-      abskey = features[0] # TODO: we might want to kick out SINE when not using it!
+      if isinstance(features, list):
+        abskey = features[0] # TODO: we might want to kick out SINE when not using it!
+      else:
+        abskey = features
 
       if abskey not in abs2new:
         new_id = id_cnt
@@ -966,7 +953,7 @@ def compress_prob_data(some_probs):
 
         abs2new[abskey] = new_id
 # Kicking sine out here
-        out_init.append(torch.tensor([new_id,features[0]],dtype=torch.int32))
+        out_init.append((new_id,abskey))
       else:
         new_id = abs2new[abskey]
 
@@ -986,8 +973,8 @@ def compress_prob_data(some_probs):
 
         abs2new[abskey] = new_id
         
-        out_deriv.append(torch.tensor([new_id,features],dtype=torch.int32))
-        out_pars[new_id] = torch.tensor(new_pars, dtype=torch.int32)
+        out_deriv.append((new_id,features))
+        out_pars[new_id] = new_pars
       else:
         new_id = abs2new[abskey]
       

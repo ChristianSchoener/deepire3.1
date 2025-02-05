@@ -92,15 +92,15 @@ class RuleWorker(multiprocessing.Process):
 def greedy(data):
   init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[:7] 
   
-  ids = [id.item() for id, _ in init]
+  ids = [id for id, _ in init]
   id_to_ind = {ids[i]: i for i in range(len(ids))}
-  rules = list(set(rule.item() for _, rule in deriv))
+  rules = list(set(rule for _, rule in deriv))
   rule_ids = defaultdict(set)
 
-  for id_, rule in deriv:
-      rule_ids[rule.item()].add(id_.item())
+  for id, rule in deriv:
+      rule_ids[rule].add(id)
 
-  shared_pars = {rule: {id: tensor.tolist() for id, tensor in pars.items() if id in rule_ids[rule]} for rule in set(rule.item() for _, rule in deriv)}
+  shared_pars = {rule: {id: tensor for id, tensor in pars.items() if id in rule_ids[rule]} for rule in set(rule for _, rule in deriv)}
 
   pars_len = dict()
   for rule in shared_pars.keys():
@@ -114,7 +114,7 @@ def greedy(data):
   for worker in workers.values():
     worker.start()
 
-  thax = torch.tensor([thax.item() for _,thax in init],dtype=torch.int32)
+  thax = torch.tensor([thax for _,thax in init],dtype=torch.int32)
   remaining_count = sum(map(len, rule_ids.values()))
   rule_steps, ind_steps, pars_ind_steps, rule_52_limits = [], [], [], {}
 
@@ -130,7 +130,6 @@ def greedy(data):
     empties = {}
     for _ in rules:
       rule, empty_count, empty_keys = result_queue.get()
-      # print(rule,empty_count,empty_keys,flush=True)
       gain[rule] = empty_count
       empties[rule] = empty_keys
 
@@ -145,7 +144,7 @@ def greedy(data):
     ids.extend(id_pool)
     rule_steps.append(best_rule)
     ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int32))
-    pars_ind_steps.append(torch.tensor([id_to_ind[this_id.item()] for id in id_pool for this_id in pars[id]], dtype=torch.int32))
+    pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for this_id in pars[id]], dtype=torch.int32))
 
     if best_rule == 52:
       rule_52_limits[len(ind_steps)-1] = torch.tensor([0] + list(np.cumsum([pars_len[id] for id in id_pool])), dtype=torch.int32)
@@ -161,7 +160,7 @@ def greedy(data):
   for p in workers.values():
     p.terminate()
 
-  return (thax, torch.tensor(ids,dtype=torch.int32), torch.tensor(rule_steps,dtype=torch.int32), ind_steps, pars_ind_steps, rule_52_limits, pos_vals, neg_vals, tot_pos, tot_neg)
+  return (thax, torch.tensor(ids, dtype=torch.int32), torch.tensor(rule_steps, dtype=torch.int32), ind_steps, pars_ind_steps, rule_52_limits, pos_vals, neg_vals, tot_pos, tot_neg)
 
 def compress_to_treshold(prob_data_list,treshold):
   
@@ -349,10 +348,8 @@ if __name__ == "__main__":
   print()
 
   print("Compressing every individual problem for itself first.")
-  for i,prob in enumerate(train_data_list):
-    train_data_list[i] = IC.compress_prob_data([prob])
-  for i,prob in enumerate(valid_data_list):
-    valid_data_list[i] = IC.compress_prob_data([prob])
+  train_data_list = [IC.compress_prob_data([train_data_list[i]]) for i in range(len(train_data_list))]
+  valid_data_list = [IC.compress_prob_data([valid_data_list[i]]) for i in range(len(valid_data_list))]
   print("Done.")
 
   print("Generating evaluation scheme, saving pieces and indices")
