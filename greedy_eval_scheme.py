@@ -4,6 +4,8 @@ import numpy as np
 import sys
 from collections import defaultdict
 
+import itertools
+
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
 
@@ -19,6 +21,16 @@ def doit(data):
   init = this_piece[0]
   deriv = this_piece[1]
   pars = this_piece[2]
+
+  pos_vals = this_piece[3]
+  neg_vals = this_piece[4]
+
+  # sum_vals = set([x for x,_ in pos_vals.items()]).union(set([x for x,_ in neg_vals.items()]))
+
+  # test_ids  = set([id for id,_ in init] + [id for id,_ in deriv])
+  # test_par_ids = set(itertools.chain(*pars.values()))
+  # print("no parents:",len(test_ids),len(test_ids.difference(test_par_ids)),len(test_ids.difference(test_par_ids).difference(sum_vals)),flush=True)
+
   ids = [id for id,_ in init]
   id_to_ind = {id: i for i, (id,_) in enumerate(init)}
 
@@ -30,14 +42,14 @@ def doit(data):
 
   remaining_count = sum(map(len, rule_ids.values()))
 
+  rule_52_count = 0
+
   rule_steps = []
   ind_steps = []
   pars_ind_steps = []
- 
-  ind_start_inds = [0]
-  pars_ind_start_inds = [0]
-  pars_ind_start_inds_52 = []
 
+  counter = 0
+ 
   while remaining_count > 0:
     gain = dict()
     old_ids = set(ids)
@@ -51,40 +63,40 @@ def doit(data):
       gain[rule_num] = len([id for id in rule_ids[this_rule] if set(pars[id]).issubset(old_ids)])
 
     rule_num = max(gain, key=lambda x: gain[x])
-    rule_steps.append(rules[rule_num])
-
     this_rule = rules[rule_num]
-
     id_pool = [id for id in rule_ids[this_rule] if set(pars[id]).issubset(old_ids)]
     id_to_ind.update([(id_pool[i], len(ids)+i) for i in range(len(id_pool))])
 
-    ids.extend(id_pool)
-    ind_steps.extend([id_to_ind[id] for id in id_pool])
-    ind_start_inds.append(len(ind_steps))
-
-    pars_ind_steps.extend([id_to_ind[this_id] for id in id_pool for this_id in pars[id]])
-    pars_ind_start_inds.append(len(pars_ind_steps))
     if this_rule == 52:
-      pars_ind_start_inds_52.extend([0]+list(np.cumsum([len(pars[id]) for id in id_pool])))
-      # print("52",ind_start_inds[-1]-ind_start_inds[-2],len([0]+list(np.cumsum([len(pars[id]) for id in id_pool]))),flush=True)
-      
-    rule_ids[this_rule].difference_update(id_pool)
+      for id in id_pool:
+        rule_52_count += 1
+        rule_steps.append(rules[rule_num])
+        ids.append(id)
+        ind_steps.append(id_to_ind[id])
+        pars_ind_steps.append([id_to_ind[this_id] for this_id in pars[id]])
+        # if ((id in pos_vals) and not torch.all(torch.tensor([x in pos_vals for x in pars[id]]))):
+        #   counter += 1
+          # print("rule",rules[rule_num],id, id in pos_vals,[x in pos_vals and x not in neg_vals for x in pars[id]],flush=True)
+        rule_ids[this_rule].discard(id)
+    else:
+      rule_steps.append(rules[rule_num])
+      ids.extend(id_pool)
+      # for id in id_pool:
+        # if ((id in pos_vals) and torch.any(torch.tensor([x in neg_vals and not x in pos_vals for x in pars[id]]))):
+        #   counter += 1
+          # print("rule",rules[rule_num],id, id in pos_vals,[x in neg_vals and x not in pos_vals for x in pars[id]],flush=True)
+      ind_steps.append([id_to_ind[id] for id in id_pool])
+      pars_ind_steps.append([id_to_ind[this_id] for id in id_pool for this_id in pars[id]])
+      rule_ids[this_rule].difference_update(id_pool)
 
     remaining_count = sum(map(len, rule_ids.values()))
 
-  ids = torch.tensor(ids, dtype=torch.int32)
-  rule_steps = torch.tensor(rule_steps, dtype=torch.int32)
-  ind_steps = torch.tensor(ind_steps, dtype=torch.int32)
-  pars_ind_steps = torch.tensor(pars_ind_steps, dtype=torch.int32)
-  ind_start_inds = torch.tensor(ind_start_inds, dtype=torch.int32)
-  pars_ind_start_inds = torch.tensor(pars_ind_start_inds, dtype=torch.int32)
-  pars_ind_start_inds_52 = torch.tensor(pars_ind_start_inds_52, dtype=torch.int32)
+  torch.save((ids, rule_steps, ind_steps, pars_ind_steps), folder_path + "/pieces/" + "greedy_eval_" + file)
 
-  torch.save((ids, rule_steps, pars_ind_steps, ind_start_inds, pars_ind_start_inds, pars_ind_start_inds_52), folder_path + "/pieces/" + "greedy_eval_" + file)
+  # print(counter,flush=True)
+  # print(num, len(ids), len(sum_vals)-len(ids), flush=True)
 
-  print(num, len(rule_steps), flush=True)
-
-  return(num, len(rule_steps))
+  return num,rule_52_count
 
 if __name__ == "__main__":
 
@@ -94,5 +106,9 @@ if __name__ == "__main__":
 
   pool = torch.multiprocessing.Pool(12)
 
-  for result in pool.map(doit, [(num,file,folder_path) for num,file in training_index+validation_index]):
-    1
+  rule_52_counts = dict()
+
+  for num,count in pool.imap_unordered(doit, [(num,file,folder_path) for num,file in training_index+validation_index]):
+    rule_52_counts[num] = count
+
+  torch.save(rule_52_counts,folder_path + "/pieces/" + "rule_52_counts.pt")

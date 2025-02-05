@@ -3,6 +3,8 @@
 import inf_common as IC
 import hyperparams as HP
 
+import numpy as np
+
 import torch
 from torch import Tensor
 
@@ -10,10 +12,15 @@ import time,bisect,random,math,os,errno
 
 from typing import Dict, List, Tuple, Optional
 
+from multiprocessing import shared_memory
+
 from collections import defaultdict
 from collections import ChainMap
 
 import sys,random,itertools
+
+import multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 
 from copy import deepcopy
 
@@ -39,6 +46,122 @@ def compress_by_probname(prob_data_list):
 
   return compressed
 
+class RuleWorker(multiprocessing.Process):
+  """ Persistent worker process that removes `id_pool` elements from `shared_pars[rule]`. """
+  def __init__(self, rule, shared_pars, task_queue, result_queue):
+    super().__init__()
+    self.rule = rule
+    self.shared_pars = shared_pars  # Rule-specific shared data
+    self.task_queue = task_queue
+    self.result_queue = result_queue
+    self.num_empty_keys = 0
+    self.empty_keys = []
+    self.rev_shared_pars = dict()
+    for key,vals in self.shared_pars.items():
+      for val in vals:
+        if val not in self.rev_shared_pars.keys():
+          self.rev_shared_pars[val] = [key]
+        else:
+          self.rev_shared_pars[val].append(key)
+
+  def run(self):
+    print(f"Worker {self.rule} started with {len(self.shared_pars)} entries.", flush=True)
+
+    while True:
+      task = self.task_queue.get()
+      if task is None:
+        break
+
+      task_type, data = task
+      if task_type == "delete":
+        # Remove elements in id_pool from all values in shared_pars[rule]
+        for id in data:
+          if id in self.rev_shared_pars.keys():
+            for val in self.rev_shared_pars[id]:
+              self.shared_pars[val].remove(id)
+              if not self.shared_pars[val]:
+                self.empty_keys.append(val)
+                del self.shared_pars[val]
+        self.result_queue.put((self.rule, len(self.empty_keys), self.empty_keys))
+      if task_type == "clean_biggest":
+        if data == self.rule:
+            self.num_empty_keys = 0
+            self.empty_keys = []
+        self.result_queue.put((1))
+
+def greedy(data):
+  init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[:7] 
+  
+  ids = [id.item() for id, _ in init]
+  id_to_ind = {ids[i]: i for i in range(len(ids))}
+  rules = list(set(rule.item() for _, rule in deriv))
+  rule_ids = defaultdict(set)
+
+  for id_, rule in deriv:
+      rule_ids[rule.item()].add(id_.item())
+
+  shared_pars = {rule: {id: tensor.tolist() for id, tensor in pars.items() if id in rule_ids[rule]} for rule in set(rule.item() for _, rule in deriv)}
+
+  pars_len = dict()
+  for rule in shared_pars.keys():
+    for id in shared_pars[rule].keys():
+      pars_len[id] = len(shared_pars[rule][id])
+
+  task_queues = {rule: multiprocessing.Queue() for rule in rules}
+  result_queue = multiprocessing.Queue()
+
+  workers = {rule: RuleWorker(rule, shared_pars[rule], task_queues[rule], result_queue) for rule in rules}
+  for worker in workers.values():
+    worker.start()
+
+  thax = torch.tensor([thax.item() for _,thax in init],dtype=torch.int32)
+  remaining_count = sum(map(len, rule_ids.values()))
+  rule_steps, ind_steps, pars_ind_steps, rule_52_limits = [], [], [], {}
+
+  id_pool = ids
+
+  while remaining_count > 0:
+    print(remaining_count,flush=True)
+
+    for rule in rules:
+      task_queues[rule].put(("delete",id_pool))
+
+    gain = {}
+    empties = {}
+    for _ in rules:
+      rule, empty_count, empty_keys = result_queue.get()
+      # print(rule,empty_count,empty_keys,flush=True)
+      gain[rule] = empty_count
+      empties[rule] = empty_keys
+
+    best_rule = max(gain, key=gain.get)
+    print(best_rule, gain, flush=True)
+
+    task_queues[best_rule].put(("clean_biggest",best_rule))
+    result_queue.get()
+
+    id_pool = empties[best_rule]
+    id_to_ind.update({id: len(ids) + i for i, id in enumerate(id_pool)})
+    ids.extend(id_pool)
+    rule_steps.append(best_rule)
+    ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int32))
+    pars_ind_steps.append(torch.tensor([id_to_ind[this_id.item()] for id in id_pool for this_id in pars[id]], dtype=torch.int32))
+
+    if best_rule == 52:
+      rule_52_limits[len(ind_steps)-1] = torch.tensor([0] + list(np.cumsum([pars_len[id] for id in id_pool])), dtype=torch.int32)
+
+    rule_ids[best_rule] -= set(id_pool)
+
+    for id in id_pool:
+      del shared_pars[best_rule][id]
+      del pars[id]
+
+    remaining_count = sum(map(len, rule_ids.values()))
+
+  for p in workers.values():
+    p.terminate()
+
+  return (thax, torch.tensor(ids,dtype=torch.int32), torch.tensor(rule_steps,dtype=torch.int32), ind_steps, pars_ind_steps, rule_52_limits, pos_vals, neg_vals, tot_pos, tot_neg)
 
 def compress_to_treshold(prob_data_list,treshold):
   
@@ -102,8 +225,7 @@ def compress_to_treshold(prob_data_list,treshold):
   
   while size_and_prob:
     size, my_rest = size_and_prob.pop()
-
-    # print("Popped guy of size",size)
+    my_friends = [my_rest]
 
     while size < treshold and size_and_prob:
       # print("Looking for a friend")
@@ -115,20 +237,16 @@ def compress_to_treshold(prob_data_list,treshold):
 
       idx = random.randrange(idx_upper)
     
-      # print("Idxupper",idx_upper,"idx",idx)
-
-      _, friend_rest = size_and_prob[idx]
+      friend_size, my_friend = size_and_prob[idx]
       del size_and_prob[idx]
+      size += friend_size
+      my_friends.append(my_friend)
 
-      # print("friend_size",friend_size)
+      print("friend_size",friend_size,flush=True)
 
-      my_rest = IC.compress_prob_data([my_rest,friend_rest])
-      meta, _ = my_rest
-      size = meta[2]
-    
-      # print("aftermerge",size)
-
-    # print("Storing a guy of size",size,"weight",metainfo[-1])
+    my_rest = IC.compress_prob_data(my_friends)
+    meta, _ = my_rest
+    size = meta[2]
     compressed.append(my_rest)
 
   print()
@@ -152,16 +270,11 @@ if __name__ == "__main__":
   #
   # finally, a split on the shuffled list is performed (according to HP.VALID_SPLIT_RATIO) and training_data.pt validation_data.pt are saved to folder
 
-  prob_data_list = torch.load(sys.argv[2])
+  prob_data_list = torch.load(sys.argv[2],weights_only=False)
 
-  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[3])
+  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[3],weights_only=False)
 
   print("Loaded raw prob_data_list of len:",len(prob_data_list))
-
-  # torch.save((thax_sign,deriv_arits,thax_to_str), "{}/data_sign.pt".format(sys.argv[1]))
-  # print(f"Done; data_sign updated (and saved to {sys.argv[1]})")
-
-  # # prob_data_list = compress_by_probname(prob_data_list)
 
   if True:
     print("Making smooth compression discreet again (and forcing weight back to 1.0!)")
@@ -200,9 +313,6 @@ if __name__ == "__main__":
 
       prob_data_list[i] = ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
 
-  prob_data_list = compress_to_treshold(prob_data_list,treshold = HP.COMPRESSION_THRESHOLD)
-
-
   ax_to_prob = dict()
   for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
     for _,(thax,_) in init:
@@ -210,6 +320,8 @@ if __name__ == "__main__":
         ax_to_prob[thax] = {i}
       else:
         ax_to_prob[thax].add(i)
+  torch.save(ax_to_prob, "{}/axiom_counts.pt".format(sys.argv[1]))
+  print("Saved axiom counts for uniformly distributed expectation SWAPOUT")
   rev_ax_to_prob = dict()
   for key,vals in ax_to_prob.items():
     for val in vals:
@@ -236,8 +348,9 @@ if __name__ == "__main__":
   print("shuffled and ensured all revealed thax are in a training problem.")
   print()
 
-  torch.save(ax_to_prob, "{}/axiom_counts.pt".format(sys.argv[1]))
-  print("Saved axiom counts for uniformly distributed expectation SWAPOUT")
+  train_data_list = compress_to_treshold(train_data_list,treshold = HP.COMPRESSION_THRESHOLD)
+  valid_data_list = compress_to_treshold(valid_data_list,treshold = HP.COMPRESSION_THRESHOLD)
+
   print("Saving pieces")
   dir = "{}/pieces".format(sys.argv[1])
   try:
@@ -248,10 +361,10 @@ if __name__ == "__main__":
     pass
   for i,(metainfo,rest) in enumerate(train_data_list):
     piece_name = "piece{}.pt".format(i)
-    torch.save(rest, "{}/{}".format(dir,piece_name))
+    torch.save(greedy(rest), "{}/{}".format(dir,piece_name))
   for i,(metainfo,rest) in enumerate(valid_data_list):
     piece_name = "piece{}.pt".format(i+len(train_data_list))
-    torch.save(rest, "{}/{}".format(dir,piece_name))
+    torch.save(greedy(rest), "{}/{}".format(dir,piece_name))
   print("Done")
 
   train_data_list = [(train_data_list[i][0][2],"piece{}.pt".format(i)) for i in range(len(train_data_list))]

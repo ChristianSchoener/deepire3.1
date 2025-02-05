@@ -114,8 +114,8 @@ if __name__ == "__main__":
   sine_sign,deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
 
   thax_sign,prob_data_list,thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist,prob_data_list)
-  for i,prob in enumerate(prob_data_list):
-    prob_data_list[i] = IC.compress_prob_data([prob])
+  # for i,prob in enumerate(prob_data_list):
+  #   prob_data_list[i] = IC.compress_prob_data([prob])
   
   print("thax_sign",thax_sign)
   print("sine_sign",sine_sign) 

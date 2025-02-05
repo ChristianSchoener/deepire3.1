@@ -99,6 +99,7 @@ class CatAndNonLinearBinary(torch.nn.Module):
   def forward_impl_stack(self, args : Tensor) -> Tensor:
     if self.arit == 2:
       return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(args.shape[0] // 2, -1))))))
+      # return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(1, -1))))))
     else:
       return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
 
@@ -162,28 +163,29 @@ class CatAndNonLinearMultiary(torch.nn.Module):
      
   #   return x[0]
 
-  def forward(self, args : Tensor) -> Tensor: # 19s
-    length = args.size(0)
+  # def forward(self, args : Tensor) -> Tensor: # 19s
+  #   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  #   length = args.shape[0]
 
-    start_ind = 0
-    end_ind = 2 * (length // 2)
-    fill_start_ind = length
-    fill_end_ind = fill_start_ind + (length // 2)
+  #   start_ind = torch.zeros(1,dtype=torch.int32)
+  #   end_ind = 2 * (length // 2)
+  #   fill_start_ind = length
+  #   fill_end_ind = fill_start_ind + (length // 2)
 
-    full_sized = torch.zeros(2*length - 1, HP.EMBED_SIZE)
+  #   full_sized = torch.empty(2*length - 1, HP.EMBED_SIZE).to(device)
 
-    full_sized[:length] = args
+  #   full_sized[:length] = args
 
-    while length > 1:
-      full_sized[fill_start_ind:fill_end_ind] = self.forward_impl_list(full_sized[start_ind:end_ind].view(length // 2, -1))
+  #   while length > 1:
+  #     full_sized[fill_start_ind:fill_end_ind] = self.forward_impl_list(full_sized[start_ind:end_ind].view(length // 2, -1))
 
-      length = (length + 1) // 2
-      start_ind = end_ind
-      end_ind = start_ind + 2 * (length // 2)
-      fill_start_ind = start_ind + length
-      fill_end_ind = fill_start_ind + (length // 2)
+  #     length = (length + 1) // 2
+  #     start_ind = end_ind
+  #     end_ind = start_ind + 2 * (length // 2)
+  #     fill_start_ind = start_ind + length
+  #     fill_end_ind = fill_start_ind + (length // 2)
      
-    return full_sized[start_ind]
+  #   return full_sized[start_ind]
 
   # def forward(self, args : Tensor) -> Tensor: # 23s
   #   x = args
@@ -192,49 +194,58 @@ class CatAndNonLinearMultiary(torch.nn.Module):
 
   #   return x
   
-  # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
-  #   lengths = torch.diff(limits)
-  #   the_len = lengths.numel()
+  def forward(self, args : Tensor, limits : Tensor) -> Tensor:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    limits = limits.to(device)
+    # limits = limits
+    lengths = torch.diff(limits)
+    the_len = lengths.numel()
 
-  #   full_lengths = 2*lengths - 1
-  #   start_inds = torch.cat((torch.tensor([0]), full_lengths[:-1].cumsum(dim=0)))
-  #   end_inds = start_inds + 2 * (lengths // 2)
-  #   fill_start_inds = start_inds + lengths
-  #   fill_end_inds = fill_start_inds + (lengths // 2)
+    full_lengths = 2*lengths - 1
+    start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
+    # start_inds = torch.cat((torch.tensor([0]), full_lengths[:-1].cumsum(dim=0)))
+    end_inds = start_inds + 2 * (lengths // 2)
+    fill_start_inds = start_inds + lengths
+    fill_end_inds = fill_start_inds + (lengths // 2)
 
-  #   full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
+    full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
+    # full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE)
 
-  #   for i in range(the_len):
-  #     full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
+    for i in range(the_len):
+      full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
 
-  #   while max(lengths) > 1:
-  #     mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
-  #     fill_mask = torch.zeros_like(mask)
+    while max(lengths) > 1:
+      mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+      fill_mask = torch.zeros_like(mask).to(device)
+      # mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
+      # fill_mask = torch.zeros_like(mask)
 
-  #     for i in range(the_len):
-  #       mask[start_inds[i]:end_inds[i]] = True
-  #       fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
+      for i in range(the_len):
+        mask[start_inds[i]:end_inds[i]] = True
+        fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
 
-  #     how_much = mask.sum().item()  # Convert to Python int
-  #     full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
+      how_much = mask.sum().item()  # Convert to Python int
+      full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
 
-  #     lengths = (lengths + 1) // 2
-  #     start_inds = end_inds
-  #     end_inds = start_inds + 2 * (lengths // 2)
-  #     fill_start_inds = start_inds + lengths
-  #     fill_end_inds = fill_start_inds + (lengths // 2)
+      lengths = (lengths + 1) // 2
+      start_inds = end_inds
+      end_inds = start_inds + 2 * (lengths // 2)
+      fill_start_inds = start_inds + lengths
+      fill_end_inds = fill_start_inds + (lengths // 2)
      
-  #   mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
-  #   mask[start_inds] = True
-  #   return full_sized[mask]
+    mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+    # mask = torch.zeros(full_lengths.sum(), dtype=torch.bool)
+    mask[start_inds] = True
+    return full_sized[mask]
 
   # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
+  #   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
   #   lengths = torch.diff(limits)
   #   the_len = lengths.numel()
 
   #   select_lengths = 2 * (lengths // 2)
   #   fill_lengths = select_lengths // 2
-  #   fill_limits = torch.cat((torch.tensor([0]), fill_lengths.cumsum(dim=0)))
+  #   fill_limits = torch.cat((torch.tensor([0]).to(device), fill_lengths.cumsum(dim=0)))
 
   #   end_inds = limits[:-1] + select_lengths
 
@@ -246,7 +257,7 @@ class CatAndNonLinearMultiary(torch.nn.Module):
 
   #     how_much = mask.sum().item()  # Convert to Python int
   #     tmp = self.forward_impl_list(args[mask].view(how_much // 2, -1))
-  #     pos = torch.tensor(0, dtype=torch.int32)
+  #     pos = torch.tensor(0, dtype=torch.int32).to(device)
   #     for i in torch.arange(the_len):
   #       if limits[i+1] > end_inds[i]:
   #         args[pos] = args[end_inds[i]]
@@ -256,35 +267,44 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #         pos += fill_lengths[i]
 
   #     lengths = (lengths + 1) // 2
-  #     limits = torch.cat((torch.tensor([0]), lengths.cumsum(dim=0)))
+  #     limits = torch.cat((torch.tensor([0]).to(device), lengths.cumsum(dim=0)))
 
   #     select_lengths = 2 * (lengths // 2)
   #     fill_lengths = select_lengths // 2
-  #     fill_limits = torch.cat((torch.tensor([0]), fill_lengths.cumsum(dim=0)))
+  #     fill_limits = torch.cat((torch.tensor([0]).to(device), fill_lengths.cumsum(dim=0)))
 
   #     end_inds = limits[:-1] + 2 * (lengths // 2)
      
   #   return args[:the_len]
 
 def get_initial_model(thax_sign,deriv_arits):
+  device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
   init_embeds = torch.nn.ModuleDict()
 
   for i in thax_sign:
-    init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
+    init_embeds[str(i)] = Embed(HP.EMBED_SIZE).to(device)
+    # init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
 
   deriv_mlps = torch.nn.ModuleDict()
   for rule,arit in deriv_arits.items():
     if arit <= 2:
-      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit)
+      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit).to(device)
+      # deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit)
     else:
       assert(arit == 3)
-      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2) # binary tree builder
+      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2).to(device)
+      # deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2)
 
   eval_net = torch.nn.Sequential(
     torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
     torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-    torch.nn.Linear(HP.EMBED_SIZE,1))
+    torch.nn.Linear(HP.EMBED_SIZE,1)).to(device)
+  # eval_net = torch.nn.Sequential(
+  #   torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
+  #   torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
+  #   torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+  #   torch.nn.Linear(HP.EMBED_SIZE,1))
 
   return torch.nn.ModuleList([init_embeds,deriv_mlps,eval_net])
   
@@ -550,86 +570,88 @@ class LearningModel(torch.nn.Module):
       init_embeds : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,deriv_arits,greedy_eval_scheme,save_logits = False,training = False):
+      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, training=True):
+      # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    self.deriv_arits = deriv_arits
+    self.rule_steps = rule_steps
+    self.ind_steps = ind_steps
+    self.pars_ind_steps = pars_ind_steps
+    self.rule_52_limits = rule_52_limits
+    self.ids = ids.to(device)
+    for i in range(len(rule_steps)):
+      self.rule_steps[i] = rule_steps[i].to(device)
+      self.ind_steps[i] = ind_steps[i].to(device)
+      self.pars_ind_steps[i] = pars_ind_steps[i].to(device)
+    for i in rule_52_limits.keys():
+      self.rule_52_limits[i] = rule_52_limits[i].to(device)
 
-    self.ids, self.rule_steps, self.pars_ind_steps, self.ind_start_inds, self.pars_ind_start_inds, self.pars_ind_start_inds_52 = greedy_eval_scheme
-
-    self.vectors = torch.zeros(len(self.ids),HP.EMBED_SIZE)
-    self.vectors[:len(init)] = torch.stack([init_embeds[str(thax)]() for _,(thax,_) in init])
+    self.vectors = torch.empty(len(self.ids), HP.EMBED_SIZE)
+    self.vectors[:len(thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in thax])
+    self.vectors = self.vectors.to(device)
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
-    self.training = training
+    self.pos_vals = torch.zeros(len(self.ids))
+    self.neg_vals = torch.zeros(len(self.ids))
+    self.pos_vals[list(pos_vals.keys())] = torch.tensor(list(pos_vals.values()))
+    self.neg_vals[list(neg_vals.keys())] = torch.tensor(list(neg_vals.values()))
+    self.pos_vals = self.pos_vals.to(device)
+    self.neg_vals = self.neg_vals.to(device)
 
-    self.pos_vals = torch.zeros(self.ids.numel())
-    self.neg_vals = torch.zeros(self.ids.numel())
-    for key, val in pos_vals.items():
-      self.pos_vals[key] = val
-    for key, val in neg_vals.items():
-      self.neg_vals[key] = val
+    self.mask = (self.pos_vals[self.ids] > 0) | (self.neg_vals[self.ids] > 0)
+    self.mask = self.mask.to(device)
 
-    self.mask = torch.tensor((self.pos_vals[self.ids] > 0) | (self.neg_vals[self.ids] > 0), dtype=torch.bool)
+    tot_neg = torch.tensor(tot_neg)
+    tot_pos = torch.tensor(tot_pos)
+    tot_neg = tot_neg.to(device)
+    tot_neg = tot_pos.to(device)
+    self.pos_weight = HP.POS_WEIGHT_EXTRA * tot_neg / tot_pos if tot_pos > 0 else torch.tensor(1.0)
   
-    pos_weight = HP.POS_WEIGHT_EXTRA*tot_neg/tot_pos if tot_pos > 0.0 else 1.0
-    self.pos_weight = max(HP.GLOBAL_TOT_NEG_TOT_POS_RATIO, pos_weight)
+    self.pos_weight = self.pos_weight.to(device)
   
-    if save_logits:
-      self.logits = {}
-    else:
-      self.logits = None
-  
-    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([self.pos_weight]), reduction="none")
+    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=self.pos_weight, reduction="none")
   
   def contribute(self):
     val = self.eval_net(self.vectors[self.mask]).squeeze()
+    # print("val",val.device,flush=True)
 
-    pos = torch.tensor([self.pos_vals[id] for id in self.ids[self.mask]])
-    neg = torch.tensor([self.neg_vals[id] for id in self.ids[self.mask]])
-    
-    self.posOK += sum([pos[i] for i in range(len(self.ids[self.mask])) if val[i] >= 0])
-    self.negOK += sum([neg[i] for i in range(len(self.ids[self.mask])) if val[i] < 0])
+    pos = self.pos_vals[self.ids[self.mask]]
+    neg = self.neg_vals[self.ids[self.mask]]
 
-    target = torch.tensor([p / (p + n) for p, n in zip(pos, neg)])
+    self.posOK = (pos * (val >= 0)).sum()
+    self.negOK = (neg * (val < 0)).sum()
 
-    contrib = self.criterion(val,target)
+    target = pos / (pos + neg)
 
-    return sum((p + n) * c for p, n, c in zip(pos, neg, contrib))
+    contrib = self.criterion(val, target)
 
-  # Construct the whole graph and return its loss
-  # TODO: can we keep the graph after an update?
+    if HP.FOCAL_LOSS:
+      val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
+      contrib = -self.pos_weight * target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+
+    self.loss = ((pos + neg) * contrib).sum()
+
   def forward(self):
-    # store : Dict[int, Tensor] = {} # each id stores its embedding
-    
-    self.posOK = 0.0
-    self.negOK = 0.0
-    loss = torch.zeros(1)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    rule_52_start = torch.tensor(0,dtype=torch.int32)
+    self.loss = torch.zeros(1).to(device)
+    self.posOK = torch.zeros(1).to(device)
+    self.negOK = torch.zeros(1).to(device)
+
     for step in range(len(self.rule_steps)):
-      if self.rule_steps[step] == 52:
-        rule_52_end = rule_52_start + self.ind_start_inds[step+1]-self.ind_start_inds[step]+1
-        for ind in torch.arange(rule_52_start,rule_52_end-1):
-          self.vectors[self.ind_start_inds[step]+ind-rule_52_start] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[self.pars_ind_start_inds[step]+self.pars_ind_start_inds_52[ind:ind+1]]])
-        rule_52_start = rule_52_end
+      if self.rule_steps[step].item() == 52:
+        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step])
       else:
-        self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]])
+        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
+    # print("Contiguous:",self.vectors.is_contiguous(),flush=True)
 
-    # rule_52_start = torch.tensor(0,dtype=torch.int32)
-    # for step in range(len(self.rule_steps)):
-    #   if self.rule_steps[step] == 52:
-    #     rule_52_end = rule_52_start + self.ind_start_inds[step+1]-self.ind_start_inds[step]+1
-    #     self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(52)](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]], self.pars_ind_start_inds_52[torch.arange(rule_52_start,rule_52_end)])
-    #     rule_52_start = rule_52_end
-    #   else:
-    #     self.vectors[torch.arange(self.ind_start_inds[step],self.ind_start_inds[step+1])] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[torch.arange(self.pars_ind_start_inds[step],self.pars_ind_start_inds[step+1])]])
-        
-    loss = self.contribute()
+    self.contribute()
 
-    return (loss,self.posOK,self.negOK)
+    return (self.loss,self.posOK,self.negOK)
 
 def is_generating(rule):
   if rule == 666 or rule == 777:
@@ -923,7 +945,7 @@ def compress_prob_data(some_probs):
 
   out_axioms : Dict[int, str] = {}
 
-  for (probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms) in some_probs:
+  for i,((probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(some_probs):
     # reset for evey problem in the list
     old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
   
@@ -936,14 +958,15 @@ def compress_prob_data(some_probs):
     out_probweight += probweight
 
     for old_id, features in init:
-      abskey = features # TODO: we might want to kick out SINE when not using it!
+      abskey = features[0] # TODO: we might want to kick out SINE when not using it!
 
       if abskey not in abs2new:
         new_id = id_cnt
         id_cnt += 1
 
         abs2new[abskey] = new_id
-        out_init.append((new_id,features))
+# Kicking sine out here
+        out_init.append(torch.tensor([new_id,features[0]],dtype=torch.int32))
       else:
         new_id = abs2new[abskey]
 
@@ -963,11 +986,11 @@ def compress_prob_data(some_probs):
 
         abs2new[abskey] = new_id
         
-        out_deriv.append((new_id,features))
-        out_pars[new_id] = new_pars
+        out_deriv.append(torch.tensor([new_id,features],dtype=torch.int32))
+        out_pars[new_id] = torch.tensor(new_pars, dtype=torch.int32)
       else:
         new_id = abs2new[abskey]
-
+      
       old2new[old_id] = new_id
 
     for old_id,val in pos_vals.items():
