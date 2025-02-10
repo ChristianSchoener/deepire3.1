@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-
-import os
 import torch
 
 import inf_common as IC
 import hyperparams as HP
 
-
-import torch.jit
-
-from torch.cuda.amp import autocast
+import torch
+torch.backends.cuda.matmul.allow_tf32 = False
+# torch.backends.cuda.matmul.allow_tf32 = True  # Use TensorFloat32 for faster matmul
+# # torch.backends.cudnn.benchmark = True  # Enable CuDNN benchmarking
+# torch.backends.cuda.preferred_linalg_library("cusolver")  # Use optimized solvers
+# torch.set_float32_matmul_precision('high')
+# torch.backends.cudnn.enabled = True
+# torch.backends.cudnn.benchmark = True
+# torch.backends.cudnn.deterministic = False
 
 torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
@@ -61,25 +64,29 @@ def copy_vals_to_master_parts(masterparts,his_parts):
         master_dict[name].data = param.data
 
 def eval_and_or_learn_on_one(these_problems,training,master_parts,start_time):
+  # torch.cuda.empty_cache()
   if training:
+    print(time.time() - start_time,"Training starts here.",flush=True)
     loss_dict = {}
     for _,probname in these_problems:
       data = torch.load("{}/pieces/{}".format(sys.argv[1],probname),weights_only=False)
-      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits, pos_vals, neg_vals, tot_pos, tot_neg = data
-      # (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = data
-      # greedy_eval_scheme = torch.load("{}/pieces/greedy_eval_{}".format(sys.argv[1],probname),weights_only=False)
-      # if HP.SWAPOUT > 0.0:
-      #   for ithax in enumerate(thax):
-      #     if np.random.random() < HP.SWAPOUT/len(axiom_counts[thax]):
-      #       init[i] = (id,0)
-      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, True, True)
+      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits, pos, neg, tot_pos, tot_neg, mask, target = data
+      print(time.time() - start_time,"Piece loaded.",flush=True)
+      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits, pos, neg, tot_pos, tot_neg, mask, target, True, HP.CUDA)
       # model = IC.LearningModel(*master_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, greedy_eval_scheme, False, True)
       model.train()
       print(time.time() - start_time,"Starting train for",probname,flush=True)
+      # with torch.amp.autocast(device_type="cuda"):
       (loss_dict[probname],posOK_sum,negOK_sum) = model()
       print(time.time() - start_time,"Finished train for",probname,flush=True)
     losses = sum(loss_dict.values())
     print(time.time() - start_time,"Starting backward propagation for problems of combined size",sum([size for size,_ in these_problems]),flush=True)
+    
+    # losses = losses.to("cuda")
+    # for param in master_parts.parameters():
+    #   param = param.to("cuda")
+      # print(name,param.device,flush=True)
+    # print("losses",losses.device,flush=True)
     losses.backward()
     print(time.time() - start_time,"Finished backward propagation for problems of combined size",sum([size for size,_ in these_problems]),flush=True)
   else:
@@ -139,11 +146,14 @@ if __name__ == "__main__":
   
   start_time = time.time()
   
-  device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  if HP.CUDA and torch.cuda.is_available():
+    device = "cuda"
+  else:
+    device = "cpu"
     
-  train_data_idx = torch.load("{}/training_index.pt".format(sys.argv[1]),weights_only=False)
+  train_data_idx = torch.load("{}/train_index.pt".format(sys.argv[1]),weights_only=False)
   print("Loaded train data:",len(train_data_idx),flush=True)
-  valid_data_idx = torch.load("{}/validation_index.pt".format(sys.argv[1]),weights_only=False)
+  valid_data_idx = torch.load("{}/valid_index.pt".format(sys.argv[1]),weights_only=False)
   print("Loaded valid data:",len(valid_data_idx),flush=True)
   if HP.SWAPOUT > 0.0:
     axiom_counts = torch.load("{}/axiom_counts.pt".format(sys.argv[1]),weights_only=False)
@@ -194,13 +204,12 @@ if __name__ == "__main__":
   
   if len(sys.argv) >= 5:
     MAX_EPOCH = int(sys.argv[4])
-    thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
+    thax_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
   else:
-    thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
-    print("cuda" if torch.cuda.is_available() else "cpu",flush=True)
+    thax_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
     master_parts = IC.get_initial_model(thax_sign,deriv_arits)
-    for x in master_parts.parameters():
-      x = x.to(device)
+    # for x in master_parts.parameters():
+    #   x = x.to(device)
     model_name = "{}/master{}".format(sys.argv[2],IC.name_initial_model_suffix())
     torch.save(master_parts,model_name)
     print("Created model parts and saved to",model_name,flush=True)
@@ -243,7 +252,6 @@ if __name__ == "__main__":
     train_data_idx = set(deepcopy(train_data_orig))
     while len(train_data_idx):
       these_problems = random.sample(list(train_data_idx), min(len(train_data_idx), HP.SAMPLES))
-      print("HALLO",these_problems,flush=True)
       train_data_idx.difference_update(these_problems)
       # for results in pool.imap_unordered(worker, [(size,probname,True,tt+i,master_parts) for i,(size,probname) in enumerate(these_problems)]):
       loss,posOK_sum,negOK_sum,tot_pos,tot_neg,time_start,time_end,master_parts = worker(these_problems,True,master_parts)
@@ -276,7 +284,8 @@ if __name__ == "__main__":
       # losses.backward()
       optimizer.step()
       optimizer.zero_grad()
-      print(time.time() - start_time,"Performing optimizer.step()", flush=True)
+      print(time.time() - start_time,"Finished performing optimizer.step()", flush=True)
+      torch.cuda.empty_cache()
 
       tt += 1
       if HP.NON_CONSTANT_10_50_250_LR:

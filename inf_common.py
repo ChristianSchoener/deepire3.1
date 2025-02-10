@@ -4,11 +4,17 @@
 
 import os
 
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
-os.environ["NUMEXPR_NUM_THREADS"] = "1"
+import ctypes
+import ctypes.util
+libc = ctypes.CDLL(ctypes.util.find_library('c'))
+
+import operator
+
+os.environ["OMP_NUM_THREADS"] = "4"
+os.environ["OPENBLAS_NUM_THREADS"] = "4"
+os.environ["MKL_NUM_THREADS"] = "4"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "4"
+os.environ["NUMEXPR_NUM_THREADS"] = "4"
 
 import torch
 from torch import Tensor
@@ -20,6 +26,8 @@ from typing import Dict, List, Tuple, Optional
 import numpy as np
 
 from copy import deepcopy
+
+from bitarray import bitarray
 
 import math
 
@@ -35,6 +43,9 @@ from collections import defaultdict
 import sys,random
 
 import hyperparams as HP
+
+import multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 
 # A hacky, hardcoded log name normalizer!
 def logname_to_probname(logname):
@@ -193,8 +204,8 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #     x = torch.cat((x[2:],self.forward_impl_list(x[:2].view(1,-1))))
 
   #   return x
-  
-  def forward(self, args : Tensor, limits : Tensor, device = str) -> Tensor:
+
+  def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
     limits = limits.to(device)
     lengths = torch.diff(limits)
     the_len = lengths.numel()
@@ -205,31 +216,64 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     fill_start_inds = start_inds + lengths
     fill_end_inds = fill_start_inds + (lengths // 2)
 
-    full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
-
+    return_mat = torch.zeros(the_len, HP.EMBED_SIZE)
+# Looping to prevent big temporary matrix
     for i in range(the_len):
-      full_sized[torch.arange(start_inds[i],start_inds[i]+lengths[i])] = args[torch.arange(limits[i],limits[i]+lengths[i])]
+      full_sized = torch.zeros(full_lengths[i], HP.EMBED_SIZE).to(device)
+      select_range = torch.arange(limits[i], limits[i+1])
+      full_sized = args[select_range]
 
-    while max(lengths) > 1:
-      mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
-      fill_mask = torch.zeros_like(mask).to(device)
+      while lengths[i] > 1:
+        select_range = torch.arange(start_inds[i], end_inds[i])
+        fill_range = torch.arange(fill_start_inds[i], fill_end_inds[i])
 
-      for i in range(the_len):
-        mask[start_inds[i]:end_inds[i]] = True
-        fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
+        full_sized[fill_range] = self.forward_impl_list(full_sized[select_range].view(lengths[i] // 2, -1))
 
-      how_much = mask.sum().item()
-      full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
+        lengths[i] = (lengths[i] + 1) // 2
+        start_inds[i] = end_inds[i]
+        end_inds[i] = start_inds[i] + 2 * (lengths[i] // 2)
+        fill_start_inds[i] = start_inds[i] + lengths[i]
+        fill_end_inds[i] = fill_start_inds[i] + (lengths[i] // 2)
+      
+      return_mat[i] = full_sized[-1]
+    return return_mat
+    
+  # def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
+  #   limits = limits.to(device)
+  #   lengths = torch.diff(limits)
+  #   the_len = lengths.numel()
 
-      lengths = (lengths + 1) // 2
-      start_inds = end_inds
-      end_inds = start_inds + 2 * (lengths // 2)
-      fill_start_inds = start_inds + lengths
-      fill_end_inds = fill_start_inds + (lengths // 2)
+  #   full_lengths = 2*lengths - 1
+  #   start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
+  #   end_inds = start_inds + 2 * (lengths // 2)
+  #   fill_start_inds = start_inds + lengths
+  #   fill_end_inds = fill_start_inds + (lengths // 2)
+
+  #   full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
+
+  #   for i in range(the_len):
+  #     full_sized[torch.arange(start_inds[i], start_inds[i] + lengths[i])] = args[torch.arange(limits[i], limits[i+1])]
+
+  #   while max(lengths) > 1:
+  #     mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+  #     fill_mask = torch.zeros_like(mask).to(device)
+
+  #     for i in range(the_len):
+  #       mask[start_inds[i]:end_inds[i]] = True
+  #       fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
+
+  #     how_much = mask.sum().item()
+  #     full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
+
+  #     lengths = (lengths + 1) // 2
+  #     start_inds = end_inds
+  #     end_inds = start_inds + 2 * (lengths // 2)
+  #     fill_start_inds = start_inds + lengths
+  #     fill_end_inds = fill_start_inds + (lengths // 2)
      
-    mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
-    mask[start_inds] = True
-    return full_sized[mask]
+  #   mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+  #   mask[start_inds] = True
+  #   return full_sized[mask]
 
   # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
   #   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -271,33 +315,29 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #   return args[:the_len]
 
 def get_initial_model(thax_sign,deriv_arits):
-  device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  if HP.CUDA and torch.cuda.is_available():
+    device = "cuda"
+  else:
+    device = "cpu"
+    
   init_embeds = torch.nn.ModuleDict()
 
   for i in thax_sign:
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE).to(device)
-    # init_embeds[str(i)] = Embed(HP.EMBED_SIZE)
 
-  deriv_mlps = torch.nn.ModuleDict()
+  deriv_mlps = torch.nn.ModuleDict().to(device)
   for rule,arit in deriv_arits.items():
     if arit <= 2:
       deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit).to(device)
-      # deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit)
     else:
       assert(arit == 3)
       deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2).to(device)
-      # deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2)
 
   eval_net = torch.nn.Sequential(
     torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
     torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
     torch.nn.Linear(HP.EMBED_SIZE,1)).to(device)
-  # eval_net = torch.nn.Sequential(
-  #   torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-  #   torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
-  #   torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-  #   torch.nn.Linear(HP.EMBED_SIZE,1))
 
   return torch.nn.ModuleList([init_embeds,deriv_mlps,eval_net])
   
@@ -563,7 +603,7 @@ class LearningModel(torch.nn.Module):
       init_embeds : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, training=True, use_cuda = False):
+      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos,neg,tot_pos,tot_neg,mask,target, training=True, use_cuda = False):
       # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
 
@@ -572,6 +612,7 @@ class LearningModel(torch.nn.Module):
     else:
       self.device = "cpu"
     
+    self.ids = ids.to(self.device)
     self.rule_steps = rule_steps.to(self.device)
     self.ind_steps = ind_steps
     self.pars_ind_steps = pars_ind_steps
@@ -581,45 +622,38 @@ class LearningModel(torch.nn.Module):
       self.pars_ind_steps[i] = pars_ind_steps[i].to(self.device)
     if i in self.rule_52_limits.keys():
       self.rule_52_limits[i] = rule_52_limits[i].to(self.device)
-    self.ids = ids.to(self.device)
 
     self.vectors = torch.empty(len(self.ids), HP.EMBED_SIZE).to(self.device)
-    self.vectors[:len(thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax,_ in thax])
+    self.vectors[:len(thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in thax])
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
-    self.pos_vals = torch.zeros(len(self.ids)).to(self.device)
-    self.neg_vals = torch.zeros(len(self.ids)).to(self.device)
-    self.pos_vals[list(pos_vals.keys())] = torch.tensor(list(pos_vals.values())).to(self.device)
-    self.neg_vals[list(neg_vals.keys())] = torch.tensor(list(neg_vals.values())).to(self.device)
-   
-    self.mask = (self.pos_vals[self.ids] > 0) | (self.neg_vals[self.ids] > 0).to(self.device)
-  
-    tot_neg = torch.tensor(tot_neg).to(self.device)
-    tot_pos = torch.tensor(tot_pos).to(self.device)
-    self.pos_weight = (HP.POS_WEIGHT_EXTRA * tot_neg / tot_pos if tot_pos > 0 else torch.tensor(1.0)).to(self.device)
-      
+    self.pos = pos.to(self.device)
+    self.neg = neg.to(self.device)
+ 
+    self.target = target.to(self.device)
+
+    self.mask = mask.to(self.device)
+
+    tot_neg = tot_neg.to(self.device)
+    tot_pos = tot_pos.to(self.device)
+    self.pos_weight = (HP.POS_WEIGHT_EXTRA * tot_neg / tot_pos if tot_pos > 0 else torch.tensor(1.0)).to(self.device)  
     self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=self.pos_weight, reduction="none")
   
   def contribute(self):
     val = self.eval_net(self.vectors[self.mask]).squeeze()
 
-    pos = self.pos_vals[self.ids[self.mask]]
-    neg = self.neg_vals[self.ids[self.mask]]
+    self.posOK = (self.pos * (val >= 0)).sum()
+    self.negOK = (self.neg * (val < 0)).sum()
 
-    self.posOK = (pos * (val >= 0)).sum()
-    self.negOK = (neg * (val < 0)).sum()
-
-    target = pos / (pos + neg)
-
-    contrib = self.criterion(val, target)
+    contrib = self.criterion(val, self.target)
 
     if HP.FOCAL_LOSS:
       val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
-      contrib = -self.pos_weight * target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+      contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
 
-    self.loss = ((pos + neg) * contrib).sum()
+    self.loss = ((self.pos + self.neg) * contrib).sum()
 
   def forward(self):
     self.loss = torch.zeros(1).to(self.device)
@@ -631,7 +665,6 @@ class LearningModel(torch.nn.Module):
         self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step], self.device)
       else:
         self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
-    # print("Contiguous:",self.vectors.is_contiguous(),flush=True)
 
     self.contribute()
 
@@ -665,18 +698,19 @@ def get_ancestors(seed,pars,rules,goods_generating_parents,**kwargs):
 def abstract_initial(features):
   goal = features[-3]
   thax = -1 if goal else features[-2]
-  if HP.USE_SINE:
-    sine = features[-1]
-  else:
-    sine = 0
-  return (thax,sine)
+  # if HP.USE_SINE:
+  #   sine = features[-1]
+  # else:
+  #   sine = 0
+  # return (thax,sine)
+  return thax
 
 def abstract_deriv(features):
   rule = features[-1]
   return rule
 
-def load_one(filename,max_size = None):
-  print("Loading",filename)
+def load_one(filename, max_size = None):
+  print("Loading", filename, flush=True)
 
   init : List[Tuple[int, Tuple[int, int, int, int, int, int]]] = []
   deriv : List[Tuple[int, Tuple[int, int, int, int, int]]] = []
@@ -706,7 +740,7 @@ def load_one(filename,max_size = None):
   activation_limit_reached = False
   time_limit_reached = False
 
-  with open(filename,'r') as f:
+  with open(filename, 'r') as f:
     for line in f:
       if max_size and len(init)+len(deriv) > max_size:
         return None
@@ -816,13 +850,13 @@ def load_one(filename,max_size = None):
   return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
 
 def prepare_signature(prob_data_list):
-  sine_sign = set()
+  # sine_sign = set()
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight,_), (init,deriv,pars,_,_,_,_,axioms) in prob_data_list:
-    for id, (_,sine) in init:
-      sine_sign.add(sine)
+  for (_,probweight,_), (_,deriv,pars,_,_,_,_,axioms) in prob_data_list:
+    # for id, (_,sine) in init:
+    #   sine_sign.add(sine)
 
     for id, features in deriv:
       rule = features
@@ -838,18 +872,9 @@ def prepare_signature(prob_data_list):
     for id,ax in axioms.items():
       axiom_hist[ax] += probweight
 
-  return (sine_sign,deriv_arits,axiom_hist)
+  return (deriv_arits, axiom_hist)
 
-# def replace_axioms(probdata):
-#   metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms) = probdata
-#   for i,id,thax in enumerate(init):
-#     # if thax == 0: # don't name the conjecture
-#     if id in axioms:
-#       thax = axioms[id]
-#     init[i] = id, thax
-#   return (metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
-
-def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
+def axiom_names_instead_of_thax(axiom_hist, prob_data_list):
   # (we didn't parse anything than 0 and -1 anyway:)
   # well, actually, in HOL/Sledgehammer we have both thax and user axioms
   # (and we treat all as user axioms (using a modified Vampire)
@@ -868,51 +893,132 @@ def axiom_names_instead_of_thax(axiom_hist,prob_data_list):
 
   for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
     new_init = []
-    for id, (thax,sine) in init:
+    for id, thax in init:
       if thax == 0:
         if id in axioms and axioms[id] in ax_idx:
           thax = ax_idx[axioms[id]]
-      new_init.append((id,(thax,sine)))
+      new_init.append((id,thax))
       thax_sign.add(thax)
     thax_sign.add(0)
     prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
 
-  return thax_sign,prob_data_list,thax_to_str
+  return thax_sign, prob_data_list, thax_to_str
 
 def setup_pos_vals_neg_vals(prob_data):
   (probname,probweight,size),(init,deriv,pars,selec,good,axioms) = prob_data
   print(probname,len(init),len(deriv),len(pars),len(selec),len(good),len(axioms))
 
-  pos_vals = defaultdict(float)
-  neg_vals = defaultdict(float)
+  pos_vals = {}
+  neg_vals = {}
   tot_pos = 0.0
   tot_neg = 0.0
 
   # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
-  one_clause_weigth = 1.0/len(selec)
+  # one_clause_weigth = 1.0/len(selec)
 
   for id in selec:
     if id in good:
-      pos_vals[id] = one_clause_weigth
-      tot_pos += one_clause_weigth
+      # pos_vals[id] = one_clause_weigth
+      # tot_pos += one_clause_weigth
+      pos_vals[id] = 1
+      tot_pos += 1
     else:
-      neg_vals[id] = one_clause_weigth
-      tot_neg += one_clause_weigth
+      # neg_vals[id] = one_clause_weigth
+      # tot_neg += one_clause_weigth
+      neg_vals[id] = 1
+      tot_neg += 1
 
   return ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
 
-def compress_prob_data(some_probs):
-  # Takes an iterable of "probname, (init,deriv,pars,selec,good,this_map)" and
-  # "hashes them structurally" (modulo the features we care about) to just one graph to learn from
-  # initially intended to be used with just a singleton some_probs
-  # (possible to compress pairs and triples, etc, to obtain "larger minibatches")
-  #
-  # The selected features are
-  # *) "thax" for init (can be -1 signifying conjecture clause, 0 for SWAPOUT+unseen and thax_ids otherwise)
-  # *) and "rule" for deriv (arity is implict in the number of parents
-  #
-  # Remark: We could leave just one id for every thax, but then SWAPOUT acts also entirely on a batch. 
+def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals):
+  for j in range(len(prob_data_list)):
+    (probname,probweight,_), (init,deriv,pars,_,_,_,_,_) = prob_data_list[j]
+    if not (j in num_to_pos_vals.keys() or j in num_to_neg_vals.keys()):
+      print("All pos_vals and neg_vals distributed. Emptying problem", j, "out of", len(prob_data_list), flush=True)
+      prob_data_list[j] = (("","",0.0),([],[],{},{},{},0.0,0.0,{}))
+    print("Adjusting ids, init, deriv and pars for id", j, "out of", len(prob_data_list), flush=True)
+    this_init = [(old2new[j][id], thax) for id, thax in init]
+    this_deriv = [(old2new[j][id], rule) for id, rule in deriv]
+    these_pars = {old2new[j][id]: [old2new[j][val] for val in vals] for id, vals in pars.items()}
+    these_pos_vals = dict()
+    these_neg_vals = dict()
+    if j in set(num_to_pos_vals.keys()) & set(num_to_neg_vals.keys()):
+      for id in num_to_pos_vals[j] & num_to_neg_vals[j]:
+        these_pos_vals[id] = pos_vals[id] / (pos_vals[id] + neg_vals[id])
+        these_neg_vals[id] = neg_vals[id] / (pos_vals[id] + neg_vals[id])
+    if j in num_to_pos_vals:
+      for id in num_to_pos_vals[j] - num_to_neg_vals[j]:
+        these_pos_vals[id] = 1
+    if j in num_to_neg_vals:
+      for id in num_to_neg_vals[j] - num_to_pos_vals[j]:
+        these_neg_vals[id] = 1
+    this_tot_pos = sum(these_pos_vals.values())
+    this_tot_neg = sum(these_neg_vals.values())
 
+    prob_data_list[j] = ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, these_pos_vals, these_neg_vals, this_tot_pos, this_tot_neg, {}))
+  return prob_data_list
+
+def reduce_problems(prob_data_list):
+  for j in range(len(prob_data_list)):
+    a, (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_) = prob_data_list[j]
+    print("Reducing problem. Lengths before: {}, {}, {}".format(len(init),len(deriv),len(init)+len(deriv)),flush=True)
+    persistent = set(pos_vals.keys()).union(set(neg_vals.keys()))
+    if len(persistent) == 0:
+      prob_data_list[j] = (("","",0.0),([],[],{},{},{},0.0,0.0,{}))
+      print("Reduced problem. Lengths after: 0.0, 0.0, 0.0",flush=True)
+    else:
+      pers_len = len(persistent)
+      old_len = pers_len-1
+      while pers_len > old_len:
+        persistent = persistent.union(set([y for x in persistent.intersection(set([z for z,_ in deriv])) for y in pars[x]]))
+        old_len = pers_len
+        pers_len = len(persistent)
+      this_init = [(x,y) for x,y in init if x in persistent]
+      this_deriv = [(x,y) for x,y in deriv if x in persistent]
+      these_pars = {x:y for x,y in pars.items() if x in persistent}
+
+      prob_data_list[j] = (a,(this_init,this_deriv,these_pars,pos_vals,neg_vals,tot_pos,tot_neg,{}))
+      print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init),len(this_deriv),len(this_init)+len(this_deriv)),flush=True)
+  return prob_data_list
+
+def compress_prob_data_with_fixed_ids(some_probs):
+  out_probname = ""
+  out_probweight = 0.0
+   
+  out_init = set()
+  out_deriv = set()
+  out_pars = {}
+  out_pos_vals = {}
+  out_neg_vals = {}
+  out_tot_pos = 0.0
+  out_tot_neg = 0.0
+
+  for ((probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_)) in some_probs:
+  
+    just_file = probname.split("/")[-1]
+    out_probname = f"{out_probname}+{just_file}" if out_probname else just_file
+    out_probweight += probweight
+
+    out_init.update(init)
+    out_deriv.update(deriv)
+
+    out_pars.update((k, v) for k, v in pars.items() if k not in out_pars)
+
+    for k, v in pos_vals.items():
+      if v > 0.0:
+        out_pos_vals[k] = max(v, out_pos_vals.get(k, 0.0))
+    for k, v in neg_vals.items():
+      if v > 0.0:
+        out_neg_vals[k] = max(v, out_neg_vals.get(k, 0.0))
+
+    out_tot_pos += tot_pos
+    out_tot_neg += tot_neg
+
+  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg, flush=True)
+  sys.stdout.flush()
+  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,{})
+
+def compress_prob_data(some_probs, flag=False):
   id_cnt = 0
   out_probname = ""
   out_probweight = 0.0
@@ -922,74 +1028,83 @@ def compress_prob_data(some_probs):
   out_init = []
   out_deriv = []
   out_pars = {}
-  out_pos_vals = defaultdict(float)
-  out_neg_vals = defaultdict(float)
+  out_pos_vals = {}
+  out_neg_vals = {}
   out_tot_pos = 0.0
   out_tot_neg = 0.0
 
-  out_axioms : Dict[int, str] = {}
+  out_axioms = {}
+
+  old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
+  if flag:
+    num_to_pos_vals = {}
+    num_to_neg_vals = {}
+    checklist_pos = set()
+    checklist_neg = set()
 
   for i,((probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(some_probs):
     # reset for evey problem in the list
-    old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
+    old2new[i] = {}
   
     just_file = probname.split("/")[-1]
-    if out_probname:
-      out_probname += "+"+just_file
-    else:
-      out_probname = just_file
-    
+    out_probname = f"{out_probname}+{just_file}" if out_probname else just_file
     out_probweight += probweight
 
     for old_id, features in init:
-      if isinstance(features, list):
-        abskey = features[0] # TODO: we might want to kick out SINE when not using it!
-      else:
-        abskey = features
-
-      if abskey not in abs2new:
+      if features not in abs2new:
         new_id = id_cnt
         id_cnt += 1
+        out_init.append((new_id, features))
+        abs2new[features] = new_id
+      old2new[i][old_id] = abs2new[features]
 
-        abs2new[abskey] = new_id
-# Kicking sine out here
-        out_init.append((new_id,abskey))
-      else:
-        new_id = abs2new[abskey]
-
-      old2new[old_id] = new_id
-
-    for ax in axioms:
-      out_axioms[ax] = axioms[ax]
+    out_axioms.update(axioms)
 
     for old_id, features in deriv:
-      new_pars = [old2new[par] for par in pars[old_id]]
-      
-      abskey = tuple([features]+new_pars)
-
+      new_pars = tuple(old2new[i][par] for par in pars[old_id])
+      abskey = (features, *new_pars)
       if abskey not in abs2new:
         new_id = id_cnt
         id_cnt += 1
-
-        abs2new[abskey] = new_id
-        
-        out_deriv.append((new_id,features))
+        out_deriv.append((new_id, features))
         out_pars[new_id] = new_pars
-      else:
-        new_id = abs2new[abskey]
-      
-      old2new[old_id] = new_id
+        abs2new[abskey] = new_id    
+      old2new[i][old_id] = abs2new[abskey]
 
-    for old_id,val in pos_vals.items():
-      out_pos_vals[old2new[old_id]] += val
-    for old_id,val in neg_vals.items():
-      out_neg_vals[old2new[old_id]] += val
+    for k, v in pos_vals.items():
+      if v > 0.0:
+        new_id = old2new[i][k]
+        out_pos_vals[new_id] = out_pos_vals.get(new_id, 0.0) + v
+
+    for k, v in neg_vals.items():
+      if v > 0.0:
+        new_id = old2new[i][k]
+        out_neg_vals[new_id] = out_neg_vals.get(new_id, 0.0) + v
+
+    if flag:
+      for k, v in pos_vals.items():
+        if v > 0.0:
+          new_id = old2new[i][k]
+          if new_id not in checklist_pos:
+            checklist_pos.add(new_id)
+            num_to_pos_vals.setdefault(i, set()).add(new_id)
+      for k, v in neg_vals.items():
+        if v > 0.0:
+          new_id = old2new[i][k]
+          if new_id not in checklist_neg:
+            checklist_neg.add(new_id)
+            num_to_neg_vals.setdefault(i, set()).add(new_id)
 
     out_tot_pos += tot_pos
     out_tot_neg += tot_neg
 
   print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
-  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,out_axioms)
+  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg, out_axioms)
+
+  if flag:
+    return result, old2new, out_pos_vals, out_neg_vals, num_to_pos_vals, num_to_neg_vals
+  else:
+    return result 
 
 import matplotlib.pyplot as plt
 
