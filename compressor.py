@@ -121,6 +121,12 @@ class MergeWorker(threading.Thread):
         if task_type == "query":
           result = self._handle_query(data)
 
+        if task_type == "move_weights":
+          result = self._handle_move_weights(data)
+
+        if task_type == "get_roots_without_children_with_weights":
+          result = self._handle_get_roots_without_children_with_weights(data)
+
         if task_type == "finalize":
           result = self._handle_finalize(data)
 
@@ -133,15 +139,21 @@ class MergeWorker(threading.Thread):
     else:
       result = None
     return result
-
-  def _handle_query(self, data):
-    num = data
-    if num in self.id_dict:
-      result = (num, self.id_dict[num], self.p_dict[num])
-    else:
-      result = None
-    return result
     
+  def _handle_query(self, data):
+    id_set = data
+    result = {id: {num for num in self.id_dict if id in self.id_dict[num]["ids"]} for id in id_set}
+    return result
+  
+  def _handle_move_weights(self, data):
+    moved = data
+    for mover in moved:
+      if mover["target_num"] in self.num_initial:
+        self.p_dict[mover["target_num"]][1][3][mover["id"]] = mover["pos_val"]
+        self.p_dict[mover["target_num"]][1][4][mover["id"]] = mover["neg_val"]
+    result = 1
+    return result
+  
   def _handle_compare(self, data):
     if self.id_dict:
       mini1 = data
@@ -220,26 +232,20 @@ def get_minimum_element(num_threads, task_queues, result_queue):
   
   return mini, p
 
-def query_element(num_threads, task_queues, result_queue, num):
-  """ Query element. """
+def query_ids(num_threads, task_queues, result_queue, id_set):
+  """ Query elements. """
   for i in range(num_threads):
-    task_queues[i].put(("query", num))
+    task_queues[i].put(("query", id_set))
 
-  results_, mins, ps = [], {}, {}
+  results_ = []
   while len(results_) < num_threads:
     time.sleep(0.0001)
     if not result_queue.empty():
       results_.append(result_queue.get_nowait())
-      if results_[-1] is not None:
-        num_, mini_, p_ = results_[-1]
-        mins[num_] = mini_
-        ps[num_] = p_
 
   # print([(x, y["length"]) for x, y in mins.items()],flush=True)
-  mini = min((num for num in mins.values()), key=lambda t: t["length"])
-  p = ps[mini["num"]]
   
-  return num, mini, p
+  return results_
 
 def get_compared_element(num_threads, task_queues, result_queue, mini):
   """ Compare with mini. """
@@ -273,6 +279,28 @@ def delete_element(num_threads, task_queues, result_queue, num):
     if not result_queue.empty():
       results_.append(result_queue.get_nowait())
 
+def move_weights(num_threads, task_queues, result_queue, moved):
+  """ Move weights. """
+  for i in range(num_threads):
+    task_queues[i].put(("move_weights", moved))
+
+  results_ = []
+  while len(results_) < num_threads:
+    time.sleep(0.0001)
+    if not result_queue.empty():
+      results_.append(result_queue.get_nowait())
+
+def root_reduce(mini, p, moved):
+  """ Reduce roots. """
+  for mover in moved:
+    if mover["id"] in p[1][3]:
+      del p[1][3][mover["id"]]
+    if mover["id"] in p[1][4]:
+      del p[1][4][mover["id"]]
+  p = IC.reduce_problems([p])[0]
+  new_set = set([x for x, _ in p[1][0]]) | set([x for x, _ in p[1][1]])
+  mini = {"num": mini["num"], "length": len(new_set), "ids": new_set}
+  return mini, p
 
 def update_all_workers(num_threads, task_queues, result_queue, mini, p):
   """ Update all workers with new merged data. """
@@ -302,6 +330,30 @@ def finalize(num_threads, task_queues, result_queue):
 
   return prob_data_list
 
+def get_roots_without_children_with_weights(p):
+  tmp = (set(p[1][3].keys()) | set(p[1][4].keys())) - set().union(*p[1][2].values())
+  result = {"ids": tmp,
+            "pos": {key: p[1][3].get(key, 0.0) for key in tmp},
+            "neg": {key: p[1][4].get(key, 0.0) for key in tmp}}
+  return result
+
+def get_move_dict(roots_with_weights, results):
+  moved = []
+  results = [result for result in results if any(val for val in result.values())]
+  if results:
+    for id in roots_with_weights["ids"]:
+      found = False
+      for result in results:
+        if id in result:
+          if result[id]:
+            where_to = list(result[id])[0]
+            if where_to:
+              moved.append({"id": id, 
+                        "pos_val": roots_with_weights["pos"][id],
+                        "neg_val": roots_with_weights["neg"][id],
+                        "target_num": where_to})
+  return moved
+
 def threaded_smallest_min_overlap_compression(prob_data_list):
 # Initially: ~20442 problems
 # After removing non-first occurence: ~16450
@@ -309,11 +361,11 @@ def threaded_smallest_min_overlap_compression(prob_data_list):
 # Just pick as many smallest problems to size strictly < 20000: 804
 # Pick smallest problem, merge with problem such that minimal additional nodes, and among those one with minimal size, to size strictly < 20000: 741
 # Huffmann-encoding (mergest 2 smallest problems) to size strictly < 20000: 986
-  num_threads = 12
+  num_threads = HP.NUMPROCESSES
   # prob_data_list = torch.load(sys.argv[1],weights_only=False)
   p_dict = {num: p for num, p in enumerate(prob_data_list) if p[1][0]}
   del prob_data_list
-  print("Problems read in. Performing Huffman-alike merge to threshold.",flush=True)
+  print("Problems read in. Performing Huffman-alike merge, which introduces few additional nodes, to threshold.",flush=True)
   id_dict = {}
   for num, p in p_dict.items():
     this_set = set([x for x, _ in p[1][0]]) | set([x for x, _ in p[1][1]]) 
@@ -328,17 +380,29 @@ def threaded_smallest_min_overlap_compression(prob_data_list):
   while mini1["length"] + mini2["length"] < HP.COMPRESSION_THRESHOLD:
     del mini2, p2
 
-    mini2, p2 = get_compared_element(num_threads, task_queues, result_queue, mini1)
-    delete_element(num_threads, task_queues, result_queue, mini2["num"])
+    mini_ = {}
+    while not mini1 == mini_:
+      mini_ = mini1
+      roots_with_weights = get_roots_without_children_with_weights(p1)
+      results = query_ids(num_threads, task_queues, result_queue, roots_with_weights["ids"])
+      moved = get_move_dict(roots_with_weights, results)
+      move_weights(num_threads, task_queues, result_queue, moved)
+      mini1, p1 = root_reduce(mini1, p1, moved)
+      if mini1["length"] == 0:
+        break
 
-    p = IC.compress_prob_data_with_fixed_ids([p1, p2])
-    new_set = mini1["ids"] | mini2["ids"]
-    mini = {"num": mini1["num"], "length": len(new_set), "ids": new_set}
+    del mini_
+    if mini1["length"] > 0:
+      mini2, p2 = get_compared_element(num_threads, task_queues, result_queue, mini1)
+      delete_element(num_threads, task_queues, result_queue, mini2["num"])
 
-    update_all_workers(num_threads, task_queues, result_queue, mini, p)
-    num_, mini_, p_ = query_element(num_threads, task_queues, result_queue, mini1["num"])
+      p = IC.compress_prob_data_with_fixed_ids([p1, p2])
+      new_set = mini1["ids"] | mini2["ids"]
+      mini = {"num": mini1["num"], "length": len(new_set), "ids": new_set}
 
-    del mini, mini1, p1, mini2, p2, p, new_set
+      update_all_workers(num_threads, task_queues, result_queue, mini, p)
+
+      del mini, mini1, p1, mini2, p2, p, new_set
 
     mini1, p1 = get_minimum_element(num_threads, task_queues, result_queue)
     delete_element(num_threads, task_queues, result_queue, mini1["num"])
@@ -404,7 +468,7 @@ class RuleWorker(threading.Thread):
 def greedy(data, stop_early=0):
   init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[:7] 
   
-  num_threads = 12
+  num_threads = HP.NUMPROCESSES
   ids = [id for id, _ in init]
   id_to_ind = {ids[i]: i for i in range(len(ids))}
   rules = list(set(rule for _, rule in deriv))
@@ -599,153 +663,22 @@ if __name__ == "__main__":
   args = parse_args()
 
   if args["mode"] == "pre":
+    assert(args["file"])
+    assert(args["out_file_1"])
+    print("Reading in problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
-
-    print("Making smooth compression discreet again (and forcing weight back to 1.0!)")
-    for i, ((probname, probweight, size),(init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, axioms)) in enumerate(prob_data_list):
-      if True:
-        probweight = 1.0
-    
-      print(probname,probweight)
-      print(tot_pos,tot_neg)
-      
-      tot_pos = 0.0
-      tot_neg = 0.0
-              
-      for id,val in neg_vals.items():
-        if id in pos_vals and pos_vals[id] > 0.0: # pos has priority
-          neg_vals[id] = 0.0
-        elif val > 0.0:
-          neg_vals[id] = 1.0 # neg counts as one
-          tot_neg += 1.0
-
-      for id, val in pos_vals.items():
-        if val > 0.0:
-          pos_vals[id] = 1.0 # pos counts as one too
-          tot_pos += 1.0
-
-      # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that the whole problem has a sum of probweight
-      factor = probweight / (tot_pos + tot_neg)
-      for id, val in pos_vals.items():
-        pos_vals[id] *= factor
-      for id, val in neg_vals.items():
-        neg_vals[id] *= factor
-      tot_pos *= factor
-      tot_neg *= factor
-
-      print(tot_pos, tot_neg)
-
-      prob_data_list[i] = ((probname, probweight, size),(init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, axioms))
-
     print("Compressing every individual problem.")
     prob_data_list = [IC.compress_prob_data([prob_data_list[i]]) for i in range(len(prob_data_list))]
-    torch.save(prob_data_list, args["file"])
-    print("Done.")
-    exit()
-  
-  if args["mode"] == "map":
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
-    _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
-    print("Generated old2new and num_to_pos/neg_vals. Aligning and saving.", flush=True)
-    combined_keys = set(list(num_to_pos_vals.keys()) + list(num_to_neg_vals.keys()))
-    full_range = set([x for x in range(len(prob_data_list))])
-    missing = set(full_range - combined_keys)
-    num_to_pos_vals_ = dict()
-    num_to_neg_vals_ = dict()
-    old2new_ = dict()
-    new_prob_data_list = [None] * (len(full_range)-len(missing))
-    for key in full_range:
-      if key not in num_to_pos_vals:
-        num_to_pos_vals[key] = set()
-    for key in full_range:
-      if key not in num_to_neg_vals:
-        num_to_neg_vals[key] = set()
-    for i in range(len(combined_keys)):
-      num_to_pos_vals_[i] = num_to_pos_vals[list(combined_keys)[i]]
-      num_to_neg_vals_[i] = num_to_neg_vals[list(combined_keys)[i]]
-      old2new_[i] = old2new[list(combined_keys)[i]]
-      new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
-    torch.save((old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_), args["out_file_1"])
-    torch.save(new_prob_data_list, args["file"])
-    del prob_data_list
-    del new_prob_data_list
-    print("Done.",flush=True)
-    exit()
-
-  if args["mode"] == "adj":
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Reading in mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
-    old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = torch.load(args["add_file_1"], weights_only=False)
-    print("Done.", flush=True)
-    print("Assigning new ids and weights to individual problems.", flush=True)
-    prob_data_list = IC.adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals)
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
     torch.save(prob_data_list, args["out_file_1"])
-    print("Done.", flush=True)
+    print("Done.")
     exit()
 
-  if args["mode"] == "match":
-## ULTIMATE heuristic: Root-reduction
-#
-# We gather the pos_val/neg_val roots with weights for every problem, i.e., those without children.
-# Then we investigate if they are in another problem, but not as root.
-# We can then move the weight and delete the root and possibly parents.
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = torch.load(args["add_file_1"], weights_only=False)
-    print("Problems read in. Performing root-reduction.", flush=True)
-    ids = {}
-    num_2_roots_with_weight = {}
-    for i in range(len(prob_data_list)):
-      ids[i] = set()
-      ids[i] = set([x for x,_ in prob_data_list[i][1][0]] + [x for x,_ in prob_data_list[i][1][1]])
-      num_2_roots_with_weight[i] = set()
-    print("Initial sum of nodes: {}".format(sum([len(ids[x]) for x in range(len(ids))])), flush=True)
-    for i in num_to_pos_vals.keys():
-      if len(num_to_pos_vals[i]) == 0:
-        num_to_pos_vals[i] = set()
-    for i in num_to_neg_vals.keys():
-      if len(num_to_neg_vals[i]) == 0:
-        num_to_neg_vals[i] = set()
-
-    for i in range(len(prob_data_list)):
-      more_roots = True
-      while more_roots:
-        num_2_roots_with_weight[i] = set(prob_data_list[i][1][3].keys()).union(set(prob_data_list[i][1][4].keys())).difference(set().union(*prob_data_list[i][1][2].values()))
-        print(i,len(prob_data_list),i/len(prob_data_list),flush=True)
-        these_roots = num_2_roots_with_weight[i]
-        if len(these_roots):
-          a,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,ax) = prob_data_list[i]
-          other_probs = [x for x in ids.keys() if x != i]
-          these_intersections = {}
-          for ind in other_probs:
-            these_intersections[ind] = these_roots & ids[ind]
-            these_roots.difference_update(these_intersections[ind])
-            if len(these_roots) == 0:
-              break
-          for key in these_intersections.keys():
-            a_,(init_,deriv_,pars_,pos_vals_,neg_vals_,tot_pos_,tot_neg_,ax_) = prob_data_list[key]
-            for id in these_intersections[key]:
-              if id in pos_vals:
-                pos_vals_[id] = pos_vals[id]
-                del pos_vals[id]
-              if id in neg_vals:
-                neg_vals_[id] = neg_vals[id]
-                del neg_vals[id]
-            prob_data_list[key] = (a_,(init_,deriv_,pars_,pos_vals_,neg_vals_,tot_pos_,tot_neg_,ax_))
-          prob_data_list[i] = (a,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,ax))
-          prob_data_list[i] = IC.reduce_problems([prob_data_list[i]])[0]
-        more_roots = num_2_roots_with_weight[i] != set(prob_data_list[i][1][3].keys()).union(set(prob_data_list[i][1][4].keys())).difference(set().union(*prob_data_list[i][1][2].values()))
-
-    for i in range(len(prob_data_list)):
-      ids[i] = set()
-      ids[i] = set([x for x,_ in prob_data_list[i][1][0]] + [x for x,_ in prob_data_list[i][1][1]])
-    print("Root-reduced sum of nodes: {}".format(sum([len(ids[x]) for x in range(len(ids))])),flush=True)
-    torch.save(prob_data_list, "{}.root_reduced".format(args["file"]))
-    exit()
- 
   if args["mode"] == "split":
+    assert(args["folder"])
+    assert(args["file"])
+    print("Reading in problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     ax_to_prob = dict()
     for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
@@ -784,8 +717,62 @@ if __name__ == "__main__":
     torch.save(valid_data_list, "{}.valid".format(args["file"]))
     print("Done.", flush=True)
     exit()
+  
+  if args["mode"] == "map":
+    assert(args["file"])
+    assert(args["out_file_1"])
+    print("Reading in problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
+    _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
+    print("Generated old2new and num_to_pos/neg_vals. Aligning and saving.", flush=True)
+    combined_keys = set(list(num_to_pos_vals.keys()) + list(num_to_neg_vals.keys()))
+    full_range = set([x for x in range(len(prob_data_list))])
+    missing = set(full_range - combined_keys)
+    num_to_pos_vals_ = dict()
+    num_to_neg_vals_ = dict()
+    old2new_ = dict()
+    new_prob_data_list = [None] * (len(full_range)-len(missing))
+    for key in full_range:
+      if key not in num_to_pos_vals:
+        num_to_pos_vals[key] = set()
+    for key in full_range:
+      if key not in num_to_neg_vals:
+        num_to_neg_vals[key] = set()
+    for i in range(len(combined_keys)):
+      num_to_pos_vals_[i] = num_to_pos_vals[list(combined_keys)[i]]
+      num_to_neg_vals_[i] = num_to_neg_vals[list(combined_keys)[i]]
+      old2new_[i] = old2new[list(combined_keys)[i]]
+      new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
+    torch.save((old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_), args["out_file_1"])
+    torch.save(new_prob_data_list, args["file"])
+    del prob_data_list
+    del new_prob_data_list
+    print("Done.",flush=True)
+    exit()
+
+  if args["mode"] == "adj":
+    assert(args["file"])
+    assert(args["add_file_1"])
+    assert(args["out_file_1"])
+    print("Reading in problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Reading in mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
+    old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = torch.load(args["add_file_1"], weights_only=False)
+    print("Done.", flush=True)
+    print("Assigning new ids and weights to individual problems.", flush=True)
+    prob_data_list = IC.adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals)
+    print("Reducing problems a bit.", flush=True)
+    prob_data_list = IC.reduce_problems(prob_data_list)
+    torch.save(prob_data_list, args["out_file_1"])
+    print("Done.", flush=True)
+    exit()
 
   if args["mode"] == "gen":
+    assert(args["file"])
+    assert(args["folder"])
+    assert(args["add_mode_1"])
+    print("Reading in problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
     dir = "{}/pieces".format(args["folder"])
