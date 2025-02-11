@@ -466,9 +466,9 @@ class RuleWorker(threading.Thread):
     return result
 
 def greedy(data, stop_early=0):
-  init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[:7] 
+  init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[1][:7] 
   
-  num_threads = HP.NUMPROCESSES
+  num_threads = 5*HP.NUMPROCESSES
   ids = [id for id, _ in init]
   id_to_ind = {ids[i]: i for i in range(len(ids))}
   rules = list(set(rule for _, rule in deriv))
@@ -571,13 +571,16 @@ def greedy(data, stop_early=0):
   pos = torch.tensor(sorted_pos_values, dtype=torch.float)
   neg = torch.tensor(sorted_neg_values, dtype=torch.float)
 
+  tot_pos = sum(pos)
+  tot_neg = sum(neg)
+
   target = pos / (pos + neg)
 
   mask = torch.tensor([id in sorted_keys for id in ids], dtype=torch.bool)
 
   print()
 
-  return (thax, torch.tensor(ids, dtype=torch.int32), torch.tensor(rule_steps, dtype=torch.int32), ind_steps, pars_ind_steps, rule_52_limits, pos, neg, torch.tensor(tot_pos, dtype=torch.float), torch.tensor(tot_neg, dtype=torch.float), mask, target)
+  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "rule_52_limits": rule_52_limits, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "mask": mask, "target": target}
 
 def compress_to_threshold(prob_data_list,threshold):
   
@@ -665,20 +668,23 @@ if __name__ == "__main__":
   if args["mode"] == "pre":
     assert(args["file"])
     assert(args["out_file_1"])
-    print("Reading in problem file.", flush=True)
+    print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Compressing every individual problem.")
     prob_data_list = [IC.compress_prob_data([prob_data_list[i]]) for i in range(len(prob_data_list))]
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
+# The first reduction gets rid of many nodes with more than 2 parents, if not all.
+# Nodes with more than 2 parents are all derived by rule 52, which means, that those aren't important at all and can be dismissed.
     torch.save(prob_data_list, args["out_file_1"])
     print("Done.")
+    del prob_data_list
     exit()
 
   if args["mode"] == "split":
     assert(args["folder"])
     assert(args["file"])
-    print("Reading in problem file.", flush=True)
+    print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     ax_to_prob = dict()
     for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
@@ -716,12 +722,14 @@ if __name__ == "__main__":
     torch.save(train_data_list, "{}.train".format(args["file"]))
     torch.save(valid_data_list, "{}.valid".format(args["file"]))
     print("Done.", flush=True)
+    del train_data_list
+    del valid_data_list
     exit()
   
   if args["mode"] == "map":
     assert(args["file"])
     assert(args["out_file_1"])
-    print("Reading in problem file.", flush=True)
+    print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
     _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
@@ -746,18 +754,18 @@ if __name__ == "__main__":
       new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
     torch.save((old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_), args["out_file_1"])
     torch.save(new_prob_data_list, args["file"])
+    print("Done.",flush=True)
     del prob_data_list
     del new_prob_data_list
-    print("Done.",flush=True)
     exit()
 
-  if args["mode"] == "adj":
+  if args["mode"] == "reduce":
     assert(args["file"])
     assert(args["add_file_1"])
     assert(args["out_file_1"])
-    print("Reading in problem file.", flush=True)
+    print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Reading in mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
+    print("Loading mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
     old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = torch.load(args["add_file_1"], weights_only=False)
     print("Done.", flush=True)
     print("Assigning new ids and weights to individual problems.", flush=True)
@@ -766,23 +774,66 @@ if __name__ == "__main__":
     prob_data_list = IC.reduce_problems(prob_data_list)
     torch.save(prob_data_list, args["out_file_1"])
     print("Done.", flush=True)
+    del prob_data_list
     exit()
 
-  if args["mode"] == "gen":
+  if args["mode"] == "compress":
+    assert(args["file"])
+    assert(args["out_file_1"])
+    print("Loading problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Compressing.", flush=True)
+    prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
+    print("Done. Saving.", flush=True)
+    torch.save(prob_data_list, args["out_file_1"])
+    print("Done.", flush=True)
+    del prob_data_list
+    exit()
+
+  if args["mode"] == "adjust":
+    assert(args["file"])
+    assert(args["out_file_1"])
+    print("Loading problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Re-distributing weights evenly across instances.", flush=True)
+    prob_data_list = IC.distribute_weights(prob_data_list)
+    print("Done. Saving.", flush=True)
+    torch.save(prob_data_list, args["out_file_1"])
+    print("Done.", flush=True)
+    del prob_data_list
+    exit()
+
+  if args["mode"] == "greedy":
+    assert(args["file"])
+    assert(args["out_file_1"])
+    print("Loading problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Computing Greedy Evaluation Schemes.", flush=True)
+    with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
+      new_prob_data_list = list(executor.map(greedy, prob_data_list))
+    print("Done. Saving.", flush=True)
+    torch.save(new_prob_data_list, args["out_file_1"])
+    print("Done.", flush=True)
+    del prob_data_list
+    del new_prob_data_list
+    exit()
+
+  if args["mode"] == "pieces":
     assert(args["file"])
     assert(args["folder"])
     assert(args["add_mode_1"])
-    print("Reading in problem file.", flush=True)
+    print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
-    prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
     dir = "{}/pieces".format(args["folder"])
     os.makedirs(dir, exist_ok=True)
-    for i, (metainfo, rest) in enumerate(prob_data_list):
+    for i, rest in enumerate(prob_data_list):
       piece_name = "piece{}.pt.{}".format(i, args["add_mode_1"])
-      print("Calculating Greedy Evaluation Scheme for {}".format(piece_name), flush=True)
-      torch.save(greedy(rest), "{}/pieces/{}".format(args["folder"], piece_name))
-    prob_data_list = [(prob_data_list[i][0][2], "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
+      print("Saving {}".format(piece_name), flush=True)
+      torch.save(rest, "{}/pieces/{}".format(args["folder"], piece_name))
+    prob_data_list = [(len(prob_data_list[i]["ids"]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
     filename = "{}/{}_index.pt".format(args["folder"], args["add_mode_1"])
     print("Saving {} part to".format(args["add_mode_1"]), filename)
     torch.save(prob_data_list, filename)
     print("Done.", flush=True)
+    del prob_data_list
+    exit()

@@ -63,35 +63,33 @@ def copy_vals_to_master_parts(masterparts,his_parts):
       if "weight" in name or "bias" in name:
         master_dict[name].data = param.data
 
-def eval_and_or_learn_on_one(these_problems,training,master_parts,start_time):
+def eval_and_or_learn_on_one(these_problems, training, master_parts, start_time):
   # torch.cuda.empty_cache()
+  print(time.time() - start_time,"Inner loop starts here.", flush=True)  
+  tot_pos = 0.0
+  tot_neg = 0.0
+  for _, probname in these_problems:
+    data = torch.load("{}/pieces/{}".format(sys.argv[1], probname), weights_only=False)
+    tot_pos += data["tot_pos"]
+    tot_neg += data["tot_neg"]
+    print(time.time() - start_time,"Piece {} loaded.".format(probname), flush=True)
+  loss_dict = {}
   if training:
-    print(time.time() - start_time,"Training starts here.",flush=True)
-    loss_dict = {}
-    for _,probname in these_problems:
-      data = torch.load("{}/pieces/{}".format(sys.argv[1],probname),weights_only=False)
-      thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits, pos, neg, tot_pos, tot_neg, mask, target = data
-      print(time.time() - start_time,"Piece loaded.",flush=True)
-      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits, pos, neg, tot_pos, tot_neg, mask, target, True, HP.CUDA)
-      # model = IC.LearningModel(*master_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, greedy_eval_scheme, False, True)
-      model.train()
-      print(time.time() - start_time,"Starting train for",probname,flush=True)
-      # with torch.amp.autocast(device_type="cuda"):
-      (loss_dict[probname],posOK_sum,negOK_sum) = model()
-      print(time.time() - start_time,"Finished train for",probname,flush=True)
+    print(time.time() - start_time, "Training starts here.", flush=True)
+    model = IC.LearningModel(*master_parts, data, True, HP.CUDA)
+    # model = IC.LearningModel(*master_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, greedy_eval_scheme, False, True)
+    model.train()
+    print(time.time() - start_time, "Starting training for {}".format(probname), flush=True)
+    # with torch.amp.autocast(device_type="cuda"):
+    (loss_dict[probname], posOK_sum, negOK_sum) = model()
+    print(time.time() - start_time, "Finished training for {}".format(probname), flush=True)
     losses = sum(loss_dict.values())
-    print(time.time() - start_time,"Starting backward propagation for problems of combined size",sum([size for size,_ in these_problems]),flush=True)
-    
-    # losses = losses.to("cuda")
-    # for param in master_parts.parameters():
-    #   param = param.to("cuda")
-      # print(name,param.device,flush=True)
-    # print("losses",losses.device,flush=True)
+    print(time.time() - start_time, "Starting backward propagation for problems of combined size", sum([size for size, _ in these_problems]), flush=True)
     losses.backward()
-    print(time.time() - start_time,"Finished backward propagation for problems of combined size",sum([size for size,_ in these_problems]),flush=True)
+    print(time.time() - start_time, "Finished backward propagation for problems of combined size", sum([size for size, _ in these_problems]), flush=True)
   else:
     with torch.no_grad():
-      model = IC.LearningModel(*master_parts,thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos_vals,neg_vals,tot_pos,tot_neg, False, True)
+      model = IC.LearningModel(*master_parts, *data, False, HP.CUDA)
       model.eval()
       with torch.no_grad():
         (losses,posOK_sum,negOK_sum) = model()

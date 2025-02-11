@@ -17,14 +17,15 @@ from collections import ChainMap
 import sys,random,itertools
 
 from multiprocessing import Pool
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def load_one(task):
-  i,logname = task
+  i, logname = task
   
   print(i)
   start_time = time.time()
   result = IC.load_one(logname) # ,max_size=15000)
-  print("Took",time.time()-start_time)
+  print("Took", time.time()-start_time, flush=True)
   if result:
     probdata,time_elapsed = result
     probdata = IC.setup_pos_vals_neg_vals(probdata)
@@ -61,26 +62,26 @@ if __name__ == "__main__":
 
   prob_data_list = [] # [(logname,(init,deriv,pars,selec,good)]
 
-  if True: # parallel
-    tasks = []
-    with open(sys.argv[2],"r") as f:
-      for i,line in enumerate(f):
-        logname = line[:-1]
-        tasks.append((i,logname))
-    pool = Pool(processes=12) # number of cores to use
-    results = pool.map(load_one, tasks, chunksize = 100)
-    pool.close()
-    pool.join()
-    del pool
-    prob_data_list = list(filter(None, results))
-  else: # sequential
-    prob_data_list = []
-    with open(sys.argv[2],"r") as f:
-      for i,line in enumerate(f):
-        logname = line[:-1]
-        result = load_one((i,logname))
-        if result is not None:
-          prob_data_list.append(result)
+  tasks = []
+  with open(sys.argv[2],"r") as f:
+    for i,line in enumerate(f):
+      logname = line[:-1]
+      tasks.append((i,logname))
+    
+  # with ThreadPoolExecutor(max_workers = 250) as executor:  # Number of threads to use
+  #   futures = {executor.submit(load_one, task): task for task in tasks}
+
+  #   # Gather results as they are completed
+  #   for future in as_completed(futures):
+  #     result = future.result()
+  #     if result:
+  #       prob_data_list.append(result)
+  pool = Pool(processes=HP.NUMPROCESSES) # number of cores to use
+  results = pool.map(load_one, tasks, chunksize = 100)
+  pool.close()
+  pool.join()
+  del pool
+  prob_data_list = list(filter(None, results))
 
   print(len(prob_data_list),"problems loaded!")
 
@@ -111,25 +112,23 @@ if __name__ == "__main__":
   # plt.colorbar(sc)
   # plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
 
-  sine_sign,deriv_arits,axiom_hist = IC.prepare_signature(prob_data_list)
+  deriv_arits, axiom_hist = IC.prepare_signature(prob_data_list)
 
-  thax_sign,prob_data_list,thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist,prob_data_list)
-  # for i,prob in enumerate(prob_data_list):
-  #   prob_data_list[i] = IC.compress_prob_data([prob])
+  thax_sign, prob_data_list, thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist, prob_data_list)
   
-  print("thax_sign",thax_sign)
-  print("sine_sign",sine_sign) 
-  print("deriv_arits",deriv_arits)
-  # print("axiom_hist",axiom_hist)
-  print("thax_to_str",thax_to_str)
+  print("thax_sign", thax_sign)
+  # print("sine_sign", sine_sign) 
+  print("deriv_arits", deriv_arits)
+  # print("axiom_hist", axiom_hist)
+  print("thax_to_str", thax_to_str)
 
   filename = "{}/data_sign.pt".format(sys.argv[1])
-  print("Saving signature to",filename)
-  torch.save((thax_sign,sine_sign,deriv_arits,thax_to_str), filename)
+  print("Saving signature to", filename)
+  torch.save((thax_sign, deriv_arits, thax_to_str), filename)
   print()
 
-  filename = "{}/raw_log_data{}".format(sys.argv[1],IC.name_raw_data_suffix())
-  print("Saving raw data to",filename)
+  filename = "{}/raw_log_data{}".format(sys.argv[1], IC.name_raw_data_suffix())
+  print("Saving raw data to", filename)
   torch.save(prob_data_list, filename)
   print()
 
