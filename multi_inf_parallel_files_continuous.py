@@ -18,9 +18,9 @@ torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
 
 from torch import Tensor
-import multiprocessing
-import torch.multiprocessing as mp
-torch.multiprocessing.set_sharing_strategy('file_system')
+# import multiprocessing
+# import torch.multiprocessing as mp
+# torch.multiprocessing.set_sharing_strategy('file_system')
 
 from copy import deepcopy
 
@@ -42,83 +42,73 @@ import ctypes
 import ctypes.util
 libc = ctypes.CDLL(ctypes.util.find_library('c'))
 
-def copy_grads_back_from_param(parts,parts_copies):
-  for param, param_copy in zip(parts.parameters(),parts_copies.parameters()):
-    param.grad = param_copy
-
-def copy_vals_to_his_parts(masterparts,his_parts):
-# Copy gradients from weights to grads and weights from master to part
+def copy_grads(his_names_and_grads, master_parts):
   with torch.no_grad():
-    master_dict = dict(masterparts.named_parameters())
-    for name, param in his_parts.named_parameters():
-      if "weight" in name or "bias" in name:
-        param.grad = param.data
-        param.data = master_dict[name].data
+    for name, param in master_parts.named_parameters():
+      if his_names_and_grads[name] is not None:
+        param.grad = his_names_and_grads[name]
+  return master_parts
 
-def copy_vals_to_master_parts(masterparts,his_parts):
-# Copy just the optimized weights back
+def add_grads(his_names_and_grads, master_parts):
   with torch.no_grad():
-    master_dict = dict(masterparts.named_parameters())
-    for name, param in his_parts.named_parameters():
-      if "weight" in name or "bias" in name:
-        master_dict[name].data = param.data
+    for name, param in master_parts.named_parameters():
+      if his_names_and_grads[name] is not None:
+        if param.grad is None:
+          param.grad = his_names_and_grads[name]
+        else:
+          param.grad += his_names_and_grads[name]
+  return master_parts
 
-def eval_and_or_learn_on_one(these_problems, training, master_parts, start_time):
+def names_and_grads(parts):
+  return {name: param.grad for name, param in parts.named_parameters()}
+
+def eval_and_or_learn_on_one(problem, training, master_parts, start_time):
   # torch.cuda.empty_cache()
-  print(time.time() - start_time,"Inner loop starts here.", flush=True)  
-  tot_pos = 0.0
-  tot_neg = 0.0
-  for _, probname in these_problems:
-    data = torch.load("{}/pieces/{}".format(sys.argv[1], probname), weights_only=False)
-    tot_pos += data["tot_pos"]
-    tot_neg += data["tot_neg"]
-    print(time.time() - start_time,"Piece {} loaded.".format(probname), flush=True)
-  loss_dict = {}
+  print(time.time() - start_time,"Inner loop starts here.", flush=True)
+  with torch.no_grad():
+    for param in master_parts.parameters():
+      if param.grad is not None:
+        param.grad.zero_()
+  data = torch.load("{}/pieces/{}".format(sys.argv[1], problem), weights_only=False)
+  tot_pos = data["tot_pos"]
+  tot_neg = data["tot_neg"]
+  print(time.time() - start_time,"Problem {} loaded.".format(problem), flush=True)
   if training:
     print(time.time() - start_time, "Training starts here.", flush=True)
     model = IC.LearningModel(*master_parts, data, True, HP.CUDA)
     # model = IC.LearningModel(*master_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg, greedy_eval_scheme, False, True)
     model.train()
-    print(time.time() - start_time, "Starting training for {}".format(probname), flush=True)
-    # with torch.amp.autocast(device_type="cuda"):
-    (loss_dict[probname], posOK_sum, negOK_sum) = model()
-    print(time.time() - start_time, "Finished training for {}".format(probname), flush=True)
-    losses = sum(loss_dict.values())
-    print(time.time() - start_time, "Starting backward propagation for problems of combined size", sum([size for size, _ in these_problems]), flush=True)
-    losses.backward()
-    print(time.time() - start_time, "Finished backward propagation for problems of combined size", sum([size for size, _ in these_problems]), flush=True)
+    print(time.time() - start_time, "Starting training for {}".format(problem), flush=True)
+    (loss, posOK_sum, negOK_sum) = model()
+    print(time.time() - start_time, "Finished training for {}, starting backpropagation".format(problem), flush=True)
+    loss.backward()
+    print(time.time() - start_time, "Finished backpropagation for {}".format(problem), flush=True)
   else:
     with torch.no_grad():
       model = IC.LearningModel(*master_parts, *data, False, HP.CUDA)
       model.eval()
       with torch.no_grad():
-        (losses,posOK_sum,negOK_sum) = model()
+        (loss, posOK_sum, negOK_sum) = model()
 
-    del model # I am getting desperate!
+    del model
+  his_names_and_grads = names_and_grads(master_parts)
+  torch.save(his_names_and_grads, "{}/pieces/{}.part".format(sys.argv[1], problem))  
+  return (loss.detach().item(), posOK_sum, negOK_sum, tot_pos, tot_neg)
 
-  return (losses,posOK_sum,negOK_sum,tot_pos,tot_neg,master_parts)
+def worker(q_in, q_out):
+  problem, train, master_parts = q_in.get()
 
-          # these_parts = torch.nn.ModuleList()
-      # these_parts.append(torch.nn.ModuleDict())
-      # with torch.no_grad():
-      #   for i in range(1,len(master_parts)):
-      #     these_parts.append(deepcopy(master_parts[i]))
-      #   data = torch.load("{}/pieces/{}".format(sys.argv[1],probname),weights_only=False)
-      #   (init,_,_,_,_,_,_,_) = data
-      #   this_init = set()
-      #   for _,(thax,_) in init:
-      #     this_init.add(str(thax))
-      #   this_init.add("0")
-      #   for thax in this_init:
-      #     these_parts[0][thax] = deepcopy(master_parts[0][thax])
-      #   torch.save(these_parts,parts_file)
-      # torch.save(master_parts, parts_file)
-
-def worker(these_problems,train,master_parts):
-  # size,probname,training,num,master_parts = input_data
   start_time = time.time()
-  (loss,posOK_sum,negOK_sum,tot_pos,tot_neg,master_parts) = eval_and_or_learn_on_one(these_problems,train,master_parts,start_time)
-  return loss,posOK_sum,negOK_sum,tot_pos,tot_neg,start_time,time.time(),master_parts
+  (loss, posOK_sum, negOK_sum, tot_pos, tot_neg) = eval_and_or_learn_on_one(problem, train, master_parts, start_time)
+
+  q_out.put((loss, posOK_sum, negOK_sum, tot_pos, tot_neg, start_time, time.time(), problem))
+
+def worker_stream(problem, train, master_parts, stream):
+  with torch.cuda.stream(stream):  # Assign computation to a specific stream
+    start_time = time.time()
+    (loss, posOK_sum, negOK_sum, tot_pos, tot_neg) = eval_and_or_learn_on_one(problem, train, master_parts, start_time)
+  stream.synchronize()
+  return loss, posOK_sum, negOK_sum, tot_pos, tot_neg, start_time, time.time(), problem
 
 def save_checkpoint(epoch_num, epoch_id, model, optimizer):
   print("checkpoint",epoch,flush=True)
@@ -137,7 +127,7 @@ def weighted_std_deviation(weighted_mean,scaled_values,weights,weight_sum):
   return std_dev
 
 if __name__ == "__main__":
-  multiprocessing.set_start_method('spawn', force=True)
+  # multiprocessing.set_start_method('spawn', force=True)
   log = open("{}/run{}".format(sys.argv[2],IC.name_learning_regime_suffix()), 'w')
   sys.stdout = log
   sys.stderr = log
@@ -149,26 +139,13 @@ if __name__ == "__main__":
   else:
     device = "cpu"
     
-  train_data_idx = torch.load("{}/train_index.pt".format(sys.argv[1]),weights_only=False)
-  print("Loaded train data:",len(train_data_idx),flush=True)
-  valid_data_idx = torch.load("{}/valid_index.pt".format(sys.argv[1]),weights_only=False)
-  print("Loaded valid data:",len(valid_data_idx),flush=True)
+  train_data_idx = torch.load("{}/train_index.pt".format(sys.argv[1]), weights_only=False)
+  print("Loaded train data:",len(train_data_idx), flush=True)
+  valid_data_idx = torch.load("{}/valid_index.pt".format(sys.argv[1]), weights_only=False)
+  print("Loaded valid data:",len(valid_data_idx), flush=True)
   if HP.SWAPOUT > 0.0:
-    axiom_counts = torch.load("{}/axiom_counts.pt".format(sys.argv[1]),weights_only=False)
-    print("Loaded axiom counts for uniformly distributed SWAPOUT",flush=True)
-
-  # exclude = []
-  # rule_52_counts = torch.load(sys.argv[1]+"/pieces/rule_52_counts.pt")
-  # for num,count in rule_52_counts.items():
-  #   if count > HP.MAX_RULE_52_LENGTH:
-  #     exclude.append("piece" + num + ".pt")
-  # print(flush=True)
-  # print("len(train_data_idx) before rule_52 exclude:",len(train_data_idx),flush=True)
-  # train_data_idx = [train_data_idx[x] for x in range(len(train_data_idx)) if str(x) not in exclude]
-  # print("len(train_data_idx) after rule_52 exclude:",len(train_data_idx),flush=True)
-  # print(flush=True)
-
-  # train_data_idx = train_data_idx[0:1]
+    axiom_counts = torch.load("{}/axiom_counts.pt".format(sys.argv[1]), weights_only=False)
+    print("Loaded axiom counts for uniformly distributed SWAPOUT", flush=True)
 
   if HP.TRR == HP.TestRiskRegimen_OVERFIT:
     # merge validation data back to training set (and ditch early stopping regularization)
@@ -176,21 +153,17 @@ if __name__ == "__main__":
     valid_data_idx = []
     print("Merged valid with train; final:",len(train_data_idx),flush=True)
 
-  # if HP.ALL_ONCE:
-  #   train_data_idx = [(x,y) for (x,y) in train_data_idx if x < HP.WHAT_IS_HUGE]
-  #   print("Removed HUGE data from training, remaining:",len(train_data_idx),flush=True)
-
-  total_count = len(train_data_idx)+len(valid_data_idx)
+  total_count = len(train_data_idx) + len(valid_data_idx)
 
   print(flush=True)
-  print(time.time() - start_time,"Initialization finished",flush=True)
+  print(time.time() - start_time, "Initialization finished", flush=True)
 
   epoch = 0
   if len(sys.argv) >= 4:
-    (epoch,master_parts,optimizer) = load_checkpoint(sys.argv[3])
+    (epoch, master_parts, optimizer) = load_checkpoint(sys.argv[3])
     for x in master_parts.parameters():
       x = x.to(device)
-    print("Loaded checkpoint",sys.argv[3],flush=True)
+    print("Loaded checkpoint", sys.argv[3], flush=True)
 
   MAX_EPOCH = HP.MAX_EPOCH
 
@@ -202,15 +175,13 @@ if __name__ == "__main__":
   
   if len(sys.argv) >= 5:
     MAX_EPOCH = int(sys.argv[4])
-    thax_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
+    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]), weights_only=False)
   else:
-    thax_sign,deriv_arits,thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]),weights_only=False)
-    master_parts = IC.get_initial_model(thax_sign,deriv_arits)
-    # for x in master_parts.parameters():
-    #   x = x.to(device)
+    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign.pt".format(sys.argv[1]), weights_only=False)
+    master_parts = IC.get_initial_model(thax_sign, deriv_arits)
     model_name = "{}/master{}".format(sys.argv[2],IC.name_initial_model_suffix())
-    torch.save(master_parts,model_name)
-    print("Created model parts and saved to",model_name,flush=True)
+    torch.save(master_parts, model_name)
+    print("Created model parts and saved to", model_name, flush = True)
     
   if HP.OPTIMIZER == HP.Optimizer_SGD:
     optimizer = torch.optim.SGD(master_parts.parameters(), lr=HP.LEARN_RATE)
@@ -227,8 +198,8 @@ if __name__ == "__main__":
   negrates = []
   negrates_devs = []
 
-  stats = np.zeros((samples_per_epoch,3)) # loss_sum, posOK_sum, negOK_sum
-  weights = np.zeros((samples_per_epoch,2)) # pos_weight, neg_weight
+  stats = np.zeros((samples_per_epoch, 3)) # loss_sum, posOK_sum, negOK_sum
+  weights = np.zeros((samples_per_epoch, 2)) # pos_weight, neg_weight
 
   # profiler = torch.profiler.profile(
   #   activities=[torch.profiler.ProfilerActivity.CPU],
@@ -241,7 +212,21 @@ if __name__ == "__main__":
   print(flush=True)
   print(time.time() - start_time,"Starting loop",flush=True)
 
-  pool = torch.multiprocessing.Pool(HP.NUMPROCESSES)
+  if device == "cuda":
+    streams = [torch.cuda.Stream() for _ in range(HP.NUM_STREAMS)]
+    avail = [True] * len(streams)
+    results = [None] * len(streams)
+  else:
+    MAX_ACTIVE_TASKS = HP.NUMPROCESSES
+    num_active_tasks = 0
+    q_in = torch.multiprocessing.Queue()
+    q_out = torch.multiprocessing.Queue()
+    my_processes = []
+    for i in range(HP.NUMPROCESSES):
+      p = torch.multiprocessing.Process(target=worker, args=(q_in,q_out))
+      p.start()
+      my_processes.append(p)
+
 
   train_data_orig = deepcopy(train_data_idx)
   train_data_idx = set(train_data_idx)
@@ -249,43 +234,87 @@ if __name__ == "__main__":
   while epoch < MAX_EPOCH:
     train_data_idx = set(deepcopy(train_data_orig))
     while len(train_data_idx):
-      these_problems = random.sample(list(train_data_idx), min(len(train_data_idx), HP.SAMPLES))
-      train_data_idx.difference_update(these_problems)
-      # for results in pool.imap_unordered(worker, [(size,probname,True,tt+i,master_parts) for i,(size,probname) in enumerate(these_problems)]):
-      loss,posOK_sum,negOK_sum,tot_pos,tot_neg,time_start,time_end,master_parts = worker(these_problems,True,master_parts)
+      if device == "cuda":
+        results = []
+        active_streams = 0
+        while len(train_data_idx) and active_streams < len(streams):
+          this_problem = random.choice(list(train_data_idx))
+          train_data_idx.discard(this_problem)
 
-      stats[tt % samples_per_epoch] = (loss.cpu().item(),posOK_sum.cpu(),negOK_sum.cpu())
-      weights[tt % samples_per_epoch] = (tot_pos,tot_neg)
+          results.append(worker_stream(this_problem[1], True, master_parts, streams[active_streams]))
+          active_streams += 1    
+        for stream_num in range(active_streams):
+          if results[stream_num] is not None:
+            torch.cuda.current_stream().wait_stream(streams[stream_num])
+      else:
+        while len(train_data_idx) and num_active_tasks < MAX_ACTIVE_TASKS:
+          num_active_tasks += 1
+        
+          this_problem = random.choice(list(train_data_idx))
+          train_data_idx.difference_update(this_problem)
+          
+          q_in.put((this_problem[1], True, master_parts))
+      # loss, posOK_sum, negOK_sum, tot_pos, tot_neg, time_start, time_end, problem = worker(problem, True, master_parts)
 
-      loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
-      tot_pos,tot_neg = np.sum(weights,axis=0)
+      if device == "cpu":
+        loss, posOK_sum, negOK_sum, tot_pos, tot_neg, time_start, time_end, problem = q_out.get()
+        num_active_tasks -= 1
 
-      print("loss_sum,posOK_sum,negOK_sum",loss_sum,posOK_sum,negOK_sum,flush=True)
-      print("tot_pos,tot_neg",tot_pos,tot_neg,flush=True)
+      if device == "cuda":
+        for loss, posOK_sum, negOK_sum, tot_pos, tot_neg, time_start, time_end, problem in results:
+          stats[tt % samples_per_epoch] = (loss, posOK_sum.cpu(), negOK_sum.cpu())
+          weights[tt % samples_per_epoch] = (tot_pos.cpu(), tot_neg.cpu())
+          tt += 1
+      else:
+        stats[tt % samples_per_epoch] = (loss, posOK_sum, negOK_sum)
+        weights[tt % samples_per_epoch] = (tot_pos, tot_neg)
+        tt += 1
 
-      sum_stats = np.sum(stats,axis=0)
-      loss = sum_stats[0]/(tot_pos+tot_neg)
-      posrate = sum_stats[1]/tot_pos
-      negrate = sum_stats[2]/tot_neg
+      loss_sum, posOK_sum, negOK_sum = np.sum(stats, axis=0)
+      tot_pos, tot_neg = np.sum(weights, axis=0)
 
-      loss_dev = weighted_std_deviation(loss,stats[:,0],np.sum(weights,axis=1),tot_pos+tot_neg)
-      posrate_dev = weighted_std_deviation(posrate,stats[:,1],weights[:,0],tot_pos)
-      negrate_dev = weighted_std_deviation(negrate,stats[:,2],weights[:,1],tot_neg)
+      print("loss_sum, posOK_sum, negOK_sum", loss_sum, posOK_sum, negOK_sum, flush=True)
+      print("tot_pos, tot_neg", tot_pos, tot_neg, flush=True)
 
-      print("Training stats:",flush=True)
-      print("Loss:",loss,"+/-",loss_dev,flush=True)
-      print("Posrate:",posrate,"+/-",posrate_dev,flush=True)
-      print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
+      sum_stats = np.sum(stats, axis = 0)
+      loss = sum_stats[0]/(tot_pos + tot_neg)
+      posrate = sum_stats[1] / tot_pos
+      negrate = sum_stats[2] / tot_neg
 
-      print(time.time() - start_time,"Performing optimizer.step()",flush=True)
-      # losses = sum(loss_dict).to(device)
-      # losses.backward()
-      optimizer.step()
-      optimizer.zero_grad()
-      print(time.time() - start_time,"Finished performing optimizer.step()", flush=True)
-      torch.cuda.empty_cache()
+      loss_dev = weighted_std_deviation(loss, stats[:,0], np.sum(weights, axis = 1), tot_pos + tot_neg)
+      posrate_dev = weighted_std_deviation(posrate, stats[:,1], weights[:,0], tot_pos)
+      negrate_dev = weighted_std_deviation(negrate, stats[:,2], weights[:,1], tot_neg)
 
-      tt += 1
+      print("Training stats:", flush=True)
+      print("Loss:",loss,"+/-", loss_dev, flush=True)
+      print("Posrate:",posrate,"+/-", posrate_dev, flush=True)
+      print("Negrate:",negrate,"+/-", negrate_dev, flush=True)
+
+      if "cuda":
+        with torch.no_grad():
+          for param in master_parts.parameters():
+            if param.grad is not None:
+              param.grad.zero_()
+        for loss, posOK_sum, negOK_sum, tot_pos, tot_neg, time_start, time_end, problem in results:
+          his_names_and_grads = torch.load("{}/pieces/{}.part".format(sys.argv[1], problem), weights_only=False)
+          
+          master_parts = add_grads(his_names_and_grads, master_parts)
+        
+        print(time.time() - start_time,"Performing optimizer.step()",flush=True)
+        optimizer.step()
+        optimizer.zero_grad()
+        print(time.time() - start_time,"Finished performing optimizer.step()", flush=True)
+        # torch.cuda.empty_cache()
+      else:
+        his_names_and_grads = torch.load("{}/pieces/{}.part".format(sys.argv[1], problem), weights_only=False)
+        master_parts = copy_grads(his_names_and_grads, master_parts)
+        
+        print(time.time() - start_time,"Performing optimizer.step()",flush=True)
+        optimizer.step()
+        optimizer.zero_grad()
+        print(time.time() - start_time,"Finished performing optimizer.step()", flush=True)
+        # torch.cuda.empty_cache()
+
       if HP.NON_CONSTANT_10_50_250_LR:
         if tt <= 40*samples_per_epoch:
           lr = HP.LEARN_RATE*tt/(10*samples_per_epoch)
@@ -297,7 +326,7 @@ if __name__ == "__main__":
           for param_group in optimizer.param_groups:
             param_group['lr'] = lr
           print("Dropping effective LR to",lr,flush=True)
-      
+
     epoch += 1
 
     print("Epoch",epoch,"finished at",time.time() - start_time,flush=True)
@@ -337,6 +366,9 @@ if __name__ == "__main__":
     
     IC.plot_with_devs("{}/plot.png".format(sys.argv[2]),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
       
+  for p in my_processes:
+    p.kill()
+
   # profiler.stop() 
 
 # Print results

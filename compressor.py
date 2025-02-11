@@ -726,14 +726,14 @@ if __name__ == "__main__":
     del valid_data_list
     exit()
   
-  if args["mode"] == "map":
+  if args["mode"] == "reduce":
     assert(args["file"])
     assert(args["out_file_1"])
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
     _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
-    print("Generated old2new and num_to_pos/neg_vals. Aligning and saving.", flush=True)
+    print("Generated old2new and num_to_pos/neg_vals. Aligning.", flush=True)
     combined_keys = set(list(num_to_pos_vals.keys()) + list(num_to_neg_vals.keys()))
     full_range = set([x for x in range(len(prob_data_list))])
     missing = set(full_range - combined_keys)
@@ -752,24 +752,8 @@ if __name__ == "__main__":
       num_to_neg_vals_[i] = num_to_neg_vals[list(combined_keys)[i]]
       old2new_[i] = old2new[list(combined_keys)[i]]
       new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
-    torch.save((old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_), args["out_file_1"])
-    torch.save(new_prob_data_list, args["file"])
-    print("Done.",flush=True)
-    del prob_data_list
-    del new_prob_data_list
-    exit()
-
-  if args["mode"] == "reduce":
-    assert(args["file"])
-    assert(args["add_file_1"])
-    assert(args["out_file_1"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Loading mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
-    old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = torch.load(args["add_file_1"], weights_only=False)
-    print("Done.", flush=True)
     print("Assigning new ids and weights to individual problems.", flush=True)
-    prob_data_list = IC.adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals)
+    prob_data_list = IC.adjust_ids_and_pos_neg_vals(prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
     torch.save(prob_data_list, args["out_file_1"])
