@@ -1,0 +1,50 @@
+i: [1,394,0,3,1,1,0,0] t5_bintree1
+i: [1,406,0,3,1,0,0,1] fc2_bintree1
+f: 406,394
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for bintree1__t5_bintree1
+% SZS output start Proof for bintree1__t5_bintree1
+1. v1_bintree1(k2_trees_1(2)) [input t5_bintree1]
+2. ~v1_bintree1(k2_trees_1(2)) [negated conjecture 1]
+146. v1_bintree1(k2_trees_1(2)) & v1_trees_1(k2_trees_1(2)) & ~v1_xboole_0(k2_trees_1(2)) [input fc2_bintree1]
+149. ~v1_bintree1(k2_trees_1(2)) [flattening 2]
+164. v1_bintree1(k2_trees_1(2)) & ~v1_xboole_0(k2_trees_1(2)) [pure predicate removal 146]
+394. ~v1_bintree1(k2_trees_1(2)) [cnf transformation 149] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+406. v1_bintree1(k2_trees_1(2)) [cnf transformation 164] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+634. 1 <=> v1_bintree1(k2_trees_1(2)) [avatar definition]
+637. ~1 [avatar split clause 394,634]
+688. 1 [avatar split clause 406,634]
+1159. $false [avatar sat refutation 637,688] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:305,thDist:-305}
+% SZS output end Proof for bintree1__t5_bintree1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 147
+% >>> Preprocessing
+% Introduced skolems: 42
+% Pure predicates: 16
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 239
+% Generated clauses: 239
+% Passive clauses: 104
+% Final passive clauses: 104
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 29
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 108
+% SAT solver unit clauses: 106
+% 
+% Memory used [KB]: 9850
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

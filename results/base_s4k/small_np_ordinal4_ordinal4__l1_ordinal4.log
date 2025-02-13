@@ -1,0 +1,57 @@
+i: [1,205,0,3,1,1,0,0] l1_ordinal4
+i: [1,325,0,3,1,0,0,255] d11_ordinal1
+f: 325,205
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ordinal4__l1_ordinal4
+% SZS output start Proof for ordinal4__l1_ordinal4
+1. r2_hidden(k1_xboole_0,k4_ordinal1) [input l1_ordinal4]
+2. ~r2_hidden(k1_xboole_0,k4_ordinal1) [negated conjecture 1]
+83. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : (v3_ordinal1(X1) => ((v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1)) => r1_tarski(X0,X1))) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [input d11_ordinal1]
+84. ~r2_hidden(k1_xboole_0,k4_ordinal1) [flattening 2]
+141. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : ((r1_tarski(X0,X1) | (~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1))) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [ennf transformation 83]
+142. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [flattening 141]
+166. ! [X0] : ((k4_ordinal1 = X0 | (? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0))) & ((! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [nnf transformation 142]
+167. ! [X0] : ((k4_ordinal1 = X0 | ? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [flattening 166]
+168. ! [X0] : ((k4_ordinal1 = X0 | ? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X2] : (r1_tarski(X0,X2) | ~v4_ordinal1(X2) | ~r2_hidden(k1_xboole_0,X2) | ~v3_ordinal1(X2)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [rectify 167]
+169. ! [X0] : (? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) => (~r1_tarski(X0,sK4(X0)) & v4_ordinal1(sK4(X0)) & r2_hidden(k1_xboole_0,sK4(X0)) & v3_ordinal1(sK4(X0)))) [choice axiom]
+170. ! [X0] : ((k4_ordinal1 = X0 | (~r1_tarski(X0,sK4(X0)) & v4_ordinal1(sK4(X0)) & r2_hidden(k1_xboole_0,sK4(X0)) & v3_ordinal1(sK4(X0))) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X2] : (r1_tarski(X0,X2) | ~v4_ordinal1(X2) | ~r2_hidden(k1_xboole_0,X2) | ~v3_ordinal1(X2)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [skolemisation 168,169]
+205. ~r2_hidden(k1_xboole_0,k4_ordinal1) [cnf transformation 84] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+269. r2_hidden(k1_xboole_0,X0) | k4_ordinal1 != X0 [cnf transformation 170] {a:0,w:6,wCS:2400,sine:255,thAx:0,allAx:2,thDist:-2}
+325. r2_hidden(k1_xboole_0,k4_ordinal1) [equality resolution 269] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:2,thDist:-2}
+327. 1 <=> r2_hidden(k1_xboole_0,k4_ordinal1) [avatar definition]
+330. ~1 [avatar split clause 205,327]
+407. 1 [avatar split clause 325,327]
+558. $false [avatar sat refutation 330,407] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:129,thDist:-129}
+% SZS output end Proof for ordinal4__l1_ordinal4
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 82
+% >>> Preprocessing
+% Introduced skolems: 21
+% Pure predicates: 4
+% 
+% >>> Saturation
+% Initial clauses: 117
+% Generated clauses: 117
+% Passive clauses: 61
+% Final passive clauses: 61
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 50
+% SAT solver unit clauses: 48
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% property evaluation: 0.001 s
+% preprocessing: 0.001 s ( own 0.0000 s ) 
+% other: 0.001 s ( own 0.0000 s ) 
+

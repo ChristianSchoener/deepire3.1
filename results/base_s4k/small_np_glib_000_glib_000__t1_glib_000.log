@@ -1,0 +1,68 @@
+i: [1,434,0,12,4,1,0,0] t1_glib_000
+i: [1,442,0,3,1,0,0,1] d4_glib_000
+i: [1,443,0,3,1,0,0,1] d2_glib_000
+i: [1,444,0,3,1,0,0,1] d3_glib_000
+i: [1,445,0,3,1,0,0,1] d1_glib_000
+f: 445,444,443,442,434
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for glib_000__t1_glib_000
+% SZS output start Proof for glib_000__t1_glib_000
+1. k4_glib_000 = 4 & k3_glib_000 = 3 & k2_glib_000 = 2 & k1_glib_000 = 1 [input t1_glib_000]
+2. ~(k4_glib_000 = 4 & k3_glib_000 = 3 & k2_glib_000 = 2 & k1_glib_000 = 1) [negated conjecture 1]
+158. k1_glib_000 = 1 [input d1_glib_000]
+159. k2_glib_000 = 2 [input d2_glib_000]
+160. k3_glib_000 = 3 [input d3_glib_000]
+161. k4_glib_000 = 4 [input d4_glib_000]
+218. k4_glib_000 != 4 | k3_glib_000 != 3 | k2_glib_000 != 2 | k1_glib_000 != 1 [ennf transformation 2]
+434. k4_glib_000 != 4 | k3_glib_000 != 3 | k2_glib_000 != 2 | k1_glib_000 != 1 [cnf transformation 218] {a:0,w:12,wCS:1200,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+442. k4_glib_000 = 4 [cnf transformation 161] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+443. k2_glib_000 = 2 [cnf transformation 159] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+444. k3_glib_000 = 3 [cnf transformation 160] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+445. k1_glib_000 = 1 [cnf transformation 158] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+715. 1 <=> k1_glib_000 = 1 [avatar definition]
+719. 2 <=> k2_glib_000 = 2 [avatar definition]
+723. 3 <=> k3_glib_000 = 3 [avatar definition]
+727. 4 <=> k4_glib_000 = 4 [avatar definition]
+730. ~1 | ~2 | ~3 | ~4 [avatar split clause 434,727,723,719,715]
+766. 4 [avatar split clause 442,727]
+767. 2 [avatar split clause 443,719]
+768. 3 [avatar split clause 444,723]
+769. 1 [avatar split clause 445,715]
+1359. $false [avatar sat refutation 730,766,767,768,769] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:365,thDist:-365}
+% SZS output end Proof for glib_000__t1_glib_000
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 168
+% >>> Preprocessing
+% Introduced skolems: 49
+% Pure predicates: 11
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 280
+% Generated clauses: 280
+% Passive clauses: 116
+% Final passive clauses: 116
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 31
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 135
+% SAT solver unit clauses: 132
+% 
+% Memory used [KB]: 9850
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

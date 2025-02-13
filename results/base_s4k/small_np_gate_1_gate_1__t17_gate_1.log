@@ -1,0 +1,195 @@
+i: [1,68,0,9,3,1,0,0] t17_gate_1
+a: [3,103,0,2,1,68]
+s: 103
+a: [3,107,0,2,1,68]
+s: 107
+a: [3,112,0,5,1,68]
+s: 112
+i: [1,75,0,2,1,0,0,1] rc2_xboole_0
+a: [3,131,0,2,1,75]
+s: 131
+i: [1,76,0,2,1,0,0,1] rc1_xboole_0
+a: [3,136,0,2,1,76]
+s: 136
+i: [1,69,0,9,3,0,0,1] fc34_gate_1
+s: 69
+d: [2,138,1,0,0,3,52,107,103,112,69]
+e: 138
+d: [2,139,1,4,2,1,40,69,112]
+d: [2,141,1,2,1,2,21,139,103]
+d: [2,142,1,0,0,3,21,141,107]
+e: 142
+r: 103
+r: 112
+a: [3,104,0,2,1,68]
+s: 104
+i: [1,67,0,9,3,1,0,0] t17_gate_1
+a: [3,117,0,2,1,67]
+s: 117
+a: [3,111,0,5,1,68]
+s: 111
+i: [1,70,0,9,3,0,0,1] fc33_gate_1
+s: 70
+i: [1,71,0,9,3,0,0,1] fc35_gate_1
+s: 71
+i: [1,72,0,9,3,0,0,1] fc37_gate_1
+s: 72
+i: [1,73,0,9,3,0,0,1] fc36_gate_1
+s: 73
+i: [1,74,0,9,3,0,0,1] fc38_gate_1
+s: 74
+d: [2,152,1,0,0,3,52,117,104,111,74]
+e: 152
+d: [2,156,1,4,2,1,40,74,111]
+d: [2,158,1,2,1,2,21,156,104]
+d: [2,159,1,0,0,3,21,158,117]
+e: 159
+r: 107
+r: 117
+r: 111
+s: 107
+a: [3,116,0,2,1,67]
+s: 116
+s: 112
+d: [2,165,1,0,0,3,52,107,116,112,70]
+e: 165
+d: [2,167,1,4,2,1,40,112,70]
+d: [2,170,1,2,1,2,21,167,116]
+d: [2,171,1,0,0,3,21,170,107]
+e: 171
+r: 104
+r: 107
+i: [1,66,0,9,3,1,0,0] t17_gate_1
+i: [1,49,0,11,4,1,0,0] t17_gate_1
+d: [2,89,0,9,3,0,18,49]
+i: [1,41,0,11,4,1,0,0] t17_gate_1
+d: [2,81,0,9,3,0,18,41]
+i: [1,37,0,11,4,1,0,0] t17_gate_1
+d: [2,77,0,9,3,0,18,37]
+d: [2,151,1,4,2,1,40,73,111]
+d: [2,147,1,4,2,1,40,72,111]
+d: [2,162,1,2,1,2,21,147,104]
+d: [2,168,1,4,2,1,40,112,69]
+d: [2,166,1,4,2,1,40,112,71]
+d: [2,174,1,2,1,2,21,166,116]
+f: 170,174,168,158,162,151,77,81,89,66,67,68
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gate_1__t17_gate_1
+% SZS output start Proof for gate_1__t17_gate_1
+1. ! [X0] : ! [X1] : ! [X2] : (~(v1_xboole_0(k11_gate_1(X0,X1,X2)) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)) & ~v1_xboole_0(k11_gate_1(X0,X1,X2)))) [input t17_gate_1]
+2. ~! [X0] : ! [X1] : ! [X2] : (~(v1_xboole_0(k11_gate_1(X0,X1,X2)) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)) & ~v1_xboole_0(k11_gate_1(X0,X1,X2)))) [negated conjecture 1]
+5. ! [X0,X1,X2] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k11_gate_1(X0,X1,X2))) [input fc33_gate_1]
+6. ! [X0,X1,X2] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k11_gate_1(X0,X2,X1))) [input fc34_gate_1]
+7. ! [X0,X1,X2] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k11_gate_1(X2,X0,X1))) [input fc35_gate_1]
+8. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X0,X1,X2))) [input fc36_gate_1]
+9. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X0,X2,X1))) [input fc37_gate_1]
+10. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X2,X0,X1))) [input fc38_gate_1]
+13. ~! [X0,X1,X2] : (~(v1_xboole_0(k11_gate_1(X0,X1,X2)) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) & ~(~(~v1_xboole_0(X0) & ~v1_xboole_0(X2)) & ~(~v1_xboole_0(X2) & ~v1_xboole_0(X1)) & ~(~v1_xboole_0(X1) & ~v1_xboole_0(X0)) & ~v1_xboole_0(k11_gate_1(X0,X1,X2)))) [flattening 2]
+14. ? [X0,X1,X2] : ((v1_xboole_0(k11_gate_1(X0,X1,X2)) & ((~v1_xboole_0(X0) & ~v1_xboole_0(X2)) | (~v1_xboole_0(X2) & ~v1_xboole_0(X1)) | (~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) | ((v1_xboole_0(X0) | v1_xboole_0(X2)) & (v1_xboole_0(X2) | v1_xboole_0(X1)) & (v1_xboole_0(X1) | v1_xboole_0(X0)) & ~v1_xboole_0(k11_gate_1(X0,X1,X2)))) [ennf transformation 13]
+15. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X2,X1)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 6]
+16. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X2,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 15]
+17. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X1,X2)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 5]
+18. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X1,X2)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 17]
+19. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X2,X0,X1)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 7]
+20. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X2,X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 19]
+21. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X2,X1)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 9]
+22. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X2,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 21]
+23. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X1,X2)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 8]
+24. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X1,X2)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 23]
+25. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X2,X0,X1)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 10]
+26. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X2,X0,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 25]
+27. ? [X0,X1,X2] : ((v1_xboole_0(k11_gate_1(X0,X1,X2)) & ((~v1_xboole_0(X0) & ~v1_xboole_0(X2)) | (~v1_xboole_0(X2) & ~v1_xboole_0(X1)) | (~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) | ((v1_xboole_0(X0) | v1_xboole_0(X2)) & (v1_xboole_0(X2) | v1_xboole_0(X1)) & (v1_xboole_0(X1) | v1_xboole_0(X0)) & ~v1_xboole_0(k11_gate_1(X0,X1,X2)))) => ((v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) & ((~v1_xboole_0(sK0) & ~v1_xboole_0(sK2)) | (~v1_xboole_0(sK2) & ~v1_xboole_0(sK1)) | (~v1_xboole_0(sK1) & ~v1_xboole_0(sK0)))) | ((v1_xboole_0(sK0) | v1_xboole_0(sK2)) & (v1_xboole_0(sK2) | v1_xboole_0(sK1)) & (v1_xboole_0(sK1) | v1_xboole_0(sK0)) & ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)))) [choice axiom]
+28. (v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) & ((~v1_xboole_0(sK0) & ~v1_xboole_0(sK2)) | (~v1_xboole_0(sK2) & ~v1_xboole_0(sK1)) | (~v1_xboole_0(sK1) & ~v1_xboole_0(sK0)))) | ((v1_xboole_0(sK0) | v1_xboole_0(sK2)) & (v1_xboole_0(sK2) | v1_xboole_0(sK1)) & (v1_xboole_0(sK1) | v1_xboole_0(sK0)) & ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2))) [skolemisation 14,27]
+37. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK1) | ~v1_xboole_0(sK1) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [cnf transformation 28] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+41. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK2) | ~v1_xboole_0(sK0) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [cnf transformation 28] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+49. ~v1_xboole_0(sK0) | ~v1_xboole_0(sK1) | ~v1_xboole_0(sK0) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [cnf transformation 28] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+66. v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) | v1_xboole_0(sK1) | v1_xboole_0(sK0) [cnf transformation 28] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+67. v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) | v1_xboole_0(sK2) | v1_xboole_0(sK1) [cnf transformation 28] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+68. v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) | v1_xboole_0(sK0) | v1_xboole_0(sK2) [cnf transformation 28] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+69. ~v1_xboole_0(k11_gate_1(X0,X2,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 16] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+70. ~v1_xboole_0(k11_gate_1(X0,X1,X2)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 18] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+71. ~v1_xboole_0(k11_gate_1(X2,X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 20] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+72. v1_xboole_0(k11_gate_1(X0,X2,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 22] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+73. v1_xboole_0(k11_gate_1(X0,X1,X2)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 24] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+74. v1_xboole_0(k11_gate_1(X2,X0,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 26] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+77. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK1) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [duplicate literal removal 37] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+81. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK0) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [duplicate literal removal 41] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+89. ~v1_xboole_0(sK0) | ~v1_xboole_0(sK1) | ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [duplicate literal removal 49] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+102. 1 <=> v1_xboole_0(sK2) [avatar definition]
+104. v1_xboole_0(sK2) <- (1) [avatar component clause 102] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+106. 2 <=> v1_xboole_0(sK0) [avatar definition]
+110. 3 <=> v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) [avatar definition]
+111. ~v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) <- (~3) [avatar component clause 110] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+112. v1_xboole_0(k11_gate_1(sK0,sK1,sK2)) <- (3) [avatar component clause 110] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+113. 1 | 2 | 3 [avatar split clause 68,110,106,102]
+115. 4 <=> v1_xboole_0(sK1) [avatar definition]
+116. ~v1_xboole_0(sK1) <- (~4) [avatar component clause 115] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+118. 4 | 1 | 3 [avatar split clause 67,110,102,115]
+119. 2 | 4 | 3 [avatar split clause 66,110,115,106]
+123. ~3 | ~4 | ~2 [avatar split clause 89,106,115,110]
+125. ~3 | ~2 | ~1 [avatar split clause 81,102,106,110]
+126. ~3 | ~4 | ~1 [avatar split clause 77,102,115,110]
+147. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK0) <- (~3) [resolution 72,111] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+151. ~v1_xboole_0(sK1) | ~v1_xboole_0(sK0) <- (~3) [resolution 73,111] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+156. ~v1_xboole_0(sK2) | ~v1_xboole_0(sK1) <- (~3) [resolution 74,111] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+158. ~v1_xboole_0(sK1) <- (1, ~3) [subsumption resolution 156,104] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+161. ~2 | ~4 | 3 [avatar split clause 151,110,115,106]
+162. ~v1_xboole_0(sK0) <- (1, ~3) [subsumption resolution 147,104] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+163. ~2 | ~1 | 3 [avatar split clause 162,110,102,106]
+164. ~4 | ~1 | 3 [avatar split clause 158,110,102,115]
+166. v1_xboole_0(sK2) | v1_xboole_0(sK1) <- (3) [resolution 112,71] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+167. v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (3) [resolution 112,70] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+168. v1_xboole_0(sK2) | v1_xboole_0(sK0) <- (3) [resolution 112,69] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+170. v1_xboole_0(sK0) <- (3, ~4) [subsumption resolution 167,116] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+173. 2 | 1 | ~3 [avatar split clause 168,110,102,106]
+174. v1_xboole_0(sK2) <- (3, ~4) [subsumption resolution 166,116] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+175. 1 | ~3 | 4 [avatar split clause 174,115,110,102]
+176. 2 | ~3 | 4 [avatar split clause 170,115,110,106]
+177. $false [avatar sat refutation 113,118,119,123,125,126,161,163,164,173,175,176] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:129,thDist:-129}
+% SZS output end Proof for gate_1__t17_gate_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 11
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 44
+% Generated clauses: 115
+% Active clauses: 17
+% Passive clauses: 20
+% Final active clauses: 10
+% Final passive clauses: 2
+% Main loop iterations started: 17
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 24
+% Fw subsumption resolutions: 8
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 34
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 16
+% Unit resulting resolution: 3
+% 
+% >>> AVATAR
+% Split clauses: 13
+% Split components: 39
+% Sat splitting refutations: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 27
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% backward subsumption index maintenance: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

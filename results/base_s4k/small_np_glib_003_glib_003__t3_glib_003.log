@@ -1,0 +1,65 @@
+i: [1,591,0,9,3,1,0,0] t3_glib_003
+i: [1,609,0,3,1,0,0,1] d2_glib_003
+i: [1,610,0,3,1,0,0,1] d1_glib_003
+i: [1,611,0,3,1,0,0,1] d3_glib_003
+f: 611,610,609,591
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for glib_003__t3_glib_003
+% SZS output start Proof for glib_003__t3_glib_003
+1. k4_glib_003 = 7 & k3_glib_003 = 6 & k2_glib_003 = 5 [input t3_glib_003]
+2. ~(k4_glib_003 = 7 & k3_glib_003 = 6 & k2_glib_003 = 5) [negated conjecture 1]
+226. k2_glib_003 = 5 [input d1_glib_003]
+227. k3_glib_003 = 6 [input d2_glib_003]
+228. k4_glib_003 = 7 [input d3_glib_003]
+306. k4_glib_003 != 7 | k3_glib_003 != 6 | k2_glib_003 != 5 [ennf transformation 2]
+591. k4_glib_003 != 7 | k3_glib_003 != 6 | k2_glib_003 != 5 [cnf transformation 306] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+609. k3_glib_003 = 6 [cnf transformation 227] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+610. k2_glib_003 = 5 [cnf transformation 226] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+611. k4_glib_003 = 7 [cnf transformation 228] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+973. 1 <=> k2_glib_003 = 5 [avatar definition]
+977. 2 <=> k3_glib_003 = 6 [avatar definition]
+981. 3 <=> k4_glib_003 = 7 [avatar definition]
+984. ~1 | ~2 | ~3 [avatar split clause 591,981,977,973]
+1070. 2 [avatar split clause 609,977]
+1071. 1 [avatar split clause 610,973]
+1072. 3 [avatar split clause 611,981]
+1741. $false [avatar sat refutation 984,1070,1071,1072] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:429,thDist:-429}
+% SZS output end Proof for glib_003__t3_glib_003
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 233
+% >>> Preprocessing
+% Introduced skolems: 55
+% Pure predicates: 16
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 381
+% Generated clauses: 381
+% Passive clauses: 165
+% Final passive clauses: 165
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 59
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 159
+% SAT solver unit clauses: 156
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% sat proof minimization: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

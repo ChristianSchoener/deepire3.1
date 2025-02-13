@@ -1,0 +1,190 @@
+i: [1,38,0,5,1,1,0,0] t1_boole
+a: [3,66,0,5,1,38]
+s: 66
+i: [1,39,0,2,1,0,0,2] dt_o_0_0_xboole_0
+a: [3,71,0,2,1,39]
+s: 71
+i: [1,54,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 54
+i: [1,58,0,3,1,0,0,255] d10_xboole_0
+s: 58
+i: [1,59,0,3,1,0,0,255] d10_xboole_0
+s: 59
+i: [1,40,0,3,1,0,0,1] d2_xboole_0
+a: [3,76,0,3,1,40]
+s: 76
+r: 71
+d: [2,78,0,2,1,2,23,71,76]
+a: [3,82,0,2,1,78]
+s: 82
+i: [1,41,0,5,2,0,0,3] d1_xboole_0
+s: 41
+i: [1,55,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 55
+i: [1,57,0,6,2,0,0,2] antisymmetry_r2_hidden
+s: 57
+i: [1,56,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 56
+d: [2,84,1,5,1,1,44,66,56]
+a: [3,89,1,5,1,84]
+s: 89
+i: [1,46,0,8,2,0,0,255] d3_tarski
+s: 46
+d: [2,93,1,5,2,0,40,46,41]
+s: 93
+i: [1,47,0,8,2,0,0,255] d3_tarski
+s: 47
+i: [1,60,0,8,2,0,0,1] d3_xboole_0
+s: 60
+d: [2,97,1,7,2,0,40,60,41]
+s: 97
+i: [1,61,0,8,2,0,0,1] d3_xboole_0
+s: 61
+d: [2,106,1,7,2,0,40,61,41]
+s: 106
+i: [1,44,0,9,3,0,0,255] d10_xboole_0
+s: 44
+i: [1,45,0,9,3,0,0,255] d3_tarski
+s: 45
+d: [2,103,2,7,2,0,44,97,56]
+s: 103
+i: [1,62,0,11,3,0,0,1] d3_xboole_0
+s: 62
+d: [2,104,2,7,2,0,44,97,56]
+s: 104
+i: [1,52,0,17,3,0,0,1] d3_xboole_0
+s: 52
+i: [1,53,0,17,3,0,0,1] d3_xboole_0
+s: 53
+d: [2,92,1,8,2,0,40,46,57]
+s: 92
+i: [1,51,0,23,4,0,0,1] d3_xboole_0
+s: 51
+d: [2,96,1,8,2,0,40,60,57]
+s: 96
+d: [2,100,1,8,2,0,44,60,56]
+s: 100
+d: [2,101,1,8,2,0,44,60,56]
+s: 101
+d: [2,105,1,8,2,0,40,61,57]
+s: 105
+d: [2,134,1,17,3,0,42,51]
+d: [2,138,1,11,2,0,21,134,53]
+s: 138
+d: [2,151,2,7,2,0,40,138,41]
+s: 151
+d: [2,157,3,0,0,2,52,82,89,151]
+e: 157
+d: [2,170,3,5,2,1,44,89,151]
+d: [2,171,3,2,1,1,19,170]
+d: [2,173,3,0,0,2,21,171,82]
+e: 173
+d: [2,85,1,5,1,1,44,66,56]
+f: 173,85,78,40,39,38
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for boole__t1_boole
+% SZS output start Proof for boole__t1_boole
+1. ! [X0] : k2_xboole_0(X0,k1_xboole_0) = X0 [input t1_boole]
+2. ~! [X0] : k2_xboole_0(X0,k1_xboole_0) = X0 [negated conjecture 1]
+4. ! [X0,X1] : k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [input commutativity_k2_xboole_0]
+6. ! [X0] : (v1_xboole_0(X0) <=> ! [X1] : ~r2_hidden(X1,X0)) [input d1_xboole_0]
+7. k1_xboole_0 = o_0_0_xboole_0 [input d2_xboole_0]
+9. ! [X0] : ! [X1] : ! [X2] : (k2_xboole_0(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> (r2_hidden(X3,X1) | r2_hidden(X3,X0)))) [input d3_xboole_0]
+12. v1_xboole_0(o_0_0_xboole_0) [input dt_o_0_0_xboole_0]
+17. ! [X0,X1,X2] : (k2_xboole_0(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> (r2_hidden(X3,X1) | r2_hidden(X3,X0)))) [flattening 9]
+20. ! [X0] : (v1_xboole_0(X0) => ! [X1] : ~r2_hidden(X1,X0)) [unused predicate definition removal 6]
+21. ? [X0] : k2_xboole_0(X0,k1_xboole_0) != X0 [ennf transformation 2]
+22. ! [X0] : (! [X1] : ~r2_hidden(X1,X0) | ~v1_xboole_0(X0)) [ennf transformation 20]
+25. ? [X0] : k2_xboole_0(X0,k1_xboole_0) != X0 => sK0 != k2_xboole_0(sK0,k1_xboole_0) [choice axiom]
+26. sK0 != k2_xboole_0(sK0,k1_xboole_0) [skolemisation 21,25]
+33. ! [X0,X1,X2] : ((k2_xboole_0(X0,X1) = X2 | ? [X3] : (((~r2_hidden(X3,X1) & ~r2_hidden(X3,X0)) | ~r2_hidden(X3,X2)) & ((r2_hidden(X3,X1) | r2_hidden(X3,X0)) | r2_hidden(X3,X2)))) & (! [X3] : ((r2_hidden(X3,X2) | (~r2_hidden(X3,X1) & ~r2_hidden(X3,X0))) & ((r2_hidden(X3,X1) | r2_hidden(X3,X0)) | ~r2_hidden(X3,X2))) | k2_xboole_0(X0,X1) != X2)) [nnf transformation 17]
+34. ! [X0,X1,X2] : ((k2_xboole_0(X0,X1) = X2 | ? [X3] : (((~r2_hidden(X3,X1) & ~r2_hidden(X3,X0)) | ~r2_hidden(X3,X2)) & (r2_hidden(X3,X1) | r2_hidden(X3,X0) | r2_hidden(X3,X2)))) & (! [X3] : ((r2_hidden(X3,X2) | (~r2_hidden(X3,X1) & ~r2_hidden(X3,X0))) & (r2_hidden(X3,X1) | r2_hidden(X3,X0) | ~r2_hidden(X3,X2))) | k2_xboole_0(X0,X1) != X2)) [flattening 33]
+35. ! [X0,X1,X2] : ((k2_xboole_0(X0,X1) = X2 | ? [X3] : (((~r2_hidden(X3,X1) & ~r2_hidden(X3,X0)) | ~r2_hidden(X3,X2)) & (r2_hidden(X3,X1) | r2_hidden(X3,X0) | r2_hidden(X3,X2)))) & (! [X4] : ((r2_hidden(X4,X2) | (~r2_hidden(X4,X1) & ~r2_hidden(X4,X0))) & (r2_hidden(X4,X1) | r2_hidden(X4,X0) | ~r2_hidden(X4,X2))) | k2_xboole_0(X0,X1) != X2)) [rectify 34]
+36. ! [X2,X1,X0] : (? [X3] : (((~r2_hidden(X3,X1) & ~r2_hidden(X3,X0)) | ~r2_hidden(X3,X2)) & (r2_hidden(X3,X1) | r2_hidden(X3,X0) | r2_hidden(X3,X2))) => (((~r2_hidden(sK2(X0,X1,X2),X1) & ~r2_hidden(sK2(X0,X1,X2),X0)) | ~r2_hidden(sK2(X0,X1,X2),X2)) & (r2_hidden(sK2(X0,X1,X2),X1) | r2_hidden(sK2(X0,X1,X2),X0) | r2_hidden(sK2(X0,X1,X2),X2)))) [choice axiom]
+37. ! [X0,X1,X2] : ((k2_xboole_0(X0,X1) = X2 | (((~r2_hidden(sK2(X0,X1,X2),X1) & ~r2_hidden(sK2(X0,X1,X2),X0)) | ~r2_hidden(sK2(X0,X1,X2),X2)) & (r2_hidden(sK2(X0,X1,X2),X1) | r2_hidden(sK2(X0,X1,X2),X0) | r2_hidden(sK2(X0,X1,X2),X2)))) & (! [X4] : ((r2_hidden(X4,X2) | (~r2_hidden(X4,X1) & ~r2_hidden(X4,X0))) & (r2_hidden(X4,X1) | r2_hidden(X4,X0) | ~r2_hidden(X4,X2))) | k2_xboole_0(X0,X1) != X2)) [skolemisation 35,36]
+38. sK0 != k2_xboole_0(sK0,k1_xboole_0) [cnf transformation 26] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+39. v1_xboole_0(o_0_0_xboole_0) [cnf transformation 12] {a:0,w:2,wCS:800,sine:2,thAx:0,allAx:1,thDist:-1}
+40. k1_xboole_0 = o_0_0_xboole_0 [cnf transformation 7] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+41. ~r2_hidden(X1,X0) | ~v1_xboole_0(X0) [cnf transformation 22] {a:0,w:5,wCS:2000,nSel:1,sine:3,thAx:0,allAx:1,thDist:-1}
+51. r2_hidden(sK2(X0,X1,X2),X2) | r2_hidden(sK2(X0,X1,X2),X1) | r2_hidden(sK2(X0,X1,X2),X0) | k2_xboole_0(X0,X1) = X2 [cnf transformation 37] {a:0,w:23,wCS:9200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+53. ~r2_hidden(sK2(X0,X1,X2),X2) | ~r2_hidden(sK2(X0,X1,X2),X1) | k2_xboole_0(X0,X1) = X2 [cnf transformation 37] {a:0,w:17,wCS:6800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+56. k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [cnf transformation 4] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+64. 1 <=> sK0 = k2_xboole_0(sK0,k1_xboole_0) [avatar definition]
+66. sK0 != k2_xboole_0(sK0,k1_xboole_0) <- (~1) [avatar component clause 64] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+67. ~1 [avatar split clause 38,64]
+69. 2 <=> v1_xboole_0(o_0_0_xboole_0) [avatar definition]
+71. v1_xboole_0(o_0_0_xboole_0) <- (2) [avatar component clause 69] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+72. 2 [avatar split clause 39,69]
+74. 3 <=> k1_xboole_0 = o_0_0_xboole_0 [avatar definition]
+76. k1_xboole_0 = o_0_0_xboole_0 <- (3) [avatar component clause 74] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+77. 3 [avatar split clause 40,74]
+78. v1_xboole_0(k1_xboole_0) <- (2, 3) [backward demodulation 71,76] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+80. 4 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+82. v1_xboole_0(k1_xboole_0) <- (4) [avatar component clause 80] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+83. 4 | ~2 | ~3 [avatar split clause 78,74,69,80]
+85. sK0 != k2_xboole_0(k1_xboole_0,sK0) <- (~1) [superposition 66,56] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+87. 5 <=> sK0 = k2_xboole_0(k1_xboole_0,sK0) [avatar definition]
+89. sK0 != k2_xboole_0(k1_xboole_0,sK0) <- (~5) [avatar component clause 87] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+91. ~5 | 1 [avatar split clause 85,64,87]
+134. r2_hidden(sK2(X0,X1,X1),X1) | r2_hidden(sK2(X0,X1,X1),X0) | k2_xboole_0(X0,X1) = X1 [factoring 51] {a:1,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+138. r2_hidden(sK2(X0,X1,X1),X0) | k2_xboole_0(X0,X1) = X1 [subsumption resolution 134,53] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+151. k2_xboole_0(X2,X3) = X3 | ~v1_xboole_0(X2) [resolution 138,41] {a:2,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+170. sK0 != sK0 | ~v1_xboole_0(k1_xboole_0) <- (~5) [superposition 89,151] {a:3,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+171. ~v1_xboole_0(k1_xboole_0) <- (~5) [trivial inequality removal 170] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+173. $false <- (4, ~5) [subsumption resolution 171,82] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+174. ~4 | 5 [avatar contradiction clause 173]
+175. $false [avatar sat refutation 67,72,77,83,91,174] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:34,thDist:-34}
+% SZS output end Proof for boole__t1_boole
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 13
+% >>> Preprocessing
+% Introduced skolems: 3
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 109
+% Active clauses: 28
+% Passive clauses: 54
+% Final active clauses: 27
+% Final passive clauses: 20
+% Main loop iterations started: 34
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 6
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 3
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 10
+% Equational tautologies: 1
+% Forward subsumptions: 27
+% 
+% >>> Generating Inferences
+% Binary resolution: 34
+% Unit resulting resolution: 1
+% Factoring: 2
+% Forward superposition: 23
+% Backward superposition: 13
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% binary resolution index maintenance: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

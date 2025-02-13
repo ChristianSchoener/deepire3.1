@@ -1,0 +1,69 @@
+i: [1,624,0,20,4,1,0,0] t48_jgraph_2
+i: [1,669,0,6,1,0,0,1] l58_jgraph_2
+i: [1,668,0,4,1,0,0,1] l58_jgraph_2
+i: [1,671,0,6,1,0,0,1] l55_jgraph_2
+i: [1,670,0,4,1,0,0,1] l55_jgraph_2
+f: 670,671,668,669,624
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for jgraph_2__t48_jgraph_2
+% SZS output start Proof for jgraph_2__t48_jgraph_2
+1. m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) & m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [input t48_jgraph_2]
+2. ~(m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) & m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2))) [negated conjecture 1]
+240. m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [input l55_jgraph_2]
+241. m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) & v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) [input l58_jgraph_2]
+281. ~m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) | ~v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) | ~m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) | ~v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [ennf transformation 2]
+624. ~m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) | ~v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) | ~m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) | ~v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [cnf transformation 281] {a:0,w:20,wCS:2000,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+668. v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) [cnf transformation 241] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+669. m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) [cnf transformation 241] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+670. v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [cnf transformation 240] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+671. m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) [cnf transformation 240] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+985. 1 <=> v4_pre_topc(a_0_8_jgraph_2,k15_euclid(2)) [avatar definition]
+989. 2 <=> m1_subset_1(a_0_8_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) [avatar definition]
+993. 3 <=> v4_pre_topc(a_0_9_jgraph_2,k15_euclid(2)) [avatar definition]
+997. 4 <=> m1_subset_1(a_0_9_jgraph_2,k1_zfmisc_1(u1_struct_0(k15_euclid(2)))) [avatar definition]
+1000. ~1 | ~2 | ~3 | ~4 [avatar split clause 624,997,993,989,985]
+1206. 4 [avatar split clause 669,997]
+1207. 3 [avatar split clause 668,993]
+1208. 2 [avatar split clause 671,989]
+1209. 1 [avatar split clause 670,985]
+1527. $false [avatar sat refutation 1000,1206,1207,1208,1209] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:284,thDist:-284}
+% SZS output end Proof for jgraph_2__t48_jgraph_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 240
+% >>> Preprocessing
+% Introduced skolems: 46
+% Pure predicates: 19
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 358
+% Generated clauses: 358
+% Passive clauses: 217
+% Final passive clauses: 217
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 30
+% Equational tautologies: 2
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 111
+% SAT solver unit clauses: 107
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% other: 0.003 s ( own 0.001 s ) 
+

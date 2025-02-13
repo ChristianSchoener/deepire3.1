@@ -1,0 +1,185 @@
+i: [1,21,0,2,1,1,0,0] t41_orders_1
+a: [3,46,0,2,1,21]
+s: 46
+i: [1,22,0,3,1,1,0,0] t41_orders_1
+a: [3,41,0,3,1,22]
+s: 41
+i: [1,23,0,4,1,1,0,0] t41_orders_1
+a: [3,36,0,4,1,23]
+s: 36
+i: [1,24,0,5,2,0,0,1] dt_k2_relat_1
+s: 24
+i: [1,25,0,7,2,0,0,255] involutiveness_k2_relat_1
+s: 25
+i: [1,29,0,8,3,0,0,1] d7_orders_1
+s: 29
+d: [2,49,1,5,2,1,40,29,41]
+d: [2,50,1,3,1,2,21,49,46]
+a: [3,54,1,3,1,50]
+s: 54
+i: [1,30,0,8,3,0,0,1] d7_orders_1
+s: 30
+d: [2,56,1,5,2,1,40,30,41]
+d: [2,57,1,3,1,2,21,56,46]
+a: [3,61,1,3,1,57]
+s: 61
+i: [1,31,0,8,3,0,0,1] d7_orders_1
+s: 31
+i: [1,26,0,9,3,0,0,2] l58_orders_1
+s: 26
+d: [2,63,1,5,2,1,40,31,41]
+d: [2,64,1,3,1,2,21,63,46]
+a: [3,68,1,3,1,64]
+s: 68
+i: [1,27,0,9,3,0,0,2] l59_orders_1
+s: 27
+i: [1,28,0,9,3,0,0,2] l60_orders_1
+s: 28
+i: [1,32,0,14,5,0,0,1] d7_orders_1
+s: 32
+d: [2,70,1,12,4,0,44,26,25]
+d: [2,71,1,9,3,0,21,70,24]
+s: 71
+d: [2,72,1,12,4,0,44,27,25]
+d: [2,73,1,9,3,0,21,72,24]
+s: 73
+d: [2,74,1,12,4,0,44,28,25]
+d: [2,75,1,9,3,0,21,74,24]
+s: 75
+d: [2,77,1,20,6,0,40,32,28]
+d: [2,78,1,17,5,0,21,77,24]
+s: 78
+d: [2,89,2,18,6,0,44,78,25]
+d: [2,91,2,15,5,0,21,89,24]
+s: 91
+d: [2,88,2,18,6,0,40,78,27]
+d: [2,90,2,16,5,0,18,88]
+s: 90
+d: [2,95,3,17,6,0,40,90,26]
+d: [2,97,3,15,5,0,18,95]
+s: 97
+d: [2,99,4,0,0,5,52,46,54,61,68,36,97]
+e: 99
+d: [2,100,4,11,4,1,40,97,36]
+d: [2,106,4,8,3,2,21,100,68]
+d: [2,107,4,6,2,3,21,106,46]
+d: [2,108,4,3,1,4,21,107,61]
+d: [2,109,4,0,0,5,21,108,54]
+e: 109
+f: 109,64,57,50,21,22,23
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for orders_1__t41_orders_1
+% SZS output start Proof for orders_1__t41_orders_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) => r2_orders_1(k2_relat_1(X0),X1))) [input t41_orders_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) => r2_orders_1(k2_relat_1(X0),X1))) [negated conjecture 1]
+3. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) <=> (r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)))) [input d7_orders_1]
+4. ! [X0] : (v1_relat_1(X0) => v1_relat_1(k2_relat_1(X0))) [input dt_k2_relat_1]
+6. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r1_relat_2(X0,X1) => r1_relat_2(k2_relat_1(X0),X1))) [input l58_orders_1]
+7. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r8_relat_2(X0,X1) => r8_relat_2(k2_relat_1(X0),X1))) [input l59_orders_1]
+8. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r4_relat_2(X0,X1) => r4_relat_2(k2_relat_1(X0),X1))) [input l60_orders_1]
+9. ? [X0] : (? [X1] : (~r2_orders_1(k2_relat_1(X0),X1) & r2_orders_1(X0,X1)) & v1_relat_1(X0)) [ennf transformation 2]
+10. ! [X0] : (v1_relat_1(k2_relat_1(X0)) | ~v1_relat_1(X0)) [ennf transformation 4]
+12. ! [X0] : (! [X1] : (r1_relat_2(k2_relat_1(X0),X1) | ~r1_relat_2(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 6]
+13. ! [X0] : (! [X1] : (r8_relat_2(k2_relat_1(X0),X1) | ~r8_relat_2(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 7]
+14. ! [X0] : (! [X1] : (r4_relat_2(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 8]
+15. ! [X0] : (! [X1] : (r2_orders_1(X0,X1) <=> (r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1))) | ~v1_relat_1(X0)) [ennf transformation 3]
+16. ? [X0] : (? [X1] : (~r2_orders_1(k2_relat_1(X0),X1) & r2_orders_1(X0,X1)) & v1_relat_1(X0)) => (? [X1] : (~r2_orders_1(k2_relat_1(sK0),X1) & r2_orders_1(sK0,X1)) & v1_relat_1(sK0)) [choice axiom]
+17. ? [X1] : (~r2_orders_1(k2_relat_1(sK0),X1) & r2_orders_1(sK0,X1)) => (~r2_orders_1(k2_relat_1(sK0),sK1) & r2_orders_1(sK0,sK1)) [choice axiom]
+18. (~r2_orders_1(k2_relat_1(sK0),sK1) & r2_orders_1(sK0,sK1)) & v1_relat_1(sK0) [skolemisation 9,17,16]
+19. ! [X0] : (! [X1] : ((r2_orders_1(X0,X1) | (~r4_relat_2(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1))) & ((r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r2_orders_1(X0,X1))) | ~v1_relat_1(X0)) [nnf transformation 15]
+20. ! [X0] : (! [X1] : ((r2_orders_1(X0,X1) | ~r4_relat_2(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1)) & ((r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r2_orders_1(X0,X1))) | ~v1_relat_1(X0)) [flattening 19]
+21. v1_relat_1(sK0) [cnf transformation 18] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+22. r2_orders_1(sK0,sK1) [cnf transformation 18] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+23. ~r2_orders_1(k2_relat_1(sK0),sK1) [cnf transformation 18] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+24. v1_relat_1(k2_relat_1(X0)) | ~v1_relat_1(X0) [cnf transformation 10] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+26. r1_relat_2(k2_relat_1(X0),X1) | ~r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 12] {a:0,w:9,wCS:3600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+27. r8_relat_2(k2_relat_1(X0),X1) | ~r8_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 13] {a:0,w:9,wCS:3600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+28. r4_relat_2(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:9,wCS:3600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+29. ~r2_orders_1(X0,X1) | r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 20] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+30. ~r2_orders_1(X0,X1) | r8_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 20] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+31. ~r2_orders_1(X0,X1) | r4_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 20] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+32. ~r4_relat_2(X0,X1) | r2_orders_1(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 20] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+34. 1 <=> r2_orders_1(k2_relat_1(sK0),sK1) [avatar definition]
+36. ~r2_orders_1(k2_relat_1(sK0),sK1) <- (~1) [avatar component clause 34] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+37. ~1 [avatar split clause 23,34]
+39. 2 <=> r2_orders_1(sK0,sK1) [avatar definition]
+41. r2_orders_1(sK0,sK1) <- (2) [avatar component clause 39] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+42. 2 [avatar split clause 22,39]
+44. 3 <=> v1_relat_1(sK0) [avatar definition]
+46. v1_relat_1(sK0) <- (3) [avatar component clause 44] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+47. 3 [avatar split clause 21,44]
+49. r1_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (2) [resolution 29,41] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+50. r1_relat_2(sK0,sK1) <- (2, 3) [subsumption resolution 49,46] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+52. 4 <=> r1_relat_2(sK0,sK1) [avatar definition]
+54. r1_relat_2(sK0,sK1) <- (4) [avatar component clause 52] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+55. 4 | ~2 | ~3 [avatar split clause 50,44,39,52]
+56. r8_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (2) [resolution 30,41] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+57. r8_relat_2(sK0,sK1) <- (2, 3) [subsumption resolution 56,46] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+59. 5 <=> r8_relat_2(sK0,sK1) [avatar definition]
+61. r8_relat_2(sK0,sK1) <- (5) [avatar component clause 59] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+62. 5 | ~2 | ~3 [avatar split clause 57,44,39,59]
+63. r4_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (2) [resolution 31,41] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+64. r4_relat_2(sK0,sK1) <- (2, 3) [subsumption resolution 63,46] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+66. 6 <=> r4_relat_2(sK0,sK1) [avatar definition]
+68. r4_relat_2(sK0,sK1) <- (6) [avatar component clause 66] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+69. 6 | ~2 | ~3 [avatar split clause 64,44,39,66]
+77. r2_orders_1(k2_relat_1(X0),X1) | ~r8_relat_2(k2_relat_1(X0),X1) | ~r1_relat_2(k2_relat_1(X0),X1) | ~v1_relat_1(k2_relat_1(X0)) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) [resolution 32,28] {a:1,w:20,wCS:8000,sine:1,thAx:0,allAx:2,thDist:-2}
+78. ~r8_relat_2(k2_relat_1(X0),X1) | r2_orders_1(k2_relat_1(X0),X1) | ~r1_relat_2(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) [subsumption resolution 77,24] {a:1,w:17,wCS:6800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+88. r2_orders_1(k2_relat_1(X0),X1) | ~r1_relat_2(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) | ~r8_relat_2(X0,X1) | ~v1_relat_1(X0) [resolution 78,27] {a:2,w:18,wCS:7200,sine:1,thAx:0,allAx:3,thDist:-3}
+90. ~r1_relat_2(k2_relat_1(X0),X1) | r2_orders_1(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) | ~r8_relat_2(X0,X1) [duplicate literal removal 88] {a:2,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+95. r2_orders_1(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1) | ~v1_relat_1(X0) [resolution 90,26] {a:3,w:17,wCS:6800,sine:1,thAx:0,allAx:4,thDist:-4}
+97. r2_orders_1(k2_relat_1(X0),X1) | ~r4_relat_2(X0,X1) | ~v1_relat_1(X0) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1) [duplicate literal removal 95] {a:3,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:4,thDist:-4}
+100. ~r4_relat_2(sK0,sK1) | ~v1_relat_1(sK0) | ~r8_relat_2(sK0,sK1) | ~r1_relat_2(sK0,sK1) <- (~1) [resolution 97,36] {a:4,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+106. ~v1_relat_1(sK0) | ~r8_relat_2(sK0,sK1) | ~r1_relat_2(sK0,sK1) <- (~1, 6) [subsumption resolution 100,68] {a:4,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+107. ~r8_relat_2(sK0,sK1) | ~r1_relat_2(sK0,sK1) <- (~1, 3, 6) [subsumption resolution 106,46] {a:4,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+108. ~r1_relat_2(sK0,sK1) <- (~1, 3, 5, 6) [subsumption resolution 107,61] {a:4,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+109. $false <- (~1, 3, 4, 5, 6) [subsumption resolution 108,54] {a:4,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+110. 1 | ~3 | ~4 | ~5 | ~6 [avatar contradiction clause 109]
+112. $false [avatar sat refutation 37,42,47,55,62,69,110] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:62,thDist:-62}
+% SZS output end Proof for orders_1__t41_orders_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 12
+% Generated clauses: 65
+% Active clauses: 22
+% Passive clauses: 23
+% Final active clauses: 22
+% Final passive clauses: 1
+% Main loop iterations started: 22
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 6
+% Fw subsumption resolutions: 14
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 9
+% 
+% >>> Generating Inferences
+% Binary resolution: 15
+% Unit resulting resolution: 1
+% Forward superposition: 10
+% Backward superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward subsumption resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

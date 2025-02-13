@@ -1,0 +1,51 @@
+i: [1,153,0,3,1,1,0,0] t7_xxreal_0
+i: [1,159,0,3,1,0,0,1] l11_xxreal_0
+f: 159,153
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xxreal_0__t7_xxreal_0
+% SZS output start Proof for xxreal_0__t7_xxreal_0
+1. ~r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [input t7_xxreal_0]
+2. ~~r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [negated conjecture 1]
+82. ~r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [input l11_xxreal_0]
+83. r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [flattening 2]
+153. r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [cnf transformation 83] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+159. ~r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [cnf transformation 82] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+224. 1 <=> r1_xxreal_0(k1_xxreal_0,k2_xxreal_0) [avatar definition]
+227. 1 [avatar split clause 153,224]
+253. ~1 [avatar split clause 159,224]
+367. $false [avatar sat refutation 227,253] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:73,thDist:-73}
+% SZS output end Proof for xxreal_0__t7_xxreal_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 81
+% >>> Preprocessing
+% Introduced skolems: 9
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 70
+% Generated clauses: 70
+% Passive clauses: 40
+% Final passive clauses: 40
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 32
+% SAT solver unit clauses: 28
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

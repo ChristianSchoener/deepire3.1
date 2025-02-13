@@ -1,0 +1,175 @@
+i: [1,65,0,2,1,1,0,0] t19_ordinal6
+a: [3,112,0,2,1,65]
+s: 112
+i: [1,66,0,5,1,1,0,0] t19_ordinal6
+a: [3,107,0,5,1,66]
+s: 107
+i: [1,96,0,2,1,0,0,1] rc1_ordinal6
+a: [3,117,0,2,1,96]
+s: 117
+i: [1,97,0,2,1,0,0,2] rc1_ordinal1
+a: [3,122,0,2,1,97]
+s: 122
+i: [1,101,0,2,1,0,0,2] rc2_ordinal2
+a: [3,127,0,2,1,101]
+s: 127
+i: [1,100,0,2,1,0,0,2] rc2_ordinal2
+a: [3,132,0,2,1,100]
+s: 132
+i: [1,99,0,2,1,0,0,2] rc2_ordinal2
+a: [3,137,0,2,1,99]
+s: 137
+i: [1,98,0,2,1,0,0,2] rc2_ordinal2
+a: [3,142,0,2,1,98]
+s: 142
+i: [1,103,0,2,1,0,0,2] rc1_funct_1
+a: [3,147,0,2,1,103]
+s: 147
+i: [1,102,0,2,1,0,0,2] rc1_funct_1
+a: [3,152,0,2,1,102]
+s: 152
+i: [1,67,0,3,1,0,0,255] fc1_ordinal6
+s: 67
+i: [1,68,0,3,1,0,0,255] dt_k1_ordinal6
+s: 68
+i: [1,69,0,3,1,0,0,255] dt_k1_wellord2
+s: 69
+i: [1,72,0,3,1,0,0,2] dt_k2_ordinal6
+s: 72
+i: [1,73,0,3,1,0,0,2] dt_k2_ordinal6
+s: 73
+i: [1,74,0,3,1,0,0,2] dt_k2_ordinal6
+s: 74
+i: [1,75,0,3,1,0,0,2] dt_k2_ordinal6
+s: 75
+i: [1,76,0,3,1,0,0,255] fc3_wellord2
+s: 76
+i: [1,77,0,3,1,0,0,255] fc1_wellord2
+s: 77
+i: [1,78,0,3,1,0,0,255] fc2_wellord2
+s: 78
+i: [1,83,0,4,2,0,0,1] cc1_ordinal6
+s: 83
+d: [2,154,1,2,1,1,40,83,122]
+a: [3,159,1,2,1,154]
+s: 159
+i: [1,84,0,4,2,0,0,255] cc1_ordinal1
+s: 84
+d: [2,161,1,2,1,1,40,84,122]
+a: [3,166,1,2,1,161]
+s: 166
+i: [1,85,0,4,2,0,0,255] cc1_ordinal1
+s: 85
+i: [1,82,0,5,2,0,0,255] fc8_ordinal6
+s: 82
+d: [2,168,1,2,1,1,40,85,122]
+a: [3,173,1,2,1,168]
+s: 173
+i: [1,86,0,5,2,0,0,255] fc5_wellord2
+s: 86
+d: [2,155,1,3,1,0,40,83,68]
+s: 155
+i: [1,87,0,5,2,0,0,255] fc4_wellord2
+s: 87
+i: [1,88,0,5,2,0,0,255] dt_k2_wellord2
+s: 88
+d: [2,162,1,3,1,0,40,84,68]
+s: 162
+i: [1,79,0,6,1,0,0,255] t18_ordinal6
+s: 79
+d: [2,169,1,3,1,0,40,85,68]
+s: 169
+i: [1,80,0,6,1,0,0,255] t18_ordinal6
+s: 80
+i: [1,89,0,6,3,0,0,255] cc2_ordinal1
+s: 89
+d: [2,178,1,4,1,1,44,107,80]
+a: [3,182,1,4,1,178]
+s: 182
+i: [1,92,0,6,2,0,0,255] t2_ordinal6
+s: 92
+d: [2,186,2,0,0,2,52,112,182,92]
+e: 186
+d: [2,188,2,5,2,1,44,182,92]
+d: [2,189,2,2,1,1,19,188]
+d: [2,191,2,0,0,2,21,189,112]
+e: 191
+f: 191,178,65,66
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ordinal6__t19_ordinal6
+% SZS output start Proof for ordinal6__t19_ordinal6
+1. ! [X0] : (v1_ordinal6(X0) => k10_xtuple_0(k2_ordinal6(X0)) = X0) [input t19_ordinal6]
+2. ~! [X0] : (v1_ordinal6(X0) => k10_xtuple_0(k2_ordinal6(X0)) = X0) [negated conjecture 1]
+30. ! [X0] : (k10_xtuple_0(k2_ordinal6(X0)) = k2_ordinal1(X0) & k1_ordinal6(X0) = k9_xtuple_0(k2_ordinal6(X0))) [input t18_ordinal6]
+31. ! [X0] : (v1_ordinal6(X0) <=> k2_ordinal1(X0) = X0) [input t2_ordinal6]
+38. ? [X0] : (k10_xtuple_0(k2_ordinal6(X0)) != X0 & v1_ordinal6(X0)) [ennf transformation 2]
+54. ? [X0] : (k10_xtuple_0(k2_ordinal6(X0)) != X0 & v1_ordinal6(X0)) => (sK0 != k10_xtuple_0(k2_ordinal6(sK0)) & v1_ordinal6(sK0)) [choice axiom]
+55. sK0 != k10_xtuple_0(k2_ordinal6(sK0)) & v1_ordinal6(sK0) [skolemisation 38,54]
+56. ! [X0] : ((v1_ordinal6(X0) | k2_ordinal1(X0) != X0) & (k2_ordinal1(X0) = X0 | ~v1_ordinal6(X0))) [nnf transformation 31]
+65. v1_ordinal6(sK0) [cnf transformation 55] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+66. sK0 != k10_xtuple_0(k2_ordinal6(sK0)) [cnf transformation 55] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+80. k10_xtuple_0(k2_ordinal6(X0)) = k2_ordinal1(X0) [cnf transformation 30] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+92. k2_ordinal1(X0) = X0 | ~v1_ordinal6(X0) [cnf transformation 56] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+105. 1 <=> sK0 = k10_xtuple_0(k2_ordinal6(sK0)) [avatar definition]
+107. sK0 != k10_xtuple_0(k2_ordinal6(sK0)) <- (~1) [avatar component clause 105] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+108. ~1 [avatar split clause 66,105]
+110. 2 <=> v1_ordinal6(sK0) [avatar definition]
+112. v1_ordinal6(sK0) <- (2) [avatar component clause 110] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+113. 2 [avatar split clause 65,110]
+178. sK0 != k2_ordinal1(sK0) <- (~1) [superposition 107,80] {a:1,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+180. 14 <=> sK0 = k2_ordinal1(sK0) [avatar definition]
+182. sK0 != k2_ordinal1(sK0) <- (~14) [avatar component clause 180] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+183. ~14 | 1 [avatar split clause 178,105,180]
+188. sK0 != sK0 | ~v1_ordinal6(sK0) <- (~14) [superposition 182,92] {a:2,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+189. ~v1_ordinal6(sK0) <- (~14) [trivial inequality removal 188] {a:2,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+191. $false <- (2, ~14) [subsumption resolution 189,112] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+192. ~2 | 14 [avatar contradiction clause 191]
+193. $false [avatar sat refutation 108,113,183,192] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:60,thDist:-60}
+% SZS output end Proof for ordinal6__t19_ordinal6
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 30
+% >>> Preprocessing
+% Introduced skolems: 5
+% Pure predicates: 6
+% 
+% >>> Saturation
+% Initial clauses: 39
+% Generated clauses: 70
+% Active clauses: 32
+% Passive clauses: 49
+% Final active clauses: 32
+% Final passive clauses: 11
+% Main loop iterations started: 38
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 8
+% 
+% >>> Generating Inferences
+% Binary resolution: 11
+% Unit resulting resolution: 1
+% Backward superposition: 3
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 18
+% SAT solver unit clauses: 10
+% SAT solver binary clauses: 6
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,138 @@
+i: [1,46,0,5,1,1,0,0] l115_zfmisc_1
+s: 46
+i: [1,45,0,5,1,1,0,0] l115_zfmisc_1
+a: [3,77,0,5,1,45]
+s: 77
+i: [1,47,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,82,0,2,1,47]
+s: 82
+i: [1,48,0,2,1,0,0,255] fc1_xboole_0
+a: [3,87,0,2,1,48]
+s: 87
+i: [1,67,0,2,1,0,0,2] rc2_xboole_0
+a: [3,97,0,2,1,67]
+s: 97
+i: [1,68,0,2,1,0,0,2] rc1_xboole_0
+a: [3,102,0,2,1,68]
+s: 102
+i: [1,50,0,3,1,0,0,255] fc2_xboole_0
+s: 50
+i: [1,49,0,3,1,0,0,255] d2_xboole_0
+a: [3,92,0,3,1,49]
+s: 92
+r: 82
+i: [1,63,0,4,1,0,0,1] fc1_zfmisc_1
+s: 63
+i: [1,64,0,4,1,0,0,255] fc3_xboole_0
+s: 64
+i: [1,51,0,5,2,0,0,255] t6_boole
+s: 51
+i: [1,54,0,5,2,0,0,1] t7_boole
+s: 54
+i: [1,66,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 66
+d: [2,107,1,4,1,1,40,54,77]
+a: [3,111,1,4,1,107]
+s: 111
+i: [1,53,0,7,3,0,0,1] t8_boole
+s: 53
+i: [1,65,0,7,1,0,0,255] commutativity_k2_tarski
+s: 65
+d: [2,113,1,5,1,1,40,66,77]
+a: [3,117,1,5,1,113]
+s: 117
+i: [1,52,0,10,1,0,0,255] d5_tarski
+s: 52
+d: [2,105,1,7,3,0,44,51,51]
+s: 105
+i: [1,72,0,11,2,0,0,1] d2_zfmisc_1
+s: 72
+i: [1,73,0,11,2,0,0,1] d2_zfmisc_1
+s: 73
+d: [2,130,1,7,2,0,40,72,54]
+s: 130
+i: [1,70,0,13,3,0,0,1] d2_zfmisc_1
+s: 70
+d: [2,133,2,2,1,1,40,130,77]
+a: [3,139,2,2,1,133]
+s: 139
+i: [1,71,0,16,2,0,0,1] d2_zfmisc_1
+s: 71
+d: [2,144,1,0,0,1,52,77,46,71]
+e: 144
+f: 144,45
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zfmisc_1__l115_zfmisc_1
+% SZS output start Proof for zfmisc_1__l115_zfmisc_1
+1. ! [X0] : ! [X1] : ! [X2] : ~(! [X3] : ! [X4] : k4_tarski(X3,X4) != X0 & r2_hidden(X0,k2_zfmisc_1(X1,X2))) [input l115_zfmisc_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ~(! [X3] : ! [X4] : k4_tarski(X3,X4) != X0 & r2_hidden(X0,k2_zfmisc_1(X1,X2))) [negated conjecture 1]
+6. ! [X0] : ! [X1] : ! [X2] : (k2_zfmisc_1(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> ? [X4] : ? [X5] : (k4_tarski(X4,X5) = X3 & r2_hidden(X5,X1) & r2_hidden(X4,X0)))) [input d2_zfmisc_1]
+23. ~! [X0,X1,X2] : ~(! [X3,X4] : k4_tarski(X3,X4) != X0 & r2_hidden(X0,k2_zfmisc_1(X1,X2))) [flattening 2]
+27. ! [X0,X1,X2] : (k2_zfmisc_1(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> ? [X4,X5] : (k4_tarski(X4,X5) = X3 & r2_hidden(X5,X1) & r2_hidden(X4,X0)))) [flattening 6]
+28. ? [X0,X1,X2] : (! [X3,X4] : k4_tarski(X3,X4) != X0 & r2_hidden(X0,k2_zfmisc_1(X1,X2))) [ennf transformation 23]
+33. ? [X0,X1,X2] : (! [X3,X4] : k4_tarski(X3,X4) != X0 & r2_hidden(X0,k2_zfmisc_1(X1,X2))) => (! [X4,X3] : k4_tarski(X3,X4) != sK0 & r2_hidden(sK0,k2_zfmisc_1(sK1,sK2))) [choice axiom]
+34. ! [X3,X4] : k4_tarski(X3,X4) != sK0 & r2_hidden(sK0,k2_zfmisc_1(sK1,sK2)) [skolemisation 28,33]
+35. ! [X0,X1,X2] : ((k2_zfmisc_1(X0,X1) = X2 | ? [X3] : ((! [X4,X5] : (k4_tarski(X4,X5) != X3 | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0)) | ~r2_hidden(X3,X2)) & (? [X4,X5] : (k4_tarski(X4,X5) = X3 & r2_hidden(X5,X1) & r2_hidden(X4,X0)) | r2_hidden(X3,X2)))) & (! [X3] : ((r2_hidden(X3,X2) | ! [X4,X5] : (k4_tarski(X4,X5) != X3 | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0))) & (? [X4,X5] : (k4_tarski(X4,X5) = X3 & r2_hidden(X5,X1) & r2_hidden(X4,X0)) | ~r2_hidden(X3,X2))) | k2_zfmisc_1(X0,X1) != X2)) [nnf transformation 27]
+36. ! [X0,X1,X2] : ((k2_zfmisc_1(X0,X1) = X2 | ? [X3] : ((! [X4,X5] : (k4_tarski(X4,X5) != X3 | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0)) | ~r2_hidden(X3,X2)) & (? [X6,X7] : (k4_tarski(X6,X7) = X3 & r2_hidden(X7,X1) & r2_hidden(X6,X0)) | r2_hidden(X3,X2)))) & (! [X8] : ((r2_hidden(X8,X2) | ! [X9,X10] : (k4_tarski(X9,X10) != X8 | ~r2_hidden(X10,X1) | ~r2_hidden(X9,X0))) & (? [X11,X12] : (k4_tarski(X11,X12) = X8 & r2_hidden(X12,X1) & r2_hidden(X11,X0)) | ~r2_hidden(X8,X2))) | k2_zfmisc_1(X0,X1) != X2)) [rectify 35]
+37. ! [X2,X1,X0] : (? [X3] : ((! [X4,X5] : (k4_tarski(X4,X5) != X3 | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0)) | ~r2_hidden(X3,X2)) & (? [X6,X7] : (k4_tarski(X6,X7) = X3 & r2_hidden(X7,X1) & r2_hidden(X6,X0)) | r2_hidden(X3,X2))) => ((! [X5,X4] : (k4_tarski(X4,X5) != sK3(X0,X1,X2) | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0)) | ~r2_hidden(sK3(X0,X1,X2),X2)) & (? [X7,X6] : (k4_tarski(X6,X7) = sK3(X0,X1,X2) & r2_hidden(X7,X1) & r2_hidden(X6,X0)) | r2_hidden(sK3(X0,X1,X2),X2)))) [choice axiom]
+38. ! [X2,X1,X0] : (? [X7,X6] : (k4_tarski(X6,X7) = sK3(X0,X1,X2) & r2_hidden(X7,X1) & r2_hidden(X6,X0)) => (sK3(X0,X1,X2) = k4_tarski(sK4(X0,X1,X2),sK5(X0,X1,X2)) & r2_hidden(sK5(X0,X1,X2),X1) & r2_hidden(sK4(X0,X1,X2),X0))) [choice axiom]
+39. ! [X8,X1,X0] : (? [X11,X12] : (k4_tarski(X11,X12) = X8 & r2_hidden(X12,X1) & r2_hidden(X11,X0)) => (k4_tarski(sK6(X0,X1,X8),sK7(X0,X1,X8)) = X8 & r2_hidden(sK7(X0,X1,X8),X1) & r2_hidden(sK6(X0,X1,X8),X0))) [choice axiom]
+40. ! [X0,X1,X2] : ((k2_zfmisc_1(X0,X1) = X2 | ((! [X4,X5] : (k4_tarski(X4,X5) != sK3(X0,X1,X2) | ~r2_hidden(X5,X1) | ~r2_hidden(X4,X0)) | ~r2_hidden(sK3(X0,X1,X2),X2)) & ((sK3(X0,X1,X2) = k4_tarski(sK4(X0,X1,X2),sK5(X0,X1,X2)) & r2_hidden(sK5(X0,X1,X2),X1) & r2_hidden(sK4(X0,X1,X2),X0)) | r2_hidden(sK3(X0,X1,X2),X2)))) & (! [X8] : ((r2_hidden(X8,X2) | ! [X9,X10] : (k4_tarski(X9,X10) != X8 | ~r2_hidden(X10,X1) | ~r2_hidden(X9,X0))) & ((k4_tarski(sK6(X0,X1,X8),sK7(X0,X1,X8)) = X8 & r2_hidden(sK7(X0,X1,X8),X1) & r2_hidden(sK6(X0,X1,X8),X0)) | ~r2_hidden(X8,X2))) | k2_zfmisc_1(X0,X1) != X2)) [skolemisation 36,39,38,37]
+45. r2_hidden(sK0,k2_zfmisc_1(sK1,sK2)) [cnf transformation 34] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+46. k4_tarski(X3,X4) != sK0 [cnf transformation 34] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+57. k4_tarski(sK6(X0,X1,X8),sK7(X0,X1,X8)) = X8 | ~r2_hidden(X8,X2) | k2_zfmisc_1(X0,X1) != X2 [cnf transformation 40] {a:0,w:19,wCS:7600,sine:1,thAx:0,allAx:4,thDist:-4}
+71. k4_tarski(sK6(X0,X1,X8),sK7(X0,X1,X8)) = X8 | ~r2_hidden(X8,k2_zfmisc_1(X0,X1)) [equality resolution 57] {a:0,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:4,thDist:-4}
+75. 1 <=> r2_hidden(sK0,k2_zfmisc_1(sK1,sK2)) [avatar definition]
+77. r2_hidden(sK0,k2_zfmisc_1(sK1,sK2)) <- (1) [avatar component clause 75] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+78. 1 [avatar split clause 45,75]
+144. $false <- (1) [unit resulting resolution 77,46,71] {a:1,w:0,goal:1,sine:0,thAx:0,allAx:8,thDist:-8}
+148. ~1 [avatar contradiction clause 144]
+149. $false [avatar sat refutation 78,148] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:42,thDist:-42}
+% SZS output end Proof for zfmisc_1__l115_zfmisc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 21
+% Introduced skolems: 10
+% 
+% >>> Saturation
+% Initial clauses: 24
+% Generated clauses: 62
+% Active clauses: 24
+% Passive clauses: 43
+% Final active clauses: 23
+% Final passive clauses: 18
+% Main loop iterations started: 25
+% 
+% >>> Simplifying Inferences
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 6
+% 
+% >>> Generating Inferences
+% Binary resolution: 12
+% Unit resulting resolution: 1
+% Forward superposition: 4
+% Backward superposition: 9
+% Self superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 12
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% unit resulting resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

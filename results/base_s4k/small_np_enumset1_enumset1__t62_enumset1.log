@@ -1,0 +1,93 @@
+i: [1,18,0,11,1,1,0,0] t62_enumset1
+a: [3,26,0,11,1,18]
+s: 26
+i: [1,21,0,5,1,0,0,255] idempotence_k2_xboole_0
+s: 21
+i: [1,22,0,7,1,0,0,255] commutativity_k2_xboole_0
+s: 22
+i: [1,19,0,9,1,0,0,255] t58_enumset1
+s: 19
+i: [1,20,0,13,1,0,0,255] t4_enumset1
+s: 20
+d: [2,28,1,13,1,0,44,20,19]
+s: 28
+d: [2,36,2,11,1,0,44,28,20]
+s: 36
+d: [2,44,3,11,1,1,44,26,36]
+d: [2,45,3,0,0,1,19,44]
+e: 45
+d: [2,43,3,11,1,1,44,26,36]
+d: [2,47,3,0,0,1,19,43]
+e: 47
+d: [2,42,3,0,0,1,52,26,36]
+e: 42
+f: 42,18
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for enumset1__t62_enumset1
+% SZS output start Proof for enumset1__t62_enumset1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k2_enumset1(X0,X1,X2,X3) = k2_enumset1(X0,X2,X1,X3) [input t62_enumset1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : k2_enumset1(X0,X1,X2,X3) = k2_enumset1(X0,X2,X1,X3) [negated conjecture 1]
+9. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k2_enumset1(X0,X1,X2,X3) = k2_xboole_0(k1_tarski(X0),k1_enumset1(X1,X2,X3)) [input t4_enumset1]
+10. ! [X0] : ! [X1] : ! [X2] : k1_enumset1(X0,X1,X2) = k1_enumset1(X1,X0,X2) [input t58_enumset1]
+11. ~! [X0,X1,X2,X3] : k2_enumset1(X0,X1,X2,X3) = k2_enumset1(X0,X2,X1,X3) [flattening 2]
+12. ! [X0,X1,X2] : k1_enumset1(X0,X1,X2) = k1_enumset1(X1,X0,X2) [flattening 10]
+13. ! [X0,X1,X2,X3] : k2_enumset1(X0,X1,X2,X3) = k2_xboole_0(k1_tarski(X0),k1_enumset1(X1,X2,X3)) [flattening 9]
+15. ? [X0,X1,X2,X3] : k2_enumset1(X0,X1,X2,X3) != k2_enumset1(X0,X2,X1,X3) [ennf transformation 11]
+16. ? [X0,X1,X2,X3] : k2_enumset1(X0,X1,X2,X3) != k2_enumset1(X0,X2,X1,X3) => k2_enumset1(sK0,sK1,sK2,sK3) != k2_enumset1(sK0,sK2,sK1,sK3) [choice axiom]
+17. k2_enumset1(sK0,sK1,sK2,sK3) != k2_enumset1(sK0,sK2,sK1,sK3) [skolemisation 15,16]
+18. k2_enumset1(sK0,sK1,sK2,sK3) != k2_enumset1(sK0,sK2,sK1,sK3) [cnf transformation 17] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+19. k1_enumset1(X0,X1,X2) = k1_enumset1(X1,X0,X2) [cnf transformation 12] {a:0,w:9,wCS:3600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+20. k2_enumset1(X0,X1,X2,X3) = k2_xboole_0(k1_tarski(X0),k1_enumset1(X1,X2,X3)) [cnf transformation 13] {a:0,w:13,wCS:5200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+24. 1 <=> k2_enumset1(sK0,sK1,sK2,sK3) = k2_enumset1(sK0,sK2,sK1,sK3) [avatar definition]
+26. k2_enumset1(sK0,sK1,sK2,sK3) != k2_enumset1(sK0,sK2,sK1,sK3) <- (~1) [avatar component clause 24] {a:0,w:11,wCS:1100,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+27. ~1 [avatar split clause 18,24]
+28. k2_enumset1(X3,X0,X1,X2) = k2_xboole_0(k1_tarski(X3),k1_enumset1(X1,X0,X2)) [superposition 20,19] {a:1,w:13,wCS:5200,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+36. k2_enumset1(X4,X5,X6,X7) = k2_enumset1(X4,X6,X5,X7) [superposition 28,20] {a:2,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:3,thDist:-3}
+42. $false <- (~1) [unit resulting resolution 26,36] {a:3,w:0,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+49. 1 [avatar contradiction clause 42]
+50. $false [avatar sat refutation 27,49] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:18,thDist:-18}
+% SZS output end Proof for enumset1__t62_enumset1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 9
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 5
+% Generated clauses: 25
+% Active clauses: 7
+% Passive clauses: 17
+% Final active clauses: 7
+% Final passive clauses: 10
+% Main loop iterations started: 7
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 2
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Forward superposition: 9
+% Backward superposition: 7
+% 
+% >>> AVATAR
+% Sat splitting refutations: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 6
+% SAT solver unit clauses: 4
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% term sharing: 0.001 s
+% unit resulting resolution: 0.001 s ( own 0.0000 s ) 
+% other: 0.001 s ( own 0.0000 s ) 
+

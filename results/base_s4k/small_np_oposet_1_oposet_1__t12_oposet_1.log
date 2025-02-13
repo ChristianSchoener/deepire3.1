@@ -1,0 +1,432 @@
+i: [1,214,0,2,1,1,0,0] t12_oposet_1
+a: [3,320,0,2,1,214]
+s: 320
+i: [1,213,0,2,1,1,0,0] t12_oposet_1
+a: [3,325,0,2,1,213]
+s: 325
+i: [1,212,0,2,1,1,0,0] t12_oposet_1
+a: [3,330,0,2,1,212]
+s: 330
+i: [1,211,0,2,1,1,0,0] t12_oposet_1
+a: [3,335,0,2,1,211]
+s: 335
+i: [1,215,0,2,1,0,0,255] spc1_boole
+a: [3,340,0,2,1,215]
+s: 340
+i: [1,216,0,2,1,0,0,255] fc1_xboole_0
+a: [3,345,0,2,1,216]
+s: 345
+i: [1,293,0,2,1,0,0,255] rc2_xboole_0
+a: [3,350,0,2,1,293]
+s: 350
+i: [1,294,0,2,1,0,0,255] existence_l1_robbins1
+a: [3,355,0,2,1,294]
+s: 355
+i: [1,295,0,2,1,0,0,1] existence_l2_qmax_1
+a: [3,360,0,2,1,295]
+s: 360
+i: [1,296,0,2,1,0,0,2] existence_l1_orders_2
+a: [3,365,0,2,1,296]
+s: 365
+i: [1,297,0,2,1,0,0,255] rc1_card_1
+a: [3,370,0,2,1,297]
+s: 370
+i: [1,298,0,2,1,0,0,3] existence_l1_struct_0
+a: [3,375,0,2,1,298]
+s: 375
+i: [1,299,0,2,1,0,0,255] rc1_xboole_0
+a: [3,380,0,2,1,299]
+s: 380
+i: [1,301,0,2,1,0,0,255] rc7_funct_1
+a: [3,385,0,2,1,301]
+s: 385
+i: [1,300,0,2,1,0,0,255] rc7_funct_1
+a: [3,390,0,2,1,300]
+s: 390
+i: [1,303,0,2,1,0,0,255] rc1_relat_1
+a: [3,395,0,2,1,303]
+s: 395
+i: [1,302,0,2,1,0,0,255] rc1_relat_1
+a: [3,400,0,2,1,302]
+s: 400
+i: [1,306,0,2,1,0,0,255] rc4_funct_1
+a: [3,405,0,2,1,306]
+s: 405
+i: [1,305,0,2,1,0,0,255] rc4_funct_1
+a: [3,410,0,2,1,305]
+s: 410
+i: [1,304,0,2,1,0,0,255] rc4_funct_1
+a: [3,415,0,2,1,304]
+s: 415
+i: [1,307,0,2,1,0,0,255] rc2_relat_1
+a: [3,420,0,2,1,307]
+s: 420
+i: [1,309,0,2,1,0,0,255] rc3_funct_1
+a: [3,425,0,2,1,309]
+s: 425
+i: [1,308,0,2,1,0,0,255] rc3_funct_1
+a: [3,430,0,2,1,308]
+s: 430
+i: [1,311,0,2,1,0,0,255] rc1_funct_1
+a: [3,435,0,2,1,311]
+s: 435
+i: [1,310,0,2,1,0,0,255] rc1_funct_1
+a: [3,440,0,2,1,310]
+s: 440
+i: [1,314,0,2,1,0,0,255] rc5_funct_1
+a: [3,445,0,2,1,314]
+s: 445
+i: [1,313,0,2,1,0,0,255] rc5_funct_1
+a: [3,450,0,2,1,313]
+s: 450
+i: [1,312,0,2,1,0,0,255] rc5_funct_1
+a: [3,455,0,2,1,312]
+s: 455
+i: [1,316,0,2,1,0,0,255] rc2_funct_1
+a: [3,460,0,2,1,316]
+s: 460
+i: [1,315,0,2,1,0,0,255] rc2_funct_1
+a: [3,465,0,2,1,315]
+s: 465
+i: [1,217,0,4,2,0,0,255] dt_l1_robbins1
+s: 217
+d: [2,467,1,2,1,1,40,217,355]
+a: [3,471,1,2,1,467]
+s: 471
+i: [1,220,0,4,2,0,0,2] dt_l1_orders_2
+s: 220
+d: [2,473,1,2,1,1,40,220,365]
+a: [3,477,1,2,1,473]
+s: 477
+i: [1,221,0,4,2,0,0,255] dt_l2_qmax_1
+s: 221
+i: [1,222,0,4,2,0,0,255] dt_l2_qmax_1
+s: 222
+d: [2,479,1,2,1,1,40,221,330]
+a: [3,484,1,2,1,479]
+s: 484
+i: [1,243,0,4,2,0,0,255] cc7_funct_1
+s: 243
+d: [2,491,1,2,1,1,40,222,330]
+a: [3,496,1,2,1,491]
+s: 496
+i: [1,244,0,4,2,0,0,255] cc2_card_1
+s: 244
+i: [1,245,0,4,2,0,0,255] cc1_funct_1
+s: 245
+d: [2,503,2,2,1,1,40,484,220]
+a: [3,507,2,2,1,503]
+s: 507
+i: [1,246,0,4,2,0,0,255] cc1_relat_1
+s: 246
+d: [2,480,1,2,1,1,40,221,360]
+a: [3,489,1,2,1,480]
+s: 489
+i: [1,291,0,4,1,0,0,255] existence_m1_subset_1
+s: 291
+i: [1,224,0,5,2,0,0,255] rc23_struct_0
+s: 224
+d: [2,492,1,2,1,1,40,222,360]
+a: [3,501,1,2,1,492]
+s: 501
+i: [1,226,0,5,2,0,0,255] rc6_card_1
+s: 226
+d: [2,509,1,2,1,1,40,243,345]
+a: [3,514,1,2,1,509]
+s: 514
+i: [1,227,0,5,2,0,0,255] rc6_card_1
+s: 227
+i: [1,247,0,5,2,0,0,255] t6_boole
+s: 247
+d: [2,510,1,2,1,1,40,243,380]
+a: [3,519,1,2,1,510]
+s: 519
+i: [1,248,0,5,2,0,0,255] cc8_card_1
+s: 248
+d: [2,523,1,2,1,1,40,244,345]
+a: [3,528,1,2,1,523]
+s: 528
+i: [1,249,0,5,2,0,0,255] cc9_card_1
+s: 249
+i: [1,250,0,5,2,0,0,255] cc9_card_1
+s: 250
+d: [2,524,1,2,1,1,40,244,380]
+a: [3,533,1,2,1,524]
+s: 533
+i: [1,251,0,5,2,0,0,255] cc7_card_1
+s: 251
+d: [2,535,1,2,1,1,40,245,345]
+a: [3,540,1,2,1,535]
+s: 540
+i: [1,290,0,5,2,0,0,255] t7_boole
+s: 290
+i: [1,223,0,6,2,0,0,255] rc5_card_1
+s: 223
+d: [2,536,1,2,1,1,40,245,380]
+a: [3,545,1,2,1,536]
+s: 545
+i: [1,225,0,6,2,0,0,255] rc23_struct_0
+s: 225
+d: [2,547,1,2,1,1,40,246,345]
+a: [3,552,1,2,1,547]
+s: 552
+i: [1,228,0,6,2,0,0,255] rc6_card_1
+s: 228
+i: [1,229,0,6,3,0,0,255] cc7_struct_0
+s: 229
+d: [2,548,1,2,1,1,40,246,380]
+a: [3,557,1,2,1,548]
+s: 557
+i: [1,230,0,6,3,0,0,255] cc5_struct_0
+s: 230
+d: [2,575,1,5,2,0,40,223,250]
+a: [3,585,1,2,1,575]
+s: 585
+i: [1,232,0,6,3,0,0,255] cc17_struct_0
+s: 232
+i: [1,233,0,6,3,0,0,255] cc2_struct_0
+s: 233
+d: [2,622,1,4,2,1,40,230,375]
+a: [3,644,1,2,1,622]
+s: 644
+i: [1,234,0,6,3,0,0,255] cc6_struct_0
+s: 234
+d: [2,559,2,2,1,1,40,489,220]
+a: [3,563,2,2,1,559]
+s: 563
+i: [1,235,0,6,3,0,0,255] cc1_struct_0
+s: 235
+i: [1,238,0,6,3,0,0,255] cc4_struct_0
+s: 238
+d: [2,620,2,4,2,1,40,230,471]
+a: [3,626,2,2,1,620]
+s: 626
+i: [1,267,0,6,3,0,0,255] cc1_partit_2
+s: 267
+d: [2,621,2,4,2,1,40,230,477]
+a: [3,635,2,2,1,621]
+s: 635
+d: [2,686,0,4,2,0,21,267,246]
+s: 686
+i: [1,268,0,6,3,0,0,255] cc1_partit_2
+s: 268
+d: [2,687,1,2,1,1,40,686,345]
+a: [3,692,1,2,1,687]
+s: 692
+d: [2,699,0,4,2,0,21,268,246]
+s: 699
+d: [2,688,1,2,1,1,40,686,380]
+a: [3,697,1,2,1,688]
+s: 697
+i: [1,269,0,6,3,0,0,255] cc1_partit_2
+s: 269
+d: [2,713,0,4,2,0,21,269,246]
+s: 713
+d: [2,701,1,2,1,1,40,699,345]
+a: [3,706,1,2,1,701]
+s: 706
+i: [1,272,0,6,3,0,0,255] cc1_relat_2
+s: 272
+d: [2,702,1,2,1,1,40,699,380]
+a: [3,711,1,2,1,702]
+s: 711
+i: [1,273,0,6,3,0,0,255] cc1_relat_2
+s: 273
+d: [2,727,0,4,2,0,21,273,246]
+s: 727
+d: [2,714,1,2,1,1,40,713,345]
+a: [3,719,1,2,1,714]
+s: 719
+i: [1,274,0,6,3,0,0,255] cc1_relat_2
+s: 274
+d: [2,715,1,2,1,1,40,713,380]
+a: [3,724,1,2,1,715]
+s: 724
+i: [1,275,0,6,3,0,0,255] cc1_relat_2
+s: 275
+d: [2,741,0,4,2,0,21,275,246]
+s: 741
+d: [2,728,1,2,1,1,40,727,345]
+a: [3,733,1,2,1,728]
+s: 733
+i: [1,276,0,6,3,0,0,255] cc1_relat_2
+s: 276
+d: [2,729,1,2,1,1,40,727,380]
+a: [3,738,1,2,1,729]
+s: 738
+i: [1,283,0,6,3,0,0,255] cc4_relat_2
+s: 283
+i: [1,287,0,6,2,0,0,255] t1_subset
+s: 287
+d: [2,742,1,2,1,1,40,741,345]
+a: [3,747,1,2,1,742]
+s: 747
+i: [1,292,0,6,2,0,0,255] antisymmetry_r2_hidden
+s: 292
+d: [2,743,1,2,1,1,40,741,380]
+a: [3,752,1,2,1,743]
+s: 752
+i: [1,218,0,7,3,0,0,255] cc8_funct_1
+s: 218
+i: [1,219,0,7,3,0,0,255] cc8_funct_1
+s: 219
+d: [2,670,3,4,2,1,40,563,232]
+a: [3,675,3,2,1,670]
+s: 675
+i: [1,236,0,7,3,0,0,255] cc8_struct_0
+s: 236
+d: [2,577,1,5,2,0,40,223,251]
+d: [2,592,1,3,1,1,21,577,528]
+a: [3,596,1,3,1,592]
+s: 596
+i: [1,239,0,7,3,0,0,255] cc11_struct_0
+s: 239
+i: [1,240,0,7,3,0,0,255] cc11_struct_0
+s: 240
+d: [2,601,1,5,2,0,40,228,251]
+d: [2,612,1,3,1,1,21,601,528]
+a: [3,616,1,3,1,612]
+s: 616
+i: [1,241,0,7,3,0,0,255] cc9_struct_0
+s: 241
+d: [2,873,1,8,3,0,40,241,225]
+d: [2,877,1,6,2,1,21,873,528]
+a: [3,881,1,3,1,877]
+s: 881
+d: [2,887,2,0,0,2,52,528,881,224]
+e: 887
+d: [2,888,2,2,1,1,40,881,224]
+d: [2,891,2,0,0,2,21,888,528]
+e: 891
+r: 881
+i: [1,256,0,7,3,0,0,255] cc10_card_1
+s: 256
+i: [1,289,0,7,3,0,0,255] t8_boole
+s: 289
+a: [3,880,1,3,1,877]
+s: 880
+i: [1,252,0,8,4,0,0,1] t10_oposet_1
+s: 252
+d: [2,909,2,6,3,1,40,252,484]
+d: [2,921,2,4,2,2,21,909,320]
+d: [2,922,2,2,1,3,21,921,335]
+a: [3,926,2,2,1,922]
+s: 926
+i: [1,253,0,8,4,0,0,255] d16_oposet_1
+s: 253
+d: [2,938,3,0,0,4,52,335,330,926,325,253]
+e: 938
+d: [2,939,1,6,3,1,40,253,325]
+d: [2,941,1,4,2,2,21,939,926]
+d: [2,942,1,2,1,3,21,941,330]
+d: [2,943,1,0,0,4,21,942,335]
+e: 943
+f: 943,922,479,211,212,213,214
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for oposet_1__t12_oposet_1
+% SZS output start Proof for oposet_1__t12_oposet_1
+1. ! [X0] : ((l2_qmax_1(X0) & ~v2_struct_0(X0)) => (v8_oposet_1(X0) => v3_necklace(X0))) [input t12_oposet_1]
+2. ~! [X0] : ((l2_qmax_1(X0) & ~v2_struct_0(X0)) => (v8_oposet_1(X0) => v3_necklace(X0))) [negated conjecture 1]
+38. ! [X0] : ((l2_qmax_1(X0) & ~v2_struct_0(X0)) => (v8_oposet_1(X0) <=> (v4_orders_2(X0) & v2_necklace(X0)))) [input d16_oposet_1]
+43. ! [X0] : (l2_qmax_1(X0) => (l1_robbins1(X0) & l1_orders_2(X0))) [input dt_l2_qmax_1]
+66. ! [X0] : ((l1_orders_2(X0) & ~v2_struct_0(X0)) => (v2_necklace(X0) => v3_necklace(X0))) [input t10_oposet_1]
+92. ? [X0] : ((~v3_necklace(X0) & v8_oposet_1(X0)) & (l2_qmax_1(X0) & ~v2_struct_0(X0))) [ennf transformation 2]
+93. ? [X0] : (~v3_necklace(X0) & v8_oposet_1(X0) & l2_qmax_1(X0) & ~v2_struct_0(X0)) [flattening 92]
+97. ! [X0] : ((l1_robbins1(X0) & l1_orders_2(X0)) | ~l2_qmax_1(X0)) [ennf transformation 43]
+131. ! [X0] : ((v3_necklace(X0) | ~v2_necklace(X0)) | (~l1_orders_2(X0) | v2_struct_0(X0))) [ennf transformation 66]
+132. ! [X0] : (v3_necklace(X0) | ~v2_necklace(X0) | ~l1_orders_2(X0) | v2_struct_0(X0)) [flattening 131]
+133. ! [X0] : ((v8_oposet_1(X0) <=> (v4_orders_2(X0) & v2_necklace(X0))) | (~l2_qmax_1(X0) | v2_struct_0(X0))) [ennf transformation 38]
+134. ! [X0] : ((v8_oposet_1(X0) <=> (v4_orders_2(X0) & v2_necklace(X0))) | ~l2_qmax_1(X0) | v2_struct_0(X0)) [flattening 133]
+169. ? [X0] : (~v3_necklace(X0) & v8_oposet_1(X0) & l2_qmax_1(X0) & ~v2_struct_0(X0)) => (~v3_necklace(sK0) & v8_oposet_1(sK0) & l2_qmax_1(sK0) & ~v2_struct_0(sK0)) [choice axiom]
+170. ~v3_necklace(sK0) & v8_oposet_1(sK0) & l2_qmax_1(sK0) & ~v2_struct_0(sK0) [skolemisation 93,169]
+177. ! [X0] : (((v8_oposet_1(X0) | (~v4_orders_2(X0) | ~v2_necklace(X0))) & ((v4_orders_2(X0) & v2_necklace(X0)) | ~v8_oposet_1(X0))) | ~l2_qmax_1(X0) | v2_struct_0(X0)) [nnf transformation 134]
+178. ! [X0] : (((v8_oposet_1(X0) | ~v4_orders_2(X0) | ~v2_necklace(X0)) & ((v4_orders_2(X0) & v2_necklace(X0)) | ~v8_oposet_1(X0))) | ~l2_qmax_1(X0) | v2_struct_0(X0)) [flattening 177]
+211. ~v2_struct_0(sK0) [cnf transformation 170] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+212. l2_qmax_1(sK0) [cnf transformation 170] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+213. v8_oposet_1(sK0) [cnf transformation 170] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+214. ~v3_necklace(sK0) [cnf transformation 170] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+221. ~l2_qmax_1(X0) | l1_orders_2(X0) [cnf transformation 97] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+252. ~l1_orders_2(X0) | ~v2_necklace(X0) | v3_necklace(X0) | v2_struct_0(X0) [cnf transformation 132] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+253. ~v8_oposet_1(X0) | v2_necklace(X0) | ~l2_qmax_1(X0) | v2_struct_0(X0) [cnf transformation 178] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+318. 1 <=> v3_necklace(sK0) [avatar definition]
+320. ~v3_necklace(sK0) <- (~1) [avatar component clause 318] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+321. ~1 [avatar split clause 214,318]
+323. 2 <=> v8_oposet_1(sK0) [avatar definition]
+325. v8_oposet_1(sK0) <- (2) [avatar component clause 323] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+326. 2 [avatar split clause 213,323]
+328. 3 <=> l2_qmax_1(sK0) [avatar definition]
+330. l2_qmax_1(sK0) <- (3) [avatar component clause 328] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+331. 3 [avatar split clause 212,328]
+333. 4 <=> v2_struct_0(sK0) [avatar definition]
+335. ~v2_struct_0(sK0) <- (~4) [avatar component clause 333] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+336. ~4 [avatar split clause 211,333]
+479. l1_orders_2(sK0) <- (3) [resolution 221,330] {a:1,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+482. 33 <=> l1_orders_2(sK0) [avatar definition]
+484. l1_orders_2(sK0) <- (33) [avatar component clause 482] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+485. 33 | ~3 [avatar split clause 479,328,482]
+909. ~v2_necklace(sK0) | v3_necklace(sK0) | v2_struct_0(sK0) <- (33) [resolution 252,484] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+921. ~v2_necklace(sK0) | v2_struct_0(sK0) <- (~1, 33) [subsumption resolution 909,320] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+922. ~v2_necklace(sK0) <- (~1, ~4, 33) [subsumption resolution 921,335] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+924. 100 <=> v2_necklace(sK0) [avatar definition]
+926. ~v2_necklace(sK0) <- (~100) [avatar component clause 924] {a:2,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+927. ~100 | 1 | 4 | ~33 [avatar split clause 922,482,333,318,924]
+939. v2_necklace(sK0) | ~l2_qmax_1(sK0) | v2_struct_0(sK0) <- (2) [resolution 253,325] {a:1,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+941. ~l2_qmax_1(sK0) | v2_struct_0(sK0) <- (2, ~100) [subsumption resolution 939,926] {a:1,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+942. v2_struct_0(sK0) <- (2, 3, ~100) [subsumption resolution 941,330] {a:1,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+943. $false <- (2, 3, ~4, ~100) [subsumption resolution 942,335] {a:1,w:0,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+944. ~2 | ~3 | 4 | 100 [avatar contradiction clause 943]
+945. $false [avatar sat refutation 321,326,331,336,485,927,944] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:486,thDist:-486}
+% SZS output end Proof for oposet_1__t12_oposet_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 70
+% >>> Preprocessing
+% Introduced skolems: 20
+% Pure predicates: 7
+% 
+% >>> Saturation
+% Initial clauses: 106
+% Generated clauses: 315
+% Active clauses: 108
+% Passive clauses: 163
+% Final active clauses: 107
+% Final passive clauses: 43
+% Main loop iterations started: 120
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 1
+% Fw subsumption resolutions: 16
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 24
+% Forward subsumptions: 22
+% 
+% >>> Generating Inferences
+% Binary resolution: 82
+% Unit resulting resolution: 2
+% Forward superposition: 16
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 17
+% Split components: 34
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 102
+% SAT solver unit clauses: 30
+% SAT solver binary clauses: 54
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% superposition: 0.001 s
+% other: 0.003 s ( own 0.001 s ) 
+

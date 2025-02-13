@@ -1,0 +1,208 @@
+i: [1,86,0,3,1,1,0,0] t7_setfam_1
+a: [3,128,0,3,1,86]
+s: 128
+i: [1,85,0,3,1,1,0,0] t7_setfam_1
+a: [3,133,0,3,1,85]
+s: 133
+i: [1,87,0,4,1,1,0,0] t7_setfam_1
+a: [3,123,0,4,1,87]
+s: 123
+i: [1,88,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,138,0,2,1,88]
+s: 138
+i: [1,89,0,2,1,0,0,255] fc1_xboole_0
+a: [3,143,0,2,1,89]
+s: 143
+i: [1,118,0,2,1,0,0,2] rc2_xboole_0
+a: [3,153,0,2,1,118]
+s: 153
+i: [1,119,0,2,1,0,0,2] rc1_xboole_0
+a: [3,158,0,2,1,119]
+s: 158
+i: [1,91,0,3,1,0,0,2] fc1_subset_1
+s: 91
+i: [1,113,0,3,1,0,0,2] rc2_subset_1
+s: 113
+i: [1,116,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 116
+i: [1,90,0,3,1,0,0,255] d2_xboole_0
+a: [3,148,0,3,1,90]
+s: 148
+r: 138
+i: [1,111,0,4,1,0,0,2] existence_m1_subset_1
+s: 111
+i: [1,115,0,4,1,0,0,255] rc3_subset_1
+s: 115
+i: [1,95,0,5,2,0,0,2] rc1_subset_1
+s: 95
+i: [1,98,0,5,2,0,0,255] t6_boole
+s: 98
+i: [1,107,0,5,2,0,0,1] t7_boole
+s: 107
+d: [2,163,1,2,1,1,40,107,133]
+a: [3,167,1,2,1,163]
+s: 167
+i: [1,112,0,5,1,0,0,2] rc2_subset_1
+s: 112
+i: [1,114,0,5,1,0,0,255] rc3_subset_1
+s: 114
+i: [1,97,0,6,2,0,0,255] rc4_subset_1
+s: 97
+i: [1,101,0,6,2,0,0,1] t1_subset
+s: 101
+d: [2,169,1,3,1,1,40,101,133]
+a: [3,173,1,3,1,169]
+s: 173
+i: [1,117,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 117
+d: [2,175,1,3,1,1,40,117,133]
+a: [3,179,1,3,1,175]
+s: 179
+i: [1,94,0,7,2,0,0,2] rc1_subset_1
+s: 94
+i: [1,96,0,7,2,0,0,255] rc4_subset_1
+s: 96
+i: [1,102,0,7,2,0,0,1] t3_setfam_1
+s: 102
+i: [1,104,0,7,2,0,0,1] t3_subset
+s: 104
+d: [2,181,1,3,1,1,40,102,123]
+a: [3,185,1,3,1,181]
+s: 185
+i: [1,105,0,7,2,0,0,1] t3_subset
+s: 105
+i: [1,106,0,7,3,0,0,255] t8_boole
+s: 106
+d: [2,190,1,4,1,0,40,104,112]
+s: 190
+i: [1,99,0,8,3,0,0,2] cc1_subset_1
+s: 99
+d: [2,191,1,4,1,0,40,104,114]
+s: 191
+i: [1,103,0,8,3,0,0,1] t2_subset
+s: 103
+i: [1,100,0,9,3,0,0,255] cc4_subset_1
+s: 100
+d: [2,189,1,5,1,0,40,104,111]
+s: 189
+i: [1,109,0,9,3,0,0,1] t1_xboole_1
+s: 109
+d: [2,219,1,6,2,1,40,109,128]
+s: 219
+i: [1,110,0,9,3,0,0,1] t5_subset
+s: 110
+i: [1,108,0,10,3,0,0,1] t4_subset
+s: 108
+d: [2,226,2,4,1,1,40,219,190]
+a: [3,236,2,4,1,226]
+s: 236
+i: [1,92,0,11,4,0,0,255] cc3_subset_1
+s: 92
+d: [2,227,2,4,1,1,40,219,191]
+a: [3,241,2,4,1,227]
+s: 241
+i: [1,93,0,11,4,0,0,255] cc2_subset_1
+s: 93
+d: [2,198,1,5,2,0,40,99,114]
+s: 198
+d: [2,225,2,5,1,1,40,219,189]
+a: [3,231,2,5,1,225]
+s: 231
+d: [2,204,1,8,2,0,40,103,112]
+d: [2,209,1,5,1,0,21,204,91]
+s: 209
+d: [2,224,2,7,2,1,40,219,102]
+s: 224
+d: [2,271,3,0,0,3,52,133,123,224]
+e: 271
+d: [2,272,3,3,1,2,40,224,123]
+d: [2,275,3,0,0,3,21,272,133]
+e: 275
+f: 275,85,86,87
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for setfam_1__t7_setfam_1
+% SZS output start Proof for setfam_1__t7_setfam_1
+1. ! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X0,X2) & r2_hidden(X0,X1)) => r1_tarski(k1_setfam_1(X1),X2)) [input t7_setfam_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X0,X2) & r2_hidden(X0,X1)) => r1_tarski(k1_setfam_1(X1),X2)) [negated conjecture 1]
+25. ! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [input t1_xboole_1]
+27. ! [X0] : ! [X1] : (r2_hidden(X0,X1) => r1_tarski(k1_setfam_1(X1),X0)) [input t3_setfam_1]
+34. ~! [X0,X1,X2] : ((r1_tarski(X0,X2) & r2_hidden(X0,X1)) => r1_tarski(k1_setfam_1(X1),X2)) [flattening 2]
+36. ! [X0,X1] : (r2_hidden(X0,X1) => r1_tarski(k1_setfam_1(X1),X0)) [flattening 27]
+42. ! [X0,X1,X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [flattening 25]
+45. ? [X0,X1,X2] : (~r1_tarski(k1_setfam_1(X1),X2) & (r1_tarski(X0,X2) & r2_hidden(X0,X1))) [ennf transformation 34]
+46. ? [X0,X1,X2] : (~r1_tarski(k1_setfam_1(X1),X2) & r1_tarski(X0,X2) & r2_hidden(X0,X1)) [flattening 45]
+57. ! [X0,X1] : (r1_tarski(k1_setfam_1(X1),X0) | ~r2_hidden(X0,X1)) [ennf transformation 36]
+64. ! [X0,X1,X2] : (r1_tarski(X0,X2) | (~r1_tarski(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 42]
+65. ! [X0,X1,X2] : (r1_tarski(X0,X2) | ~r1_tarski(X1,X2) | ~r1_tarski(X0,X1)) [flattening 64]
+68. ? [X0,X1,X2] : (~r1_tarski(k1_setfam_1(X1),X2) & r1_tarski(X0,X2) & r2_hidden(X0,X1)) => (~r1_tarski(k1_setfam_1(sK1),sK2) & r1_tarski(sK0,sK2) & r2_hidden(sK0,sK1)) [choice axiom]
+69. ~r1_tarski(k1_setfam_1(sK1),sK2) & r1_tarski(sK0,sK2) & r2_hidden(sK0,sK1) [skolemisation 46,68]
+85. r2_hidden(sK0,sK1) [cnf transformation 69] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+86. r1_tarski(sK0,sK2) [cnf transformation 69] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+87. ~r1_tarski(k1_setfam_1(sK1),sK2) [cnf transformation 69] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+102. r1_tarski(k1_setfam_1(X1),X0) | ~r2_hidden(X0,X1) [cnf transformation 57] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+109. ~r1_tarski(X1,X2) | r1_tarski(X0,X2) | ~r1_tarski(X0,X1) [cnf transformation 65] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+121. 1 <=> r1_tarski(k1_setfam_1(sK1),sK2) [avatar definition]
+123. ~r1_tarski(k1_setfam_1(sK1),sK2) <- (~1) [avatar component clause 121] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+124. ~1 [avatar split clause 87,121]
+126. 2 <=> r1_tarski(sK0,sK2) [avatar definition]
+128. r1_tarski(sK0,sK2) <- (2) [avatar component clause 126] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+129. 2 [avatar split clause 86,126]
+131. 3 <=> r2_hidden(sK0,sK1) [avatar definition]
+133. r2_hidden(sK0,sK1) <- (3) [avatar component clause 131] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+134. 3 [avatar split clause 85,131]
+219. ~r1_tarski(X5,sK0) | r1_tarski(X5,sK2) <- (2) [resolution 109,128] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+224. r1_tarski(k1_setfam_1(X0),sK2) | ~r2_hidden(sK0,X0) <- (2) [resolution 219,102] {a:2,w:7,wCS:700,nSel:1,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+272. ~r2_hidden(sK0,sK1) <- (~1, 2) [resolution 224,123] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+275. $false <- (~1, 2, 3) [subsumption resolution 272,133] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+276. 1 | ~2 | ~3 [avatar contradiction clause 275]
+277. $false [avatar sat refutation 124,129,134,276] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:79,thDist:-79}
+% SZS output end Proof for setfam_1__t7_setfam_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 32
+% Introduced skolems: 10
+% 
+% >>> Saturation
+% Initial clauses: 35
+% Generated clauses: 130
+% Active clauses: 48
+% Passive clauses: 84
+% Final active clauses: 47
+% Final passive clauses: 35
+% Main loop iterations started: 49
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% Fw subsumption resolutions: 8
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% Forward subsumptions: 10
+% 
+% >>> Generating Inferences
+% Binary resolution: 66
+% Unit resulting resolution: 1
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 19
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 7
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% sat proof minimization: 0.001 s
+% backward demodulation index maintenance: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

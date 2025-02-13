@@ -1,0 +1,63 @@
+i: [1,252,0,4,1,1,0,0] t3_waybel_9
+i: [1,251,0,4,1,1,0,0] t3_waybel_9
+i: [1,250,0,3,1,1,0,0] t3_waybel_9
+i: [1,249,0,5,1,1,0,0] t3_waybel_9
+f: 249,250,251,252
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for waybel_9__t3_waybel_9
+% SZS output start Proof for waybel_9__t3_waybel_9
+1. ! [X0] : (l1_struct_0(X0) => ! [X1] : (l1_struct_0(X1) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) => ! [X3] : (m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1)))) => ((m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1)) => m1_setfam_1(X3,u1_struct_0(X1))))))) [input t3_waybel_9]
+2. ~! [X0] : (l1_struct_0(X0) => ! [X1] : (l1_struct_0(X1) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) => ! [X3] : (m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1)))) => ((m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1)) => m1_setfam_1(X3,u1_struct_0(X1))))))) [negated conjecture 1]
+116. ~! [X0,X1,X2] : (m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) => ! [X3] : (m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1)))) => ((m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1)) => m1_setfam_1(X3,u1_struct_0(X1))))) [pure predicate removal 2]
+117. ? [X0,X1,X2] : (? [X3] : ((~m1_setfam_1(X3,u1_struct_0(X1)) & (m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1))) & m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1))))) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0))))) [ennf transformation 116]
+118. ? [X0,X1,X2] : (? [X3] : (~m1_setfam_1(X3,u1_struct_0(X1)) & m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1) & m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1))))) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0))))) [flattening 117]
+191. ? [X0,X1,X2] : (? [X3] : (~m1_setfam_1(X3,u1_struct_0(X1)) & m1_setfam_1(X2,u1_struct_0(X0)) & X2 = X3 & u1_struct_0(X0) = u1_struct_0(X1) & m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X1))))) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0))))) => (? [X3] : (~m1_setfam_1(X3,u1_struct_0(sK1)) & m1_setfam_1(sK2,u1_struct_0(sK0)) & sK2 = X3 & u1_struct_0(sK1) = u1_struct_0(sK0) & m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK1))))) & m1_subset_1(sK2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0))))) [choice axiom]
+192. ? [X3] : (~m1_setfam_1(X3,u1_struct_0(sK1)) & m1_setfam_1(sK2,u1_struct_0(sK0)) & sK2 = X3 & u1_struct_0(sK1) = u1_struct_0(sK0) & m1_subset_1(X3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK1))))) => (~m1_setfam_1(sK3,u1_struct_0(sK1)) & m1_setfam_1(sK2,u1_struct_0(sK0)) & sK2 = sK3 & u1_struct_0(sK1) = u1_struct_0(sK0) & m1_subset_1(sK3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK1))))) [choice axiom]
+193. (~m1_setfam_1(sK3,u1_struct_0(sK1)) & m1_setfam_1(sK2,u1_struct_0(sK0)) & sK2 = sK3 & u1_struct_0(sK1) = u1_struct_0(sK0) & m1_subset_1(sK3,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK1))))) & m1_subset_1(sK2,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) [skolemisation 118,192,191]
+249. u1_struct_0(sK1) = u1_struct_0(sK0) [cnf transformation 193] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+250. sK2 = sK3 [cnf transformation 193] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+251. m1_setfam_1(sK2,u1_struct_0(sK0)) [cnf transformation 193] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+252. ~m1_setfam_1(sK3,u1_struct_0(sK1)) [cnf transformation 193] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+380. 1 <=> m1_setfam_1(sK3,u1_struct_0(sK1)) [avatar definition]
+383. ~1 [avatar split clause 252,380]
+385. 2 <=> m1_setfam_1(sK2,u1_struct_0(sK0)) [avatar definition]
+388. 2 [avatar split clause 251,385]
+390. 3 <=> sK2 = sK3 [avatar definition]
+393. 3 [avatar split clause 250,390]
+395. 4 <=> u1_struct_0(sK1) = u1_struct_0(sK0) [avatar definition]
+398. 4 [avatar split clause 249,395]
+609. sK2 != sK3 | u1_struct_0(sK1) != u1_struct_0(sK0) | ~m1_setfam_1(sK2,u1_struct_0(sK0)) | m1_setfam_1(sK3,u1_struct_0(sK1)) [theory tautology sat conflict] {a:0,w:16,wCS:6400,sine:255,thAx:0,allAx:1,thDist:-1}
+610. $false [avatar sat refutation 383,388,393,398,609] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:131,thDist:-131}
+% SZS output end Proof for waybel_9__t3_waybel_9
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 99
+% >>> Preprocessing
+% Introduced skolems: 30
+% Pure predicates: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 132
+% Generated clauses: 132
+% Passive clauses: 78
+% Final passive clauses: 78
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 49
+% SAT solver unit clauses: 46
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

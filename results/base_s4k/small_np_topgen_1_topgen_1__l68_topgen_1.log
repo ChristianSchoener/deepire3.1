@@ -1,0 +1,57 @@
+i: [1,375,0,5,1,1,0,0] l68_topgen_1
+i: [1,379,0,4,1,0,0,2] t17_topmetr
+i: [1,380,0,4,1,0,0,1] dt_k1_borsuk_5
+f: 380,379,375
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for topgen_1__l68_topgen_1
+% SZS output start Proof for topgen_1__l68_topgen_1
+1. m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [input l68_topgen_1]
+2. ~m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [negated conjecture 1]
+118. m1_subset_1(k1_borsuk_5,k1_zfmisc_1(k1_numbers)) [input dt_k1_borsuk_5]
+128. u1_struct_0(k3_topmetr) = k1_numbers [input t17_topmetr]
+129. ~m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [flattening 2]
+375. ~m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [cnf transformation 129] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+379. u1_struct_0(k3_topmetr) = k1_numbers [cnf transformation 128] {a:0,w:4,wCS:1600,sine:2,thAx:0,allAx:1,thDist:-1}
+380. m1_subset_1(k1_borsuk_5,k1_zfmisc_1(k1_numbers)) [cnf transformation 118] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+583. 1 <=> m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [avatar definition]
+586. ~1 [avatar split clause 375,583]
+603. 5 <=> u1_struct_0(k3_topmetr) = k1_numbers [avatar definition]
+606. 5 [avatar split clause 379,603]
+608. 6 <=> m1_subset_1(k1_borsuk_5,k1_zfmisc_1(k1_numbers)) [avatar definition]
+611. 6 [avatar split clause 380,608]
+899. u1_struct_0(k3_topmetr) != k1_numbers | ~m1_subset_1(k1_borsuk_5,k1_zfmisc_1(k1_numbers)) | m1_subset_1(k1_borsuk_5,k1_zfmisc_1(u1_struct_0(k3_topmetr))) [theory tautology sat conflict] {a:0,w:13,wCS:5200,sine:255,thAx:0,allAx:1,thDist:-1}
+900. $false [avatar sat refutation 586,606,611,899] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:184,thDist:-184}
+% SZS output end Proof for topgen_1__l68_topgen_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 127
+% >>> Preprocessing
+% Introduced skolems: 39
+% Pure predicates: 7
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 207
+% Generated clauses: 207
+% Passive clauses: 127
+% Final passive clauses: 127
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 15
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 68
+% SAT solver unit clauses: 65
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% congruence closure: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

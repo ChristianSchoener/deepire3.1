@@ -1,0 +1,93 @@
+i: [1,20,0,3,1,1,0,0] t18_xboole_1
+a: [3,29,0,3,1,20]
+s: 29
+i: [1,19,0,5,1,1,0,0] t18_xboole_1
+a: [3,34,0,5,1,19]
+s: 34
+i: [1,23,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 23
+i: [1,21,0,5,1,0,0,1] t17_xboole_1
+s: 21
+i: [1,24,0,5,1,0,0,255] idempotence_k3_xboole_0
+s: 24
+i: [1,25,0,7,1,0,0,255] commutativity_k3_xboole_0
+s: 25
+d: [2,37,1,5,1,0,44,21,25]
+s: 37
+i: [1,22,0,9,3,0,0,1] t1_xboole_1
+s: 22
+d: [2,42,1,0,0,2,52,29,34,21,22]
+e: 42
+f: 42,19,20
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t18_xboole_1
+% SZS output start Proof for xboole_1__t18_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : (r1_tarski(X0,k3_xboole_0(X1,X2)) => r1_tarski(X0,X1)) [input t18_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : (r1_tarski(X0,k3_xboole_0(X1,X2)) => r1_tarski(X0,X1)) [negated conjecture 1]
+7. ! [X0] : ! [X1] : r1_tarski(k3_xboole_0(X0,X1),X0) [input t17_xboole_1]
+8. ! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [input t1_xboole_1]
+9. ~! [X0,X1,X2] : (r1_tarski(X0,k3_xboole_0(X1,X2)) => r1_tarski(X0,X1)) [flattening 2]
+10. ! [X0,X1] : r1_tarski(k3_xboole_0(X0,X1),X0) [flattening 7]
+11. ! [X0,X1,X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [flattening 8]
+14. ? [X0,X1,X2] : (~r1_tarski(X0,X1) & r1_tarski(X0,k3_xboole_0(X1,X2))) [ennf transformation 9]
+15. ! [X0,X1,X2] : (r1_tarski(X0,X2) | (~r1_tarski(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 11]
+16. ! [X0,X1,X2] : (r1_tarski(X0,X2) | ~r1_tarski(X1,X2) | ~r1_tarski(X0,X1)) [flattening 15]
+17. ? [X0,X1,X2] : (~r1_tarski(X0,X1) & r1_tarski(X0,k3_xboole_0(X1,X2))) => (~r1_tarski(sK0,sK1) & r1_tarski(sK0,k3_xboole_0(sK1,sK2))) [choice axiom]
+18. ~r1_tarski(sK0,sK1) & r1_tarski(sK0,k3_xboole_0(sK1,sK2)) [skolemisation 14,17]
+19. r1_tarski(sK0,k3_xboole_0(sK1,sK2)) [cnf transformation 18] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. ~r1_tarski(sK0,sK1) [cnf transformation 18] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+21. r1_tarski(k3_xboole_0(X0,X1),X0) [cnf transformation 10] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+22. ~r1_tarski(X1,X2) | r1_tarski(X0,X2) | ~r1_tarski(X0,X1) [cnf transformation 16] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+27. 1 <=> r1_tarski(sK0,sK1) [avatar definition]
+29. ~r1_tarski(sK0,sK1) <- (~1) [avatar component clause 27] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+30. ~1 [avatar split clause 20,27]
+32. 2 <=> r1_tarski(sK0,k3_xboole_0(sK1,sK2)) [avatar definition]
+34. r1_tarski(sK0,k3_xboole_0(sK1,sK2)) <- (2) [avatar component clause 32] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+35. 2 [avatar split clause 19,32]
+42. $false <- (~1, 2) [unit resulting resolution 29,34,21,22] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+47. 1 | ~2 [avatar contradiction clause 42]
+48. $false [avatar sat refutation 30,35,47] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:12,thDist:-12}
+% SZS output end Proof for xboole_1__t18_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 7
+% Generated clauses: 20
+% Active clauses: 8
+% Passive clauses: 9
+% Final active clauses: 8
+% Final passive clauses: 1
+% Main loop iterations started: 8
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 4
+% Unit resulting resolution: 1
+% Forward superposition: 3
+% Backward superposition: 3
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 5
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

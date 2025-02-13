@@ -1,0 +1,149 @@
+i: [1,34,0,2,1,1,0,0] t17_exchsort
+a: [3,56,0,2,1,34]
+s: 56
+i: [1,33,0,2,1,1,0,0] t17_exchsort
+a: [3,61,0,2,1,33]
+s: 61
+i: [1,35,0,4,1,1,0,0] t17_exchsort
+a: [3,51,0,4,1,35]
+s: 51
+i: [1,44,0,2,1,0,0,2] rc1_ordinal1
+a: [3,66,0,2,1,44]
+s: 66
+i: [1,46,0,2,1,0,0,1] rc1_funct_1
+a: [3,71,0,2,1,46]
+s: 71
+i: [1,45,0,2,1,0,0,1] rc1_funct_1
+a: [3,76,0,2,1,45]
+s: 76
+i: [1,36,0,3,1,0,0,2] dt_k3_ordinal2
+s: 36
+i: [1,37,0,4,2,0,0,255] cc1_ordinal1
+s: 37
+d: [2,78,1,2,1,1,40,37,66]
+a: [3,83,1,2,1,78]
+s: 83
+i: [1,38,0,4,2,0,0,255] cc1_ordinal1
+s: 38
+i: [1,41,0,6,3,0,0,255] cc2_ordinal1
+s: 41
+d: [2,85,1,2,1,1,40,38,66]
+a: [3,90,1,2,1,85]
+s: 90
+i: [1,42,0,7,3,0,0,1] dt_k2_exchsort
+s: 42
+d: [2,79,1,3,1,0,40,37,36]
+s: 79
+i: [1,47,0,9,2,0,0,1] d3_exchsort
+s: 47
+d: [2,95,0,5,1,0,21,47,36]
+s: 95
+d: [2,86,1,3,1,0,40,38,36]
+s: 86
+i: [1,39,0,10,3,0,0,1] d3_exchsort
+s: 39
+d: [2,93,1,7,3,0,40,42,38]
+s: 93
+i: [1,43,0,10,3,0,0,2] t16_exchsort
+s: 43
+d: [2,94,1,7,3,0,40,42,37]
+s: 94
+d: [2,107,2,7,3,0,44,79,43]
+s: 107
+d: [2,105,1,8,3,0,44,95,43]
+s: 105
+d: [2,109,2,0,0,3,52,61,56,51,105]
+e: 109
+d: [2,110,2,4,2,1,40,105,51]
+d: [2,112,2,2,1,2,21,110,56]
+d: [2,113,2,0,0,3,21,112,61]
+e: 113
+f: 113,33,34,35
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for exchsort__t17_exchsort
+% SZS output start Proof for exchsort__t17_exchsort
+1. ! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => v3_exchsort(X0,k2_exchsort(X0))) [input t17_exchsort]
+2. ~! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => v3_exchsort(X0,k2_exchsort(X0))) [negated conjecture 1]
+6. ! [X0] : (v3_ordinal1(X0) => ! [X1] : (v3_exchsort(X1,X0) <=> k3_ordinal2(k9_xtuple_0(X1)) = X0)) [input d3_exchsort]
+8. ! [X0] : v3_ordinal1(k3_ordinal2(X0)) [input dt_k3_ordinal2]
+13. ! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => k2_exchsort(X0) = k3_ordinal2(k9_xtuple_0(X0))) [input t16_exchsort]
+16. ? [X0] : (~v3_exchsort(X0,k2_exchsort(X0)) & (v1_funct_1(X0) & v1_relat_1(X0))) [ennf transformation 2]
+17. ? [X0] : (~v3_exchsort(X0,k2_exchsort(X0)) & v1_funct_1(X0) & v1_relat_1(X0)) [flattening 16]
+19. ! [X0] : (! [X1] : (v3_exchsort(X1,X0) <=> k3_ordinal2(k9_xtuple_0(X1)) = X0) | ~v3_ordinal1(X0)) [ennf transformation 6]
+24. ! [X0] : (k2_exchsort(X0) = k3_ordinal2(k9_xtuple_0(X0)) | (~v1_funct_1(X0) | ~v1_relat_1(X0))) [ennf transformation 13]
+25. ! [X0] : (k2_exchsort(X0) = k3_ordinal2(k9_xtuple_0(X0)) | ~v1_funct_1(X0) | ~v1_relat_1(X0)) [flattening 24]
+26. ? [X0] : (~v3_exchsort(X0,k2_exchsort(X0)) & v1_funct_1(X0) & v1_relat_1(X0)) => (~v3_exchsort(sK0,k2_exchsort(sK0)) & v1_funct_1(sK0) & v1_relat_1(sK0)) [choice axiom]
+27. ~v3_exchsort(sK0,k2_exchsort(sK0)) & v1_funct_1(sK0) & v1_relat_1(sK0) [skolemisation 17,26]
+28. ! [X0] : (! [X1] : ((v3_exchsort(X1,X0) | k3_ordinal2(k9_xtuple_0(X1)) != X0) & (k3_ordinal2(k9_xtuple_0(X1)) = X0 | ~v3_exchsort(X1,X0))) | ~v3_ordinal1(X0)) [nnf transformation 19]
+33. v1_relat_1(sK0) [cnf transformation 27] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+34. v1_funct_1(sK0) [cnf transformation 27] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+35. ~v3_exchsort(sK0,k2_exchsort(sK0)) [cnf transformation 27] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+36. v3_ordinal1(k3_ordinal2(X0)) [cnf transformation 8] {a:0,w:3,wCS:1200,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+40. v3_exchsort(X1,X0) | k3_ordinal2(k9_xtuple_0(X1)) != X0 | ~v3_ordinal1(X0) [cnf transformation 28] {a:0,w:10,wCS:4000,sine:1,thAx:0,allAx:1,thDist:-1}
+43. k2_exchsort(X0) = k3_ordinal2(k9_xtuple_0(X0)) | ~v1_funct_1(X0) | ~v1_relat_1(X0) [cnf transformation 25] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+47. v3_exchsort(X1,k3_ordinal2(k9_xtuple_0(X1))) | ~v3_ordinal1(k3_ordinal2(k9_xtuple_0(X1))) [equality resolution 40] {a:0,w:9,wCS:3600,sine:1,thAx:0,allAx:1,thDist:-1}
+49. 1 <=> v3_exchsort(sK0,k2_exchsort(sK0)) [avatar definition]
+51. ~v3_exchsort(sK0,k2_exchsort(sK0)) <- (~1) [avatar component clause 49] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+52. ~1 [avatar split clause 35,49]
+54. 2 <=> v1_funct_1(sK0) [avatar definition]
+56. v1_funct_1(sK0) <- (2) [avatar component clause 54] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+57. 2 [avatar split clause 34,54]
+59. 3 <=> v1_relat_1(sK0) [avatar definition]
+61. v1_relat_1(sK0) <- (3) [avatar component clause 59] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+62. 3 [avatar split clause 33,59]
+95. v3_exchsort(X1,k3_ordinal2(k9_xtuple_0(X1))) [subsumption resolution 47,36] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+105. v3_exchsort(X2,k2_exchsort(X2)) | ~v1_funct_1(X2) | ~v1_relat_1(X2) [superposition 95,43] {a:1,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+110. ~v1_funct_1(sK0) | ~v1_relat_1(sK0) <- (~1) [resolution 105,51] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+112. ~v1_relat_1(sK0) <- (~1, 2) [subsumption resolution 110,56] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+113. $false <- (~1, 2, 3) [subsumption resolution 112,61] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+114. 1 | ~2 | ~3 [avatar contradiction clause 113]
+115. $false [avatar sat refutation 52,57,62,114] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:40,thDist:-40}
+% SZS output end Proof for exchsort__t17_exchsort
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 12
+% >>> Preprocessing
+% Introduced skolems: 3
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 14
+% Generated clauses: 47
+% Active clauses: 21
+% Passive clauses: 26
+% Final active clauses: 21
+% Final passive clauses: 3
+% Main loop iterations started: 23
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 3
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 8
+% 
+% >>> Generating Inferences
+% Binary resolution: 10
+% Unit resulting resolution: 1
+% Forward superposition: 1
+% Backward superposition: 9
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 12
+% SAT solver unit clauses: 6
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

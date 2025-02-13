@@ -1,0 +1,73 @@
+i: [1,24,0,7,1,1,0,0] t103_xboole_1
+a: [3,36,0,7,1,24]
+s: 36
+i: [1,27,0,5,1,0,0,255] idempotence_k2_xboole_0
+s: 27
+i: [1,28,0,5,1,0,0,1] idempotence_k3_xboole_0
+s: 28
+i: [1,32,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 32
+i: [1,25,0,7,1,0,0,1] l97_xboole_1
+s: 25
+d: [2,39,1,0,0,1,40,25,36]
+e: 39
+d: [2,38,1,0,0,1,52,36,25]
+e: 38
+f: 38,24
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t103_xboole_1
+% SZS output start Proof for xboole_1__t103_xboole_1
+1. ! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [input t103_xboole_1]
+2. ~! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [negated conjecture 1]
+14. ! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [input l97_xboole_1]
+15. ~! [X0,X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [flattening 2]
+16. ! [X0,X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [flattening 14]
+20. ? [X0,X1] : ~r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [ennf transformation 15]
+22. ? [X0,X1] : ~r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) => ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [choice axiom]
+23. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [skolemisation 20,22]
+24. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [cnf transformation 23] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+25. r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [cnf transformation 16] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+34. 1 <=> r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [avatar definition]
+36. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) <- (~1) [avatar component clause 34] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+37. ~1 [avatar split clause 24,34]
+38. $false <- (~1) [unit resulting resolution 36,25] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+43. 1 [avatar contradiction clause 38]
+44. $false [avatar sat refutation 37,43] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:9,thDist:-9}
+% SZS output end Proof for xboole_1__t103_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 13
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 9
+% Generated clauses: 14
+% Active clauses: 5
+% Passive clauses: 9
+% Final active clauses: 5
+% Final passive clauses: 4
+% Main loop iterations started: 5
+% 
+% >>> Generating Inferences
+% Binary resolution: 2
+% Unit resulting resolution: 1
+% Forward superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 5
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

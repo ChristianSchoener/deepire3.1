@@ -1,0 +1,205 @@
+i: [1,44,0,2,1,1,0,0] t29_altcat_3
+a: [3,88,0,2,1,44]
+s: 88
+i: [1,43,0,2,1,1,0,0] t29_altcat_3
+a: [3,93,0,2,1,43]
+s: 93
+i: [1,42,0,2,1,1,0,0] t29_altcat_3
+a: [3,98,0,2,1,42]
+s: 98
+i: [1,41,0,2,1,1,0,0] t29_altcat_3
+a: [3,103,0,2,1,41]
+s: 103
+i: [1,40,0,2,1,1,0,0] t29_altcat_3
+a: [3,108,0,2,1,40]
+s: 108
+i: [1,48,0,3,1,1,0,0] t29_altcat_3
+a: [3,68,0,3,1,48]
+s: 68
+i: [1,47,0,3,1,1,0,0] t29_altcat_3
+a: [3,73,0,3,1,47]
+s: 73
+i: [1,49,0,4,1,1,0,0] t29_altcat_3
+a: [3,63,0,4,1,49]
+s: 63
+i: [1,46,0,4,1,1,0,0] t29_altcat_3
+a: [3,78,0,4,1,46]
+s: 78
+i: [1,45,0,4,1,1,0,0] t29_altcat_3
+a: [3,83,0,4,1,45]
+s: 83
+i: [1,58,0,2,1,0,0,255] existence_l1_altcat_1
+a: [3,113,0,2,1,58]
+s: 113
+i: [1,59,0,2,1,0,0,1] existence_l2_altcat_1
+a: [3,118,0,2,1,59]
+s: 118
+i: [1,53,0,4,2,0,0,255] dt_l2_altcat_1
+s: 53
+d: [2,120,1,2,1,1,40,53,88]
+a: [3,125,1,2,1,120]
+s: 125
+i: [1,55,0,4,1,0,0,1] existence_m1_subset_1
+s: 55
+i: [1,50,0,12,4,0,0,255] d11_altcat_3
+s: 50
+d: [2,132,1,8,3,1,40,50,78]
+d: [2,135,1,5,2,2,21,132,68]
+d: [2,136,1,3,1,3,21,135,125]
+a: [3,140,1,3,1,136]
+s: 140
+i: [1,51,0,12,4,0,0,255] d11_altcat_3
+s: 51
+d: [2,133,1,8,3,1,40,50,83]
+d: [2,142,1,5,2,2,21,133,73]
+d: [2,143,1,3,1,3,21,142,125]
+a: [3,147,1,3,1,143]
+s: 147
+i: [1,52,0,15,5,0,0,255] d11_altcat_3
+s: 52
+i: [1,56,0,22,8,0,0,1] reflexivity_r2_altcat_3
+s: 56
+d: [2,149,1,8,3,1,40,51,78]
+d: [2,152,1,5,2,2,21,149,68]
+d: [2,153,1,3,1,3,21,152,125]
+a: [3,157,1,3,1,153]
+s: 157
+i: [1,57,0,26,9,0,0,1] symmetry_r2_altcat_3
+s: 57
+d: [2,150,1,8,3,1,40,51,83]
+d: [2,159,1,5,2,2,21,150,73]
+d: [2,160,1,3,1,3,21,159,125]
+a: [3,164,1,3,1,160]
+s: 164
+i: [1,54,0,28,10,0,0,255] t26_altcat_3
+s: 54
+d: [2,182,2,0,0,10,52,108,103,98,93,88,147,83,63,140,78,54]
+e: 182
+f: 182,143,136,120,40,41,42,43,44,45,46,47,48,49
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for altcat_3__t29_altcat_3
+% SZS output start Proof for altcat_3__t29_altcat_3
+1. ! [X0] : ((l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((v8_altcat_3(X2,X0) & v8_altcat_3(X1,X0)) => r2_altcat_3(X0,X1,X2))))) [input t29_altcat_3]
+2. ~! [X0] : ((l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((v8_altcat_3(X2,X0) & v8_altcat_3(X1,X0)) => r2_altcat_3(X0,X1,X2))))) [negated conjecture 1]
+3. ! [X0] : (l1_altcat_1(X0) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => (v8_altcat_3(X1,X0) <=> (v7_altcat_3(X1,X0) & v6_altcat_3(X1,X0))))) [input d11_altcat_3]
+6. ! [X0] : (l2_altcat_1(X0) => l1_altcat_1(X0)) [input dt_l2_altcat_1]
+15. ! [X0] : ((l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((v6_altcat_3(X2,X0) & v6_altcat_3(X1,X0)) => r2_altcat_3(X0,X1,X2))))) [input t26_altcat_3]
+18. ? [X0] : (? [X1] : (? [X2] : ((~r2_altcat_3(X0,X1,X2) & (v8_altcat_3(X2,X0) & v8_altcat_3(X1,X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & (l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0))) [ennf transformation 2]
+19. ? [X0] : (? [X1] : (? [X2] : (~r2_altcat_3(X0,X1,X2) & v8_altcat_3(X2,X0) & v8_altcat_3(X1,X0) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0)) [flattening 18]
+20. ! [X0] : (! [X1] : ((v8_altcat_3(X1,X0) <=> (v7_altcat_3(X1,X0) & v6_altcat_3(X1,X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_altcat_1(X0)) [ennf transformation 3]
+21. ! [X0] : (l1_altcat_1(X0) | ~l2_altcat_1(X0)) [ennf transformation 6]
+22. ! [X0] : (! [X1] : (! [X2] : ((r2_altcat_3(X0,X1,X2) | (~v6_altcat_3(X2,X0) | ~v6_altcat_3(X1,X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | (~l2_altcat_1(X0) | ~v12_altcat_1(X0) | ~v11_altcat_1(X0) | ~v2_altcat_1(X0) | v2_struct_0(X0))) [ennf transformation 15]
+23. ! [X0] : (! [X1] : (! [X2] : (r2_altcat_3(X0,X1,X2) | ~v6_altcat_3(X2,X0) | ~v6_altcat_3(X1,X0) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l2_altcat_1(X0) | ~v12_altcat_1(X0) | ~v11_altcat_1(X0) | ~v2_altcat_1(X0) | v2_struct_0(X0)) [flattening 22]
+28. ? [X0] : (? [X1] : (? [X2] : (~r2_altcat_3(X0,X1,X2) & v8_altcat_3(X2,X0) & v8_altcat_3(X1,X0) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & l2_altcat_1(X0) & v12_altcat_1(X0) & v11_altcat_1(X0) & v2_altcat_1(X0) & ~v2_struct_0(X0)) => (? [X1] : (? [X2] : (~r2_altcat_3(sK0,X1,X2) & v8_altcat_3(X2,sK0) & v8_altcat_3(X1,sK0) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(X1,u1_struct_0(sK0))) & l2_altcat_1(sK0) & v12_altcat_1(sK0) & v11_altcat_1(sK0) & v2_altcat_1(sK0) & ~v2_struct_0(sK0)) [choice axiom]
+29. ? [X1] : (? [X2] : (~r2_altcat_3(sK0,X1,X2) & v8_altcat_3(X2,sK0) & v8_altcat_3(X1,sK0) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(X1,u1_struct_0(sK0))) => (? [X2] : (~r2_altcat_3(sK0,sK1,X2) & v8_altcat_3(X2,sK0) & v8_altcat_3(sK1,sK0) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(sK1,u1_struct_0(sK0))) [choice axiom]
+30. ? [X2] : (~r2_altcat_3(sK0,sK1,X2) & v8_altcat_3(X2,sK0) & v8_altcat_3(sK1,sK0) & m1_subset_1(X2,u1_struct_0(sK0))) => (~r2_altcat_3(sK0,sK1,sK2) & v8_altcat_3(sK2,sK0) & v8_altcat_3(sK1,sK0) & m1_subset_1(sK2,u1_struct_0(sK0))) [choice axiom]
+31. ((~r2_altcat_3(sK0,sK1,sK2) & v8_altcat_3(sK2,sK0) & v8_altcat_3(sK1,sK0) & m1_subset_1(sK2,u1_struct_0(sK0))) & m1_subset_1(sK1,u1_struct_0(sK0))) & l2_altcat_1(sK0) & v12_altcat_1(sK0) & v11_altcat_1(sK0) & v2_altcat_1(sK0) & ~v2_struct_0(sK0) [skolemisation 19,30,29,28]
+32. ! [X0] : (! [X1] : (((v8_altcat_3(X1,X0) | (~v7_altcat_3(X1,X0) | ~v6_altcat_3(X1,X0))) & ((v7_altcat_3(X1,X0) & v6_altcat_3(X1,X0)) | ~v8_altcat_3(X1,X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_altcat_1(X0)) [nnf transformation 20]
+33. ! [X0] : (! [X1] : (((v8_altcat_3(X1,X0) | ~v7_altcat_3(X1,X0) | ~v6_altcat_3(X1,X0)) & ((v7_altcat_3(X1,X0) & v6_altcat_3(X1,X0)) | ~v8_altcat_3(X1,X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_altcat_1(X0)) [flattening 32]
+40. ~v2_struct_0(sK0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+41. v2_altcat_1(sK0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+42. v11_altcat_1(sK0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+43. v12_altcat_1(sK0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+44. l2_altcat_1(sK0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+45. m1_subset_1(sK1,u1_struct_0(sK0)) [cnf transformation 31] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+46. m1_subset_1(sK2,u1_struct_0(sK0)) [cnf transformation 31] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+47. v8_altcat_3(sK1,sK0) [cnf transformation 31] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+48. v8_altcat_3(sK2,sK0) [cnf transformation 31] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+49. ~r2_altcat_3(sK0,sK1,sK2) [cnf transformation 31] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+50. ~m1_subset_1(X1,u1_struct_0(X0)) | ~v8_altcat_3(X1,X0) | v6_altcat_3(X1,X0) | ~l1_altcat_1(X0) [cnf transformation 33] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+53. ~l2_altcat_1(X0) | l1_altcat_1(X0) [cnf transformation 21] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+54. ~m1_subset_1(X2,u1_struct_0(X0)) | ~v6_altcat_3(X2,X0) | ~v6_altcat_3(X1,X0) | r2_altcat_3(X0,X1,X2) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l2_altcat_1(X0) | ~v12_altcat_1(X0) | ~v11_altcat_1(X0) | ~v2_altcat_1(X0) | v2_struct_0(X0) [cnf transformation 23] {a:0,w:28,wCS:11200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+61. 1 <=> r2_altcat_3(sK0,sK1,sK2) [avatar definition]
+63. ~r2_altcat_3(sK0,sK1,sK2) <- (~1) [avatar component clause 61] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+64. ~1 [avatar split clause 49,61]
+66. 2 <=> v8_altcat_3(sK2,sK0) [avatar definition]
+68. v8_altcat_3(sK2,sK0) <- (2) [avatar component clause 66] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+69. 2 [avatar split clause 48,66]
+71. 3 <=> v8_altcat_3(sK1,sK0) [avatar definition]
+73. v8_altcat_3(sK1,sK0) <- (3) [avatar component clause 71] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+74. 3 [avatar split clause 47,71]
+76. 4 <=> m1_subset_1(sK2,u1_struct_0(sK0)) [avatar definition]
+78. m1_subset_1(sK2,u1_struct_0(sK0)) <- (4) [avatar component clause 76] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+79. 4 [avatar split clause 46,76]
+81. 5 <=> m1_subset_1(sK1,u1_struct_0(sK0)) [avatar definition]
+83. m1_subset_1(sK1,u1_struct_0(sK0)) <- (5) [avatar component clause 81] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+84. 5 [avatar split clause 45,81]
+86. 6 <=> l2_altcat_1(sK0) [avatar definition]
+88. l2_altcat_1(sK0) <- (6) [avatar component clause 86] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+89. 6 [avatar split clause 44,86]
+91. 7 <=> v12_altcat_1(sK0) [avatar definition]
+93. v12_altcat_1(sK0) <- (7) [avatar component clause 91] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+94. 7 [avatar split clause 43,91]
+96. 8 <=> v11_altcat_1(sK0) [avatar definition]
+98. v11_altcat_1(sK0) <- (8) [avatar component clause 96] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+99. 8 [avatar split clause 42,96]
+101. 9 <=> v2_altcat_1(sK0) [avatar definition]
+103. v2_altcat_1(sK0) <- (9) [avatar component clause 101] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+104. 9 [avatar split clause 41,101]
+106. 10 <=> v2_struct_0(sK0) [avatar definition]
+108. ~v2_struct_0(sK0) <- (~10) [avatar component clause 106] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+109. ~10 [avatar split clause 40,106]
+120. l1_altcat_1(sK0) <- (6) [resolution 53,88] {a:1,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+123. 13 <=> l1_altcat_1(sK0) [avatar definition]
+125. l1_altcat_1(sK0) <- (13) [avatar component clause 123] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+126. 13 | ~6 [avatar split clause 120,86,123]
+132. ~v8_altcat_3(sK2,sK0) | v6_altcat_3(sK2,sK0) | ~l1_altcat_1(sK0) <- (4) [resolution 50,78] {a:1,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+133. ~v8_altcat_3(sK1,sK0) | v6_altcat_3(sK1,sK0) | ~l1_altcat_1(sK0) <- (5) [resolution 50,83] {a:1,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+135. v6_altcat_3(sK2,sK0) | ~l1_altcat_1(sK0) <- (2, 4) [subsumption resolution 132,68] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+136. v6_altcat_3(sK2,sK0) <- (2, 4, 13) [subsumption resolution 135,125] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+138. 15 <=> v6_altcat_3(sK2,sK0) [avatar definition]
+140. v6_altcat_3(sK2,sK0) <- (15) [avatar component clause 138] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+141. 15 | ~2 | ~4 | ~13 [avatar split clause 136,123,76,66,138]
+142. v6_altcat_3(sK1,sK0) | ~l1_altcat_1(sK0) <- (3, 5) [subsumption resolution 133,73] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+143. v6_altcat_3(sK1,sK0) <- (3, 5, 13) [subsumption resolution 142,125] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+145. 16 <=> v6_altcat_3(sK1,sK0) [avatar definition]
+147. v6_altcat_3(sK1,sK0) <- (16) [avatar component clause 145] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+148. 16 | ~3 | ~5 | ~13 [avatar split clause 143,123,81,71,145]
+182. $false <- (~1, 4, 5, 6, 7, 8, 9, ~10, 15, 16) [unit resulting resolution 108,103,98,93,88,147,83,63,140,78,54] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:43,thDist:-43}
+186. 1 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | 10 | ~15 | ~16 [avatar contradiction clause 182]
+199. $false [avatar sat refutation 64,69,74,79,84,89,94,99,104,109,126,141,148,186] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:147,thDist:-147}
+% SZS output end Proof for altcat_3__t29_altcat_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 14
+% >>> Preprocessing
+% Introduced skolems: 6
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 86
+% Active clauses: 25
+% Passive clauses: 32
+% Final active clauses: 25
+% Final passive clauses: 7
+% Main loop iterations started: 25
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 30
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 17
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 21
+% SAT solver unit clauses: 12
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

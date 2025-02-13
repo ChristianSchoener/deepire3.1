@@ -1,0 +1,170 @@
+i: [1,24,0,2,1,1,0,0] t36_rewrite1
+a: [3,59,0,2,1,24]
+s: 59
+i: [1,26,0,16,4,1,0,0] t36_rewrite1
+a: [3,37,0,4,1,26]
+s: 37
+i: [1,25,0,4,1,1,0,0] t36_rewrite1
+a: [3,54,0,4,1,25]
+s: 54
+i: [1,27,0,6,2,0,0,1] t12_rewrite1
+s: 27
+i: [1,28,0,13,3,0,0,1] d7_rewrite1
+s: 28
+i: [1,29,0,13,3,0,0,1] d7_rewrite1
+s: 29
+i: [1,31,0,13,3,0,0,1] d8_rewrite1
+s: 31
+i: [1,32,0,13,3,0,0,1] d8_rewrite1
+s: 32
+i: [1,30,0,14,4,0,0,1] d7_rewrite1
+s: 30
+i: [1,33,0,14,4,0,0,1] d8_rewrite1
+s: 33
+d: [2,61,1,10,3,1,40,30,54]
+d: [2,72,1,8,2,2,21,61,59]
+s: 72
+a: [3,44,0,4,1,26]
+s: 44
+d: [2,73,1,10,3,1,40,33,54]
+d: [2,84,1,8,2,2,21,73,59]
+s: 84
+a: [3,40,0,4,1,26]
+s: 40
+d: [2,62,1,12,4,0,40,30,27]
+d: [2,71,1,10,3,0,18,62]
+s: 71
+d: [2,111,2,0,0,3,52,59,37,54,71]
+e: 111
+d: [2,112,2,6,2,1,40,71,54]
+d: [2,124,2,2,1,2,21,112,37]
+d: [2,125,2,0,0,3,21,124,59]
+e: 125
+r: 37
+a: [3,36,0,4,1,26]
+s: 36
+a: [3,49,0,4,1,26]
+s: 49
+d: [2,74,1,12,4,0,40,33,27]
+d: [2,83,1,10,3,0,18,74]
+s: 83
+d: [2,129,2,0,0,3,52,59,49,54,83]
+e: 129
+d: [2,130,2,6,2,1,40,83,54]
+d: [2,142,2,2,1,2,21,130,49]
+d: [2,143,2,0,0,3,21,142,59]
+e: 143
+d: [2,86,2,6,2,2,40,72,27]
+d: [2,94,2,4,1,2,21,86,59]
+d: [2,99,2,6,2,2,40,84,27]
+d: [2,107,2,4,1,2,21,99,59]
+d: [2,127,2,4,1,2,21,112,59]
+f: 143,127,107,94,24,25,26
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for rewrite1__t36_rewrite1
+% SZS output start Proof for rewrite1__t36_rewrite1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r1_rewrite1(X0,X1,X2) => (r6_rewrite1(X0,X2,X1) & r5_rewrite1(X0,X2,X1) & r6_rewrite1(X0,X1,X2) & r5_rewrite1(X0,X1,X2)))) [input t36_rewrite1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r1_rewrite1(X0,X1,X2) => (r6_rewrite1(X0,X2,X1) & r5_rewrite1(X0,X2,X1) & r6_rewrite1(X0,X1,X2) & r5_rewrite1(X0,X1,X2)))) [negated conjecture 1]
+3. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [input d7_rewrite1]
+4. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r6_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X3,X2) & r1_rewrite1(X0,X3,X1)))) [input d8_rewrite1]
+5. ! [X0] : (v1_relat_1(X0) => ! [X1] : r1_rewrite1(X0,X1,X1)) [input t12_rewrite1]
+6. ~! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r1_rewrite1(X0,X1,X2) => (r6_rewrite1(X0,X2,X1) & r5_rewrite1(X0,X2,X1) & r6_rewrite1(X0,X1,X2) & r5_rewrite1(X0,X1,X2)))) [flattening 2]
+7. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [flattening 3]
+8. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r6_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X3,X2) & r1_rewrite1(X0,X3,X1)))) [flattening 4]
+9. ? [X0] : (? [X1,X2] : ((~r6_rewrite1(X0,X2,X1) | ~r5_rewrite1(X0,X2,X1) | ~r6_rewrite1(X0,X1,X2) | ~r5_rewrite1(X0,X1,X2)) & r1_rewrite1(X0,X1,X2)) & v1_relat_1(X0)) [ennf transformation 6]
+10. ! [X0] : (! [X1] : r1_rewrite1(X0,X1,X1) | ~v1_relat_1(X0)) [ennf transformation 5]
+11. ! [X0] : (! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3))) | ~v1_relat_1(X0)) [ennf transformation 7]
+12. ! [X0] : (! [X1,X2] : (r6_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X3,X2) & r1_rewrite1(X0,X3,X1))) | ~v1_relat_1(X0)) [ennf transformation 8]
+13. ? [X0] : (? [X1,X2] : ((~r6_rewrite1(X0,X2,X1) | ~r5_rewrite1(X0,X2,X1) | ~r6_rewrite1(X0,X1,X2) | ~r5_rewrite1(X0,X1,X2)) & r1_rewrite1(X0,X1,X2)) & v1_relat_1(X0)) => (? [X2,X1] : ((~r6_rewrite1(sK0,X2,X1) | ~r5_rewrite1(sK0,X2,X1) | ~r6_rewrite1(sK0,X1,X2) | ~r5_rewrite1(sK0,X1,X2)) & r1_rewrite1(sK0,X1,X2)) & v1_relat_1(sK0)) [choice axiom]
+14. ? [X2,X1] : ((~r6_rewrite1(sK0,X2,X1) | ~r5_rewrite1(sK0,X2,X1) | ~r6_rewrite1(sK0,X1,X2) | ~r5_rewrite1(sK0,X1,X2)) & r1_rewrite1(sK0,X1,X2)) => ((~r6_rewrite1(sK0,sK2,sK1) | ~r5_rewrite1(sK0,sK2,sK1) | ~r6_rewrite1(sK0,sK1,sK2) | ~r5_rewrite1(sK0,sK1,sK2)) & r1_rewrite1(sK0,sK1,sK2)) [choice axiom]
+15. ((~r6_rewrite1(sK0,sK2,sK1) | ~r5_rewrite1(sK0,sK2,sK1) | ~r6_rewrite1(sK0,sK1,sK2) | ~r5_rewrite1(sK0,sK1,sK2)) & r1_rewrite1(sK0,sK1,sK2)) & v1_relat_1(sK0) [skolemisation 9,14,13]
+16. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [nnf transformation 11]
+17. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [rectify 16]
+18. ! [X2,X1,X0] : (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) => (r1_rewrite1(X0,X2,sK3(X0,X1,X2)) & r1_rewrite1(X0,X1,sK3(X0,X1,X2)))) [choice axiom]
+19. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & ((r1_rewrite1(X0,X2,sK3(X0,X1,X2)) & r1_rewrite1(X0,X1,sK3(X0,X1,X2))) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [skolemisation 17,18]
+20. ! [X0] : (! [X1,X2] : ((r6_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X3,X2) | ~r1_rewrite1(X0,X3,X1))) & (? [X3] : (r1_rewrite1(X0,X3,X2) & r1_rewrite1(X0,X3,X1)) | ~r6_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [nnf transformation 12]
+21. ! [X0] : (! [X1,X2] : ((r6_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X3,X2) | ~r1_rewrite1(X0,X3,X1))) & (? [X4] : (r1_rewrite1(X0,X4,X2) & r1_rewrite1(X0,X4,X1)) | ~r6_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [rectify 20]
+22. ! [X2,X1,X0] : (? [X4] : (r1_rewrite1(X0,X4,X2) & r1_rewrite1(X0,X4,X1)) => (r1_rewrite1(X0,sK4(X0,X1,X2),X2) & r1_rewrite1(X0,sK4(X0,X1,X2),X1))) [choice axiom]
+23. ! [X0] : (! [X1,X2] : ((r6_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X3,X2) | ~r1_rewrite1(X0,X3,X1))) & ((r1_rewrite1(X0,sK4(X0,X1,X2),X2) & r1_rewrite1(X0,sK4(X0,X1,X2),X1)) | ~r6_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [skolemisation 21,22]
+24. v1_relat_1(sK0) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+25. r1_rewrite1(sK0,sK1,sK2) [cnf transformation 15] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+26. ~r6_rewrite1(sK0,sK2,sK1) | ~r5_rewrite1(sK0,sK2,sK1) | ~r6_rewrite1(sK0,sK1,sK2) | ~r5_rewrite1(sK0,sK1,sK2) [cnf transformation 15] {a:0,w:16,wCS:1600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+27. r1_rewrite1(X0,X1,X1) | ~v1_relat_1(X0) [cnf transformation 10] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+30. ~r1_rewrite1(X0,X2,X3) | r5_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X1,X3) | ~v1_relat_1(X0) [cnf transformation 19] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+33. ~r1_rewrite1(X0,X3,X2) | r6_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X3,X1) | ~v1_relat_1(X0) [cnf transformation 23] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+35. 1 <=> r5_rewrite1(sK0,sK1,sK2) [avatar definition]
+39. 2 <=> r6_rewrite1(sK0,sK1,sK2) [avatar definition]
+43. 3 <=> r5_rewrite1(sK0,sK2,sK1) [avatar definition]
+47. 4 <=> r6_rewrite1(sK0,sK2,sK1) [avatar definition]
+49. ~r6_rewrite1(sK0,sK2,sK1) <- (~4) [avatar component clause 47] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+50. ~1 | ~2 | ~3 | ~4 [avatar split clause 26,47,43,39,35]
+52. 5 <=> r1_rewrite1(sK0,sK1,sK2) [avatar definition]
+54. r1_rewrite1(sK0,sK1,sK2) <- (5) [avatar component clause 52] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+55. 5 [avatar split clause 25,52]
+57. 6 <=> v1_relat_1(sK0) [avatar definition]
+59. v1_relat_1(sK0) <- (6) [avatar component clause 57] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+60. 6 [avatar split clause 24,57]
+61. r5_rewrite1(sK0,X0,sK1) | ~r1_rewrite1(sK0,X0,sK2) | ~v1_relat_1(sK0) <- (5) [resolution 30,54] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+62. r5_rewrite1(X1,X2,X3) | ~r1_rewrite1(X1,X2,X3) | ~v1_relat_1(X1) | ~v1_relat_1(X1) [resolution 30,27] {a:1,w:12,wCS:4800,sine:1,thAx:0,allAx:3,thDist:-3}
+71. ~r1_rewrite1(X1,X2,X3) | r5_rewrite1(X1,X2,X3) | ~v1_relat_1(X1) [duplicate literal removal 62] {a:1,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+72. ~r1_rewrite1(sK0,X0,sK2) | r5_rewrite1(sK0,X0,sK1) <- (5, 6) [subsumption resolution 61,59] {a:1,w:8,wCS:800,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+73. r6_rewrite1(sK0,X0,sK2) | ~r1_rewrite1(sK0,sK1,X0) | ~v1_relat_1(sK0) <- (5) [resolution 33,54] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+74. r6_rewrite1(X1,X2,X3) | ~r1_rewrite1(X1,X3,X2) | ~v1_relat_1(X1) | ~v1_relat_1(X1) [resolution 33,27] {a:1,w:12,wCS:4800,sine:1,thAx:0,allAx:3,thDist:-3}
+83. ~r1_rewrite1(X1,X3,X2) | r6_rewrite1(X1,X2,X3) | ~v1_relat_1(X1) [duplicate literal removal 74] {a:1,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+84. ~r1_rewrite1(sK0,sK1,X0) | r6_rewrite1(sK0,X0,sK2) <- (5, 6) [subsumption resolution 73,59] {a:1,w:8,wCS:800,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+86. r5_rewrite1(sK0,sK2,sK1) | ~v1_relat_1(sK0) <- (5, 6) [resolution 72,27] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+94. r5_rewrite1(sK0,sK2,sK1) <- (5, 6) [subsumption resolution 86,59] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+95. 3 | ~5 | ~6 [avatar split clause 94,57,52,43]
+99. r6_rewrite1(sK0,sK1,sK2) | ~v1_relat_1(sK0) <- (5, 6) [resolution 84,27] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+107. r6_rewrite1(sK0,sK1,sK2) <- (5, 6) [subsumption resolution 99,59] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+108. 2 | ~5 | ~6 [avatar split clause 107,57,52,39]
+112. r5_rewrite1(sK0,sK1,sK2) | ~v1_relat_1(sK0) <- (5) [resolution 71,54] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+127. r5_rewrite1(sK0,sK1,sK2) <- (5, 6) [subsumption resolution 112,59] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+128. 1 | ~5 | ~6 [avatar split clause 127,57,52,35]
+130. r6_rewrite1(sK0,sK2,sK1) | ~v1_relat_1(sK0) <- (5) [resolution 83,54] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+142. ~v1_relat_1(sK0) <- (~4, 5) [subsumption resolution 130,49] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+143. $false <- (~4, 5, 6) [subsumption resolution 142,59] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+144. 4 | ~5 | ~6 [avatar contradiction clause 143]
+145. $false [avatar sat refutation 50,55,60,95,108,128,144] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:100,thDist:-100}
+% SZS output end Proof for rewrite1__t36_rewrite1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 4
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 10
+% Generated clauses: 92
+% Active clauses: 18
+% Passive clauses: 37
+% Final active clauses: 17
+% Final passive clauses: 19
+% Main loop iterations started: 18
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 20
+% Fw subsumption resolutions: 13
+% 
+% >>> Generating Inferences
+% Binary resolution: 32
+% Unit resulting resolution: 2
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 4
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 14
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

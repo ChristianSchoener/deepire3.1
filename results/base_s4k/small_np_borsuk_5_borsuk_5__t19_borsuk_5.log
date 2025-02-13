@@ -1,0 +1,144 @@
+i: [1,37,0,2,1,1,0,0] t19_borsuk_5
+a: [3,62,0,2,1,37]
+s: 62
+i: [1,36,0,2,1,1,0,0] t19_borsuk_5
+a: [3,67,0,2,1,36]
+s: 67
+i: [1,38,0,3,1,1,0,0] t19_borsuk_5
+a: [3,57,0,3,1,38]
+s: 57
+i: [1,49,0,2,1,0,0,1] rc2_rat_1
+a: [3,72,0,2,1,49]
+s: 72
+i: [1,50,0,2,1,0,0,1] rc1_xreal_0
+a: [3,77,0,2,1,50]
+s: 77
+i: [1,53,0,2,1,0,0,255] rc2_borsuk_5
+a: [3,82,0,2,1,53]
+s: 82
+i: [1,52,0,2,1,0,0,255] rc2_borsuk_5
+a: [3,87,0,2,1,52]
+s: 87
+i: [1,51,0,2,1,0,0,255] rc2_borsuk_5
+a: [3,92,0,2,1,51]
+s: 92
+i: [1,39,0,4,2,0,0,1] cc1_rat_1
+s: 39
+i: [1,42,0,4,2,0,0,2] cc3_xreal_0
+s: 42
+i: [1,40,0,5,2,0,0,1] fc5_rat_1
+s: 40
+d: [2,106,1,2,1,1,40,42,67]
+a: [3,112,1,2,1,106]
+s: 112
+i: [1,41,0,5,2,0,0,1] fc5_rat_1
+s: 41
+d: [2,94,1,3,1,1,40,39,57]
+a: [3,99,1,3,1,94]
+s: 99
+i: [1,43,0,5,2,0,0,1] fc3_xreal_0
+s: 43
+i: [1,44,0,5,2,0,0,1] fc3_xreal_0
+s: 44
+d: [2,120,2,3,1,1,40,99,42]
+a: [3,124,2,3,1,120]
+s: 124
+i: [1,45,0,5,2,0,0,1] dt_k4_xcmplx_0
+s: 45
+d: [2,95,1,2,1,1,40,39,72]
+a: [3,104,1,2,1,95]
+s: 104
+i: [1,46,0,7,2,0,0,255] involutiveness_k4_xcmplx_0
+s: 46
+i: [1,47,0,7,3,0,0,1] fc6_borsuk_5
+s: 47
+d: [2,107,1,2,1,1,40,42,77]
+a: [3,117,1,2,1,107]
+s: 117
+i: [1,48,0,7,3,0,0,1] fc6_borsuk_5
+s: 48
+d: [2,138,1,0,0,3,52,67,62,57,48]
+e: 138
+d: [2,139,1,4,2,1,40,48,57]
+d: [2,143,1,2,1,2,21,139,62]
+d: [2,144,1,0,0,3,21,143,67]
+e: 144
+f: 144,36,37,38
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for borsuk_5__t19_borsuk_5
+% SZS output start Proof for borsuk_5__t19_borsuk_5
+1. ! [X0] : ((~v1_rat_1(X0) & v1_xreal_0(X0)) => ~v1_rat_1(k4_xcmplx_0(X0))) [input t19_borsuk_5]
+2. ~! [X0] : ((~v1_rat_1(X0) & v1_xreal_0(X0)) => ~v1_rat_1(k4_xcmplx_0(X0))) [negated conjecture 1]
+12. ! [X0] : ((~v1_rat_1(X0) & v1_xreal_0(X0)) => (~v1_rat_1(k4_xcmplx_0(X0)) & v1_xcmplx_0(k4_xcmplx_0(X0)))) [input fc6_borsuk_5]
+18. ? [X0] : (v1_rat_1(k4_xcmplx_0(X0)) & (~v1_rat_1(X0) & v1_xreal_0(X0))) [ennf transformation 2]
+19. ? [X0] : (v1_rat_1(k4_xcmplx_0(X0)) & ~v1_rat_1(X0) & v1_xreal_0(X0)) [flattening 18]
+26. ! [X0] : ((~v1_rat_1(k4_xcmplx_0(X0)) & v1_xcmplx_0(k4_xcmplx_0(X0))) | (v1_rat_1(X0) | ~v1_xreal_0(X0))) [ennf transformation 12]
+27. ! [X0] : ((~v1_rat_1(k4_xcmplx_0(X0)) & v1_xcmplx_0(k4_xcmplx_0(X0))) | v1_rat_1(X0) | ~v1_xreal_0(X0)) [flattening 26]
+28. ? [X0] : (v1_rat_1(k4_xcmplx_0(X0)) & ~v1_rat_1(X0) & v1_xreal_0(X0)) => (v1_rat_1(k4_xcmplx_0(sK0)) & ~v1_rat_1(sK0) & v1_xreal_0(sK0)) [choice axiom]
+29. v1_rat_1(k4_xcmplx_0(sK0)) & ~v1_rat_1(sK0) & v1_xreal_0(sK0) [skolemisation 19,28]
+36. v1_xreal_0(sK0) [cnf transformation 29] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+37. ~v1_rat_1(sK0) [cnf transformation 29] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+38. v1_rat_1(k4_xcmplx_0(sK0)) [cnf transformation 29] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+48. ~v1_rat_1(k4_xcmplx_0(X0)) | v1_rat_1(X0) | ~v1_xreal_0(X0) [cnf transformation 27] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+55. 1 <=> v1_rat_1(k4_xcmplx_0(sK0)) [avatar definition]
+57. v1_rat_1(k4_xcmplx_0(sK0)) <- (1) [avatar component clause 55] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+58. 1 [avatar split clause 38,55]
+60. 2 <=> v1_rat_1(sK0) [avatar definition]
+62. ~v1_rat_1(sK0) <- (~2) [avatar component clause 60] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+63. ~2 [avatar split clause 37,60]
+65. 3 <=> v1_xreal_0(sK0) [avatar definition]
+67. v1_xreal_0(sK0) <- (3) [avatar component clause 65] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+68. 3 [avatar split clause 36,65]
+139. v1_rat_1(sK0) | ~v1_xreal_0(sK0) <- (1) [resolution 48,57] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+143. ~v1_xreal_0(sK0) <- (1, ~2) [subsumption resolution 139,62] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+144. $false <- (1, ~2, 3) [subsumption resolution 143,67] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+145. ~1 | 2 | ~3 [avatar contradiction clause 144]
+146. $false [avatar sat refutation 58,63,68,145] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:66,thDist:-66}
+% SZS output end Proof for borsuk_5__t19_borsuk_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 13
+% >>> Preprocessing
+% Introduced skolems: 4
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 18
+% Generated clauses: 52
+% Active clauses: 22
+% Passive clauses: 27
+% Final active clauses: 22
+% Final passive clauses: 4
+% Main loop iterations started: 23
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 11
+% Unit resulting resolution: 1
+% Forward superposition: 1
+% Backward superposition: 5
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 18
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 6
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

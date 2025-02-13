@@ -668,6 +668,7 @@ if __name__ == "__main__":
   if args["mode"] == "pre":
     assert(args["file"])
     assert(args["out_file_1"])
+    assert(args["folder"])
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Compressing every individual problem.")
@@ -676,16 +677,7 @@ if __name__ == "__main__":
     prob_data_list = IC.reduce_problems(prob_data_list)
 # The first reduction gets rid of many nodes with more than 2 parents, if not all.
 # Nodes with more than 2 parents are all derived by rule 52, which means, that those aren't important at all and can be dismissed.
-    torch.save(prob_data_list, args["out_file_1"])
-    print("Done.")
-    del prob_data_list
-    exit()
 
-  if args["mode"] == "split":
-    assert(args["folder"])
-    assert(args["file"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
     ax_to_prob = dict()
     for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
       for _, thax in init:
@@ -726,9 +718,10 @@ if __name__ == "__main__":
     del valid_data_list
     exit()
   
-  if args["mode"] == "reduce":
+  if args["mode"] == "compress":
     assert(args["file"])
-    assert(args["out_file_1"])
+    assert(args["folder"])
+    assert(args["add_mode_1"])
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
@@ -753,68 +746,51 @@ if __name__ == "__main__":
       old2new_[i] = old2new[list(combined_keys)[i]]
       new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
     print("Assigning new ids and weights to individual problems.", flush=True)
-    prob_data_list = IC.adjust_ids_and_pos_neg_vals(prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
+    prob_data_list = IC.adjust_ids_and_pos_neg_vals(new_prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
-    torch.save(prob_data_list, args["out_file_1"])
-    print("Done.", flush=True)
-    del prob_data_list
-    exit()
 
-  if args["mode"] == "compress":
-    assert(args["file"])
-    assert(args["out_file_1"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
     print("Compressing.", flush=True)
-    prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
-    print("Done. Saving.", flush=True)
-    torch.save(prob_data_list, args["out_file_1"])
+    print(len(prob_data_list), flush=True)
+    # prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
+    compressed = []
+    prob_data_list.sort(key=lambda t: -(len(t[1][0]) + len(t[1][1])))
+    while prob_data_list:
+      to_compress = [prob_data_list.pop()]
+      print(len(prob_data_list), flush=True)
+      size = len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
+      while size < HP.COMPRESSION_THRESHOLD and prob_data_list:
+        to_compress.append(prob_data_list.pop())
+        print(len(prob_data_list), flush=True)
+        size += len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
+      compressed.append(IC.compress_prob_data(to_compress))
+      print("compressed",len(compressed), flush=True)
     print("Done.", flush=True)
-    del prob_data_list
-    exit()
+    prob_data_list = compressed
+    del compressed
 
-  if args["mode"] == "adjust":
-    assert(args["file"])
-    assert(args["out_file_1"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Re-distributing weights evenly across instances.", flush=True)
+    print("Assigning weights.", flush=True)
     prob_data_list = IC.distribute_weights(prob_data_list)
-    print("Done. Saving.", flush=True)
-    torch.save(prob_data_list, args["out_file_1"])
     print("Done.", flush=True)
-    del prob_data_list
-    exit()
 
-  if args["mode"] == "greedy":
-    assert(args["file"])
-    assert(args["out_file_1"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
     print("Computing Greedy Evaluation Schemes.", flush=True)
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       new_prob_data_list = list(executor.map(greedy, prob_data_list))
     print("Done. Saving.", flush=True)
-    torch.save(new_prob_data_list, args["out_file_1"])
-    print("Done.", flush=True)
-    del prob_data_list
+    prob_data_list = new_prob_data_list
     del new_prob_data_list
-    exit()
 
-  if args["mode"] == "pieces":
-    assert(args["file"])
-    assert(args["folder"])
-    assert(args["add_mode_1"])
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Saving Pieces.", flush=True)
     dir = "{}/pieces".format(args["folder"])
     os.makedirs(dir, exist_ok=True)
     for i, rest in enumerate(prob_data_list):
       piece_name = "piece{}.pt.{}".format(i, args["add_mode_1"])
       print("Saving {}".format(piece_name), flush=True)
       torch.save(rest, "{}/pieces/{}".format(args["folder"], piece_name))
-    prob_data_list = [(len(prob_data_list[i]["ids"]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
+    if "ids" in prob_data_list[0]:
+      prob_data_list = [(len(prob_data_list[i]["ids"]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
+    else:
+      prob_data_list = [(len(prob_data_list[i][1][0]) + len(prob_data_list[i][1][1]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
     filename = "{}/{}_index.pt".format(args["folder"], args["add_mode_1"])
     print("Saving {} part to".format(args["add_mode_1"]), filename)
     torch.save(prob_data_list, filename)

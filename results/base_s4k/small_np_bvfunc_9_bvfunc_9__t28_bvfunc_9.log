@@ -1,0 +1,215 @@
+i: [1,81,0,2,1,1,0,0] t28_bvfunc_9
+a: [3,129,0,2,1,81]
+s: 129
+i: [1,78,0,2,1,1,0,0] t28_bvfunc_9
+a: [3,144,0,2,1,78]
+s: 144
+i: [1,77,0,2,1,1,0,0] t28_bvfunc_9
+a: [3,149,0,2,1,77]
+s: 149
+i: [1,82,0,4,1,1,0,0] t28_bvfunc_9
+a: [3,124,0,4,1,82]
+s: 124
+i: [1,79,0,4,1,1,0,0] t28_bvfunc_9
+a: [3,139,0,4,1,79]
+s: 139
+i: [1,83,0,6,1,1,0,0] t28_bvfunc_9
+a: [3,119,0,6,1,83]
+s: 119
+i: [1,80,0,6,1,1,0,0] t28_bvfunc_9
+a: [3,134,0,6,1,80]
+s: 134
+i: [1,84,0,7,1,1,0,0] t28_bvfunc_9
+a: [3,114,0,7,1,84]
+s: 114
+i: [1,85,0,2,1,0,0,1] fc2_margrel1
+a: [3,154,0,2,1,85]
+s: 154
+i: [1,86,0,2,1,0,0,255] fc1_xboole_0
+a: [3,159,0,2,1,86]
+s: 159
+i: [1,106,0,2,1,0,0,1] rc2_xboole_0
+a: [3,171,0,2,1,106]
+s: 171
+i: [1,107,0,2,1,0,0,1] rc1_xboole_0
+a: [3,176,0,2,1,107]
+s: 176
+i: [1,110,0,2,1,0,0,255] rc2_margrel1
+a: [3,181,0,2,1,110]
+s: 181
+i: [1,109,0,2,1,0,0,255] rc2_margrel1
+a: [3,186,0,2,1,109]
+s: 186
+i: [1,108,0,2,1,0,0,255] rc2_margrel1
+a: [3,191,0,2,1,108]
+s: 191
+i: [1,93,0,4,1,0,0,1] existence_m1_subset_1
+s: 93
+i: [1,88,0,5,2,0,0,255] t6_boole
+s: 88
+i: [1,92,0,7,3,0,0,2] t8_boole
+s: 92
+d: [2,193,1,7,3,0,44,88,88]
+s: 193
+i: [1,94,0,17,7,0,0,255] idempotence_k14_margrel1
+a: [3,166,0,11,4,94]
+s: 166
+i: [1,91,0,14,4,0,0,255] cc3_margrel1
+s: 91
+d: [2,195,1,8,3,1,40,91,119]
+d: [2,198,1,4,2,2,21,195,124]
+d: [2,199,1,2,1,3,21,198,129]
+a: [3,203,1,2,1,199]
+s: 203
+i: [1,96,0,16,7,0,0,255] dt_k14_margrel1
+s: 96
+d: [2,196,1,8,3,1,40,91,134]
+d: [2,205,1,4,2,2,21,196,139]
+d: [2,206,1,2,1,3,21,205,144]
+a: [3,210,1,2,1,206]
+s: 210
+i: [1,97,0,16,7,0,0,255] dt_k14_margrel1
+s: 97
+i: [1,98,0,16,7,0,0,255] dt_k14_margrel1
+s: 98
+i: [1,95,0,19,7,0,0,255] commutativity_k14_margrel1
+s: 95
+i: [1,99,0,30,8,0,0,1] reflexivity_r1_bvfunc_1
+s: 99
+d: [2,230,1,24,7,1,40,99,119]
+d: [2,233,1,20,6,2,21,230,124]
+d: [2,234,1,18,5,3,21,233,129]
+d: [2,235,1,16,4,4,21,234,149]
+s: 235
+i: [1,103,0,31,8,0,0,1] dt_k2_bvfunc_1
+s: 103
+i: [1,100,0,32,8,0,0,1] idempotence_k2_bvfunc_1
+s: 100
+d: [2,239,2,10,3,4,40,235,119]
+d: [2,242,2,6,2,4,21,239,124]
+d: [2,243,2,4,1,4,21,242,129]
+a: [3,247,2,4,1,243]
+s: 247
+i: [1,87,0,33,8,0,0,1] l1_bvfunc_9
+s: 87
+d: [2,287,1,0,0,8,52,149,144,129,139,124,134,119,114,87]
+e: 287
+d: [2,288,1,26,7,1,40,87,114]
+d: [2,290,1,20,6,2,21,288,119]
+d: [2,291,1,16,5,3,21,290,124]
+d: [2,292,1,14,4,4,21,291,129]
+d: [2,293,1,8,3,5,21,292,134]
+d: [2,294,1,4,2,6,21,293,139]
+d: [2,295,1,2,1,7,21,294,144]
+d: [2,296,1,0,0,8,21,295,149]
+e: 296
+f: 296,77,78,79,80,81,82,83,84
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for bvfunc_9__t28_bvfunc_9
+% SZS output start Proof for bvfunc_9__t28_bvfunc_9
+1. ! [X0] : (~v1_xboole_0(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1)) => ! [X2] : ((m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2)) => r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1)))) [input t28_bvfunc_9]
+2. ~! [X0] : (~v1_xboole_0(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1)) => ! [X2] : ((m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2)) => r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1)))) [negated conjecture 1]
+31. ! [X0] : (~v1_xboole_0(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1)) => ! [X2] : ((m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2)) => r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1)))) [input l1_bvfunc_9]
+41. ? [X0] : (? [X1] : (? [X2] : (~r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) & (m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2))) & (m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1))) & ~v1_xboole_0(X0)) [ennf transformation 2]
+42. ? [X0] : (? [X1] : (? [X2] : (~r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2)) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1)) & ~v1_xboole_0(X0)) [flattening 41]
+43. ! [X0] : (! [X1] : (! [X2] : (r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) | (~m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X2,X0,k6_margrel1) | ~v1_funct_1(X2))) | (~m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X1,X0,k6_margrel1) | ~v1_funct_1(X1))) | v1_xboole_0(X0)) [ennf transformation 31]
+44. ! [X0] : (! [X1] : (! [X2] : (r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) | ~m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X2,X0,k6_margrel1) | ~v1_funct_1(X2)) | ~m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X1,X0,k6_margrel1) | ~v1_funct_1(X1)) | v1_xboole_0(X0)) [flattening 43]
+65. ? [X0] : (? [X1] : (? [X2] : (~r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X2,X0,k6_margrel1) & v1_funct_1(X2)) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) & v1_funct_2(X1,X0,k6_margrel1) & v1_funct_1(X1)) & ~v1_xboole_0(X0)) => (? [X1] : (? [X2] : (~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,X1,X2),X1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X2,sK0,k6_margrel1) & v1_funct_1(X2)) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X1,sK0,k6_margrel1) & v1_funct_1(X1)) & ~v1_xboole_0(sK0)) [choice axiom]
+66. ? [X1] : (? [X2] : (~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,X1,X2),X1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X2,sK0,k6_margrel1) & v1_funct_1(X2)) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X1,sK0,k6_margrel1) & v1_funct_1(X1)) => (? [X2] : (~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,X2),sK1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X2,sK0,k6_margrel1) & v1_funct_1(X2)) & m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(sK1,sK0,k6_margrel1) & v1_funct_1(sK1)) [choice axiom]
+67. ? [X2] : (~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,X2),sK1) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(X2,sK0,k6_margrel1) & v1_funct_1(X2)) => (~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,sK2),sK1) & m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(sK2,sK0,k6_margrel1) & v1_funct_1(sK2)) [choice axiom]
+68. ((~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,sK2),sK1) & m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(sK2,sK0,k6_margrel1) & v1_funct_1(sK2)) & m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) & v1_funct_2(sK1,sK0,k6_margrel1) & v1_funct_1(sK1)) & ~v1_xboole_0(sK0) [skolemisation 42,67,66,65]
+77. ~v1_xboole_0(sK0) [cnf transformation 68] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+78. v1_funct_1(sK1) [cnf transformation 68] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+79. v1_funct_2(sK1,sK0,k6_margrel1) [cnf transformation 68] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+80. m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) [cnf transformation 68] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+81. v1_funct_1(sK2) [cnf transformation 68] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+82. v1_funct_2(sK2,sK0,k6_margrel1) [cnf transformation 68] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+83. m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) [cnf transformation 68] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+84. ~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,sK2),sK1) [cnf transformation 68] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+87. r1_bvfunc_1(X0,k2_bvfunc_1(X0,X1,X2),X1) | ~m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X2,X0,k6_margrel1) | ~v1_funct_1(X2) | ~m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k6_margrel1))) | ~v1_funct_2(X1,X0,k6_margrel1) | ~v1_funct_1(X1) | v1_xboole_0(X0) [cnf transformation 44] {a:0,w:33,wCS:13200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+112. 1 <=> r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,sK2),sK1) [avatar definition]
+114. ~r1_bvfunc_1(sK0,k2_bvfunc_1(sK0,sK1,sK2),sK1) <- (~1) [avatar component clause 112] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+115. ~1 [avatar split clause 84,112]
+117. 2 <=> m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) [avatar definition]
+119. m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) <- (2) [avatar component clause 117] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+120. 2 [avatar split clause 83,117]
+122. 3 <=> v1_funct_2(sK2,sK0,k6_margrel1) [avatar definition]
+124. v1_funct_2(sK2,sK0,k6_margrel1) <- (3) [avatar component clause 122] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+125. 3 [avatar split clause 82,122]
+127. 4 <=> v1_funct_1(sK2) [avatar definition]
+129. v1_funct_1(sK2) <- (4) [avatar component clause 127] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+130. 4 [avatar split clause 81,127]
+132. 5 <=> m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) [avatar definition]
+134. m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) <- (5) [avatar component clause 132] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+135. 5 [avatar split clause 80,132]
+137. 6 <=> v1_funct_2(sK1,sK0,k6_margrel1) [avatar definition]
+139. v1_funct_2(sK1,sK0,k6_margrel1) <- (6) [avatar component clause 137] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+140. 6 [avatar split clause 79,137]
+142. 7 <=> v1_funct_1(sK1) [avatar definition]
+144. v1_funct_1(sK1) <- (7) [avatar component clause 142] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+145. 7 [avatar split clause 78,142]
+147. 8 <=> v1_xboole_0(sK0) [avatar definition]
+149. ~v1_xboole_0(sK0) <- (~8) [avatar component clause 147] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+150. ~8 [avatar split clause 77,147]
+288. ~m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) | ~v1_funct_2(sK2,sK0,k6_margrel1) | ~v1_funct_1(sK2) | ~m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) | ~v1_funct_2(sK1,sK0,k6_margrel1) | ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1) [resolution 87,114] {a:1,w:26,wCS:2600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+290. ~v1_funct_2(sK2,sK0,k6_margrel1) | ~v1_funct_1(sK2) | ~m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) | ~v1_funct_2(sK1,sK0,k6_margrel1) | ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1, 2) [subsumption resolution 288,119] {a:1,w:20,wCS:2000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+291. ~v1_funct_1(sK2) | ~m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) | ~v1_funct_2(sK1,sK0,k6_margrel1) | ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1, 2, 3) [subsumption resolution 290,124] {a:1,w:16,wCS:1600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+292. ~m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k6_margrel1))) | ~v1_funct_2(sK1,sK0,k6_margrel1) | ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1, 2, 3, 4) [subsumption resolution 291,129] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+293. ~v1_funct_2(sK1,sK0,k6_margrel1) | ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1, 2, 3, 4, 5) [subsumption resolution 292,134] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+294. ~v1_funct_1(sK1) | v1_xboole_0(sK0) <- (~1, 2, 3, 4, 5, 6) [subsumption resolution 293,139] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+295. v1_xboole_0(sK0) <- (~1, 2, 3, 4, 5, 6, 7) [subsumption resolution 294,144] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+296. $false <- (~1, 2, 3, 4, 5, 6, 7, ~8) [subsumption resolution 295,149] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+297. 1 | ~2 | ~3 | ~4 | ~5 | ~6 | ~7 | 8 [avatar contradiction clause 296]
+298. $false [avatar sat refutation 115,120,125,130,135,140,145,150,297] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:163,thDist:-163}
+% SZS output end Proof for bvfunc_9__t28_bvfunc_9
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 30
+% >>> Preprocessing
+% Introduced skolems: 7
+% Pure predicates: 4
+% 
+% >>> Saturation
+% Initial clauses: 34
+% Generated clauses: 125
+% Active clauses: 32
+% Passive clauses: 48
+% Final active clauses: 32
+% Final passive clauses: 15
+% Main loop iterations started: 33
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 54
+% Fw subsumption resolutions: 33
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 7
+% 
+% >>> Generating Inferences
+% Binary resolution: 16
+% Unit resulting resolution: 1
+% Forward superposition: 3
+% Backward superposition: 7
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 5
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 25
+% SAT solver unit clauses: 15
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.002 s
+

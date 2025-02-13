@@ -1,0 +1,284 @@
+i: [1,93,0,2,1,1,0,0] t60_relat_1
+a: [3,141,0,2,1,93]
+s: 141
+i: [1,94,0,7,1,1,0,0] t60_relat_1
+a: [3,136,0,7,1,94]
+s: 136
+i: [1,95,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,146,0,2,1,95]
+s: 146
+i: [1,96,0,2,1,0,0,255] fc1_xboole_0
+a: [3,151,0,2,1,96]
+s: 151
+i: [1,126,0,2,1,0,0,255] rc2_zfmisc_1
+a: [3,161,0,2,1,126]
+s: 161
+i: [1,127,0,2,1,0,0,2] rc2_xboole_0
+a: [3,166,0,2,1,127]
+s: 166
+i: [1,128,0,2,1,0,0,2] rc1_xboole_0
+a: [3,171,0,2,1,128]
+s: 171
+i: [1,130,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,176,0,2,1,130]
+s: 176
+i: [1,129,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,181,0,2,1,129]
+s: 181
+i: [1,132,0,2,1,0,0,1] rc1_relat_1
+a: [3,186,0,2,1,132]
+s: 186
+i: [1,131,0,2,1,0,0,1] rc1_relat_1
+a: [3,191,0,2,1,131]
+s: 191
+i: [1,121,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 121
+i: [1,97,0,3,1,0,0,255] d2_xboole_0
+a: [3,156,0,3,1,97]
+s: 156
+r: 146
+i: [1,98,0,4,2,0,0,255] cc2_zfmisc_1
+s: 98
+i: [1,100,0,4,2,0,0,255] cc1_zfmisc_1
+s: 100
+i: [1,101,0,4,2,0,0,1] cc1_relat_1
+s: 101
+d: [2,194,1,2,1,1,40,98,171]
+a: [3,199,1,2,1,194]
+s: 199
+i: [1,120,0,4,1,0,0,2] existence_m1_subset_1
+s: 120
+d: [2,195,1,2,1,1,40,98,151]
+a: [3,204,1,2,1,195]
+s: 204
+i: [1,102,0,5,2,0,0,255] t6_boole
+s: 102
+i: [1,103,0,5,2,0,0,1] fc4_xtuple_0
+s: 103
+d: [2,206,1,2,1,1,40,101,171]
+a: [3,211,1,2,1,206]
+s: 211
+i: [1,104,0,5,2,0,0,1] fc10_relat_1
+s: 104
+d: [2,207,1,2,1,1,40,101,151]
+a: [3,216,1,2,1,207]
+s: 216
+i: [1,114,0,5,2,0,0,2] t7_boole
+s: 114
+i: [1,106,0,6,2,0,0,2] t1_subset
+s: 106
+d: [2,221,1,5,2,0,40,103,101]
+s: 221
+i: [1,122,0,6,2,0,0,1] dt_k5_relat_1
+s: 122
+d: [2,222,1,5,2,0,40,103,98]
+s: 222
+i: [1,123,0,6,2,0,0,2] antisymmetry_r2_hidden
+s: 123
+i: [1,105,0,7,3,0,0,1] fc8_relat_1
+s: 105
+i: [1,111,0,7,2,0,0,1] t3_subset
+s: 111
+i: [1,112,0,7,2,0,0,1] t3_subset
+s: 112
+d: [2,225,1,5,1,0,40,111,120]
+s: 225
+i: [1,113,0,7,3,0,0,255] t8_boole
+s: 113
+i: [1,99,0,8,3,0,0,2] cc2_relat_1
+s: 99
+d: [2,227,1,6,2,0,40,99,120]
+s: 227
+i: [1,107,0,8,3,0,0,2] t2_subset
+s: 107
+d: [2,229,1,6,2,0,40,107,120]
+s: 229
+i: [1,109,0,8,2,0,0,1] d3_tarski
+s: 109
+i: [1,110,0,8,2,0,0,1] d3_tarski
+s: 110
+d: [2,236,1,5,2,0,40,109,114]
+s: 236
+i: [1,124,0,8,3,0,0,1] fc16_relat_1
+s: 124
+d: [2,239,2,5,1,1,40,236,136]
+a: [3,243,2,5,1,239]
+s: 243
+i: [1,125,0,8,3,0,0,1] fc16_relat_1
+s: 125
+i: [1,108,0,9,3,0,0,1] d3_tarski
+s: 108
+d: [2,247,3,4,1,1,40,243,103]
+a: [3,251,3,4,1,247]
+s: 251
+i: [1,119,0,9,3,0,0,2] t5_subset
+s: 119
+d: [2,255,4,4,2,1,40,251,124]
+d: [2,256,4,2,1,2,21,255,141]
+a: [3,260,4,2,1,256]
+s: 260
+i: [1,118,0,10,3,0,0,2] t4_subset
+s: 118
+i: [1,115,0,11,3,0,0,1] t57_relat_1
+s: 115
+d: [2,231,2,6,2,0,40,229,123]
+s: 231
+i: [1,116,0,12,3,0,0,1] t57_relat_1
+s: 116
+d: [2,218,1,7,3,0,44,102,102]
+s: 218
+i: [1,117,0,15,4,0,0,1] t57_relat_1
+s: 117
+d: [2,228,1,7,3,0,40,99,112]
+s: 228
+d: [2,262,1,7,2,0,40,119,120]
+s: 262
+d: [2,234,1,8,2,0,40,109,123]
+s: 234
+d: [2,282,2,6,2,0,40,262,229]
+s: 282
+d: [2,235,1,8,2,0,40,109,106]
+s: 235
+d: [2,246,1,8,3,0,40,124,98]
+s: 246
+d: [2,284,3,6,2,0,40,282,101]
+s: 284
+d: [2,263,1,8,3,0,40,119,112]
+s: 263
+d: [2,285,3,6,2,0,40,282,98]
+s: 285
+d: [2,264,1,8,2,0,40,118,120]
+s: 264
+d: [2,265,1,9,3,0,40,118,112]
+s: 265
+d: [2,283,2,7,2,0,40,262,109]
+s: 283
+d: [2,230,1,10,3,0,40,107,112]
+s: 230
+d: [2,291,2,7,3,0,40,263,229]
+s: 291
+d: [2,254,1,11,3,0,40,108,109]
+s: 254
+d: [2,275,1,14,4,0,40,117,114]
+s: 275
+d: [2,292,2,8,3,0,40,263,109]
+s: 292
+d: [2,273,1,15,4,0,40,117,123]
+s: 273
+d: [2,317,2,8,3,0,40,254,114]
+s: 317
+d: [2,274,1,15,4,0,40,117,106]
+s: 274
+d: [2,267,1,16,3,0,40,115,109]
+s: 267
+d: [2,333,2,14,3,0,40,267,110]
+d: [2,344,2,8,2,0,18,333]
+s: 344
+d: [2,269,1,17,3,0,40,116,109]
+s: 269
+d: [2,253,2,9,3,0,40,108,229]
+s: 253
+d: [2,272,1,18,5,0,40,117,108]
+s: 272
+d: [2,276,1,25,4,0,40,117,110]
+s: 276
+d: [2,296,2,9,3,0,40,265,229]
+s: 296
+d: [2,350,2,16,3,0,40,269,110]
+d: [2,357,2,9,2,0,18,350]
+s: 357
+d: [2,391,3,0,0,2,52,141,136,357]
+e: 391
+d: [2,392,3,2,1,1,40,357,136]
+d: [2,399,3,0,0,2,21,392,141]
+e: 399
+f: 399,93,94
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relat_1__t60_relat_1
+% SZS output start Proof for relat_1__t60_relat_1
+1. ! [X0] : ! [X1] : (v1_relat_1(X1) => r1_tarski(k9_xtuple_0(k5_relat_1(X1,X0)),k9_xtuple_0(X1))) [input t60_relat_1]
+2. ~! [X0] : ! [X1] : (v1_relat_1(X1) => r1_tarski(k9_xtuple_0(k5_relat_1(X1,X0)),k9_xtuple_0(X1))) [negated conjecture 1]
+9. ! [X0] : ! [X1] : (r1_tarski(X0,X1) <=> ! [X2] : (r2_hidden(X2,X0) => r2_hidden(X2,X1))) [input d3_tarski]
+32. ! [X0] : ! [X1] : ! [X2] : (v1_relat_1(X2) => (r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) <=> (r2_hidden(X0,k9_xtuple_0(X2)) & r2_hidden(X0,X1)))) [input t57_relat_1]
+37. ~! [X0,X1] : (v1_relat_1(X1) => r1_tarski(k9_xtuple_0(k5_relat_1(X1,X0)),k9_xtuple_0(X1))) [flattening 2]
+40. ! [X0,X1] : (r1_tarski(X0,X1) <=> ! [X2] : (r2_hidden(X2,X0) => r2_hidden(X2,X1))) [flattening 9]
+44. ! [X0,X1,X2] : (v1_relat_1(X2) => (r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) <=> (r2_hidden(X0,k9_xtuple_0(X2)) & r2_hidden(X0,X1)))) [flattening 32]
+48. ? [X0,X1] : (~r1_tarski(k9_xtuple_0(k5_relat_1(X1,X0)),k9_xtuple_0(X1)) & v1_relat_1(X1)) [ennf transformation 37]
+61. ! [X0,X1] : (r1_tarski(X0,X1) <=> ! [X2] : (r2_hidden(X2,X1) | ~r2_hidden(X2,X0))) [ennf transformation 40]
+64. ! [X0,X1,X2] : ((r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) <=> (r2_hidden(X0,k9_xtuple_0(X2)) & r2_hidden(X0,X1))) | ~v1_relat_1(X2)) [ennf transformation 44]
+72. ? [X0,X1] : (~r1_tarski(k9_xtuple_0(k5_relat_1(X1,X0)),k9_xtuple_0(X1)) & v1_relat_1(X1)) => (~r1_tarski(k9_xtuple_0(k5_relat_1(sK1,sK0)),k9_xtuple_0(sK1)) & v1_relat_1(sK1)) [choice axiom]
+73. ~r1_tarski(k9_xtuple_0(k5_relat_1(sK1,sK0)),k9_xtuple_0(sK1)) & v1_relat_1(sK1) [skolemisation 48,72]
+74. ! [X0,X1] : ((r1_tarski(X0,X1) | ? [X2] : (~r2_hidden(X2,X1) & r2_hidden(X2,X0))) & (! [X2] : (r2_hidden(X2,X1) | ~r2_hidden(X2,X0)) | ~r1_tarski(X0,X1))) [nnf transformation 61]
+75. ! [X0,X1] : ((r1_tarski(X0,X1) | ? [X2] : (~r2_hidden(X2,X1) & r2_hidden(X2,X0))) & (! [X3] : (r2_hidden(X3,X1) | ~r2_hidden(X3,X0)) | ~r1_tarski(X0,X1))) [rectify 74]
+76. ! [X1,X0] : (? [X2] : (~r2_hidden(X2,X1) & r2_hidden(X2,X0)) => (~r2_hidden(sK2(X0,X1),X1) & r2_hidden(sK2(X0,X1),X0))) [choice axiom]
+77. ! [X0,X1] : ((r1_tarski(X0,X1) | (~r2_hidden(sK2(X0,X1),X1) & r2_hidden(sK2(X0,X1),X0))) & (! [X3] : (r2_hidden(X3,X1) | ~r2_hidden(X3,X0)) | ~r1_tarski(X0,X1))) [skolemisation 75,76]
+79. ! [X0,X1,X2] : (((r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) | (~r2_hidden(X0,k9_xtuple_0(X2)) | ~r2_hidden(X0,X1))) & ((r2_hidden(X0,k9_xtuple_0(X2)) & r2_hidden(X0,X1)) | ~r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))))) | ~v1_relat_1(X2)) [nnf transformation 64]
+80. ! [X0,X1,X2] : (((r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) | ~r2_hidden(X0,k9_xtuple_0(X2)) | ~r2_hidden(X0,X1)) & ((r2_hidden(X0,k9_xtuple_0(X2)) & r2_hidden(X0,X1)) | ~r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))))) | ~v1_relat_1(X2)) [flattening 79]
+93. v1_relat_1(sK1) [cnf transformation 73] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+94. ~r1_tarski(k9_xtuple_0(k5_relat_1(sK1,sK0)),k9_xtuple_0(sK1)) [cnf transformation 73] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+109. r2_hidden(sK2(X0,X1),X0) | r1_tarski(X0,X1) [cnf transformation 77] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+110. ~r2_hidden(sK2(X0,X1),X1) | r1_tarski(X0,X1) [cnf transformation 77] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+116. ~r2_hidden(X0,k9_xtuple_0(k5_relat_1(X2,X1))) | r2_hidden(X0,k9_xtuple_0(X2)) | ~v1_relat_1(X2) [cnf transformation 80] {a:0,w:12,wCS:4800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+134. 1 <=> r1_tarski(k9_xtuple_0(k5_relat_1(sK1,sK0)),k9_xtuple_0(sK1)) [avatar definition]
+136. ~r1_tarski(k9_xtuple_0(k5_relat_1(sK1,sK0)),k9_xtuple_0(sK1)) <- (~1) [avatar component clause 134] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+137. ~1 [avatar split clause 94,134]
+139. 2 <=> v1_relat_1(sK1) [avatar definition]
+141. v1_relat_1(sK1) <- (2) [avatar component clause 139] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+142. 2 [avatar split clause 93,139]
+269. r2_hidden(sK2(k9_xtuple_0(k5_relat_1(X2,X3)),X4),k9_xtuple_0(X2)) | ~v1_relat_1(X2) | r1_tarski(k9_xtuple_0(k5_relat_1(X2,X3)),X4) [resolution 116,109] {a:1,w:17,wCS:6800,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+350. ~v1_relat_1(X8) | r1_tarski(k9_xtuple_0(k5_relat_1(X8,X9)),k9_xtuple_0(X8)) | r1_tarski(k9_xtuple_0(k5_relat_1(X8,X9)),k9_xtuple_0(X8)) [resolution 269,110] {a:2,w:16,wCS:6400,sine:1,thAx:0,allAx:5,thDist:-5}
+357. r1_tarski(k9_xtuple_0(k5_relat_1(X8,X9)),k9_xtuple_0(X8)) | ~v1_relat_1(X8) [duplicate literal removal 350] {a:2,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:5,thDist:-5}
+392. ~v1_relat_1(sK1) <- (~1) [resolution 357,136] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+399. $false <- (~1, 2) [subsumption resolution 392,141] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+400. 1 | ~2 [avatar contradiction clause 399]
+401. $false [avatar sat refutation 137,142,400] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:92,thDist:-92}
+% SZS output end Proof for relat_1__t60_relat_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 35
+% Introduced skolems: 9
+% 
+% >>> Saturation
+% Initial clauses: 40
+% Generated clauses: 230
+% Active clauses: 78
+% Passive clauses: 154
+% Final active clauses: 77
+% Final passive clauses: 71
+% Main loop iterations started: 83
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 13
+% Fw subsumption resolutions: 5
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 13
+% Forward subsumptions: 27
+% 
+% >>> Generating Inferences
+% Binary resolution: 148
+% Unit resulting resolution: 1
+% Forward superposition: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 23
+% SAT solver unit clauses: 12
+% SAT solver binary clauses: 8
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward subsumption: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

@@ -1,0 +1,66 @@
+i: [1,399,0,14,4,1,0,0] l68_sin_cos
+i: [1,422,0,6,1,0,0,1] l67_sin_cos
+i: [1,421,0,2,1,0,0,1] l67_sin_cos
+i: [1,420,0,4,1,0,0,1] l67_sin_cos
+i: [1,419,0,2,1,0,0,1] l67_sin_cos
+f: 419,420,421,422,399
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for sin_cos__l68_sin_cos
+% SZS output start Proof for sin_cos__l68_sin_cos
+1. m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) & v5_valued_0(c1__sin_cos) & v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) & v1_funct_1(c1__sin_cos) [input l68_sin_cos]
+2. ~(m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) & v5_valued_0(c1__sin_cos) & v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) & v1_funct_1(c1__sin_cos)) [negated conjecture 1]
+167. m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) & v5_valued_0(c1__sin_cos) & v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) & v1_funct_1(c1__sin_cos) [input l67_sin_cos]
+216. ~m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) | ~v5_valued_0(c1__sin_cos) | ~v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) | ~v1_funct_1(c1__sin_cos) [ennf transformation 2]
+399. ~m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) | ~v5_valued_0(c1__sin_cos) | ~v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) | ~v1_funct_1(c1__sin_cos) [cnf transformation 216] {a:0,w:14,wCS:1400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+419. v1_funct_1(c1__sin_cos) [cnf transformation 167] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+420. v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) [cnf transformation 167] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+421. v5_valued_0(c1__sin_cos) [cnf transformation 167] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+422. m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) [cnf transformation 167] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+630. 1 <=> v1_funct_1(c1__sin_cos) [avatar definition]
+634. 2 <=> v1_funct_2(c1__sin_cos,k5_numbers,k5_numbers) [avatar definition]
+638. 3 <=> v5_valued_0(c1__sin_cos) [avatar definition]
+642. 4 <=> m1_subset_1(c1__sin_cos,k1_zfmisc_1(k2_zfmisc_1(k5_numbers,k5_numbers))) [avatar definition]
+645. ~1 | ~2 | ~3 | ~4 [avatar split clause 399,642,638,634,630]
+737. 4 [avatar split clause 422,642]
+738. 3 [avatar split clause 421,638]
+739. 2 [avatar split clause 420,634]
+740. 1 [avatar split clause 419,630]
+1056. $false [avatar sat refutation 645,737,738,739,740] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:240,thDist:-240}
+% SZS output end Proof for sin_cos__l68_sin_cos
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 166
+% >>> Preprocessing
+% Introduced skolems: 30
+% Pure predicates: 13
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 230
+% Generated clauses: 230
+% Passive clauses: 119
+% Final passive clauses: 119
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 24
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 89
+% SAT solver unit clauses: 86
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% other: 0.004 s ( own 0.001 s ) 
+

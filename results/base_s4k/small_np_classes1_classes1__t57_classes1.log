@@ -1,0 +1,85 @@
+i: [1,18,0,2,1,1,0,0] t57_classes1
+a: [3,33,0,2,1,18]
+s: 33
+i: [1,19,0,4,1,1,0,0] t57_classes1
+a: [3,28,0,4,1,19]
+s: 28
+i: [1,24,0,2,1,0,0,1] rc1_ordinal1
+a: [3,38,0,2,1,24]
+s: 38
+i: [1,21,0,4,2,0,0,255] cc1_ordinal1
+s: 21
+i: [1,22,0,4,2,0,0,255] cc1_ordinal1
+s: 22
+i: [1,20,0,6,2,0,0,1] t55_classes1
+s: 20
+d: [2,40,1,2,1,1,40,21,33]
+d: [2,64,1,5,2,1,44,28,20]
+d: [2,65,1,2,1,1,19,64]
+f: 65,40,18,19
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for classes1__t57_classes1
+% SZS output start Proof for classes1__t57_classes1
+1. ! [X0] : (v3_ordinal1(X0) => k5_classes1(X0) = X0) [input t57_classes1]
+2. ~! [X0] : (v3_ordinal1(X0) => k5_classes1(X0) = X0) [negated conjecture 1]
+6. ! [X0] : (v3_ordinal1(X0) => (v2_ordinal1(X0) & v1_ordinal1(X0))) [input cc1_ordinal1]
+8. ! [X0] : (v1_ordinal1(X0) => k5_classes1(X0) = X0) [input t55_classes1]
+9. ? [X0] : (k5_classes1(X0) != X0 & v3_ordinal1(X0)) [ennf transformation 2]
+10. ! [X0] : (k5_classes1(X0) = X0 | ~v1_ordinal1(X0)) [ennf transformation 8]
+11. ! [X0] : ((v2_ordinal1(X0) & v1_ordinal1(X0)) | ~v3_ordinal1(X0)) [ennf transformation 6]
+14. ? [X0] : (k5_classes1(X0) != X0 & v3_ordinal1(X0)) => (sK0 != k5_classes1(sK0) & v3_ordinal1(sK0)) [choice axiom]
+15. sK0 != k5_classes1(sK0) & v3_ordinal1(sK0) [skolemisation 9,14]
+18. v3_ordinal1(sK0) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+19. sK0 != k5_classes1(sK0) [cnf transformation 15] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. k5_classes1(X0) = X0 | ~v1_ordinal1(X0) [cnf transformation 10] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+21. ~v3_ordinal1(X0) | v1_ordinal1(X0) [cnf transformation 11] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+26. 1 <=> sK0 = k5_classes1(sK0) [avatar definition]
+28. sK0 != k5_classes1(sK0) <- (~1) [avatar component clause 26] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+29. ~1 [avatar split clause 19,26]
+31. 2 <=> v3_ordinal1(sK0) [avatar definition]
+33. v3_ordinal1(sK0) <- (2) [avatar component clause 31] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+34. 2 [avatar split clause 18,31]
+40. v1_ordinal1(sK0) <- (2) [resolution 21,33] {a:1,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+43. 4 <=> v1_ordinal1(sK0) [avatar definition]
+46. 4 | ~2 [avatar split clause 40,31,43]
+64. sK0 != sK0 | ~v1_ordinal1(sK0) <- (~1) [superposition 28,20] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+65. ~v1_ordinal1(sK0) <- (~1) [trivial inequality removal 64] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+66. ~4 | 1 [avatar split clause 65,26,43]
+67. $false [avatar sat refutation 29,34,46,66] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:34,thDist:-34}
+% SZS output end Proof for classes1__t57_classes1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 7
+% Generated clauses: 20
+% Active clauses: 6
+% Passive clauses: 11
+% Final active clauses: 6
+% Final passive clauses: 5
+% Main loop iterations started: 6
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 4
+% Backward superposition: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 5
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

@@ -1,0 +1,94 @@
+i: [1,645,0,6,1,1,0,0] l4_scm_comp
+i: [1,673,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,672,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,671,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,670,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,669,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,668,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,667,0,2,1,0,0,1] dt_k1_scm_comp
+i: [1,1103,0,20,8,0,0,255] d1_scm_comp
+f: 1103,667,668,669,670,671,672,673,645
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for scm_comp__l4_scm_comp
+% SZS output start Proof for scm_comp__l4_scm_comp
+1. k7_dtconstr(k1_scm_comp) = k2_zfmisc_1(1,5) [input l4_scm_comp]
+2. ~k7_dtconstr(k1_scm_comp) = k2_zfmisc_1(1,5) [negated conjecture 1]
+228. l1_lang1(k1_scm_comp) & v3_bintree1(k1_scm_comp) & v3_dtconstr(k1_scm_comp) & v2_dtconstr(k1_scm_comp) & v1_dtconstr(k1_scm_comp) & v1_lang1(k1_scm_comp) & ~v2_struct_0(k1_scm_comp) [input dt_k1_scm_comp]
+245. ! [X0] : ((l1_lang1(X0) & v3_bintree1(X0) & v3_dtconstr(X0) & v2_dtconstr(X0) & v1_dtconstr(X0) & v1_lang1(X0) & ~v2_struct_0(X0)) => (k1_scm_comp = X0 <=> (! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)) <=> r2_hidden(X1,k2_zfmisc_1(1,5)))))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0)))) [input d1_scm_comp]
+246. k7_dtconstr(k1_scm_comp) != k2_zfmisc_1(1,5) [flattening 2]
+395. ! [X0] : ((k1_scm_comp = X0 <=> (! [X1] : (! [X2] : (! [X3] : ((r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)) <=> r2_hidden(X1,k2_zfmisc_1(1,5))) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0))) | (~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0))) [ennf transformation 245]
+396. ! [X0] : ((k1_scm_comp = X0 <=> (! [X1] : (! [X2] : (! [X3] : ((r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)) <=> r2_hidden(X1,k2_zfmisc_1(1,5))) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0))) | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [flattening 395]
+547. ! [X0] : (((k1_scm_comp = X0 | (? [X1] : (? [X2] : (? [X3] : (((~r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k2_zfmisc_1(1,5) != k7_dtconstr(X0) | k2_ami_2 != k6_dtconstr(X0))) & ((! [X1] : (! [X2] : (! [X3] : (((r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)) | ~r2_hidden(X1,k2_zfmisc_1(1,5))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)))) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0)) | k1_scm_comp != X0)) | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [nnf transformation 396]
+548. ! [X0] : (((k1_scm_comp = X0 | ? [X1] : (? [X2] : (? [X3] : ((~r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k2_zfmisc_1(1,5) != k7_dtconstr(X0) | k2_ami_2 != k6_dtconstr(X0)) & ((! [X1] : (! [X2] : (! [X3] : (((r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)) | ~r2_hidden(X1,k2_zfmisc_1(1,5))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3)))) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0)) | k1_scm_comp != X0)) | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [flattening 547]
+549. ! [X0] : (((k1_scm_comp = X0 | ? [X1] : (? [X2] : (? [X3] : ((~r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k2_zfmisc_1(1,5) != k7_dtconstr(X0) | k2_ami_2 != k6_dtconstr(X0)) & ((! [X4] : (! [X5] : (! [X6] : (((r1_lang1(X0,X4,k4_pre_poly(u1_struct_0(X0),X5,X6)) | ~r2_hidden(X4,k2_zfmisc_1(1,5))) & (r2_hidden(X4,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X4,k4_pre_poly(u1_struct_0(X0),X5,X6)))) | ~m1_subset_1(X6,u1_struct_0(X0))) | ~m1_subset_1(X5,u1_struct_0(X0))) | ~m1_subset_1(X4,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0)) | k1_scm_comp != X0)) | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [rectify 548]
+550. ! [X0] : (? [X1] : (? [X2] : (? [X3] : ((~r2_hidden(X1,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(X1,k2_zfmisc_1(1,5)) | r1_lang1(X0,X1,k4_pre_poly(u1_struct_0(X0),X2,X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) => (? [X2] : (? [X3] : ((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),X2,X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(sK12(X0),u1_struct_0(X0)))) [choice axiom]
+551. ! [X0] : (? [X2] : (? [X3] : ((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),X2,X3))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),X2,X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) => (? [X3] : ((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),X3))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),X3))) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(sK13(X0),u1_struct_0(X0)))) [choice axiom]
+552. ! [X0] : (? [X3] : ((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),X3))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),X3))) & m1_subset_1(X3,u1_struct_0(X0))) => ((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),sK14(X0)))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),sK14(X0)))) & m1_subset_1(sK14(X0),u1_struct_0(X0)))) [choice axiom]
+553. ! [X0] : (((k1_scm_comp = X0 | ((((~r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | ~r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),sK14(X0)))) & (r2_hidden(sK12(X0),k2_zfmisc_1(1,5)) | r1_lang1(X0,sK12(X0),k4_pre_poly(u1_struct_0(X0),sK13(X0),sK14(X0)))) & m1_subset_1(sK14(X0),u1_struct_0(X0))) & m1_subset_1(sK13(X0),u1_struct_0(X0))) & m1_subset_1(sK12(X0),u1_struct_0(X0))) | k2_zfmisc_1(1,5) != k7_dtconstr(X0) | k2_ami_2 != k6_dtconstr(X0)) & ((! [X4] : (! [X5] : (! [X6] : (((r1_lang1(X0,X4,k4_pre_poly(u1_struct_0(X0),X5,X6)) | ~r2_hidden(X4,k2_zfmisc_1(1,5))) & (r2_hidden(X4,k2_zfmisc_1(1,5)) | ~r1_lang1(X0,X4,k4_pre_poly(u1_struct_0(X0),X5,X6)))) | ~m1_subset_1(X6,u1_struct_0(X0))) | ~m1_subset_1(X5,u1_struct_0(X0))) | ~m1_subset_1(X4,u1_struct_0(X0))) & k2_zfmisc_1(1,5) = k7_dtconstr(X0) & k2_ami_2 = k6_dtconstr(X0)) | k1_scm_comp != X0)) | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [skolemisation 549,552,551,550]
+645. k7_dtconstr(k1_scm_comp) != k2_zfmisc_1(1,5) [cnf transformation 246] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+667. ~v2_struct_0(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+668. v1_lang1(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+669. v1_dtconstr(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+670. v2_dtconstr(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+671. v3_dtconstr(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+672. v3_bintree1(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+673. l1_lang1(k1_scm_comp) [cnf transformation 228] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+813. k2_zfmisc_1(1,5) = k7_dtconstr(X0) | k1_scm_comp != X0 | ~l1_lang1(X0) | ~v3_bintree1(X0) | ~v3_dtconstr(X0) | ~v2_dtconstr(X0) | ~v1_dtconstr(X0) | ~v1_lang1(X0) | v2_struct_0(X0) [cnf transformation 553] {a:0,w:23,wCS:9200,sine:255,thAx:0,allAx:4,thDist:-4}
+1103. k7_dtconstr(k1_scm_comp) = k2_zfmisc_1(1,5) | ~l1_lang1(k1_scm_comp) | ~v3_bintree1(k1_scm_comp) | ~v3_dtconstr(k1_scm_comp) | ~v2_dtconstr(k1_scm_comp) | ~v1_dtconstr(k1_scm_comp) | ~v1_lang1(k1_scm_comp) | v2_struct_0(k1_scm_comp) [equality resolution 813] {a:0,w:20,wCS:8000,sine:255,thAx:0,allAx:4,thDist:-4}
+1106. 1 <=> k7_dtconstr(k1_scm_comp) = k2_zfmisc_1(1,5) [avatar definition]
+1109. ~1 [avatar split clause 645,1106]
+1181. 16 <=> l1_lang1(k1_scm_comp) [avatar definition]
+1186. 17 <=> v3_bintree1(k1_scm_comp) [avatar definition]
+1191. 18 <=> v3_dtconstr(k1_scm_comp) [avatar definition]
+1196. 19 <=> v2_dtconstr(k1_scm_comp) [avatar definition]
+1201. 20 <=> v1_dtconstr(k1_scm_comp) [avatar definition]
+1206. 21 <=> v1_lang1(k1_scm_comp) [avatar definition]
+1211. 22 <=> v2_struct_0(k1_scm_comp) [avatar definition]
+1215. 16 [avatar split clause 673,1181]
+1216. 17 [avatar split clause 672,1186]
+1217. 18 [avatar split clause 671,1191]
+1218. 19 [avatar split clause 670,1196]
+1219. 20 [avatar split clause 669,1201]
+1220. 21 [avatar split clause 668,1206]
+1221. ~22 [avatar split clause 667,1211]
+1285. 22 | ~21 | ~20 | ~19 | ~18 | ~17 | ~16 | 1 [avatar split clause 1103,1106,1181,1186,1191,1196,1201,1206,1211]
+1691. $false [avatar sat refutation 1109,1215,1216,1217,1218,1219,1220,1221,1285] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:368,thDist:-368}
+% SZS output end Proof for scm_comp__l4_scm_comp
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 244
+% >>> Preprocessing
+% Introduced skolems: 59
+% Pure predicates: 10
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 456
+% Generated clauses: 456
+% Passive clauses: 266
+% Final passive clauses: 266
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 66
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 32
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 126
+% SAT solver unit clauses: 120
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.003 s
+% preprocessing: 0.001 s
+% splitting component index maintenance: 0.001 s
+% other: 0.005 s ( own 0.0000 s ) 
+

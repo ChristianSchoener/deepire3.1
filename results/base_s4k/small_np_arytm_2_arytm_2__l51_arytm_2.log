@@ -1,0 +1,56 @@
+i: [1,189,0,3,1,1,0,0] l51_arytm_2
+i: [1,195,0,3,1,0,0,255] redefinition_k12_arytm_3
+i: [1,196,0,3,1,0,0,255] d1_arytm_3
+f: 196,195,189
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for arytm_2__l51_arytm_2
+% SZS output start Proof for arytm_2__l51_arytm_2
+1. k12_arytm_3 = 1 [input l51_arytm_2]
+2. ~k12_arytm_3 = 1 [negated conjecture 1]
+84. 1 = k1_arytm_3 [input d1_arytm_3]
+86. k12_arytm_3 = k1_arytm_3 [input redefinition_k12_arytm_3]
+90. k12_arytm_3 != 1 [flattening 2]
+189. k12_arytm_3 != 1 [cnf transformation 90] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+195. k12_arytm_3 = k1_arytm_3 [cnf transformation 86] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+196. 1 = k1_arytm_3 [cnf transformation 84] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+294. 1 <=> k12_arytm_3 = 1 [avatar definition]
+297. ~1 [avatar split clause 189,294]
+324. 7 <=> k12_arytm_3 = k1_arytm_3 [avatar definition]
+327. 7 [avatar split clause 195,324]
+329. 8 <=> 1 = k1_arytm_3 [avatar definition]
+332. 8 [avatar split clause 196,329]
+468. k12_arytm_3 != k1_arytm_3 | 1 != k1_arytm_3 | k12_arytm_3 = 1 [theory tautology sat conflict] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:1,thDist:-1}
+469. $false [avatar sat refutation 297,327,332,468] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:86,thDist:-86}
+% SZS output end Proof for arytm_2__l51_arytm_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 88
+% >>> Preprocessing
+% Introduced skolems: 18
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 102
+% Generated clauses: 102
+% Passive clauses: 66
+% Final passive clauses: 66
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 38
+% SAT solver unit clauses: 35
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% sat proof minimization: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

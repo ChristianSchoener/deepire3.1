@@ -314,7 +314,7 @@ class CatAndNonLinearMultiary(torch.nn.Module):
      
   #   return args[:the_len]
 
-def get_initial_model(thax_sign,deriv_arits):
+def get_initial_model(thax_sign, deriv_arits):
   if HP.CUDA and torch.cuda.is_available():
     device = "cuda"
   else:
@@ -328,18 +328,18 @@ def get_initial_model(thax_sign,deriv_arits):
   deriv_mlps = torch.nn.ModuleDict().to(device)
   for rule,arit in deriv_arits.items():
     if arit <= 2:
-      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE,arit).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE, arit).to(device)
     else:
       assert(arit == 3)
-      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE,2).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE, 2).to(device)
 
   eval_net = torch.nn.Sequential(
     torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-    torch.nn.Linear(HP.EMBED_SIZE,HP.EMBED_SIZE*HP.BOTTLENECK_EXPANSION_RATIO//2),
+    torch.nn.Linear(HP.EMBED_SIZE, HP.EMBED_SIZE * HP.BOTTLENECK_EXPANSION_RATIO // 2),
     torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
     torch.nn.Linear(HP.EMBED_SIZE,1)).to(device)
 
-  return torch.nn.ModuleList([init_embeds,deriv_mlps,eval_net])
+  return torch.nn.ModuleList([init_embeds, deriv_mlps, eval_net])
   
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
@@ -368,30 +368,6 @@ def name_raw_data_suffix():
     HP.ThaxSourceName(HP.THAX_SOURCE),
     HP.USE_SINE)
 
-bigpart1_matrix = '''#!/usr/bin/env python3
-
-import torch
-from torch import Tensor
-from typing import Dict, List, Tuple, Optional
-from collections import defaultdict
-import sys,random
-
-def save_net_matrix(folder,problem,initEmbeds,sine_embellisher,deriv_mlps,eval_net):
-  
-  # This is, how we envision inference:
-  class InfRecNet(torch.nn.Module):
-    init_abstractions : Dict[str, int]
-    deriv_abstractions : Dict[str, int]
-    
-    abs_ids : Dict[int, int] # each id gets its abs_id
-    embed_store : Dict[int, Tensor] # each abs_id (lazily) stores its embedding
-    eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
-
-    initEmbeds : Dict[str, Tensor]
-    
-    def __init__(self,
-        initEmbeds : Dict[str, Tensor],'''
-
 bigpart1 = '''#!/usr/bin/env python3
 
 import torch
@@ -400,7 +376,10 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name,parts,thax_to_str):
+def save_net(name, parts, thax_to_str):
+  with torch.no_grad():
+    for param in parts.parameters():
+      param = param.to("cpu")
   for part in parts:
     
     # eval mode and no gradient
@@ -409,8 +388,8 @@ def save_net(name,parts,thax_to_str):
       param.requires_grad = False
 
   # from here on only use the updated copies
-  (init_embeds,_,sine_embellisher,deriv_mlps,eval_net) = parts
-  
+  (init_embeds, deriv_mlps, eval_net) = parts
+  sine_embellisher = torch.nn.Module()
   initEmbeds = {}
   for thax,embed in init_embeds.items():
     thax = int(thax)
@@ -427,7 +406,6 @@ def save_net(name,parts,thax_to_str):
   class InfRecNet(torch.nn.Module):
     init_abstractions : Dict[str, int]
     deriv_abstractions : Dict[str, int]
-    
     abs_ids : Dict[int, int] # each id gets its abs_id
     embed_store : Dict[int, Tensor] # each abs_id (lazily) stores its embedding
     eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
@@ -501,8 +479,29 @@ bigpart_rec2='''
       self.abs_ids[id] = abs_id
       
       if abs_id not in self.embed_store:
-        par_embeds = [self.embed_store[self.abs_ids[par]] for par in pars]
+        par_embeds = torch.stack([self.embed_store[self.abs_ids[par]].squeeze() for par in pars])
         embed = self.deriv_{}(par_embeds)
+        self.embed_store[abs_id] = embed'''
+
+bigpart_rec2_rule_52='''
+    @torch.jit.export
+    def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
+      rule = features[-1]
+      abskey = ",".join(["52"]+[str(self.abs_ids[par]) for par in pars])
+      
+      if abskey not in self.deriv_abstractions:
+        abs_id = len(self.deriv_abstractions)
+        self.deriv_abstractions[abskey] = abs_id
+      else:
+        abs_id = self.deriv_abstractions[abskey]
+      
+      # assumes this is called exactly once
+      self.abs_ids[id] = abs_id
+      
+      if abs_id not in self.embed_store:
+        par_embeds = [self.embed_store[self.abs_ids[par]].squeeze() for par in pars]
+        limits = torch.cumsum(torch.tensor([0]+[len(i) for i in par_embeds]), dim=0)
+        embed = self.deriv_52(torch.stack(par_embeds), limits, "cpu")
         self.embed_store[abs_id] = embed'''
 
 bigpart_avat = '''
@@ -521,7 +520,7 @@ bigpart_avat = '''
       self.abs_ids[id] = abs_id
       
       if abs_id not in self.embed_store:
-        par_embeds = [self.embed_store[self.abs_ids[par]]]
+        par_embeds = torch.stack([self.embed_store[self.abs_ids[par]].squeeze()])
         embed = self.deriv_666(par_embeds) # special avatar code
         self.embed_store[abs_id] = embed'''
 
@@ -530,72 +529,42 @@ bigpart3 = '''
     initEmbeds,
     sine_embellisher,'''
 
-bigpart4_matrix = '''    eval_net
-    )
-  script = torch.jit.script(module)
-  script.save(folder+"/"+problem+".model")'''
-
 bigpart4 = '''    eval_net
     )
   script = torch.jit.script(module)
   script.save(name)'''
 
 def create_saver(deriv_arits):
-  if HP.TRANSFORM_EMBEDDING:
-    with open("inf_saver_matrix.py","w") as f:
-      print(bigpart1_matrix,file=f)
-      for rule in sorted(deriv_arits):
-        print("        deriv_{} : torch.nn.Module,".format(rule),file=f)
+  with open("inf_saver.py", "w") as f:
 
-      print(bigpart2,file=f)
+    print(bigpart1, file=f)
 
-      for rule in sorted(deriv_arits):
-        print("      self.deriv_{} = deriv_{}".format(rule,rule),file=f)
-      print("      self.eval_net = eval_net",file=f)
+    for rule in sorted(deriv_arits):
+      print("        deriv_{} : torch.nn.Module,".format(rule), file=f)
 
-      print(bigpart_no_longer_rec1,file=f)
+    print(bigpart2,file=f)
 
-      for rule in sorted(deriv_arits):
-        if rule < 666: # avatar done differently in bigpart3
-          print(bigpart_rec2.format(str(rule),str(rule)),file=f)
+    for rule in sorted(deriv_arits):
+      print("      self.deriv_{} = deriv_{}".format(rule,rule), file=f)
+    print("      self.eval_net = eval_net", file=f)
 
-      if 666 in deriv_arits:
-        print(bigpart_avat,file=f)
+    print(bigpart_no_longer_rec1, file=f)
 
-      print(bigpart3,file=f)
+    for rule in sorted(deriv_arits):
+      if rule not in [52, 666]: # avatar done differently in bigpart3, rul_52, too
+        print(bigpart_rec2.format(str(rule), str(rule)), file=f)
 
-      for rule in sorted(deriv_arits):
-        print("    deriv_mlps['{}'],".format(rule),file=f)
-      if HP.TRANSFORM_EMBEDDING:
-        print(bigpart4_matrix,file=f)
-  else:
-    with open("inf_saver.py","w") as f:
+    if 666 in deriv_arits:
+      print(bigpart_avat, file=f)
 
-      print(bigpart1,file=f)
+    if 52 in deriv_arits:
+      print(bigpart_rec2_rule_52, file=f)
 
-      for rule in sorted(deriv_arits):
-        print("        deriv_{} : torch.nn.Module,".format(rule),file=f)
+    print(bigpart3, file=f)
 
-      print(bigpart2,file=f)
-
-      for rule in sorted(deriv_arits):
-        print("      self.deriv_{} = deriv_{}".format(rule,rule),file=f)
-      print("      self.eval_net = eval_net",file=f)
-
-      print(bigpart_no_longer_rec1,file=f)
-
-      for rule in sorted(deriv_arits):
-        if rule < 666: # avatar done differently in bigpart3
-          print(bigpart_rec2.format(str(rule),str(rule)),file=f)
-
-      if 666 in deriv_arits:
-        print(bigpart_avat,file=f)
-
-      print(bigpart3,file=f)
-
-      for rule in sorted(deriv_arits):
-        print("    deriv_mlps['{}'],".format(rule),file=f)
-      print(bigpart4,file=f)
+    for rule in sorted(deriv_arits):
+      print("    deriv_mlps['{}'],".format(rule), file=f)
+    print(bigpart4, file=f)
  
 # Learning model class
 class LearningModel(torch.nn.Module):
@@ -654,6 +623,7 @@ class LearningModel(torch.nn.Module):
     if HP.FOCAL_LOSS:
       val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
       contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+      # contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * torch.log(1. - val_sigmoid)
 
     self.loss = ((self.pos + self.neg) * contrib).sum()
 
@@ -907,8 +877,8 @@ def axiom_names_instead_of_thax(axiom_hist, prob_data_list):
   return thax_sign, prob_data_list, thax_to_str
 
 def setup_pos_vals_neg_vals(prob_data):
-  (probname,probweight,size),(init,deriv,pars,selec,good,axioms) = prob_data
-  print(probname,len(init),len(deriv),len(pars),len(selec),len(good),len(axioms))
+  (probname, probweight, size), (init, deriv, pars, selec, good, axioms) = prob_data
+  print(probname, len(init), len(deriv), len(pars), len(selec), len(good), len(axioms))
 
   pos_vals = {}
   neg_vals = {}
@@ -918,17 +888,25 @@ def setup_pos_vals_neg_vals(prob_data):
   # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
   # one_clause_weigth = 1.0/len(selec)
 
+  # New strategy: Apply the recursive depth of a node as it's weight. So inititals get 1, children of depth max. n get 1/n, ... 
+
+  # depths = {}
+  # for id in [x for x, _ in init]:
+  #   depths[id] = 1
+  # for id in [x for x, _ in deriv]:
+  #   depths[id] = max(depths[id2] for id2 in pars[id]) + 1
+
   for id in selec:
     if id in good:
+      pos_vals[id] = 1.0
+      tot_pos += 1.0
       # pos_vals[id] = one_clause_weigth
       # tot_pos += one_clause_weigth
-      pos_vals[id] = 1
-      tot_pos += 1
     else:
+      neg_vals[id] = 1.0
+      tot_neg += 1.0
       # neg_vals[id] = one_clause_weigth
       # tot_neg += one_clause_weigth
-      neg_vals[id] = 1
-      tot_neg += 1
 
   return ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
 
@@ -996,20 +974,32 @@ def distribute_weights(prob_data_list):
       if id in p[1][4]:
         id_dict[id]["neg"] = p[1][4][id]
 
-  print("Averaging pos/neg vals.", flush=True)
-  for id in id_dict:
-    if "pos" in id_dict[id]:
-      id_dict[id]["pos"] /= len(id_dict[id]["probs"])
-    if "neg" in id_dict[id]:
-      id_dict[id]["neg"] /= len(id_dict[id]["probs"])
-
-  print("Distributing mean pos/neg vals to problems.", flush=True)
-  for id in id_dict:
-    for prob in id_dict[id]["probs"]:
+  print("Setting pos/neg vals in problems to 1. / depth and then normalize them to total of 1. If problem has positive and negative value, negative gets erased (Otherwise code doesn't work well).", flush=True)
+  for i, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
+    tot_pos = 0.0
+    tot_neg = 0.0
+    depths = {}
+    for id in [x for x, _ in init]:
+      depths[id] = 1
+    for id in [x for x, _ in deriv]:
+      depths[id] = max(depths[id2] for id2 in pars[id]) + 1
+    for id in set(id_dict.keys()) & set(depths.keys()):
       if "pos" in id_dict[id]:
-        prob_data_list[prob][1][3][id] = id_dict[id]["pos"]
+        pos_vals[id] = 1. / depths[id]
+        tot_pos += 1. / depths[id]
+        if "neg" in id_dict[id]:
+          del id_dict[id]["neg"]
+          if id in neg_vals:
+            del neg_vals[id]
       if "neg" in id_dict[id]:
-        prob_data_list[prob][1][4][id] = id_dict[id]["neg"]
+        neg_vals[id] = 1. / depths[id]
+        tot_neg += 1. / depths[id]
+    factor = 1. / (tot_pos + tot_neg)    
+    for id in pos_vals:
+      pos_vals[id] *= factor
+    for id in neg_vals:
+      neg_vals[id] *= factor
+    prob_data_list[i] = a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)
 
   return prob_data_list
 
@@ -1057,6 +1047,9 @@ def compress_prob_data(some_probs, flag=False):
   
   abs2new = {} # maps (thax/rule,par_new_ids) to new_id (the structurally hashed one)
   
+  new_id_counter_pos = {}
+  new_id_counter_neg = {}
+
   out_init = []
   out_deriv = []
   out_pars = {}
@@ -1099,17 +1092,25 @@ def compress_prob_data(some_probs, flag=False):
         id_cnt += 1
         out_deriv.append((new_id, features))
         out_pars[new_id] = new_pars
-        abs2new[abskey] = new_id    
+        abs2new[abskey] = new_id
       old2new[i][old_id] = abs2new[abskey]
 
     for k, v in pos_vals.items():
       if v > 0.0:
         new_id = old2new[i][k]
+        if new_id not in new_id_counter_pos:
+          new_id_counter_pos[new_id] = 1
+        else:  
+          new_id_counter_pos[new_id] += 1
         out_pos_vals[new_id] = out_pos_vals.get(new_id, 0.0) + v
 
     for k, v in neg_vals.items():
       if v > 0.0:
         new_id = old2new[i][k]
+        if new_id not in new_id_counter_neg:
+          new_id_counter_neg[new_id] = 1
+        else:  
+          new_id_counter_neg[new_id] += 1
         out_neg_vals[new_id] = out_neg_vals.get(new_id, 0.0) + v
 
     if flag:
@@ -1126,10 +1127,15 @@ def compress_prob_data(some_probs, flag=False):
             checklist_neg.add(new_id)
             num_to_neg_vals.setdefault(i, set()).add(new_id)
 
-    out_tot_pos += tot_pos
-    out_tot_neg += tot_neg
+  # for k in out_pos_vals:
+  #   out_pos_vals[k] /= new_id_counter_pos[k]
+  # for k in out_neg_vals:
+  #   out_neg_vals[k] /= new_id_counter_neg[k]
 
-  # print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
+  out_tot_pos = sum(out_pos_vals.values())
+  out_tot_neg = sum(out_pos_vals.values())
+
+  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
   result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg, out_axioms)
 
   if flag:

@@ -1,0 +1,53 @@
+i: [1,302,0,4,1,1,0,0] t65_classes2
+i: [1,322,0,4,1,0,0,255] l75_classes2
+f: 322,302
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for classes2__t65_classes2
+% SZS output start Proof for classes2__t65_classes2
+1. k16_classes2(k1_xboole_0) = k13_classes2 [input t65_classes2]
+2. ~k16_classes2(k1_xboole_0) = k13_classes2 [negated conjecture 1]
+133. ! [X0] : (v3_ordinal1(X0) => ! [X1] : ((v1_funct_1(X1) & v5_ordinal1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k16_classes2(X2))) & k9_xtuple_0(X1) = X0 & v4_ordinal1(X0)) => (k16_classes2(X0) = k15_classes2(k3_card_3(X1)) | k1_xboole_0 = X0)))) & ! [X0] : (v3_ordinal1(X0) => k16_classes2(k1_ordinal1(X0)) = k1_classes1(k16_classes2(X0))) & k16_classes2(k1_xboole_0) = k13_classes2 [input l75_classes2]
+134. k16_classes2(k1_xboole_0) != k13_classes2 [flattening 2]
+135. ! [X0] : (v3_ordinal1(X0) => ! [X1] : ((v1_funct_1(X1) & v5_ordinal1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k16_classes2(X2))) & k9_xtuple_0(X1) = X0 & v4_ordinal1(X0)) => (k16_classes2(X0) = k15_classes2(k3_card_3(X1)) | k1_xboole_0 = X0)))) & ! [X3] : (v3_ordinal1(X3) => k16_classes2(k1_ordinal1(X3)) = k1_classes1(k16_classes2(X3))) & k16_classes2(k1_xboole_0) = k13_classes2 [rectify 133]
+146. ! [X3] : (v3_ordinal1(X3) => k16_classes2(k1_ordinal1(X3)) = k1_classes1(k16_classes2(X3))) & k16_classes2(k1_xboole_0) = k13_classes2 [pure predicate removal 135]
+152. ! [X3] : (k16_classes2(k1_ordinal1(X3)) = k1_classes1(k16_classes2(X3)) | ~v3_ordinal1(X3)) & k16_classes2(k1_xboole_0) = k13_classes2 [ennf transformation 146]
+246. ! [X0] : (k16_classes2(k1_ordinal1(X0)) = k1_classes1(k16_classes2(X0)) | ~v3_ordinal1(X0)) & k16_classes2(k1_xboole_0) = k13_classes2 [rectify 152]
+302. k16_classes2(k1_xboole_0) != k13_classes2 [cnf transformation 134] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+322. k16_classes2(k1_xboole_0) = k13_classes2 [cnf transformation 246] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+467. 1 <=> k16_classes2(k1_xboole_0) = k13_classes2 [avatar definition]
+470. ~1 [avatar split clause 302,467]
+558. 1 [avatar split clause 322,467]
+699. $false [avatar sat refutation 470,558] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:126,thDist:-126}
+% SZS output end Proof for classes2__t65_classes2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 132
+% >>> Preprocessing
+% Introduced skolems: 27
+% Pure predicates: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 164
+% Generated clauses: 164
+% Passive clauses: 107
+% Final passive clauses: 107
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 51
+% SAT solver unit clauses: 49
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

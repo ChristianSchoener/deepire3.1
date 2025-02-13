@@ -1,0 +1,219 @@
+i: [1,39,0,3,1,1,0,0] l4_xtuple_0
+a: [3,65,0,3,1,39]
+s: 65
+i: [1,38,0,3,1,1,0,0] l4_xtuple_0
+a: [3,70,0,3,1,38]
+s: 70
+i: [1,37,0,7,1,1,0,0] l4_xtuple_0
+a: [3,75,0,7,1,37]
+s: 75
+i: [1,40,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,80,0,2,1,40]
+s: 80
+i: [1,41,0,2,1,0,0,255] fc1_xboole_0
+a: [3,85,0,2,1,41]
+s: 85
+i: [1,55,0,2,1,0,0,2] rc2_xboole_0
+a: [3,95,0,2,1,55]
+s: 95
+i: [1,56,0,2,1,0,0,2] rc1_xboole_0
+a: [3,100,0,2,1,56]
+s: 100
+i: [1,42,0,3,1,0,0,255] d2_xboole_0
+a: [3,90,0,3,1,42]
+s: 90
+r: 80
+i: [1,52,0,4,1,0,0,1] fc3_xboole_0
+s: 52
+i: [1,43,0,5,2,0,0,255] t6_boole
+s: 43
+i: [1,45,0,5,2,0,0,255] t7_boole
+s: 45
+i: [1,58,0,5,1,0,0,255] d2_tarski
+s: 58
+i: [1,60,0,5,1,0,0,255] d2_tarski
+s: 60
+d: [2,107,1,5,1,1,44,58,75]
+a: [3,111,1,5,1,107]
+s: 111
+i: [1,54,0,6,2,0,0,255] antisymmetry_r2_hidden
+s: 54
+i: [1,44,0,7,3,0,0,1] t8_boole
+s: 44
+d: [2,114,1,5,1,1,44,60,75]
+a: [3,118,1,5,1,114]
+s: 118
+i: [1,53,0,7,1,0,0,1] commutativity_k2_tarski
+s: 53
+d: [2,123,2,5,1,1,40,54,111]
+a: [3,127,2,5,1,123]
+s: 127
+i: [1,61,0,11,3,0,0,255] d2_tarski
+s: 61
+i: [1,50,0,17,3,0,0,255] d2_tarski
+s: 50
+d: [2,144,2,6,2,1,40,61,111]
+d: [2,149,2,3,1,2,21,144,65]
+a: [3,153,2,3,1,149]
+s: 153
+r: 127
+r: 111
+r: 75
+d: [2,163,0,7,1,2,23,75,153]
+a: [3,173,0,7,1,163]
+s: 173
+d: [2,145,2,6,2,1,40,61,118]
+d: [2,155,2,3,1,2,21,145,70]
+a: [3,159,2,3,1,155]
+s: 159
+r: 173
+r: 118
+d: [2,196,0,7,1,2,23,173,159]
+a: [3,202,0,7,1,196]
+s: 202
+i: [1,51,0,17,3,0,0,255] d2_tarski
+s: 51
+d: [2,164,3,3,1,2,44,65,153]
+a: [3,178,3,3,1,164]
+s: 178
+i: [1,49,0,23,4,0,0,255] d2_tarski
+s: 49
+d: [2,129,2,5,1,1,40,118,54]
+a: [3,134,2,5,1,129]
+s: 134
+d: [2,180,1,7,1,1,44,173,53]
+a: [3,191,1,7,1,180]
+s: 191
+d: [2,205,1,11,3,1,44,61,202]
+d: [2,209,1,8,2,1,18,205]
+s: 209
+d: [2,216,4,0,0,2,52,178,60,209]
+e: 216
+d: [2,218,2,3,1,1,40,209,60]
+d: [2,221,2,0,0,2,21,218,178]
+e: 221
+d: [2,198,3,3,1,2,44,70,159]
+f: 221,198,196,163,155,149,114,107,37,38,39
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xtuple_0__l4_xtuple_0
+% SZS output start Proof for xtuple_0__l4_xtuple_0
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ~(X0 != X3 & X0 != X2 & k2_tarski(X0,X1) = k2_tarski(X2,X3)) [input l4_xtuple_0]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ~(X0 != X3 & X0 != X2 & k2_tarski(X0,X1) = k2_tarski(X2,X3)) [negated conjecture 1]
+5. ! [X0] : ! [X1] : ! [X2] : (k2_tarski(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> (X1 = X3 | X0 = X3))) [input d2_tarski]
+17. ~! [X0,X1,X2,X3] : ~(X0 != X3 & X0 != X2 & k2_tarski(X0,X1) = k2_tarski(X2,X3)) [flattening 2]
+20. ! [X0,X1,X2] : (k2_tarski(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X2) <=> (X1 = X3 | X0 = X3))) [flattening 5]
+21. ? [X0,X1,X2,X3] : (X0 != X3 & X0 != X2 & k2_tarski(X0,X1) = k2_tarski(X2,X3)) [ennf transformation 17]
+26. ? [X0,X1,X2,X3] : (X0 != X3 & X0 != X2 & k2_tarski(X0,X1) = k2_tarski(X2,X3)) => (sK0 != sK3 & sK0 != sK2 & k2_tarski(sK0,sK1) = k2_tarski(sK2,sK3)) [choice axiom]
+27. sK0 != sK3 & sK0 != sK2 & k2_tarski(sK0,sK1) = k2_tarski(sK2,sK3) [skolemisation 21,26]
+28. ! [X0,X1,X2] : ((k2_tarski(X0,X1) = X2 | ? [X3] : (((X1 != X3 & X0 != X3) | ~r2_hidden(X3,X2)) & ((X1 = X3 | X0 = X3) | r2_hidden(X3,X2)))) & (! [X3] : ((r2_hidden(X3,X2) | (X1 != X3 & X0 != X3)) & ((X1 = X3 | X0 = X3) | ~r2_hidden(X3,X2))) | k2_tarski(X0,X1) != X2)) [nnf transformation 20]
+29. ! [X0,X1,X2] : ((k2_tarski(X0,X1) = X2 | ? [X3] : (((X1 != X3 & X0 != X3) | ~r2_hidden(X3,X2)) & (X1 = X3 | X0 = X3 | r2_hidden(X3,X2)))) & (! [X3] : ((r2_hidden(X3,X2) | (X1 != X3 & X0 != X3)) & (X1 = X3 | X0 = X3 | ~r2_hidden(X3,X2))) | k2_tarski(X0,X1) != X2)) [flattening 28]
+30. ! [X0,X1,X2] : ((k2_tarski(X0,X1) = X2 | ? [X3] : (((X1 != X3 & X0 != X3) | ~r2_hidden(X3,X2)) & (X1 = X3 | X0 = X3 | r2_hidden(X3,X2)))) & (! [X4] : ((r2_hidden(X4,X2) | (X1 != X4 & X0 != X4)) & (X1 = X4 | X0 = X4 | ~r2_hidden(X4,X2))) | k2_tarski(X0,X1) != X2)) [rectify 29]
+31. ! [X2,X1,X0] : (? [X3] : (((X1 != X3 & X0 != X3) | ~r2_hidden(X3,X2)) & (X1 = X3 | X0 = X3 | r2_hidden(X3,X2))) => (((sK4(X0,X1,X2) != X1 & sK4(X0,X1,X2) != X0) | ~r2_hidden(sK4(X0,X1,X2),X2)) & (sK4(X0,X1,X2) = X1 | sK4(X0,X1,X2) = X0 | r2_hidden(sK4(X0,X1,X2),X2)))) [choice axiom]
+32. ! [X0,X1,X2] : ((k2_tarski(X0,X1) = X2 | (((sK4(X0,X1,X2) != X1 & sK4(X0,X1,X2) != X0) | ~r2_hidden(sK4(X0,X1,X2),X2)) & (sK4(X0,X1,X2) = X1 | sK4(X0,X1,X2) = X0 | r2_hidden(sK4(X0,X1,X2),X2)))) & (! [X4] : ((r2_hidden(X4,X2) | (X1 != X4 & X0 != X4)) & (X1 = X4 | X0 = X4 | ~r2_hidden(X4,X2))) | k2_tarski(X0,X1) != X2)) [skolemisation 30,31]
+37. k2_tarski(sK0,sK1) = k2_tarski(sK2,sK3) [cnf transformation 27] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+38. sK0 != sK2 [cnf transformation 27] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+39. sK0 != sK3 [cnf transformation 27] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+46. X1 = X4 | X0 = X4 | ~r2_hidden(X4,X2) | k2_tarski(X0,X1) != X2 [cnf transformation 32] {a:0,w:14,wCS:5600,sine:255,thAx:0,allAx:2,thDist:-2}
+47. r2_hidden(X4,X2) | X0 != X4 | k2_tarski(X0,X1) != X2 [cnf transformation 32] {a:0,w:11,wCS:4400,sine:255,thAx:0,allAx:2,thDist:-2}
+48. r2_hidden(X4,X2) | X1 != X4 | k2_tarski(X0,X1) != X2 [cnf transformation 32] {a:0,w:11,wCS:4400,sine:255,thAx:0,allAx:2,thDist:-2}
+57. r2_hidden(X4,X2) | k2_tarski(X0,X4) != X2 [equality resolution 48] {a:0,w:8,wCS:3200,sine:255,thAx:0,allAx:2,thDist:-2}
+58. r2_hidden(X4,k2_tarski(X0,X4)) [equality resolution 57] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+59. r2_hidden(X4,X2) | k2_tarski(X4,X1) != X2 [equality resolution 47] {a:0,w:8,wCS:3200,sine:255,thAx:0,allAx:2,thDist:-2}
+60. r2_hidden(X4,k2_tarski(X4,X1)) [equality resolution 59] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+61. ~r2_hidden(X4,k2_tarski(X0,X1)) | X0 = X4 | X1 = X4 [equality resolution 46] {a:0,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+63. 1 <=> sK0 = sK3 [avatar definition]
+65. sK0 != sK3 <- (~1) [avatar component clause 63] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+66. ~1 [avatar split clause 39,63]
+68. 2 <=> sK0 = sK2 [avatar definition]
+70. sK0 != sK2 <- (~2) [avatar component clause 68] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+71. ~2 [avatar split clause 38,68]
+73. 3 <=> k2_tarski(sK0,sK1) = k2_tarski(sK2,sK3) [avatar definition]
+75. k2_tarski(sK0,sK1) = k2_tarski(sK2,sK3) <- (3) [avatar component clause 73] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+76. 3 [avatar split clause 37,73]
+107. r2_hidden(sK3,k2_tarski(sK0,sK1)) <- (3) [superposition 58,75] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+109. 9 <=> r2_hidden(sK3,k2_tarski(sK0,sK1)) [avatar definition]
+111. r2_hidden(sK3,k2_tarski(sK0,sK1)) <- (9) [avatar component clause 109] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+112. 9 | ~3 [avatar split clause 107,73,109]
+114. r2_hidden(sK2,k2_tarski(sK0,sK1)) <- (3) [superposition 60,75] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+116. 10 <=> r2_hidden(sK2,k2_tarski(sK0,sK1)) [avatar definition]
+118. r2_hidden(sK2,k2_tarski(sK0,sK1)) <- (10) [avatar component clause 116] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+119. 10 | ~3 [avatar split clause 114,73,116]
+144. sK0 = sK3 | sK1 = sK3 <- (9) [resolution 61,111] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+145. sK0 = sK2 | sK1 = sK2 <- (10) [resolution 61,118] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+149. sK1 = sK3 <- (~1, 9) [subsumption resolution 144,65] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+151. 13 <=> sK1 = sK3 [avatar definition]
+153. sK1 = sK3 <- (13) [avatar component clause 151] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+154. 13 | 1 | ~9 [avatar split clause 149,109,63,151]
+155. sK1 = sK2 <- (~2, 10) [subsumption resolution 145,70] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+157. 14 <=> sK1 = sK2 [avatar definition]
+159. sK1 = sK2 <- (14) [avatar component clause 157] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+160. 14 | 2 | ~10 [avatar split clause 155,116,68,157]
+163. k2_tarski(sK0,sK1) = k2_tarski(sK2,sK1) <- (3, 13) [backward demodulation 75,153] {a:0,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+171. 16 <=> k2_tarski(sK0,sK1) = k2_tarski(sK2,sK1) [avatar definition]
+173. k2_tarski(sK0,sK1) = k2_tarski(sK2,sK1) <- (16) [avatar component clause 171] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+174. 16 | ~3 | ~13 [avatar split clause 163,151,73,171]
+176. 17 <=> sK0 = sK1 [avatar definition]
+178. sK0 != sK1 <- (~17) [avatar component clause 176] {a:3,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+196. k2_tarski(sK0,sK1) = k2_tarski(sK1,sK1) <- (14, 16) [backward demodulation 173,159] {a:0,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+198. sK0 != sK1 <- (~2, 14) [superposition 70,159] {a:3,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+200. 19 <=> k2_tarski(sK0,sK1) = k2_tarski(sK1,sK1) [avatar definition]
+202. k2_tarski(sK0,sK1) = k2_tarski(sK1,sK1) <- (19) [avatar component clause 200] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+203. 19 | ~14 | ~16 [avatar split clause 196,171,157,200]
+204. ~17 | 2 | ~14 [avatar split clause 198,157,68,176]
+205. ~r2_hidden(X0,k2_tarski(sK0,sK1)) | sK1 = X0 | sK1 = X0 <- (19) [superposition 61,202] {a:1,w:11,wCS:1100,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+209. ~r2_hidden(X0,k2_tarski(sK0,sK1)) | sK1 = X0 <- (19) [duplicate literal removal 205] {a:1,w:8,wCS:800,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+218. sK0 = sK1 <- (19) [resolution 209,60] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+221. $false <- (~17, 19) [subsumption resolution 218,178] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+222. 17 | ~19 [avatar contradiction clause 221]
+223. $false [avatar sat refutation 66,71,76,112,119,154,160,174,203,204,222] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:153,thDist:-153}
+% SZS output end Proof for xtuple_0__l4_xtuple_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 15
+% Introduced skolems: 7
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 98
+% Active clauses: 29
+% Passive clauses: 40
+% Final active clauses: 23
+% Final passive clauses: 9
+% Main loop iterations started: 31
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 1
+% Fw subsumption resolutions: 3
+% Fw demodulations: 2
+% Bw demodulations: 6
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Equational tautologies: 3
+% Forward subsumptions: 23
+% 
+% >>> Generating Inferences
+% Binary resolution: 18
+% Unit resulting resolution: 1
+% Forward superposition: 8
+% Backward superposition: 19
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 28
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 10
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.004 s
+

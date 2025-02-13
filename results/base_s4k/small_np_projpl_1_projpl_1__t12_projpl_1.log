@@ -1,0 +1,231 @@
+i: [1,29,0,2,1,1,0,0] t12_projpl_1
+a: [3,89,0,2,1,29]
+s: 89
+i: [1,32,0,4,1,1,0,0] t12_projpl_1
+a: [3,74,0,4,1,32]
+s: 74
+i: [1,31,0,4,1,1,0,0] t12_projpl_1
+a: [3,79,0,4,1,31]
+s: 79
+i: [1,30,0,4,1,1,0,0] t12_projpl_1
+a: [3,84,0,4,1,30]
+s: 84
+i: [1,34,0,25,5,1,0,0] t12_projpl_1
+a: [3,52,0,5,1,34]
+s: 52
+i: [1,33,0,5,1,1,0,0] t12_projpl_1
+a: [3,69,0,5,1,33]
+s: 69
+i: [1,42,0,2,1,0,0,2] rc2_xboole_0
+a: [3,94,0,2,1,42]
+s: 94
+i: [1,43,0,2,1,0,0,2] rc1_xboole_0
+a: [3,99,0,2,1,43]
+s: 99
+i: [1,44,0,2,1,0,0,1] existence_l1_incsp_1
+a: [3,104,0,2,1,44]
+s: 104
+i: [1,41,0,4,1,0,0,1] existence_m1_subset_1
+s: 41
+i: [1,35,0,5,2,0,0,1] dt_u1_incsp_1
+s: 35
+i: [1,36,0,24,6,0,0,1] t11_projpl_1
+s: 36
+a: [3,56,0,5,1,34]
+s: 56
+i: [1,37,0,24,6,0,0,1] t11_projpl_1
+s: 37
+d: [2,113,1,0,0,6,52,89,79,84,52,69,74,37]
+e: 113
+d: [2,114,1,19,5,1,40,37,52]
+d: [2,117,1,14,4,2,21,114,69]
+d: [2,118,1,10,3,3,21,117,74]
+d: [2,119,1,6,2,4,21,118,84]
+d: [2,120,1,2,1,5,21,119,79]
+d: [2,121,1,0,0,6,21,120,89]
+e: 121
+r: 52
+r: 56
+a: [3,51,0,5,1,34]
+s: 51
+a: [3,55,0,5,1,34]
+s: 55
+a: [3,60,0,5,1,34]
+s: 60
+a: [3,48,0,5,1,34]
+s: 48
+d: [2,145,1,0,0,6,52,89,84,74,79,69,48,36]
+e: 145
+d: [2,147,1,19,5,1,40,48,36]
+d: [2,149,1,14,4,2,21,147,69]
+d: [2,150,1,10,3,3,21,149,79]
+d: [2,151,1,6,2,4,21,150,74]
+d: [2,152,1,2,1,5,21,151,84]
+d: [2,153,1,0,0,6,21,152,89]
+e: 153
+r: 48
+r: 60
+a: [3,47,0,5,1,34]
+s: 47
+a: [3,59,0,5,1,34]
+s: 59
+a: [3,64,0,5,1,34]
+s: 64
+d: [2,155,1,0,0,6,52,89,74,79,84,55,64,37]
+e: 155
+d: [2,156,1,0,0,6,52,89,74,79,84,59,64,36]
+e: 156
+d: [2,157,1,19,5,1,40,64,37]
+d: [2,161,1,14,4,2,21,157,55]
+d: [2,162,1,10,3,3,21,161,84]
+d: [2,163,1,6,2,4,21,162,79]
+d: [2,164,1,2,1,5,21,163,74]
+d: [2,165,1,0,0,6,21,164,89]
+e: 165
+d: [2,158,1,19,5,1,40,64,36]
+d: [2,167,1,14,4,2,21,158,59]
+d: [2,168,1,10,3,3,21,167,84]
+d: [2,169,1,6,2,4,21,168,79]
+d: [2,170,1,2,1,5,21,169,74]
+d: [2,171,1,0,0,6,21,170,89]
+e: 171
+d: [2,112,1,19,5,1,40,56,36]
+d: [2,127,1,15,4,2,21,112,84]
+d: [2,128,1,11,3,3,21,127,74]
+d: [2,129,1,7,2,4,21,128,79]
+d: [2,130,1,5,1,5,21,129,89]
+d: [2,133,1,19,5,1,40,60,37]
+d: [2,135,1,15,4,2,21,133,79]
+d: [2,136,1,11,3,3,21,135,84]
+d: [2,137,1,7,2,4,21,136,74]
+d: [2,138,1,5,1,5,21,137,89]
+f: 171,153,138,130,121,29,30,31,32,33,34
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for projpl_1__t12_projpl_1
+% SZS output start Proof for projpl_1__t12_projpl_1
+1. ! [X0] : (l1_incsp_1(X0) => ! [X1] : (m1_subset_1(X1,u1_incsp_1(X0)) => ! [X2] : (m1_subset_1(X2,u1_incsp_1(X0)) => ! [X3] : (m1_subset_1(X3,u1_incsp_1(X0)) => (~r4_projpl_1(X0,X1,X2,X3) => (~r4_projpl_1(X0,X3,X2,X1) & ~r4_projpl_1(X0,X3,X1,X2) & ~r4_projpl_1(X0,X2,X3,X1) & ~r4_projpl_1(X0,X2,X1,X3) & ~r4_projpl_1(X0,X1,X3,X2))))))) [input t12_projpl_1]
+2. ~! [X0] : (l1_incsp_1(X0) => ! [X1] : (m1_subset_1(X1,u1_incsp_1(X0)) => ! [X2] : (m1_subset_1(X2,u1_incsp_1(X0)) => ! [X3] : (m1_subset_1(X3,u1_incsp_1(X0)) => (~r4_projpl_1(X0,X1,X2,X3) => (~r4_projpl_1(X0,X3,X2,X1) & ~r4_projpl_1(X0,X3,X1,X2) & ~r4_projpl_1(X0,X2,X3,X1) & ~r4_projpl_1(X0,X2,X1,X3) & ~r4_projpl_1(X0,X1,X3,X2))))))) [negated conjecture 1]
+10. ! [X0] : (l1_incsp_1(X0) => ! [X1] : (m1_subset_1(X1,u1_incsp_1(X0)) => ! [X2] : (m1_subset_1(X2,u1_incsp_1(X0)) => ! [X3] : (m1_subset_1(X3,u1_incsp_1(X0)) => (r4_projpl_1(X0,X1,X2,X3) => (r4_projpl_1(X0,X3,X2,X1) & r4_projpl_1(X0,X3,X1,X2) & r4_projpl_1(X0,X2,X3,X1) & r4_projpl_1(X0,X2,X1,X3) & r4_projpl_1(X0,X1,X3,X2))))))) [input t11_projpl_1]
+11. ? [X0] : (? [X1] : (? [X2] : (? [X3] : (((r4_projpl_1(X0,X3,X2,X1) | r4_projpl_1(X0,X3,X1,X2) | r4_projpl_1(X0,X2,X3,X1) | r4_projpl_1(X0,X2,X1,X3) | r4_projpl_1(X0,X1,X3,X2)) & ~r4_projpl_1(X0,X1,X2,X3)) & m1_subset_1(X3,u1_incsp_1(X0))) & m1_subset_1(X2,u1_incsp_1(X0))) & m1_subset_1(X1,u1_incsp_1(X0))) & l1_incsp_1(X0)) [ennf transformation 2]
+12. ? [X0] : (? [X1] : (? [X2] : (? [X3] : ((r4_projpl_1(X0,X3,X2,X1) | r4_projpl_1(X0,X3,X1,X2) | r4_projpl_1(X0,X2,X3,X1) | r4_projpl_1(X0,X2,X1,X3) | r4_projpl_1(X0,X1,X3,X2)) & ~r4_projpl_1(X0,X1,X2,X3) & m1_subset_1(X3,u1_incsp_1(X0))) & m1_subset_1(X2,u1_incsp_1(X0))) & m1_subset_1(X1,u1_incsp_1(X0))) & l1_incsp_1(X0)) [flattening 11]
+14. ! [X0] : (! [X1] : (! [X2] : (! [X3] : (((r4_projpl_1(X0,X3,X2,X1) & r4_projpl_1(X0,X3,X1,X2) & r4_projpl_1(X0,X2,X3,X1) & r4_projpl_1(X0,X2,X1,X3) & r4_projpl_1(X0,X1,X3,X2)) | ~r4_projpl_1(X0,X1,X2,X3)) | ~m1_subset_1(X3,u1_incsp_1(X0))) | ~m1_subset_1(X2,u1_incsp_1(X0))) | ~m1_subset_1(X1,u1_incsp_1(X0))) | ~l1_incsp_1(X0)) [ennf transformation 10]
+15. ! [X0] : (! [X1] : (! [X2] : (! [X3] : ((r4_projpl_1(X0,X3,X2,X1) & r4_projpl_1(X0,X3,X1,X2) & r4_projpl_1(X0,X2,X3,X1) & r4_projpl_1(X0,X2,X1,X3) & r4_projpl_1(X0,X1,X3,X2)) | ~r4_projpl_1(X0,X1,X2,X3) | ~m1_subset_1(X3,u1_incsp_1(X0))) | ~m1_subset_1(X2,u1_incsp_1(X0))) | ~m1_subset_1(X1,u1_incsp_1(X0))) | ~l1_incsp_1(X0)) [flattening 14]
+16. ? [X0] : (? [X1] : (? [X2] : (? [X3] : ((r4_projpl_1(X0,X3,X2,X1) | r4_projpl_1(X0,X3,X1,X2) | r4_projpl_1(X0,X2,X3,X1) | r4_projpl_1(X0,X2,X1,X3) | r4_projpl_1(X0,X1,X3,X2)) & ~r4_projpl_1(X0,X1,X2,X3) & m1_subset_1(X3,u1_incsp_1(X0))) & m1_subset_1(X2,u1_incsp_1(X0))) & m1_subset_1(X1,u1_incsp_1(X0))) & l1_incsp_1(X0)) => (? [X1] : (? [X2] : (? [X3] : ((r4_projpl_1(sK0,X3,X2,X1) | r4_projpl_1(sK0,X3,X1,X2) | r4_projpl_1(sK0,X2,X3,X1) | r4_projpl_1(sK0,X2,X1,X3) | r4_projpl_1(sK0,X1,X3,X2)) & ~r4_projpl_1(sK0,X1,X2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) & m1_subset_1(X2,u1_incsp_1(sK0))) & m1_subset_1(X1,u1_incsp_1(sK0))) & l1_incsp_1(sK0)) [choice axiom]
+17. ? [X1] : (? [X2] : (? [X3] : ((r4_projpl_1(sK0,X3,X2,X1) | r4_projpl_1(sK0,X3,X1,X2) | r4_projpl_1(sK0,X2,X3,X1) | r4_projpl_1(sK0,X2,X1,X3) | r4_projpl_1(sK0,X1,X3,X2)) & ~r4_projpl_1(sK0,X1,X2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) & m1_subset_1(X2,u1_incsp_1(sK0))) & m1_subset_1(X1,u1_incsp_1(sK0))) => (? [X2] : (? [X3] : ((r4_projpl_1(sK0,X3,X2,sK1) | r4_projpl_1(sK0,X3,sK1,X2) | r4_projpl_1(sK0,X2,X3,sK1) | r4_projpl_1(sK0,X2,sK1,X3) | r4_projpl_1(sK0,sK1,X3,X2)) & ~r4_projpl_1(sK0,sK1,X2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) & m1_subset_1(X2,u1_incsp_1(sK0))) & m1_subset_1(sK1,u1_incsp_1(sK0))) [choice axiom]
+18. ? [X2] : (? [X3] : ((r4_projpl_1(sK0,X3,X2,sK1) | r4_projpl_1(sK0,X3,sK1,X2) | r4_projpl_1(sK0,X2,X3,sK1) | r4_projpl_1(sK0,X2,sK1,X3) | r4_projpl_1(sK0,sK1,X3,X2)) & ~r4_projpl_1(sK0,sK1,X2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) & m1_subset_1(X2,u1_incsp_1(sK0))) => (? [X3] : ((r4_projpl_1(sK0,X3,sK2,sK1) | r4_projpl_1(sK0,X3,sK1,sK2) | r4_projpl_1(sK0,sK2,X3,sK1) | r4_projpl_1(sK0,sK2,sK1,X3) | r4_projpl_1(sK0,sK1,X3,sK2)) & ~r4_projpl_1(sK0,sK1,sK2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) & m1_subset_1(sK2,u1_incsp_1(sK0))) [choice axiom]
+19. ? [X3] : ((r4_projpl_1(sK0,X3,sK2,sK1) | r4_projpl_1(sK0,X3,sK1,sK2) | r4_projpl_1(sK0,sK2,X3,sK1) | r4_projpl_1(sK0,sK2,sK1,X3) | r4_projpl_1(sK0,sK1,X3,sK2)) & ~r4_projpl_1(sK0,sK1,sK2,X3) & m1_subset_1(X3,u1_incsp_1(sK0))) => ((r4_projpl_1(sK0,sK3,sK2,sK1) | r4_projpl_1(sK0,sK3,sK1,sK2) | r4_projpl_1(sK0,sK2,sK3,sK1) | r4_projpl_1(sK0,sK2,sK1,sK3) | r4_projpl_1(sK0,sK1,sK3,sK2)) & ~r4_projpl_1(sK0,sK1,sK2,sK3) & m1_subset_1(sK3,u1_incsp_1(sK0))) [choice axiom]
+20. ((((r4_projpl_1(sK0,sK3,sK2,sK1) | r4_projpl_1(sK0,sK3,sK1,sK2) | r4_projpl_1(sK0,sK2,sK3,sK1) | r4_projpl_1(sK0,sK2,sK1,sK3) | r4_projpl_1(sK0,sK1,sK3,sK2)) & ~r4_projpl_1(sK0,sK1,sK2,sK3) & m1_subset_1(sK3,u1_incsp_1(sK0))) & m1_subset_1(sK2,u1_incsp_1(sK0))) & m1_subset_1(sK1,u1_incsp_1(sK0))) & l1_incsp_1(sK0) [skolemisation 12,19,18,17,16]
+29. l1_incsp_1(sK0) [cnf transformation 20] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+30. m1_subset_1(sK1,u1_incsp_1(sK0)) [cnf transformation 20] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+31. m1_subset_1(sK2,u1_incsp_1(sK0)) [cnf transformation 20] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+32. m1_subset_1(sK3,u1_incsp_1(sK0)) [cnf transformation 20] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+33. ~r4_projpl_1(sK0,sK1,sK2,sK3) [cnf transformation 20] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+34. r4_projpl_1(sK0,sK3,sK2,sK1) | r4_projpl_1(sK0,sK3,sK1,sK2) | r4_projpl_1(sK0,sK2,sK3,sK1) | r4_projpl_1(sK0,sK2,sK1,sK3) | r4_projpl_1(sK0,sK1,sK3,sK2) [cnf transformation 20] {a:0,w:25,wCS:2500,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+36. ~r4_projpl_1(X0,X1,X2,X3) | r4_projpl_1(X0,X1,X3,X2) | ~m1_subset_1(X3,u1_incsp_1(X0)) | ~m1_subset_1(X2,u1_incsp_1(X0)) | ~m1_subset_1(X1,u1_incsp_1(X0)) | ~l1_incsp_1(X0) [cnf transformation 15] {a:0,w:24,wCS:9600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+37. ~r4_projpl_1(X0,X1,X2,X3) | r4_projpl_1(X0,X2,X1,X3) | ~m1_subset_1(X3,u1_incsp_1(X0)) | ~m1_subset_1(X2,u1_incsp_1(X0)) | ~m1_subset_1(X1,u1_incsp_1(X0)) | ~l1_incsp_1(X0) [cnf transformation 15] {a:0,w:24,wCS:9600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+46. 1 <=> r4_projpl_1(sK0,sK1,sK3,sK2) [avatar definition]
+48. r4_projpl_1(sK0,sK1,sK3,sK2) <- (1) [avatar component clause 46] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+50. 2 <=> r4_projpl_1(sK0,sK2,sK1,sK3) [avatar definition]
+52. r4_projpl_1(sK0,sK2,sK1,sK3) <- (2) [avatar component clause 50] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+54. 3 <=> r4_projpl_1(sK0,sK2,sK3,sK1) [avatar definition]
+56. r4_projpl_1(sK0,sK2,sK3,sK1) <- (3) [avatar component clause 54] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+58. 4 <=> r4_projpl_1(sK0,sK3,sK1,sK2) [avatar definition]
+59. ~r4_projpl_1(sK0,sK3,sK1,sK2) <- (~4) [avatar component clause 58] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+60. r4_projpl_1(sK0,sK3,sK1,sK2) <- (4) [avatar component clause 58] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+62. 5 <=> r4_projpl_1(sK0,sK3,sK2,sK1) [avatar definition]
+64. r4_projpl_1(sK0,sK3,sK2,sK1) <- (5) [avatar component clause 62] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+65. 1 | 2 | 3 | 4 | 5 [avatar split clause 34,62,58,54,50,46]
+67. 6 <=> r4_projpl_1(sK0,sK1,sK2,sK3) [avatar definition]
+69. ~r4_projpl_1(sK0,sK1,sK2,sK3) <- (~6) [avatar component clause 67] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+70. ~6 [avatar split clause 33,67]
+72. 7 <=> m1_subset_1(sK3,u1_incsp_1(sK0)) [avatar definition]
+74. m1_subset_1(sK3,u1_incsp_1(sK0)) <- (7) [avatar component clause 72] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+75. 7 [avatar split clause 32,72]
+77. 8 <=> m1_subset_1(sK2,u1_incsp_1(sK0)) [avatar definition]
+79. m1_subset_1(sK2,u1_incsp_1(sK0)) <- (8) [avatar component clause 77] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+80. 8 [avatar split clause 31,77]
+82. 9 <=> m1_subset_1(sK1,u1_incsp_1(sK0)) [avatar definition]
+84. m1_subset_1(sK1,u1_incsp_1(sK0)) <- (9) [avatar component clause 82] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+85. 9 [avatar split clause 30,82]
+87. 10 <=> l1_incsp_1(sK0) [avatar definition]
+89. l1_incsp_1(sK0) <- (10) [avatar component clause 87] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+90. 10 [avatar split clause 29,87]
+112. r4_projpl_1(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (3) [resolution 56,36] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+114. r4_projpl_1(sK0,sK1,sK2,sK3) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (2) [resolution 37,52] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+117. ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (2, ~6) [subsumption resolution 114,69] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+118. ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (2, ~6, 7) [subsumption resolution 117,74] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+119. ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (2, ~6, 7, 9) [subsumption resolution 118,84] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+120. ~l1_incsp_1(sK0) <- (2, ~6, 7, 8, 9) [subsumption resolution 119,79] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+121. $false <- (2, ~6, 7, 8, 9, 10) [subsumption resolution 120,89] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+122. ~2 | 6 | ~7 | ~8 | ~9 | ~10 [avatar contradiction clause 121]
+127. r4_projpl_1(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (3, 9) [subsumption resolution 112,84] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+128. r4_projpl_1(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (3, 7, 9) [subsumption resolution 127,74] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+129. r4_projpl_1(sK0,sK2,sK1,sK3) | ~l1_incsp_1(sK0) <- (3, 7, 8, 9) [subsumption resolution 128,79] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+130. r4_projpl_1(sK0,sK2,sK1,sK3) <- (3, 7, 8, 9, 10) [subsumption resolution 129,89] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+131. 2 | ~3 | ~7 | ~8 | ~9 | ~10 [avatar split clause 130,87,82,77,72,54,50]
+133. r4_projpl_1(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (4) [resolution 60,37] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+135. r4_projpl_1(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (4, 8) [subsumption resolution 133,79] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+136. r4_projpl_1(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (4, 8, 9) [subsumption resolution 135,84] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+137. r4_projpl_1(sK0,sK1,sK3,sK2) | ~l1_incsp_1(sK0) <- (4, 7, 8, 9) [subsumption resolution 136,74] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+138. r4_projpl_1(sK0,sK1,sK3,sK2) <- (4, 7, 8, 9, 10) [subsumption resolution 137,89] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+139. 1 | ~4 | ~7 | ~8 | ~9 | ~10 [avatar split clause 138,87,82,77,72,58,46]
+147. r4_projpl_1(sK0,sK1,sK2,sK3) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (1) [resolution 48,36] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+149. ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (1, ~6) [subsumption resolution 147,69] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+150. ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (1, ~6, 8) [subsumption resolution 149,79] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+151. ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (1, ~6, 7, 8) [subsumption resolution 150,74] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+152. ~l1_incsp_1(sK0) <- (1, ~6, 7, 8, 9) [subsumption resolution 151,84] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+153. $false <- (1, ~6, 7, 8, 9, 10) [subsumption resolution 152,89] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+154. ~1 | 6 | ~7 | ~8 | ~9 | ~10 [avatar contradiction clause 153]
+158. r4_projpl_1(sK0,sK3,sK1,sK2) | ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (5) [resolution 64,36] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+167. ~m1_subset_1(sK1,u1_incsp_1(sK0)) | ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (~4, 5) [subsumption resolution 158,59] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+168. ~m1_subset_1(sK2,u1_incsp_1(sK0)) | ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (~4, 5, 9) [subsumption resolution 167,84] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+169. ~m1_subset_1(sK3,u1_incsp_1(sK0)) | ~l1_incsp_1(sK0) <- (~4, 5, 8, 9) [subsumption resolution 168,79] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+170. ~l1_incsp_1(sK0) <- (~4, 5, 7, 8, 9) [subsumption resolution 169,74] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+171. $false <- (~4, 5, 7, 8, 9, 10) [subsumption resolution 170,89] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+172. 4 | ~5 | ~7 | ~8 | ~9 | ~10 [avatar contradiction clause 171]
+173. $false [avatar sat refutation 65,70,75,80,85,90,122,131,139,154,172] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:257,thDist:-257}
+% SZS output end Proof for projpl_1__t12_projpl_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 9
+% Introduced skolems: 8
+% 
+% >>> Saturation
+% Initial clauses: 16
+% Generated clauses: 89
+% Active clauses: 21
+% Passive clauses: 24
+% Final active clauses: 17
+% Final passive clauses: 3
+% Main loop iterations started: 21
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 40
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 10
+% Unit resulting resolution: 4
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 5
+% Sat splitting refutations: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 24
+% SAT solver unit clauses: 8
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

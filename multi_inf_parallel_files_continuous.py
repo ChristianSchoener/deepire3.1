@@ -290,13 +290,14 @@ if __name__ == "__main__":
       print("Posrate:",posrate,"+/-", posrate_dev, flush=True)
       print("Negrate:",negrate,"+/-", negrate_dev, flush=True)
 
-      if "cuda":
+      if device == "cuda":
         with torch.no_grad():
           for param in master_parts.parameters():
             if param.grad is not None:
               param.grad.zero_()
         for loss, posOK_sum, negOK_sum, tot_pos, tot_neg, time_start, time_end, problem in results:
-          his_names_and_grads = torch.load("{}/pieces/{}.part".format(sys.argv[1], problem), weights_only=False)
+          his_parts_file = "{}/pieces/{}.part".format(sys.argv[1], problem)
+          his_names_and_grads = torch.load(his_parts_file, weights_only=False)
           
           master_parts = add_grads(his_names_and_grads, master_parts)
         
@@ -313,7 +314,7 @@ if __name__ == "__main__":
         optimizer.step()
         optimizer.zero_grad()
         print(time.time() - start_time,"Finished performing optimizer.step()", flush=True)
-        # torch.cuda.empty_cache()
+        os.remove(his_parts_file)
 
       if HP.NON_CONSTANT_10_50_250_LR:
         if tt <= 40*samples_per_epoch:

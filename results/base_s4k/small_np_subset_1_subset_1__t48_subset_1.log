@@ -1,0 +1,167 @@
+i: [1,49,0,2,1,1,0,0] t48_subset_1
+a: [3,72,0,2,1,49]
+s: 72
+i: [1,50,0,6,2,1,0,0] t48_subset_1
+s: 50
+i: [1,51,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,77,0,2,1,51]
+s: 77
+i: [1,52,0,2,1,0,0,255] fc1_xboole_0
+a: [3,82,0,2,1,52]
+s: 82
+i: [1,64,0,2,1,0,0,1] rc2_zfmisc_1
+a: [3,92,0,2,1,64]
+s: 92
+i: [1,65,0,2,1,0,0,2] rc2_xboole_0
+a: [3,97,0,2,1,65]
+s: 97
+i: [1,66,0,2,1,0,0,2] rc1_xboole_0
+a: [3,102,0,2,1,66]
+s: 102
+i: [1,68,0,2,1,0,0,1] rc1_zfmisc_1
+a: [3,107,0,2,1,68]
+s: 107
+i: [1,67,0,2,1,0,0,1] rc1_zfmisc_1
+a: [3,112,0,2,1,67]
+s: 112
+i: [1,53,0,3,1,0,0,255] d2_xboole_0
+a: [3,87,0,3,1,53]
+s: 87
+r: 77
+i: [1,54,0,4,2,0,0,1] cc2_zfmisc_1
+s: 54
+d: [2,115,1,2,1,1,40,54,102]
+a: [3,120,1,2,1,115]
+s: 120
+i: [1,55,0,4,2,0,0,1] cc1_zfmisc_1
+s: 55
+d: [2,116,1,2,1,1,40,54,82]
+a: [3,125,1,2,1,116]
+s: 125
+i: [1,56,0,5,2,0,0,255] t6_boole
+s: 56
+i: [1,62,0,5,2,0,0,1] t7_boole
+s: 62
+i: [1,58,0,6,2,0,0,1] d10_zfmisc_1
+s: 58
+i: [1,59,0,6,2,0,0,1] d10_zfmisc_1
+s: 59
+d: [2,130,1,6,2,0,40,58,50]
+d: [2,132,1,4,1,1,21,130,72]
+a: [3,136,1,4,1,132]
+s: 136
+i: [1,63,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 63
+i: [1,60,0,7,2,0,0,1] d10_zfmisc_1
+s: 60
+d: [2,146,2,5,2,1,44,58,136]
+d: [2,147,2,3,1,2,21,146,72]
+a: [3,151,2,3,1,147]
+s: 151
+i: [1,61,0,7,3,0,0,1] t8_boole
+s: 61
+d: [2,157,3,2,1,1,40,151,62]
+a: [3,166,3,2,1,157]
+s: 166
+i: [1,57,0,11,4,0,0,1] d10_zfmisc_1
+s: 57
+d: [2,138,1,6,2,0,40,59,50]
+d: [2,140,1,4,1,1,21,138,72]
+a: [3,144,1,4,1,140]
+s: 144
+d: [2,171,2,6,2,1,44,60,144]
+d: [2,173,2,2,1,2,21,171,136]
+d: [2,174,2,0,0,3,21,173,72]
+e: 174
+f: 174,140,132,49
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for subset_1__t48_subset_1
+% SZS output start Proof for subset_1__t48_subset_1
+1. ! [X0] : (~v1_zfmisc_1(X0) => ! [X1] : (m1_subset_1(X1,X0) => ? [X2] : (X1 != X2 & r2_hidden(X2,X0)))) [input t48_subset_1]
+2. ~! [X0] : (~v1_zfmisc_1(X0) => ! [X1] : (m1_subset_1(X1,X0) => ? [X2] : (X1 != X2 & r2_hidden(X2,X0)))) [negated conjecture 1]
+6. ! [X0] : (v1_zfmisc_1(X0) <=> ! [X1] : ! [X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => X1 = X2)) [input d10_zfmisc_1]
+20. ! [X0] : (v1_zfmisc_1(X0) <=> ! [X1,X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => X1 = X2)) [flattening 6]
+23. ~! [X0] : (~v1_zfmisc_1(X0) => ! [X1] : ? [X2] : (X1 != X2 & r2_hidden(X2,X0))) [pure predicate removal 2]
+25. ? [X0] : (? [X1] : ! [X2] : (X1 = X2 | ~r2_hidden(X2,X0)) & ~v1_zfmisc_1(X0)) [ennf transformation 23]
+29. ! [X0] : (v1_zfmisc_1(X0) <=> ! [X1,X2] : (X1 = X2 | (~r2_hidden(X2,X0) | ~r2_hidden(X1,X0)))) [ennf transformation 20]
+30. ! [X0] : (v1_zfmisc_1(X0) <=> ! [X1,X2] : (X1 = X2 | ~r2_hidden(X2,X0) | ~r2_hidden(X1,X0))) [flattening 29]
+34. ? [X0] : (? [X1] : ! [X2] : (X1 = X2 | ~r2_hidden(X2,X0)) & ~v1_zfmisc_1(X0)) => (? [X1] : ! [X2] : (X1 = X2 | ~r2_hidden(X2,sK0)) & ~v1_zfmisc_1(sK0)) [choice axiom]
+35. ? [X1] : ! [X2] : (X1 = X2 | ~r2_hidden(X2,sK0)) => ! [X2] : (sK1 = X2 | ~r2_hidden(X2,sK0)) [choice axiom]
+36. ! [X2] : (sK1 = X2 | ~r2_hidden(X2,sK0)) & ~v1_zfmisc_1(sK0) [skolemisation 25,35,34]
+37. ! [X0] : ((v1_zfmisc_1(X0) | ? [X1,X2] : (X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0))) & (! [X1,X2] : (X1 = X2 | ~r2_hidden(X2,X0) | ~r2_hidden(X1,X0)) | ~v1_zfmisc_1(X0))) [nnf transformation 30]
+38. ! [X0] : ((v1_zfmisc_1(X0) | ? [X1,X2] : (X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0))) & (! [X3,X4] : (X3 = X4 | ~r2_hidden(X4,X0) | ~r2_hidden(X3,X0)) | ~v1_zfmisc_1(X0))) [rectify 37]
+39. ! [X0] : (? [X1,X2] : (X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (sK2(X0) != sK3(X0) & r2_hidden(sK3(X0),X0) & r2_hidden(sK2(X0),X0))) [choice axiom]
+40. ! [X0] : ((v1_zfmisc_1(X0) | (sK2(X0) != sK3(X0) & r2_hidden(sK3(X0),X0) & r2_hidden(sK2(X0),X0))) & (! [X3,X4] : (X3 = X4 | ~r2_hidden(X4,X0) | ~r2_hidden(X3,X0)) | ~v1_zfmisc_1(X0))) [skolemisation 38,39]
+49. ~v1_zfmisc_1(sK0) [cnf transformation 36] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+50. ~r2_hidden(X2,sK0) | sK1 = X2 [cnf transformation 36] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+58. r2_hidden(sK2(X0),X0) | v1_zfmisc_1(X0) [cnf transformation 40] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+59. r2_hidden(sK3(X0),X0) | v1_zfmisc_1(X0) [cnf transformation 40] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+60. sK2(X0) != sK3(X0) | v1_zfmisc_1(X0) [cnf transformation 40] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+70. 1 <=> v1_zfmisc_1(sK0) [avatar definition]
+72. ~v1_zfmisc_1(sK0) <- (~1) [avatar component clause 70] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+73. ~1 [avatar split clause 49,70]
+130. v1_zfmisc_1(sK0) | sK1 = sK2(sK0) [resolution 58,50] {a:1,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+132. sK1 = sK2(sK0) <- (~1) [subsumption resolution 130,72] {a:1,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+134. 12 <=> sK1 = sK2(sK0) [avatar definition]
+136. sK1 = sK2(sK0) <- (12) [avatar component clause 134] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+137. 12 | 1 [avatar split clause 132,70,134]
+138. v1_zfmisc_1(sK0) | sK1 = sK3(sK0) [resolution 59,50] {a:1,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+140. sK1 = sK3(sK0) <- (~1) [subsumption resolution 138,72] {a:1,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+142. 13 <=> sK1 = sK3(sK0) [avatar definition]
+144. sK1 = sK3(sK0) <- (13) [avatar component clause 142] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+145. 13 | 1 [avatar split clause 140,70,142]
+171. sK1 != sK2(sK0) | v1_zfmisc_1(sK0) <- (13) [superposition 60,144] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+173. v1_zfmisc_1(sK0) <- (12, 13) [subsumption resolution 171,136] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+174. $false <- (~1, 12, 13) [subsumption resolution 173,72] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+175. 1 | ~12 | ~13 [avatar contradiction clause 174]
+176. $false [avatar sat refutation 73,137,145,175] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:85,thDist:-85}
+% SZS output end Proof for subset_1__t48_subset_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 18
+% >>> Preprocessing
+% Introduced skolems: 8
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 62
+% Active clauses: 25
+% Passive clauses: 30
+% Final active clauses: 24
+% Final passive clauses: 4
+% Main loop iterations started: 26
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 5
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 3
+% Equational tautologies: 1
+% Forward subsumptions: 7
+% 
+% >>> Generating Inferences
+% Binary resolution: 14
+% Backward superposition: 5
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 19
+% SAT solver unit clauses: 9
+% SAT solver binary clauses: 6
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward demodulation: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

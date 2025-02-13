@@ -85,7 +85,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 1
+NUMPROCESSES = 12
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -102,7 +102,7 @@ SWAPOUT = 0.0
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
-NON_CONSTANT_10_50_250_LR = False
+NON_CONSTANT_10_50_250_LR = True
 
 # Corresponds to L2 regularization
 WEIGHT_DECAY = 0.0

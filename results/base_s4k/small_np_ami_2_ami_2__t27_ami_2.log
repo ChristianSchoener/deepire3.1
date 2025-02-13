@@ -1,0 +1,50 @@
+i: [1,550,0,6,1,1,0,0] t27_ami_2
+i: [1,568,0,6,1,0,0,1] l19_ami_2
+f: 568,550
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ami_2__t27_ami_2
+% SZS output start Proof for ami_2__t27_ami_2
+1. k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) = k1_ami_2 [input t27_ami_2]
+2. ~k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) = k1_ami_2 [negated conjecture 1]
+220. k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) = k1_ami_2 [input l19_ami_2]
+221. k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) != k1_ami_2 [flattening 2]
+550. k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) != k1_ami_2 [cnf transformation 221] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+568. k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) = k1_ami_2 [cnf transformation 220] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+944. 1 <=> k9_xtuple_0(k3_relat_1(k3_ami_2,k4_ami_2)) = k1_ami_2 [avatar definition]
+947. ~1 [avatar split clause 550,944]
+1033. 1 [avatar split clause 568,944]
+1486. $false [avatar sat refutation 947,1033] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:302,thDist:-302}
+% SZS output end Proof for ami_2__t27_ami_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 219
+% >>> Preprocessing
+% Introduced skolems: 51
+% Pure predicates: 9
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 393
+% Generated clauses: 393
+% Passive clauses: 213
+% Final passive clauses: 213
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 65
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 117
+% SAT solver unit clauses: 115
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% other: 0.003 s ( own 0.001 s ) 
+

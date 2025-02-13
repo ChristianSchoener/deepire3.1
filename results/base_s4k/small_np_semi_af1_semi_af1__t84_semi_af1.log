@@ -1,0 +1,229 @@
+i: [1,95,0,2,1,1,0,0] t84_semi_af1
+a: [3,145,0,2,1,95]
+s: 145
+i: [1,94,0,2,1,1,0,0] t84_semi_af1
+a: [3,150,0,2,1,94]
+s: 150
+i: [1,93,0,2,1,1,0,0] t84_semi_af1
+a: [3,155,0,2,1,93]
+s: 155
+i: [1,96,0,4,1,1,0,0] t84_semi_af1
+a: [3,140,0,4,1,96]
+s: 140
+i: [1,97,0,6,1,1,0,0] t84_semi_af1
+a: [3,135,0,6,1,97]
+s: 135
+i: [1,126,0,2,1,0,0,2] existence_l1_struct_0
+a: [3,160,0,2,1,126]
+s: 160
+i: [1,127,0,2,1,0,0,1] existence_l1_analoaf
+a: [3,165,0,2,1,127]
+s: 165
+i: [1,130,0,2,1,0,0,1] rc1_semi_af1
+a: [3,170,0,2,1,130]
+s: 170
+i: [1,129,0,2,1,0,0,1] rc1_semi_af1
+a: [3,175,0,2,1,129]
+s: 175
+i: [1,128,0,2,1,0,0,1] rc1_semi_af1
+a: [3,180,0,2,1,128]
+s: 180
+i: [1,112,0,4,2,0,0,1] dt_l1_analoaf
+s: 112
+d: [2,182,1,2,1,1,40,112,145]
+a: [3,188,1,2,1,182]
+s: 188
+i: [1,123,0,4,1,0,0,1] existence_m1_subset_1
+s: 123
+d: [2,183,1,2,1,1,40,112,165]
+a: [3,193,1,2,1,183]
+s: 193
+i: [1,98,0,6,3,0,0,255] cc7_struct_0
+s: 98
+i: [1,99,0,6,3,0,0,255] cc5_struct_0
+s: 99
+d: [2,184,1,2,1,1,40,112,180]
+a: [3,198,1,2,1,184]
+s: 198
+i: [1,101,0,6,3,0,0,255] cc2_struct_0
+s: 101
+d: [2,200,1,4,2,1,40,99,160]
+a: [3,206,1,2,1,200]
+s: 206
+i: [1,102,0,6,3,0,0,255] cc17_struct_0
+s: 102
+i: [1,103,0,6,3,0,0,255] cc6_struct_0
+s: 103
+d: [2,202,2,4,2,1,40,99,193]
+a: [3,215,2,2,1,202]
+s: 215
+i: [1,104,0,6,3,0,0,255] cc1_struct_0
+s: 104
+i: [1,107,0,6,3,0,0,255] cc4_struct_0
+s: 107
+i: [1,105,0,7,3,0,0,255] cc8_struct_0
+s: 105
+i: [1,108,0,7,3,0,0,255] cc9_struct_0
+s: 108
+i: [1,109,0,7,3,0,0,255] cc11_struct_0
+s: 109
+i: [1,110,0,7,3,0,0,255] cc11_struct_0
+s: 110
+i: [1,113,0,7,3,0,0,255] fc9_struct_0
+s: 113
+i: [1,114,0,7,3,0,0,255] fc6_struct_0
+s: 114
+i: [1,119,0,7,3,0,0,255] fc2_struct_0
+s: 119
+i: [1,120,0,7,3,0,0,255] fc8_struct_0
+s: 120
+i: [1,121,0,7,3,0,0,255] fc7_struct_0
+s: 121
+i: [1,122,0,7,3,0,0,255] fc1_struct_0
+s: 122
+i: [1,111,0,9,4,0,0,255] cc10_struct_0
+s: 111
+i: [1,115,0,21,6,0,0,1] t75_semi_af1
+s: 115
+i: [1,124,0,21,6,0,0,1] dt_k2_semi_af1
+s: 124
+i: [1,125,0,26,7,0,0,2] dt_k1_semi_af1
+s: 125
+i: [1,116,0,29,7,0,0,1] t78_semi_af1
+s: 116
+i: [1,118,0,31,8,0,0,1] d6_semi_af1
+s: 118
+i: [1,131,0,31,7,0,0,1] d6_semi_af1
+s: 131
+d: [2,254,1,39,12,0,44,115,116]
+d: [2,257,1,21,6,0,18,254]
+s: 257
+d: [2,268,0,24,6,0,21,131,124]
+s: 268
+d: [2,281,2,37,11,0,44,268,257]
+d: [2,287,2,23,6,0,18,281]
+d: [2,288,2,16,5,0,21,287,124]
+s: 288
+d: [2,290,3,0,0,5,52,155,150,145,140,135,288]
+e: 290
+d: [2,291,3,13,5,1,44,135,288]
+d: [2,296,3,10,4,1,19,291]
+d: [2,298,3,6,3,2,21,296,140]
+d: [2,299,3,4,2,3,21,298,145]
+d: [2,300,3,2,1,4,21,299,150]
+d: [2,301,3,0,0,5,21,300,155]
+e: 301
+f: 301,93,94,95,96,97
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for semi_af1__t84_semi_af1
+% SZS output start Proof for semi_af1__t84_semi_af1
+1. ! [X0] : ((l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => k2_semi_af1(X0,X1,X1) = X1)) [input t84_semi_af1]
+2. ~! [X0] : ((l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => k2_semi_af1(X0,X1,X1) = X1)) [negated conjecture 1]
+14. ! [X0] : ((l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (k2_semi_af1(X0,X1,X2) = X3 <=> k1_semi_af1(X0,X1,X3,X2) = X2))))) [input d6_semi_af1]
+17. ! [X0,X1,X2] : ((m1_subset_1(X2,u1_struct_0(X0)) & m1_subset_1(X1,u1_struct_0(X0)) & l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => m1_subset_1(k2_semi_af1(X0,X1,X2),u1_struct_0(X0))) [input dt_k2_semi_af1]
+32. ! [X0] : ((l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => k1_semi_af1(X0,X1,X2,X2) = X1))) [input t75_semi_af1]
+33. ! [X0] : ((l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => k1_semi_af1(X0,X1,X2,X3) = k1_semi_af1(X0,X2,X1,X3))))) [input t78_semi_af1]
+34. ? [X0] : (? [X1] : (k2_semi_af1(X0,X1,X1) != X1 & m1_subset_1(X1,u1_struct_0(X0))) & (l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0))) [ennf transformation 2]
+35. ? [X0] : (? [X1] : (k2_semi_af1(X0,X1,X1) != X1 & m1_subset_1(X1,u1_struct_0(X0))) & l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) [flattening 34]
+63. ! [X0] : (! [X1] : (! [X2] : (k1_semi_af1(X0,X1,X2,X2) = X1 | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | (~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0))) [ennf transformation 32]
+64. ! [X0] : (! [X1] : (! [X2] : (k1_semi_af1(X0,X1,X2,X2) = X1 | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0)) [flattening 63]
+65. ! [X0] : (! [X1] : (! [X2] : (! [X3] : (k1_semi_af1(X0,X1,X2,X3) = k1_semi_af1(X0,X2,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | (~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0))) [ennf transformation 33]
+66. ! [X0] : (! [X1] : (! [X2] : (! [X3] : (k1_semi_af1(X0,X1,X2,X3) = k1_semi_af1(X0,X2,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0)) [flattening 65]
+67. ! [X0] : (! [X1] : (! [X2] : (! [X3] : ((k2_semi_af1(X0,X1,X2) = X3 <=> k1_semi_af1(X0,X1,X3,X2) = X2) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | (~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0))) [ennf transformation 14]
+68. ! [X0] : (! [X1] : (! [X2] : (! [X3] : ((k2_semi_af1(X0,X1,X2) = X3 <=> k1_semi_af1(X0,X1,X3,X2) = X2) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0)) [flattening 67]
+77. ! [X0,X1,X2] : (m1_subset_1(k2_semi_af1(X0,X1,X2),u1_struct_0(X0)) | (~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0))) [ennf transformation 17]
+78. ! [X0,X1,X2] : (m1_subset_1(k2_semi_af1(X0,X1,X2),u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0)) [flattening 77]
+81. ? [X0] : (? [X1] : (k2_semi_af1(X0,X1,X1) != X1 & m1_subset_1(X1,u1_struct_0(X0))) & l1_analoaf(X0) & v1_semi_af1(X0) & ~v2_struct_0(X0)) => (? [X1] : (k2_semi_af1(sK0,X1,X1) != X1 & m1_subset_1(X1,u1_struct_0(sK0))) & l1_analoaf(sK0) & v1_semi_af1(sK0) & ~v2_struct_0(sK0)) [choice axiom]
+82. ? [X1] : (k2_semi_af1(sK0,X1,X1) != X1 & m1_subset_1(X1,u1_struct_0(sK0))) => (sK1 != k2_semi_af1(sK0,sK1,sK1) & m1_subset_1(sK1,u1_struct_0(sK0))) [choice axiom]
+83. (sK1 != k2_semi_af1(sK0,sK1,sK1) & m1_subset_1(sK1,u1_struct_0(sK0))) & l1_analoaf(sK0) & v1_semi_af1(sK0) & ~v2_struct_0(sK0) [skolemisation 35,82,81]
+84. ! [X0] : (! [X1] : (! [X2] : (! [X3] : (((k2_semi_af1(X0,X1,X2) = X3 | k1_semi_af1(X0,X1,X3,X2) != X2) & (k1_semi_af1(X0,X1,X3,X2) = X2 | k2_semi_af1(X0,X1,X2) != X3)) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0)) [nnf transformation 68]
+93. ~v2_struct_0(sK0) [cnf transformation 83] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+94. v1_semi_af1(sK0) [cnf transformation 83] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+95. l1_analoaf(sK0) [cnf transformation 83] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+96. m1_subset_1(sK1,u1_struct_0(sK0)) [cnf transformation 83] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+97. sK1 != k2_semi_af1(sK0,sK1,sK1) [cnf transformation 83] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+115. k1_semi_af1(X0,X1,X2,X2) = X1 | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [cnf transformation 64] {a:0,w:21,wCS:8400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+116. k1_semi_af1(X0,X1,X2,X3) = k1_semi_af1(X0,X2,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [cnf transformation 66] {a:0,w:29,wCS:11600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+117. k1_semi_af1(X0,X1,X3,X2) = X2 | k2_semi_af1(X0,X1,X2) != X3 | ~m1_subset_1(X3,u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [cnf transformation 84] {a:0,w:31,wCS:12400,sine:1,thAx:0,allAx:1,thDist:-1}
+124. m1_subset_1(k2_semi_af1(X0,X1,X2),u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [cnf transformation 78] {a:0,w:21,wCS:8400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+131. k1_semi_af1(X0,X1,k2_semi_af1(X0,X1,X2),X2) = X2 | ~m1_subset_1(k2_semi_af1(X0,X1,X2),u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [equality resolution 117] {a:0,w:31,wCS:12400,sine:1,thAx:0,allAx:1,thDist:-1}
+133. 1 <=> sK1 = k2_semi_af1(sK0,sK1,sK1) [avatar definition]
+135. sK1 != k2_semi_af1(sK0,sK1,sK1) <- (~1) [avatar component clause 133] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+136. ~1 [avatar split clause 97,133]
+138. 2 <=> m1_subset_1(sK1,u1_struct_0(sK0)) [avatar definition]
+140. m1_subset_1(sK1,u1_struct_0(sK0)) <- (2) [avatar component clause 138] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+141. 2 [avatar split clause 96,138]
+143. 3 <=> l1_analoaf(sK0) [avatar definition]
+145. l1_analoaf(sK0) <- (3) [avatar component clause 143] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+146. 3 [avatar split clause 95,143]
+148. 4 <=> v1_semi_af1(sK0) [avatar definition]
+150. v1_semi_af1(sK0) <- (4) [avatar component clause 148] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+151. 4 [avatar split clause 94,148]
+153. 5 <=> v2_struct_0(sK0) [avatar definition]
+155. ~v2_struct_0(sK0) <- (~5) [avatar component clause 153] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+156. ~5 [avatar split clause 93,153]
+254. k1_semi_af1(X0,X2,X1,X2) = X1 | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [superposition 115,116] {a:1,w:39,wCS:15600,sine:1,thAx:0,allAx:2,thDist:-2}
+257. k1_semi_af1(X0,X2,X1,X2) = X1 | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [duplicate literal removal 254] {a:1,w:21,wCS:8400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+268. k1_semi_af1(X0,X1,k2_semi_af1(X0,X1,X2),X2) = X2 | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v1_semi_af1(X0) | v2_struct_0(X0) [subsumption resolution 131,124] {a:0,w:24,wCS:9600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+281. k2_semi_af1(X9,X10,X10) = X10 | ~m1_subset_1(X10,u1_struct_0(X9)) | ~m1_subset_1(X10,u1_struct_0(X9)) | ~l1_analoaf(X9) | ~v1_semi_af1(X9) | v2_struct_0(X9) | ~m1_subset_1(X10,u1_struct_0(X9)) | ~m1_subset_1(k2_semi_af1(X9,X10,X10),u1_struct_0(X9)) | ~l1_analoaf(X9) | ~v1_semi_af1(X9) | v2_struct_0(X9) [superposition 268,257] {a:2,w:37,wCS:14800,sine:1,thAx:0,allAx:3,thDist:-3}
+287. k2_semi_af1(X9,X10,X10) = X10 | ~m1_subset_1(X10,u1_struct_0(X9)) | ~l1_analoaf(X9) | ~v1_semi_af1(X9) | v2_struct_0(X9) | ~m1_subset_1(k2_semi_af1(X9,X10,X10),u1_struct_0(X9)) [duplicate literal removal 281] {a:2,w:23,wCS:9200,sine:1,thAx:0,allAx:3,thDist:-3}
+288. k2_semi_af1(X9,X10,X10) = X10 | ~m1_subset_1(X10,u1_struct_0(X9)) | ~l1_analoaf(X9) | ~v1_semi_af1(X9) | v2_struct_0(X9) [subsumption resolution 287,124] {a:2,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+291. sK1 != sK1 | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v1_semi_af1(sK0) | v2_struct_0(sK0) <- (~1) [superposition 135,288] {a:3,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+296. ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v1_semi_af1(sK0) | v2_struct_0(sK0) <- (~1) [trivial inequality removal 291] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+298. ~l1_analoaf(sK0) | ~v1_semi_af1(sK0) | v2_struct_0(sK0) <- (~1, 2) [subsumption resolution 296,140] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+299. ~v1_semi_af1(sK0) | v2_struct_0(sK0) <- (~1, 2, 3) [subsumption resolution 298,145] {a:3,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+300. v2_struct_0(sK0) <- (~1, 2, 3, 4) [subsumption resolution 299,150] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+301. $false <- (~1, 2, 3, 4, ~5) [subsumption resolution 300,155] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+302. 1 | ~2 | ~3 | ~4 | 5 [avatar contradiction clause 301]
+303. $false [avatar sat refutation 136,141,146,151,156,302] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:101,thDist:-101}
+% SZS output end Proof for semi_af1__t84_semi_af1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 32
+% Introduced skolems: 6
+% 
+% >>> Saturation
+% Initial clauses: 38
+% Generated clauses: 128
+% Active clauses: 39
+% Passive clauses: 52
+% Final active clauses: 39
+% Final passive clauses: 8
+% Main loop iterations started: 44
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 127
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 7
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 12
+% Forward subsumptions: 14
+% 
+% >>> Generating Inferences
+% Binary resolution: 17
+% Unit resulting resolution: 1
+% Forward superposition: 9
+% Backward superposition: 13
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 8
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 21
+% SAT solver unit clauses: 10
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward subsumption resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

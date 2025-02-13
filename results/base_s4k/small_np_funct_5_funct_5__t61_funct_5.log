@@ -1,0 +1,194 @@
+i: [1,26,0,5,1,1,0,0] t61_funct_5
+a: [3,45,0,5,1,26]
+s: 45
+i: [1,25,0,5,1,1,0,0] t61_funct_5
+a: [3,50,0,5,1,25]
+s: 50
+i: [1,27,0,9,1,1,0,0] t61_funct_5
+a: [3,40,0,9,1,27]
+s: 40
+i: [1,33,0,3,1,0,0,2] reflexivity_r2_wellord2
+s: 33
+i: [1,28,0,6,1,0,0,1] projectivity_k1_card_1
+s: 28
+i: [1,34,0,6,2,0,0,2] symmetry_r2_wellord2
+s: 34
+i: [1,35,0,6,2,0,0,255] redefinition_r2_wellord2
+s: 35
+i: [1,36,0,6,2,0,0,255] redefinition_r2_wellord2
+s: 36
+d: [2,56,1,3,1,0,40,35,33]
+s: 56
+i: [1,29,0,8,2,0,0,1] t5_card_1
+s: 29
+i: [1,30,0,8,2,0,0,1] t5_card_1
+s: 30
+d: [2,61,1,8,2,1,44,29,50]
+s: 61
+i: [1,31,0,13,3,0,0,1] t60_funct_5
+s: 31
+d: [2,95,2,8,2,2,44,61,45]
+a: [3,112,2,3,1,95]
+s: 112
+i: [1,32,0,15,3,0,0,1] t60_funct_5
+s: 32
+d: [2,62,1,8,2,1,44,29,45]
+s: 62
+d: [2,155,2,11,3,2,44,62,61]
+a: [3,183,2,3,1,155]
+s: 183
+d: [2,66,1,8,2,1,44,29,50]
+s: 66
+d: [2,213,2,11,3,2,44,66,62]
+a: [3,240,2,3,1,213]
+s: 240
+d: [2,67,1,8,2,1,44,29,45]
+s: 67
+d: [2,71,1,8,2,1,44,50,29]
+s: 71
+a: [3,116,2,5,1,95]
+s: 116
+r: 67
+r: 62
+r: 45
+r: 116
+s: 45
+d: [2,214,2,8,2,2,44,66,45]
+a: [3,245,2,3,1,214]
+s: 245
+s: 62
+s: 67
+a: [3,115,2,5,1,95]
+s: 115
+d: [2,72,1,8,2,1,44,45,29]
+s: 72
+d: [2,177,2,12,2,2,44,40,62]
+a: [3,197,2,5,1,177]
+s: 197
+d: [2,76,1,8,2,1,44,50,29]
+s: 76
+d: [2,77,1,8,2,1,44,45,29]
+s: 77
+d: [2,158,2,11,3,2,44,62,61]
+a: [3,190,2,6,2,158]
+s: 190
+d: [2,81,1,8,2,1,44,30,50]
+s: 81
+d: [2,425,2,11,3,1,44,81,66]
+d: [2,434,2,6,2,1,19,425]
+a: [3,442,2,3,1,434]
+s: 442
+d: [2,82,1,8,2,1,44,30,45]
+s: 82
+d: [2,86,1,8,2,1,44,30,50]
+s: 86
+d: [2,478,2,11,3,1,44,82,67]
+d: [2,484,2,6,2,1,19,478]
+a: [3,492,2,3,1,484]
+s: 492
+d: [2,528,3,0,0,3,52,442,40,492,32]
+e: 528
+d: [2,431,2,3,1,1,47,81]
+d: [2,481,2,3,1,1,47,82]
+f: 528,481,431,25,26,27
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for funct_5__t61_funct_5
+% SZS output start Proof for funct_5__t61_funct_5
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ((k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1)) => k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3))) [input t61_funct_5]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ((k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1)) => k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3))) [negated conjecture 1]
+9. ! [X0] : ! [X1] : (r2_wellord2(X0,X1) <=> k1_card_1(X0) = k1_card_1(X1)) [input t5_card_1]
+10. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ((r2_wellord2(X2,X3) & r2_wellord2(X0,X1)) => (k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3)) & r2_wellord2(k1_funct_2(X0,X2),k1_funct_2(X1,X3)))) [input t60_funct_5]
+11. ~! [X0,X1,X2,X3] : ((k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1)) => k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3))) [flattening 2]
+12. ! [X0,X1] : (r2_wellord2(X0,X1) <=> k1_card_1(X0) = k1_card_1(X1)) [flattening 9]
+13. ! [X0,X1,X2,X3] : ((r2_wellord2(X2,X3) & r2_wellord2(X0,X1)) => (k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3)) & r2_wellord2(k1_funct_2(X0,X2),k1_funct_2(X1,X3)))) [flattening 10]
+16. ? [X0,X1,X2,X3] : (k1_card_1(k1_funct_2(X0,X2)) != k1_card_1(k1_funct_2(X1,X3)) & (k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1))) [ennf transformation 11]
+17. ? [X0,X1,X2,X3] : (k1_card_1(k1_funct_2(X0,X2)) != k1_card_1(k1_funct_2(X1,X3)) & k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1)) [flattening 16]
+18. ! [X0,X1,X2,X3] : ((k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3)) & r2_wellord2(k1_funct_2(X0,X2),k1_funct_2(X1,X3))) | (~r2_wellord2(X2,X3) | ~r2_wellord2(X0,X1))) [ennf transformation 13]
+19. ! [X0,X1,X2,X3] : ((k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3)) & r2_wellord2(k1_funct_2(X0,X2),k1_funct_2(X1,X3))) | ~r2_wellord2(X2,X3) | ~r2_wellord2(X0,X1)) [flattening 18]
+21. ? [X0,X1,X2,X3] : (k1_card_1(k1_funct_2(X0,X2)) != k1_card_1(k1_funct_2(X1,X3)) & k1_card_1(X2) = k1_card_1(X3) & k1_card_1(X0) = k1_card_1(X1)) => (k1_card_1(k1_funct_2(sK0,sK2)) != k1_card_1(k1_funct_2(sK1,sK3)) & k1_card_1(sK2) = k1_card_1(sK3) & k1_card_1(sK0) = k1_card_1(sK1)) [choice axiom]
+22. k1_card_1(k1_funct_2(sK0,sK2)) != k1_card_1(k1_funct_2(sK1,sK3)) & k1_card_1(sK2) = k1_card_1(sK3) & k1_card_1(sK0) = k1_card_1(sK1) [skolemisation 17,21]
+23. ! [X0,X1] : ((r2_wellord2(X0,X1) | k1_card_1(X0) != k1_card_1(X1)) & (k1_card_1(X0) = k1_card_1(X1) | ~r2_wellord2(X0,X1))) [nnf transformation 12]
+25. k1_card_1(sK0) = k1_card_1(sK1) [cnf transformation 22] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+26. k1_card_1(sK2) = k1_card_1(sK3) [cnf transformation 22] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+27. k1_card_1(k1_funct_2(sK0,sK2)) != k1_card_1(k1_funct_2(sK1,sK3)) [cnf transformation 22] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+30. k1_card_1(X0) != k1_card_1(X1) | r2_wellord2(X0,X1) [cnf transformation 23] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+32. k1_card_1(k1_funct_2(X0,X2)) = k1_card_1(k1_funct_2(X1,X3)) | ~r2_wellord2(X2,X3) | ~r2_wellord2(X0,X1) [cnf transformation 19] {a:0,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+38. 1 <=> k1_card_1(k1_funct_2(sK0,sK2)) = k1_card_1(k1_funct_2(sK1,sK3)) [avatar definition]
+40. k1_card_1(k1_funct_2(sK0,sK2)) != k1_card_1(k1_funct_2(sK1,sK3)) <- (~1) [avatar component clause 38] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+41. ~1 [avatar split clause 27,38]
+43. 2 <=> k1_card_1(sK2) = k1_card_1(sK3) [avatar definition]
+45. k1_card_1(sK2) = k1_card_1(sK3) <- (2) [avatar component clause 43] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+46. 2 [avatar split clause 26,43]
+48. 3 <=> k1_card_1(sK0) = k1_card_1(sK1) [avatar definition]
+50. k1_card_1(sK0) = k1_card_1(sK1) <- (3) [avatar component clause 48] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+51. 3 [avatar split clause 25,48]
+81. k1_card_1(sK0) != k1_card_1(X8) | r2_wellord2(sK1,X8) <- (3) [superposition 30,50] {a:1,w:8,wCS:800,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+82. k1_card_1(sK2) != k1_card_1(X9) | r2_wellord2(sK3,X9) <- (2) [superposition 30,45] {a:1,w:8,wCS:800,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+431. r2_wellord2(sK1,sK0) <- (3) [equality resolution 81] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+440. 22 <=> r2_wellord2(sK1,sK0) [avatar definition]
+442. r2_wellord2(sK1,sK0) <- (22) [avatar component clause 440] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+450. 22 | ~3 [avatar split clause 431,48,440]
+481. r2_wellord2(sK3,sK2) <- (2) [equality resolution 82] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+490. 27 <=> r2_wellord2(sK3,sK2) [avatar definition]
+492. r2_wellord2(sK3,sK2) <- (27) [avatar component clause 490] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+498. 27 | ~2 [avatar split clause 481,43,490]
+528. $false <- (~1, 22, 27) [unit resulting resolution 442,40,492,32] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:15,thDist:-15}
+532. 1 | ~22 | ~27 [avatar contradiction clause 528]
+533. $false [avatar sat refutation 41,46,51,450,498,532] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:430,thDist:-430}
+% SZS output end Proof for funct_5__t61_funct_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 9
+% >>> Preprocessing
+% Introduced skolems: 4
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 12
+% Generated clauses: 379
+% Active clauses: 33
+% Passive clauses: 249
+% Final active clauses: 29
+% Final passive clauses: 205
+% Main loop iterations started: 37
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 14
+% Fw subsumption resolutions: 4
+% Bw demodulations: 3
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 3
+% Forward subsumptions: 62
+% 
+% >>> Generating Inferences
+% Binary resolution: 11
+% Unit resulting resolution: 1
+% Forward superposition: 153
+% Backward superposition: 139
+% Self superposition: 15
+% Equality resolution: 4
+% 
+% >>> AVATAR
+% Split clauses: 38
+% Split components: 76
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 51
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 5
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% minimizing solver time: 0.001 s
+% congruence closure: 0.001 s ( own 0.0000 s ) 
+% forward subsumption resolution: 0.002 s
+% other: 0.004 s ( own 0.001 s ) 
+

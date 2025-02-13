@@ -1,0 +1,52 @@
+i: [1,46,0,4,1,1,0,0] t1_setfam_1
+i: [1,70,0,4,1,0,0,1] d1_setfam_1
+f: 70,46
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for setfam_1__t1_setfam_1
+% SZS output start Proof for setfam_1__t1_setfam_1
+1. k1_xboole_0 = k1_setfam_1(k1_xboole_0) [input t1_setfam_1]
+2. ~k1_xboole_0 = k1_setfam_1(k1_xboole_0) [negated conjecture 1]
+19. ! [X0] : ! [X1] : ((k1_xboole_0 = X0 => (k1_setfam_1(X0) = X1 <=> k1_xboole_0 = X1)) & (k1_xboole_0 != X0 => (k1_setfam_1(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ! [X3] : (r2_hidden(X3,X0) => r2_hidden(X2,X3)))))) [input d1_setfam_1]
+20. k1_xboole_0 != k1_setfam_1(k1_xboole_0) [flattening 2]
+21. ! [X0,X1] : ((k1_xboole_0 = X0 => (k1_setfam_1(X0) = X1 <=> k1_xboole_0 = X1)) & (k1_xboole_0 != X0 => (k1_setfam_1(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ! [X3] : (r2_hidden(X3,X0) => r2_hidden(X2,X3)))))) [flattening 19]
+27. ! [X0,X1] : (((k1_setfam_1(X0) = X1 <=> k1_xboole_0 = X1) | k1_xboole_0 != X0) & ((k1_setfam_1(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ! [X3] : (r2_hidden(X2,X3) | ~r2_hidden(X3,X0)))) | k1_xboole_0 = X0)) [ennf transformation 21]
+34. ! [X0,X1] : ((((k1_setfam_1(X0) = X1 | k1_xboole_0 != X1) & (k1_xboole_0 = X1 | k1_setfam_1(X0) != X1)) | k1_xboole_0 != X0) & (((k1_setfam_1(X0) = X1 | ? [X2] : ((? [X3] : (~r2_hidden(X2,X3) & r2_hidden(X3,X0)) | ~r2_hidden(X2,X1)) & (! [X3] : (r2_hidden(X2,X3) | ~r2_hidden(X3,X0)) | r2_hidden(X2,X1)))) & (! [X2] : ((r2_hidden(X2,X1) | ? [X3] : (~r2_hidden(X2,X3) & r2_hidden(X3,X0))) & (! [X3] : (r2_hidden(X2,X3) | ~r2_hidden(X3,X0)) | ~r2_hidden(X2,X1))) | k1_setfam_1(X0) != X1)) | k1_xboole_0 = X0)) [nnf transformation 27]
+35. ! [X0,X1] : ((((k1_setfam_1(X0) = X1 | k1_xboole_0 != X1) & (k1_xboole_0 = X1 | k1_setfam_1(X0) != X1)) | k1_xboole_0 != X0) & (((k1_setfam_1(X0) = X1 | ? [X2] : ((? [X3] : (~r2_hidden(X2,X3) & r2_hidden(X3,X0)) | ~r2_hidden(X2,X1)) & (! [X4] : (r2_hidden(X2,X4) | ~r2_hidden(X4,X0)) | r2_hidden(X2,X1)))) & (! [X5] : ((r2_hidden(X5,X1) | ? [X6] : (~r2_hidden(X5,X6) & r2_hidden(X6,X0))) & (! [X7] : (r2_hidden(X5,X7) | ~r2_hidden(X7,X0)) | ~r2_hidden(X5,X1))) | k1_setfam_1(X0) != X1)) | k1_xboole_0 = X0)) [rectify 34]
+36. ! [X1,X0] : (? [X2] : ((? [X3] : (~r2_hidden(X2,X3) & r2_hidden(X3,X0)) | ~r2_hidden(X2,X1)) & (! [X4] : (r2_hidden(X2,X4) | ~r2_hidden(X4,X0)) | r2_hidden(X2,X1))) => ((? [X3] : (~r2_hidden(sK0(X0,X1),X3) & r2_hidden(X3,X0)) | ~r2_hidden(sK0(X0,X1),X1)) & (! [X4] : (r2_hidden(sK0(X0,X1),X4) | ~r2_hidden(X4,X0)) | r2_hidden(sK0(X0,X1),X1)))) [choice axiom]
+37. ! [X1,X0] : (? [X3] : (~r2_hidden(sK0(X0,X1),X3) & r2_hidden(X3,X0)) => (~r2_hidden(sK0(X0,X1),sK1(X0,X1)) & r2_hidden(sK1(X0,X1),X0))) [choice axiom]
+38. ! [X5,X0] : (? [X6] : (~r2_hidden(X5,X6) & r2_hidden(X6,X0)) => (~r2_hidden(X5,sK2(X0,X5)) & r2_hidden(sK2(X0,X5),X0))) [choice axiom]
+39. ! [X0,X1] : ((((k1_setfam_1(X0) = X1 | k1_xboole_0 != X1) & (k1_xboole_0 = X1 | k1_setfam_1(X0) != X1)) | k1_xboole_0 != X0) & (((k1_setfam_1(X0) = X1 | (((~r2_hidden(sK0(X0,X1),sK1(X0,X1)) & r2_hidden(sK1(X0,X1),X0)) | ~r2_hidden(sK0(X0,X1),X1)) & (! [X4] : (r2_hidden(sK0(X0,X1),X4) | ~r2_hidden(X4,X0)) | r2_hidden(sK0(X0,X1),X1)))) & (! [X5] : ((r2_hidden(X5,X1) | (~r2_hidden(X5,sK2(X0,X5)) & r2_hidden(sK2(X0,X5),X0))) & (! [X7] : (r2_hidden(X5,X7) | ~r2_hidden(X7,X0)) | ~r2_hidden(X5,X1))) | k1_setfam_1(X0) != X1)) | k1_xboole_0 = X0)) [skolemisation 35,38,37,36]
+46. k1_xboole_0 != k1_setfam_1(k1_xboole_0) [cnf transformation 20] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+57. k1_xboole_0 = X1 | k1_setfam_1(X0) != X1 | k1_xboole_0 != X0 [cnf transformation 39] {a:0,w:10,wCS:4000,sine:1,thAx:0,allAx:4,thDist:-4}
+69. k1_xboole_0 = k1_setfam_1(X0) | k1_xboole_0 != X0 [equality resolution 57] {a:0,w:7,wCS:2800,sine:1,thAx:0,allAx:4,thDist:-4}
+70. k1_xboole_0 = k1_setfam_1(k1_xboole_0) [equality resolution 69] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:4,thDist:-4}
+75. 1 <=> k1_xboole_0 = k1_setfam_1(k1_xboole_0) [avatar definition]
+78. ~1 [avatar split clause 46,75]
+95. 1 [avatar split clause 70,75]
+106. $false [avatar sat refutation 78,95] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:24,thDist:-24}
+% SZS output end Proof for setfam_1__t1_setfam_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 18
+% Introduced skolems: 6
+% 
+% >>> Saturation
+% Initial clauses: 21
+% Generated clauses: 21
+% Passive clauses: 13
+% Final passive clauses: 13
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 8
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

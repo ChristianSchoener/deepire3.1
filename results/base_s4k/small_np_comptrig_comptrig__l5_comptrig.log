@@ -1,0 +1,73 @@
+i: [1,553,0,5,1,1,0,0] l5_comptrig
+i: [1,565,0,3,1,0,0,1] redefinition_k32_sin_cos
+i: [1,583,0,2,1,0,0,2] fc1_comptrig
+i: [1,851,0,7,2,0,0,255] d28_sin_cos
+f: 851,583,565,553
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for comptrig__l5_comptrig
+% SZS output start Proof for comptrig__l5_comptrig
+1. r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) [input l5_comptrig]
+2. ~r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) [negated conjecture 1]
+213. k32_sin_cos = k31_sin_cos [input redefinition_k32_sin_cos]
+225. ~v3_xxreal_0(k31_sin_cos) & v1_xreal_0(k31_sin_cos) [input fc1_comptrig]
+233. ! [X0] : (v1_xreal_0(X0) => (k31_sin_cos = X0 <=> (r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) & 1 = k1_seq_1(k29_sin_cos,k6_real_1(X0,4))))) [input d28_sin_cos]
+234. ~r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) [flattening 2]
+302. ! [X0] : ((k31_sin_cos = X0 <=> (r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) & 1 = k1_seq_1(k29_sin_cos,k6_real_1(X0,4)))) | ~v1_xreal_0(X0)) [ennf transformation 233]
+493. ! [X0] : (((k31_sin_cos = X0 | (~r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) | 1 != k1_seq_1(k29_sin_cos,k6_real_1(X0,4)))) & ((r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) & 1 = k1_seq_1(k29_sin_cos,k6_real_1(X0,4))) | k31_sin_cos != X0)) | ~v1_xreal_0(X0)) [nnf transformation 302]
+494. ! [X0] : (((k31_sin_cos = X0 | ~r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) | 1 != k1_seq_1(k29_sin_cos,k6_real_1(X0,4))) & ((r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) & 1 = k1_seq_1(k29_sin_cos,k6_real_1(X0,4))) | k31_sin_cos != X0)) | ~v1_xreal_0(X0)) [flattening 493]
+553. ~r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) [cnf transformation 234] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+565. k32_sin_cos = k31_sin_cos [cnf transformation 213] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+583. v1_xreal_0(k31_sin_cos) [cnf transformation 225] {a:0,w:2,wCS:800,sine:2,thAx:0,allAx:1,thDist:-1}
+624. r2_hidden(X0,k2_rcomp_1(k6_numbers,4)) | k31_sin_cos != X0 | ~v1_xreal_0(X0) [cnf transformation 494] {a:0,w:10,wCS:4000,sine:255,thAx:0,allAx:1,thDist:-1}
+851. r2_hidden(k31_sin_cos,k2_rcomp_1(k6_numbers,4)) | ~v1_xreal_0(k31_sin_cos) [equality resolution 624] {a:0,w:7,wCS:2800,sine:255,thAx:0,allAx:1,thDist:-1}
+854. 1 <=> r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) [avatar definition]
+857. ~1 [avatar split clause 553,854]
+904. 11 <=> v1_xreal_0(k31_sin_cos) [avatar definition]
+914. 13 <=> k32_sin_cos = k31_sin_cos [avatar definition]
+917. 13 [avatar split clause 565,914]
+1003. 11 [avatar split clause 583,904]
+1055. 41 <=> r2_hidden(k31_sin_cos,k2_rcomp_1(k6_numbers,4)) [avatar definition]
+1058. ~11 | 41 [avatar split clause 851,1055,904]
+1399. k32_sin_cos != k31_sin_cos | r2_hidden(k32_sin_cos,k2_rcomp_1(k6_numbers,4)) | ~r2_hidden(k31_sin_cos,k2_rcomp_1(k6_numbers,4)) [theory tautology sat conflict] {a:0,w:13,wCS:5200,sine:255,thAx:0,allAx:1,thDist:-1}
+1400. $false [avatar sat refutation 857,917,1003,1058,1399] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:290,thDist:-290}
+% SZS output end Proof for comptrig__l5_comptrig
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 232
+% >>> Preprocessing
+% Introduced skolems: 28
+% Pure predicates: 13
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 298
+% Generated clauses: 298
+% Passive clauses: 157
+% Final passive clauses: 157
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 30
+% Equational tautologies: 1
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 113
+% SAT solver unit clauses: 108
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% passive container maintenance: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

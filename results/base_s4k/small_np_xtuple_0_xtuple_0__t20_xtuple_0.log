@@ -1,0 +1,326 @@
+i: [1,79,0,4,1,1,0,0] t20_xtuple_0
+a: [3,113,0,4,1,79]
+s: 113
+i: [1,80,0,7,1,1,0,0] t20_xtuple_0
+s: 80
+i: [1,81,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,118,0,2,1,81]
+s: 118
+i: [1,82,0,2,1,0,0,255] fc1_xboole_0
+a: [3,123,0,2,1,82]
+s: 123
+i: [1,104,0,2,1,0,0,2] rc2_xboole_0
+a: [3,133,0,2,1,104]
+s: 133
+i: [1,105,0,2,1,0,0,2] rc1_xboole_0
+a: [3,138,0,2,1,105]
+s: 138
+i: [1,84,0,3,1,0,0,255] fc2_xboole_0
+s: 84
+i: [1,83,0,3,1,0,0,255] d2_xboole_0
+a: [3,128,0,3,1,83]
+s: 128
+r: 118
+i: [1,101,0,4,1,0,0,255] fc3_xboole_0
+s: 101
+i: [1,87,0,5,2,0,0,255] t6_boole
+s: 87
+i: [1,98,0,5,2,0,0,1] t7_boole
+s: 98
+d: [2,143,1,3,1,1,40,98,113]
+a: [3,147,1,3,1,143]
+s: 147
+i: [1,85,0,6,1,0,0,1] d17_xtuple_0
+s: 85
+i: [1,86,0,6,1,0,0,2] d14_xtuple_0
+s: 86
+i: [1,103,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 103
+i: [1,97,0,7,3,0,0,2] t8_boole
+s: 97
+d: [2,150,1,4,1,1,40,103,113]
+a: [3,154,1,4,1,150]
+s: 154
+i: [1,102,0,7,1,0,0,255] commutativity_k2_tarski
+s: 102
+d: [2,141,1,7,3,0,44,87,87]
+s: 141
+i: [1,106,0,9,2,0,0,2] d13_xtuple_0
+s: 106
+i: [1,108,0,9,2,0,0,3] d12_xtuple_0
+s: 108
+d: [2,149,1,7,1,0,44,86,86]
+s: 149
+i: [1,88,0,10,1,0,0,255] d5_tarski
+s: 88
+d: [2,168,1,4,1,0,44,101,88]
+s: 168
+i: [1,99,0,10,1,0,0,2] d4_xtuple_0
+s: 99
+i: [1,107,0,11,2,0,0,2] d13_xtuple_0
+s: 107
+d: [2,170,2,5,1,0,44,168,99]
+s: 170
+i: [1,109,0,11,2,0,0,3] d12_xtuple_0
+s: 109
+d: [2,176,1,6,2,0,40,107,98]
+s: 176
+i: [1,100,0,12,1,0,0,1] d8_xtuple_0
+s: 100
+i: [1,92,0,16,3,0,0,2] d13_xtuple_0
+s: 92
+d: [2,180,1,6,2,0,40,109,98]
+s: 180
+i: [1,96,0,16,3,0,0,3] d12_xtuple_0
+s: 96
+d: [2,186,2,6,1,0,44,168,100]
+s: 186
+i: [1,91,0,18,3,0,0,2] d13_xtuple_0
+s: 91
+i: [1,95,0,18,3,0,0,3] d12_xtuple_0
+s: 95
+d: [2,194,2,7,2,0,40,180,109]
+d: [2,196,2,6,2,0,22,194,86]
+s: 196
+d: [2,161,1,10,1,0,44,88,102]
+s: 161
+d: [2,215,3,7,2,0,40,196,107]
+d: [2,220,3,6,2,0,22,215,85]
+s: 220
+d: [2,162,1,10,1,0,44,88,102]
+s: 162
+d: [2,164,1,10,1,0,44,88,102]
+s: 164
+d: [2,232,4,2,1,1,40,220,113]
+a: [3,240,4,2,1,232]
+s: 240
+d: [2,165,1,10,1,0,44,88,102]
+s: 165
+d: [2,182,2,7,2,0,40,176,107]
+s: 182
+d: [2,166,1,10,1,0,44,102,88]
+s: 166
+d: [2,167,1,10,1,0,44,102,88]
+s: 167
+d: [2,183,2,7,2,0,40,176,109]
+s: 183
+d: [2,172,1,10,2,0,44,106,99]
+s: 172
+d: [2,184,2,7,2,0,44,176,85]
+s: 184
+d: [2,173,1,10,2,0,40,107,108]
+s: 173
+d: [2,178,1,10,2,0,40,109,106]
+s: 178
+d: [2,262,3,3,1,1,40,184,113]
+a: [3,270,3,3,1,262]
+s: 270
+d: [2,175,1,11,2,0,40,107,103]
+s: 175
+d: [2,193,2,7,2,0,40,180,107]
+s: 193
+d: [2,179,1,11,2,0,40,109,103]
+s: 179
+d: [2,188,1,11,2,0,44,106,100]
+s: 188
+d: [2,195,2,7,2,0,44,180,86]
+s: 195
+d: [2,202,1,11,3,0,40,91,98]
+s: 202
+d: [2,275,2,7,2,0,40,173,98]
+s: 275
+d: [2,210,1,11,3,0,40,95,98]
+s: 210
+d: [2,171,1,12,2,0,44,108,99]
+s: 171
+d: [2,280,2,7,2,0,40,178,98]
+s: 280
+d: [2,169,1,13,1,0,44,99,99]
+s: 169
+d: [2,218,3,7,2,0,40,196,109]
+s: 218
+d: [2,340,1,12,1,0,22,169,100]
+s: 340
+d: [2,187,1,14,2,0,44,108,100]
+s: 187
+d: [2,258,3,8,2,0,40,183,109]
+d: [2,261,3,7,2,0,22,258,86]
+s: 261
+d: [2,163,1,15,1,0,44,88,88]
+s: 163
+d: [2,287,3,8,2,0,44,193,86]
+d: [2,289,3,7,2,0,22,287,85]
+s: 289
+d: [2,185,1,15,1,0,44,99,100]
+s: 185
+d: [2,190,1,15,3,0,40,92,107]
+s: 190
+d: [2,392,4,3,1,1,40,289,113]
+a: [3,398,4,3,1,392]
+s: 398
+d: [2,197,1,15,3,0,40,96,109]
+s: 197
+d: [2,292,3,8,2,0,40,195,107]
+d: [2,297,3,7,2,0,22,292,85]
+s: 297
+d: [2,198,1,15,3,0,40,91,108]
+s: 198
+d: [2,199,1,15,3,0,40,91,106]
+s: 199
+d: [2,333,3,8,2,0,40,280,109]
+d: [2,339,3,7,2,0,22,333,86]
+s: 339
+d: [2,207,1,15,3,0,40,95,108]
+s: 207
+d: [2,233,4,7,2,0,40,220,107]
+s: 233
+d: [2,208,1,15,3,0,40,95,106]
+s: 208
+d: [2,181,1,16,2,0,44,109,99]
+s: 181
+d: [2,236,4,7,2,0,40,220,109]
+s: 236
+d: [2,191,1,17,3,0,44,92,99]
+s: 191
+d: [2,344,4,8,2,0,40,218,109]
+d: [2,350,4,7,2,0,22,344,86]
+s: 350
+d: [2,192,1,18,3,0,44,92,100]
+s: 192
+d: [2,201,1,18,3,0,40,91,103]
+s: 201
+d: [2,360,4,8,2,0,40,261,107]
+d: [2,367,4,7,2,0,22,360,85]
+s: 367
+d: [2,209,1,18,3,0,40,95,103]
+s: 209
+d: [2,433,4,8,2,0,40,339,107]
+d: [2,440,4,7,2,0,22,433,85]
+s: 440
+d: [2,189,1,19,2,0,44,109,100]
+s: 189
+d: [2,550,2,7,1,0,40,189,80]
+s: 550
+d: [2,542,5,3,1,1,40,440,113]
+a: [3,548,5,3,1,542]
+s: 548
+d: [2,159,2,8,1,0,44,85,149]
+s: 159
+d: [2,582,3,7,1,0,40,550,181]
+d: [2,585,3,6,1,0,22,582,86]
+s: 585
+d: [2,603,4,5,1,0,40,585,107]
+d: [2,606,4,4,1,0,22,603,85]
+d: [2,607,4,0,0,1,21,606,113]
+e: 607
+f: 607,79
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xtuple_0__t20_xtuple_0
+% SZS output start Proof for xtuple_0__t20_xtuple_0
+1. ! [X0] : ! [X1] : ~(! [X2] : ! [X3] : ! [X4] : ~r2_hidden(k6_xtuple_0(X2,X0,X3,X4),X1) & r2_hidden(X0,k14_xtuple_0(X1))) [input t20_xtuple_0]
+2. ~! [X0] : ! [X1] : ~(! [X2] : ! [X3] : ! [X4] : ~r2_hidden(k6_xtuple_0(X2,X0,X3,X4),X1) & r2_hidden(X0,k14_xtuple_0(X1))) [negated conjecture 1]
+7. ! [X0] : ! [X1] : (k9_xtuple_0(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ? [X3] : r2_hidden(k4_tarski(X2,X3),X0))) [input d12_xtuple_0]
+8. ! [X0] : ! [X1] : (k10_xtuple_0(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ? [X3] : r2_hidden(k4_tarski(X3,X2),X0))) [input d13_xtuple_0]
+9. ! [X0] : k11_xtuple_0(X0) = k9_xtuple_0(k9_xtuple_0(X0)) [input d14_xtuple_0]
+10. ! [X0] : k14_xtuple_0(X0) = k10_xtuple_0(k11_xtuple_0(X0)) [input d17_xtuple_0]
+12. ! [X0] : ! [X1] : ! [X2] : k3_xtuple_0(X0,X1,X2) = k4_tarski(k4_tarski(X0,X1),X2) [input d4_xtuple_0]
+14. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k6_xtuple_0(X0,X1,X2,X3) = k4_tarski(k3_xtuple_0(X0,X1,X2),X3) [input d8_xtuple_0]
+40. ~! [X0,X1] : ~(! [X2,X3,X4] : ~r2_hidden(k6_xtuple_0(X2,X0,X3,X4),X1) & r2_hidden(X0,k14_xtuple_0(X1))) [flattening 2]
+42. ! [X0,X1] : (k10_xtuple_0(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ? [X3] : r2_hidden(k4_tarski(X3,X2),X0))) [flattening 8]
+43. ! [X0,X1] : (k9_xtuple_0(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> ? [X3] : r2_hidden(k4_tarski(X2,X3),X0))) [flattening 7]
+46. ! [X0,X1,X2] : k3_xtuple_0(X0,X1,X2) = k4_tarski(k4_tarski(X0,X1),X2) [flattening 12]
+47. ! [X0,X1,X2,X3] : k6_xtuple_0(X0,X1,X2,X3) = k4_tarski(k3_xtuple_0(X0,X1,X2),X3) [flattening 14]
+56. ? [X0,X1] : (! [X2,X3,X4] : ~r2_hidden(k6_xtuple_0(X2,X0,X3,X4),X1) & r2_hidden(X0,k14_xtuple_0(X1))) [ennf transformation 40]
+61. ? [X0,X1] : (! [X2,X3,X4] : ~r2_hidden(k6_xtuple_0(X2,X0,X3,X4),X1) & r2_hidden(X0,k14_xtuple_0(X1))) => (! [X4,X3,X2] : ~r2_hidden(k6_xtuple_0(X2,sK0,X3,X4),sK1) & r2_hidden(sK0,k14_xtuple_0(sK1))) [choice axiom]
+62. ! [X2,X3,X4] : ~r2_hidden(k6_xtuple_0(X2,sK0,X3,X4),sK1) & r2_hidden(sK0,k14_xtuple_0(sK1)) [skolemisation 56,61]
+63. ! [X0,X1] : ((k10_xtuple_0(X0) = X1 | ? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X3,X2),X0) | ~r2_hidden(X2,X1)) & (? [X3] : r2_hidden(k4_tarski(X3,X2),X0) | r2_hidden(X2,X1)))) & (! [X2] : ((r2_hidden(X2,X1) | ! [X3] : ~r2_hidden(k4_tarski(X3,X2),X0)) & (? [X3] : r2_hidden(k4_tarski(X3,X2),X0) | ~r2_hidden(X2,X1))) | k10_xtuple_0(X0) != X1)) [nnf transformation 42]
+64. ! [X0,X1] : ((k10_xtuple_0(X0) = X1 | ? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X3,X2),X0) | ~r2_hidden(X2,X1)) & (? [X4] : r2_hidden(k4_tarski(X4,X2),X0) | r2_hidden(X2,X1)))) & (! [X5] : ((r2_hidden(X5,X1) | ! [X6] : ~r2_hidden(k4_tarski(X6,X5),X0)) & (? [X7] : r2_hidden(k4_tarski(X7,X5),X0) | ~r2_hidden(X5,X1))) | k10_xtuple_0(X0) != X1)) [rectify 63]
+65. ! [X1,X0] : (? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X3,X2),X0) | ~r2_hidden(X2,X1)) & (? [X4] : r2_hidden(k4_tarski(X4,X2),X0) | r2_hidden(X2,X1))) => ((! [X3] : ~r2_hidden(k4_tarski(X3,sK2(X0,X1)),X0) | ~r2_hidden(sK2(X0,X1),X1)) & (? [X4] : r2_hidden(k4_tarski(X4,sK2(X0,X1)),X0) | r2_hidden(sK2(X0,X1),X1)))) [choice axiom]
+66. ! [X1,X0] : (? [X4] : r2_hidden(k4_tarski(X4,sK2(X0,X1)),X0) => r2_hidden(k4_tarski(sK3(X0,X1),sK2(X0,X1)),X0)) [choice axiom]
+67. ! [X5,X0] : (? [X7] : r2_hidden(k4_tarski(X7,X5),X0) => r2_hidden(k4_tarski(sK4(X0,X5),X5),X0)) [choice axiom]
+68. ! [X0,X1] : ((k10_xtuple_0(X0) = X1 | ((! [X3] : ~r2_hidden(k4_tarski(X3,sK2(X0,X1)),X0) | ~r2_hidden(sK2(X0,X1),X1)) & (r2_hidden(k4_tarski(sK3(X0,X1),sK2(X0,X1)),X0) | r2_hidden(sK2(X0,X1),X1)))) & (! [X5] : ((r2_hidden(X5,X1) | ! [X6] : ~r2_hidden(k4_tarski(X6,X5),X0)) & (r2_hidden(k4_tarski(sK4(X0,X5),X5),X0) | ~r2_hidden(X5,X1))) | k10_xtuple_0(X0) != X1)) [skolemisation 64,67,66,65]
+69. ! [X0,X1] : ((k9_xtuple_0(X0) = X1 | ? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X2,X3),X0) | ~r2_hidden(X2,X1)) & (? [X3] : r2_hidden(k4_tarski(X2,X3),X0) | r2_hidden(X2,X1)))) & (! [X2] : ((r2_hidden(X2,X1) | ! [X3] : ~r2_hidden(k4_tarski(X2,X3),X0)) & (? [X3] : r2_hidden(k4_tarski(X2,X3),X0) | ~r2_hidden(X2,X1))) | k9_xtuple_0(X0) != X1)) [nnf transformation 43]
+70. ! [X0,X1] : ((k9_xtuple_0(X0) = X1 | ? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X2,X3),X0) | ~r2_hidden(X2,X1)) & (? [X4] : r2_hidden(k4_tarski(X2,X4),X0) | r2_hidden(X2,X1)))) & (! [X5] : ((r2_hidden(X5,X1) | ! [X6] : ~r2_hidden(k4_tarski(X5,X6),X0)) & (? [X7] : r2_hidden(k4_tarski(X5,X7),X0) | ~r2_hidden(X5,X1))) | k9_xtuple_0(X0) != X1)) [rectify 69]
+71. ! [X1,X0] : (? [X2] : ((! [X3] : ~r2_hidden(k4_tarski(X2,X3),X0) | ~r2_hidden(X2,X1)) & (? [X4] : r2_hidden(k4_tarski(X2,X4),X0) | r2_hidden(X2,X1))) => ((! [X3] : ~r2_hidden(k4_tarski(sK5(X0,X1),X3),X0) | ~r2_hidden(sK5(X0,X1),X1)) & (? [X4] : r2_hidden(k4_tarski(sK5(X0,X1),X4),X0) | r2_hidden(sK5(X0,X1),X1)))) [choice axiom]
+72. ! [X1,X0] : (? [X4] : r2_hidden(k4_tarski(sK5(X0,X1),X4),X0) => r2_hidden(k4_tarski(sK5(X0,X1),sK6(X0,X1)),X0)) [choice axiom]
+73. ! [X5,X0] : (? [X7] : r2_hidden(k4_tarski(X5,X7),X0) => r2_hidden(k4_tarski(X5,sK7(X0,X5)),X0)) [choice axiom]
+74. ! [X0,X1] : ((k9_xtuple_0(X0) = X1 | ((! [X3] : ~r2_hidden(k4_tarski(sK5(X0,X1),X3),X0) | ~r2_hidden(sK5(X0,X1),X1)) & (r2_hidden(k4_tarski(sK5(X0,X1),sK6(X0,X1)),X0) | r2_hidden(sK5(X0,X1),X1)))) & (! [X5] : ((r2_hidden(X5,X1) | ! [X6] : ~r2_hidden(k4_tarski(X5,X6),X0)) & (r2_hidden(k4_tarski(X5,sK7(X0,X5)),X0) | ~r2_hidden(X5,X1))) | k9_xtuple_0(X0) != X1)) [skolemisation 70,73,72,71]
+79. r2_hidden(sK0,k14_xtuple_0(sK1)) [cnf transformation 62] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+80. ~r2_hidden(k6_xtuple_0(X2,sK0,X3,X4),sK1) [cnf transformation 62] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+85. k14_xtuple_0(X0) = k10_xtuple_0(k11_xtuple_0(X0)) [cnf transformation 10] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+86. k11_xtuple_0(X0) = k9_xtuple_0(k9_xtuple_0(X0)) [cnf transformation 9] {a:0,w:6,wCS:2400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+89. r2_hidden(k4_tarski(sK4(X0,X5),X5),X0) | ~r2_hidden(X5,X1) | k10_xtuple_0(X0) != X1 [cnf transformation 68] {a:0,w:14,wCS:5600,sine:2,thAx:0,allAx:4,thDist:-4}
+93. r2_hidden(k4_tarski(X5,sK7(X0,X5)),X0) | ~r2_hidden(X5,X1) | k9_xtuple_0(X0) != X1 [cnf transformation 74] {a:0,w:14,wCS:5600,sine:3,thAx:0,allAx:4,thDist:-4}
+99. k3_xtuple_0(X0,X1,X2) = k4_tarski(k4_tarski(X0,X1),X2) [cnf transformation 46] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+100. k6_xtuple_0(X0,X1,X2,X3) = k4_tarski(k3_xtuple_0(X0,X1,X2),X3) [cnf transformation 47] {a:0,w:12,wCS:4800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+107. r2_hidden(k4_tarski(sK4(X0,X5),X5),X0) | ~r2_hidden(X5,k10_xtuple_0(X0)) [equality resolution 89] {a:0,w:11,wCS:4400,nSel:1,sine:2,thAx:0,allAx:4,thDist:-4}
+109. r2_hidden(k4_tarski(X5,sK7(X0,X5)),X0) | ~r2_hidden(X5,k9_xtuple_0(X0)) [equality resolution 93] {a:0,w:11,wCS:4400,nSel:1,sine:3,thAx:0,allAx:4,thDist:-4}
+111. 1 <=> r2_hidden(sK0,k14_xtuple_0(sK1)) [avatar definition]
+113. r2_hidden(sK0,k14_xtuple_0(sK1)) <- (1) [avatar component clause 111] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+114. 1 [avatar split clause 79,111]
+181. r2_hidden(k3_xtuple_0(X0,X1,sK7(X2,k4_tarski(X0,X1))),X2) | ~r2_hidden(k4_tarski(X0,X1),k9_xtuple_0(X2)) [superposition 109,99] {a:1,w:16,wCS:6400,nSel:1,sine:2,thAx:0,allAx:5,thDist:-5}
+189. r2_hidden(k6_xtuple_0(X19,X20,X21,sK7(X22,k3_xtuple_0(X19,X20,X21))),X22) | ~r2_hidden(k3_xtuple_0(X19,X20,X21),k9_xtuple_0(X22)) [superposition 109,100] {a:1,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:5,thDist:-5}
+550. ~r2_hidden(k3_xtuple_0(X0,sK0,X1),k9_xtuple_0(sK1)) [resolution 189,80] {a:2,w:7,wCS:700,nSel:1,goal:1,sine:0,thAx:0,allAx:7,thDist:-7}
+582. ~r2_hidden(k4_tarski(X0,sK0),k9_xtuple_0(k9_xtuple_0(sK1))) [resolution 550,181] {a:3,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:12,thDist:-12}
+585. ~r2_hidden(k4_tarski(X0,sK0),k11_xtuple_0(sK1)) [forward demodulation 582,86] {a:3,w:6,wCS:600,nSel:1,goal:1,sine:0,thAx:0,allAx:12,thDist:-12}
+603. ~r2_hidden(sK0,k10_xtuple_0(k11_xtuple_0(sK1))) [resolution 585,107] {a:4,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:16,thDist:-16}
+606. ~r2_hidden(sK0,k14_xtuple_0(sK1)) [forward demodulation 603,85] {a:4,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:16,thDist:-16}
+607. $false <- (1) [subsumption resolution 606,113] {a:4,w:0,goal:1,sine:0,thAx:0,allAx:16,thDist:-16}
+608. ~1 [avatar contradiction clause 607]
+609. $false [avatar sat refutation 114,608] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:103,thDist:-103}
+% SZS output end Proof for xtuple_0__t20_xtuple_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 38
+% >>> Preprocessing
+% Introduced skolems: 10
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 27
+% Generated clauses: 477
+% Active clauses: 87
+% Passive clauses: 331
+% Final active clauses: 86
+% Final passive clauses: 237
+% Main loop iterations started: 94
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 6
+% Fw subsumption resolutions: 1
+% Fw demodulations: 64
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% Equational tautologies: 4
+% Forward subsumptions: 54
+% 
+% >>> Generating Inferences
+% Binary resolution: 247
+% Factoring: 2
+% Forward superposition: 64
+% Backward superposition: 45
+% Self superposition: 8
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 15
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 6
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.006 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% minimizing solver time: 0.001 s
+% congruence closure: 0.001 s ( own 0.0000 s ) 
+% forward subsumption: 0.002 s
+% other: 0.006 s ( own 0.003 s ) 
+

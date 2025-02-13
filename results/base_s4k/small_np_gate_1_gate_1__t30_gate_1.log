@@ -1,0 +1,217 @@
+i: [1,39,0,10,2,1,0,0] t30_gate_1
+a: [3,55,0,2,1,39]
+s: 55
+i: [1,38,0,10,2,1,0,0] t30_gate_1
+a: [3,64,0,2,1,38]
+s: 64
+i: [1,37,0,10,2,1,0,0] t30_gate_1
+a: [3,69,0,2,1,37]
+s: 69
+i: [1,36,0,10,2,1,0,0] t30_gate_1
+a: [3,74,0,2,1,36]
+s: 74
+i: [1,35,0,10,2,1,0,0] t30_gate_1
+a: [3,79,0,2,1,35]
+s: 79
+i: [1,34,0,10,2,1,0,0] t30_gate_1
+a: [3,84,0,2,1,34]
+s: 84
+a: [3,58,0,8,1,39]
+s: 58
+i: [1,40,0,2,1,0,0,255] fc1_xboole_0
+a: [3,90,0,2,1,40]
+s: 90
+i: [1,50,0,2,1,0,0,1] rc2_xboole_0
+a: [3,95,0,2,1,50]
+s: 95
+i: [1,51,0,2,1,0,0,1] rc1_xboole_0
+a: [3,100,0,2,1,51]
+s: 100
+i: [1,41,0,5,2,0,0,255] fc2_gate_1
+s: 41
+i: [1,42,0,5,2,0,0,255] fc1_gate_1
+s: 42
+i: [1,43,0,12,2,0,0,255] d24_gate_1
+s: 43
+i: [1,44,0,12,2,0,0,255] d24_gate_1
+s: 44
+i: [1,45,0,12,2,0,0,255] d24_gate_1
+s: 45
+i: [1,46,0,12,2,0,0,255] d24_gate_1
+s: 46
+i: [1,47,0,12,2,0,0,255] d24_gate_1
+s: 47
+i: [1,48,0,12,2,0,0,255] d24_gate_1
+s: 48
+i: [1,49,0,21,7,0,0,255] d24_gate_1
+s: 49
+d: [2,115,1,14,7,1,44,58,49]
+d: [2,122,1,12,6,2,21,115,90]
+d: [2,123,1,10,5,3,21,122,55]
+d: [2,124,1,8,4,4,21,123,64]
+d: [2,125,1,6,3,5,21,124,69]
+d: [2,126,1,4,2,6,21,125,74]
+d: [2,127,1,2,1,7,21,126,79]
+d: [2,128,1,0,0,8,21,127,84]
+e: 128
+r: 58
+r: 64
+a: [3,63,0,2,1,38]
+s: 63
+a: [3,59,0,8,1,39]
+s: 59
+d: [2,134,1,5,2,1,44,59,47]
+d: [2,137,1,3,1,2,21,134,63]
+a: [3,141,1,3,1,137]
+s: 141
+d: [2,143,2,0,0,2,52,90,141,42]
+e: 143
+d: [2,144,2,2,1,1,40,141,42]
+d: [2,146,2,0,0,2,21,144,90]
+e: 146
+r: 63
+r: 69
+r: 141
+r: 74
+r: 79
+r: 84
+r: 55
+i: [1,26,0,20,7,1,0,0] t30_gate_1
+d: [2,133,1,5,2,1,44,59,46]
+d: [2,132,1,5,2,1,44,59,45]
+d: [2,131,1,5,2,1,44,59,44]
+d: [2,130,1,5,2,1,44,59,43]
+d: [2,135,1,5,2,1,44,59,48]
+f: 135,130,131,132,133,134,146,128,40,26,34,35,36,37,38,39
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gate_1__t30_gate_1
+% SZS output start Proof for gate_1__t30_gate_1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : (~(v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0))) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0) & ~v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)))) [input t30_gate_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : (~(v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0))) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0) & ~v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)))) [negated conjecture 1]
+8. ! [X0] : (v1_xboole_0(X0) => ~v1_xboole_0(k1_gate_1(X0))) [input fc1_gate_1]
+9. v1_xboole_0(k1_xboole_0) [input fc1_xboole_0]
+13. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : (~(k24_gate_1(X0,X1,X2,X3,X4,X5) != k1_xboole_0 & ~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) & (~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0))) [input d24_gate_1]
+14. ~! [X0,X1,X2,X3,X4,X5] : (~(v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0))) & ~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0) & ~v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)))) [flattening 2]
+15. ! [X0,X1,X2,X3,X4,X5] : (~(k24_gate_1(X0,X1,X2,X3,X4,X5) != k1_xboole_0 & ~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) & (~(~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0))) [flattening 13]
+16. ? [X0,X1,X2,X3,X4,X5] : ((v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)) & (v1_xboole_0(X5) | v1_xboole_0(X4) | v1_xboole_0(X3) | v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0))) | (~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0) & ~v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)))) [ennf transformation 14]
+18. ! [X0] : (~v1_xboole_0(k1_gate_1(X0)) | ~v1_xboole_0(X0)) [ennf transformation 8]
+19. ! [X0,X1,X2,X3,X4,X5] : ((k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_xboole_0 | v1_xboole_0(X5) | v1_xboole_0(X4) | v1_xboole_0(X3) | v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0)) & (k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | (~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)))) [ennf transformation 15]
+20. ? [X0,X1,X2,X3,X4,X5] : ((v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)) & (v1_xboole_0(X5) | v1_xboole_0(X4) | v1_xboole_0(X3) | v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0))) | (~v1_xboole_0(X5) & ~v1_xboole_0(X4) & ~v1_xboole_0(X3) & ~v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0) & ~v1_xboole_0(k24_gate_1(X0,X1,X2,X3,X4,X5)))) => ((v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) & (v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0))) | (~v1_xboole_0(sK5) & ~v1_xboole_0(sK4) & ~v1_xboole_0(sK3) & ~v1_xboole_0(sK2) & ~v1_xboole_0(sK1) & ~v1_xboole_0(sK0) & ~v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)))) [choice axiom]
+21. (v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) & (v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0))) | (~v1_xboole_0(sK5) & ~v1_xboole_0(sK4) & ~v1_xboole_0(sK3) & ~v1_xboole_0(sK2) & ~v1_xboole_0(sK1) & ~v1_xboole_0(sK0) & ~v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5))) [skolemisation 16,20]
+26. v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) | ~v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) [cnf transformation 21] {a:0,w:20,wCS:2000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+34. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK0) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+35. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK1) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+36. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK2) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+37. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK3) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+38. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK4) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+39. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) | ~v1_xboole_0(sK5) [cnf transformation 21] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+40. v1_xboole_0(k1_xboole_0) [cnf transformation 9] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+42. ~v1_xboole_0(k1_gate_1(X0)) | ~v1_xboole_0(X0) [cnf transformation 18] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+43. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X0) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+44. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X1) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+45. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X2) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+46. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X3) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+47. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X4) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+48. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_gate_1(k1_xboole_0) | ~v1_xboole_0(X5) [cnf transformation 19] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+49. k24_gate_1(X0,X1,X2,X3,X4,X5) = k1_xboole_0 | v1_xboole_0(X5) | v1_xboole_0(X4) | v1_xboole_0(X3) | v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 19] {a:0,w:21,wCS:8400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+53. 1 <=> v1_xboole_0(sK5) [avatar definition]
+55. ~v1_xboole_0(sK5) <- (~1) [avatar component clause 53] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+57. 2 <=> v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) [avatar definition]
+58. ~v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) <- (~2) [avatar component clause 57] {a:0,w:8,wCS:800,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+59. v1_xboole_0(k24_gate_1(sK0,sK1,sK2,sK3,sK4,sK5)) <- (2) [avatar component clause 57] {a:0,w:8,wCS:800,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+60. ~1 | 2 [avatar split clause 39,57,53]
+62. 3 <=> v1_xboole_0(sK4) [avatar definition]
+64. ~v1_xboole_0(sK4) <- (~3) [avatar component clause 62] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+65. ~3 | 2 [avatar split clause 38,57,62]
+67. 4 <=> v1_xboole_0(sK3) [avatar definition]
+69. ~v1_xboole_0(sK3) <- (~4) [avatar component clause 67] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+70. ~4 | 2 [avatar split clause 37,57,67]
+72. 5 <=> v1_xboole_0(sK2) [avatar definition]
+74. ~v1_xboole_0(sK2) <- (~5) [avatar component clause 72] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+75. ~5 | 2 [avatar split clause 36,57,72]
+77. 6 <=> v1_xboole_0(sK1) [avatar definition]
+79. ~v1_xboole_0(sK1) <- (~6) [avatar component clause 77] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+80. ~6 | 2 [avatar split clause 35,57,77]
+82. 7 <=> v1_xboole_0(sK0) [avatar definition]
+84. ~v1_xboole_0(sK0) <- (~7) [avatar component clause 82] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+85. ~7 | 2 [avatar split clause 34,57,82]
+86. ~2 | 7 | 6 | 5 | 4 | 3 | 1 [avatar split clause 26,53,62,67,72,77,82,57]
+88. 8 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+90. v1_xboole_0(k1_xboole_0) <- (8) [avatar component clause 88] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+91. 8 [avatar split clause 40,88]
+115. ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~2) [superposition 58,49] {a:1,w:14,wCS:1400,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+122. v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~2, 8) [subsumption resolution 115,90] {a:1,w:12,wCS:1200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+123. v1_xboole_0(sK4) | v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~1, ~2, 8) [subsumption resolution 122,55] {a:1,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+124. v1_xboole_0(sK3) | v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~1, ~2, ~3, 8) [subsumption resolution 123,64] {a:1,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+125. v1_xboole_0(sK2) | v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~1, ~2, ~3, ~4, 8) [subsumption resolution 124,69] {a:1,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+126. v1_xboole_0(sK1) | v1_xboole_0(sK0) <- (~1, ~2, ~3, ~4, ~5, 8) [subsumption resolution 125,74] {a:1,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+127. v1_xboole_0(sK0) <- (~1, ~2, ~3, ~4, ~5, ~6, 8) [subsumption resolution 126,79] {a:1,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+128. $false <- (~1, ~2, ~3, ~4, ~5, ~6, ~7, 8) [subsumption resolution 127,84] {a:1,w:0,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+129. 1 | 2 | 3 | 4 | 5 | 6 | 7 | ~8 [avatar contradiction clause 128]
+130. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK0) <- (2) [superposition 59,43] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+131. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK1) <- (2) [superposition 59,44] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+132. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK2) <- (2) [superposition 59,45] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+133. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK3) <- (2) [superposition 59,46] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+134. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK4) <- (2) [superposition 59,47] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+135. v1_xboole_0(k1_gate_1(k1_xboole_0)) | ~v1_xboole_0(sK5) <- (2) [superposition 59,48] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+139. 11 <=> v1_xboole_0(k1_gate_1(k1_xboole_0)) [avatar definition]
+141. v1_xboole_0(k1_gate_1(k1_xboole_0)) <- (11) [avatar component clause 139] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+144. ~v1_xboole_0(k1_xboole_0) <- (11) [resolution 141,42] {a:2,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+146. $false <- (8, 11) [subsumption resolution 144,90] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+147. ~8 | ~11 [avatar contradiction clause 146]
+148. ~3 | 11 | ~2 [avatar split clause 134,57,139,62]
+149. ~4 | 11 | ~2 [avatar split clause 133,57,139,67]
+150. ~5 | 11 | ~2 [avatar split clause 132,57,139,72]
+151. ~6 | 11 | ~2 [avatar split clause 131,57,139,77]
+152. ~7 | 11 | ~2 [avatar split clause 130,57,139,82]
+153. ~1 | 11 | ~2 [avatar split clause 135,57,139,53]
+154. $false [avatar sat refutation 60,65,70,75,80,85,86,91,129,147,148,149,150,151,152,153] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:95,thDist:-95}
+% SZS output end Proof for gate_1__t30_gate_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 12
+% Introduced skolems: 8
+% 
+% >>> Saturation
+% Initial clauses: 26
+% Generated clauses: 94
+% Active clauses: 22
+% Passive clauses: 33
+% Final active clauses: 13
+% Final passive clauses: 7
+% Main loop iterations started: 22
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 9
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 20
+% Forward subsumptions: 12
+% 
+% >>> Generating Inferences
+% Binary resolution: 2
+% Unit resulting resolution: 1
+% Forward superposition: 13
+% Backward superposition: 13
+% 
+% >>> AVATAR
+% Split clauses: 13
+% Split components: 31
+% Sat splitting refutations: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 22
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 8
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

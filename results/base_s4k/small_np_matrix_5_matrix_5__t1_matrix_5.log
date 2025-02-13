@@ -1,0 +1,57 @@
+i: [1,374,0,4,1,1,0,0] t1_matrix_5
+i: [1,381,0,3,1,0,0,255] d4_complex1
+i: [1,384,0,4,1,0,0,255] t8_complfld
+f: 384,381,374
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for matrix_5__t1_matrix_5
+% SZS output start Proof for matrix_5__t1_matrix_5
+1. 1 = k1_group_1(k1_complfld) [input t1_matrix_5]
+2. ~1 = k1_group_1(k1_complfld) [negated conjecture 1]
+139. 1 = k6_complex1 [input d4_complex1]
+140. k1_group_1(k1_complfld) = k6_complex1 [input t8_complfld]
+141. 1 != k1_group_1(k1_complfld) [flattening 2]
+374. 1 != k1_group_1(k1_complfld) [cnf transformation 141] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+381. 1 = k6_complex1 [cnf transformation 139] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+384. k1_group_1(k1_complfld) = k6_complex1 [cnf transformation 140] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+556. 1 <=> 1 = k1_group_1(k1_complfld) [avatar definition]
+559. ~1 [avatar split clause 374,556]
+591. 8 <=> 1 = k6_complex1 [avatar definition]
+594. 8 [avatar split clause 381,591]
+606. 11 <=> k1_group_1(k1_complfld) = k6_complex1 [avatar definition]
+609. 11 [avatar split clause 384,606]
+913. 1 != k6_complex1 | k1_group_1(k1_complfld) != k6_complex1 | 1 = k1_group_1(k1_complfld) [theory tautology sat conflict] {a:0,w:11,wCS:4400,sine:255,thAx:0,allAx:1,thDist:-1}
+914. $false [avatar sat refutation 559,594,609,913] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:194,thDist:-194}
+% SZS output end Proof for matrix_5__t1_matrix_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 139
+% >>> Preprocessing
+% Introduced skolems: 31
+% Pure predicates: 15
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 181
+% Generated clauses: 181
+% Passive clauses: 99
+% Final passive clauses: 99
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 77
+% SAT solver unit clauses: 74
+% 
+% Memory used [KB]: 9850
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s ( own 0.0000 s ) 
+% sine selection: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

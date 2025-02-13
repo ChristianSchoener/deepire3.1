@@ -1,0 +1,71 @@
+i: [1,14,0,17,1,1,0,0] t41_enumset1
+a: [3,20,0,17,1,14]
+s: 20
+i: [1,15,0,16,1,0,0,1] t34_enumset1
+s: 15
+i: [1,16,0,18,1,0,0,1] t35_enumset1
+s: 16
+d: [2,22,1,16,1,1,44,20,16]
+d: [2,23,1,0,0,1,21,22,15]
+e: 23
+f: 23,14
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for enumset1__t41_enumset1
+% SZS output start Proof for enumset1__t41_enumset1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : k6_enumset1(X0,X0,X0,X1,X2,X3,X4,X5) = k4_enumset1(X0,X1,X2,X3,X4,X5) [input t41_enumset1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : k6_enumset1(X0,X0,X0,X1,X2,X3,X4,X5) = k4_enumset1(X0,X1,X2,X3,X4,X5) [negated conjecture 1]
+6. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : k4_enumset1(X0,X1,X2,X3,X4,X5) = k5_enumset1(X0,X0,X1,X2,X3,X4,X5) [input t34_enumset1]
+7. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : k6_enumset1(X0,X0,X1,X2,X3,X4,X5,X6) = k5_enumset1(X0,X1,X2,X3,X4,X5,X6) [input t35_enumset1]
+8. ~! [X0,X1,X2,X3,X4,X5] : k6_enumset1(X0,X0,X0,X1,X2,X3,X4,X5) = k4_enumset1(X0,X1,X2,X3,X4,X5) [flattening 2]
+9. ! [X0,X1,X2,X3,X4,X5] : k4_enumset1(X0,X1,X2,X3,X4,X5) = k5_enumset1(X0,X0,X1,X2,X3,X4,X5) [flattening 6]
+10. ! [X0,X1,X2,X3,X4,X5,X6] : k6_enumset1(X0,X0,X1,X2,X3,X4,X5,X6) = k5_enumset1(X0,X1,X2,X3,X4,X5,X6) [flattening 7]
+11. ? [X0,X1,X2,X3,X4,X5] : k6_enumset1(X0,X0,X0,X1,X2,X3,X4,X5) != k4_enumset1(X0,X1,X2,X3,X4,X5) [ennf transformation 8]
+12. ? [X0,X1,X2,X3,X4,X5] : k6_enumset1(X0,X0,X0,X1,X2,X3,X4,X5) != k4_enumset1(X0,X1,X2,X3,X4,X5) => k6_enumset1(sK0,sK0,sK0,sK1,sK2,sK3,sK4,sK5) != k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) [choice axiom]
+13. k6_enumset1(sK0,sK0,sK0,sK1,sK2,sK3,sK4,sK5) != k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) [skolemisation 11,12]
+14. k6_enumset1(sK0,sK0,sK0,sK1,sK2,sK3,sK4,sK5) != k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) [cnf transformation 13] {a:0,w:17,wCS:1700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+15. k4_enumset1(X0,X1,X2,X3,X4,X5) = k5_enumset1(X0,X0,X1,X2,X3,X4,X5) [cnf transformation 9] {a:0,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+16. k6_enumset1(X0,X0,X1,X2,X3,X4,X5,X6) = k5_enumset1(X0,X1,X2,X3,X4,X5,X6) [cnf transformation 10] {a:0,w:18,wCS:7200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+18. 1 <=> k6_enumset1(sK0,sK0,sK0,sK1,sK2,sK3,sK4,sK5) = k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) [avatar definition]
+20. k6_enumset1(sK0,sK0,sK0,sK1,sK2,sK3,sK4,sK5) != k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) <- (~1) [avatar component clause 18] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+21. ~1 [avatar split clause 14,18]
+22. k4_enumset1(sK0,sK1,sK2,sK3,sK4,sK5) != k5_enumset1(sK0,sK0,sK1,sK2,sK3,sK4,sK5) <- (~1) [superposition 20,16] {a:1,w:16,wCS:1600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+23. $false <- (~1) [subsumption resolution 22,15] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+24. 1 [avatar contradiction clause 23]
+25. $false [avatar sat refutation 21,24] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:6,thDist:-6}
+% SZS output end Proof for enumset1__t41_enumset1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 6
+% Introduced skolems: 6
+% 
+% >>> Saturation
+% Initial clauses: 3
+% Generated clauses: 6
+% Active clauses: 3
+% Passive clauses: 3
+% Final active clauses: 3
+% Main loop iterations started: 3
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Generating Inferences
+% Backward superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 4
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

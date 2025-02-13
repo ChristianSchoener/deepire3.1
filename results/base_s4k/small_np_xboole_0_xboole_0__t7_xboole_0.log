@@ -1,0 +1,110 @@
+i: [1,26,0,3,1,1,0,0] t7_xboole_0
+s: 26
+i: [1,25,0,3,1,1,0,0] t7_xboole_0
+a: [3,39,0,3,1,25]
+s: 39
+i: [1,27,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,44,0,2,1,27]
+s: 44
+i: [1,28,0,2,1,0,0,1] fc1_xboole_0
+a: [3,49,0,2,1,28]
+s: 49
+i: [1,34,0,2,1,0,0,2] rc2_xboole_0
+a: [3,59,0,2,1,34]
+s: 59
+i: [1,35,0,2,1,0,0,2] rc1_xboole_0
+a: [3,64,0,2,1,35]
+s: 64
+i: [1,29,0,3,1,0,0,255] d2_xboole_0
+a: [3,54,0,3,1,29]
+s: 54
+r: 44
+i: [1,30,0,5,2,0,0,1] l13_xboole_0
+s: 30
+i: [1,31,0,5,2,0,0,1] d1_xboole_0
+s: 31
+i: [1,32,0,6,2,0,0,1] d1_xboole_0
+s: 32
+i: [1,33,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 33
+d: [2,69,1,2,1,0,40,32,26]
+a: [3,74,1,2,1,69]
+s: 74
+d: [2,77,2,0,0,2,52,39,74,30]
+e: 77
+f: 77,69,25
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_0__t7_xboole_0
+% SZS output start Proof for xboole_0__t7_xboole_0
+1. ! [X0] : ~(! [X1] : ~r2_hidden(X1,X0) & k1_xboole_0 != X0) [input t7_xboole_0]
+2. ~! [X0] : ~(! [X1] : ~r2_hidden(X1,X0) & k1_xboole_0 != X0) [negated conjecture 1]
+4. ! [X0] : (v1_xboole_0(X0) <=> ! [X1] : ~r2_hidden(X1,X0)) [input d1_xboole_0]
+9. ! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [input l13_xboole_0]
+12. ? [X0] : (! [X1] : ~r2_hidden(X1,X0) & k1_xboole_0 != X0) [ennf transformation 2]
+13. ! [X0] : (k1_xboole_0 = X0 | ~v1_xboole_0(X0)) [ennf transformation 9]
+15. ? [X0] : (! [X1] : ~r2_hidden(X1,X0) & k1_xboole_0 != X0) => (! [X1] : ~r2_hidden(X1,sK0) & k1_xboole_0 != sK0) [choice axiom]
+16. ! [X1] : ~r2_hidden(X1,sK0) & k1_xboole_0 != sK0 [skolemisation 12,15]
+17. ! [X0] : ((v1_xboole_0(X0) | ? [X1] : r2_hidden(X1,X0)) & (! [X1] : ~r2_hidden(X1,X0) | ~v1_xboole_0(X0))) [nnf transformation 4]
+18. ! [X0] : ((v1_xboole_0(X0) | ? [X1] : r2_hidden(X1,X0)) & (! [X2] : ~r2_hidden(X2,X0) | ~v1_xboole_0(X0))) [rectify 17]
+19. ! [X0] : (? [X1] : r2_hidden(X1,X0) => r2_hidden(sK1(X0),X0)) [choice axiom]
+20. ! [X0] : ((v1_xboole_0(X0) | r2_hidden(sK1(X0),X0)) & (! [X2] : ~r2_hidden(X2,X0) | ~v1_xboole_0(X0))) [skolemisation 18,19]
+25. k1_xboole_0 != sK0 [cnf transformation 16] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+26. ~r2_hidden(X1,sK0) [cnf transformation 16] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+30. k1_xboole_0 = X0 | ~v1_xboole_0(X0) [cnf transformation 13] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+32. r2_hidden(sK1(X0),X0) | v1_xboole_0(X0) [cnf transformation 20] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+37. 1 <=> k1_xboole_0 = sK0 [avatar definition]
+39. k1_xboole_0 != sK0 <- (~1) [avatar component clause 37] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+40. ~1 [avatar split clause 25,37]
+69. v1_xboole_0(sK0) [resolution 32,26] {a:1,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+72. 7 <=> v1_xboole_0(sK0) [avatar definition]
+74. v1_xboole_0(sK0) <- (7) [avatar component clause 72] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+75. 7 [avatar split clause 69,72]
+77. $false <- (~1, 7) [unit resulting resolution 39,74,30] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+78. 1 | ~7 [avatar contradiction clause 77]
+79. $false [avatar sat refutation 40,75,78] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:27,thDist:-27}
+% SZS output end Proof for xboole_0__t7_xboole_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 10
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 11
+% Generated clauses: 25
+% Active clauses: 12
+% Passive clauses: 14
+% Final active clauses: 11
+% Final passive clauses: 2
+% Main loop iterations started: 12
+% 
+% >>> Simplifying Inferences
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 3
+% Unit resulting resolution: 1
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

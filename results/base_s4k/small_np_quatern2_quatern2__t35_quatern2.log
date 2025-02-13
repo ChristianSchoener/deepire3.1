@@ -1,0 +1,68 @@
+i: [1,385,0,4,1,1,0,0] t35_quatern2
+i: [1,410,0,2,1,0,0,1] dt_k15_quatern2
+i: [1,409,0,2,1,0,0,1] dt_k15_quatern2
+i: [1,599,0,8,3,0,0,255] d9_quatern2
+f: 599,409,410,385
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for quatern2__t35_quatern2
+% SZS output start Proof for quatern2__t35_quatern2
+1. k4_struct_0(k15_quatern2) = k1_quatern2 [input t35_quatern2]
+2. ~k4_struct_0(k15_quatern2) = k1_quatern2 [negated conjecture 1]
+151. l2_algstr_0(k15_quatern2) & v8_algstr_0(k15_quatern2) [input dt_k15_quatern2]
+164. ! [X0] : ((l2_algstr_0(X0) & v8_algstr_0(X0)) => (k15_quatern2 = X0 <=> (k1_quatern2 = k4_struct_0(X0) & u1_algstr_0(X0) = k10_quatern2 & u1_struct_0(X0) = k1_quaterni))) [input d9_quatern2]
+165. k4_struct_0(k15_quatern2) != k1_quatern2 [flattening 2]
+260. ! [X0] : ((k15_quatern2 = X0 <=> (k1_quatern2 = k4_struct_0(X0) & u1_algstr_0(X0) = k10_quatern2 & u1_struct_0(X0) = k1_quaterni)) | (~l2_algstr_0(X0) | ~v8_algstr_0(X0))) [ennf transformation 164]
+261. ! [X0] : ((k15_quatern2 = X0 <=> (k1_quatern2 = k4_struct_0(X0) & u1_algstr_0(X0) = k10_quatern2 & u1_struct_0(X0) = k1_quaterni)) | ~l2_algstr_0(X0) | ~v8_algstr_0(X0)) [flattening 260]
+325. ! [X0] : (((k15_quatern2 = X0 | (k1_quatern2 != k4_struct_0(X0) | u1_algstr_0(X0) != k10_quatern2 | u1_struct_0(X0) != k1_quaterni)) & ((k1_quatern2 = k4_struct_0(X0) & u1_algstr_0(X0) = k10_quatern2 & u1_struct_0(X0) = k1_quaterni) | k15_quatern2 != X0)) | ~l2_algstr_0(X0) | ~v8_algstr_0(X0)) [nnf transformation 261]
+326. ! [X0] : (((k15_quatern2 = X0 | k1_quatern2 != k4_struct_0(X0) | u1_algstr_0(X0) != k10_quatern2 | u1_struct_0(X0) != k1_quaterni) & ((k1_quatern2 = k4_struct_0(X0) & u1_algstr_0(X0) = k10_quatern2 & u1_struct_0(X0) = k1_quaterni) | k15_quatern2 != X0)) | ~l2_algstr_0(X0) | ~v8_algstr_0(X0)) [flattening 325]
+385. k4_struct_0(k15_quatern2) != k1_quatern2 [cnf transformation 165] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+409. v8_algstr_0(k15_quatern2) [cnf transformation 151] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+410. l2_algstr_0(k15_quatern2) [cnf transformation 151] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+499. k1_quatern2 = k4_struct_0(X0) | k15_quatern2 != X0 | ~l2_algstr_0(X0) | ~v8_algstr_0(X0) [cnf transformation 326] {a:0,w:11,wCS:4400,sine:255,thAx:0,allAx:1,thDist:-1}
+599. k4_struct_0(k15_quatern2) = k1_quatern2 | ~l2_algstr_0(k15_quatern2) | ~v8_algstr_0(k15_quatern2) [equality resolution 499] {a:0,w:8,wCS:3200,sine:255,thAx:0,allAx:1,thDist:-1}
+604. 1 <=> k4_struct_0(k15_quatern2) = k1_quatern2 [avatar definition]
+607. ~1 [avatar split clause 385,604]
+686. 17 <=> v8_algstr_0(k15_quatern2) [avatar definition]
+706. 21 <=> l2_algstr_0(k15_quatern2) [avatar definition]
+711. 21 [avatar split clause 410,706]
+712. 17 [avatar split clause 409,686]
+811. ~17 | ~21 | 1 [avatar split clause 599,604,706,686]
+1007. $false [avatar sat refutation 607,711,712,811] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:219,thDist:-219}
+% SZS output end Proof for quatern2__t35_quatern2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 163
+% >>> Preprocessing
+% Introduced skolems: 32
+% Pure predicates: 6
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 214
+% Generated clauses: 214
+% Passive clauses: 116
+% Final passive clauses: 116
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 10
+% 
+% >>> AVATAR
+% Split clauses: 3
+% Split components: 9
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 90
+% SAT solver unit clauses: 85
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% other: 0.004 s ( own 0.001 s ) 
+

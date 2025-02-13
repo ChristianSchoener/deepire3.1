@@ -1,0 +1,49 @@
+i: [1,299,0,4,1,1,0,0] t51_asympt_1
+i: [1,308,0,4,1,0,0,1] l63_asympt_1
+f: 308,299
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for asympt_1__t51_asympt_1
+% SZS output start Proof for asympt_1__t51_asympt_1
+1. k9_newton(5) = 120 [input t51_asympt_1]
+2. ~k9_newton(5) = 120 [negated conjecture 1]
+126. k9_newton(5) = 120 [input l63_asympt_1]
+127. k9_newton(5) != 120 [flattening 2]
+299. k9_newton(5) != 120 [cnf transformation 127] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+308. k9_newton(5) = 120 [cnf transformation 126] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+468. 1 <=> k9_newton(5) = 120 [avatar definition]
+471. ~1 [avatar split clause 299,468]
+512. 1 [avatar split clause 308,468]
+863. $false [avatar sat refutation 471,512] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:219,thDist:-219}
+% SZS output end Proof for asympt_1__t51_asympt_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 125
+% >>> Preprocessing
+% Introduced skolems: 31
+% Pure predicates: 7
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 168
+% Generated clauses: 168
+% Passive clauses: 80
+% Final passive clauses: 80
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 82
+% SAT solver unit clauses: 80
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

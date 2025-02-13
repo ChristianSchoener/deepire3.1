@@ -1,0 +1,128 @@
+i: [1,33,0,2,1,1,0,0] t11_wellord1
+a: [3,55,0,2,1,33]
+s: 55
+i: [1,34,0,9,1,1,0,0] t11_wellord1
+a: [3,50,0,9,1,34]
+s: 50
+i: [1,38,0,4,1,0,0,255] fc6_relat_1
+s: 38
+i: [1,39,0,5,1,0,0,255] idempotence_k3_xboole_0
+s: 39
+i: [1,41,0,6,2,0,0,1] dt_k2_wellord1
+s: 41
+i: [1,42,0,6,2,0,0,255] fc1_relat_1
+s: 42
+i: [1,43,0,6,2,0,0,1] dt_k5_relat_1
+s: 43
+i: [1,44,0,6,2,0,0,1] dt_k6_relat_1
+s: 44
+i: [1,40,0,7,1,0,0,255] commutativity_k3_xboole_0
+s: 40
+i: [1,35,0,11,2,0,0,255] d6_wellord1
+s: 35
+i: [1,36,0,11,2,0,0,1] t10_wellord1
+s: 36
+d: [2,58,1,6,2,0,44,42,40]
+s: 58
+i: [1,45,0,11,2,0,0,1] rd7_relat_1
+s: 45
+d: [2,59,1,6,2,0,44,42,40]
+s: 59
+i: [1,46,0,11,2,0,0,1] rd5_relat_1
+s: 46
+i: [1,37,0,13,2,0,0,1] t109_relat_1
+s: 37
+d: [2,85,1,11,2,1,44,50,37]
+d: [2,91,1,9,1,2,21,85,55]
+a: [3,95,1,9,1,91]
+s: 95
+d: [2,100,2,0,0,2,52,55,95,36]
+e: 100
+d: [2,101,2,9,2,1,44,95,36]
+d: [2,102,2,2,1,1,19,101]
+d: [2,104,2,0,0,2,21,102,55]
+e: 104
+f: 104,91,33,34
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for wellord1__t11_wellord1
+% SZS output start Proof for wellord1__t11_wellord1
+1. ! [X0] : ! [X1] : (v1_relat_1(X1) => k2_wellord1(X1,X0) = k6_relat_1(X0,k5_relat_1(X1,X0))) [input t11_wellord1]
+2. ~! [X0] : ! [X1] : (v1_relat_1(X1) => k2_wellord1(X1,X0) = k6_relat_1(X0,k5_relat_1(X1,X0))) [negated conjecture 1]
+15. ! [X0] : ! [X1] : ! [X2] : (v1_relat_1(X2) => k5_relat_1(k6_relat_1(X0,X2),X1) = k6_relat_1(X0,k5_relat_1(X2,X1))) [input t109_relat_1]
+16. ! [X0] : ! [X1] : (v1_relat_1(X1) => k2_wellord1(X1,X0) = k5_relat_1(k6_relat_1(X0,X1),X0)) [input t10_wellord1]
+17. ~! [X0,X1] : (v1_relat_1(X1) => k2_wellord1(X1,X0) = k6_relat_1(X0,k5_relat_1(X1,X0))) [flattening 2]
+18. ! [X0,X1] : (v1_relat_1(X1) => k2_wellord1(X1,X0) = k5_relat_1(k6_relat_1(X0,X1),X0)) [flattening 16]
+19. ! [X0,X1,X2] : (v1_relat_1(X2) => k5_relat_1(k6_relat_1(X0,X2),X1) = k6_relat_1(X0,k5_relat_1(X2,X1))) [flattening 15]
+21. ? [X0,X1] : (k2_wellord1(X1,X0) != k6_relat_1(X0,k5_relat_1(X1,X0)) & v1_relat_1(X1)) [ennf transformation 17]
+23. ! [X0,X1] : (k2_wellord1(X1,X0) = k5_relat_1(k6_relat_1(X0,X1),X0) | ~v1_relat_1(X1)) [ennf transformation 18]
+24. ! [X0,X1,X2] : (k5_relat_1(k6_relat_1(X0,X2),X1) = k6_relat_1(X0,k5_relat_1(X2,X1)) | ~v1_relat_1(X2)) [ennf transformation 19]
+31. ? [X0,X1] : (k2_wellord1(X1,X0) != k6_relat_1(X0,k5_relat_1(X1,X0)) & v1_relat_1(X1)) => (k2_wellord1(sK1,sK0) != k6_relat_1(sK0,k5_relat_1(sK1,sK0)) & v1_relat_1(sK1)) [choice axiom]
+32. k2_wellord1(sK1,sK0) != k6_relat_1(sK0,k5_relat_1(sK1,sK0)) & v1_relat_1(sK1) [skolemisation 21,31]
+33. v1_relat_1(sK1) [cnf transformation 32] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+34. k2_wellord1(sK1,sK0) != k6_relat_1(sK0,k5_relat_1(sK1,sK0)) [cnf transformation 32] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+36. k2_wellord1(X1,X0) = k5_relat_1(k6_relat_1(X0,X1),X0) | ~v1_relat_1(X1) [cnf transformation 23] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+37. k5_relat_1(k6_relat_1(X0,X2),X1) = k6_relat_1(X0,k5_relat_1(X2,X1)) | ~v1_relat_1(X2) [cnf transformation 24] {a:0,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+48. 1 <=> k2_wellord1(sK1,sK0) = k6_relat_1(sK0,k5_relat_1(sK1,sK0)) [avatar definition]
+50. k2_wellord1(sK1,sK0) != k6_relat_1(sK0,k5_relat_1(sK1,sK0)) <- (~1) [avatar component clause 48] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+51. ~1 [avatar split clause 34,48]
+53. 2 <=> v1_relat_1(sK1) [avatar definition]
+55. v1_relat_1(sK1) <- (2) [avatar component clause 53] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+56. 2 [avatar split clause 33,53]
+85. k2_wellord1(sK1,sK0) != k5_relat_1(k6_relat_1(sK0,sK1),sK0) | ~v1_relat_1(sK1) <- (~1) [superposition 50,37] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+91. k2_wellord1(sK1,sK0) != k5_relat_1(k6_relat_1(sK0,sK1),sK0) <- (~1, 2) [subsumption resolution 85,55] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+93. 3 <=> k2_wellord1(sK1,sK0) = k5_relat_1(k6_relat_1(sK0,sK1),sK0) [avatar definition]
+95. k2_wellord1(sK1,sK0) != k5_relat_1(k6_relat_1(sK0,sK1),sK0) <- (~3) [avatar component clause 93] {a:1,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+96. ~3 | 1 | ~2 [avatar split clause 91,53,48,93]
+101. k2_wellord1(sK1,sK0) != k2_wellord1(sK1,sK0) | ~v1_relat_1(sK1) <- (~3) [superposition 95,36] {a:2,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+102. ~v1_relat_1(sK1) <- (~3) [trivial inequality removal 101] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+104. $false <- (2, ~3) [subsumption resolution 102,55] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+105. ~2 | 3 [avatar contradiction clause 104]
+106. $false [avatar sat refutation 51,56,96,105] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:22,thDist:-22}
+% SZS output end Proof for wellord1__t11_wellord1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 15
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 14
+% Generated clauses: 59
+% Active clauses: 16
+% Passive clauses: 30
+% Final active clauses: 16
+% Final passive clauses: 13
+% Main loop iterations started: 17
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 1
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 11
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 8
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Forward superposition: 12
+% Backward superposition: 14
+% Self superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

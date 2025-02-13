@@ -1,0 +1,151 @@
+i: [1,194,0,4,1,1,0,0] t31_normform
+a: [3,303,0,4,1,194]
+s: 303
+i: [1,195,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,308,0,2,1,195]
+s: 308
+i: [1,291,0,2,1,0,0,255] rc1_relat_1
+a: [3,318,0,2,1,291]
+s: 318
+i: [1,290,0,2,1,0,0,255] rc1_relat_1
+a: [3,323,0,2,1,290]
+s: 323
+i: [1,292,0,2,1,0,0,255] rc2_relat_1
+a: [3,328,0,2,1,292]
+s: 328
+i: [1,197,0,3,1,0,0,1] fc3_normform
+s: 197
+i: [1,198,0,3,1,0,0,2] fc2_normform
+s: 198
+i: [1,199,0,3,1,0,0,2] fc1_subset_1
+s: 199
+i: [1,200,0,3,1,0,0,255] dt_k5_finsub_1
+s: 200
+i: [1,201,0,3,1,0,0,255] fc1_finsub_1
+s: 201
+i: [1,209,0,3,1,0,0,255] fc2_finsub_1
+s: 209
+i: [1,210,0,3,1,0,0,255] fc2_finsub_1
+s: 210
+i: [1,244,0,3,1,0,0,2] rc2_subset_1
+s: 244
+i: [1,247,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 247
+i: [1,196,0,3,1,0,0,255] d2_xboole_0
+a: [3,313,0,3,1,196]
+s: 313
+r: 308
+d: [2,330,0,2,1,2,23,308,313]
+a: [3,334,0,2,1,330]
+s: 334
+i: [1,202,0,4,1,0,0,255] l42_normform
+s: 202
+i: [1,217,0,4,2,0,0,255] cc1_finsub_1
+s: 217
+d: [2,336,1,3,1,0,40,217,200]
+s: 336
+i: [1,218,0,4,2,0,0,255] cc1_finsub_1
+s: 218
+i: [1,220,0,4,2,0,0,255] cc1_relat_1
+s: 220
+d: [2,341,1,2,1,1,40,220,334]
+a: [3,345,1,2,1,341]
+s: 345
+i: [1,242,0,4,1,0,0,2] existence_m1_subset_1
+s: 242
+d: [2,337,1,3,1,0,40,217,201]
+s: 337
+i: [1,246,0,4,1,0,0,255] rc3_subset_1
+s: 246
+i: [1,248,0,4,1,0,0,255] fc6_relat_1
+s: 248
+d: [2,338,1,3,1,0,40,218,200]
+s: 338
+i: [1,276,0,4,1,0,0,255] rc3_relat_1
+s: 276
+d: [2,339,1,3,1,0,40,218,201]
+s: 339
+i: [1,280,0,4,1,0,0,255] rc1_relset_1
+s: 280
+i: [1,281,0,4,1,0,0,255] rc1_relset_1
+s: 281
+d: [2,340,1,3,1,0,40,220,244]
+s: 340
+i: [1,203,0,5,1,0,0,255] d9_normform
+s: 203
+r: 202
+d: [2,348,0,4,1,0,23,202,203]
+s: 348
+d: [2,350,1,0,0,1,40,348,303]
+e: 350
+d: [2,349,1,0,0,1,52,303,348]
+e: 349
+f: 349,194
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for normform__t31_normform
+% SZS output start Proof for normform__t31_normform
+1. ! [X0] : r2_hidden(k1_xboole_0,k8_normform(X0)) [input t31_normform]
+2. ~! [X0] : r2_hidden(k1_xboole_0,k8_normform(X0)) [negated conjecture 1]
+75. ! [X0] : k8_normform(X0) = a_1_1_normform(X0) [input d9_normform]
+76. ! [X0] : r2_hidden(k1_xboole_0,a_1_1_normform(X0)) [input l42_normform]
+94. ? [X0] : ~r2_hidden(k1_xboole_0,k8_normform(X0)) [ennf transformation 2]
+159. ? [X0] : ~r2_hidden(k1_xboole_0,k8_normform(X0)) => ~r2_hidden(k1_xboole_0,k8_normform(sK0)) [choice axiom]
+160. ~r2_hidden(k1_xboole_0,k8_normform(sK0)) [skolemisation 94,159]
+194. ~r2_hidden(k1_xboole_0,k8_normform(sK0)) [cnf transformation 160] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+202. r2_hidden(k1_xboole_0,a_1_1_normform(X0)) [cnf transformation 76] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+203. k8_normform(X0) = a_1_1_normform(X0) [cnf transformation 75] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+301. 1 <=> r2_hidden(k1_xboole_0,k8_normform(sK0)) [avatar definition]
+303. ~r2_hidden(k1_xboole_0,k8_normform(sK0)) <- (~1) [avatar component clause 301] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+304. ~1 [avatar split clause 194,301]
+348. r2_hidden(k1_xboole_0,k8_normform(X0)) [backward demodulation 202,203] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+349. $false <- (~1) [unit resulting resolution 303,348] {a:1,w:0,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+352. 1 [avatar contradiction clause 349]
+353. $false [avatar sat refutation 304,352] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:30,thDist:-30}
+% SZS output end Proof for normform__t31_normform
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 75
+% >>> Preprocessing
+% Introduced skolems: 16
+% Pure predicates: 3
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 99
+% Generated clauses: 118
+% Active clauses: 33
+% Passive clauses: 102
+% Final active clauses: 31
+% Final passive clauses: 68
+% Main loop iterations started: 34
+% 
+% >>> Simplifying Inferences
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 8
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 12
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% other: 0.003 s ( own 0.001 s ) 
+

@@ -1,0 +1,86 @@
+i: [1,11,0,2,1,1,0,0] t6_boole
+a: [3,24,0,2,1,11]
+s: 24
+i: [1,12,0,3,1,1,0,0] t6_boole
+a: [3,19,0,3,1,12]
+s: 19
+i: [1,13,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,29,0,2,1,13]
+s: 29
+i: [1,14,0,3,1,0,0,255] d2_xboole_0
+a: [3,34,0,3,1,14]
+s: 34
+r: 29
+d: [2,36,0,2,1,2,23,29,34]
+a: [3,40,0,2,1,36]
+s: 40
+i: [1,15,0,5,2,0,0,1] l6_boole
+s: 15
+d: [2,42,1,0,0,2,52,24,19,15]
+e: 42
+f: 42,11,12
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for boole__t6_boole
+% SZS output start Proof for boole__t6_boole
+1. ! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [input t6_boole]
+2. ~! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [negated conjecture 1]
+6. ! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [input l6_boole]
+7. ? [X0] : (k1_xboole_0 != X0 & v1_xboole_0(X0)) [ennf transformation 2]
+8. ! [X0] : (k1_xboole_0 = X0 | ~v1_xboole_0(X0)) [ennf transformation 6]
+9. ? [X0] : (k1_xboole_0 != X0 & v1_xboole_0(X0)) => (k1_xboole_0 != sK0 & v1_xboole_0(sK0)) [choice axiom]
+10. k1_xboole_0 != sK0 & v1_xboole_0(sK0) [skolemisation 7,9]
+11. v1_xboole_0(sK0) [cnf transformation 10] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+12. k1_xboole_0 != sK0 [cnf transformation 10] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+15. k1_xboole_0 = X0 | ~v1_xboole_0(X0) [cnf transformation 8] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+17. 1 <=> k1_xboole_0 = sK0 [avatar definition]
+19. k1_xboole_0 != sK0 <- (~1) [avatar component clause 17] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+20. ~1 [avatar split clause 12,17]
+22. 2 <=> v1_xboole_0(sK0) [avatar definition]
+24. v1_xboole_0(sK0) <- (2) [avatar component clause 22] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+25. 2 [avatar split clause 11,22]
+42. $false <- (~1, 2) [unit resulting resolution 24,19,15] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+45. 1 | ~2 [avatar contradiction clause 42]
+46. $false [avatar sat refutation 20,25,45] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:19,thDist:-19}
+% SZS output end Proof for boole__t6_boole
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% Introduced skolems: 1
+% 
+% >>> Saturation
+% Initial clauses: 5
+% Generated clauses: 14
+% Active clauses: 6
+% Passive clauses: 6
+% Final active clauses: 5
+% Main loop iterations started: 6
+% 
+% >>> Simplifying Inferences
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

@@ -1,0 +1,118 @@
+i: [1,15,0,2,1,1,0,0] t40_rewrite1
+a: [3,34,0,2,1,15]
+s: 34
+i: [1,17,0,4,1,1,0,0] t40_rewrite1
+a: [3,24,0,4,1,17]
+s: 24
+i: [1,16,0,4,1,1,0,0] t40_rewrite1
+a: [3,29,0,4,1,16]
+s: 29
+i: [1,18,0,13,3,0,0,255] d7_rewrite1
+s: 18
+i: [1,19,0,13,3,0,0,255] d7_rewrite1
+s: 19
+i: [1,20,0,14,4,0,0,255] d7_rewrite1
+s: 20
+d: [2,37,1,19,5,0,40,20,19]
+d: [2,38,1,17,4,0,18,37]
+s: 38
+d: [2,36,1,19,5,0,40,20,18]
+d: [2,39,1,17,4,0,18,36]
+s: 39
+d: [2,41,2,16,5,0,40,38,19]
+d: [2,42,2,10,3,0,18,41]
+s: 42
+d: [2,45,2,16,5,0,40,39,19]
+d: [2,46,2,10,3,0,18,45]
+s: 46
+d: [2,55,3,0,0,3,52,34,24,29,46]
+e: 55
+d: [2,56,3,6,2,1,40,46,29]
+d: [2,58,3,4,1,2,21,56,34]
+d: [2,59,3,0,0,3,21,58,24]
+e: 59
+f: 59,15,16,17
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for rewrite1__t40_rewrite1
+% SZS output start Proof for rewrite1__t40_rewrite1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r5_rewrite1(X0,X1,X2) => r5_rewrite1(X0,X2,X1))) [input t40_rewrite1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r5_rewrite1(X0,X1,X2) => r5_rewrite1(X0,X2,X1))) [negated conjecture 1]
+3. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [input d7_rewrite1]
+4. ~! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r5_rewrite1(X0,X1,X2) => r5_rewrite1(X0,X2,X1))) [flattening 2]
+5. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [flattening 3]
+6. ? [X0] : (? [X1,X2] : (~r5_rewrite1(X0,X2,X1) & r5_rewrite1(X0,X1,X2)) & v1_relat_1(X0)) [ennf transformation 4]
+7. ! [X0] : (! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3))) | ~v1_relat_1(X0)) [ennf transformation 5]
+8. ? [X0] : (? [X1,X2] : (~r5_rewrite1(X0,X2,X1) & r5_rewrite1(X0,X1,X2)) & v1_relat_1(X0)) => (? [X2,X1] : (~r5_rewrite1(sK0,X2,X1) & r5_rewrite1(sK0,X1,X2)) & v1_relat_1(sK0)) [choice axiom]
+9. ? [X2,X1] : (~r5_rewrite1(sK0,X2,X1) & r5_rewrite1(sK0,X1,X2)) => (~r5_rewrite1(sK0,sK2,sK1) & r5_rewrite1(sK0,sK1,sK2)) [choice axiom]
+10. (~r5_rewrite1(sK0,sK2,sK1) & r5_rewrite1(sK0,sK1,sK2)) & v1_relat_1(sK0) [skolemisation 6,9,8]
+11. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [nnf transformation 7]
+12. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [rectify 11]
+13. ! [X2,X1,X0] : (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) => (r1_rewrite1(X0,X2,sK3(X0,X1,X2)) & r1_rewrite1(X0,X1,sK3(X0,X1,X2)))) [choice axiom]
+14. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & ((r1_rewrite1(X0,X2,sK3(X0,X1,X2)) & r1_rewrite1(X0,X1,sK3(X0,X1,X2))) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [skolemisation 12,13]
+15. v1_relat_1(sK0) [cnf transformation 10] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+16. r5_rewrite1(sK0,sK1,sK2) [cnf transformation 10] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+17. ~r5_rewrite1(sK0,sK2,sK1) [cnf transformation 10] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+18. r1_rewrite1(X0,X1,sK3(X0,X1,X2)) | ~r5_rewrite1(X0,X1,X2) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:13,wCS:5200,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+19. r1_rewrite1(X0,X2,sK3(X0,X1,X2)) | ~r5_rewrite1(X0,X1,X2) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:13,wCS:5200,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+20. ~r1_rewrite1(X0,X2,X3) | r5_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X1,X3) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:14,wCS:5600,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+22. 1 <=> r5_rewrite1(sK0,sK2,sK1) [avatar definition]
+24. ~r5_rewrite1(sK0,sK2,sK1) <- (~1) [avatar component clause 22] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+25. ~1 [avatar split clause 17,22]
+27. 2 <=> r5_rewrite1(sK0,sK1,sK2) [avatar definition]
+29. r5_rewrite1(sK0,sK1,sK2) <- (2) [avatar component clause 27] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+30. 2 [avatar split clause 16,27]
+32. 3 <=> v1_relat_1(sK0) [avatar definition]
+34. v1_relat_1(sK0) <- (3) [avatar component clause 32] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+35. 3 [avatar split clause 15,32]
+36. r5_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X1,sK3(X0,X2,X3)) | ~v1_relat_1(X0) | ~r5_rewrite1(X0,X2,X3) | ~v1_relat_1(X0) [resolution 20,18] {a:1,w:19,wCS:7600,sine:255,thAx:0,allAx:4,thDist:-4}
+39. ~r1_rewrite1(X0,X1,sK3(X0,X2,X3)) | r5_rewrite1(X0,X1,X2) | ~v1_relat_1(X0) | ~r5_rewrite1(X0,X2,X3) [duplicate literal removal 36] {a:1,w:17,wCS:6800,nSel:1,sine:255,thAx:0,allAx:4,thDist:-4}
+45. r5_rewrite1(X3,X4,X5) | ~v1_relat_1(X3) | ~r5_rewrite1(X3,X5,X4) | ~r5_rewrite1(X3,X5,X4) | ~v1_relat_1(X3) [resolution 39,19] {a:2,w:16,wCS:6400,sine:255,thAx:0,allAx:6,thDist:-6}
+46. ~r5_rewrite1(X3,X5,X4) | ~v1_relat_1(X3) | r5_rewrite1(X3,X4,X5) [duplicate literal removal 45] {a:2,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:6,thDist:-6}
+56. ~v1_relat_1(sK0) | r5_rewrite1(sK0,sK2,sK1) <- (2) [resolution 46,29] {a:3,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+58. r5_rewrite1(sK0,sK2,sK1) <- (2, 3) [subsumption resolution 56,34] {a:3,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+59. $false <- (~1, 2, 3) [subsumption resolution 58,24] {a:3,w:0,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+60. 1 | ~2 | ~3 [avatar contradiction clause 59]
+61. $false [avatar sat refutation 25,30,35,60] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:48,thDist:-48}
+% SZS output end Proof for rewrite1__t40_rewrite1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 2
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 6
+% Generated clauses: 28
+% Active clauses: 10
+% Passive clauses: 12
+% Final active clauses: 10
+% Final passive clauses: 2
+% Main loop iterations started: 10
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 10
+% Fw subsumption resolutions: 3
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 8
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,87 @@
+i: [1,16,0,13,1,1,0,0] t49_mcart_1
+a: [3,22,0,13,1,16]
+s: 22
+i: [1,17,0,10,1,0,0,2] d3_zfmisc_1
+s: 17
+r: 22
+d: [2,24,0,12,1,1,23,22,17]
+a: [3,29,0,12,1,24]
+s: 29
+i: [1,18,0,12,1,0,0,1] d4_zfmisc_1
+s: 18
+d: [2,32,1,11,1,1,44,29,18]
+d: [2,34,1,0,0,1,19,32]
+e: 34
+d: [2,31,1,0,0,1,52,29,18]
+e: 31
+f: 31,24,16
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for mcart_1__t49_mcart_1
+% SZS output start Proof for mcart_1__t49_mcart_1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2),X3) [input t49_mcart_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2),X3) [negated conjecture 1]
+3. ! [X0] : ! [X1] : ! [X2] : k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2) = k3_zfmisc_1(X0,X1,X2) [input d3_zfmisc_1]
+4. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k3_zfmisc_1(X0,X1,X2),X3) [input d4_zfmisc_1]
+9. ~! [X0,X1,X2,X3] : k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2),X3) [flattening 2]
+10. ! [X0,X1,X2] : k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2) = k3_zfmisc_1(X0,X1,X2) [flattening 3]
+11. ! [X0,X1,X2,X3] : k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k3_zfmisc_1(X0,X1,X2),X3) [flattening 4]
+13. ? [X0,X1,X2,X3] : k4_zfmisc_1(X0,X1,X2,X3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2),X3) [ennf transformation 9]
+14. ? [X0,X1,X2,X3] : k4_zfmisc_1(X0,X1,X2,X3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2),X3) => k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(sK0,sK1),sK2),sK3) [choice axiom]
+15. k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(sK0,sK1),sK2),sK3) [skolemisation 13,14]
+16. k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(sK0,sK1),sK2),sK3) [cnf transformation 15] {a:0,w:13,wCS:1300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+17. k2_zfmisc_1(k2_zfmisc_1(X0,X1),X2) = k3_zfmisc_1(X0,X1,X2) [cnf transformation 10] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+18. k4_zfmisc_1(X0,X1,X2,X3) = k2_zfmisc_1(k3_zfmisc_1(X0,X1,X2),X3) [cnf transformation 11] {a:0,w:12,wCS:4800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+20. 1 <=> k4_zfmisc_1(sK0,sK1,sK2,sK3) = k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(sK0,sK1),sK2),sK3) [avatar definition]
+22. k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(sK0,sK1),sK2),sK3) <- (~1) [avatar component clause 20] {a:0,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+23. ~1 [avatar split clause 16,20]
+24. k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k3_zfmisc_1(sK0,sK1,sK2),sK3) <- (~1) [backward demodulation 22,17] {a:0,w:12,wCS:1200,goal:1,sine:2,thAx:0,allAx:2,thDist:-2}
+27. 2 <=> k4_zfmisc_1(sK0,sK1,sK2,sK3) = k2_zfmisc_1(k3_zfmisc_1(sK0,sK1,sK2),sK3) [avatar definition]
+29. k4_zfmisc_1(sK0,sK1,sK2,sK3) != k2_zfmisc_1(k3_zfmisc_1(sK0,sK1,sK2),sK3) <- (~2) [avatar component clause 27] {a:0,w:12,wCS:1200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+30. ~2 | 1 [avatar split clause 24,20,27]
+31. $false <- (~2) [unit resulting resolution 29,18] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+36. 2 [avatar contradiction clause 31]
+37. $false [avatar sat refutation 23,30,36] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:13,thDist:-13}
+% SZS output end Proof for mcart_1__t49_mcart_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% >>> Preprocessing
+% Introduced skolems: 4
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 3
+% Generated clauses: 11
+% Active clauses: 4
+% Passive clauses: 5
+% Final active clauses: 3
+% Final passive clauses: 1
+% Main loop iterations started: 4
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Bw demodulations: 1
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 6
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

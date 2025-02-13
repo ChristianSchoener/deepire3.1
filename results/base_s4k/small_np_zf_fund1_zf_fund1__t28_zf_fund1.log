@@ -1,0 +1,75 @@
+i: [1,428,0,25,6,1,0,0] t28_zf_fund1
+i: [1,455,0,5,1,0,0,1] l4_zf_fund1
+i: [1,454,0,5,1,0,0,1] l4_zf_fund1
+i: [1,453,0,3,1,0,0,1] l4_zf_fund1
+i: [1,452,0,2,1,0,0,1] l4_zf_fund1
+i: [1,451,0,5,1,0,0,1] l4_zf_fund1
+i: [1,450,0,5,1,0,0,1] l4_zf_fund1
+f: 450,451,452,453,454,455,428
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zf_fund1__t28_zf_fund1
+% SZS output start Proof for zf_fund1__t28_zf_fund1
+1. k4_ordinal1 = k10_xtuple_0(k2_funct_1(k2_zf_fund1)) & k1_zf_lang = k9_xtuple_0(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_zf_fund1) & k1_zf_lang = k2_relset_1(k1_zf_lang,k2_zf_fund1) & k4_ordinal1 = k1_relset_1(k4_ordinal1,k2_zf_fund1) [input t28_zf_fund1]
+2. ~(k4_ordinal1 = k10_xtuple_0(k2_funct_1(k2_zf_fund1)) & k1_zf_lang = k9_xtuple_0(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_zf_fund1) & k1_zf_lang = k2_relset_1(k1_zf_lang,k2_zf_fund1) & k4_ordinal1 = k1_relset_1(k4_ordinal1,k2_zf_fund1)) [negated conjecture 1]
+167. k4_ordinal1 = k10_xtuple_0(k2_funct_1(k2_zf_fund1)) & k1_zf_lang = k9_xtuple_0(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_funct_1(k2_zf_fund1)) & v2_funct_1(k2_zf_fund1) & k1_zf_lang = k2_relset_1(k1_zf_lang,k2_zf_fund1) & k4_ordinal1 = k1_relset_1(k4_ordinal1,k2_zf_fund1) [input l4_zf_fund1]
+202. k4_ordinal1 != k10_xtuple_0(k2_funct_1(k2_zf_fund1)) | k1_zf_lang != k9_xtuple_0(k2_funct_1(k2_zf_fund1)) | ~v2_funct_1(k2_funct_1(k2_zf_fund1)) | ~v2_funct_1(k2_zf_fund1) | k1_zf_lang != k2_relset_1(k1_zf_lang,k2_zf_fund1) | k4_ordinal1 != k1_relset_1(k4_ordinal1,k2_zf_fund1) [ennf transformation 2]
+428. k4_ordinal1 != k10_xtuple_0(k2_funct_1(k2_zf_fund1)) | k1_zf_lang != k9_xtuple_0(k2_funct_1(k2_zf_fund1)) | ~v2_funct_1(k2_funct_1(k2_zf_fund1)) | ~v2_funct_1(k2_zf_fund1) | k1_zf_lang != k2_relset_1(k1_zf_lang,k2_zf_fund1) | k4_ordinal1 != k1_relset_1(k4_ordinal1,k2_zf_fund1) [cnf transformation 202] {a:0,w:25,wCS:2500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+450. k4_ordinal1 = k1_relset_1(k4_ordinal1,k2_zf_fund1) [cnf transformation 167] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+451. k1_zf_lang = k2_relset_1(k1_zf_lang,k2_zf_fund1) [cnf transformation 167] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+452. v2_funct_1(k2_zf_fund1) [cnf transformation 167] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+453. v2_funct_1(k2_funct_1(k2_zf_fund1)) [cnf transformation 167] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+454. k1_zf_lang = k9_xtuple_0(k2_funct_1(k2_zf_fund1)) [cnf transformation 167] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+455. k4_ordinal1 = k10_xtuple_0(k2_funct_1(k2_zf_fund1)) [cnf transformation 167] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+679. 1 <=> k4_ordinal1 = k1_relset_1(k4_ordinal1,k2_zf_fund1) [avatar definition]
+683. 2 <=> k1_zf_lang = k2_relset_1(k1_zf_lang,k2_zf_fund1) [avatar definition]
+687. 3 <=> v2_funct_1(k2_zf_fund1) [avatar definition]
+691. 4 <=> v2_funct_1(k2_funct_1(k2_zf_fund1)) [avatar definition]
+695. 5 <=> k1_zf_lang = k9_xtuple_0(k2_funct_1(k2_zf_fund1)) [avatar definition]
+699. 6 <=> k4_ordinal1 = k10_xtuple_0(k2_funct_1(k2_zf_fund1)) [avatar definition]
+702. ~1 | ~2 | ~3 | ~4 | ~5 | ~6 [avatar split clause 428,699,695,691,687,683,679]
+796. 6 [avatar split clause 455,699]
+797. 5 [avatar split clause 454,695]
+798. 4 [avatar split clause 453,691]
+799. 3 [avatar split clause 452,687]
+800. 2 [avatar split clause 451,683]
+801. 1 [avatar split clause 450,679]
+1037. $false [avatar sat refutation 702,796,797,798,799,800,801] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:202,thDist:-202}
+% SZS output end Proof for zf_fund1__t28_zf_fund1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 166
+% >>> Preprocessing
+% Introduced skolems: 36
+% Pure predicates: 8
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 250
+% Generated clauses: 250
+% Passive clauses: 156
+% Final passive clauses: 156
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 19
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 77
+% SAT solver unit clauses: 74
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s ( own 0.0000 s ) 
+% term sharing: 0.001 s
+% other: 0.003 s ( own 0.001 s ) 
+

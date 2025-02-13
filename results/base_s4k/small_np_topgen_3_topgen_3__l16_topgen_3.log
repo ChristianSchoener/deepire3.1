@@ -1,0 +1,95 @@
+i: [1,929,0,11,2,1,0,0] l16_topgen_3
+i: [1,623,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,622,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,621,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,620,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,931,0,12,5,0,0,1] d2_topgen_3
+i: [1,932,0,15,5,0,0,1] d2_topgen_3
+i: [1,933,0,14,5,0,0,1] d2_topgen_3
+f: 933,932,931,620,621,622,623,929
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for topgen_3__l16_topgen_3
+% SZS output start Proof for topgen_3__l16_topgen_3
+1. ? [X0] : (a_0_0_topgen_3 = X0 & u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,X0) & m1_subset_1(X0,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) [input l16_topgen_3]
+2. ~? [X0] : (a_0_0_topgen_3 = X0 & u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,X0) & m1_subset_1(X0,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) [negated conjecture 1]
+201. l1_pre_topc(k2_topgen_3) & v2_pre_topc(k2_topgen_3) & v1_pre_topc(k2_topgen_3) & ~v2_struct_0(k2_topgen_3) [input dt_k2_topgen_3]
+223. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0) & v1_pre_topc(X0) & ~v2_struct_0(X0)) => (k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)))) [input d2_topgen_3]
+247. ! [X0] : (a_0_0_topgen_3 != X0 | u1_pre_topc(k2_topgen_3) != k1_cantor_1(k1_numbers,X0) | ~m1_subset_1(X0,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) [ennf transformation 2]
+395. ! [X0] : ((k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0))) | (~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0))) [ennf transformation 223]
+396. ! [X0] : ((k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 395]
+515. ! [X0] : (((k2_topgen_3 = X0 | (! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0))) & ((? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [nnf transformation 396]
+516. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & ((? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 515]
+517. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & ((? [X2] : (a_0_0_topgen_3 = X2 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X2) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [rectify 516]
+518. ! [X0] : (? [X2] : (a_0_0_topgen_3 = X2 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X2) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) => (a_0_0_topgen_3 = sK22(X0) & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,sK22(X0)) & m1_subset_1(sK22(X0),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))))) [choice axiom]
+519. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & (((a_0_0_topgen_3 = sK22(X0) & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,sK22(X0)) & m1_subset_1(sK22(X0),k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [skolemisation 517,518]
+601. a_0_0_topgen_3 != X0 | u1_pre_topc(k2_topgen_3) != k1_cantor_1(k1_numbers,X0) | ~m1_subset_1(X0,k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) [cnf transformation 247] {a:0,w:14,wCS:1400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+620. ~v2_struct_0(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+621. v1_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+622. v2_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+623. l1_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+792. m1_subset_1(sK22(X0),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) | k2_topgen_3 != X0 | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0) [cnf transformation 519] {a:0,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+793. u1_pre_topc(X0) = k1_cantor_1(k1_numbers,sK22(X0)) | k2_topgen_3 != X0 | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0) [cnf transformation 519] {a:0,w:18,wCS:7200,sine:1,thAx:0,allAx:2,thDist:-2}
+794. a_0_0_topgen_3 = sK22(X0) | k2_topgen_3 != X0 | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0) [cnf transformation 519] {a:0,w:15,wCS:6000,sine:1,thAx:0,allAx:2,thDist:-2}
+929. u1_pre_topc(k2_topgen_3) != k1_cantor_1(k1_numbers,a_0_0_topgen_3) | ~m1_subset_1(a_0_0_topgen_3,k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) [equality resolution 601] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+931. a_0_0_topgen_3 = sK22(k2_topgen_3) | ~l1_pre_topc(k2_topgen_3) | ~v2_pre_topc(k2_topgen_3) | ~v1_pre_topc(k2_topgen_3) | v2_struct_0(k2_topgen_3) [equality resolution 794] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:2,thDist:-2}
+932. u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,sK22(k2_topgen_3)) | ~l1_pre_topc(k2_topgen_3) | ~v2_pre_topc(k2_topgen_3) | ~v1_pre_topc(k2_topgen_3) | v2_struct_0(k2_topgen_3) [equality resolution 793] {a:0,w:15,wCS:6000,sine:1,thAx:0,allAx:2,thDist:-2}
+933. m1_subset_1(sK22(k2_topgen_3),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) | ~l1_pre_topc(k2_topgen_3) | ~v2_pre_topc(k2_topgen_3) | ~v1_pre_topc(k2_topgen_3) | v2_struct_0(k2_topgen_3) [equality resolution 792] {a:0,w:14,wCS:5600,sine:1,thAx:0,allAx:2,thDist:-2}
+937. 1 <=> m1_subset_1(a_0_0_topgen_3,k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) [avatar definition]
+941. 2 <=> u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,a_0_0_topgen_3) [avatar definition]
+944. ~1 | ~2 [avatar split clause 929,941,937]
+1016. 17 <=> l1_pre_topc(k2_topgen_3) [avatar definition]
+1021. 18 <=> v2_pre_topc(k2_topgen_3) [avatar definition]
+1026. 19 <=> v1_pre_topc(k2_topgen_3) [avatar definition]
+1031. 20 <=> v2_struct_0(k2_topgen_3) [avatar definition]
+1035. 17 [avatar split clause 623,1016]
+1036. 18 [avatar split clause 622,1021]
+1037. 19 [avatar split clause 621,1026]
+1038. ~20 [avatar split clause 620,1031]
+1074. 28 <=> a_0_0_topgen_3 = sK22(k2_topgen_3) [avatar definition]
+1077. 20 | ~19 | ~18 | ~17 | 28 [avatar split clause 931,1074,1016,1021,1026,1031]
+1079. 29 <=> u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,sK22(k2_topgen_3)) [avatar definition]
+1082. 20 | ~19 | ~18 | ~17 | 29 [avatar split clause 932,1079,1016,1021,1026,1031]
+1084. 30 <=> m1_subset_1(sK22(k2_topgen_3),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) [avatar definition]
+1087. 20 | ~19 | ~18 | ~17 | 30 [avatar split clause 933,1084,1016,1021,1026,1031]
+1425. a_0_0_topgen_3 != sK22(k2_topgen_3) | m1_subset_1(a_0_0_topgen_3,k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) | ~m1_subset_1(sK22(k2_topgen_3),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))) [theory tautology sat conflict] {a:0,w:15,wCS:6000,sine:255,thAx:0,allAx:1,thDist:-1}
+1426. a_0_0_topgen_3 != sK22(k2_topgen_3) | u1_pre_topc(k2_topgen_3) != k1_cantor_1(k1_numbers,sK22(k2_topgen_3)) | u1_pre_topc(k2_topgen_3) = k1_cantor_1(k1_numbers,a_0_0_topgen_3) [theory tautology sat conflict] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:1,thDist:-1}
+1427. $false [avatar sat refutation 944,1035,1036,1037,1038,1077,1082,1087,1425,1426] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:291,thDist:-291}
+% SZS output end Proof for topgen_3__l16_topgen_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 222
+% >>> Preprocessing
+% Introduced skolems: 63
+% Pure predicates: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 328
+% Generated clauses: 328
+% Passive clauses: 219
+% Final passive clauses: 219
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% 
+% >>> AVATAR
+% Split clauses: 7
+% Split components: 26
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 104
+% SAT solver unit clauses: 93
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 5628
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% other: 0.004 s ( own 0.002 s ) 
+

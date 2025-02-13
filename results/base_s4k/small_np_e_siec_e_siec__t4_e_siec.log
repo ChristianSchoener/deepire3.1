@@ -1,0 +1,163 @@
+i: [1,103,0,15,3,1,0,0] t4_e_siec
+a: [3,154,0,5,1,103]
+s: 154
+i: [1,104,0,2,1,0,0,1] fc1_xboole_0
+a: [3,167,0,2,1,104]
+s: 167
+i: [1,134,0,2,1,0,0,2] rc2_xboole_0
+a: [3,172,0,2,1,134]
+s: 172
+i: [1,135,0,2,1,0,0,2] rc1_xboole_0
+a: [3,177,0,2,1,135]
+s: 177
+i: [1,136,0,2,1,0,0,1] existence_l1_e_siec
+a: [3,182,0,2,1,136]
+s: 182
+i: [1,137,0,2,1,0,0,1] existence_l1_e_siec
+a: [3,187,0,2,1,137]
+s: 187
+i: [1,139,0,2,1,0,0,2] rc1_relat_1
+a: [3,192,0,2,1,139]
+s: 192
+i: [1,138,0,2,1,0,0,2] rc1_relat_1
+a: [3,197,0,2,1,138]
+s: 197
+i: [1,141,0,2,1,0,0,1] rc3_e_siec
+a: [3,202,0,2,1,141]
+s: 202
+i: [1,140,0,2,1,0,0,1] rc3_e_siec
+a: [3,207,0,2,1,140]
+s: 207
+i: [1,143,0,2,1,0,0,1] rc2_e_siec
+a: [3,212,0,2,1,143]
+s: 212
+i: [1,142,0,2,1,0,0,1] rc2_e_siec
+a: [3,217,0,2,1,142]
+s: 217
+i: [1,145,0,2,1,0,0,2] rc1_e_siec
+a: [3,222,0,2,1,145]
+s: 222
+i: [1,144,0,2,1,0,0,2] rc1_e_siec
+a: [3,227,0,2,1,144]
+s: 227
+i: [1,149,0,2,1,0,0,1] rc4_e_siec
+a: [3,232,0,2,1,149]
+s: 232
+i: [1,148,0,2,1,0,0,1] rc4_e_siec
+a: [3,237,0,2,1,148]
+s: 237
+i: [1,147,0,2,1,0,0,1] rc4_e_siec
+a: [3,242,0,2,1,147]
+s: 242
+i: [1,146,0,2,1,0,0,1] rc4_e_siec
+a: [3,247,0,2,1,146]
+s: 247
+i: [1,150,0,2,1,0,0,255] rc2_relat_1
+a: [3,252,0,2,1,150]
+s: 252
+i: [1,108,0,4,2,0,0,2] cc1_relat_1
+s: 108
+i: [1,122,0,4,1,0,0,255] existence_m1_subset_1
+s: 122
+d: [2,254,1,2,1,1,40,108,167]
+a: [3,259,1,2,1,254]
+s: 259
+i: [1,105,0,5,1,0,0,1] t2_e_siec
+s: 105
+d: [2,267,1,0,0,1,40,105,154]
+e: 267
+d: [2,266,1,0,0,1,52,154,105]
+e: 266
+r: 154
+a: [3,158,0,5,1,103]
+s: 158
+i: [1,106,0,5,1,0,0,1] t2_e_siec
+s: 106
+d: [2,271,1,0,0,1,40,106,158]
+e: 271
+d: [2,270,1,0,0,1,52,158,106]
+e: 270
+r: 158
+a: [3,162,0,5,1,103]
+s: 162
+d: [2,255,1,2,1,1,40,108,177]
+a: [3,264,1,2,1,255]
+s: 264
+i: [1,107,0,5,1,0,0,1] t2_e_siec
+s: 107
+d: [2,275,1,0,0,1,40,107,162]
+e: 275
+d: [2,274,1,0,0,1,52,162,107]
+e: 274
+f: 274,270,266,103
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for e_siec__t4_e_siec
+% SZS output start Proof for e_siec__t4_e_siec
+1. l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) & v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) & v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [input t4_e_siec]
+2. ~(l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) & v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) & v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0))) [negated conjecture 1]
+41. ! [X0] : (l1_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0)) & v3_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0)) & v2_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0))) [input t2_e_siec]
+52. ~l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) | ~v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) | ~v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [ennf transformation 2]
+103. ~l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) | ~v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) | ~v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [cnf transformation 52] {a:0,w:15,wCS:1500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+105. v2_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0)) [cnf transformation 41] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+106. v3_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0)) [cnf transformation 41] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+107. l1_e_siec(g1_e_siec(X0,k1_xboole_0,k1_xboole_0)) [cnf transformation 41] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+152. 1 <=> v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [avatar definition]
+154. ~v2_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) <- (~1) [avatar component clause 152] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+156. 2 <=> v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [avatar definition]
+158. ~v3_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) <- (~2) [avatar component clause 156] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+160. 3 <=> l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) [avatar definition]
+162. ~l1_e_siec(g1_e_siec(k1_xboole_0,k1_xboole_0,k1_xboole_0)) <- (~3) [avatar component clause 160] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+163. ~1 | ~2 | ~3 [avatar split clause 103,160,156,152]
+266. $false <- (~1) [unit resulting resolution 154,105] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+269. 1 [avatar contradiction clause 266]
+270. $false <- (~2) [unit resulting resolution 158,106] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+273. 2 [avatar contradiction clause 270]
+274. $false <- (~3) [unit resulting resolution 162,107] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+277. 3 [avatar contradiction clause 274]
+278. $false [avatar sat refutation 163,269,273,277] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:78,thDist:-78}
+% SZS output end Proof for e_siec__t4_e_siec
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 40
+% >>> Preprocessing
+% Introduced skolems: 11
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 48
+% Generated clauses: 81
+% Active clauses: 28
+% Passive clauses: 50
+% Final active clauses: 26
+% Final passive clauses: 22
+% Main loop iterations started: 28
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 5
+% Unit resulting resolution: 3
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 3
+% Sat splitting refutations: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 29
+% SAT solver unit clauses: 24
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

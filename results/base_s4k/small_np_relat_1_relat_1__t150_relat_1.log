@@ -1,0 +1,214 @@
+i: [1,25,0,2,1,1,0,0] t150_relat_1
+a: [3,53,0,2,1,25]
+s: 53
+i: [1,24,0,2,1,1,0,0] t150_relat_1
+a: [3,58,0,2,1,24]
+s: 58
+i: [1,27,0,7,1,1,0,0] t150_relat_1
+a: [3,43,0,7,1,27]
+s: 43
+i: [1,26,0,7,1,1,0,0] t150_relat_1
+a: [3,48,0,7,1,26]
+s: 48
+i: [1,28,0,11,1,1,0,0] t150_relat_1
+a: [3,38,0,11,1,28]
+s: 38
+i: [1,30,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 30
+i: [1,32,0,6,2,0,0,1] dt_k5_relat_1
+s: 32
+i: [1,31,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 31
+d: [2,60,1,6,2,1,44,32,43]
+d: [2,62,1,4,1,2,21,60,53]
+a: [3,66,1,4,1,62]
+s: 66
+i: [1,34,0,8,3,0,0,1] fc3_relat_1
+s: 34
+i: [1,33,0,11,2,0,0,1] rd5_relat_1
+s: 33
+d: [2,61,1,6,2,1,44,32,48]
+d: [2,68,1,4,1,2,21,61,53]
+a: [3,72,1,4,1,68]
+s: 72
+i: [1,29,0,15,2,0,0,1] t78_relat_1
+s: 29
+d: [2,78,1,11,2,1,44,33,43]
+d: [2,82,1,9,1,2,21,78,53]
+a: [3,86,1,9,1,82]
+s: 86
+d: [2,79,1,11,2,1,44,33,48]
+d: [2,88,1,9,1,2,21,79,53]
+a: [3,92,1,9,1,88]
+s: 92
+d: [2,94,1,15,2,1,44,29,43]
+d: [2,107,1,13,1,2,21,94,53]
+s: 107
+d: [2,128,2,14,3,2,44,34,107]
+d: [2,137,2,10,2,3,21,128,66]
+s: 137
+d: [2,95,1,15,2,1,44,29,48]
+d: [2,108,1,13,1,2,21,95,53]
+s: 108
+d: [2,143,2,14,3,2,44,34,108]
+d: [2,151,2,10,2,3,21,143,72]
+s: 151
+d: [2,97,1,15,2,1,44,29,43]
+d: [2,110,1,13,1,2,21,97,53]
+s: 110
+d: [2,98,1,15,2,1,44,29,48]
+d: [2,111,1,13,1,2,21,98,53]
+s: 111
+d: [2,159,2,14,3,2,44,34,110]
+d: [2,165,2,10,2,3,21,159,66]
+s: 165
+d: [2,101,1,15,2,0,44,29,31]
+s: 101
+d: [2,170,2,14,3,2,44,34,111]
+d: [2,177,2,10,2,3,21,170,72]
+s: 177
+d: [2,102,1,15,2,0,44,29,31]
+s: 102
+d: [2,105,1,15,2,0,44,31,29]
+s: 105
+d: [2,139,3,10,2,3,44,137,31]
+s: 139
+d: [2,106,1,15,2,0,44,31,29]
+s: 106
+d: [2,140,3,10,2,3,44,137,31]
+s: 140
+d: [2,96,1,23,3,0,44,29,33]
+d: [2,109,1,19,2,0,21,96,32]
+s: 109
+d: [2,99,1,23,3,0,44,29,33]
+d: [2,112,1,19,2,0,21,99,32]
+d: [2,113,1,19,2,0,22,112,31]
+s: 113
+d: [2,153,3,10,2,3,44,151,31]
+s: 153
+d: [2,127,2,13,1,3,44,107,48]
+d: [2,131,2,13,1,3,22,127,31]
+a: [3,135,2,13,1,131]
+s: 135
+d: [2,264,3,13,2,1,44,135,101]
+d: [2,273,3,2,1,2,21,264,38]
+d: [2,274,3,0,0,3,21,273,58]
+e: 274
+d: [2,265,3,13,2,1,44,135,29]
+d: [2,276,3,11,1,2,21,265,58]
+d: [2,277,3,11,1,2,22,276,31]
+d: [2,278,3,0,0,3,21,277,38]
+e: 278
+d: [2,268,3,13,2,1,44,101,135]
+d: [2,280,3,2,1,2,21,268,38]
+d: [2,281,3,0,0,3,21,280,58]
+e: 281
+d: [2,269,3,13,2,1,44,29,135]
+d: [2,283,3,11,1,2,21,269,58]
+d: [2,284,3,11,1,2,22,283,31]
+d: [2,285,3,0,0,3,21,284,38]
+e: 285
+d: [2,166,2,13,1,3,44,111,43]
+d: [2,173,2,13,1,3,22,166,31]
+f: 285,173,24,25,26,27,28
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relat_1__t150_relat_1
+% SZS output start Proof for relat_1__t150_relat_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => ! [X2] : ! [X3] : ((k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2)) => k5_relat_1(X0,k2_xboole_0(X2,X3)) = k5_relat_1(X1,k2_xboole_0(X2,X3))))) [input t150_relat_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => ! [X2] : ! [X3] : ((k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2)) => k5_relat_1(X0,k2_xboole_0(X2,X3)) = k5_relat_1(X1,k2_xboole_0(X2,X3))))) [negated conjecture 1]
+3. ! [X0,X1] : k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [input commutativity_k2_xboole_0]
+9. ! [X0] : ! [X1] : ! [X2] : (v1_relat_1(X2) => k5_relat_1(X2,k2_xboole_0(X0,X1)) = k2_xboole_0(k5_relat_1(X2,X0),k5_relat_1(X2,X1))) [input t78_relat_1]
+10. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => ! [X2,X3] : ((k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2)) => k5_relat_1(X0,k2_xboole_0(X2,X3)) = k5_relat_1(X1,k2_xboole_0(X2,X3))))) [flattening 2]
+11. ! [X0,X1,X2] : (v1_relat_1(X2) => k5_relat_1(X2,k2_xboole_0(X0,X1)) = k2_xboole_0(k5_relat_1(X2,X0),k5_relat_1(X2,X1))) [flattening 9]
+13. ? [X0] : (? [X1] : (? [X2,X3] : (k5_relat_1(X0,k2_xboole_0(X2,X3)) != k5_relat_1(X1,k2_xboole_0(X2,X3)) & (k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2))) & v1_relat_1(X1)) & v1_relat_1(X0)) [ennf transformation 10]
+14. ? [X0] : (? [X1] : (? [X2,X3] : (k5_relat_1(X0,k2_xboole_0(X2,X3)) != k5_relat_1(X1,k2_xboole_0(X2,X3)) & k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2)) & v1_relat_1(X1)) & v1_relat_1(X0)) [flattening 13]
+15. ! [X0,X1,X2] : (k5_relat_1(X2,k2_xboole_0(X0,X1)) = k2_xboole_0(k5_relat_1(X2,X0),k5_relat_1(X2,X1)) | ~v1_relat_1(X2)) [ennf transformation 11]
+20. ? [X0] : (? [X1] : (? [X2,X3] : (k5_relat_1(X0,k2_xboole_0(X2,X3)) != k5_relat_1(X1,k2_xboole_0(X2,X3)) & k5_relat_1(X0,X3) = k5_relat_1(X1,X3) & k5_relat_1(X0,X2) = k5_relat_1(X1,X2)) & v1_relat_1(X1)) & v1_relat_1(X0)) => (? [X1] : (? [X3,X2] : (k5_relat_1(X1,k2_xboole_0(X2,X3)) != k5_relat_1(sK0,k2_xboole_0(X2,X3)) & k5_relat_1(X1,X3) = k5_relat_1(sK0,X3) & k5_relat_1(X1,X2) = k5_relat_1(sK0,X2)) & v1_relat_1(X1)) & v1_relat_1(sK0)) [choice axiom]
+21. ? [X1] : (? [X3,X2] : (k5_relat_1(X1,k2_xboole_0(X2,X3)) != k5_relat_1(sK0,k2_xboole_0(X2,X3)) & k5_relat_1(X1,X3) = k5_relat_1(sK0,X3) & k5_relat_1(X1,X2) = k5_relat_1(sK0,X2)) & v1_relat_1(X1)) => (? [X3,X2] : (k5_relat_1(sK0,k2_xboole_0(X2,X3)) != k5_relat_1(sK1,k2_xboole_0(X2,X3)) & k5_relat_1(sK0,X3) = k5_relat_1(sK1,X3) & k5_relat_1(sK0,X2) = k5_relat_1(sK1,X2)) & v1_relat_1(sK1)) [choice axiom]
+22. ? [X3,X2] : (k5_relat_1(sK0,k2_xboole_0(X2,X3)) != k5_relat_1(sK1,k2_xboole_0(X2,X3)) & k5_relat_1(sK0,X3) = k5_relat_1(sK1,X3) & k5_relat_1(sK0,X2) = k5_relat_1(sK1,X2)) => (k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) != k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) & k5_relat_1(sK0,sK3) = k5_relat_1(sK1,sK3) & k5_relat_1(sK0,sK2) = k5_relat_1(sK1,sK2)) [choice axiom]
+23. ((k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) != k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) & k5_relat_1(sK0,sK3) = k5_relat_1(sK1,sK3) & k5_relat_1(sK0,sK2) = k5_relat_1(sK1,sK2)) & v1_relat_1(sK1)) & v1_relat_1(sK0) [skolemisation 14,22,21,20]
+24. v1_relat_1(sK0) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+25. v1_relat_1(sK1) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+26. k5_relat_1(sK0,sK2) = k5_relat_1(sK1,sK2) [cnf transformation 23] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+27. k5_relat_1(sK0,sK3) = k5_relat_1(sK1,sK3) [cnf transformation 23] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+28. k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) != k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) [cnf transformation 23] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+29. k5_relat_1(X2,k2_xboole_0(X0,X1)) = k2_xboole_0(k5_relat_1(X2,X0),k5_relat_1(X2,X1)) | ~v1_relat_1(X2) [cnf transformation 15] {a:0,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+31. k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [cnf transformation 3] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+36. 1 <=> k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) = k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) [avatar definition]
+38. k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) != k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) <- (~1) [avatar component clause 36] {a:0,w:11,wCS:1100,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+39. ~1 [avatar split clause 28,36]
+41. 2 <=> k5_relat_1(sK0,sK3) = k5_relat_1(sK1,sK3) [avatar definition]
+43. k5_relat_1(sK0,sK3) = k5_relat_1(sK1,sK3) <- (2) [avatar component clause 41] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+44. 2 [avatar split clause 27,41]
+46. 3 <=> k5_relat_1(sK0,sK2) = k5_relat_1(sK1,sK2) [avatar definition]
+48. k5_relat_1(sK0,sK2) = k5_relat_1(sK1,sK2) <- (3) [avatar component clause 46] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+49. 3 [avatar split clause 26,46]
+51. 4 <=> v1_relat_1(sK1) [avatar definition]
+53. v1_relat_1(sK1) <- (4) [avatar component clause 51] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+54. 4 [avatar split clause 25,51]
+56. 5 <=> v1_relat_1(sK0) [avatar definition]
+58. v1_relat_1(sK0) <- (5) [avatar component clause 56] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+59. 5 [avatar split clause 24,56]
+98. k5_relat_1(sK1,k2_xboole_0(X1,sK2)) = k2_xboole_0(k5_relat_1(sK1,X1),k5_relat_1(sK0,sK2)) | ~v1_relat_1(sK1) <- (3) [superposition 29,48] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+111. k5_relat_1(sK1,k2_xboole_0(X1,sK2)) = k2_xboole_0(k5_relat_1(sK1,X1),k5_relat_1(sK0,sK2)) <- (3, 4) [subsumption resolution 98,53] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+133. 10 <=> k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) = k2_xboole_0(k5_relat_1(sK0,sK3),k5_relat_1(sK0,sK2)) [avatar definition]
+135. k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) = k2_xboole_0(k5_relat_1(sK0,sK3),k5_relat_1(sK0,sK2)) <- (10) [avatar component clause 133] {a:2,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+166. k5_relat_1(sK1,k2_xboole_0(sK3,sK2)) = k2_xboole_0(k5_relat_1(sK0,sK3),k5_relat_1(sK0,sK2)) <- (2, 3, 4) [superposition 111,43] {a:2,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+173. k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) = k2_xboole_0(k5_relat_1(sK0,sK3),k5_relat_1(sK0,sK2)) <- (2, 3, 4) [forward demodulation 166,31] {a:2,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+174. 10 | ~2 | ~3 | ~4 [avatar split clause 173,51,46,41,133]
+269. k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) = k5_relat_1(sK0,k2_xboole_0(sK3,sK2)) | ~v1_relat_1(sK0) <- (10) [superposition 29,135] {a:3,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+283. k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) = k5_relat_1(sK0,k2_xboole_0(sK3,sK2)) <- (5, 10) [subsumption resolution 269,58] {a:3,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+284. k5_relat_1(sK0,k2_xboole_0(sK2,sK3)) = k5_relat_1(sK1,k2_xboole_0(sK2,sK3)) <- (5, 10) [forward demodulation 283,31] {a:3,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+285. $false <- (~1, 5, 10) [subsumption resolution 284,38] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+286. 1 | ~5 | ~10 [avatar contradiction clause 285]
+289. $false [avatar sat refutation 39,44,49,54,59,174,286] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:151,thDist:-151}
+% SZS output end Proof for relat_1__t150_relat_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 8
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 11
+% Generated clauses: 215
+% Active clauses: 27
+% Passive clauses: 69
+% Final active clauses: 27
+% Final passive clauses: 36
+% Main loop iterations started: 33
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 7
+% Fw subsumption resolutions: 50
+% Fw demodulations: 26
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% Forward subsumptions: 35
+% Fw demodulations to eq. taut.: 4
+% 
+% >>> Generating Inferences
+% Forward superposition: 75
+% Backward superposition: 34
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 19
+% SAT solver unit clauses: 5
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% term sharing: 0.001 s
+% backward superposition index maintenance: 0.001 s
+% superposition: 0.001 s ( own 0.0000 s ) 
+% other: 0.003 s ( own 0.001 s ) 
+

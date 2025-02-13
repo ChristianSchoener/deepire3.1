@@ -1,0 +1,193 @@
+i: [1,49,0,5,1,1,0,0] t92_xboole_1
+a: [3,72,0,5,1,49]
+s: 72
+i: [1,50,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,77,0,2,1,50]
+s: 77
+i: [1,51,0,2,1,0,0,1] fc1_xboole_0
+a: [3,82,0,2,1,51]
+s: 82
+i: [1,67,0,2,1,0,0,2] rc2_xboole_0
+a: [3,92,0,2,1,67]
+s: 92
+i: [1,68,0,2,1,0,0,2] rc1_xboole_0
+a: [3,97,0,2,1,68]
+s: 97
+i: [1,61,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 61
+i: [1,52,0,3,1,0,0,255] d2_xboole_0
+a: [3,87,0,3,1,52]
+s: 87
+r: 77
+i: [1,53,0,5,1,0,0,2] t4_boole
+s: 53
+i: [1,54,0,5,1,0,0,1] t5_boole
+s: 54
+i: [1,55,0,5,1,0,0,2] t3_boole
+s: 55
+i: [1,56,0,5,1,0,0,2] t1_boole
+s: 56
+i: [1,57,0,5,2,0,0,1] t6_boole
+s: 57
+i: [1,62,0,5,1,0,0,2] idempotence_k2_xboole_0
+s: 62
+i: [1,65,0,6,2,0,0,2] fc4_xboole_0
+s: 65
+i: [1,66,0,6,2,0,0,2] fc5_xboole_0
+s: 66
+i: [1,60,0,7,3,0,0,2] t8_boole
+s: 60
+i: [1,63,0,7,1,0,0,1] commutativity_k5_xboole_0
+s: 63
+i: [1,64,0,7,1,0,0,2] commutativity_k2_xboole_0
+s: 64
+d: [2,110,1,5,1,0,44,63,54]
+s: 110
+i: [1,59,0,8,2,0,0,255] l32_xboole_1
+s: 59
+i: [1,58,0,11,1,0,0,1] d6_xboole_0
+s: 58
+d: [2,111,1,5,1,0,44,63,54]
+s: 111
+d: [2,112,1,5,1,0,44,54,63]
+s: 112
+d: [2,113,1,5,1,0,44,54,63]
+s: 113
+d: [2,114,1,5,1,0,44,64,56]
+s: 114
+d: [2,115,1,5,1,0,44,64,56]
+s: 115
+d: [2,116,1,5,1,0,44,56,64]
+s: 116
+d: [2,119,1,5,1,0,44,56,64]
+s: 119
+d: [2,129,1,9,1,0,44,58,53]
+d: [2,143,1,7,1,0,22,129,55]
+d: [2,144,1,5,1,0,22,143,110]
+s: 144
+d: [2,133,1,9,1,0,44,58,55]
+d: [2,149,1,7,1,0,22,133,53]
+d: [2,150,1,5,1,0,22,149,110]
+s: 150
+d: [2,127,1,6,2,0,44,59,55]
+s: 127
+d: [2,128,1,6,2,0,44,55,59]
+s: 128
+d: [2,100,1,7,3,0,44,57,57]
+s: 100
+d: [2,101,1,7,2,0,44,56,57]
+s: 101
+d: [2,102,1,7,2,0,44,55,57]
+s: 102
+d: [2,103,1,7,2,0,44,54,57]
+s: 103
+d: [2,179,2,5,2,1,44,72,103]
+d: [2,183,2,2,1,1,21,179,57]
+a: [3,187,2,2,1,183]
+s: 187
+d: [2,104,1,7,2,0,44,53,57]
+s: 104
+d: [2,135,1,7,1,0,44,58,62]
+s: 135
+d: [2,138,1,7,1,0,44,62,58]
+s: 138
+d: [2,141,1,8,2,0,44,66,58]
+s: 141
+d: [2,198,2,8,2,0,44,135,59]
+d: [2,206,2,5,1,0,21,198,61]
+s: 206
+r: 135
+d: [2,218,3,3,1,1,44,72,206]
+d: [2,221,3,0,0,1,19,218]
+e: 221
+d: [2,216,3,0,0,1,52,72,206]
+e: 216
+f: 216,49
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t92_xboole_1
+% SZS output start Proof for xboole_1__t92_xboole_1
+1. ! [X0] : k5_xboole_0(X0,X0) = k1_xboole_0 [input t92_xboole_1]
+2. ~! [X0] : k5_xboole_0(X0,X0) = k1_xboole_0 [negated conjecture 1]
+5. ! [X0,X1] : k2_xboole_0(X0,X0) = X0 [input idempotence_k2_xboole_0]
+16. ! [X0,X1] : r1_tarski(X0,X0) [input reflexivity_r1_tarski]
+26. ! [X0] : ! [X1] : k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [input d6_xboole_0]
+27. ! [X0] : ! [X1] : (k1_xboole_0 = k4_xboole_0(X0,X1) <=> r1_tarski(X0,X1)) [input l32_xboole_1]
+28. ! [X0,X1] : k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [flattening 26]
+29. ! [X0,X1] : (k1_xboole_0 = k4_xboole_0(X0,X1) <=> r1_tarski(X0,X1)) [flattening 27]
+32. ! [X0] : r1_tarski(X0,X0) [rectify 16]
+33. ! [X0] : k2_xboole_0(X0,X0) = X0 [rectify 5]
+34. ! [X0,X1] : (r1_tarski(X0,X1) => k1_xboole_0 = k4_xboole_0(X0,X1)) [unused predicate definition removal 29]
+37. ? [X0] : k5_xboole_0(X0,X0) != k1_xboole_0 [ennf transformation 2]
+39. ! [X0,X1] : (k1_xboole_0 = k4_xboole_0(X0,X1) | ~r1_tarski(X0,X1)) [ennf transformation 34]
+43. ? [X0] : k5_xboole_0(X0,X0) != k1_xboole_0 => k1_xboole_0 != k5_xboole_0(sK0,sK0) [choice axiom]
+44. k1_xboole_0 != k5_xboole_0(sK0,sK0) [skolemisation 37,43]
+49. k1_xboole_0 != k5_xboole_0(sK0,sK0) [cnf transformation 44] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+58. k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [cnf transformation 28] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+59. k1_xboole_0 = k4_xboole_0(X0,X1) | ~r1_tarski(X0,X1) [cnf transformation 39] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+61. r1_tarski(X0,X0) [cnf transformation 32] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+62. k2_xboole_0(X0,X0) = X0 [cnf transformation 33] {a:0,w:5,wCS:2000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+70. 1 <=> k1_xboole_0 = k5_xboole_0(sK0,sK0) [avatar definition]
+72. k1_xboole_0 != k5_xboole_0(sK0,sK0) <- (~1) [avatar component clause 70] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+73. ~1 [avatar split clause 49,70]
+135. k4_xboole_0(X2,X2) = k5_xboole_0(X2,X2) [superposition 58,62] {a:1,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+198. k1_xboole_0 = k5_xboole_0(X2,X2) | ~r1_tarski(X2,X2) [superposition 135,59] {a:2,w:8,wCS:3200,sine:1,thAx:0,allAx:3,thDist:-3}
+206. k1_xboole_0 = k5_xboole_0(X2,X2) [subsumption resolution 198,61] {a:2,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+216. $false <- (~1) [unit resulting resolution 72,206] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+223. 1 [avatar contradiction clause 216]
+225. $false [avatar sat refutation 73,223] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:31,thDist:-31}
+% SZS output end Proof for xboole_1__t92_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 26
+% >>> Preprocessing
+% Introduced skolems: 3
+% Pure predicates: 1
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 146
+% Active clauses: 31
+% Passive clauses: 72
+% Final active clauses: 29
+% Final passive clauses: 30
+% Main loop iterations started: 42
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 4
+% Fw demodulations: 13
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% Equational tautologies: 1
+% Forward subsumptions: 47
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 1
+% Forward superposition: 45
+% Backward superposition: 51
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 11
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% backward subsumption index maintenance: 0.001 s
+% backward demodulation index maintenance: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

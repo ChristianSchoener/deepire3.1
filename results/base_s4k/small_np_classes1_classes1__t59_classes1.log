@@ -1,0 +1,78 @@
+i: [1,11,0,6,1,1,0,0] t59_classes1
+a: [3,17,0,6,1,11]
+s: 17
+i: [1,12,0,3,1,0,0,2] t51_classes1
+s: 12
+i: [1,13,0,6,2,0,0,1] t55_classes1
+s: 13
+d: [2,19,1,0,0,1,52,12,17,13]
+e: 19
+d: [2,21,1,8,2,1,44,17,13]
+d: [2,23,1,3,1,1,19,21]
+d: [2,26,1,0,0,1,21,23,12]
+e: 26
+f: 26,11
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for classes1__t59_classes1
+% SZS output start Proof for classes1__t59_classes1
+1. ! [X0] : k5_classes1(X0) = k5_classes1(k5_classes1(X0)) [input t59_classes1]
+2. ~! [X0] : k5_classes1(X0) = k5_classes1(k5_classes1(X0)) [negated conjecture 1]
+5. ! [X0] : v1_ordinal1(k5_classes1(X0)) [input t51_classes1]
+6. ! [X0] : (v1_ordinal1(X0) => k5_classes1(X0) = X0) [input t55_classes1]
+7. ? [X0] : k5_classes1(X0) != k5_classes1(k5_classes1(X0)) [ennf transformation 2]
+8. ! [X0] : (k5_classes1(X0) = X0 | ~v1_ordinal1(X0)) [ennf transformation 6]
+9. ? [X0] : k5_classes1(X0) != k5_classes1(k5_classes1(X0)) => k5_classes1(sK0) != k5_classes1(k5_classes1(sK0)) [choice axiom]
+10. k5_classes1(sK0) != k5_classes1(k5_classes1(sK0)) [skolemisation 7,9]
+11. k5_classes1(sK0) != k5_classes1(k5_classes1(sK0)) [cnf transformation 10] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+12. v1_ordinal1(k5_classes1(X0)) [cnf transformation 5] {a:0,w:3,wCS:1200,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+13. k5_classes1(X0) = X0 | ~v1_ordinal1(X0) [cnf transformation 8] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+15. 1 <=> k5_classes1(sK0) = k5_classes1(k5_classes1(sK0)) [avatar definition]
+17. k5_classes1(sK0) != k5_classes1(k5_classes1(sK0)) <- (~1) [avatar component clause 15] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+18. ~1 [avatar split clause 11,15]
+21. k5_classes1(sK0) != k5_classes1(sK0) | ~v1_ordinal1(k5_classes1(sK0)) <- (~1) [superposition 17,13] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+23. ~v1_ordinal1(k5_classes1(sK0)) <- (~1) [trivial inequality removal 21] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+26. $false <- (~1) [subsumption resolution 23,12] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+27. 1 [avatar contradiction clause 26]
+28. $false [avatar sat refutation 18,27] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:10,thDist:-10}
+% SZS output end Proof for classes1__t59_classes1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% Introduced skolems: 1
+% 
+% >>> Saturation
+% Initial clauses: 3
+% Generated clauses: 11
+% Active clauses: 3
+% Passive clauses: 3
+% Final active clauses: 3
+% Main loop iterations started: 3
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Backward superposition: 3
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 5
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

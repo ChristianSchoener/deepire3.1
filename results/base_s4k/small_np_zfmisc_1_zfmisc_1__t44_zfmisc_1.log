@@ -1,0 +1,117 @@
+i: [1,39,0,7,1,1,0,0] t44_zfmisc_1
+a: [3,57,0,7,1,39]
+s: 57
+i: [1,40,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,62,0,2,1,40]
+s: 62
+i: [1,41,0,2,1,0,0,1] fc1_xboole_0
+a: [3,67,0,2,1,41]
+s: 67
+i: [1,52,0,2,1,0,0,2] rc2_xboole_0
+a: [3,77,0,2,1,52]
+s: 77
+i: [1,53,0,2,1,0,0,2] rc1_xboole_0
+a: [3,82,0,2,1,53]
+s: 82
+i: [1,42,0,3,1,0,0,255] d2_xboole_0
+a: [3,72,0,3,1,42]
+s: 72
+r: 62
+i: [1,46,0,4,1,0,0,1] fc3_xboole_0
+s: 46
+i: [1,43,0,5,1,0,0,1] t1_boole
+s: 43
+i: [1,44,0,5,2,0,0,1] t6_boole
+s: 44
+i: [1,47,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 47
+i: [1,50,0,6,2,0,0,1] fc5_xboole_0
+s: 50
+d: [2,88,1,4,2,1,44,50,57]
+d: [2,91,1,2,1,2,21,88,67]
+a: [3,95,1,2,1,91]
+s: 95
+i: [1,51,0,6,2,0,0,1] fc4_xboole_0
+s: 51
+d: [2,97,1,6,2,1,44,51,57]
+d: [2,100,1,4,1,2,21,97,67]
+d: [2,101,1,0,0,2,21,100,46]
+e: 101
+f: 101,41,39
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zfmisc_1__t44_zfmisc_1
+% SZS output start Proof for zfmisc_1__t44_zfmisc_1
+1. ! [X0] : ! [X1] : ! [X2] : k2_xboole_0(k2_tarski(X0,X1),X2) != k1_xboole_0 [input t44_zfmisc_1]
+2. ~! [X0] : ! [X1] : ! [X2] : k2_xboole_0(k2_tarski(X0,X1),X2) != k1_xboole_0 [negated conjecture 1]
+5. ! [X0,X1] : (~v1_xboole_0(X0) => ~v1_xboole_0(k2_xboole_0(X0,X1))) [input fc4_xboole_0]
+17. v1_xboole_0(k1_xboole_0) [input fc1_xboole_0]
+18. ! [X0,X1] : ~v1_xboole_0(k2_tarski(X0,X1)) [input fc3_xboole_0]
+22. ~! [X0,X1,X2] : k2_xboole_0(k2_tarski(X0,X1),X2) != k1_xboole_0 [flattening 2]
+28. ? [X0,X1,X2] : k2_xboole_0(k2_tarski(X0,X1),X2) = k1_xboole_0 [ennf transformation 22]
+32. ! [X0,X1] : (~v1_xboole_0(k2_xboole_0(X0,X1)) | v1_xboole_0(X0)) [ennf transformation 5]
+33. ? [X0,X1,X2] : k2_xboole_0(k2_tarski(X0,X1),X2) = k1_xboole_0 => k1_xboole_0 = k2_xboole_0(k2_tarski(sK0,sK1),sK2) [choice axiom]
+34. k1_xboole_0 = k2_xboole_0(k2_tarski(sK0,sK1),sK2) [skolemisation 28,33]
+39. k1_xboole_0 = k2_xboole_0(k2_tarski(sK0,sK1),sK2) [cnf transformation 34] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+41. v1_xboole_0(k1_xboole_0) [cnf transformation 17] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+46. ~v1_xboole_0(k2_tarski(X0,X1)) [cnf transformation 18] {a:0,w:4,wCS:1600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+51. ~v1_xboole_0(k2_xboole_0(X0,X1)) | v1_xboole_0(X0) [cnf transformation 32] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+55. 1 <=> k1_xboole_0 = k2_xboole_0(k2_tarski(sK0,sK1),sK2) [avatar definition]
+57. k1_xboole_0 = k2_xboole_0(k2_tarski(sK0,sK1),sK2) <- (1) [avatar component clause 55] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+58. 1 [avatar split clause 39,55]
+65. 3 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+67. v1_xboole_0(k1_xboole_0) <- (3) [avatar component clause 65] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+68. 3 [avatar split clause 41,65]
+97. ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(k2_tarski(sK0,sK1)) <- (1) [superposition 51,57] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+100. v1_xboole_0(k2_tarski(sK0,sK1)) <- (1, 3) [subsumption resolution 97,67] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+101. $false <- (1, 3) [subsumption resolution 100,46] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+102. ~1 | ~3 [avatar contradiction clause 101]
+103. $false [avatar sat refutation 58,68,102] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:24,thDist:-24}
+% SZS output end Proof for zfmisc_1__t44_zfmisc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 20
+% >>> Preprocessing
+% Introduced skolems: 5
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 15
+% Generated clauses: 35
+% Active clauses: 13
+% Passive clauses: 18
+% Final active clauses: 12
+% Final passive clauses: 5
+% Main loop iterations started: 13
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 3
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Forward superposition: 6
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 6
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% binary resolution index maintenance: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

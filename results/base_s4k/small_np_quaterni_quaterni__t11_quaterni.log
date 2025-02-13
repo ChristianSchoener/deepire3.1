@@ -1,0 +1,285 @@
+i: [1,29,0,12,4,1,0,0] t11_quaterni
+a: [3,46,0,3,1,29]
+s: 46
+i: [1,27,0,5,1,1,0,0] t11_quaterni
+a: [3,68,0,5,1,27]
+s: 68
+i: [1,35,0,13,5,0,0,255] idempotence_k1_funct_4
+a: [3,72,0,4,2,35]
+s: 72
+i: [1,28,0,19,1,1,0,0] t11_quaterni
+a: [3,63,0,19,1,28]
+s: 63
+i: [1,39,0,6,1,0,0,255] fc1_funct_4
+s: 39
+i: [1,40,0,6,1,0,0,255] fc1_funct_4
+s: 40
+d: [2,77,1,0,0,1,52,39,40,72]
+e: 77
+d: [2,78,1,6,1,1,40,40,72]
+d: [2,80,1,0,0,1,21,78,39]
+e: 80
+r: 72
+a: [3,75,0,9,3,35]
+s: 75
+i: [1,41,0,10,1,0,0,1] fc2_quaterni
+s: 41
+i: [1,42,0,10,1,0,0,1] fc2_quaterni
+s: 42
+i: [1,37,0,12,5,0,0,255] dt_k1_funct_4
+s: 37
+i: [1,38,0,12,5,0,0,255] dt_k1_funct_4
+s: 38
+i: [1,36,0,17,5,0,0,255] rd3_funct_4
+s: 36
+i: [1,31,0,18,2,0,0,255] t3_quaterni
+s: 31
+d: [2,96,1,18,2,1,44,31,63]
+d: [2,97,1,13,1,2,21,96,68]
+a: [3,101,1,13,1,97]
+s: 101
+d: [2,103,2,8,2,1,44,101,31]
+d: [2,105,2,5,1,2,21,103,46]
+d: [2,106,2,0,0,3,21,105,68]
+e: 106
+d: [2,104,2,8,2,1,44,31,101]
+d: [2,108,2,5,1,2,21,104,46]
+d: [2,109,2,0,0,3,21,108,68]
+e: 109
+r: 46
+a: [3,45,0,3,1,29]
+s: 45
+r: 101
+r: 63
+a: [3,50,0,3,1,29]
+s: 50
+d: [2,115,1,13,1,2,23,101,45]
+a: [3,120,1,13,1,115]
+s: 120
+d: [2,116,0,19,1,2,23,63,45]
+a: [3,125,0,19,1,116]
+s: 125
+i: [1,32,0,18,2,0,0,255] t3_quaterni
+s: 32
+i: [1,33,0,18,2,0,0,255] t3_quaterni
+s: 33
+i: [1,34,0,18,2,0,0,255] t3_quaterni
+s: 34
+d: [2,131,1,13,3,0,44,32,31]
+d: [2,134,1,8,2,0,18,131]
+a: [3,146,1,3,1,134]
+s: 146
+r: 120
+r: 45
+r: 34
+r: 33
+r: 32
+r: 31
+r: 36
+r: 75
+r: 125
+d: [2,208,2,0,0,2,52,50,146]
+e: 208
+d: [2,219,2,3,1,2,44,50,146]
+d: [2,232,2,0,0,2,21,219,146]
+e: 232
+d: [2,230,2,3,1,2,44,50,146]
+d: [2,234,2,0,0,2,21,230,146]
+e: 234
+r: 146
+s: 45
+s: 120
+s: 125
+s: 75
+d: [2,130,1,18,2,1,44,32,125]
+d: [2,135,1,13,1,2,21,130,68]
+a: [3,139,1,13,1,135]
+s: 139
+s: 36
+d: [2,149,1,18,2,1,44,33,125]
+d: [2,158,1,13,1,2,21,149,68]
+a: [3,162,1,13,1,158]
+s: 162
+s: 31
+s: 32
+d: [2,252,2,8,2,1,44,32,139]
+d: [2,258,2,5,1,2,21,252,50]
+d: [2,259,2,0,0,3,21,258,68]
+e: 259
+d: [2,254,2,8,2,1,44,139,32]
+d: [2,261,2,5,1,2,21,254,50]
+d: [2,262,2,0,0,3,21,261,68]
+e: 262
+r: 50
+a: [3,49,0,3,1,29]
+s: 49
+r: 139
+r: 125
+a: [3,54,0,3,1,29]
+s: 54
+d: [2,174,1,18,2,1,44,34,125]
+d: [2,187,1,13,1,2,21,174,68]
+a: [3,191,1,13,1,187]
+s: 191
+d: [2,271,0,19,1,2,23,125,49]
+a: [3,280,0,19,1,271]
+s: 280
+s: 33
+d: [2,287,2,8,2,1,44,33,162]
+d: [2,297,2,5,1,2,21,287,54]
+d: [2,298,2,0,0,3,21,297,68]
+e: 298
+d: [2,290,2,8,2,1,44,162,33]
+d: [2,300,2,5,1,2,21,290,54]
+d: [2,301,2,0,0,3,21,300,68]
+e: 301
+r: 54
+a: [3,53,0,3,1,29]
+s: 53
+r: 280
+r: 162
+a: [3,58,0,3,1,29]
+s: 58
+d: [2,270,1,13,1,2,23,139,49]
+a: [3,275,1,13,1,270]
+s: 275
+d: [2,311,0,19,1,2,23,280,53]
+a: [3,316,0,19,1,311]
+s: 316
+s: 34
+d: [2,329,2,8,2,1,44,34,191]
+d: [2,343,2,5,1,2,21,329,58]
+d: [2,344,2,0,0,3,21,343,68]
+e: 344
+d: [2,333,2,8,2,1,44,191,34]
+d: [2,346,2,5,1,2,21,333,58]
+d: [2,347,2,0,0,3,21,346,68]
+e: 347
+d: [2,113,2,3,1,2,21,103,68]
+d: [2,266,2,3,1,2,21,252,68]
+d: [2,305,2,3,1,2,21,287,68]
+f: 347,305,266,187,158,135,116,113,97,27,28,29
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for quaterni__t11_quaterni
+% SZS output start Proof for quaterni__t11_quaterni
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : ! [X7] : ! [X8] : ! [X9] : ! [X10] : ! [X11] : ((k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3)) => (X7 = X11 & X6 = X10 & X5 = X9 & X4 = X8)) [input t11_quaterni]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : ! [X7] : ! [X8] : ! [X9] : ! [X10] : ! [X11] : ((k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3)) => (X7 = X11 & X6 = X10 & X5 = X9 & X4 = X8)) [negated conjecture 1]
+12. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : ! [X7] : (r2_zfmisc_1(X0,X1,X2,X3) => (k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X3) = X7 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X2) = X6 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X1) = X5 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X0) = X4)) [input t3_quaterni]
+13. ~! [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11] : ((k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3)) => (X7 = X11 & X6 = X10 & X5 = X9 & X4 = X8)) [flattening 2]
+15. ! [X0,X1,X2,X3,X4,X5,X6,X7] : (r2_zfmisc_1(X0,X1,X2,X3) => (k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X3) = X7 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X2) = X6 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X1) = X5 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X0) = X4)) [flattening 12]
+16. ? [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11] : ((X7 != X11 | X6 != X10 | X5 != X9 | X4 != X8) & (k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3))) [ennf transformation 13]
+17. ? [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11] : ((X7 != X11 | X6 != X10 | X5 != X9 | X4 != X8) & k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3)) [flattening 16]
+18. ! [X0,X1,X2,X3,X4,X5,X6,X7] : ((k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X3) = X7 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X2) = X6 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X1) = X5 & k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X0) = X4) | ~r2_zfmisc_1(X0,X1,X2,X3)) [ennf transformation 15]
+25. ? [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11] : ((X7 != X11 | X6 != X10 | X5 != X9 | X4 != X8) & k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7) = k2_quaterni(X0,X1,X2,X3,X8,X9,X10,X11) & r2_zfmisc_1(X0,X1,X2,X3)) => ((sK7 != sK11 | sK6 != sK10 | sK5 != sK9 | sK4 != sK8) & k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK8,sK9,sK10,sK11) & r2_zfmisc_1(sK0,sK1,sK2,sK3)) [choice axiom]
+26. (sK7 != sK11 | sK6 != sK10 | sK5 != sK9 | sK4 != sK8) & k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK8,sK9,sK10,sK11) & r2_zfmisc_1(sK0,sK1,sK2,sK3) [skolemisation 17,25]
+27. r2_zfmisc_1(sK0,sK1,sK2,sK3) [cnf transformation 26] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+28. k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK8,sK9,sK10,sK11) [cnf transformation 26] {a:0,w:19,wCS:1900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+29. sK7 != sK11 | sK6 != sK10 | sK5 != sK9 | sK4 != sK8 [cnf transformation 26] {a:0,w:12,wCS:1200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+31. k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X0) = X4 | ~r2_zfmisc_1(X0,X1,X2,X3) [cnf transformation 18] {a:0,w:18,wCS:7200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+32. k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X1) = X5 | ~r2_zfmisc_1(X0,X1,X2,X3) [cnf transformation 18] {a:0,w:18,wCS:7200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+33. k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X2) = X6 | ~r2_zfmisc_1(X0,X1,X2,X3) [cnf transformation 18] {a:0,w:18,wCS:7200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+34. k1_funct_1(k2_quaterni(X0,X1,X2,X3,X4,X5,X6,X7),X3) = X7 | ~r2_zfmisc_1(X0,X1,X2,X3) [cnf transformation 18] {a:0,w:18,wCS:7200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+44. 1 <=> sK4 = sK8 [avatar definition]
+45. sK4 = sK8 <- (1) [avatar component clause 44] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+48. 2 <=> sK5 = sK9 [avatar definition]
+52. 3 <=> sK6 = sK10 [avatar definition]
+56. 4 <=> sK7 = sK11 [avatar definition]
+58. sK7 != sK11 <- (~4) [avatar component clause 56] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+59. ~1 | ~2 | ~3 | ~4 [avatar split clause 29,56,52,48,44]
+61. 5 <=> k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK8,sK9,sK10,sK11) [avatar definition]
+63. k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK8,sK9,sK10,sK11) <- (5) [avatar component clause 61] {a:0,w:19,wCS:1900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+64. 5 [avatar split clause 28,61]
+66. 6 <=> r2_zfmisc_1(sK0,sK1,sK2,sK3) [avatar definition]
+68. r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (6) [avatar component clause 66] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+69. 6 [avatar split clause 27,66]
+96. sK8 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK0) | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (5) [superposition 31,63] {a:1,w:18,wCS:1800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+97. sK8 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK0) <- (5, 6) [subsumption resolution 96,68] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+99. 9 <=> sK8 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK0) [avatar definition]
+101. sK8 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK0) <- (9) [avatar component clause 99] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+102. 9 | ~5 | ~6 [avatar split clause 97,66,61,99]
+103. sK4 = sK8 | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (9) [superposition 101,31] {a:2,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+113. sK4 = sK8 <- (6, 9) [subsumption resolution 103,68] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+114. 1 | ~6 | ~9 [avatar split clause 113,99,66,44]
+116. k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK9,sK10,sK11) <- (1, 5) [backward demodulation 63,45] {a:0,w:19,wCS:1900,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+123. 11 <=> k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK9,sK10,sK11) [avatar definition]
+125. k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7) = k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK9,sK10,sK11) <- (11) [avatar component clause 123] {a:0,w:19,wCS:1900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+126. 11 | ~1 | ~5 [avatar split clause 116,61,44,123]
+130. sK9 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK1) | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (11) [superposition 32,125] {a:1,w:18,wCS:1800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+135. sK9 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK1) <- (6, 11) [subsumption resolution 130,68] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+137. 12 <=> sK9 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK1) [avatar definition]
+139. sK9 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK1) <- (12) [avatar component clause 137] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+140. 12 | ~6 | ~11 [avatar split clause 135,123,66,137]
+149. sK10 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK2) | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (11) [superposition 33,125] {a:1,w:18,wCS:1800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+158. sK10 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK2) <- (6, 11) [subsumption resolution 149,68] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+160. 15 <=> sK10 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK2) [avatar definition]
+162. sK10 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK2) <- (15) [avatar component clause 160] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+163. 15 | ~6 | ~11 [avatar split clause 158,123,66,160]
+174. sK11 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK3) | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (11) [superposition 34,125] {a:1,w:18,wCS:1800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+187. sK11 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK3) <- (6, 11) [subsumption resolution 174,68] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+189. 18 <=> sK11 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK3) [avatar definition]
+191. sK11 = k1_funct_1(k2_quaterni(sK0,sK1,sK2,sK3,sK4,sK5,sK6,sK7),sK3) <- (18) [avatar component clause 189] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+192. 18 | ~6 | ~11 [avatar split clause 187,123,66,189]
+252. sK5 = sK9 | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (12) [superposition 32,139] {a:2,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+266. sK5 = sK9 <- (6, 12) [subsumption resolution 252,68] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+267. 2 | ~6 | ~12 [avatar split clause 266,137,66,48]
+287. sK6 = sK10 | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (15) [superposition 33,162] {a:2,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+305. sK6 = sK10 <- (6, 15) [subsumption resolution 287,68] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+306. 3 | ~6 | ~15 [avatar split clause 305,160,66,52]
+333. sK7 = sK11 | ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (18) [superposition 191,34] {a:2,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+346. ~r2_zfmisc_1(sK0,sK1,sK2,sK3) <- (~4, 18) [subsumption resolution 333,58] {a:2,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+347. $false <- (~4, 6, 18) [subsumption resolution 346,68] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+348. 4 | ~6 | ~18 [avatar contradiction clause 347]
+349. $false [avatar sat refutation 59,64,69,102,114,126,140,163,192,267,306,348] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:235,thDist:-235}
+% SZS output end Proof for quaterni__t11_quaterni
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 11
+% Introduced skolems: 12
+% 
+% >>> Saturation
+% Initial clauses: 16
+% Generated clauses: 229
+% Active clauses: 41
+% Passive clauses: 49
+% Final active clauses: 21
+% Final passive clauses: 8
+% Main loop iterations started: 41
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 60
+% Fw subsumption resolutions: 29
+% Bw demodulations: 6
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% Forward subsumptions: 24
+% Backward subsumptions: 9
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 2
+% Forward superposition: 30
+% Backward superposition: 58
+% Self superposition: 2
+% 
+% >>> AVATAR
+% Split clauses: 20
+% Split components: 42
+% Sat splitting refutations: 13
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 53
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 22
+% 
+% Memory used [KB]: 5117
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% backward demodulation index maintenance: 0.001 s
+% other: 0.003 s ( own 0.002 s ) 
+

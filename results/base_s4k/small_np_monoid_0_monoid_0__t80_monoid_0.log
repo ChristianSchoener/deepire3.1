@@ -1,0 +1,157 @@
+i: [1,35,0,2,1,1,0,0] t80_monoid_0
+a: [3,53,0,2,1,35]
+s: 53
+i: [1,33,0,2,1,1,0,0] t80_monoid_0
+a: [3,63,0,2,1,33]
+s: 63
+i: [1,34,0,3,1,1,0,0] t80_monoid_0
+a: [3,58,0,3,1,34]
+s: 58
+i: [1,45,0,2,1,0,0,1] existence_l1_struct_0
+a: [3,68,0,2,1,45]
+s: 68
+i: [1,47,0,2,1,0,0,2] rc1_funct_1
+a: [3,73,0,2,1,47]
+s: 73
+i: [1,46,0,2,1,0,0,2] rc1_funct_1
+a: [3,78,0,2,1,46]
+s: 78
+i: [1,49,0,2,1,0,0,1] rc1_monoid_0
+a: [3,83,0,2,1,49]
+s: 83
+i: [1,48,0,2,1,0,0,1] rc1_monoid_0
+a: [3,88,0,2,1,48]
+s: 88
+i: [1,44,0,4,1,0,0,2] existence_m1_subset_1
+s: 44
+i: [1,36,0,7,3,0,0,1] cc8_funct_1
+s: 36
+i: [1,37,0,7,3,0,0,1] cc8_funct_1
+s: 37
+d: [2,90,1,5,2,0,40,36,44]
+s: 90
+i: [1,40,0,9,3,0,0,1] d1_monoid_0
+s: 40
+d: [2,91,1,5,2,0,40,37,44]
+s: 91
+i: [1,38,0,10,4,0,0,1] d1_monoid_0
+s: 38
+i: [1,39,0,10,4,0,0,1] d1_monoid_0
+s: 39
+d: [2,94,1,8,3,0,40,38,44]
+s: 94
+i: [1,41,0,10,4,0,0,1] d1_monoid_0
+s: 41
+d: [2,97,1,8,3,0,40,39,44]
+s: 97
+i: [1,42,0,10,4,0,0,1] cc1_monoid_0
+s: 42
+i: [1,43,0,10,4,0,0,1] cc1_monoid_0
+s: 43
+d: [2,92,1,10,4,0,40,40,37]
+s: 92
+d: [2,93,1,10,4,0,40,40,36]
+s: 93
+d: [2,100,2,7,3,1,40,92,58]
+d: [2,101,2,5,2,2,21,100,63]
+d: [2,102,2,3,1,3,21,101,53]
+a: [3,106,2,3,1,102]
+s: 106
+d: [2,108,2,7,3,1,40,93,58]
+d: [2,109,2,5,2,2,21,108,63]
+d: [2,110,2,3,1,3,21,109,53]
+d: [2,116,3,7,3,1,40,106,41]
+d: [2,117,3,5,2,2,21,116,53]
+d: [2,118,3,3,1,3,21,117,63]
+f: 118,110,102,33,34,35
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for monoid_0__t80_monoid_0
+% SZS output start Proof for monoid_0__t80_monoid_0
+1. ! [X0] : (l1_struct_0(X0) => (v4_funct_1(u1_struct_0(X0)) => v1_monoid_0(X0))) [input t80_monoid_0]
+2. ~! [X0] : (l1_struct_0(X0) => (v4_funct_1(u1_struct_0(X0)) => v1_monoid_0(X0))) [negated conjecture 1]
+4. ! [X0] : (v4_funct_1(X0) => ! [X1] : (m1_subset_1(X1,X0) => (v1_funct_1(X1) & v1_relat_1(X1)))) [input cc8_funct_1]
+5. ! [X0] : (l1_struct_0(X0) => (v1_monoid_0(X0) <=> ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => (v1_funct_1(X1) & v1_relat_1(X1))))) [input d1_monoid_0]
+13. ? [X0] : ((~v1_monoid_0(X0) & v4_funct_1(u1_struct_0(X0))) & l1_struct_0(X0)) [ennf transformation 2]
+14. ? [X0] : (~v1_monoid_0(X0) & v4_funct_1(u1_struct_0(X0)) & l1_struct_0(X0)) [flattening 13]
+15. ! [X0] : (! [X1] : ((v1_funct_1(X1) & v1_relat_1(X1)) | ~m1_subset_1(X1,X0)) | ~v4_funct_1(X0)) [ennf transformation 4]
+16. ! [X0] : ((v1_monoid_0(X0) <=> ! [X1] : ((v1_funct_1(X1) & v1_relat_1(X1)) | ~m1_subset_1(X1,u1_struct_0(X0)))) | ~l1_struct_0(X0)) [ennf transformation 5]
+19. ? [X0] : (~v1_monoid_0(X0) & v4_funct_1(u1_struct_0(X0)) & l1_struct_0(X0)) => (~v1_monoid_0(sK0) & v4_funct_1(u1_struct_0(sK0)) & l1_struct_0(sK0)) [choice axiom]
+20. ~v1_monoid_0(sK0) & v4_funct_1(u1_struct_0(sK0)) & l1_struct_0(sK0) [skolemisation 14,19]
+21. ! [X0] : (((v1_monoid_0(X0) | ? [X1] : ((~v1_funct_1(X1) | ~v1_relat_1(X1)) & m1_subset_1(X1,u1_struct_0(X0)))) & (! [X1] : ((v1_funct_1(X1) & v1_relat_1(X1)) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~v1_monoid_0(X0))) | ~l1_struct_0(X0)) [nnf transformation 16]
+22. ! [X0] : (((v1_monoid_0(X0) | ? [X1] : ((~v1_funct_1(X1) | ~v1_relat_1(X1)) & m1_subset_1(X1,u1_struct_0(X0)))) & (! [X2] : ((v1_funct_1(X2) & v1_relat_1(X2)) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~v1_monoid_0(X0))) | ~l1_struct_0(X0)) [rectify 21]
+23. ! [X0] : (? [X1] : ((~v1_funct_1(X1) | ~v1_relat_1(X1)) & m1_subset_1(X1,u1_struct_0(X0))) => ((~v1_funct_1(sK1(X0)) | ~v1_relat_1(sK1(X0))) & m1_subset_1(sK1(X0),u1_struct_0(X0)))) [choice axiom]
+24. ! [X0] : (((v1_monoid_0(X0) | ((~v1_funct_1(sK1(X0)) | ~v1_relat_1(sK1(X0))) & m1_subset_1(sK1(X0),u1_struct_0(X0)))) & (! [X2] : ((v1_funct_1(X2) & v1_relat_1(X2)) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~v1_monoid_0(X0))) | ~l1_struct_0(X0)) [skolemisation 22,23]
+33. l1_struct_0(sK0) [cnf transformation 20] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+34. v4_funct_1(u1_struct_0(sK0)) [cnf transformation 20] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+35. ~v1_monoid_0(sK0) [cnf transformation 20] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+36. ~m1_subset_1(X1,X0) | v1_relat_1(X1) | ~v4_funct_1(X0) [cnf transformation 15] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+37. ~m1_subset_1(X1,X0) | v1_funct_1(X1) | ~v4_funct_1(X0) [cnf transformation 15] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+40. m1_subset_1(sK1(X0),u1_struct_0(X0)) | v1_monoid_0(X0) | ~l1_struct_0(X0) [cnf transformation 24] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+41. ~v1_funct_1(sK1(X0)) | v1_monoid_0(X0) | ~v1_relat_1(sK1(X0)) | ~l1_struct_0(X0) [cnf transformation 24] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+51. 1 <=> v1_monoid_0(sK0) [avatar definition]
+53. ~v1_monoid_0(sK0) <- (~1) [avatar component clause 51] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+54. ~1 [avatar split clause 35,51]
+56. 2 <=> v4_funct_1(u1_struct_0(sK0)) [avatar definition]
+58. v4_funct_1(u1_struct_0(sK0)) <- (2) [avatar component clause 56] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+59. 2 [avatar split clause 34,56]
+61. 3 <=> l1_struct_0(sK0) [avatar definition]
+63. l1_struct_0(sK0) <- (3) [avatar component clause 61] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+64. 3 [avatar split clause 33,61]
+92. ~v4_funct_1(u1_struct_0(X0)) | ~l1_struct_0(X0) | v1_funct_1(sK1(X0)) | v1_monoid_0(X0) [resolution 40,37] {a:1,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+93. ~v4_funct_1(u1_struct_0(X1)) | ~l1_struct_0(X1) | v1_relat_1(sK1(X1)) | v1_monoid_0(X1) [resolution 40,36] {a:1,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+100. ~l1_struct_0(sK0) | v1_funct_1(sK1(sK0)) | v1_monoid_0(sK0) <- (2) [resolution 92,58] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+101. v1_funct_1(sK1(sK0)) | v1_monoid_0(sK0) <- (2, 3) [subsumption resolution 100,63] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+102. v1_funct_1(sK1(sK0)) <- (~1, 2, 3) [subsumption resolution 101,53] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+104. 9 <=> v1_funct_1(sK1(sK0)) [avatar definition]
+106. v1_funct_1(sK1(sK0)) <- (9) [avatar component clause 104] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+107. 9 | 1 | ~2 | ~3 [avatar split clause 102,61,56,51,104]
+108. ~l1_struct_0(sK0) | v1_relat_1(sK1(sK0)) | v1_monoid_0(sK0) <- (2) [resolution 93,58] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+109. v1_relat_1(sK1(sK0)) | v1_monoid_0(sK0) <- (2, 3) [subsumption resolution 108,63] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+110. v1_relat_1(sK1(sK0)) <- (~1, 2, 3) [subsumption resolution 109,53] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+112. 10 <=> v1_relat_1(sK1(sK0)) [avatar definition]
+115. 10 | 1 | ~2 | ~3 [avatar split clause 110,61,56,51,112]
+116. v1_monoid_0(sK0) | ~v1_relat_1(sK1(sK0)) | ~l1_struct_0(sK0) <- (9) [resolution 106,41] {a:3,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+117. ~v1_relat_1(sK1(sK0)) | ~l1_struct_0(sK0) <- (~1, 9) [subsumption resolution 116,53] {a:3,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+118. ~v1_relat_1(sK1(sK0)) <- (~1, 3, 9) [subsumption resolution 117,63] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+119. ~10 | 1 | ~3 | ~9 [avatar split clause 118,104,61,51,112]
+120. $false [avatar sat refutation 54,59,64,107,115,119] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:53,thDist:-53}
+% SZS output end Proof for monoid_0__t80_monoid_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 11
+% Introduced skolems: 6
+% 
+% >>> Saturation
+% Initial clauses: 17
+% Generated clauses: 46
+% Active clauses: 22
+% Passive clauses: 25
+% Final active clauses: 22
+% Final passive clauses: 1
+% Main loop iterations started: 24
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% Fw subsumption resolutions: 6
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 11
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 13
+% SAT solver unit clauses: 8
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

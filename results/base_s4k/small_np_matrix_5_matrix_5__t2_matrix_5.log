@@ -1,0 +1,61 @@
+i: [1,370,0,4,1,1,0,0] t2_matrix_5
+i: [1,376,0,3,1,0,0,1] redefinition_k6_numbers
+i: [1,378,0,3,1,0,0,255] redefinition_k5_complex1
+i: [1,381,0,4,1,0,0,255] t7_complfld
+f: 381,378,376,370
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for matrix_5__t2_matrix_5
+% SZS output start Proof for matrix_5__t2_matrix_5
+1. k4_struct_0(k1_complfld) = k6_numbers [input t2_matrix_5]
+2. ~k4_struct_0(k1_complfld) = k6_numbers [negated conjecture 1]
+131. k1_xboole_0 = k5_complex1 [input redefinition_k5_complex1]
+132. k6_numbers = k1_xboole_0 [input redefinition_k6_numbers]
+140. k4_struct_0(k1_complfld) = k5_complex1 [input t7_complfld]
+141. k4_struct_0(k1_complfld) != k6_numbers [flattening 2]
+370. k4_struct_0(k1_complfld) != k6_numbers [cnf transformation 141] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+376. k6_numbers = k1_xboole_0 [cnf transformation 132] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+378. k1_xboole_0 = k5_complex1 [cnf transformation 131] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+381. k4_struct_0(k1_complfld) = k5_complex1 [cnf transformation 140] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+552. 1 <=> k4_struct_0(k1_complfld) = k6_numbers [avatar definition]
+555. ~1 [avatar split clause 370,552]
+582. 7 <=> k6_numbers = k1_xboole_0 [avatar definition]
+585. 7 [avatar split clause 376,582]
+592. 9 <=> k1_xboole_0 = k5_complex1 [avatar definition]
+595. 9 [avatar split clause 378,592]
+607. 12 <=> k4_struct_0(k1_complfld) = k5_complex1 [avatar definition]
+610. 12 [avatar split clause 381,607]
+919. k4_struct_0(k1_complfld) != k5_complex1 | k1_xboole_0 != k5_complex1 | k6_numbers != k1_xboole_0 | k4_struct_0(k1_complfld) = k6_numbers [theory tautology sat conflict] {a:0,w:14,wCS:5600,sine:255,thAx:0,allAx:1,thDist:-1}
+920. $false [avatar sat refutation 555,585,595,610,919] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:198,thDist:-198}
+% SZS output end Proof for matrix_5__t2_matrix_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 139
+% >>> Preprocessing
+% Introduced skolems: 31
+% Pure predicates: 15
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 181
+% Generated clauses: 181
+% Passive clauses: 97
+% Final passive clauses: 97
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 79
+% SAT solver unit clauses: 76
+% 
+% Memory used [KB]: 9850
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

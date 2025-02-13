@@ -1,0 +1,157 @@
+i: [1,45,0,2,1,1,0,0] t29_xxreal_0
+a: [3,79,0,2,1,45]
+s: 79
+i: [1,44,0,2,1,1,0,0] t29_xxreal_0
+a: [3,84,0,2,1,44]
+s: 84
+i: [1,43,0,2,1,1,0,0] t29_xxreal_0
+a: [3,89,0,2,1,43]
+s: 89
+i: [1,47,0,3,1,1,0,0] t29_xxreal_0
+a: [3,69,0,3,1,47]
+s: 69
+i: [1,46,0,3,1,1,0,0] t29_xxreal_0
+a: [3,74,0,3,1,46]
+s: 74
+i: [1,48,0,5,1,1,0,0] t29_xxreal_0
+a: [3,64,0,5,1,48]
+s: 64
+i: [1,60,0,2,1,0,0,1] rc1_xxreal_0
+a: [3,107,0,2,1,60]
+s: 107
+i: [1,51,0,7,3,0,0,1] reflexivity_r1_xxreal_0
+a: [3,96,0,5,2,51]
+s: 96
+i: [1,54,0,9,3,0,0,255] idempotence_k4_xxreal_0
+a: [3,101,0,7,2,54]
+s: 101
+i: [1,53,0,8,3,0,0,1] fc6_xxreal_0
+s: 53
+i: [1,58,0,10,4,0,0,1] connectedness_r1_xxreal_0
+s: 58
+d: [2,111,1,7,3,1,40,58,69]
+d: [2,115,1,5,2,2,21,111,84]
+d: [2,116,1,3,1,3,21,115,79]
+a: [3,120,1,3,1,116]
+s: 120
+i: [1,59,0,10,4,0,0,1] connectedness_r1_xxreal_0
+s: 59
+d: [2,112,1,7,3,1,40,58,74]
+d: [2,122,1,5,2,2,21,112,84]
+d: [2,123,1,3,1,3,21,122,89]
+a: [3,127,1,3,1,123]
+s: 127
+i: [1,56,0,11,3,0,0,255] commutativity_k4_xxreal_0
+s: 56
+i: [1,57,0,11,3,0,0,255] commutativity_k4_xxreal_0
+s: 57
+i: [1,49,0,12,4,0,0,255] d10_xxreal_0
+s: 49
+i: [1,50,0,12,4,0,0,255] d10_xxreal_0
+s: 50
+d: [2,135,1,10,4,1,44,64,49]
+d: [2,144,1,7,3,2,21,135,74]
+d: [2,145,1,5,2,3,21,144,79]
+d: [2,146,1,3,1,4,21,145,89]
+d: [2,155,1,10,4,1,44,64,50]
+d: [2,167,1,7,3,2,21,155,69]
+d: [2,168,1,5,2,3,21,167,79]
+d: [2,169,1,3,1,4,21,168,89]
+f: 169,146,43,45,46,47,48
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xxreal_0__t29_xxreal_0
+% SZS output start Proof for xxreal_0__t29_xxreal_0
+1. ! [X0] : (v1_xxreal_0(X0) => ! [X1] : (v1_xxreal_0(X1) => ! [X2] : (v1_xxreal_0(X2) => ~(r1_xxreal_0(X1,k4_xxreal_0(X0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,X0))))) [input t29_xxreal_0]
+2. ~! [X0] : (v1_xxreal_0(X0) => ! [X1] : (v1_xxreal_0(X1) => ! [X2] : (v1_xxreal_0(X2) => ~(r1_xxreal_0(X1,k4_xxreal_0(X0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,X0))))) [negated conjecture 1]
+15. ! [X0] : (v1_xxreal_0(X0) => ! [X1] : (v1_xxreal_0(X1) => ((~r1_xxreal_0(X1,X0) => k4_xxreal_0(X0,X1) = X1) & (r1_xxreal_0(X1,X0) => k4_xxreal_0(X0,X1) = X0)))) [input d10_xxreal_0]
+16. ? [X0] : (? [X1] : (? [X2] : ((r1_xxreal_0(X1,k4_xxreal_0(X0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,X0)) & v1_xxreal_0(X2)) & v1_xxreal_0(X1)) & v1_xxreal_0(X0)) [ennf transformation 2]
+17. ? [X0] : (? [X1] : (? [X2] : (r1_xxreal_0(X1,k4_xxreal_0(X0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,X0) & v1_xxreal_0(X2)) & v1_xxreal_0(X1)) & v1_xxreal_0(X0)) [flattening 16]
+18. ! [X0] : (! [X1] : (((k4_xxreal_0(X0,X1) = X1 | r1_xxreal_0(X1,X0)) & (k4_xxreal_0(X0,X1) = X0 | ~r1_xxreal_0(X1,X0))) | ~v1_xxreal_0(X1)) | ~v1_xxreal_0(X0)) [ennf transformation 15]
+37. ? [X0] : (? [X1] : (? [X2] : (r1_xxreal_0(X1,k4_xxreal_0(X0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,X0) & v1_xxreal_0(X2)) & v1_xxreal_0(X1)) & v1_xxreal_0(X0)) => (? [X1] : (? [X2] : (r1_xxreal_0(X1,k4_xxreal_0(sK0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,sK0) & v1_xxreal_0(X2)) & v1_xxreal_0(X1)) & v1_xxreal_0(sK0)) [choice axiom]
+38. ? [X1] : (? [X2] : (r1_xxreal_0(X1,k4_xxreal_0(sK0,X2)) & ~r1_xxreal_0(X1,X2) & ~r1_xxreal_0(X1,sK0) & v1_xxreal_0(X2)) & v1_xxreal_0(X1)) => (? [X2] : (r1_xxreal_0(sK1,k4_xxreal_0(sK0,X2)) & ~r1_xxreal_0(sK1,X2) & ~r1_xxreal_0(sK1,sK0) & v1_xxreal_0(X2)) & v1_xxreal_0(sK1)) [choice axiom]
+39. ? [X2] : (r1_xxreal_0(sK1,k4_xxreal_0(sK0,X2)) & ~r1_xxreal_0(sK1,X2) & ~r1_xxreal_0(sK1,sK0) & v1_xxreal_0(X2)) => (r1_xxreal_0(sK1,k4_xxreal_0(sK0,sK2)) & ~r1_xxreal_0(sK1,sK2) & ~r1_xxreal_0(sK1,sK0) & v1_xxreal_0(sK2)) [choice axiom]
+40. ((r1_xxreal_0(sK1,k4_xxreal_0(sK0,sK2)) & ~r1_xxreal_0(sK1,sK2) & ~r1_xxreal_0(sK1,sK0) & v1_xxreal_0(sK2)) & v1_xxreal_0(sK1)) & v1_xxreal_0(sK0) [skolemisation 17,39,38,37]
+43. v1_xxreal_0(sK0) [cnf transformation 40] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+45. v1_xxreal_0(sK2) [cnf transformation 40] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+46. ~r1_xxreal_0(sK1,sK0) [cnf transformation 40] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+47. ~r1_xxreal_0(sK1,sK2) [cnf transformation 40] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+48. r1_xxreal_0(sK1,k4_xxreal_0(sK0,sK2)) [cnf transformation 40] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+49. k4_xxreal_0(X0,X1) = X0 | ~r1_xxreal_0(X1,X0) | ~v1_xxreal_0(X1) | ~v1_xxreal_0(X0) [cnf transformation 18] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+50. k4_xxreal_0(X0,X1) = X1 | r1_xxreal_0(X1,X0) | ~v1_xxreal_0(X1) | ~v1_xxreal_0(X0) [cnf transformation 18] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+62. 1 <=> r1_xxreal_0(sK1,k4_xxreal_0(sK0,sK2)) [avatar definition]
+64. r1_xxreal_0(sK1,k4_xxreal_0(sK0,sK2)) <- (1) [avatar component clause 62] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+65. 1 [avatar split clause 48,62]
+67. 2 <=> r1_xxreal_0(sK1,sK2) [avatar definition]
+69. ~r1_xxreal_0(sK1,sK2) <- (~2) [avatar component clause 67] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+70. ~2 [avatar split clause 47,67]
+72. 3 <=> r1_xxreal_0(sK1,sK0) [avatar definition]
+74. ~r1_xxreal_0(sK1,sK0) <- (~3) [avatar component clause 72] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+75. ~3 [avatar split clause 46,72]
+77. 4 <=> v1_xxreal_0(sK2) [avatar definition]
+79. v1_xxreal_0(sK2) <- (4) [avatar component clause 77] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+80. 4 [avatar split clause 45,77]
+87. 6 <=> v1_xxreal_0(sK0) [avatar definition]
+89. v1_xxreal_0(sK0) <- (6) [avatar component clause 87] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+90. 6 [avatar split clause 43,87]
+135. r1_xxreal_0(sK1,sK0) | ~r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK2) | ~v1_xxreal_0(sK0) <- (1) [superposition 64,49] {a:1,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+144. ~r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK2) | ~v1_xxreal_0(sK0) <- (1, ~3) [subsumption resolution 135,74] {a:1,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+145. ~r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK0) <- (1, ~3, 4) [subsumption resolution 144,79] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+146. ~r1_xxreal_0(sK2,sK0) <- (1, ~3, 4, 6) [subsumption resolution 145,89] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+148. 13 <=> r1_xxreal_0(sK2,sK0) [avatar definition]
+151. ~13 | ~1 | 3 | ~4 | ~6 [avatar split clause 146,87,77,72,62,148]
+155. r1_xxreal_0(sK1,sK2) | r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK2) | ~v1_xxreal_0(sK0) <- (1) [superposition 64,50] {a:1,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+167. r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK2) | ~v1_xxreal_0(sK0) <- (1, ~2) [subsumption resolution 155,69] {a:1,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+168. r1_xxreal_0(sK2,sK0) | ~v1_xxreal_0(sK0) <- (1, ~2, 4) [subsumption resolution 167,79] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+169. r1_xxreal_0(sK2,sK0) <- (1, ~2, 4, 6) [subsumption resolution 168,89] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+170. 13 | ~1 | 2 | ~4 | ~6 [avatar split clause 169,87,77,67,62,148]
+171. $false [avatar sat refutation 65,70,75,80,90,151,170] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:83,thDist:-83}
+% SZS output end Proof for xxreal_0__t29_xxreal_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 14
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 18
+% Generated clauses: 76
+% Active clauses: 16
+% Passive clauses: 27
+% Final active clauses: 16
+% Final passive clauses: 9
+% Main loop iterations started: 18
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 31
+% Fw subsumption resolutions: 10
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 5
+% Forward subsumptions: 5
+% 
+% >>> Generating Inferences
+% Binary resolution: 2
+% Factoring: 1
+% Forward superposition: 6
+% Backward superposition: 11
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 17
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% sat proof minimization: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

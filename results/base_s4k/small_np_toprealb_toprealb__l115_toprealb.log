@@ -1,0 +1,78 @@
+i: [1,929,0,18,3,1,0,0] l115_toprealb
+i: [1,947,0,3,1,0,0,1] redefinition_k2_topalg_2
+i: [1,950,0,4,1,0,0,2] t17_topmetr
+i: [1,973,0,8,1,0,0,1] dt_k4_pscomp_1
+i: [1,972,0,6,1,0,0,1] dt_k4_pscomp_1
+i: [1,971,0,2,1,0,0,1] dt_k4_pscomp_1
+f: 971,972,973,950,947,929
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for toprealb__l115_toprealb
+% SZS output start Proof for toprealb__l115_toprealb
+1. m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) & v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) & v1_funct_1(k4_pscomp_1) [input l115_toprealb]
+2. ~(m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) & v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) & v1_funct_1(k4_pscomp_1)) [negated conjecture 1]
+306. k2_topalg_2 = k3_topmetr [input redefinition_k2_topalg_2]
+313. m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),k1_numbers))) & v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),k1_numbers) & v1_funct_1(k4_pscomp_1) [input dt_k4_pscomp_1]
+334. k1_numbers = u1_struct_0(k3_topmetr) [input t17_topmetr]
+419. ~m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) | ~v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) | ~v1_funct_1(k4_pscomp_1) [ennf transformation 2]
+929. ~m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) | ~v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) | ~v1_funct_1(k4_pscomp_1) [cnf transformation 419] {a:0,w:18,wCS:1800,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+947. k2_topalg_2 = k3_topmetr [cnf transformation 306] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+950. k1_numbers = u1_struct_0(k3_topmetr) [cnf transformation 334] {a:0,w:4,wCS:1600,sine:2,thAx:0,allAx:1,thDist:-1}
+971. v1_funct_1(k4_pscomp_1) [cnf transformation 313] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+972. v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),k1_numbers) [cnf transformation 313] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+973. m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),k1_numbers))) [cnf transformation 313] {a:0,w:8,wCS:3200,sine:1,thAx:0,allAx:1,thDist:-1}
+1523. 1 <=> v1_funct_1(k4_pscomp_1) [avatar definition]
+1527. 2 <=> v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) [avatar definition]
+1531. 3 <=> m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) [avatar definition]
+1534. ~1 | ~2 | ~3 [avatar split clause 929,1531,1527,1523]
+1621. 21 <=> k2_topalg_2 = k3_topmetr [avatar definition]
+1624. 21 [avatar split clause 947,1621]
+1636. 24 <=> k1_numbers = u1_struct_0(k3_topmetr) [avatar definition]
+1639. 24 [avatar split clause 950,1636]
+1723. 41 <=> v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),k1_numbers) [avatar definition]
+1729. 42 <=> m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),k1_numbers))) [avatar definition]
+1732. 42 [avatar split clause 973,1729]
+1733. 41 [avatar split clause 972,1723]
+1734. 1 [avatar split clause 971,1523]
+2545. k2_topalg_2 != k3_topmetr | k1_numbers != u1_struct_0(k3_topmetr) | v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)) | ~v1_funct_2(k4_pscomp_1,u1_struct_0(k15_euclid(2)),k1_numbers) [theory tautology sat conflict] {a:0,w:20,wCS:8000,sine:255,thAx:0,allAx:1,thDist:-1}
+2546. k2_topalg_2 != k3_topmetr | k1_numbers != u1_struct_0(k3_topmetr) | m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),u1_struct_0(k2_topalg_2)))) | ~m1_subset_1(k4_pscomp_1,k1_zfmisc_1(k2_zfmisc_1(u1_struct_0(k15_euclid(2)),k1_numbers))) [theory tautology sat conflict] {a:0,w:24,wCS:9600,sine:255,thAx:0,allAx:1,thDist:-1}
+2547. $false [avatar sat refutation 1534,1624,1639,1732,1733,1734,2545,2546] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:580,thDist:-580}
+% SZS output end Proof for toprealb__l115_toprealb
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 333
+% >>> Preprocessing
+% Introduced skolems: 89
+% Pure predicates: 31
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 593
+% Generated clauses: 593
+% Passive clauses: 322
+% Final passive clauses: 322
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 64
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 211
+% SAT solver unit clauses: 206
+% 
+% Memory used [KB]: 6268
+% Time elapsed: 0.007 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.003 s
+% property evaluation: 0.001 s
+% preprocessing: 0.002 s ( own 0.001 s ) 
+% splitting component index maintenance: 0.001 s
+% other: 0.007 s ( own 0.001 s ) 
+

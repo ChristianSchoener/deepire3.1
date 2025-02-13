@@ -1,0 +1,130 @@
+i: [1,19,0,10,1,1,0,0] t35_xtuple_0
+a: [3,28,0,10,1,19]
+s: 28
+i: [1,23,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 23
+i: [1,20,0,6,1,0,0,1] d15_xtuple_0
+s: 20
+i: [1,24,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 24
+i: [1,21,0,10,1,0,0,2] t23_xtuple_0
+s: 21
+i: [1,22,0,10,1,0,0,2] t27_xtuple_0
+s: 22
+d: [2,31,1,10,1,0,44,21,24]
+s: 31
+d: [2,32,1,10,1,0,44,21,24]
+s: 32
+d: [2,44,2,9,1,0,44,31,21]
+s: 44
+d: [2,34,1,10,1,0,44,24,21]
+s: 34
+d: [2,35,1,10,1,0,44,24,21]
+s: 35
+d: [2,48,2,9,1,0,44,21,31]
+s: 48
+d: [2,39,1,10,1,0,44,22,24]
+s: 39
+d: [2,74,2,9,1,0,44,39,22]
+s: 74
+d: [2,40,1,10,1,0,44,22,24]
+s: 40
+d: [2,42,1,10,1,0,44,24,22]
+s: 42
+d: [2,78,2,9,1,0,44,22,39]
+s: 78
+d: [2,43,1,10,1,0,44,24,22]
+s: 43
+d: [2,62,3,10,1,0,44,20,44]
+s: 62
+d: [2,36,1,11,1,0,44,22,20]
+s: 36
+d: [2,37,1,11,1,0,44,22,20]
+s: 37
+d: [2,119,4,9,1,0,44,62,20]
+s: 119
+d: [2,131,2,12,1,0,44,36,20]
+d: [2,144,2,11,1,0,22,131,21]
+d: [2,145,2,10,1,0,22,144,20]
+s: 145
+d: [2,204,3,9,1,1,44,28,145]
+d: [2,215,3,0,0,1,19,204]
+e: 215
+d: [2,196,3,0,0,1,52,28,145]
+e: 196
+f: 196,19
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xtuple_0__t35_xtuple_0
+% SZS output start Proof for xtuple_0__t35_xtuple_0
+1. ! [X0] : ! [X1] : k12_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k12_xtuple_0(X0),k12_xtuple_0(X1)) [input t35_xtuple_0]
+2. ~! [X0] : ! [X1] : k12_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k12_xtuple_0(X0),k12_xtuple_0(X1)) [negated conjecture 1]
+4. ! [X0] : k12_xtuple_0(X0) = k10_xtuple_0(k9_xtuple_0(X0)) [input d15_xtuple_0]
+10. ! [X0] : ! [X1] : k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [input t23_xtuple_0]
+11. ! [X0] : ! [X1] : k10_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k10_xtuple_0(X0),k10_xtuple_0(X1)) [input t27_xtuple_0]
+12. ~! [X0,X1] : k12_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k12_xtuple_0(X0),k12_xtuple_0(X1)) [flattening 2]
+13. ! [X0,X1] : k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [flattening 10]
+14. ! [X0,X1] : k10_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k10_xtuple_0(X0),k10_xtuple_0(X1)) [flattening 11]
+16. ? [X0,X1] : k12_xtuple_0(k2_xboole_0(X0,X1)) != k2_xboole_0(k12_xtuple_0(X0),k12_xtuple_0(X1)) [ennf transformation 12]
+17. ? [X0,X1] : k12_xtuple_0(k2_xboole_0(X0,X1)) != k2_xboole_0(k12_xtuple_0(X0),k12_xtuple_0(X1)) => k12_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k12_xtuple_0(sK0),k12_xtuple_0(sK1)) [choice axiom]
+18. k12_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k12_xtuple_0(sK0),k12_xtuple_0(sK1)) [skolemisation 16,17]
+19. k12_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k12_xtuple_0(sK0),k12_xtuple_0(sK1)) [cnf transformation 18] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. k12_xtuple_0(X0) = k10_xtuple_0(k9_xtuple_0(X0)) [cnf transformation 4] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+21. k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [cnf transformation 13] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+22. k10_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k10_xtuple_0(X0),k10_xtuple_0(X1)) [cnf transformation 14] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+26. 1 <=> k12_xtuple_0(k2_xboole_0(sK0,sK1)) = k2_xboole_0(k12_xtuple_0(sK0),k12_xtuple_0(sK1)) [avatar definition]
+28. k12_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k12_xtuple_0(sK0),k12_xtuple_0(sK1)) <- (~1) [avatar component clause 26] {a:0,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+29. ~1 [avatar split clause 19,26]
+36. k10_xtuple_0(k2_xboole_0(k9_xtuple_0(X0),X1)) = k2_xboole_0(k12_xtuple_0(X0),k10_xtuple_0(X1)) [superposition 22,20] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+131. k10_xtuple_0(k2_xboole_0(k9_xtuple_0(X1),k9_xtuple_0(X0))) = k2_xboole_0(k12_xtuple_0(X1),k12_xtuple_0(X0)) [superposition 36,20] {a:2,w:12,wCS:4800,sine:1,thAx:0,allAx:3,thDist:-3}
+144. k10_xtuple_0(k9_xtuple_0(k2_xboole_0(X1,X0))) = k2_xboole_0(k12_xtuple_0(X1),k12_xtuple_0(X0)) [forward demodulation 131,21] {a:2,w:11,wCS:4400,sine:1,thAx:0,allAx:3,thDist:-3}
+145. k12_xtuple_0(k2_xboole_0(X1,X0)) = k2_xboole_0(k12_xtuple_0(X1),k12_xtuple_0(X0)) [forward demodulation 144,20] {a:2,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+196. $false <- (~1) [unit resulting resolution 28,145] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+217. 1 [avatar contradiction clause 196]
+226. $false [avatar sat refutation 29,217] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:13,thDist:-13}
+% SZS output end Proof for xtuple_0__t35_xtuple_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 10
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 6
+% Generated clauses: 201
+% Active clauses: 15
+% Passive clauses: 94
+% Final active clauses: 15
+% Final passive clauses: 71
+% Main loop iterations started: 23
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw demodulations: 51
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 23
+% Fw demodulations to eq. taut.: 22
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Forward superposition: 73
+% Backward superposition: 68
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 5
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward demodulation: 0.001 s
+% superposition: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

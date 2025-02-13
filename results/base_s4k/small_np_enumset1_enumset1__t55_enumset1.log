@@ -1,0 +1,73 @@
+i: [1,15,0,13,1,1,0,0] t55_enumset1
+a: [3,22,0,13,1,15]
+s: 22
+i: [1,18,0,7,1,0,0,1] commutativity_k2_tarski
+s: 18
+i: [1,16,0,8,1,0,0,2] t30_enumset1
+s: 16
+i: [1,17,0,14,1,0,0,1] t53_enumset1
+s: 17
+d: [2,24,1,8,1,1,44,22,17]
+d: [2,25,1,0,0,1,21,24,16]
+e: 25
+f: 25,15
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for enumset1__t55_enumset1
+% SZS output start Proof for enumset1__t55_enumset1
+1. ! [X0] : ! [X1] : k6_enumset1(X0,X0,X0,X0,X0,X0,X0,X1) = k2_tarski(X0,X1) [input t55_enumset1]
+2. ~! [X0] : ! [X1] : k6_enumset1(X0,X0,X0,X0,X0,X0,X0,X1) = k2_tarski(X0,X1) [negated conjecture 1]
+7. ! [X0] : ! [X1] : k2_tarski(X0,X1) = k1_enumset1(X0,X0,X1) [input t30_enumset1]
+8. ! [X0] : ! [X1] : ! [X2] : k6_enumset1(X0,X0,X0,X0,X0,X0,X1,X2) = k1_enumset1(X0,X1,X2) [input t53_enumset1]
+9. ~! [X0,X1] : k6_enumset1(X0,X0,X0,X0,X0,X0,X0,X1) = k2_tarski(X0,X1) [flattening 2]
+10. ! [X0,X1] : k2_tarski(X0,X1) = k1_enumset1(X0,X0,X1) [flattening 7]
+11. ! [X0,X1,X2] : k6_enumset1(X0,X0,X0,X0,X0,X0,X1,X2) = k1_enumset1(X0,X1,X2) [flattening 8]
+12. ? [X0,X1] : k6_enumset1(X0,X0,X0,X0,X0,X0,X0,X1) != k2_tarski(X0,X1) [ennf transformation 9]
+13. ? [X0,X1] : k6_enumset1(X0,X0,X0,X0,X0,X0,X0,X1) != k2_tarski(X0,X1) => k6_enumset1(sK0,sK0,sK0,sK0,sK0,sK0,sK0,sK1) != k2_tarski(sK0,sK1) [choice axiom]
+14. k6_enumset1(sK0,sK0,sK0,sK0,sK0,sK0,sK0,sK1) != k2_tarski(sK0,sK1) [skolemisation 12,13]
+15. k6_enumset1(sK0,sK0,sK0,sK0,sK0,sK0,sK0,sK1) != k2_tarski(sK0,sK1) [cnf transformation 14] {a:0,w:13,wCS:1300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+16. k2_tarski(X0,X1) = k1_enumset1(X0,X0,X1) [cnf transformation 10] {a:0,w:8,wCS:3200,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+17. k6_enumset1(X0,X0,X0,X0,X0,X0,X1,X2) = k1_enumset1(X0,X1,X2) [cnf transformation 11] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+20. 1 <=> k6_enumset1(sK0,sK0,sK0,sK0,sK0,sK0,sK0,sK1) = k2_tarski(sK0,sK1) [avatar definition]
+22. k6_enumset1(sK0,sK0,sK0,sK0,sK0,sK0,sK0,sK1) != k2_tarski(sK0,sK1) <- (~1) [avatar component clause 20] {a:0,w:13,wCS:1300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+23. ~1 [avatar split clause 15,20]
+24. k2_tarski(sK0,sK1) != k1_enumset1(sK0,sK0,sK1) <- (~1) [superposition 22,17] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+25. $false <- (~1) [subsumption resolution 24,16] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+26. 1 [avatar contradiction clause 25]
+27. $false [avatar sat refutation 23,26] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:6,thDist:-6}
+% SZS output end Proof for enumset1__t55_enumset1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 4
+% Generated clauses: 7
+% Active clauses: 4
+% Passive clauses: 4
+% Final active clauses: 4
+% Main loop iterations started: 4
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Generating Inferences
+% Backward superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 4
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,129 @@
+i: [1,42,0,2,1,1,0,0] t8_taxonom2
+a: [3,61,0,2,1,42]
+s: 61
+i: [1,43,0,2,1,0,0,1] fc1_xboole_0
+a: [3,66,0,2,1,43]
+s: 66
+i: [1,56,0,2,1,0,0,2] rc2_xboole_0
+a: [3,71,0,2,1,56]
+s: 71
+i: [1,57,0,2,1,0,0,2] rc1_xboole_0
+a: [3,76,0,2,1,57]
+s: 76
+i: [1,53,0,4,1,0,0,255] existence_m1_subset_1
+s: 53
+i: [1,44,0,5,2,0,0,1] t6_boole
+s: 44
+d: [2,80,1,4,2,1,44,61,44]
+s: 80
+i: [1,52,0,5,2,0,0,2] t7_boole
+s: 52
+d: [2,82,2,2,1,2,40,80,76]
+a: [3,86,2,2,1,82]
+s: 86
+i: [1,45,0,6,2,0,0,1] d5_taxonom2
+s: 45
+i: [1,46,0,6,2,0,0,1] d5_taxonom2
+s: 46
+d: [2,88,1,4,2,0,40,45,52]
+d: [2,89,1,2,1,1,21,88,80]
+s: 89
+r: 44
+r: 80
+r: 52
+r: 71
+d: [2,94,2,0,0,2,40,89,76]
+e: 94
+d: [2,93,2,0,0,2,40,89,66]
+e: 93
+d: [2,92,2,0,0,2,52,66,89]
+e: 92
+f: 94,57,42
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for taxonom2__t8_taxonom2
+% SZS output start Proof for taxonom2__t8_taxonom2
+1. v4_taxonom2(k1_xboole_0) [input t8_taxonom2]
+2. ~v4_taxonom2(k1_xboole_0) [negated conjecture 1]
+4. ! [X0] : (v4_taxonom2(X0) <=> ! [X1] : ! [X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2))) [input d5_taxonom2]
+9. ? [X0] : v1_xboole_0(X0) [input rc1_xboole_0]
+14. ! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [input t6_boole]
+15. ! [X0] : ! [X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [input t7_boole]
+17. ~v4_taxonom2(k1_xboole_0) [flattening 2]
+18. ! [X0] : (v4_taxonom2(X0) <=> ! [X1,X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2))) [flattening 4]
+22. ! [X0,X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [flattening 15]
+23. ! [X0] : (! [X1,X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2)) => v4_taxonom2(X0)) [unused predicate definition removal 18]
+24. ! [X0] : (k1_xboole_0 = X0 | ~v1_xboole_0(X0)) [ennf transformation 14]
+25. ! [X0] : (v4_taxonom2(X0) | ? [X1,X2] : ((~r1_xboole_0(X1,X2) & X1 != X2) & (r2_hidden(X2,X0) & r2_hidden(X1,X0)))) [ennf transformation 23]
+26. ! [X0] : (v4_taxonom2(X0) | ? [X1,X2] : (~r1_xboole_0(X1,X2) & X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0))) [flattening 25]
+31. ! [X0,X1] : (~v1_xboole_0(X1) | ~r2_hidden(X0,X1)) [ennf transformation 22]
+34. ! [X0] : (? [X1,X2] : (~r1_xboole_0(X1,X2) & X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (~r1_xboole_0(sK0(X0),sK1(X0)) & sK0(X0) != sK1(X0) & r2_hidden(sK1(X0),X0) & r2_hidden(sK0(X0),X0))) [choice axiom]
+35. ! [X0] : (v4_taxonom2(X0) | (~r1_xboole_0(sK0(X0),sK1(X0)) & sK0(X0) != sK1(X0) & r2_hidden(sK1(X0),X0) & r2_hidden(sK0(X0),X0))) [skolemisation 26,34]
+40. ? [X0] : v1_xboole_0(X0) => v1_xboole_0(sK4) [choice axiom]
+41. v1_xboole_0(sK4) [skolemisation 9,40]
+42. ~v4_taxonom2(k1_xboole_0) [cnf transformation 17] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+44. k1_xboole_0 = X0 | ~v1_xboole_0(X0) [cnf transformation 24] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+45. r2_hidden(sK0(X0),X0) | v4_taxonom2(X0) [cnf transformation 35] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+52. ~r2_hidden(X0,X1) | ~v1_xboole_0(X1) [cnf transformation 31] {a:0,w:5,wCS:2000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+57. v1_xboole_0(sK4) [cnf transformation 41] {a:0,w:2,wCS:800,sine:2,thAx:0,allAx:2,thDist:-2}
+59. 1 <=> v4_taxonom2(k1_xboole_0) [avatar definition]
+61. ~v4_taxonom2(k1_xboole_0) <- (~1) [avatar component clause 59] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+62. ~1 [avatar split clause 42,59]
+74. 4 <=> v1_xboole_0(sK4) [avatar definition]
+76. v1_xboole_0(sK4) <- (4) [avatar component clause 74] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+77. 4 [avatar split clause 57,74]
+80. ~v1_xboole_0(X0) | ~v4_taxonom2(X0) <- (~1) [superposition 61,44] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+88. v4_taxonom2(X0) | ~v1_xboole_0(X0) [resolution 45,52] {a:1,w:4,wCS:1600,sine:1,thAx:0,allAx:3,thDist:-3}
+89. ~v1_xboole_0(X0) <- (~1) [subsumption resolution 88,80] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+94. $false <- (~1, 4) [resolution 89,76] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+95. 1 | ~4 [avatar contradiction clause 94]
+98. $false [avatar sat refutation 62,77,95] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:30,thDist:-30}
+% SZS output end Proof for taxonom2__t8_taxonom2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 15
+% >>> Preprocessing
+% Introduced skolems: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 16
+% Generated clauses: 33
+% Active clauses: 12
+% Passive clauses: 21
+% Final active clauses: 8
+% Final passive clauses: 9
+% Main loop iterations started: 12
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 1
+% Backward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 6
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% sat proof minimization: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

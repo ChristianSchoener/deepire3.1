@@ -1,0 +1,59 @@
+i: [1,658,0,8,2,1,0,0] t40_seqm_3
+i: [1,683,0,4,1,0,0,1] l27_seqm_3
+i: [1,682,0,4,1,0,0,1] l27_seqm_3
+f: 682,683,658
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for seqm_3__t40_seqm_3
+% SZS output start Proof for seqm_3__t40_seqm_3
+1. v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) & v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [input t40_seqm_3]
+2. ~(v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) & v5_valued_0(k6_funct_3(k1_numbers,k5_numbers))) [negated conjecture 1]
+263. v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) & v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [input l27_seqm_3]
+306. ~v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) | ~v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [ennf transformation 2]
+658. ~v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) | ~v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [cnf transformation 306] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+682. v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [cnf transformation 263] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+683. v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [cnf transformation 263] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+1195. 1 <=> v5_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [avatar definition]
+1199. 2 <=> v4_valued_0(k6_funct_3(k1_numbers,k5_numbers)) [avatar definition]
+1202. ~1 | ~2 [avatar split clause 658,1199,1195]
+1318. 2 [avatar split clause 683,1199]
+1319. 1 [avatar split clause 682,1195]
+2205. $false [avatar sat refutation 1202,1318,1319] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:584,thDist:-584}
+% SZS output end Proof for seqm_3__t40_seqm_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 262
+% >>> Preprocessing
+% Introduced skolems: 63
+% Pure predicates: 9
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 536
+% Generated clauses: 536
+% Passive clauses: 258
+% Final passive clauses: 258
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 75
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 205
+% SAT solver unit clauses: 202
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 10234
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.003 s
+% preprocessing: 0.001 s
+% other: 0.005 s ( own 0.001 s ) 
+

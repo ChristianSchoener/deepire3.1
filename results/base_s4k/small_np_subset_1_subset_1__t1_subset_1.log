@@ -1,0 +1,124 @@
+i: [1,52,0,4,1,1,0,0] t1_subset_1
+a: [3,77,0,4,1,52]
+s: 77
+i: [1,53,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,82,0,2,1,53]
+s: 82
+i: [1,54,0,2,1,0,0,1] fc1_xboole_0
+a: [3,87,0,2,1,54]
+s: 87
+i: [1,69,0,2,1,0,0,255] rc2_zfmisc_1
+a: [3,97,0,2,1,69]
+s: 97
+i: [1,70,0,2,1,0,0,2] rc2_xboole_0
+a: [3,102,0,2,1,70]
+s: 102
+i: [1,71,0,2,1,0,0,2] rc1_xboole_0
+a: [3,107,0,2,1,71]
+s: 107
+i: [1,73,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,112,0,2,1,73]
+s: 112
+i: [1,72,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,117,0,2,1,72]
+s: 117
+i: [1,56,0,3,1,0,0,1] fc1_subset_1
+s: 56
+i: [1,57,0,3,1,0,0,255] fc13_subset_1
+s: 57
+i: [1,68,0,3,1,0,0,1] rc2_subset_1
+s: 68
+i: [1,55,0,3,1,0,0,255] d2_xboole_0
+a: [3,92,0,3,1,55]
+s: 92
+r: 82
+i: [1,58,0,4,1,0,0,255] d2_subset_1
+s: 58
+r: 57
+i: [1,60,0,4,2,0,0,255] cc2_zfmisc_1
+s: 60
+i: [1,63,0,4,2,0,0,255] cc1_zfmisc_1
+s: 63
+i: [1,66,0,4,1,0,0,1] existence_m1_subset_1
+s: 66
+d: [2,121,1,2,1,1,40,60,87]
+a: [3,127,1,2,1,121]
+s: 127
+i: [1,59,0,5,1,0,0,255] dt_k1_subset_1
+s: 59
+d: [2,123,1,2,1,1,40,60,107]
+a: [3,132,1,2,1,123]
+s: 132
+d: [2,134,0,4,1,0,22,59,58]
+s: 134
+d: [2,136,1,0,0,1,40,134,77]
+e: 136
+d: [2,135,1,0,0,1,52,77,134]
+e: 135
+f: 135,52
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for subset_1__t1_subset_1
+% SZS output start Proof for subset_1__t1_subset_1
+1. ! [X0] : m1_subset_1(k1_xboole_0,k1_zfmisc_1(X0)) [input t1_subset_1]
+2. ~! [X0] : m1_subset_1(k1_xboole_0,k1_zfmisc_1(X0)) [negated conjecture 1]
+6. ! [X0] : k1_xboole_0 = k1_subset_1(X0) [input d2_subset_1]
+8. ! [X0] : m1_subset_1(k1_subset_1(X0),k1_zfmisc_1(X0)) [input dt_k1_subset_1]
+30. ? [X0] : ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(X0)) [ennf transformation 2]
+36. ? [X0] : ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(X0)) => ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(sK0)) [choice axiom]
+37. ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(sK0)) [skolemisation 30,36]
+52. ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(sK0)) [cnf transformation 37] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+58. k1_xboole_0 = k1_subset_1(X0) [cnf transformation 6] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+59. m1_subset_1(k1_subset_1(X0),k1_zfmisc_1(X0)) [cnf transformation 8] {a:0,w:5,wCS:2000,sine:255,thAx:0,allAx:1,thDist:-1}
+75. 1 <=> m1_subset_1(k1_xboole_0,k1_zfmisc_1(sK0)) [avatar definition]
+77. ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(sK0)) <- (~1) [avatar component clause 75] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+78. ~1 [avatar split clause 52,75]
+134. m1_subset_1(k1_xboole_0,k1_zfmisc_1(X0)) [forward demodulation 59,58] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+135. $false <- (~1) [unit resulting resolution 77,134] {a:1,w:0,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+138. 1 [avatar contradiction clause 135]
+139. $false [avatar sat refutation 78,138] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:39,thDist:-39}
+% SZS output end Proof for subset_1__t1_subset_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 24
+% >>> Preprocessing
+% Introduced skolems: 8
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 22
+% Generated clauses: 41
+% Active clauses: 18
+% Passive clauses: 26
+% Final active clauses: 16
+% Final passive clauses: 6
+% Main loop iterations started: 20
+% 
+% >>> Simplifying Inferences
+% Fw demodulations: 1
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 3
+% 
+% >>> Generating Inferences
+% Binary resolution: 4
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 15
+% SAT solver unit clauses: 11
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

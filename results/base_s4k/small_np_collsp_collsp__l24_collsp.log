@@ -1,0 +1,378 @@
+i: [1,122,0,6,1,1,0,0] l24_collsp
+a: [3,196,0,6,1,122]
+s: 196
+i: [1,123,0,2,1,0,0,1] spc3_boole
+a: [3,201,0,2,1,123]
+s: 201
+i: [1,124,0,2,1,0,0,1] spc2_boole
+a: [3,206,0,2,1,124]
+s: 206
+i: [1,125,0,2,1,0,0,1] spc1_boole
+a: [3,211,0,2,1,125]
+s: 211
+i: [1,126,0,2,1,0,0,255] fc1_xboole_0
+a: [3,216,0,2,1,126]
+s: 216
+i: [1,131,0,2,1,0,0,255] fc6_ordinal1
+a: [3,236,0,2,1,131]
+s: 236
+i: [1,130,0,2,1,0,0,255] fc6_ordinal1
+a: [3,241,0,2,1,130]
+s: 241
+i: [1,176,0,2,1,0,0,1] rc2_xboole_0
+a: [3,291,0,2,1,176]
+s: 291
+i: [1,177,0,2,1,0,0,255] rc4_ordinal1
+a: [3,296,0,2,1,177]
+s: 296
+i: [1,178,0,2,1,0,0,255] rc1_ordinal1
+a: [3,301,0,2,1,178]
+s: 301
+i: [1,179,0,2,1,0,0,1] rc1_xboole_0
+a: [3,306,0,2,1,179]
+s: 306
+i: [1,183,0,2,1,0,0,255] rc2_ordinal1
+a: [3,311,0,2,1,183]
+s: 311
+i: [1,182,0,2,1,0,0,255] rc2_ordinal1
+a: [3,316,0,2,1,182]
+s: 316
+i: [1,181,0,2,1,0,0,255] rc2_ordinal1
+a: [3,321,0,2,1,181]
+s: 321
+i: [1,180,0,2,1,0,0,255] rc2_ordinal1
+a: [3,326,0,2,1,180]
+s: 326
+i: [1,185,0,2,1,0,0,255] rc5_ordinal1
+a: [3,331,0,2,1,185]
+s: 331
+i: [1,184,0,2,1,0,0,255] rc5_ordinal1
+a: [3,336,0,2,1,184]
+s: 336
+i: [1,168,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 168
+i: [1,127,0,3,1,0,0,255] redefinition_k5_numbers
+a: [3,221,0,3,1,127]
+s: 221
+r: 241
+r: 236
+d: [2,338,0,2,1,2,23,241,221]
+a: [3,343,0,2,1,338]
+s: 343
+d: [2,339,0,2,1,2,23,236,221]
+a: [3,348,0,2,1,339]
+s: 348
+i: [1,128,0,3,1,0,0,255] t1_numerals
+a: [3,226,0,3,1,128]
+s: 226
+i: [1,134,0,3,1,0,0,1] spc3_numerals
+a: [3,246,0,3,1,134]
+s: 246
+i: [1,133,0,3,1,0,0,1] spc3_numerals
+a: [3,251,0,3,1,133]
+s: 251
+i: [1,137,0,3,1,0,0,1] spc2_numerals
+a: [3,261,0,3,1,137]
+s: 261
+i: [1,136,0,3,1,0,0,1] spc2_numerals
+a: [3,266,0,3,1,136]
+s: 266
+i: [1,140,0,3,1,0,0,1] spc1_numerals
+a: [3,276,0,3,1,140]
+s: 276
+i: [1,139,0,3,1,0,0,1] spc1_numerals
+a: [3,281,0,3,1,139]
+s: 281
+d: [2,350,0,3,1,2,22,226,221]
+a: [3,354,0,3,1,350]
+s: 354
+i: [1,142,0,4,2,0,0,255] cc6_ordinal1
+s: 142
+i: [1,143,0,4,2,0,0,255] cc1_ordinal1
+s: 143
+d: [2,356,1,2,1,1,40,142,296]
+a: [3,361,1,2,1,356]
+s: 361
+i: [1,144,0,4,2,0,0,255] cc1_ordinal1
+s: 144
+d: [2,357,1,2,1,1,40,142,331]
+a: [3,366,1,2,1,357]
+s: 366
+i: [1,146,0,4,2,0,0,255] cc9_ordinal1
+s: 146
+i: [1,147,0,4,2,0,0,255] cc7_ordinal1
+s: 147
+d: [2,418,1,6,1,1,40,146,196]
+a: [3,424,1,6,1,418]
+s: 424
+i: [1,148,0,4,2,0,0,255] cc3_ordinal1
+s: 148
+d: [2,436,1,6,1,1,40,147,196]
+a: [3,442,1,6,1,436]
+s: 442
+i: [1,167,0,4,1,0,0,2] existence_m1_subset_1
+s: 167
+i: [1,129,0,4,1,0,0,2] dt_k5_numbers
+a: [3,231,0,4,1,129]
+s: 231
+d: [2,454,1,6,1,1,40,148,196]
+a: [3,460,1,6,1,454]
+s: 460
+i: [1,132,0,4,1,0,0,1] spc3_numerals
+a: [3,256,0,4,1,132]
+s: 256
+d: [2,474,2,6,1,1,40,460,144]
+a: [3,479,2,6,1,474]
+s: 479
+i: [1,135,0,4,1,0,0,1] spc2_numerals
+a: [3,271,0,4,1,135]
+s: 271
+i: [1,138,0,4,1,0,0,1] spc1_numerals
+a: [3,286,0,4,1,138]
+s: 286
+d: [2,475,2,6,1,1,40,460,143]
+a: [3,484,2,6,1,475]
+s: 484
+i: [1,149,0,5,2,0,0,255] t6_boole
+s: 149
+d: [2,369,1,2,1,1,40,143,301]
+a: [3,374,1,2,1,369]
+s: 374
+i: [1,150,0,5,2,0,0,255] cc8_ordinal1
+s: 150
+i: [1,156,0,5,2,0,0,255] t7_boole
+s: 156
+d: [2,370,1,2,1,1,40,143,348]
+a: [3,379,1,2,1,370]
+s: 379
+d: [2,489,0,5,2,1,22,150,221]
+s: 489
+d: [2,387,1,2,1,1,40,144,348]
+a: [3,394,1,2,1,387]
+s: 394
+i: [1,151,0,6,3,0,0,255] cc2_ordinal1
+s: 151
+i: [1,152,0,6,2,0,0,255] t1_subset
+s: 152
+d: [2,389,1,2,1,1,40,144,301]
+a: [3,404,1,2,1,389]
+s: 404
+i: [1,169,0,6,2,0,0,255] antisymmetry_r2_hidden
+s: 169
+d: [2,419,1,2,1,1,40,146,216]
+a: [3,429,1,2,1,419]
+s: 429
+i: [1,187,0,6,1,0,0,255] d1_enumset1
+s: 187
+i: [1,189,0,6,1,0,0,255] d1_enumset1
+s: 189
+d: [2,420,1,2,1,1,40,146,306]
+a: [3,434,1,2,1,420]
+s: 434
+i: [1,191,0,6,1,0,0,255] d1_enumset1
+s: 191
+d: [2,437,1,2,1,1,40,147,216]
+a: [3,447,1,2,1,437]
+s: 447
+i: [1,145,0,7,3,0,0,255] cc5_ordinal1
+s: 145
+i: [1,154,0,7,2,0,0,255] t3_subset
+s: 154
+d: [2,438,1,2,1,1,40,147,306]
+a: [3,452,1,2,1,438]
+s: 452
+i: [1,155,0,7,3,0,0,255] t8_boole
+s: 155
+d: [2,455,1,2,1,1,40,148,216]
+a: [3,465,1,2,1,455]
+s: 465
+i: [1,141,0,8,3,0,0,255] cc10_ordinal1
+s: 141
+i: [1,153,0,8,3,0,0,255] t2_subset
+s: 153
+d: [2,456,1,2,1,1,40,148,306]
+a: [3,470,1,2,1,456]
+s: 470
+i: [1,158,0,9,3,0,0,255] t5_subset
+s: 158
+d: [2,490,1,2,1,2,40,489,281]
+a: [3,498,1,2,1,490]
+s: 498
+i: [1,157,0,10,3,0,0,255] t4_subset
+s: 157
+i: [1,173,0,14,4,0,0,2] existence_m2_subset_1
+s: 173
+d: [2,491,1,2,1,2,40,489,266]
+a: [3,503,1,2,1,491]
+s: 503
+i: [1,170,0,15,5,0,0,2] dt_m2_subset_1
+s: 170
+d: [2,492,1,2,1,2,40,489,251]
+a: [3,508,1,2,1,492]
+s: 508
+i: [1,171,0,15,5,0,0,2] redefinition_m2_subset_1
+s: 171
+i: [1,172,0,15,5,0,0,2] redefinition_m2_subset_1
+s: 172
+d: [2,534,1,4,2,1,40,145,276]
+a: [3,549,1,2,1,534]
+s: 549
+i: [1,192,0,15,4,0,0,255] d1_enumset1
+s: 192
+d: [2,536,1,4,2,1,40,145,261]
+a: [3,556,1,2,1,536]
+s: 556
+i: [1,174,0,19,5,0,0,1] dt_k8_domain_1
+s: 174
+i: [1,164,0,20,3,0,0,255] d1_enumset1
+s: 164
+d: [2,538,1,4,2,1,40,145,246]
+a: [3,563,1,2,1,538]
+s: 563
+i: [1,165,0,20,3,0,0,255] d1_enumset1
+s: 165
+d: [2,586,1,4,2,1,40,141,231]
+a: [3,591,1,2,1,586]
+s: 591
+i: [1,166,0,20,3,0,0,255] d1_enumset1
+s: 166
+i: [1,175,0,21,5,0,0,255] redefinition_k8_domain_1
+s: 175
+d: [2,756,1,16,5,1,44,196,175]
+d: [2,804,1,13,4,2,21,756,251]
+d: [2,805,1,10,3,3,21,804,266]
+d: [2,806,1,7,2,4,21,805,281]
+d: [2,807,1,5,1,5,21,806,343]
+a: [3,811,1,5,1,807]
+s: 811
+d: [2,813,2,0,0,1,52,187,811,156]
+e: 813
+f: 813,807,338,139,136,133,130,127,122
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for collsp__l24_collsp
+% SZS output start Proof for collsp__l24_collsp
+1. ~v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) [input l24_collsp]
+2. ~~v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) [negated conjecture 1]
+21. v3_ordinal1(k4_ordinal1) & ~v1_xboole_0(k4_ordinal1) [input fc6_ordinal1]
+31. k5_numbers = k4_ordinal1 [input redefinition_k5_numbers]
+32. ! [X0,X1,X2,X3] : ((m1_subset_1(X3,X0) & m1_subset_1(X2,X0) & m1_subset_1(X1,X0) & ~v1_xboole_0(X0)) => k8_domain_1(X0,X1,X2,X3) = k1_enumset1(X1,X2,X3)) [input redefinition_k8_domain_1]
+44. ! [X0] : ! [X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [input t7_boole]
+46. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) & v2_xxreal_0(1) [input spc1_numerals]
+47. m1_subset_1(2,k1_numbers) & m1_subset_1(2,k5_numbers) & m2_subset_1(2,k1_numbers,k5_numbers) & v2_xxreal_0(2) [input spc2_numerals]
+48. m1_subset_1(3,k1_numbers) & m1_subset_1(3,k5_numbers) & m2_subset_1(3,k1_numbers,k5_numbers) & v2_xxreal_0(3) [input spc3_numerals]
+52. ! [X0] : ! [X1] : ! [X2] : ! [X3] : (k1_enumset1(X0,X1,X2) = X3 <=> ! [X4] : (r2_hidden(X4,X3) <=> ~(X2 != X4 & X1 != X4 & X0 != X4))) [input d1_enumset1]
+53. v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) [flattening 2]
+58. ! [X0,X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [flattening 44]
+61. ! [X0,X1,X2,X3] : (k1_enumset1(X0,X1,X2) = X3 <=> ! [X4] : (r2_hidden(X4,X3) <=> ~(X2 != X4 & X1 != X4 & X0 != X4))) [flattening 52]
+64. m1_subset_1(2,k1_numbers) & m1_subset_1(2,k5_numbers) & m2_subset_1(2,k1_numbers,k5_numbers) [pure predicate removal 47]
+65. m1_subset_1(3,k1_numbers) & m1_subset_1(3,k5_numbers) & m2_subset_1(3,k1_numbers,k5_numbers) [pure predicate removal 48]
+66. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) [pure predicate removal 46]
+84. ! [X0,X1] : (~v1_xboole_0(X1) | ~r2_hidden(X0,X1)) [ennf transformation 58]
+88. ! [X0,X1,X2,X3] : (k1_enumset1(X0,X1,X2) = X3 <=> ! [X4] : (r2_hidden(X4,X3) <=> (X2 = X4 | X1 = X4 | X0 = X4))) [ennf transformation 61]
+98. ! [X0,X1,X2,X3] : (k8_domain_1(X0,X1,X2,X3) = k1_enumset1(X1,X2,X3) | (~m1_subset_1(X3,X0) | ~m1_subset_1(X2,X0) | ~m1_subset_1(X1,X0) | v1_xboole_0(X0))) [ennf transformation 32]
+99. ! [X0,X1,X2,X3] : (k8_domain_1(X0,X1,X2,X3) = k1_enumset1(X1,X2,X3) | ~m1_subset_1(X3,X0) | ~m1_subset_1(X2,X0) | ~m1_subset_1(X1,X0) | v1_xboole_0(X0)) [flattening 98]
+100. ! [X0,X1,X2,X3] : ((k1_enumset1(X0,X1,X2) = X3 | ? [X4] : (((X2 != X4 & X1 != X4 & X0 != X4) | ~r2_hidden(X4,X3)) & ((X2 = X4 | X1 = X4 | X0 = X4) | r2_hidden(X4,X3)))) & (! [X4] : ((r2_hidden(X4,X3) | (X2 != X4 & X1 != X4 & X0 != X4)) & ((X2 = X4 | X1 = X4 | X0 = X4) | ~r2_hidden(X4,X3))) | k1_enumset1(X0,X1,X2) != X3)) [nnf transformation 88]
+101. ! [X0,X1,X2,X3] : ((k1_enumset1(X0,X1,X2) = X3 | ? [X4] : (((X2 != X4 & X1 != X4 & X0 != X4) | ~r2_hidden(X4,X3)) & (X2 = X4 | X1 = X4 | X0 = X4 | r2_hidden(X4,X3)))) & (! [X4] : ((r2_hidden(X4,X3) | (X2 != X4 & X1 != X4 & X0 != X4)) & (X2 = X4 | X1 = X4 | X0 = X4 | ~r2_hidden(X4,X3))) | k1_enumset1(X0,X1,X2) != X3)) [flattening 100]
+102. ! [X0,X1,X2,X3] : ((k1_enumset1(X0,X1,X2) = X3 | ? [X4] : (((X2 != X4 & X1 != X4 & X0 != X4) | ~r2_hidden(X4,X3)) & (X2 = X4 | X1 = X4 | X0 = X4 | r2_hidden(X4,X3)))) & (! [X5] : ((r2_hidden(X5,X3) | (X2 != X5 & X1 != X5 & X0 != X5)) & (X2 = X5 | X1 = X5 | X0 = X5 | ~r2_hidden(X5,X3))) | k1_enumset1(X0,X1,X2) != X3)) [rectify 101]
+103. ! [X3,X2,X1,X0] : (? [X4] : (((X2 != X4 & X1 != X4 & X0 != X4) | ~r2_hidden(X4,X3)) & (X2 = X4 | X1 = X4 | X0 = X4 | r2_hidden(X4,X3))) => (((sK0(X0,X1,X2,X3) != X2 & sK0(X0,X1,X2,X3) != X1 & sK0(X0,X1,X2,X3) != X0) | ~r2_hidden(sK0(X0,X1,X2,X3),X3)) & (sK0(X0,X1,X2,X3) = X2 | sK0(X0,X1,X2,X3) = X1 | sK0(X0,X1,X2,X3) = X0 | r2_hidden(sK0(X0,X1,X2,X3),X3)))) [choice axiom]
+104. ! [X0,X1,X2,X3] : ((k1_enumset1(X0,X1,X2) = X3 | (((sK0(X0,X1,X2,X3) != X2 & sK0(X0,X1,X2,X3) != X1 & sK0(X0,X1,X2,X3) != X0) | ~r2_hidden(sK0(X0,X1,X2,X3),X3)) & (sK0(X0,X1,X2,X3) = X2 | sK0(X0,X1,X2,X3) = X1 | sK0(X0,X1,X2,X3) = X0 | r2_hidden(sK0(X0,X1,X2,X3),X3)))) & (! [X5] : ((r2_hidden(X5,X3) | (X2 != X5 & X1 != X5 & X0 != X5)) & (X2 = X5 | X1 = X5 | X0 = X5 | ~r2_hidden(X5,X3))) | k1_enumset1(X0,X1,X2) != X3)) [skolemisation 102,103]
+122. v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) [cnf transformation 53] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+127. k5_numbers = k4_ordinal1 [cnf transformation 31] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+130. ~v1_xboole_0(k4_ordinal1) [cnf transformation 21] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+133. m1_subset_1(3,k5_numbers) [cnf transformation 65] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+136. m1_subset_1(2,k5_numbers) [cnf transformation 64] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+139. m1_subset_1(1,k5_numbers) [cnf transformation 66] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+156. ~r2_hidden(X0,X1) | ~v1_xboole_0(X1) [cnf transformation 84] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+162. r2_hidden(X5,X3) | X2 != X5 | k1_enumset1(X0,X1,X2) != X3 [cnf transformation 104] {a:0,w:12,wCS:4800,sine:255,thAx:0,allAx:2,thDist:-2}
+175. k8_domain_1(X0,X1,X2,X3) = k1_enumset1(X1,X2,X3) | ~m1_subset_1(X3,X0) | ~m1_subset_1(X2,X0) | ~m1_subset_1(X1,X0) | v1_xboole_0(X0) [cnf transformation 99] {a:0,w:21,wCS:8400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+186. r2_hidden(X5,X3) | k1_enumset1(X0,X1,X5) != X3 [equality resolution 162] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:2,thDist:-2}
+187. r2_hidden(X5,k1_enumset1(X0,X1,X5)) [equality resolution 186] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+194. 1 <=> v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) [avatar definition]
+196. v1_xboole_0(k8_domain_1(k5_numbers,1,2,3)) <- (1) [avatar component clause 194] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+197. 1 [avatar split clause 122,194]
+219. 6 <=> k5_numbers = k4_ordinal1 [avatar definition]
+221. k5_numbers = k4_ordinal1 <- (6) [avatar component clause 219] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+222. 6 [avatar split clause 127,219]
+239. 10 <=> v1_xboole_0(k4_ordinal1) [avatar definition]
+241. ~v1_xboole_0(k4_ordinal1) <- (~10) [avatar component clause 239] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+242. ~10 [avatar split clause 130,239]
+249. 12 <=> m1_subset_1(3,k5_numbers) [avatar definition]
+251. m1_subset_1(3,k5_numbers) <- (12) [avatar component clause 249] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+252. 12 [avatar split clause 133,249]
+264. 15 <=> m1_subset_1(2,k5_numbers) [avatar definition]
+266. m1_subset_1(2,k5_numbers) <- (15) [avatar component clause 264] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+267. 15 [avatar split clause 136,264]
+279. 18 <=> m1_subset_1(1,k5_numbers) [avatar definition]
+281. m1_subset_1(1,k5_numbers) <- (18) [avatar component clause 279] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+282. 18 [avatar split clause 139,279]
+338. ~v1_xboole_0(k5_numbers) <- (6, ~10) [backward demodulation 241,221] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+341. 30 <=> v1_xboole_0(k5_numbers) [avatar definition]
+343. ~v1_xboole_0(k5_numbers) <- (~30) [avatar component clause 341] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+344. ~30 | ~6 | 10 [avatar split clause 338,239,219,341]
+756. v1_xboole_0(k1_enumset1(1,2,3)) | ~m1_subset_1(3,k5_numbers) | ~m1_subset_1(2,k5_numbers) | ~m1_subset_1(1,k5_numbers) | v1_xboole_0(k5_numbers) <- (1) [superposition 196,175] {a:1,w:16,wCS:1600,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+804. v1_xboole_0(k1_enumset1(1,2,3)) | ~m1_subset_1(2,k5_numbers) | ~m1_subset_1(1,k5_numbers) | v1_xboole_0(k5_numbers) <- (1, 12) [subsumption resolution 756,251] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+805. v1_xboole_0(k1_enumset1(1,2,3)) | ~m1_subset_1(1,k5_numbers) | v1_xboole_0(k5_numbers) <- (1, 12, 15) [subsumption resolution 804,266] {a:1,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+806. v1_xboole_0(k1_enumset1(1,2,3)) | v1_xboole_0(k5_numbers) <- (1, 12, 15, 18) [subsumption resolution 805,281] {a:1,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+807. v1_xboole_0(k1_enumset1(1,2,3)) <- (1, 12, 15, 18, ~30) [subsumption resolution 806,343] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+809. 91 <=> v1_xboole_0(k1_enumset1(1,2,3)) [avatar definition]
+811. v1_xboole_0(k1_enumset1(1,2,3)) <- (91) [avatar component clause 809] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+812. 91 | ~1 | ~12 | ~15 | ~18 | 30 [avatar split clause 807,341,279,264,249,194,809]
+813. $false <- (91) [unit resulting resolution 187,811,156] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+817. ~91 [avatar contradiction clause 813]
+818. $false [avatar sat refutation 197,222,242,252,267,282,344,812,817] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:440,thDist:-440}
+% SZS output end Proof for collsp__l24_collsp
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 51
+% >>> Preprocessing
+% Introduced skolems: 9
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 64
+% Generated clauses: 317
+% Active clauses: 90
+% Passive clauses: 157
+% Final active clauses: 88
+% Final passive clauses: 63
+% Main loop iterations started: 92
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 11
+% Fw subsumption resolutions: 33
+% Fw demodulations: 2
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Equational tautologies: 3
+% Forward subsumptions: 16
+% 
+% >>> Generating Inferences
+% Binary resolution: 109
+% Unit resulting resolution: 1
+% Forward superposition: 3
+% Backward superposition: 9
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 10
+% Split components: 20
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 101
+% SAT solver unit clauses: 30
+% SAT solver binary clauses: 38
+% 
+% Memory used [KB]: 5500
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.002 s
+

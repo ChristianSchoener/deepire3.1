@@ -1,0 +1,91 @@
+i: [1,17,0,2,1,1,0,0] t6_fraenkel
+a: [3,28,0,2,1,17]
+s: 28
+i: [1,16,0,2,1,1,0,0] t6_fraenkel
+a: [3,33,0,2,1,16]
+s: 33
+i: [1,18,0,4,1,1,0,0] t6_fraenkel
+a: [3,23,0,4,1,18]
+s: 23
+i: [1,19,0,8,3,0,0,1] fc1_fraenkel
+s: 19
+d: [2,35,1,0,0,3,52,33,28,23,19]
+e: 35
+d: [2,36,1,4,2,1,40,19,23]
+d: [2,38,1,2,1,2,21,36,28]
+d: [2,39,1,0,0,3,21,38,33]
+e: 39
+f: 39,16,17,18
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for fraenkel__t6_fraenkel
+% SZS output start Proof for fraenkel__t6_fraenkel
+1. ! [X0] : ! [X1] : ((v1_finset_1(X1) & v1_finset_1(X0)) => v1_finset_1(k1_funct_2(X0,X1))) [input t6_fraenkel]
+2. ~! [X0] : ! [X1] : ((v1_finset_1(X1) & v1_finset_1(X0)) => v1_finset_1(k1_funct_2(X0,X1))) [negated conjecture 1]
+6. ! [X0,X1] : ((v1_finset_1(X1) & v1_finset_1(X0)) => v1_finset_1(k1_funct_2(X0,X1))) [input fc1_fraenkel]
+7. ~! [X0,X1] : ((v1_finset_1(X1) & v1_finset_1(X0)) => v1_finset_1(k1_funct_2(X0,X1))) [flattening 2]
+10. ? [X0,X1] : (~v1_finset_1(k1_funct_2(X0,X1)) & (v1_finset_1(X1) & v1_finset_1(X0))) [ennf transformation 7]
+11. ? [X0,X1] : (~v1_finset_1(k1_funct_2(X0,X1)) & v1_finset_1(X1) & v1_finset_1(X0)) [flattening 10]
+12. ! [X0,X1] : (v1_finset_1(k1_funct_2(X0,X1)) | (~v1_finset_1(X1) | ~v1_finset_1(X0))) [ennf transformation 6]
+13. ! [X0,X1] : (v1_finset_1(k1_funct_2(X0,X1)) | ~v1_finset_1(X1) | ~v1_finset_1(X0)) [flattening 12]
+14. ? [X0,X1] : (~v1_finset_1(k1_funct_2(X0,X1)) & v1_finset_1(X1) & v1_finset_1(X0)) => (~v1_finset_1(k1_funct_2(sK0,sK1)) & v1_finset_1(sK1) & v1_finset_1(sK0)) [choice axiom]
+15. ~v1_finset_1(k1_funct_2(sK0,sK1)) & v1_finset_1(sK1) & v1_finset_1(sK0) [skolemisation 11,14]
+16. v1_finset_1(sK0) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+17. v1_finset_1(sK1) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+18. ~v1_finset_1(k1_funct_2(sK0,sK1)) [cnf transformation 15] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+19. v1_finset_1(k1_funct_2(X0,X1)) | ~v1_finset_1(X1) | ~v1_finset_1(X0) [cnf transformation 13] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+21. 1 <=> v1_finset_1(k1_funct_2(sK0,sK1)) [avatar definition]
+23. ~v1_finset_1(k1_funct_2(sK0,sK1)) <- (~1) [avatar component clause 21] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+24. ~1 [avatar split clause 18,21]
+26. 2 <=> v1_finset_1(sK1) [avatar definition]
+28. v1_finset_1(sK1) <- (2) [avatar component clause 26] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+29. 2 [avatar split clause 17,26]
+31. 3 <=> v1_finset_1(sK0) [avatar definition]
+33. v1_finset_1(sK0) <- (3) [avatar component clause 31] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+34. 3 [avatar split clause 16,31]
+36. ~v1_finset_1(sK1) | ~v1_finset_1(sK0) <- (~1) [resolution 19,23] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+38. ~v1_finset_1(sK0) <- (~1, 2) [subsumption resolution 36,28] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+39. $false <- (~1, 2, 3) [subsumption resolution 38,33] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+40. 1 | ~2 | ~3 [avatar contradiction clause 39]
+41. $false [avatar sat refutation 24,29,34,40] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:19,thDist:-19}
+% SZS output end Proof for fraenkel__t6_fraenkel
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% >>> Preprocessing
+% Introduced skolems: 2
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 4
+% Generated clauses: 11
+% Active clauses: 4
+% Passive clauses: 4
+% Final active clauses: 4
+% Main loop iterations started: 4
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% SAT solver time: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

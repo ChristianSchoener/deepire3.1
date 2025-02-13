@@ -1,0 +1,80 @@
+i: [1,858,0,8,2,1,0,0] l6_topalg_5
+i: [1,875,0,3,1,0,0,255] d14_borsuk_1
+i: [1,877,0,3,1,0,0,1] redefinition_k5_topmetr
+i: [1,879,0,3,1,0,0,255] d15_borsuk_1
+i: [1,883,0,4,1,0,0,255] dt_k18_borsuk_1
+i: [1,884,0,4,1,0,0,255] dt_k19_borsuk_1
+f: 884,883,879,877,875,858
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for topalg_5__l6_topalg_5
+% SZS output start Proof for topalg_5__l6_topalg_5
+1. m1_subset_1(1,u1_struct_0(k5_topmetr)) & m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr)) [input l6_topalg_5]
+2. ~(m1_subset_1(1,u1_struct_0(k5_topmetr)) & m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr))) [negated conjecture 1]
+299. k5_topmetr = k17_borsuk_1 [input redefinition_k5_topmetr]
+301. m1_subset_1(k18_borsuk_1,u1_struct_0(k17_borsuk_1)) [input dt_k18_borsuk_1]
+302. m1_subset_1(k19_borsuk_1,u1_struct_0(k17_borsuk_1)) [input dt_k19_borsuk_1]
+309. k6_numbers = k18_borsuk_1 [input d14_borsuk_1]
+310. 1 = k19_borsuk_1 [input d15_borsuk_1]
+366. ~m1_subset_1(1,u1_struct_0(k5_topmetr)) | ~m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr)) [ennf transformation 2]
+858. ~m1_subset_1(1,u1_struct_0(k5_topmetr)) | ~m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr)) [cnf transformation 366] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+875. k6_numbers = k18_borsuk_1 [cnf transformation 309] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+877. k5_topmetr = k17_borsuk_1 [cnf transformation 299] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+879. 1 = k19_borsuk_1 [cnf transformation 310] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+883. m1_subset_1(k18_borsuk_1,u1_struct_0(k17_borsuk_1)) [cnf transformation 301] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+884. m1_subset_1(k19_borsuk_1,u1_struct_0(k17_borsuk_1)) [cnf transformation 302] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+1406. 1 <=> m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr)) [avatar definition]
+1410. 2 <=> m1_subset_1(1,u1_struct_0(k5_topmetr)) [avatar definition]
+1413. ~1 | ~2 [avatar split clause 858,1410,1406]
+1495. 19 <=> k6_numbers = k18_borsuk_1 [avatar definition]
+1498. 19 [avatar split clause 875,1495]
+1505. 21 <=> k5_topmetr = k17_borsuk_1 [avatar definition]
+1508. 21 [avatar split clause 877,1505]
+1515. 23 <=> 1 = k19_borsuk_1 [avatar definition]
+1518. 23 [avatar split clause 879,1515]
+1535. 27 <=> m1_subset_1(k18_borsuk_1,u1_struct_0(k17_borsuk_1)) [avatar definition]
+1538. 27 [avatar split clause 883,1535]
+1540. 28 <=> m1_subset_1(k19_borsuk_1,u1_struct_0(k17_borsuk_1)) [avatar definition]
+1543. 28 [avatar split clause 884,1540]
+2357. k6_numbers != k18_borsuk_1 | k5_topmetr != k17_borsuk_1 | m1_subset_1(k6_numbers,u1_struct_0(k5_topmetr)) | ~m1_subset_1(k18_borsuk_1,u1_struct_0(k17_borsuk_1)) [theory tautology sat conflict] {a:0,w:14,wCS:5600,sine:255,thAx:0,allAx:1,thDist:-1}
+2358. 1 != k19_borsuk_1 | k5_topmetr != k17_borsuk_1 | m1_subset_1(1,u1_struct_0(k5_topmetr)) | ~m1_subset_1(k19_borsuk_1,u1_struct_0(k17_borsuk_1)) [theory tautology sat conflict] {a:0,w:14,wCS:5600,sine:255,thAx:0,allAx:1,thDist:-1}
+2359. $false [avatar sat refutation 1413,1498,1508,1518,1538,1543,2357,2358] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:531,thDist:-531}
+% SZS output end Proof for topalg_5__l6_topalg_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 309
+% >>> Preprocessing
+% Introduced skolems: 79
+% Pure predicates: 14
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 547
+% Generated clauses: 547
+% Passive clauses: 264
+% Final passive clauses: 264
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 91
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 196
+% SAT solver unit clauses: 191
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 6140
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% forward subsumption: 0.001 s
+% other: 0.005 s ( own 0.001 s ) 
+

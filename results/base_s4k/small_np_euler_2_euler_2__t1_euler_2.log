@@ -1,0 +1,66 @@
+i: [1,478,0,6,2,1,0,0] t1_euler_2
+d: [2,800,0,3,1,0,18,478]
+i: [1,477,0,6,2,1,0,0] t1_euler_2
+d: [2,799,0,3,1,0,18,477]
+f: 799,800
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for euler_2__t1_euler_2
+% SZS output start Proof for euler_2__t1_euler_2
+1. ! [X0] : (v7_ordinal1(X0) => ! [X1] : (v7_ordinal1(X1) => (r1_int_2(X0,X1) <=> r1_int_2(X0,X1)))) [input t1_euler_2]
+2. ~! [X0] : (v7_ordinal1(X0) => ! [X1] : (v7_ordinal1(X1) => (r1_int_2(X0,X1) <=> r1_int_2(X0,X1)))) [negated conjecture 1]
+212. ? [X0] : (? [X1] : ((r1_int_2(X0,X1) <~> r1_int_2(X0,X1)) & v7_ordinal1(X1)) & v7_ordinal1(X0)) [ennf transformation 2]
+369. ? [X0] : (? [X1] : (((~r1_int_2(X0,X1) | ~r1_int_2(X0,X1)) & (r1_int_2(X0,X1) | r1_int_2(X0,X1))) & v7_ordinal1(X1)) & v7_ordinal1(X0)) [nnf transformation 212]
+370. ? [X0] : (? [X1] : ((~r1_int_2(X0,X1) | ~r1_int_2(X0,X1)) & (r1_int_2(X0,X1) | r1_int_2(X0,X1)) & v7_ordinal1(X1)) & v7_ordinal1(X0)) [flattening 369]
+371. ? [X0] : (? [X1] : ((~r1_int_2(X0,X1) | ~r1_int_2(X0,X1)) & (r1_int_2(X0,X1) | r1_int_2(X0,X1)) & v7_ordinal1(X1)) & v7_ordinal1(X0)) => (? [X1] : ((~r1_int_2(sK0,X1) | ~r1_int_2(sK0,X1)) & (r1_int_2(sK0,X1) | r1_int_2(sK0,X1)) & v7_ordinal1(X1)) & v7_ordinal1(sK0)) [choice axiom]
+372. ? [X1] : ((~r1_int_2(sK0,X1) | ~r1_int_2(sK0,X1)) & (r1_int_2(sK0,X1) | r1_int_2(sK0,X1)) & v7_ordinal1(X1)) => ((~r1_int_2(sK0,sK1) | ~r1_int_2(sK0,sK1)) & (r1_int_2(sK0,sK1) | r1_int_2(sK0,sK1)) & v7_ordinal1(sK1)) [choice axiom]
+373. ((~r1_int_2(sK0,sK1) | ~r1_int_2(sK0,sK1)) & (r1_int_2(sK0,sK1) | r1_int_2(sK0,sK1)) & v7_ordinal1(sK1)) & v7_ordinal1(sK0) [skolemisation 370,372,371]
+477. r1_int_2(sK0,sK1) | r1_int_2(sK0,sK1) [cnf transformation 373] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+478. ~r1_int_2(sK0,sK1) | ~r1_int_2(sK0,sK1) [cnf transformation 373] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+799. r1_int_2(sK0,sK1) [duplicate literal removal 477] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+800. ~r1_int_2(sK0,sK1) [duplicate literal removal 478] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+802. 1 <=> r1_int_2(sK0,sK1) [avatar definition]
+805. ~1 [avatar split clause 800,802]
+806. 1 [avatar split clause 799,802]
+1460. $false [avatar sat refutation 805,806] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:387,thDist:-387}
+% SZS output end Proof for euler_2__t1_euler_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 176
+% >>> Preprocessing
+% Introduced skolems: 51
+% Pure predicates: 8
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 324
+% Generated clauses: 326
+% Passive clauses: 138
+% Final passive clauses: 138
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 53
+% 
+% >>> AVATAR
+% Split clauses: 5
+% Split components: 10
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 135
+% SAT solver unit clauses: 128
+% SAT solver binary clauses: 5
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

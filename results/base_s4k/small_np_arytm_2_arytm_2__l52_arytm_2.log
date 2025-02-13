@@ -1,0 +1,43 @@
+i: [1,187,0,3,1,1,0,0] l52_arytm_2
+d: [2,288,0,0,0,0,19,187]
+e: 288
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for arytm_2__l52_arytm_2
+% SZS output start Proof for arytm_2__l52_arytm_2
+1. k11_arytm_3 = k11_arytm_3 [input l52_arytm_2]
+2. ~k11_arytm_3 = k11_arytm_3 [negated conjecture 1]
+88. k11_arytm_3 != k11_arytm_3 [flattening 2]
+187. k11_arytm_3 != k11_arytm_3 [cnf transformation 88] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+288. $false [trivial inequality removal 187] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+% SZS output end Proof for arytm_2__l52_arytm_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 86
+% >>> Preprocessing
+% Introduced skolems: 18
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 99
+% Generated clauses: 100
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 1
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

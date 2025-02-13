@@ -1,0 +1,195 @@
+i: [1,48,0,3,1,1,0,0] t9_taxonom2
+a: [3,69,0,3,1,48]
+s: 69
+i: [1,49,0,2,1,0,0,1] fc1_xboole_0
+a: [3,74,0,2,1,49]
+s: 74
+i: [1,64,0,2,1,0,0,2] rc2_xboole_0
+a: [3,79,0,2,1,64]
+s: 79
+i: [1,65,0,2,1,0,0,2] rc1_xboole_0
+a: [3,84,0,2,1,65]
+s: 84
+i: [1,50,0,3,1,0,0,1] fc2_xboole_0
+s: 50
+i: [1,61,0,4,1,0,0,255] existence_m1_subset_1
+s: 61
+i: [1,51,0,5,2,0,0,1] t6_boole
+s: 51
+i: [1,60,0,5,2,0,0,2] t7_boole
+s: 60
+d: [2,88,1,5,2,1,44,69,51]
+s: 88
+i: [1,52,0,6,2,0,0,1] d5_taxonom2
+s: 52
+i: [1,53,0,6,2,0,0,1] d5_taxonom2
+s: 53
+d: [2,89,1,4,2,0,40,52,60]
+s: 89
+i: [1,56,0,6,2,0,0,255] t1_subset
+s: 56
+d: [2,91,2,2,1,1,40,89,74]
+a: [3,96,2,2,1,91]
+s: 96
+i: [1,62,0,6,2,0,0,2] antisymmetry_r2_hidden
+s: 62
+i: [1,63,0,6,2,0,0,2] symmetry_r1_xboole_0
+s: 63
+d: [2,92,2,2,1,1,40,89,84]
+a: [3,101,2,2,1,92]
+s: 101
+i: [1,54,0,7,2,0,0,1] d5_taxonom2
+s: 54
+d: [2,90,1,4,2,0,40,53,60]
+s: 90
+i: [1,55,0,7,2,0,0,1] d5_taxonom2
+s: 55
+i: [1,59,0,7,3,0,0,2] t8_boole
+s: 59
+d: [2,103,1,6,2,0,40,56,52]
+s: 103
+i: [1,57,0,8,3,0,0,255] t2_subset
+s: 57
+d: [2,104,1,6,2,0,40,56,53]
+s: 104
+i: [1,58,0,14,4,0,0,1] l14_taxonom2
+s: 58
+d: [2,111,1,17,4,0,40,58,52]
+d: [2,114,1,14,3,1,21,111,69]
+s: 114
+d: [2,112,1,17,4,0,40,58,53]
+d: [2,115,1,14,3,1,21,112,69]
+s: 115
+d: [2,106,1,6,2,0,40,62,52]
+s: 106
+d: [2,119,2,16,3,1,40,115,55]
+d: [2,121,2,13,2,1,21,119,69]
+a: [3,125,2,6,1,121]
+s: 125
+d: [2,131,3,0,0,2,52,69,125,52]
+e: 131
+d: [2,132,3,3,1,1,40,125,52]
+d: [2,135,3,0,0,2,21,132,69]
+e: 135
+r: 125
+d: [2,107,1,6,2,0,40,62,53]
+s: 107
+d: [2,108,1,6,2,0,40,57,61]
+s: 108
+a: [3,124,2,6,1,121]
+s: 124
+d: [2,86,1,7,3,0,44,51,51]
+s: 86
+d: [2,143,3,6,1,1,40,124,62]
+a: [3,150,3,6,1,143]
+s: 150
+d: [2,113,1,16,5,0,44,58,51]
+s: 113
+a: [3,129,2,7,1,121]
+s: 129
+r: 115
+d: [2,167,3,0,0,2,52,69,129,54]
+e: 167
+d: [2,172,3,10,2,1,44,54,129]
+d: [2,174,3,3,1,1,19,172]
+d: [2,178,3,0,0,2,21,174,69]
+e: 178
+f: 178,135,121,48
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for taxonom2__t9_taxonom2
+% SZS output start Proof for taxonom2__t9_taxonom2
+1. v4_taxonom2(k1_tarski(k1_xboole_0)) [input t9_taxonom2]
+2. ~v4_taxonom2(k1_tarski(k1_xboole_0)) [negated conjecture 1]
+18. ! [X0] : (v4_taxonom2(X0) <=> ! [X1] : ! [X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2))) [input d5_taxonom2]
+19. ! [X0] : ! [X1] : ((r2_hidden(X1,k1_tarski(k1_xboole_0)) & r2_hidden(X0,k1_tarski(k1_xboole_0))) => (r1_xboole_0(X0,X1) | X0 = X1)) [input l14_taxonom2]
+20. ~v4_taxonom2(k1_tarski(k1_xboole_0)) [flattening 2]
+21. ! [X0] : (v4_taxonom2(X0) <=> ! [X1,X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2))) [flattening 18]
+24. ! [X0,X1] : ((r2_hidden(X1,k1_tarski(k1_xboole_0)) & r2_hidden(X0,k1_tarski(k1_xboole_0))) => (r1_xboole_0(X0,X1) | X0 = X1)) [flattening 19]
+27. ! [X0] : (! [X1,X2] : ((r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (r1_xboole_0(X1,X2) | X1 = X2)) => v4_taxonom2(X0)) [unused predicate definition removal 21]
+29. ! [X0] : (v4_taxonom2(X0) | ? [X1,X2] : ((~r1_xboole_0(X1,X2) & X1 != X2) & (r2_hidden(X2,X0) & r2_hidden(X1,X0)))) [ennf transformation 27]
+30. ! [X0] : (v4_taxonom2(X0) | ? [X1,X2] : (~r1_xboole_0(X1,X2) & X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0))) [flattening 29]
+34. ! [X0,X1] : ((r1_xboole_0(X0,X1) | X0 = X1) | (~r2_hidden(X1,k1_tarski(k1_xboole_0)) | ~r2_hidden(X0,k1_tarski(k1_xboole_0)))) [ennf transformation 24]
+35. ! [X0,X1] : (r1_xboole_0(X0,X1) | X0 = X1 | ~r2_hidden(X1,k1_tarski(k1_xboole_0)) | ~r2_hidden(X0,k1_tarski(k1_xboole_0))) [flattening 34]
+40. ! [X0] : (? [X1,X2] : (~r1_xboole_0(X1,X2) & X1 != X2 & r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (~r1_xboole_0(sK0(X0),sK1(X0)) & sK0(X0) != sK1(X0) & r2_hidden(sK1(X0),X0) & r2_hidden(sK0(X0),X0))) [choice axiom]
+41. ! [X0] : (v4_taxonom2(X0) | (~r1_xboole_0(sK0(X0),sK1(X0)) & sK0(X0) != sK1(X0) & r2_hidden(sK1(X0),X0) & r2_hidden(sK0(X0),X0))) [skolemisation 30,40]
+48. ~v4_taxonom2(k1_tarski(k1_xboole_0)) [cnf transformation 20] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+52. r2_hidden(sK0(X0),X0) | v4_taxonom2(X0) [cnf transformation 41] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+53. r2_hidden(sK1(X0),X0) | v4_taxonom2(X0) [cnf transformation 41] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+54. sK0(X0) != sK1(X0) | v4_taxonom2(X0) [cnf transformation 41] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+55. ~r1_xboole_0(sK0(X0),sK1(X0)) | v4_taxonom2(X0) [cnf transformation 41] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+58. ~r2_hidden(X1,k1_tarski(k1_xboole_0)) | X0 = X1 | r1_xboole_0(X0,X1) | ~r2_hidden(X0,k1_tarski(k1_xboole_0)) [cnf transformation 35] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+67. 1 <=> v4_taxonom2(k1_tarski(k1_xboole_0)) [avatar definition]
+69. ~v4_taxonom2(k1_tarski(k1_xboole_0)) <- (~1) [avatar component clause 67] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+70. ~1 [avatar split clause 48,67]
+112. sK1(k1_tarski(k1_xboole_0)) = X1 | r1_xboole_0(X1,sK1(k1_tarski(k1_xboole_0))) | ~r2_hidden(X1,k1_tarski(k1_xboole_0)) | v4_taxonom2(k1_tarski(k1_xboole_0)) [resolution 58,53] {a:1,w:17,wCS:6800,sine:1,thAx:0,allAx:3,thDist:-3}
+115. r1_xboole_0(X1,sK1(k1_tarski(k1_xboole_0))) | sK1(k1_tarski(k1_xboole_0)) = X1 | ~r2_hidden(X1,k1_tarski(k1_xboole_0)) <- (~1) [subsumption resolution 112,69] {a:1,w:14,wCS:1400,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+119. sK0(k1_tarski(k1_xboole_0)) = sK1(k1_tarski(k1_xboole_0)) | ~r2_hidden(sK0(k1_tarski(k1_xboole_0)),k1_tarski(k1_xboole_0)) | v4_taxonom2(k1_tarski(k1_xboole_0)) <- (~1) [resolution 115,55] {a:2,w:16,wCS:1600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+121. sK0(k1_tarski(k1_xboole_0)) = sK1(k1_tarski(k1_xboole_0)) | ~r2_hidden(sK0(k1_tarski(k1_xboole_0)),k1_tarski(k1_xboole_0)) <- (~1) [subsumption resolution 119,69] {a:2,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+123. 7 <=> r2_hidden(sK0(k1_tarski(k1_xboole_0)),k1_tarski(k1_xboole_0)) [avatar definition]
+125. ~r2_hidden(sK0(k1_tarski(k1_xboole_0)),k1_tarski(k1_xboole_0)) <- (~7) [avatar component clause 123] {a:2,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+127. 8 <=> sK0(k1_tarski(k1_xboole_0)) = sK1(k1_tarski(k1_xboole_0)) [avatar definition]
+129. sK0(k1_tarski(k1_xboole_0)) = sK1(k1_tarski(k1_xboole_0)) <- (8) [avatar component clause 127] {a:2,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+130. ~7 | 8 | 1 [avatar split clause 121,67,127,123]
+132. v4_taxonom2(k1_tarski(k1_xboole_0)) <- (~7) [resolution 125,52] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+135. $false <- (~1, ~7) [subsumption resolution 132,69] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+136. 1 | 7 [avatar contradiction clause 135]
+172. sK0(k1_tarski(k1_xboole_0)) != sK0(k1_tarski(k1_xboole_0)) | v4_taxonom2(k1_tarski(k1_xboole_0)) <- (8) [superposition 54,129] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+174. v4_taxonom2(k1_tarski(k1_xboole_0)) <- (8) [trivial inequality removal 172] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+178. $false <- (~1, 8) [subsumption resolution 174,69] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+179. 1 | ~8 [avatar contradiction clause 178]
+180. $false [avatar sat refutation 70,130,136,179] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:77,thDist:-77}
+% SZS output end Proof for taxonom2__t9_taxonom2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 18
+% >>> Preprocessing
+% Introduced skolems: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 18
+% Generated clauses: 90
+% Active clauses: 34
+% Passive clauses: 49
+% Final active clauses: 32
+% Final passive clauses: 13
+% Main loop iterations started: 36
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 11
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 12
+% 
+% >>> Generating Inferences
+% Binary resolution: 29
+% Unit resulting resolution: 2
+% Forward superposition: 8
+% Backward superposition: 7
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 15
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 8
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% splitting component index maintenance: 0.001 s
+% other: 0.003 s ( own 0.002 s ) 
+

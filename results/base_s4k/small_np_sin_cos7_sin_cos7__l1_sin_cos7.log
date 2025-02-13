@@ -1,0 +1,61 @@
+i: [1,221,0,3,1,1,0,0] l1_sin_cos7
+i: [1,228,0,3,1,0,0,1] t11_taylor_1
+i: [1,234,0,3,1,0,0,1] rqLessOrEqual__r1_xxreal_0__r1_r2
+f: 234,228,221
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for sin_cos7__l1_sin_cos7
+% SZS output start Proof for sin_cos7__l1_sin_cos7
+1. k8_power != 1 [input l1_sin_cos7]
+2. ~k8_power != 1 [negated conjecture 1]
+90. r1_xxreal_0(1,2) [input rqLessOrEqual__r1_xxreal_0__r1_r2]
+96. ~r1_xxreal_0(k8_power,2) [input t11_taylor_1]
+98. k8_power = 1 [flattening 2]
+221. k8_power = 1 [cnf transformation 98] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+228. ~r1_xxreal_0(k8_power,2) [cnf transformation 96] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+234. r1_xxreal_0(1,2) [cnf transformation 90] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+334. 1 <=> k8_power = 1 [avatar definition]
+337. 1 [avatar split clause 221,334]
+369. 8 <=> r1_xxreal_0(k8_power,2) [avatar definition]
+372. ~8 [avatar split clause 228,369]
+399. 14 <=> r1_xxreal_0(1,2) [avatar definition]
+402. 14 [avatar split clause 234,399]
+590. k8_power != 1 | r1_xxreal_0(k8_power,2) | ~r1_xxreal_0(1,2) [theory tautology sat conflict] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:1,thDist:-1}
+591. $false [avatar sat refutation 337,372,402,590] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:129,thDist:-129}
+% SZS output end Proof for sin_cos7__l1_sin_cos7
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 96
+% >>> Preprocessing
+% Introduced skolems: 15
+% Pure predicates: 4
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 112
+% Generated clauses: 112
+% Passive clauses: 55
+% Final passive clauses: 55
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 54
+% SAT solver unit clauses: 50
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% other: 0.003 s ( own 0.001 s ) 
+

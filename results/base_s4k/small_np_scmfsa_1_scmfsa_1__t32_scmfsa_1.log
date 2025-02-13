@@ -1,0 +1,56 @@
+i: [1,720,0,6,1,1,0,0] t32_scmfsa_1
+i: [1,739,0,6,1,0,0,1] l26_scmfsa_1
+f: 739,720
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for scmfsa_1__t32_scmfsa_1
+% SZS output start Proof for scmfsa_1__t32_scmfsa_1
+1. k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) = k1_scmfsa_1 [input t32_scmfsa_1]
+2. ~k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) = k1_scmfsa_1 [negated conjecture 1]
+301. k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) = k1_scmfsa_1 [input l26_scmfsa_1]
+302. k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) != k1_scmfsa_1 [flattening 2]
+720. k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) != k1_scmfsa_1 [cnf transformation 302] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+739. k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) = k1_scmfsa_1 [cnf transformation 301] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+1240. 1 <=> k9_xtuple_0(k3_relat_1(k4_scmfsa_1,k5_scmfsa_1)) = k1_scmfsa_1 [avatar definition]
+1243. ~1 [avatar split clause 720,1240]
+1330. 1 [avatar split clause 739,1240]
+1910. $false [avatar sat refutation 1243,1330] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:371,thDist:-371}
+% SZS output end Proof for scmfsa_1__t32_scmfsa_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 300
+% >>> Preprocessing
+% Introduced skolems: 58
+% Pure predicates: 14
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 519
+% Generated clauses: 519
+% Passive clauses: 304
+% Final passive clauses: 304
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 74
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 143
+% SAT solver unit clauses: 140
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 10106
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.003 s
+% preprocessing: 0.001 s
+% forward demodulation: 0.001 s
+% other: 0.005 s ( own 0.0000 s ) 
+

@@ -1,0 +1,53 @@
+i: [1,250,0,4,1,1,0,0] t29_classes1
+i: [1,254,0,4,1,0,0,255] l36_classes1
+f: 254,250
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for classes1__t29_classes1
+% SZS output start Proof for classes1__t29_classes1
+1. k1_xboole_0 = k4_classes1(k1_xboole_0) [input t29_classes1]
+2. ~k1_xboole_0 = k4_classes1(k1_xboole_0) [negated conjecture 1]
+105. ! [X0] : (v3_ordinal1(X0) => ! [X1] : ((v5_ordinal1(X1) & v1_funct_1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k4_classes1(X2))) & k9_xtuple_0(X1) = X0 & v4_ordinal1(X0)) => (k4_classes1(X0) = k3_tarski(k10_xtuple_0(X1)) | k1_xboole_0 = X0)))) & ! [X0] : (v3_ordinal1(X0) => k4_classes1(k1_ordinal1(X0)) = k9_setfam_1(k4_classes1(X0))) & k1_xboole_0 = k4_classes1(k1_xboole_0) [input l36_classes1]
+106. k1_xboole_0 != k4_classes1(k1_xboole_0) [flattening 2]
+107. ! [X0] : (v3_ordinal1(X0) => ! [X1] : ((v5_ordinal1(X1) & v1_funct_1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k4_classes1(X2))) & k9_xtuple_0(X1) = X0 & v4_ordinal1(X0)) => (k4_classes1(X0) = k3_tarski(k10_xtuple_0(X1)) | k1_xboole_0 = X0)))) & ! [X3] : (v3_ordinal1(X3) => k4_classes1(k1_ordinal1(X3)) = k9_setfam_1(k4_classes1(X3))) & k1_xboole_0 = k4_classes1(k1_xboole_0) [rectify 105]
+118. ! [X3] : (v3_ordinal1(X3) => k4_classes1(k1_ordinal1(X3)) = k9_setfam_1(k4_classes1(X3))) & k1_xboole_0 = k4_classes1(k1_xboole_0) [pure predicate removal 107]
+122. ! [X3] : (k4_classes1(k1_ordinal1(X3)) = k9_setfam_1(k4_classes1(X3)) | ~v3_ordinal1(X3)) & k1_xboole_0 = k4_classes1(k1_xboole_0) [ennf transformation 118]
+207. ! [X0] : (k4_classes1(k1_ordinal1(X0)) = k9_setfam_1(k4_classes1(X0)) | ~v3_ordinal1(X0)) & k1_xboole_0 = k4_classes1(k1_xboole_0) [rectify 122]
+250. k1_xboole_0 != k4_classes1(k1_xboole_0) [cnf transformation 106] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+254. k1_xboole_0 = k4_classes1(k1_xboole_0) [cnf transformation 207] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+378. 1 <=> k1_xboole_0 = k4_classes1(k1_xboole_0) [avatar definition]
+381. ~1 [avatar split clause 250,378]
+397. 1 [avatar split clause 254,378]
+548. $false [avatar sat refutation 381,397] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:100,thDist:-100}
+% SZS output end Proof for classes1__t29_classes1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 104
+% >>> Preprocessing
+% Introduced skolems: 21
+% Pure predicates: 3
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 127
+% Generated clauses: 127
+% Passive clauses: 82
+% Final passive clauses: 82
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 10
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 37
+% SAT solver unit clauses: 35
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

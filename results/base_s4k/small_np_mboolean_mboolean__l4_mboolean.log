@@ -1,0 +1,659 @@
+i: [1,139,0,2,1,1,0,0] l4_mboolean
+a: [3,227,0,2,1,139]
+s: 227
+i: [1,137,0,2,1,1,0,0] l4_mboolean
+a: [3,237,0,2,1,137]
+s: 237
+i: [1,135,0,2,1,1,0,0] l4_mboolean
+a: [3,247,0,2,1,135]
+s: 247
+i: [1,133,0,2,1,1,0,0] l4_mboolean
+a: [3,257,0,2,1,133]
+s: 257
+i: [1,141,0,3,1,1,0,0] l4_mboolean
+a: [3,217,0,3,1,141]
+s: 217
+i: [1,140,0,3,1,1,0,0] l4_mboolean
+a: [3,222,0,3,1,140]
+s: 222
+i: [1,138,0,3,1,1,0,0] l4_mboolean
+a: [3,232,0,3,1,138]
+s: 232
+i: [1,136,0,3,1,1,0,0] l4_mboolean
+a: [3,242,0,3,1,136]
+s: 242
+i: [1,134,0,3,1,1,0,0] l4_mboolean
+a: [3,252,0,3,1,134]
+s: 252
+i: [1,143,0,2,1,0,0,255] fc1_xboole_0
+a: [3,262,0,2,1,143]
+s: 262
+i: [1,202,0,2,1,0,0,2] rc2_xboole_0
+a: [3,267,0,2,1,202]
+s: 267
+i: [1,203,0,2,1,0,0,2] rc1_xboole_0
+a: [3,272,0,2,1,203]
+s: 272
+i: [1,206,0,2,1,0,0,2] rc1_funcop_1
+a: [3,277,0,2,1,206]
+s: 277
+i: [1,205,0,2,1,0,0,2] rc1_funcop_1
+a: [3,282,0,2,1,205]
+s: 282
+i: [1,204,0,2,1,0,0,2] rc1_funcop_1
+a: [3,287,0,2,1,204]
+s: 287
+i: [1,144,0,3,1,0,0,1] fc1_subset_1
+s: 144
+i: [1,174,0,3,1,0,0,255] rc4_funcop_1
+s: 174
+i: [1,176,0,3,1,0,0,255] rc4_funcop_1
+s: 176
+i: [1,179,0,3,1,0,0,1] rc2_subset_1
+s: 179
+i: [1,182,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 182
+i: [1,173,0,4,1,0,0,2] existence_m1_subset_1
+s: 173
+i: [1,175,0,4,1,0,0,255] rc4_funcop_1
+s: 175
+i: [1,177,0,4,1,0,0,255] rc4_funcop_1
+s: 177
+i: [1,181,0,4,1,0,0,255] rc3_subset_1
+s: 181
+i: [1,142,0,17,1,1,0,0] l4_mboolean
+a: [3,212,0,17,1,142]
+s: 212
+i: [1,145,0,5,1,0,0,255] t2_boole
+s: 145
+i: [1,149,0,5,2,0,0,1] rc1_subset_1
+s: 149
+i: [1,152,0,5,2,0,0,255] t6_boole
+s: 152
+i: [1,170,0,5,2,0,0,1] t7_boole
+s: 170
+i: [1,178,0,5,1,0,0,1] rc2_subset_1
+s: 178
+i: [1,180,0,5,1,0,0,255] rc3_subset_1
+s: 180
+d: [2,292,1,2,1,1,40,170,217]
+a: [3,296,1,2,1,292]
+s: 296
+i: [1,183,0,5,1,0,0,1] idempotence_k3_xboole_0
+s: 183
+i: [1,151,0,6,2,0,0,255] rc4_subset_1
+s: 151
+i: [1,160,0,6,2,0,0,1] t1_subset
+s: 160
+i: [1,185,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 185
+d: [2,298,1,3,1,1,40,160,217]
+a: [3,302,1,3,1,298]
+s: 302
+i: [1,148,0,7,2,0,0,1] rc1_subset_1
+s: 148
+d: [2,304,1,3,1,1,40,185,217]
+a: [3,308,1,3,1,304]
+s: 308
+i: [1,150,0,7,2,0,0,255] rc4_subset_1
+s: 150
+i: [1,168,0,7,2,0,0,255] t3_subset
+s: 168
+i: [1,169,0,7,3,0,0,1] t8_boole
+s: 169
+i: [1,184,0,7,1,0,0,1] commutativity_k3_xboole_0
+s: 184
+d: [2,310,1,5,1,0,44,184,145]
+s: 310
+i: [1,153,0,8,3,0,0,1] cc1_subset_1
+s: 153
+i: [1,159,0,8,4,0,0,2] cc3_funcop_1
+s: 159
+d: [2,325,1,6,3,1,40,159,262]
+a: [3,331,1,2,1,325]
+s: 331
+i: [1,161,0,8,3,0,0,1] t2_subset
+s: 161
+d: [2,326,1,6,3,1,40,159,272]
+a: [3,348,1,2,1,326]
+s: 348
+i: [1,154,0,9,3,0,0,255] cc4_subset_1
+s: 154
+i: [1,172,0,9,3,0,0,1] t5_subset
+s: 172
+d: [2,354,2,4,2,1,44,331,152]
+s: 354
+r: 159
+i: [1,171,0,10,3,0,0,1] t4_subset
+s: 171
+a: [3,344,1,2,1,326]
+s: 344
+i: [1,186,0,10,4,0,0,1] fc8_funcop_1
+s: 186
+i: [1,187,0,10,4,0,0,1] fc8_funcop_1
+s: 187
+d: [2,381,3,3,1,1,40,354,179]
+s: 381
+i: [1,146,0,11,4,0,0,255] cc3_subset_1
+s: 146
+d: [2,311,1,5,1,0,44,184,145]
+s: 311
+i: [1,147,0,11,4,0,0,255] cc2_subset_1
+s: 147
+i: [1,188,0,14,5,0,0,255] fc1_mboolean
+s: 188
+d: [2,312,1,5,1,0,44,145,184]
+s: 312
+i: [1,190,0,14,5,0,0,255] fc1_mboolean
+s: 190
+d: [2,313,1,5,1,0,44,145,184]
+s: 313
+i: [1,192,0,14,5,0,0,1] dt_k1_mboolean
+s: 192
+i: [1,194,0,14,5,0,0,1] dt_k1_mboolean
+s: 194
+d: [2,324,1,5,2,0,40,153,180]
+s: 324
+i: [1,189,0,15,5,0,0,255] fc1_mboolean
+s: 189
+d: [2,360,1,8,2,0,40,161,178]
+d: [2,365,1,5,1,0,21,360,144]
+s: 365
+i: [1,191,0,15,5,0,0,255] fc1_mboolean
+s: 191
+i: [1,193,0,15,5,0,0,1] dt_k1_mboolean
+s: 193
+d: [2,361,1,8,2,0,40,161,180]
+d: [2,366,1,5,1,0,21,361,144]
+s: 366
+i: [1,195,0,15,5,0,0,1] dt_k1_mboolean
+s: 195
+d: [2,394,1,9,3,0,40,146,180]
+d: [2,398,1,5,2,0,21,394,181]
+s: 398
+i: [1,198,0,25,9,0,0,1] dt_k3_pboole
+s: 198
+i: [1,200,0,25,9,0,0,1] dt_k3_pboole
+s: 200
+d: [2,400,2,5,1,0,40,365,185]
+s: 400
+i: [1,196,0,26,9,0,0,1] idempotence_k3_pboole
+s: 196
+d: [2,403,2,5,1,0,40,366,185]
+s: 403
+i: [1,199,0,26,9,0,0,1] dt_k3_pboole
+s: 199
+i: [1,201,0,26,9,0,0,1] dt_k3_pboole
+s: 201
+d: [2,399,3,5,2,1,40,324,354]
+s: 399
+i: [1,197,0,29,9,0,0,1] commutativity_k3_pboole
+s: 197
+d: [2,322,1,6,2,0,40,153,173]
+s: 322
+i: [1,163,0,31,10,0,0,1] d1_mboolean
+s: 163
+i: [1,164,0,39,10,0,0,1] d1_mboolean
+s: 164
+d: [2,359,1,6,2,0,40,161,173]
+s: 359
+i: [1,207,0,41,10,0,0,1] d1_mboolean
+s: 207
+d: [2,371,1,6,2,0,40,154,178]
+s: 371
+d: [2,438,0,36,9,0,21,207,191]
+d: [2,439,0,32,8,0,21,438,190]
+d: [2,440,0,27,7,0,21,439,189]
+d: [2,441,0,23,6,0,21,440,188]
+s: 441
+i: [1,166,0,43,14,0,0,1] d5_pboole
+s: 166
+d: [2,442,1,41,6,1,44,212,441]
+d: [2,447,1,38,5,2,21,442,217]
+a: [3,451,1,5,1,447]
+s: 451
+d: [2,480,2,0,0,9,52,257,237,247,227,252,242,232,222,451,198]
+e: 480
+d: [2,481,2,20,8,1,40,451,198]
+d: [2,483,2,17,7,2,21,481,222]
+d: [2,484,2,15,6,3,21,483,227]
+d: [2,485,2,12,5,4,21,484,232]
+d: [2,486,2,10,4,5,21,485,237]
+d: [2,487,2,7,3,6,21,486,242]
+d: [2,488,2,5,2,7,21,487,247]
+d: [2,489,2,2,1,8,21,488,252]
+d: [2,490,2,0,0,9,21,489,257]
+e: 490
+r: 451
+i: [1,167,0,59,14,0,0,1] d5_pboole
+s: 167
+a: [3,450,1,5,1,447]
+s: 450
+i: [1,208,0,59,14,0,0,1] d5_pboole
+s: 208
+d: [2,502,0,53,13,0,21,208,201]
+d: [2,503,0,48,12,0,21,502,200]
+d: [2,504,0,42,11,0,21,503,199]
+d: [2,505,0,37,10,0,21,504,198]
+s: 505
+a: [3,455,1,6,1,447]
+s: 455
+d: [2,542,2,0,0,9,52,257,237,247,227,252,242,232,222,455,199]
+e: 542
+d: [2,543,2,20,8,1,40,455,199]
+d: [2,545,2,17,7,2,21,543,222]
+d: [2,546,2,15,6,3,21,545,227]
+d: [2,547,2,12,5,4,21,546,232]
+d: [2,548,2,10,4,5,21,547,237]
+d: [2,549,2,7,3,6,21,548,242]
+d: [2,550,2,5,2,7,21,549,247]
+d: [2,551,2,2,1,8,21,550,252]
+d: [2,552,2,0,0,9,21,551,257]
+e: 552
+r: 455
+a: [3,459,1,5,1,447]
+s: 459
+d: [2,554,2,0,0,9,52,257,237,247,227,252,242,232,222,459,200]
+e: 554
+d: [2,555,2,20,8,1,40,459,200]
+d: [2,557,2,17,7,2,21,555,222]
+d: [2,558,2,15,6,3,21,557,227]
+d: [2,559,2,12,5,4,21,558,232]
+d: [2,560,2,10,4,5,21,559,237]
+d: [2,561,2,7,3,6,21,560,242]
+d: [2,562,2,5,2,7,21,561,247]
+d: [2,563,2,2,1,8,21,562,252]
+d: [2,564,2,0,0,9,21,563,257]
+e: 564
+r: 459
+a: [3,458,1,5,1,447]
+s: 458
+a: [3,454,1,6,1,447]
+s: 454
+a: [3,463,1,6,1,447]
+s: 463
+d: [2,566,2,0,0,9,52,257,237,247,227,252,242,232,222,463,201]
+e: 566
+d: [2,567,2,20,8,1,40,463,201]
+d: [2,569,2,17,7,2,21,567,222]
+d: [2,570,2,15,6,3,21,569,227]
+d: [2,571,2,12,5,4,21,570,232]
+d: [2,572,2,10,4,5,21,571,237]
+d: [2,573,2,7,3,6,21,572,242]
+d: [2,574,2,5,2,7,21,573,247]
+d: [2,575,2,2,1,8,21,574,252]
+d: [2,576,2,0,0,9,21,575,257]
+e: 576
+r: 463
+a: [3,462,1,6,1,447]
+s: 462
+a: [3,467,1,16,1,447]
+s: 467
+d: [2,377,1,6,2,0,40,172,178]
+s: 377
+d: [2,378,1,6,2,0,40,172,180]
+s: 378
+d: [2,393,1,9,3,0,40,146,178]
+d: [2,397,1,6,2,0,21,393,179]
+s: 397
+d: [2,435,2,6,2,0,40,359,185]
+s: 435
+d: [2,289,1,7,3,0,44,152,152]
+s: 289
+d: [2,431,3,6,2,1,40,322,354]
+s: 431
+d: [2,290,1,7,2,0,44,145,152]
+s: 290
+d: [2,319,1,7,3,0,40,153,168]
+s: 319
+d: [2,599,2,16,2,1,44,467,290]
+a: [3,603,2,4,1,599]
+s: 603
+d: [2,355,1,10,3,0,40,161,168]
+d: [2,362,1,7,2,0,21,355,144]
+s: 362
+d: [2,357,1,10,3,0,40,161,148]
+d: [2,363,1,7,2,0,21,357,144]
+s: 363
+d: [2,358,1,10,3,0,40,161,150]
+d: [2,364,1,7,2,0,21,358,144]
+s: 364
+d: [2,370,1,7,2,0,40,154,173]
+s: 370
+d: [2,376,1,7,2,0,40,172,173]
+s: 376
+d: [2,387,1,7,2,0,40,171,178]
+s: 387
+d: [2,388,1,7,2,0,40,171,180]
+s: 388
+d: [2,367,1,8,3,0,40,154,168]
+s: 367
+d: [2,373,1,8,3,0,40,172,168]
+s: 373
+d: [2,628,2,5,2,0,40,367,182]
+s: 628
+d: [2,386,1,8,2,0,40,171,173]
+s: 386
+d: [2,314,2,7,2,0,44,310,152]
+s: 314
+d: [2,327,1,9,3,0,40,159,179]
+s: 327
+d: [2,383,1,9,3,0,40,171,168]
+s: 383
+d: [2,644,3,16,2,1,44,467,314]
+a: [3,648,3,4,1,644]
+s: 648
+d: [2,384,1,9,3,0,40,171,148]
+s: 384
+d: [2,590,2,7,2,0,44,290,184]
+s: 590
+d: [2,385,1,9,3,0,40,171,150]
+s: 385
+d: [2,389,1,10,4,0,40,146,168]
+s: 389
+d: [2,591,2,7,2,0,44,290,184]
+s: 591
+d: [2,392,1,11,3,0,40,146,173]
+s: 392
+d: [2,594,2,7,2,0,44,184,290]
+s: 594
+d: [2,443,1,30,9,0,44,187,441]
+d: [2,469,1,26,8,0,21,443,190]
+d: [2,470,1,22,7,0,21,469,188]
+s: 470
+d: [2,444,1,30,9,0,44,186,441]
+d: [2,471,1,26,8,0,21,444,190]
+d: [2,472,1,22,7,0,21,471,188]
+s: 472
+d: [2,595,2,7,2,0,44,184,290]
+s: 595
+d: [2,518,1,33,10,0,44,183,505]
+d: [2,523,1,23,6,0,18,518]
+s: 523
+d: [2,610,2,7,2,0,40,362,185]
+s: 610
+d: [2,511,1,33,10,0,44,505,183]
+d: [2,528,1,23,6,0,18,511]
+s: 528
+d: [2,434,1,27,10,0,40,163,170]
+s: 434
+d: [2,613,2,7,2,0,40,363,185]
+s: 613
+d: [2,432,1,31,10,0,40,163,185]
+s: 432
+d: [2,616,2,7,2,0,40,364,185]
+s: 616
+d: [2,433,1,31,10,0,40,163,160]
+s: 433
+d: [2,521,1,46,13,0,44,187,505]
+d: [2,538,1,41,12,0,21,521,200]
+d: [2,539,1,36,11,0,21,538,198]
+s: 539
+d: [2,657,2,10,3,0,40,384,359]
+d: [2,658,2,7,2,0,21,657,149]
+s: 658
+d: [2,522,1,46,13,0,44,186,505]
+d: [2,540,1,41,12,0,21,522,200]
+d: [2,541,1,36,11,0,21,540,198]
+s: 541
+d: [2,761,3,9,3,0,40,658,161]
+d: [2,762,3,7,2,0,18,761]
+s: 762
+d: [2,512,1,37,10,0,44,505,184]
+s: 512
+d: [2,513,1,37,10,0,44,505,184]
+s: 513
+d: [2,760,3,10,3,0,40,658,153]
+d: [2,767,3,7,2,0,21,760,144]
+s: 767
+d: [2,519,1,37,10,0,44,184,505]
+s: 519
+d: [2,796,4,7,2,0,40,762,185]
+s: 796
+d: [2,520,1,37,10,0,44,184,505]
+s: 520
+d: [2,516,1,57,18,0,44,505,197]
+d: [2,525,1,37,10,0,18,516]
+s: 525
+d: [2,905,4,7,2,1,40,767,354]
+s: 905
+d: [2,515,1,57,18,0,44,505,197]
+d: [2,526,1,37,10,0,18,515]
+s: 526
+d: [2,578,2,38,10,1,44,467,505]
+d: [2,579,2,36,9,2,21,578,227]
+d: [2,580,2,34,8,3,21,579,237]
+d: [2,581,2,32,7,4,21,580,247]
+d: [2,582,2,30,6,5,21,581,257]
+s: 582
+d: [2,908,3,15,5,5,47,582]
+d: [2,916,3,12,4,6,21,908,217]
+d: [2,917,3,9,3,7,21,916,222]
+d: [2,918,3,6,2,8,21,917,232]
+d: [2,919,3,3,1,9,21,918,242]
+d: [2,920,3,0,0,10,21,919,252]
+e: 920
+f: 920,576,564,552,490,447,133,134,135,136,137,138,139,140,141,142
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for mboolean__l4_mboolean
+% SZS output start Proof for mboolean__l4_mboolean
+1. ! [X0] : ! [X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => ! [X3] : (r2_hidden(X3,X0) => k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) = k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3)))))) [input l4_mboolean]
+2. ~! [X0] : ! [X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => ! [X3] : (r2_hidden(X3,X0) => k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) = k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3)))))) [negated conjecture 1]
+12. ! [X0] : ! [X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => (k1_mboolean(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X0) => k1_funct_1(X2,X3) = k1_zfmisc_1(k1_funct_1(X1,X3)))))) [input d1_mboolean]
+13. ! [X0] : ! [X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => ! [X3] : ((v1_partfun1(X3,X0) & v1_funct_1(X3) & v4_relat_1(X3,X0) & v1_relat_1(X3)) => (k3_pboole(X0,X1,X2) = X3 <=> ! [X4] : (r2_hidden(X4,X0) => k1_funct_1(X3,X4) = k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4))))))) [input d5_pboole]
+18. ! [X0,X1,X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2) & v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => (v1_partfun1(k3_pboole(X0,X1,X2),X0) & v1_funct_1(k3_pboole(X0,X1,X2)) & v4_relat_1(k3_pboole(X0,X1,X2),X0) & v1_relat_1(k3_pboole(X0,X1,X2)))) [input dt_k3_pboole]
+22. ! [X0,X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => (v1_partfun1(k1_mboolean(X0,X1),X0) & v1_funct_1(k1_mboolean(X0,X1)) & v4_relat_1(k1_mboolean(X0,X1),X0) & v2_relat_1(k1_mboolean(X0,X1)) & v1_relat_1(k1_mboolean(X0,X1)))) [input fc1_mboolean]
+46. ~! [X0,X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => ! [X3] : (r2_hidden(X3,X0) => k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) = k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3)))))) [flattening 2]
+49. ! [X0,X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => (k1_mboolean(X0,X1) = X2 <=> ! [X3] : (r2_hidden(X3,X0) => k1_funct_1(X2,X3) = k1_zfmisc_1(k1_funct_1(X1,X3)))))) [flattening 12]
+50. ! [X0,X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => ! [X2] : ((v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) => ! [X3] : ((v1_partfun1(X3,X0) & v1_funct_1(X3) & v4_relat_1(X3,X0) & v1_relat_1(X3)) => (k3_pboole(X0,X1,X2) = X3 <=> ! [X4] : (r2_hidden(X4,X0) => k1_funct_1(X3,X4) = k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4))))))) [flattening 13]
+60. ! [X0,X1] : ((v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => (v1_partfun1(k1_mboolean(X0,X1),X0) & v1_funct_1(k1_mboolean(X0,X1)) & v4_relat_1(k1_mboolean(X0,X1),X0) & v1_relat_1(k1_mboolean(X0,X1)))) [pure predicate removal 22]
+62. ? [X0,X1] : (? [X2] : (? [X3] : (k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3))) & r2_hidden(X3,X0)) & (v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2))) & (v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1))) [ennf transformation 46]
+63. ? [X0,X1] : (? [X2] : (? [X3] : (k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3))) & r2_hidden(X3,X0)) & v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) & v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) [flattening 62]
+80. ! [X0,X1] : (! [X2] : ((k1_mboolean(X0,X1) = X2 <=> ! [X3] : (k1_funct_1(X2,X3) = k1_zfmisc_1(k1_funct_1(X1,X3)) | ~r2_hidden(X3,X0))) | (~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2))) | (~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1))) [ennf transformation 49]
+81. ! [X0,X1] : (! [X2] : ((k1_mboolean(X0,X1) = X2 <=> ! [X3] : (k1_funct_1(X2,X3) = k1_zfmisc_1(k1_funct_1(X1,X3)) | ~r2_hidden(X3,X0))) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [flattening 80]
+82. ! [X0,X1] : (! [X2] : (! [X3] : ((k3_pboole(X0,X1,X2) = X3 <=> ! [X4] : (k1_funct_1(X3,X4) = k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) | ~r2_hidden(X4,X0))) | (~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3))) | (~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2))) | (~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1))) [ennf transformation 50]
+83. ! [X0,X1] : (! [X2] : (! [X3] : ((k3_pboole(X0,X1,X2) = X3 <=> ! [X4] : (k1_funct_1(X3,X4) = k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) | ~r2_hidden(X4,X0))) | ~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [flattening 82]
+93. ! [X0,X1] : ((v1_partfun1(k1_mboolean(X0,X1),X0) & v1_funct_1(k1_mboolean(X0,X1)) & v4_relat_1(k1_mboolean(X0,X1),X0) & v1_relat_1(k1_mboolean(X0,X1))) | (~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1))) [ennf transformation 60]
+94. ! [X0,X1] : ((v1_partfun1(k1_mboolean(X0,X1),X0) & v1_funct_1(k1_mboolean(X0,X1)) & v4_relat_1(k1_mboolean(X0,X1),X0) & v1_relat_1(k1_mboolean(X0,X1))) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [flattening 93]
+101. ! [X0,X1,X2] : ((v1_partfun1(k3_pboole(X0,X1,X2),X0) & v1_funct_1(k3_pboole(X0,X1,X2)) & v4_relat_1(k3_pboole(X0,X1,X2),X0) & v1_relat_1(k3_pboole(X0,X1,X2))) | (~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1))) [ennf transformation 18]
+102. ! [X0,X1,X2] : ((v1_partfun1(k3_pboole(X0,X1,X2),X0) & v1_funct_1(k3_pboole(X0,X1,X2)) & v4_relat_1(k3_pboole(X0,X1,X2),X0) & v1_relat_1(k3_pboole(X0,X1,X2))) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [flattening 101]
+103. ? [X0,X1] : (? [X2] : (? [X3] : (k1_funct_1(k1_mboolean(X0,k3_pboole(X0,X1,X2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(X1,X3),k1_funct_1(X2,X3))) & r2_hidden(X3,X0)) & v1_partfun1(X2,X0) & v1_funct_1(X2) & v4_relat_1(X2,X0) & v1_relat_1(X2)) & v1_partfun1(X1,X0) & v1_funct_1(X1) & v4_relat_1(X1,X0) & v1_relat_1(X1)) => (? [X2] : (? [X3] : (k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,X2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,X3),k1_funct_1(X2,X3))) & r2_hidden(X3,sK0)) & v1_partfun1(X2,sK0) & v1_funct_1(X2) & v4_relat_1(X2,sK0) & v1_relat_1(X2)) & v1_partfun1(sK1,sK0) & v1_funct_1(sK1) & v4_relat_1(sK1,sK0) & v1_relat_1(sK1)) [choice axiom]
+104. ? [X2] : (? [X3] : (k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,X2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,X3),k1_funct_1(X2,X3))) & r2_hidden(X3,sK0)) & v1_partfun1(X2,sK0) & v1_funct_1(X2) & v4_relat_1(X2,sK0) & v1_relat_1(X2)) => (? [X3] : (k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,X3),k1_funct_1(sK2,X3))) & r2_hidden(X3,sK0)) & v1_partfun1(sK2,sK0) & v1_funct_1(sK2) & v4_relat_1(sK2,sK0) & v1_relat_1(sK2)) [choice axiom]
+105. ? [X3] : (k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),X3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,X3),k1_funct_1(sK2,X3))) & r2_hidden(X3,sK0)) => (k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),sK3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) & r2_hidden(sK3,sK0)) [choice axiom]
+106. ((k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),sK3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) & r2_hidden(sK3,sK0)) & v1_partfun1(sK2,sK0) & v1_funct_1(sK2) & v4_relat_1(sK2,sK0) & v1_relat_1(sK2)) & v1_partfun1(sK1,sK0) & v1_funct_1(sK1) & v4_relat_1(sK1,sK0) & v1_relat_1(sK1) [skolemisation 63,105,104,103]
+111. ! [X0,X1] : (! [X2] : (((k1_mboolean(X0,X1) = X2 | ? [X3] : (k1_funct_1(X2,X3) != k1_zfmisc_1(k1_funct_1(X1,X3)) & r2_hidden(X3,X0))) & (! [X3] : (k1_funct_1(X2,X3) = k1_zfmisc_1(k1_funct_1(X1,X3)) | ~r2_hidden(X3,X0)) | k1_mboolean(X0,X1) != X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [nnf transformation 81]
+112. ! [X0,X1] : (! [X2] : (((k1_mboolean(X0,X1) = X2 | ? [X3] : (k1_funct_1(X2,X3) != k1_zfmisc_1(k1_funct_1(X1,X3)) & r2_hidden(X3,X0))) & (! [X4] : (k1_funct_1(X2,X4) = k1_zfmisc_1(k1_funct_1(X1,X4)) | ~r2_hidden(X4,X0)) | k1_mboolean(X0,X1) != X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [rectify 111]
+113. ! [X2,X1,X0] : (? [X3] : (k1_funct_1(X2,X3) != k1_zfmisc_1(k1_funct_1(X1,X3)) & r2_hidden(X3,X0)) => (k1_funct_1(X2,sK6(X0,X1,X2)) != k1_zfmisc_1(k1_funct_1(X1,sK6(X0,X1,X2))) & r2_hidden(sK6(X0,X1,X2),X0))) [choice axiom]
+114. ! [X0,X1] : (! [X2] : (((k1_mboolean(X0,X1) = X2 | (k1_funct_1(X2,sK6(X0,X1,X2)) != k1_zfmisc_1(k1_funct_1(X1,sK6(X0,X1,X2))) & r2_hidden(sK6(X0,X1,X2),X0))) & (! [X4] : (k1_funct_1(X2,X4) = k1_zfmisc_1(k1_funct_1(X1,X4)) | ~r2_hidden(X4,X0)) | k1_mboolean(X0,X1) != X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [skolemisation 112,113]
+115. ! [X0,X1] : (! [X2] : (! [X3] : (((k3_pboole(X0,X1,X2) = X3 | ? [X4] : (k1_funct_1(X3,X4) != k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) & r2_hidden(X4,X0))) & (! [X4] : (k1_funct_1(X3,X4) = k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) | ~r2_hidden(X4,X0)) | k3_pboole(X0,X1,X2) != X3)) | ~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [nnf transformation 83]
+116. ! [X0,X1] : (! [X2] : (! [X3] : (((k3_pboole(X0,X1,X2) = X3 | ? [X4] : (k1_funct_1(X3,X4) != k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) & r2_hidden(X4,X0))) & (! [X5] : (k1_funct_1(X3,X5) = k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) | ~r2_hidden(X5,X0)) | k3_pboole(X0,X1,X2) != X3)) | ~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [rectify 115]
+117. ! [X3,X2,X1,X0] : (? [X4] : (k1_funct_1(X3,X4) != k3_xboole_0(k1_funct_1(X1,X4),k1_funct_1(X2,X4)) & r2_hidden(X4,X0)) => (k1_funct_1(X3,sK7(X0,X1,X2,X3)) != k3_xboole_0(k1_funct_1(X1,sK7(X0,X1,X2,X3)),k1_funct_1(X2,sK7(X0,X1,X2,X3))) & r2_hidden(sK7(X0,X1,X2,X3),X0))) [choice axiom]
+118. ! [X0,X1] : (! [X2] : (! [X3] : (((k3_pboole(X0,X1,X2) = X3 | (k1_funct_1(X3,sK7(X0,X1,X2,X3)) != k3_xboole_0(k1_funct_1(X1,sK7(X0,X1,X2,X3)),k1_funct_1(X2,sK7(X0,X1,X2,X3))) & r2_hidden(sK7(X0,X1,X2,X3),X0))) & (! [X5] : (k1_funct_1(X3,X5) = k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) | ~r2_hidden(X5,X0)) | k3_pboole(X0,X1,X2) != X3)) | ~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1)) [skolemisation 116,117]
+133. v1_relat_1(sK1) [cnf transformation 106] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+134. v4_relat_1(sK1,sK0) [cnf transformation 106] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+135. v1_funct_1(sK1) [cnf transformation 106] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+136. v1_partfun1(sK1,sK0) [cnf transformation 106] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+137. v1_relat_1(sK2) [cnf transformation 106] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+138. v4_relat_1(sK2,sK0) [cnf transformation 106] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+139. v1_funct_1(sK2) [cnf transformation 106] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+140. v1_partfun1(sK2,sK0) [cnf transformation 106] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+141. r2_hidden(sK3,sK0) [cnf transformation 106] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+142. k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),sK3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) [cnf transformation 106] {a:0,w:17,wCS:1700,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+162. k1_funct_1(X2,X4) = k1_zfmisc_1(k1_funct_1(X1,X4)) | ~r2_hidden(X4,X0) | k1_mboolean(X0,X1) != X2 | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 114] {a:0,w:36,wCS:14400,sine:1,thAx:0,allAx:2,thDist:-2}
+165. k1_funct_1(X3,X5) = k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) | ~r2_hidden(X5,X0) | k3_pboole(X0,X1,X2) != X3 | ~v1_partfun1(X3,X0) | ~v1_funct_1(X3) | ~v4_relat_1(X3,X0) | ~v1_relat_1(X3) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 118] {a:0,w:50,wCS:20000,sine:1,thAx:0,allAx:2,thDist:-2}
+188. v1_relat_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 94] {a:0,w:14,wCS:5600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+189. v4_relat_1(k1_mboolean(X0,X1),X0) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 94] {a:0,w:15,wCS:6000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+190. v1_funct_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 94] {a:0,w:14,wCS:5600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+191. v1_partfun1(k1_mboolean(X0,X1),X0) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 94] {a:0,w:15,wCS:6000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+198. v1_relat_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 102] {a:0,w:25,wCS:10000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+199. v4_relat_1(k3_pboole(X0,X1,X2),X0) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 102] {a:0,w:26,wCS:10400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+200. v1_funct_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 102] {a:0,w:25,wCS:10000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+201. v1_partfun1(k3_pboole(X0,X1,X2),X0) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [cnf transformation 102] {a:0,w:26,wCS:10400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+207. k1_zfmisc_1(k1_funct_1(X1,X4)) = k1_funct_1(k1_mboolean(X0,X1),X4) | ~r2_hidden(X4,X0) | ~v1_partfun1(k1_mboolean(X0,X1),X0) | ~v1_funct_1(k1_mboolean(X0,X1)) | ~v4_relat_1(k1_mboolean(X0,X1),X0) | ~v1_relat_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [equality resolution 162] {a:0,w:41,wCS:16400,sine:1,thAx:0,allAx:2,thDist:-2}
+208. k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) = k1_funct_1(k3_pboole(X0,X1,X2),X5) | ~r2_hidden(X5,X0) | ~v1_partfun1(k3_pboole(X0,X1,X2),X0) | ~v1_funct_1(k3_pboole(X0,X1,X2)) | ~v4_relat_1(k3_pboole(X0,X1,X2),X0) | ~v1_relat_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [equality resolution 165] {a:0,w:59,wCS:23600,sine:1,thAx:0,allAx:2,thDist:-2}
+210. 1 <=> k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),sK3) = k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) [avatar definition]
+212. k1_funct_1(k1_mboolean(sK0,k3_pboole(sK0,sK1,sK2)),sK3) != k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) <- (~1) [avatar component clause 210] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+213. ~1 [avatar split clause 142,210]
+215. 2 <=> r2_hidden(sK3,sK0) [avatar definition]
+217. r2_hidden(sK3,sK0) <- (2) [avatar component clause 215] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+218. 2 [avatar split clause 141,215]
+220. 3 <=> v1_partfun1(sK2,sK0) [avatar definition]
+222. v1_partfun1(sK2,sK0) <- (3) [avatar component clause 220] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+223. 3 [avatar split clause 140,220]
+225. 4 <=> v1_funct_1(sK2) [avatar definition]
+227. v1_funct_1(sK2) <- (4) [avatar component clause 225] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+228. 4 [avatar split clause 139,225]
+230. 5 <=> v4_relat_1(sK2,sK0) [avatar definition]
+232. v4_relat_1(sK2,sK0) <- (5) [avatar component clause 230] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+233. 5 [avatar split clause 138,230]
+235. 6 <=> v1_relat_1(sK2) [avatar definition]
+237. v1_relat_1(sK2) <- (6) [avatar component clause 235] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+238. 6 [avatar split clause 137,235]
+240. 7 <=> v1_partfun1(sK1,sK0) [avatar definition]
+242. v1_partfun1(sK1,sK0) <- (7) [avatar component clause 240] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+243. 7 [avatar split clause 136,240]
+245. 8 <=> v1_funct_1(sK1) [avatar definition]
+247. v1_funct_1(sK1) <- (8) [avatar component clause 245] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+248. 8 [avatar split clause 135,245]
+250. 9 <=> v4_relat_1(sK1,sK0) [avatar definition]
+252. v4_relat_1(sK1,sK0) <- (9) [avatar component clause 250] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+253. 9 [avatar split clause 134,250]
+255. 10 <=> v1_relat_1(sK1) [avatar definition]
+257. v1_relat_1(sK1) <- (10) [avatar component clause 255] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+258. 10 [avatar split clause 133,255]
+438. k1_zfmisc_1(k1_funct_1(X1,X4)) = k1_funct_1(k1_mboolean(X0,X1),X4) | ~r2_hidden(X4,X0) | ~v1_funct_1(k1_mboolean(X0,X1)) | ~v4_relat_1(k1_mboolean(X0,X1),X0) | ~v1_relat_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 207,191] {a:0,w:36,wCS:14400,sine:1,thAx:0,allAx:2,thDist:-2}
+439. k1_zfmisc_1(k1_funct_1(X1,X4)) = k1_funct_1(k1_mboolean(X0,X1),X4) | ~r2_hidden(X4,X0) | ~v4_relat_1(k1_mboolean(X0,X1),X0) | ~v1_relat_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 438,190] {a:0,w:32,wCS:12800,sine:1,thAx:0,allAx:2,thDist:-2}
+440. k1_zfmisc_1(k1_funct_1(X1,X4)) = k1_funct_1(k1_mboolean(X0,X1),X4) | ~r2_hidden(X4,X0) | ~v1_relat_1(k1_mboolean(X0,X1)) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 439,189] {a:0,w:27,wCS:10800,sine:1,thAx:0,allAx:2,thDist:-2}
+441. k1_zfmisc_1(k1_funct_1(X1,X4)) = k1_funct_1(k1_mboolean(X0,X1),X4) | ~r2_hidden(X4,X0) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 440,188] {a:0,w:23,wCS:9200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+442. k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) != k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) | ~r2_hidden(sK3,sK0) | ~v1_partfun1(k3_pboole(sK0,sK1,sK2),sK0) | ~v1_funct_1(k3_pboole(sK0,sK1,sK2)) | ~v4_relat_1(k3_pboole(sK0,sK1,sK2),sK0) | ~v1_relat_1(k3_pboole(sK0,sK1,sK2)) <- (~1) [superposition 212,441] {a:1,w:41,wCS:4100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+447. k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) != k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) | ~v1_partfun1(k3_pboole(sK0,sK1,sK2),sK0) | ~v1_funct_1(k3_pboole(sK0,sK1,sK2)) | ~v4_relat_1(k3_pboole(sK0,sK1,sK2),sK0) | ~v1_relat_1(k3_pboole(sK0,sK1,sK2)) <- (~1, 2) [subsumption resolution 442,217] {a:1,w:38,wCS:3800,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+449. 26 <=> v1_relat_1(k3_pboole(sK0,sK1,sK2)) [avatar definition]
+451. ~v1_relat_1(k3_pboole(sK0,sK1,sK2)) <- (~26) [avatar component clause 449] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+453. 27 <=> v4_relat_1(k3_pboole(sK0,sK1,sK2),sK0) [avatar definition]
+455. ~v4_relat_1(k3_pboole(sK0,sK1,sK2),sK0) <- (~27) [avatar component clause 453] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+457. 28 <=> v1_funct_1(k3_pboole(sK0,sK1,sK2)) [avatar definition]
+459. ~v1_funct_1(k3_pboole(sK0,sK1,sK2)) <- (~28) [avatar component clause 457] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+461. 29 <=> v1_partfun1(k3_pboole(sK0,sK1,sK2),sK0) [avatar definition]
+463. ~v1_partfun1(k3_pboole(sK0,sK1,sK2),sK0) <- (~29) [avatar component clause 461] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+465. 30 <=> k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) = k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) [avatar definition]
+467. k1_zfmisc_1(k3_xboole_0(k1_funct_1(sK1,sK3),k1_funct_1(sK2,sK3))) != k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) <- (~30) [avatar component clause 465] {a:1,w:16,wCS:1600,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+468. ~26 | ~27 | ~28 | ~29 | ~30 | 1 | ~2 [avatar split clause 447,215,210,465,461,457,453,449]
+481. ~v1_partfun1(sK2,sK0) | ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (~26) [resolution 451,198] {a:2,w:20,wCS:2000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+483. ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, ~26) [subsumption resolution 481,222] {a:2,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+484. ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, ~26) [subsumption resolution 483,227] {a:2,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+485. ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, ~26) [subsumption resolution 484,232] {a:2,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+486. ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, ~26) [subsumption resolution 485,237] {a:2,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+487. ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, ~26) [subsumption resolution 486,242] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+488. ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, ~26) [subsumption resolution 487,247] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+489. ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, 9, ~26) [subsumption resolution 488,252] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+490. $false <- (3, 4, 5, 6, 7, 8, 9, 10, ~26) [subsumption resolution 489,257] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+491. ~3 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | ~10 | 26 [avatar contradiction clause 490]
+502. k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) = k1_funct_1(k3_pboole(X0,X1,X2),X5) | ~r2_hidden(X5,X0) | ~v1_funct_1(k3_pboole(X0,X1,X2)) | ~v4_relat_1(k3_pboole(X0,X1,X2),X0) | ~v1_relat_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 208,201] {a:0,w:53,wCS:21200,sine:1,thAx:0,allAx:2,thDist:-2}
+503. k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) = k1_funct_1(k3_pboole(X0,X1,X2),X5) | ~r2_hidden(X5,X0) | ~v4_relat_1(k3_pboole(X0,X1,X2),X0) | ~v1_relat_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 502,200] {a:0,w:48,wCS:19200,sine:1,thAx:0,allAx:2,thDist:-2}
+504. k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) = k1_funct_1(k3_pboole(X0,X1,X2),X5) | ~r2_hidden(X5,X0) | ~v1_relat_1(k3_pboole(X0,X1,X2)) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 503,199] {a:0,w:42,wCS:16800,sine:1,thAx:0,allAx:2,thDist:-2}
+505. k3_xboole_0(k1_funct_1(X1,X5),k1_funct_1(X2,X5)) = k1_funct_1(k3_pboole(X0,X1,X2),X5) | ~r2_hidden(X5,X0) | ~v1_partfun1(X2,X0) | ~v1_funct_1(X2) | ~v4_relat_1(X2,X0) | ~v1_relat_1(X2) | ~v1_partfun1(X1,X0) | ~v1_funct_1(X1) | ~v4_relat_1(X1,X0) | ~v1_relat_1(X1) [subsumption resolution 504,198] {a:0,w:37,wCS:14800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+543. ~v1_partfun1(sK2,sK0) | ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (~27) [resolution 455,199] {a:2,w:20,wCS:2000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+545. ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, ~27) [subsumption resolution 543,222] {a:2,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+546. ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, ~27) [subsumption resolution 545,227] {a:2,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+547. ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, ~27) [subsumption resolution 546,232] {a:2,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+548. ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, ~27) [subsumption resolution 547,237] {a:2,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+549. ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, ~27) [subsumption resolution 548,242] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+550. ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, ~27) [subsumption resolution 549,247] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+551. ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, 9, ~27) [subsumption resolution 550,252] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+552. $false <- (3, 4, 5, 6, 7, 8, 9, 10, ~27) [subsumption resolution 551,257] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+553. ~3 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | ~10 | 27 [avatar contradiction clause 552]
+555. ~v1_partfun1(sK2,sK0) | ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (~28) [resolution 459,200] {a:2,w:20,wCS:2000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+557. ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, ~28) [subsumption resolution 555,222] {a:2,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+558. ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, ~28) [subsumption resolution 557,227] {a:2,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+559. ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, ~28) [subsumption resolution 558,232] {a:2,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+560. ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, ~28) [subsumption resolution 559,237] {a:2,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+561. ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, ~28) [subsumption resolution 560,242] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+562. ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, ~28) [subsumption resolution 561,247] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+563. ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, 9, ~28) [subsumption resolution 562,252] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+564. $false <- (3, 4, 5, 6, 7, 8, 9, 10, ~28) [subsumption resolution 563,257] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+565. ~3 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | ~10 | 28 [avatar contradiction clause 564]
+567. ~v1_partfun1(sK2,sK0) | ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (~29) [resolution 463,201] {a:2,w:20,wCS:2000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+569. ~v1_funct_1(sK2) | ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, ~29) [subsumption resolution 567,222] {a:2,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+570. ~v4_relat_1(sK2,sK0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, ~29) [subsumption resolution 569,227] {a:2,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+571. ~v1_relat_1(sK2) | ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, ~29) [subsumption resolution 570,232] {a:2,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+572. ~v1_partfun1(sK1,sK0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, ~29) [subsumption resolution 571,237] {a:2,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+573. ~v1_funct_1(sK1) | ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, ~29) [subsumption resolution 572,242] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+574. ~v4_relat_1(sK1,sK0) | ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, ~29) [subsumption resolution 573,247] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+575. ~v1_relat_1(sK1) <- (3, 4, 5, 6, 7, 8, 9, ~29) [subsumption resolution 574,252] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+576. $false <- (3, 4, 5, 6, 7, 8, 9, 10, ~29) [subsumption resolution 575,257] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+577. ~3 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | ~10 | 29 [avatar contradiction clause 576]
+578. k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) != k1_zfmisc_1(k1_funct_1(k3_pboole(X0,sK1,sK2),sK3)) | ~r2_hidden(sK3,X0) | ~v1_partfun1(sK2,X0) | ~v1_funct_1(sK2) | ~v4_relat_1(sK2,X0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,X0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,X0) | ~v1_relat_1(sK1) <- (~30) [superposition 467,505] {a:2,w:38,wCS:3800,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+579. k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) != k1_zfmisc_1(k1_funct_1(k3_pboole(X0,sK1,sK2),sK3)) | ~r2_hidden(sK3,X0) | ~v1_partfun1(sK2,X0) | ~v4_relat_1(sK2,X0) | ~v1_relat_1(sK2) | ~v1_partfun1(sK1,X0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,X0) | ~v1_relat_1(sK1) <- (4, ~30) [subsumption resolution 578,227] {a:2,w:36,wCS:3600,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+580. k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) != k1_zfmisc_1(k1_funct_1(k3_pboole(X0,sK1,sK2),sK3)) | ~r2_hidden(sK3,X0) | ~v1_partfun1(sK2,X0) | ~v4_relat_1(sK2,X0) | ~v1_partfun1(sK1,X0) | ~v1_funct_1(sK1) | ~v4_relat_1(sK1,X0) | ~v1_relat_1(sK1) <- (4, 6, ~30) [subsumption resolution 579,237] {a:2,w:34,wCS:3400,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+581. k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) != k1_zfmisc_1(k1_funct_1(k3_pboole(X0,sK1,sK2),sK3)) | ~r2_hidden(sK3,X0) | ~v1_partfun1(sK2,X0) | ~v4_relat_1(sK2,X0) | ~v1_partfun1(sK1,X0) | ~v4_relat_1(sK1,X0) | ~v1_relat_1(sK1) <- (4, 6, 8, ~30) [subsumption resolution 580,247] {a:2,w:32,wCS:3200,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+582. k1_zfmisc_1(k1_funct_1(k3_pboole(sK0,sK1,sK2),sK3)) != k1_zfmisc_1(k1_funct_1(k3_pboole(X0,sK1,sK2),sK3)) | ~r2_hidden(sK3,X0) | ~v1_partfun1(sK2,X0) | ~v4_relat_1(sK2,X0) | ~v1_partfun1(sK1,X0) | ~v4_relat_1(sK1,X0) <- (4, 6, 8, 10, ~30) [subsumption resolution 581,257] {a:2,w:30,wCS:3000,nSel:1,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+908. ~r2_hidden(sK3,sK0) | ~v1_partfun1(sK2,sK0) | ~v4_relat_1(sK2,sK0) | ~v1_partfun1(sK1,sK0) | ~v4_relat_1(sK1,sK0) <- (4, 6, 8, 10, ~30) [equality resolution 582] {a:3,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+916. ~v1_partfun1(sK2,sK0) | ~v4_relat_1(sK2,sK0) | ~v1_partfun1(sK1,sK0) | ~v4_relat_1(sK1,sK0) <- (2, 4, 6, 8, 10, ~30) [subsumption resolution 908,217] {a:3,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+917. ~v4_relat_1(sK2,sK0) | ~v1_partfun1(sK1,sK0) | ~v4_relat_1(sK1,sK0) <- (2, 3, 4, 6, 8, 10, ~30) [subsumption resolution 916,222] {a:3,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+918. ~v1_partfun1(sK1,sK0) | ~v4_relat_1(sK1,sK0) <- (2, 3, 4, 5, 6, 8, 10, ~30) [subsumption resolution 917,232] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+919. ~v4_relat_1(sK1,sK0) <- (2, 3, 4, 5, 6, 7, 8, 10, ~30) [subsumption resolution 918,242] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+920. $false <- (2, 3, 4, 5, 6, 7, 8, 9, 10, ~30) [subsumption resolution 919,252] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+921. ~2 | ~3 | ~4 | ~5 | ~6 | ~7 | ~8 | ~9 | ~10 | 30 [avatar contradiction clause 920]
+922. $false [avatar sat refutation 213,218,223,228,233,238,243,248,253,258,468,491,553,565,577,921] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:337,thDist:-337}
+% SZS output end Proof for mboolean__l4_mboolean
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 44
+% >>> Preprocessing
+% Introduced skolems: 15
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 74
+% Generated clauses: 650
+% Active clauses: 137
+% Passive clauses: 282
+% Final active clauses: 132
+% Final passive clauses: 123
+% Main loop iterations started: 159
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 304
+% Fw subsumption resolutions: 186
+% Fw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 26
+% Forward subsumptions: 91
+% Backward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 133
+% Unit resulting resolution: 4
+% Forward superposition: 79
+% Backward superposition: 79
+% Self superposition: 8
+% Equality resolution: 1
+% 
+% >>> AVATAR
+% Split clauses: 5
+% Split components: 15
+% Sat splitting refutations: 9
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 36
+% SAT solver unit clauses: 16
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 10234
+% Time elapsed: 0.010 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% term sharing: 0.002 s
+% forward subsumption: 0.002 s
+% forward subsumption resolution: 0.001 s
+% resolution: 0.001 s ( own 0.0000 s ) 
+% superposition: 0.003 s ( own 0.002 s ) 
+% other: 0.010 s ( own 0.002 s ) 
+

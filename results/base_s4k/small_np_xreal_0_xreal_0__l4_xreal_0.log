@@ -1,0 +1,174 @@
+i: [1,119,0,4,1,1,0,0] l4_xreal_0
+a: [3,183,0,4,1,119]
+s: 183
+i: [1,120,0,2,1,0,0,1] fc1_xboole_0
+a: [3,188,0,2,1,120]
+s: 188
+i: [1,158,0,2,1,0,0,2] rc2_xboole_0
+a: [3,193,0,2,1,158]
+s: 193
+i: [1,159,0,2,1,0,0,255] rc1_xreal_0
+a: [3,198,0,2,1,159]
+s: 198
+i: [1,160,0,2,1,0,0,255] rc4_ordinal1
+a: [3,203,0,2,1,160]
+s: 203
+i: [1,161,0,2,1,0,0,255] rc1_ordinal1
+a: [3,208,0,2,1,161]
+s: 208
+i: [1,162,0,2,1,0,0,2] rc1_xboole_0
+a: [3,213,0,2,1,162]
+s: 213
+i: [1,163,0,2,1,0,0,255] rc1_xxreal_0
+a: [3,218,0,2,1,163]
+s: 218
+i: [1,167,0,2,1,0,0,255] rc2_ordinal1
+a: [3,223,0,2,1,167]
+s: 223
+i: [1,166,0,2,1,0,0,255] rc2_ordinal1
+a: [3,228,0,2,1,166]
+s: 228
+i: [1,165,0,2,1,0,0,255] rc2_ordinal1
+a: [3,233,0,2,1,165]
+s: 233
+i: [1,164,0,2,1,0,0,255] rc2_ordinal1
+a: [3,238,0,2,1,164]
+s: 238
+i: [1,169,0,2,1,0,0,255] rc5_ordinal1
+a: [3,243,0,2,1,169]
+s: 243
+i: [1,168,0,2,1,0,0,255] rc5_ordinal1
+a: [3,248,0,2,1,168]
+s: 248
+i: [1,170,0,2,1,0,0,255] rc2_xcmplx_0
+a: [3,253,0,2,1,170]
+s: 253
+i: [1,172,0,2,1,0,0,255] rc4_xxreal_0
+a: [3,258,0,2,1,172]
+s: 258
+i: [1,171,0,2,1,0,0,255] rc4_xxreal_0
+a: [3,263,0,2,1,171]
+s: 263
+i: [1,174,0,2,1,0,0,255] rc3_xxreal_0
+a: [3,268,0,2,1,174]
+s: 268
+i: [1,173,0,2,1,0,0,255] rc3_xxreal_0
+a: [3,273,0,2,1,173]
+s: 273
+i: [1,176,0,2,1,0,0,255] rc2_xxreal_0
+a: [3,278,0,2,1,176]
+s: 278
+i: [1,175,0,2,1,0,0,255] rc2_xxreal_0
+a: [3,283,0,2,1,175]
+s: 283
+i: [1,121,0,3,1,0,0,1] fc2_xboole_0
+s: 121
+i: [1,122,0,4,2,0,0,255] cc4_xreal_0
+s: 122
+d: [2,285,1,2,1,1,40,122,198]
+a: [3,289,1,2,1,285]
+s: 289
+i: [1,123,0,4,2,0,0,255] cc2_xreal_0
+s: 123
+i: [1,124,0,4,2,0,0,255] cc6_ordinal1
+s: 124
+d: [2,291,1,2,1,1,40,123,203]
+a: [3,296,1,2,1,291]
+s: 296
+i: [1,125,0,4,2,0,0,255] cc2_xxreal_0
+s: 125
+d: [2,292,1,2,1,1,40,123,243]
+a: [3,301,1,2,1,292]
+s: 301
+i: [1,126,0,4,2,0,0,255] cc1_ordinal1
+s: 126
+i: [1,127,0,4,2,0,0,255] cc1_ordinal1
+s: 127
+d: [2,303,1,2,1,1,40,124,203]
+a: [3,308,1,2,1,303]
+s: 308
+i: [1,129,0,4,2,0,0,255] cc7_ordinal1
+s: 129
+d: [2,304,1,2,1,1,40,124,243]
+a: [3,313,1,2,1,304]
+s: 313
+i: [1,130,0,4,2,0,0,255] cc3_ordinal1
+s: 130
+i: [1,156,0,4,1,0,0,255] existence_m1_subset_1
+s: 156
+d: [2,322,1,2,1,1,40,125,243]
+a: [3,327,1,2,1,322]
+s: 327
+i: [1,178,0,4,1,0,0,1] d1_tarski
+s: 178
+d: [2,406,1,0,0,1,40,178,183]
+e: 406
+d: [2,405,1,0,0,1,52,183,178]
+e: 405
+f: 405,119
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xreal_0__l4_xreal_0
+% SZS output start Proof for xreal_0__l4_xreal_0
+1. r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) [input l4_xreal_0]
+2. ~r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) [negated conjecture 1]
+47. ! [X0] : ! [X1] : (k1_tarski(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> X0 = X2)) [input d1_tarski]
+48. ~r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) [flattening 2]
+51. ! [X0,X1] : (k1_tarski(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> X0 = X2)) [flattening 47]
+89. ! [X0,X1] : ((k1_tarski(X0) = X1 | ? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1)))) & (! [X2] : ((r2_hidden(X2,X1) | X0 != X2) & (X0 = X2 | ~r2_hidden(X2,X1))) | k1_tarski(X0) != X1)) [nnf transformation 51]
+90. ! [X0,X1] : ((k1_tarski(X0) = X1 | ? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1)))) & (! [X3] : ((r2_hidden(X3,X1) | X0 != X3) & (X0 = X3 | ~r2_hidden(X3,X1))) | k1_tarski(X0) != X1)) [rectify 89]
+91. ! [X1,X0] : (? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1))) => ((sK0(X0,X1) != X0 | ~r2_hidden(sK0(X0,X1),X1)) & (sK0(X0,X1) = X0 | r2_hidden(sK0(X0,X1),X1)))) [choice axiom]
+92. ! [X0,X1] : ((k1_tarski(X0) = X1 | ((sK0(X0,X1) != X0 | ~r2_hidden(sK0(X0,X1),X1)) & (sK0(X0,X1) = X0 | r2_hidden(sK0(X0,X1),X1)))) & (! [X3] : ((r2_hidden(X3,X1) | X0 != X3) & (X0 = X3 | ~r2_hidden(X3,X1))) | k1_tarski(X0) != X1)) [skolemisation 90,91]
+119. ~r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) [cnf transformation 48] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+151. r2_hidden(X3,X1) | X0 != X3 | k1_tarski(X0) != X1 [cnf transformation 92] {a:0,w:10,wCS:4000,sine:1,thAx:0,allAx:2,thDist:-2}
+177. r2_hidden(X3,X1) | k1_tarski(X3) != X1 [equality resolution 151] {a:0,w:7,wCS:2800,sine:1,thAx:0,allAx:2,thDist:-2}
+178. r2_hidden(X3,k1_tarski(X3)) [equality resolution 177] {a:0,w:4,wCS:1600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+181. 1 <=> r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) [avatar definition]
+183. ~r2_hidden(k1_xboole_0,k1_tarski(k1_xboole_0)) <- (~1) [avatar component clause 181] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+184. ~1 [avatar split clause 119,181]
+405. $false <- (~1) [unit resulting resolution 183,178] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+408. 1 [avatar contradiction clause 405]
+409. $false [avatar sat refutation 184,408] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:176,thDist:-176}
+% SZS output end Proof for xreal_0__l4_xreal_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 46
+% >>> Preprocessing
+% Introduced skolems: 14
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 58
+% Generated clauses: 123
+% Active clauses: 38
+% Passive clauses: 71
+% Final active clauses: 38
+% Final passive clauses: 33
+% Main loop iterations started: 38
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 24
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 46
+% SAT solver unit clauses: 23
+% SAT solver binary clauses: 21
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% splitting component index maintenance: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

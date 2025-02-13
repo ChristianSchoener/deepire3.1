@@ -1,0 +1,68 @@
+i: [1,270,0,16,3,1,0,0] l28_realset2
+i: [1,278,0,3,1,0,0,1] de_c4__realset2
+i: [1,297,0,8,1,0,0,1] dt_k2_realset2
+i: [1,296,0,6,1,0,0,1] dt_k2_realset2
+i: [1,295,0,2,1,0,0,1] dt_k2_realset2
+f: 295,296,297,278,270
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for realset2__l28_realset2
+% SZS output start Proof for realset2__l28_realset2
+1. m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) & v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) & v1_funct_1(k2_realset2) [input l28_realset2]
+2. ~(m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) & v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) & v1_funct_1(k2_realset2)) [negated conjecture 1]
+110. m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(2,2),2))) & v1_funct_2(k2_realset2,k2_zfmisc_1(2,2),2) & v1_funct_1(k2_realset2) [input dt_k2_realset2]
+115. c4__realset2 = 2 [input de_c4__realset2]
+145. ~m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) | ~v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) | ~v1_funct_1(k2_realset2) [ennf transformation 2]
+270. ~m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) | ~v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) | ~v1_funct_1(k2_realset2) [cnf transformation 145] {a:0,w:16,wCS:1600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+278. c4__realset2 = 2 [cnf transformation 115] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+295. v1_funct_1(k2_realset2) [cnf transformation 110] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+296. v1_funct_2(k2_realset2,k2_zfmisc_1(2,2),2) [cnf transformation 110] {a:0,w:6,wCS:2400,sine:1,thAx:0,allAx:1,thDist:-1}
+297. m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(2,2),2))) [cnf transformation 110] {a:0,w:8,wCS:3200,sine:1,thAx:0,allAx:1,thDist:-1}
+416. 1 <=> v1_funct_1(k2_realset2) [avatar definition]
+420. 2 <=> v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) [avatar definition]
+424. 3 <=> m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) [avatar definition]
+427. ~1 | ~2 | ~3 [avatar split clause 270,424,420,416]
+464. 11 <=> c4__realset2 = 2 [avatar definition]
+467. 11 [avatar split clause 278,464]
+534. 25 <=> m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(2,2),2))) [avatar definition]
+539. 26 <=> v1_funct_2(k2_realset2,k2_zfmisc_1(2,2),2) [avatar definition]
+544. 25 [avatar split clause 297,534]
+545. 26 [avatar split clause 296,539]
+546. 1 [avatar split clause 295,416]
+664. c4__realset2 != 2 | v1_funct_2(k2_realset2,k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2) | ~v1_funct_2(k2_realset2,k2_zfmisc_1(2,2),2) [theory tautology sat conflict] {a:0,w:15,wCS:6000,sine:255,thAx:0,allAx:1,thDist:-1}
+665. c4__realset2 != 2 | m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(c4__realset2,c4__realset2),c4__realset2))) | ~m1_subset_1(k2_realset2,k1_zfmisc_1(k2_zfmisc_1(k2_zfmisc_1(2,2),2))) [theory tautology sat conflict] {a:0,w:19,wCS:7600,sine:255,thAx:0,allAx:1,thDist:-1}
+666. $false [avatar sat refutation 427,467,544,545,546,664,665] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:129,thDist:-129}
+% SZS output end Proof for realset2__l28_realset2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 119
+% >>> Preprocessing
+% Introduced skolems: 25
+% Pure predicates: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 145
+% Generated clauses: 145
+% Passive clauses: 94
+% Final passive clauses: 94
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 5
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 55
+% SAT solver unit clauses: 49
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 5117
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

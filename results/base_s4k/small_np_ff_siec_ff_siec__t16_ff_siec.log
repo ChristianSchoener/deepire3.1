@@ -1,0 +1,308 @@
+i: [1,72,0,2,1,1,0,0] t16_ff_siec
+a: [3,118,0,2,1,72]
+s: 118
+i: [1,71,0,2,1,1,0,0] t16_ff_siec
+a: [3,123,0,2,1,71]
+s: 123
+i: [1,96,0,2,1,0,0,1] existence_l1_petri
+a: [3,128,0,2,1,96]
+s: 128
+i: [1,89,0,3,1,0,0,2] reflexivity_r1_tarski
+s: 89
+i: [1,73,0,62,4,1,0,0] t16_ff_siec
+a: [3,101,0,14,1,73]
+s: 101
+i: [1,88,0,4,1,0,0,3] existence_m1_subset_1
+s: 88
+i: [1,90,0,4,1,0,0,2] fc6_relat_1
+s: 90
+i: [1,74,0,5,2,0,0,1] fc1_net_1
+s: 74
+i: [1,79,0,5,2,0,0,1] dt_k2_relat_1
+s: 79
+i: [1,91,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 91
+i: [1,93,0,6,2,0,0,1] dt_k5_relat_1
+s: 93
+i: [1,80,0,7,2,0,0,1] involutiveness_k2_relat_1
+s: 80
+i: [1,85,0,7,2,0,0,2] t3_subset
+s: 85
+d: [2,131,1,5,1,0,40,85,88]
+s: 131
+i: [1,86,0,7,2,0,0,2] t3_subset
+s: 86
+i: [1,92,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 92
+i: [1,82,0,8,3,0,0,3] cc2_relat_1
+s: 82
+i: [1,95,0,8,3,0,0,1] fc3_relat_1
+s: 95
+d: [2,133,1,6,2,0,40,82,88]
+s: 133
+i: [1,75,0,10,2,0,0,2] d3_net_1
+s: 75
+i: [1,76,0,10,2,0,0,255] d1_net_1
+s: 76
+d: [2,134,1,7,3,0,40,82,86]
+s: 134
+i: [1,77,0,11,2,0,0,255] dt_u2_petri
+s: 77
+d: [2,143,1,11,3,0,40,77,82]
+d: [2,145,1,5,2,0,21,143,90]
+s: 145
+i: [1,78,0,11,2,0,0,255] dt_u1_petri
+s: 78
+i: [1,94,0,11,2,0,0,1] rd5_relat_1
+s: 94
+d: [2,146,1,11,3,0,40,78,82]
+d: [2,148,1,5,2,0,21,146,90]
+s: 148
+i: [1,83,0,12,3,0,0,1] t8_ff_siec
+s: 83
+d: [2,144,1,10,2,0,40,77,85]
+s: 144
+i: [1,84,0,13,3,0,0,1] t8_ff_siec
+s: 84
+i: [1,81,0,14,3,0,0,1] t23_relat_1
+s: 81
+d: [2,153,2,14,4,0,40,84,134]
+d: [2,154,2,8,3,0,21,153,90]
+s: 154
+i: [1,97,0,18,3,0,0,1] t9_sysrel
+s: 97
+d: [2,175,1,18,3,1,44,101,97]
+d: [2,180,1,13,2,1,19,175]
+a: [3,188,1,3,1,180]
+s: 188
+d: [2,194,2,0,0,2,52,118,188,74]
+e: 194
+d: [2,195,2,2,1,1,40,188,74]
+d: [2,197,2,0,0,2,21,195,118]
+e: 197
+r: 188
+a: [3,187,1,3,1,180]
+s: 187
+a: [3,191,1,10,1,180]
+s: 191
+d: [2,199,2,9,2,1,44,191,75]
+d: [2,200,2,7,1,2,21,199,118]
+s: 200
+d: [2,201,3,0,0,3,52,123,118,200,83]
+e: 201
+d: [2,202,3,4,2,2,40,200,83]
+d: [2,204,3,2,1,2,21,202,118]
+d: [2,205,3,0,0,3,21,204,123]
+e: 205
+r: 101
+r: 200
+r: 191
+a: [3,100,0,14,1,73]
+s: 100
+a: [3,105,0,14,1,73]
+s: 105
+d: [2,209,1,14,1,1,44,105,92]
+d: [2,215,1,0,0,2,21,209,100]
+e: 215
+d: [2,210,1,14,1,1,44,105,92]
+d: [2,217,1,0,0,2,21,210,100]
+e: 217
+r: 105
+a: [3,104,0,14,1,73]
+s: 104
+a: [3,109,0,17,1,73]
+s: 109
+d: [2,224,1,28,3,1,44,109,81]
+d: [2,225,1,19,3,2,22,224,100]
+d: [2,226,1,12,2,2,19,225]
+a: [3,230,1,6,1,226]
+s: 230
+d: [2,236,2,0,0,2,52,187,230,93]
+e: 236
+d: [2,237,2,3,1,1,40,230,93]
+d: [2,239,2,0,0,2,21,237,187]
+e: 239
+r: 230
+a: [3,229,1,6,1,226]
+s: 229
+a: [3,234,1,6,1,226]
+s: 234
+d: [2,241,2,0,0,2,52,187,234,93]
+e: 241
+d: [2,242,2,3,1,1,40,234,93]
+d: [2,244,2,0,0,2,21,242,187]
+e: 244
+r: 109
+r: 234
+a: [3,108,0,17,1,73]
+s: 108
+a: [3,113,0,17,1,73]
+s: 113
+d: [2,265,1,17,1,1,44,113,92]
+d: [2,272,1,0,0,2,21,265,108]
+e: 272
+d: [2,266,1,17,1,1,44,113,92]
+d: [2,274,1,0,0,2,21,266,108]
+e: 274
+d: [2,208,1,18,3,1,44,105,97]
+d: [2,211,1,13,2,1,19,208]
+d: [2,212,1,10,1,2,21,211,187]
+d: [2,213,1,10,1,2,22,212,92]
+d: [2,264,1,28,3,1,44,113,81]
+d: [2,267,1,22,2,2,21,264,229]
+d: [2,268,1,22,2,2,22,267,92]
+d: [2,269,1,13,2,3,22,268,100]
+d: [2,270,1,6,1,3,19,269]
+f: 270,244,239,226,213,205,197,180,71,72,73
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ff_siec__t16_ff_siec
+% SZS output start Proof for ff_siec__t16_ff_siec
+1. ! [X0] : ((l1_petri(X0) & v1_net_1(X0)) => (k2_relat_1(k1_net_1(X0)) = k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)))) & k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) = k2_relat_1(k1_net_1(X0)) & k1_net_1(X0) = k2_xboole_0(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)),k5_relat_1(k1_net_1(X0),u1_struct_0(X0))) & k1_net_1(X0) = k2_xboole_0(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)),k5_relat_1(k1_net_1(X0),u4_struct_0(X0))))) [input t16_ff_siec]
+2. ~! [X0] : ((l1_petri(X0) & v1_net_1(X0)) => (k2_relat_1(k1_net_1(X0)) = k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)))) & k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) = k2_relat_1(k1_net_1(X0)) & k1_net_1(X0) = k2_xboole_0(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)),k5_relat_1(k1_net_1(X0),u1_struct_0(X0))) & k1_net_1(X0) = k2_xboole_0(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)),k5_relat_1(k1_net_1(X0),u4_struct_0(X0))))) [negated conjecture 1]
+4. ! [X0,X1] : k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [input commutativity_k2_xboole_0]
+6. ! [X0] : (l1_petri(X0) => k2_net_1(X0) = k2_xboole_0(u1_struct_0(X0),u4_struct_0(X0))) [input d3_net_1]
+13. ! [X0,X1] : (v1_relat_1(X0) => v1_relat_1(k5_relat_1(X0,X1))) [input dt_k5_relat_1]
+26. ! [X0] : (l1_petri(X0) => v1_relat_1(k1_net_1(X0))) [input fc1_net_1]
+33. ! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => k2_relat_1(k2_xboole_0(X0,X1)) = k2_xboole_0(k2_relat_1(X0),k2_relat_1(X1)))) [input t23_relat_1]
+35. ! [X0] : ((l1_petri(X0) & v1_net_1(X0)) => (r1_tarski(k2_relat_1(k1_net_1(X0)),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0))) & r1_tarski(k1_net_1(X0),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0))))) [input t8_ff_siec]
+36. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : (v1_relat_1(X4) => ((k2_xboole_0(X2,X3) = X0 & r1_tarski(X4,k2_zfmisc_1(X0,X1))) => k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4)) [input t9_sysrel]
+38. ! [X0,X1,X2,X3,X4] : (v1_relat_1(X4) => ((k2_xboole_0(X2,X3) = X0 & r1_tarski(X4,k2_zfmisc_1(X0,X1))) => k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4)) [flattening 36]
+45. ? [X0] : ((k2_relat_1(k1_net_1(X0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)))) | k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) != k2_relat_1(k1_net_1(X0)) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)),k5_relat_1(k1_net_1(X0),u1_struct_0(X0))) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)),k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) & (l1_petri(X0) & v1_net_1(X0))) [ennf transformation 2]
+46. ? [X0] : ((k2_relat_1(k1_net_1(X0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)))) | k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) != k2_relat_1(k1_net_1(X0)) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)),k5_relat_1(k1_net_1(X0),u1_struct_0(X0))) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)),k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) & l1_petri(X0) & v1_net_1(X0)) [flattening 45]
+47. ! [X0] : (v1_relat_1(k1_net_1(X0)) | ~l1_petri(X0)) [ennf transformation 26]
+48. ! [X0] : (k2_net_1(X0) = k2_xboole_0(u1_struct_0(X0),u4_struct_0(X0)) | ~l1_petri(X0)) [ennf transformation 6]
+54. ! [X0] : (! [X1] : (k2_relat_1(k2_xboole_0(X0,X1)) = k2_xboole_0(k2_relat_1(X0),k2_relat_1(X1)) | ~v1_relat_1(X1)) | ~v1_relat_1(X0)) [ennf transformation 33]
+56. ! [X0] : ((r1_tarski(k2_relat_1(k1_net_1(X0)),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0))) & r1_tarski(k1_net_1(X0),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0)))) | (~l1_petri(X0) | ~v1_net_1(X0))) [ennf transformation 35]
+57. ! [X0] : ((r1_tarski(k2_relat_1(k1_net_1(X0)),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0))) & r1_tarski(k1_net_1(X0),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0)))) | ~l1_petri(X0) | ~v1_net_1(X0)) [flattening 56]
+58. ! [X0,X1,X2,X3,X4] : ((k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4 | (k2_xboole_0(X2,X3) != X0 | ~r1_tarski(X4,k2_zfmisc_1(X0,X1)))) | ~v1_relat_1(X4)) [ennf transformation 38]
+59. ! [X0,X1,X2,X3,X4] : (k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4 | k2_xboole_0(X2,X3) != X0 | ~r1_tarski(X4,k2_zfmisc_1(X0,X1)) | ~v1_relat_1(X4)) [flattening 58]
+60. ! [X0,X1] : (v1_relat_1(k5_relat_1(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 13]
+64. ? [X0] : ((k2_relat_1(k1_net_1(X0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)))) | k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(X0),u1_struct_0(X0))),k2_relat_1(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) != k2_relat_1(k1_net_1(X0)) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u4_struct_0(X0)),k5_relat_1(k1_net_1(X0),u1_struct_0(X0))) | k1_net_1(X0) != k2_xboole_0(k5_relat_1(k1_net_1(X0),u1_struct_0(X0)),k5_relat_1(k1_net_1(X0),u4_struct_0(X0)))) & l1_petri(X0) & v1_net_1(X0)) => ((k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) | k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) & l1_petri(sK0) & v1_net_1(sK0)) [choice axiom]
+65. (k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) | k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) & l1_petri(sK0) & v1_net_1(sK0) [skolemisation 46,64]
+71. v1_net_1(sK0) [cnf transformation 65] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+72. l1_petri(sK0) [cnf transformation 65] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+73. k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) | k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) | k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) [cnf transformation 65] {a:0,w:62,wCS:6200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+74. v1_relat_1(k1_net_1(X0)) | ~l1_petri(X0) [cnf transformation 47] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+75. k2_net_1(X0) = k2_xboole_0(u1_struct_0(X0),u4_struct_0(X0)) | ~l1_petri(X0) [cnf transformation 48] {a:0,w:10,wCS:4000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+81. k2_relat_1(k2_xboole_0(X0,X1)) = k2_xboole_0(k2_relat_1(X0),k2_relat_1(X1)) | ~v1_relat_1(X1) | ~v1_relat_1(X0) [cnf transformation 54] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+83. r1_tarski(k1_net_1(X0),k2_zfmisc_1(k2_net_1(X0),k2_net_1(X0))) | ~l1_petri(X0) | ~v1_net_1(X0) [cnf transformation 57] {a:0,w:12,wCS:4800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+87. k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4 | k2_xboole_0(X2,X3) != X0 | ~r1_tarski(X4,k2_zfmisc_1(X0,X1)) | ~v1_relat_1(X4) [cnf transformation 59] {a:0,w:21,wCS:8400,sine:1,thAx:0,allAx:1,thDist:-1}
+92. k2_xboole_0(X0,X1) = k2_xboole_0(X1,X0) [cnf transformation 4] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+93. v1_relat_1(k5_relat_1(X0,X1)) | ~v1_relat_1(X0) [cnf transformation 60] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+97. k2_xboole_0(k5_relat_1(X4,X2),k5_relat_1(X4,X3)) = X4 | ~r1_tarski(X4,k2_zfmisc_1(k2_xboole_0(X2,X3),X1)) | ~v1_relat_1(X4) [equality resolution 87] {a:0,w:18,wCS:7200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+99. 1 <=> k1_net_1(sK0) = k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) [avatar definition]
+100. k1_net_1(sK0) = k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (1) [avatar component clause 99] {a:0,w:14,wCS:1400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+101. k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (~1) [avatar component clause 99] {a:0,w:14,wCS:1400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+103. 2 <=> k1_net_1(sK0) = k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) [avatar definition]
+105. k1_net_1(sK0) != k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (~2) [avatar component clause 103] {a:0,w:14,wCS:1400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+107. 3 <=> k2_relat_1(k1_net_1(sK0)) = k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) [avatar definition]
+109. k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) <- (~3) [avatar component clause 107] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+111. 4 <=> k2_relat_1(k1_net_1(sK0)) = k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) [avatar definition]
+113. k2_relat_1(k1_net_1(sK0)) != k2_xboole_0(k2_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))),k2_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) <- (~4) [avatar component clause 111] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+114. ~1 | ~2 | ~3 | ~4 [avatar split clause 73,111,107,103,99]
+116. 5 <=> l1_petri(sK0) [avatar definition]
+118. l1_petri(sK0) <- (5) [avatar component clause 116] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+119. 5 [avatar split clause 72,116]
+121. 6 <=> v1_net_1(sK0) [avatar definition]
+123. v1_net_1(sK0) <- (6) [avatar component clause 121] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+124. 6 [avatar split clause 71,121]
+175. k1_net_1(sK0) != k1_net_1(sK0) | ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u1_struct_0(sK0),u4_struct_0(sK0)),X0)) | ~v1_relat_1(k1_net_1(sK0)) <- (~1) [superposition 101,97] {a:1,w:18,wCS:1800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+180. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u1_struct_0(sK0),u4_struct_0(sK0)),X0)) | ~v1_relat_1(k1_net_1(sK0)) <- (~1) [trivial inequality removal 175] {a:1,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+186. 8 <=> v1_relat_1(k1_net_1(sK0)) [avatar definition]
+187. v1_relat_1(k1_net_1(sK0)) <- (8) [avatar component clause 186] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+188. ~v1_relat_1(k1_net_1(sK0)) <- (~8) [avatar component clause 186] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+190. 9 <=> ! [X0] : ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u1_struct_0(sK0),u4_struct_0(sK0)),X0)) [avatar definition]
+191. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u1_struct_0(sK0),u4_struct_0(sK0)),X0)) <- (9) [avatar component clause 190] {a:1,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+192. ~8 | 9 | 1 [avatar split clause 180,99,190,186]
+195. ~l1_petri(sK0) <- (~8) [resolution 188,74] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+197. $false <- (5, ~8) [subsumption resolution 195,118] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+198. ~5 | 8 [avatar contradiction clause 197]
+199. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_net_1(sK0),X0)) | ~l1_petri(sK0) <- (9) [superposition 191,75] {a:2,w:9,wCS:900,goal:1,sine:2,thAx:0,allAx:4,thDist:-4}
+200. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_net_1(sK0),X0)) <- (5, 9) [subsumption resolution 199,118] {a:2,w:7,wCS:700,nSel:1,goal:1,sine:2,thAx:0,allAx:4,thDist:-4}
+202. ~l1_petri(sK0) | ~v1_net_1(sK0) <- (5, 9) [resolution 200,83] {a:3,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+204. ~v1_net_1(sK0) <- (5, 9) [subsumption resolution 202,118] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+205. $false <- (5, 6, 9) [subsumption resolution 204,123] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+206. ~5 | ~6 | ~9 [avatar contradiction clause 205]
+208. k1_net_1(sK0) != k1_net_1(sK0) | ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u4_struct_0(sK0),u1_struct_0(sK0)),X0)) | ~v1_relat_1(k1_net_1(sK0)) <- (~2) [superposition 105,97] {a:1,w:18,wCS:1800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+211. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u4_struct_0(sK0),u1_struct_0(sK0)),X0)) | ~v1_relat_1(k1_net_1(sK0)) <- (~2) [trivial inequality removal 208] {a:1,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+212. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u4_struct_0(sK0),u1_struct_0(sK0)),X0)) <- (~2, 8) [subsumption resolution 211,187] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+213. ~r1_tarski(k1_net_1(sK0),k2_zfmisc_1(k2_xboole_0(u1_struct_0(sK0),u4_struct_0(sK0)),X0)) <- (~2, 8) [forward demodulation 212,92] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+214. 9 | 2 | ~8 [avatar split clause 213,186,103,190]
+224. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (~3) [superposition 109,81] {a:1,w:28,wCS:2800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+225. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k1_net_1(sK0)) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (1, ~3) [forward demodulation 224,100] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+226. ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (1, ~3) [trivial inequality removal 225] {a:1,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+228. 10 <=> v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) [avatar definition]
+229. v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (10) [avatar component clause 228] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+230. ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) <- (~10) [avatar component clause 228] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+232. 11 <=> v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) [avatar definition]
+234. ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (~11) [avatar component clause 232] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+235. ~10 | ~11 | ~1 | 3 [avatar split clause 226,107,99,232,228]
+237. ~v1_relat_1(k1_net_1(sK0)) <- (~10) [resolution 230,93] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+239. $false <- (8, ~10) [subsumption resolution 237,187] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+240. ~8 | 10 [avatar contradiction clause 239]
+242. ~v1_relat_1(k1_net_1(sK0)) <- (~11) [resolution 234,93] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+244. $false <- (8, ~11) [subsumption resolution 242,187] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+245. ~8 | 11 [avatar contradiction clause 244]
+264. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (~4) [superposition 113,81] {a:1,w:28,wCS:2800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+267. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k2_xboole_0(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (~4, 10) [subsumption resolution 264,229] {a:1,w:22,wCS:2200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+268. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k2_xboole_0(k5_relat_1(k1_net_1(sK0),u1_struct_0(sK0)),k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0)))) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (~4, 10) [forward demodulation 267,92] {a:1,w:22,wCS:2200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+269. k2_relat_1(k1_net_1(sK0)) != k2_relat_1(k1_net_1(sK0)) | ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (1, ~4, 10) [forward demodulation 268,100] {a:1,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+270. ~v1_relat_1(k5_relat_1(k1_net_1(sK0),u4_struct_0(sK0))) <- (1, ~4, 10) [trivial inequality removal 269] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+271. ~11 | ~1 | 4 | ~10 [avatar split clause 270,228,111,99,232]
+276. $false [avatar sat refutation 114,119,124,192,198,206,214,235,240,245,271] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:106,thDist:-106}
+% SZS output end Proof for ff_siec__t16_ff_siec
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 35
+% >>> Preprocessing
+% Introduced skolems: 3
+% Pure predicates: 2
+% 
+% >>> Saturation
+% Initial clauses: 26
+% Generated clauses: 146
+% Active clauses: 46
+% Passive clauses: 65
+% Final active clauses: 38
+% Final passive clauses: 19
+% Main loop iterations started: 46
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 3
+% Trivial inequalities: 4
+% Fw subsumption resolutions: 23
+% Fw demodulations: 7
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 13
+% Fw demodulations to eq. taut.: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 17
+% Unit resulting resolution: 4
+% Forward superposition: 24
+% Backward superposition: 19
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 11
+% Sat splitting refutations: 12
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 23
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 10
+% 
+% Memory used [KB]: 5117
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% other: 0.004 s ( own 0.002 s ) 
+

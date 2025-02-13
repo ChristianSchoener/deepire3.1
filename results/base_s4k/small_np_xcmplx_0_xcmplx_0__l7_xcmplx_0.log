@@ -1,0 +1,50 @@
+i: [1,117,0,3,1,1,0,0] l7_xcmplx_0
+i: [1,126,0,3,1,0,0,255] spc1_numerals
+f: 126,117
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xcmplx_0__l7_xcmplx_0
+% SZS output start Proof for xcmplx_0__l7_xcmplx_0
+1. m1_subset_1(1,k1_numbers) [input l7_xcmplx_0]
+2. ~m1_subset_1(1,k1_numbers) [negated conjecture 1]
+48. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) & v2_xxreal_0(1) [input spc1_numerals]
+49. ~m1_subset_1(1,k1_numbers) [flattening 2]
+59. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) [pure predicate removal 48]
+117. ~m1_subset_1(1,k1_numbers) [cnf transformation 49] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+126. m1_subset_1(1,k1_numbers) [cnf transformation 59] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+176. 1 <=> m1_subset_1(1,k1_numbers) [avatar definition]
+179. ~1 [avatar split clause 117,176]
+210. 1 [avatar split clause 126,176]
+291. $false [avatar sat refutation 179,210] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:62,thDist:-62}
+% SZS output end Proof for xcmplx_0__l7_xcmplx_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 47
+% >>> Preprocessing
+% Introduced skolems: 10
+% Pure predicates: 3
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 58
+% Generated clauses: 58
+% Passive clauses: 26
+% Final passive clauses: 26
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 26
+% SAT solver unit clauses: 24
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% other: 0.002 s ( own 0.0000 s ) 
+

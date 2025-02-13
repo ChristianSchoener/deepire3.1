@@ -1,0 +1,181 @@
+i: [1,300,0,3,1,1,0,0] t21_numbers
+a: [3,447,0,3,1,300]
+s: 447
+i: [1,301,0,2,1,0,0,255] fc7_card_1
+a: [3,452,0,2,1,301]
+s: 452
+i: [1,302,0,2,1,0,0,255] fc2_arytm_2
+a: [3,457,0,2,1,302]
+s: 457
+i: [1,303,0,2,1,0,0,1] fc2_numbers
+a: [3,462,0,2,1,303]
+s: 462
+i: [1,304,0,2,1,0,0,1] fc1_numbers
+a: [3,467,0,2,1,304]
+s: 467
+i: [1,305,0,2,1,0,0,255] spc1_boole
+a: [3,472,0,2,1,305]
+s: 472
+i: [1,306,0,2,1,0,0,255] fc4_card_1
+a: [3,477,0,2,1,306]
+s: 477
+i: [1,307,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,482,0,2,1,307]
+s: 482
+i: [1,308,0,2,1,0,0,255] fc1_xboole_0
+a: [3,487,0,2,1,308]
+s: 487
+i: [1,319,0,2,1,0,0,255] fc6_ordinal1
+a: [3,529,0,2,1,319]
+s: 529
+i: [1,318,0,2,1,0,0,255] fc6_ordinal1
+a: [3,534,0,2,1,318]
+s: 534
+i: [1,423,0,2,1,0,0,255] rc3_card_1
+a: [3,554,0,2,1,423]
+s: 554
+i: [1,424,0,2,1,0,0,2] rc2_xboole_0
+a: [3,559,0,2,1,424]
+s: 559
+i: [1,425,0,2,1,0,0,255] rc1_card_1
+a: [3,564,0,2,1,425]
+s: 564
+i: [1,426,0,2,1,0,0,255] rc4_ordinal1
+a: [3,569,0,2,1,426]
+s: 569
+i: [1,427,0,2,1,0,0,255] rc1_ordinal1
+a: [3,574,0,2,1,427]
+s: 574
+i: [1,428,0,2,1,0,0,2] rc1_xboole_0
+a: [3,579,0,2,1,428]
+s: 579
+i: [1,432,0,2,1,0,0,255] rc2_ordinal1
+a: [3,584,0,2,1,432]
+s: 584
+i: [1,431,0,2,1,0,0,255] rc2_ordinal1
+a: [3,589,0,2,1,431]
+s: 589
+i: [1,430,0,2,1,0,0,255] rc2_ordinal1
+a: [3,594,0,2,1,430]
+s: 594
+i: [1,429,0,2,1,0,0,255] rc2_ordinal1
+a: [3,599,0,2,1,429]
+s: 599
+i: [1,434,0,2,1,0,0,255] rc5_ordinal1
+a: [3,604,0,2,1,434]
+s: 604
+i: [1,433,0,2,1,0,0,255] rc5_ordinal1
+a: [3,609,0,2,1,433]
+s: 609
+i: [1,436,0,2,1,0,0,255] rc1_relat_1
+a: [3,614,0,2,1,436]
+s: 614
+i: [1,435,0,2,1,0,0,255] rc1_relat_1
+a: [3,619,0,2,1,435]
+s: 619
+i: [1,441,0,2,1,0,0,255] rc2_card_1
+a: [3,624,0,2,1,441]
+s: 624
+i: [1,440,0,2,1,0,0,255] rc2_card_1
+a: [3,629,0,2,1,440]
+s: 629
+i: [1,439,0,2,1,0,0,255] rc2_card_1
+a: [3,634,0,2,1,439]
+s: 634
+i: [1,438,0,2,1,0,0,255] rc2_card_1
+a: [3,639,0,2,1,438]
+s: 639
+i: [1,437,0,2,1,0,0,255] rc2_card_1
+a: [3,644,0,2,1,437]
+s: 644
+i: [1,442,0,2,1,0,0,255] rc2_relat_1
+a: [3,649,0,2,1,442]
+s: 649
+i: [1,323,0,3,1,0,0,255] fc2_xboole_0
+s: 323
+i: [1,381,0,3,1,0,0,255] irreflexivity_r2_xboole_0
+s: 381
+i: [1,382,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 382
+i: [1,309,0,3,1,0,0,255] redefinition_k5_numbers
+a: [3,492,0,3,1,309]
+s: 492
+i: [1,311,0,3,1,0,0,255] d2_xboole_0
+a: [3,498,0,3,1,311]
+s: 498
+r: 482
+i: [1,312,0,3,1,0,0,255] t1_numbers
+a: [3,503,0,3,1,312]
+s: 503
+d: [2,654,0,3,1,2,22,503,447]
+d: [2,655,0,0,0,2,21,654,381]
+e: 655
+f: 655,312,300
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for numbers__t21_numbers
+% SZS output start Proof for numbers__t21_numbers
+1. k1_numbers != k2_numbers [input t21_numbers]
+2. ~k1_numbers != k2_numbers [negated conjecture 1]
+129. ! [X0,X1] : ~r2_xboole_0(X0,X0) [input irreflexivity_r2_xboole_0]
+139. r2_xboole_0(k1_numbers,k2_numbers) [input t1_numbers]
+140. k1_numbers = k2_numbers [flattening 2]
+151. ! [X0] : ~r2_xboole_0(X0,X0) [rectify 129]
+300. k1_numbers = k2_numbers [cnf transformation 140] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+312. r2_xboole_0(k1_numbers,k2_numbers) [cnf transformation 139] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+381. ~r2_xboole_0(X0,X0) [cnf transformation 151] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+445. 1 <=> k1_numbers = k2_numbers [avatar definition]
+447. k1_numbers = k2_numbers <- (1) [avatar component clause 445] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+448. 1 [avatar split clause 300,445]
+501. 12 <=> r2_xboole_0(k1_numbers,k2_numbers) [avatar definition]
+503. r2_xboole_0(k1_numbers,k2_numbers) <- (12) [avatar component clause 501] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+504. 12 [avatar split clause 312,501]
+654. r2_xboole_0(k1_numbers,k1_numbers) <- (1, 12) [forward demodulation 503,447] {a:0,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+655. $false <- (1, 12) [subsumption resolution 654,381] {a:0,w:0,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+656. ~1 | ~12 [avatar contradiction clause 655]
+657. $false [avatar sat refutation 448,504,656] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:111,thDist:-111}
+% SZS output end Proof for numbers__t21_numbers
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 138
+% >>> Preprocessing
+% Introduced skolems: 21
+% Pure predicates: 7
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 143
+% Generated clauses: 188
+% Active clauses: 35
+% Passive clauses: 137
+% Final active clauses: 34
+% Final passive clauses: 100
+% Main loop iterations started: 37
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 2
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 47
+% SAT solver unit clauses: 43
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

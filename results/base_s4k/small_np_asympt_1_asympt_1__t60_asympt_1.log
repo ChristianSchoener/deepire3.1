@@ -1,0 +1,51 @@
+i: [1,694,0,9,1,1,0,0] t60_asympt_1
+i: [1,712,0,9,1,0,0,1] l100_asympt_1
+f: 712,694
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for asympt_1__t60_asympt_1
+% SZS output start Proof for asympt_1__t60_asympt_1
+1. v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [input t60_asympt_1]
+2. ~v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [negated conjecture 1]
+278. v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [input l100_asympt_1]
+279. ~v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [flattening 2]
+694. ~v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [cnf transformation 279] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+712. v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [cnf transformation 278] {a:0,w:9,wCS:3600,sine:1,thAx:0,allAx:1,thDist:-1}
+1211. 1 <=> v4_asympt_0(k47_valued_1(k5_numbers,k1_numbers,k1_numbers,k3_asympt_1(1),k4_asympt_1(1))) [avatar definition]
+1214. ~1 [avatar split clause 694,1211]
+1295. 1 [avatar split clause 712,1211]
+1806. $false [avatar sat refutation 1214,1295] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:333,thDist:-333}
+% SZS output end Proof for asympt_1__t60_asympt_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 277
+% >>> Preprocessing
+% Introduced skolems: 44
+% Pure predicates: 3
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 516
+% Generated clauses: 516
+% Passive clauses: 358
+% Final passive clauses: 358
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 37
+% Equational tautologies: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 122
+% SAT solver unit clauses: 120
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% other: 0.003 s ( own 0.001 s ) 
+

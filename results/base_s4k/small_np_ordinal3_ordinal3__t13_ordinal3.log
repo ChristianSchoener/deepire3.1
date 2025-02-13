@@ -1,0 +1,234 @@
+i: [1,51,0,2,1,1,0,0] t13_ordinal3
+a: [3,85,0,2,1,51]
+s: 85
+i: [1,50,0,2,1,1,0,0] t13_ordinal3
+a: [3,90,0,2,1,50]
+s: 90
+i: [1,53,0,5,1,1,0,0] t13_ordinal3
+a: [3,75,0,5,1,53]
+s: 75
+i: [1,52,0,5,1,1,0,0] t13_ordinal3
+a: [3,80,0,5,1,52]
+s: 80
+i: [1,71,0,2,1,0,0,1] rc1_ordinal1
+a: [3,102,0,2,1,71]
+s: 102
+i: [1,63,0,3,1,0,0,2] reflexivity_r1_tarski
+s: 63
+i: [1,54,0,4,2,0,0,255] cc1_ordinal1
+s: 54
+i: [1,55,0,4,2,0,0,255] cc1_ordinal1
+s: 55
+d: [2,104,1,2,1,1,40,54,85]
+a: [3,110,1,2,1,104]
+s: 110
+i: [1,62,0,4,1,0,0,255] existence_m1_subset_1
+s: 62
+i: [1,64,0,5,1,0,0,1] idempotence_k3_xboole_0
+s: 64
+d: [2,105,1,2,1,1,40,54,90]
+a: [3,115,1,2,1,105]
+s: 115
+i: [1,66,0,7,3,0,0,255] reflexivity_r1_ordinal1
+a: [3,97,0,5,2,66]
+s: 97
+d: [2,122,1,2,1,1,40,55,85]
+a: [3,128,1,2,1,122]
+s: 128
+i: [1,58,0,6,3,0,0,255] cc2_ordinal1
+s: 58
+i: [1,56,0,7,3,0,0,255] cc5_ordinal1
+s: 56
+d: [2,123,1,2,1,1,40,55,90]
+a: [3,133,1,2,1,123]
+s: 133
+i: [1,57,0,7,3,0,0,255] cc2_ordinal2
+s: 57
+d: [2,106,1,2,1,1,40,54,102]
+a: [3,120,1,2,1,106]
+s: 120
+i: [1,60,0,7,2,0,0,255] t3_subset
+s: 60
+i: [1,61,0,7,2,0,0,255] t3_subset
+s: 61
+d: [2,124,1,2,1,1,40,55,102]
+a: [3,138,1,2,1,124]
+s: 138
+i: [1,65,0,7,1,0,0,1] commutativity_k3_xboole_0
+s: 65
+d: [2,141,1,5,2,0,40,56,62]
+s: 141
+i: [1,59,0,8,2,0,0,1] t28_xboole_1
+s: 59
+i: [1,67,0,8,3,0,0,1] fc2_ordinal3
+s: 67
+d: [2,151,1,6,2,1,44,80,59]
+d: [2,155,1,3,1,1,19,151]
+a: [3,159,1,3,1,155]
+s: 159
+i: [1,68,0,10,4,0,0,255] connectedness_r1_ordinal1
+s: 68
+d: [2,143,1,5,1,0,40,60,62]
+s: 143
+i: [1,69,0,10,4,0,0,255] redefinition_r1_ordinal1
+s: 69
+i: [1,70,0,10,4,0,0,255] redefinition_r1_ordinal1
+s: 70
+d: [2,147,2,5,2,0,40,141,55]
+s: 147
+d: [2,145,1,8,3,0,40,61,56]
+s: 145
+d: [2,148,2,5,2,0,40,141,54]
+s: 148
+d: [2,149,1,8,2,0,44,59,65]
+s: 149
+d: [2,150,1,8,2,0,44,59,65]
+s: 150
+d: [2,188,2,6,2,1,44,80,149]
+a: [3,198,2,3,1,188]
+s: 198
+d: [2,153,1,8,2,0,44,65,59]
+s: 153
+d: [2,183,2,5,2,0,40,145,63]
+s: 183
+d: [2,154,1,8,2,0,44,65,59]
+s: 154
+d: [2,166,1,8,3,0,40,67,55]
+s: 166
+d: [2,167,1,8,3,0,40,67,54]
+s: 167
+d: [2,176,1,14,6,0,40,69,68]
+d: [2,177,1,10,4,0,18,176]
+s: 177
+d: [2,214,2,7,3,1,40,177,159]
+d: [2,219,2,5,2,2,21,214,85]
+d: [2,220,2,3,1,3,21,219,90]
+a: [3,224,2,3,1,220]
+s: 224
+d: [2,233,3,0,0,4,52,85,90,198,224,69]
+e: 233
+d: [2,234,3,7,3,1,40,224,69]
+d: [2,236,3,4,2,2,21,234,198]
+d: [2,237,3,2,1,3,21,236,90]
+d: [2,238,3,0,0,4,21,237,85]
+e: 238
+d: [2,189,2,6,2,1,44,75,149]
+d: [2,194,2,3,1,1,19,189]
+f: 238,220,194,155,50,51,52,53
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ordinal3__t13_ordinal3
+% SZS output start Proof for ordinal3__t13_ordinal3
+1. ! [X0] : (v3_ordinal1(X0) => ! [X1] : (v3_ordinal1(X1) => (k3_xboole_0(X0,X1) = X1 | k3_xboole_0(X0,X1) = X0))) [input t13_ordinal3]
+2. ~! [X0] : (v3_ordinal1(X0) => ! [X1] : (v3_ordinal1(X1) => (k3_xboole_0(X0,X1) = X1 | k3_xboole_0(X0,X1) = X0))) [negated conjecture 1]
+7. ! [X0,X1] : k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [input commutativity_k3_xboole_0]
+8. ! [X0,X1] : ((v3_ordinal1(X1) & v3_ordinal1(X0)) => (r1_ordinal1(X1,X0) | r1_ordinal1(X0,X1))) [input connectedness_r1_ordinal1]
+16. ! [X0,X1] : ((v3_ordinal1(X1) & v3_ordinal1(X0)) => (r1_ordinal1(X0,X1) <=> r1_tarski(X0,X1))) [input redefinition_r1_ordinal1]
+19. ! [X0] : ! [X1] : (r1_tarski(X0,X1) => k3_xboole_0(X0,X1) = X0) [input t28_xboole_1]
+21. ! [X0,X1] : (r1_tarski(X0,X1) => k3_xboole_0(X0,X1) = X0) [flattening 19]
+25. ? [X0] : (? [X1] : ((k3_xboole_0(X0,X1) != X1 & k3_xboole_0(X0,X1) != X0) & v3_ordinal1(X1)) & v3_ordinal1(X0)) [ennf transformation 2]
+26. ? [X0] : (? [X1] : (k3_xboole_0(X0,X1) != X1 & k3_xboole_0(X0,X1) != X0 & v3_ordinal1(X1)) & v3_ordinal1(X0)) [flattening 25]
+32. ! [X0,X1] : (k3_xboole_0(X0,X1) = X0 | ~r1_tarski(X0,X1)) [ennf transformation 21]
+37. ! [X0,X1] : ((r1_ordinal1(X1,X0) | r1_ordinal1(X0,X1)) | (~v3_ordinal1(X1) | ~v3_ordinal1(X0))) [ennf transformation 8]
+38. ! [X0,X1] : (r1_ordinal1(X1,X0) | r1_ordinal1(X0,X1) | ~v3_ordinal1(X1) | ~v3_ordinal1(X0)) [flattening 37]
+39. ! [X0,X1] : ((r1_ordinal1(X0,X1) <=> r1_tarski(X0,X1)) | (~v3_ordinal1(X1) | ~v3_ordinal1(X0))) [ennf transformation 16]
+40. ! [X0,X1] : ((r1_ordinal1(X0,X1) <=> r1_tarski(X0,X1)) | ~v3_ordinal1(X1) | ~v3_ordinal1(X0)) [flattening 39]
+41. ? [X0] : (? [X1] : (k3_xboole_0(X0,X1) != X1 & k3_xboole_0(X0,X1) != X0 & v3_ordinal1(X1)) & v3_ordinal1(X0)) => (? [X1] : (k3_xboole_0(sK0,X1) != X1 & sK0 != k3_xboole_0(sK0,X1) & v3_ordinal1(X1)) & v3_ordinal1(sK0)) [choice axiom]
+42. ? [X1] : (k3_xboole_0(sK0,X1) != X1 & sK0 != k3_xboole_0(sK0,X1) & v3_ordinal1(X1)) => (sK1 != k3_xboole_0(sK0,sK1) & sK0 != k3_xboole_0(sK0,sK1) & v3_ordinal1(sK1)) [choice axiom]
+43. (sK1 != k3_xboole_0(sK0,sK1) & sK0 != k3_xboole_0(sK0,sK1) & v3_ordinal1(sK1)) & v3_ordinal1(sK0) [skolemisation 26,42,41]
+47. ! [X0,X1] : (((r1_ordinal1(X0,X1) | ~r1_tarski(X0,X1)) & (r1_tarski(X0,X1) | ~r1_ordinal1(X0,X1))) | ~v3_ordinal1(X1) | ~v3_ordinal1(X0)) [nnf transformation 40]
+50. v3_ordinal1(sK0) [cnf transformation 43] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+51. v3_ordinal1(sK1) [cnf transformation 43] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+52. sK0 != k3_xboole_0(sK0,sK1) [cnf transformation 43] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+53. sK1 != k3_xboole_0(sK0,sK1) [cnf transformation 43] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+59. k3_xboole_0(X0,X1) = X0 | ~r1_tarski(X0,X1) [cnf transformation 32] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+65. k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [cnf transformation 7] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+68. r1_ordinal1(X1,X0) | r1_ordinal1(X0,X1) | ~v3_ordinal1(X1) | ~v3_ordinal1(X0) [cnf transformation 38] {a:0,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+69. ~r1_ordinal1(X0,X1) | r1_tarski(X0,X1) | ~v3_ordinal1(X1) | ~v3_ordinal1(X0) [cnf transformation 47] {a:0,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+73. 1 <=> sK1 = k3_xboole_0(sK0,sK1) [avatar definition]
+75. sK1 != k3_xboole_0(sK0,sK1) <- (~1) [avatar component clause 73] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+76. ~1 [avatar split clause 53,73]
+78. 2 <=> sK0 = k3_xboole_0(sK0,sK1) [avatar definition]
+80. sK0 != k3_xboole_0(sK0,sK1) <- (~2) [avatar component clause 78] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+81. ~2 [avatar split clause 52,78]
+83. 3 <=> v3_ordinal1(sK1) [avatar definition]
+85. v3_ordinal1(sK1) <- (3) [avatar component clause 83] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+86. 3 [avatar split clause 51,83]
+88. 4 <=> v3_ordinal1(sK0) [avatar definition]
+90. v3_ordinal1(sK0) <- (4) [avatar component clause 88] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+91. 4 [avatar split clause 50,88]
+149. k3_xboole_0(X4,X3) = X3 | ~r1_tarski(X3,X4) [superposition 59,65] {a:1,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+151. sK0 != sK0 | ~r1_tarski(sK0,sK1) <- (~2) [superposition 80,59] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+155. ~r1_tarski(sK0,sK1) <- (~2) [trivial inequality removal 151] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+157. 14 <=> r1_tarski(sK0,sK1) [avatar definition]
+159. ~r1_tarski(sK0,sK1) <- (~14) [avatar component clause 157] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+160. ~14 | 2 [avatar split clause 155,78,157]
+176. r1_tarski(X1,X2) | ~v3_ordinal1(X2) | ~v3_ordinal1(X1) | r1_ordinal1(X2,X1) | ~v3_ordinal1(X1) | ~v3_ordinal1(X2) [resolution 69,68] {a:1,w:14,wCS:5600,sine:255,thAx:0,allAx:2,thDist:-2}
+177. r1_tarski(X1,X2) | ~v3_ordinal1(X2) | ~v3_ordinal1(X1) | r1_ordinal1(X2,X1) [duplicate literal removal 176] {a:1,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+189. sK1 != sK1 | ~r1_tarski(sK1,sK0) <- (~1) [superposition 75,149] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+194. ~r1_tarski(sK1,sK0) <- (~1) [trivial inequality removal 189] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+196. 16 <=> r1_tarski(sK1,sK0) [avatar definition]
+198. ~r1_tarski(sK1,sK0) <- (~16) [avatar component clause 196] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+200. ~16 | 1 [avatar split clause 194,73,196]
+214. ~v3_ordinal1(sK1) | ~v3_ordinal1(sK0) | r1_ordinal1(sK1,sK0) <- (~14) [resolution 177,159] {a:2,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+219. ~v3_ordinal1(sK0) | r1_ordinal1(sK1,sK0) <- (3, ~14) [subsumption resolution 214,85] {a:2,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+220. r1_ordinal1(sK1,sK0) <- (3, 4, ~14) [subsumption resolution 219,90] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+222. 17 <=> r1_ordinal1(sK1,sK0) [avatar definition]
+224. r1_ordinal1(sK1,sK0) <- (17) [avatar component clause 222] {a:2,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+225. 17 | ~3 | ~4 | 14 [avatar split clause 220,157,88,83,222]
+234. r1_tarski(sK1,sK0) | ~v3_ordinal1(sK0) | ~v3_ordinal1(sK1) <- (17) [resolution 224,69] {a:3,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+236. ~v3_ordinal1(sK0) | ~v3_ordinal1(sK1) <- (~16, 17) [subsumption resolution 234,198] {a:3,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+237. ~v3_ordinal1(sK1) <- (4, ~16, 17) [subsumption resolution 236,90] {a:3,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+238. $false <- (3, 4, ~16, 17) [subsumption resolution 237,85] {a:3,w:0,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+239. ~3 | ~4 | 16 | ~17 [avatar contradiction clause 238]
+240. $false [avatar sat refutation 76,81,86,91,160,200,225,239] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:130,thDist:-130}
+% SZS output end Proof for ordinal3__t13_ordinal3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 19
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 22
+% Generated clauses: 116
+% Active clauses: 40
+% Passive clauses: 48
+% Final active clauses: 40
+% Final passive clauses: 4
+% Main loop iterations started: 44
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 11
+% Trivial inequalities: 2
+% Fw subsumption resolutions: 7
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 5
+% Forward subsumptions: 30
+% 
+% >>> Generating Inferences
+% Binary resolution: 30
+% Unit resulting resolution: 1
+% Factoring: 1
+% Forward superposition: 19
+% Backward superposition: 10
+% 
+% >>> AVATAR
+% Split clauses: 3
+% Split components: 6
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 22
+% SAT solver unit clauses: 5
+% SAT solver binary clauses: 9
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.002 s
+

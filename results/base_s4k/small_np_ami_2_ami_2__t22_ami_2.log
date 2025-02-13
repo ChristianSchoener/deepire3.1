@@ -1,0 +1,50 @@
+i: [1,476,0,3,1,1,0,0] t22_ami_2
+i: [1,487,0,3,1,0,0,1] l9_ami_2
+f: 487,476
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ami_2__t22_ami_2
+% SZS output start Proof for ami_2__t22_ami_2
+1. r2_hidden(k5_numbers,k1_ami_2) [input t22_ami_2]
+2. ~r2_hidden(k5_numbers,k1_ami_2) [negated conjecture 1]
+184. r2_hidden(k5_numbers,k1_ami_2) [input l9_ami_2]
+185. ~r2_hidden(k5_numbers,k1_ami_2) [flattening 2]
+476. ~r2_hidden(k5_numbers,k1_ami_2) [cnf transformation 185] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+487. r2_hidden(k5_numbers,k1_ami_2) [cnf transformation 184] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+805. 1 <=> r2_hidden(k5_numbers,k1_ami_2) [avatar definition]
+808. ~1 [avatar split clause 476,805]
+859. 1 [avatar split clause 487,805]
+1230. $false [avatar sat refutation 808,859] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:238,thDist:-238}
+% SZS output end Proof for ami_2__t22_ami_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 183
+% >>> Preprocessing
+% Introduced skolems: 47
+% Pure predicates: 9
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 328
+% Generated clauses: 328
+% Passive clauses: 177
+% Final passive clauses: 177
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 65
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 88
+% SAT solver unit clauses: 86
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s ( own 0.0000 s ) 
+% sine selection: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

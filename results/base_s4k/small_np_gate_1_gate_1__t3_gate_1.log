@@ -1,0 +1,86 @@
+i: [1,18,0,3,1,1,0,0] t3_gate_1
+a: [3,27,0,3,1,18]
+s: 27
+i: [1,19,0,2,1,0,0,1] fc1_xboole_0
+a: [3,32,0,2,1,19]
+s: 32
+i: [1,22,0,2,1,0,0,1] rc2_xboole_0
+a: [3,37,0,2,1,22]
+s: 37
+i: [1,23,0,2,1,0,0,1] rc1_xboole_0
+a: [3,42,0,2,1,23]
+s: 42
+i: [1,20,0,5,2,0,0,1] fc2_gate_1
+s: 20
+i: [1,21,0,5,2,0,0,1] fc1_gate_1
+s: 21
+d: [2,44,1,0,0,2,52,32,27,21]
+e: 44
+d: [2,45,1,2,1,1,40,21,27]
+d: [2,48,1,0,0,2,21,45,32]
+e: 48
+f: 48,19,18
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gate_1__t3_gate_1
+% SZS output start Proof for gate_1__t3_gate_1
+1. ~v1_xboole_0(k1_gate_1(k1_xboole_0)) [input t3_gate_1]
+2. ~~v1_xboole_0(k1_gate_1(k1_xboole_0)) [negated conjecture 1]
+6. ! [X0] : (v1_xboole_0(X0) => ~v1_xboole_0(k1_gate_1(X0))) [input fc1_gate_1]
+7. v1_xboole_0(k1_xboole_0) [input fc1_xboole_0]
+11. v1_xboole_0(k1_gate_1(k1_xboole_0)) [flattening 2]
+13. ! [X0] : (~v1_xboole_0(k1_gate_1(X0)) | ~v1_xboole_0(X0)) [ennf transformation 6]
+18. v1_xboole_0(k1_gate_1(k1_xboole_0)) [cnf transformation 11] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+19. v1_xboole_0(k1_xboole_0) [cnf transformation 7] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+21. ~v1_xboole_0(k1_gate_1(X0)) | ~v1_xboole_0(X0) [cnf transformation 13] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+25. 1 <=> v1_xboole_0(k1_gate_1(k1_xboole_0)) [avatar definition]
+27. v1_xboole_0(k1_gate_1(k1_xboole_0)) <- (1) [avatar component clause 25] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+28. 1 [avatar split clause 18,25]
+30. 2 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+32. v1_xboole_0(k1_xboole_0) <- (2) [avatar component clause 30] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+33. 2 [avatar split clause 19,30]
+45. ~v1_xboole_0(k1_xboole_0) <- (1) [resolution 21,27] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+48. $false <- (1, 2) [subsumption resolution 45,32] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+49. ~1 | ~2 [avatar contradiction clause 48]
+50. $false [avatar sat refutation 28,33,49] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:15,thDist:-15}
+% SZS output end Proof for gate_1__t3_gate_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 9
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 6
+% Generated clauses: 14
+% Active clauses: 6
+% Passive clauses: 6
+% Final active clauses: 6
+% Main loop iterations started: 6
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 2
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

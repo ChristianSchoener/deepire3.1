@@ -1,0 +1,192 @@
+i: [1,61,0,2,1,1,0,0] t39_card_fin
+a: [3,101,0,2,1,61]
+s: 101
+i: [1,60,0,2,1,1,0,0] t39_card_fin
+a: [3,106,0,2,1,60]
+s: 106
+i: [1,59,0,2,1,1,0,0] t39_card_fin
+a: [3,111,0,2,1,59]
+s: 111
+i: [1,62,0,3,1,1,0,0] t39_card_fin
+a: [3,96,0,3,1,62]
+s: 96
+i: [1,63,0,4,1,1,0,0] t39_card_fin
+a: [3,91,0,4,1,63]
+s: 91
+i: [1,82,0,2,1,0,0,1] rc3_card_1
+a: [3,116,0,2,1,82]
+s: 116
+i: [1,84,0,2,1,0,0,1] rc1_funct_1
+a: [3,121,0,2,1,84]
+s: 121
+i: [1,83,0,2,1,0,0,1] rc1_funct_1
+a: [3,126,0,2,1,83]
+s: 126
+i: [1,87,0,2,1,0,0,255] rc5_funct_1
+a: [3,131,0,2,1,87]
+s: 131
+i: [1,86,0,2,1,0,0,255] rc5_funct_1
+a: [3,136,0,2,1,86]
+s: 136
+i: [1,85,0,2,1,0,0,255] rc5_funct_1
+a: [3,141,0,2,1,85]
+s: 141
+i: [1,64,0,4,2,0,0,1] cc5_finset_1
+s: 64
+i: [1,65,0,4,2,0,0,1] cc4_finset_1
+s: 65
+i: [1,70,0,7,3,0,0,1] fc24_relat_1
+s: 70
+i: [1,71,0,7,3,0,0,1] fc25_relat_1
+s: 71
+i: [1,72,0,7,3,0,0,1] fc36_finset_1
+s: 72
+i: [1,79,0,7,3,0,0,1] fc19_finset_1
+s: 79
+i: [1,80,0,7,3,0,0,1] fc22_finset_1
+s: 80
+i: [1,81,0,7,3,0,0,1] fc34_finset_1
+s: 81
+i: [1,69,0,8,4,0,0,255] cc6_funct_1
+s: 69
+i: [1,74,0,8,4,0,0,255] cc5_funct_1
+s: 74
+d: [2,145,1,6,2,1,40,81,91]
+a: [3,149,1,3,1,145]
+s: 149
+i: [1,66,0,9,4,0,0,1] fc18_funct_1
+s: 66
+d: [2,157,2,4,2,1,40,149,80]
+d: [2,158,2,2,1,2,21,157,111]
+a: [3,162,2,2,1,158]
+s: 162
+i: [1,73,0,9,4,0,0,255] fc13_funct_1
+s: 73
+i: [1,77,0,9,4,0,0,255] fc12_funct_1
+s: 77
+d: [2,143,1,7,3,0,40,70,64]
+s: 143
+i: [1,78,0,10,4,0,0,1] t8_finset_1
+s: 78
+d: [2,172,2,0,0,4,52,111,106,149,96,78]
+e: 172
+d: [2,173,1,7,3,1,40,78,96]
+d: [2,179,1,4,2,2,21,173,149]
+d: [2,180,1,2,1,3,21,179,106]
+d: [2,181,1,0,0,4,21,180,111]
+e: 181
+r: 149
+a: [3,148,1,3,1,145]
+s: 148
+a: [3,153,1,3,1,145]
+s: 153
+d: [2,186,2,0,0,3,52,111,101,153,72]
+e: 186
+d: [2,187,2,4,2,1,40,153,72]
+d: [2,189,2,2,1,2,21,187,101]
+d: [2,190,2,0,0,3,21,189,111]
+e: 190
+d: [2,183,1,5,2,2,21,173,106]
+d: [2,184,1,3,1,3,21,183,111]
+f: 190,184,145,59,60,61,62,63
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for card_fin__t39_card_fin
+% SZS output start Proof for card_fin__t39_card_fin
+1. ! [X0] : ((v2_finset_1(X0) & v1_funct_1(X0) & v1_relat_1(X0)) => (v1_finset_1(k9_xtuple_0(X0)) => v1_finset_1(k3_tarski(k10_xtuple_0(X0))))) [input t39_card_fin]
+2. ~! [X0] : ((v2_finset_1(X0) & v1_funct_1(X0) & v1_relat_1(X0)) => (v1_finset_1(k9_xtuple_0(X0)) => v1_finset_1(k3_tarski(k10_xtuple_0(X0))))) [negated conjecture 1]
+17. ! [X0] : ((v5_finset_1(X0) & v1_finset_1(X0)) => v1_finset_1(k3_tarski(X0))) [input fc34_finset_1]
+18. ! [X0] : ((v2_finset_1(X0) & v1_relat_1(X0)) => v5_finset_1(k10_xtuple_0(X0))) [input fc36_finset_1]
+22. ! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => (v1_finset_1(k9_xtuple_0(X0)) => v1_finset_1(k10_xtuple_0(X0)))) [input t8_finset_1]
+23. ? [X0] : ((~v1_finset_1(k3_tarski(k10_xtuple_0(X0))) & v1_finset_1(k9_xtuple_0(X0))) & (v2_finset_1(X0) & v1_funct_1(X0) & v1_relat_1(X0))) [ennf transformation 2]
+24. ? [X0] : (~v1_finset_1(k3_tarski(k10_xtuple_0(X0))) & v1_finset_1(k9_xtuple_0(X0)) & v2_finset_1(X0) & v1_funct_1(X0) & v1_relat_1(X0)) [flattening 23]
+35. ! [X0] : (v5_finset_1(k10_xtuple_0(X0)) | (~v2_finset_1(X0) | ~v1_relat_1(X0))) [ennf transformation 18]
+36. ! [X0] : (v5_finset_1(k10_xtuple_0(X0)) | ~v2_finset_1(X0) | ~v1_relat_1(X0)) [flattening 35]
+43. ! [X0] : ((v1_finset_1(k10_xtuple_0(X0)) | ~v1_finset_1(k9_xtuple_0(X0))) | (~v1_funct_1(X0) | ~v1_relat_1(X0))) [ennf transformation 22]
+44. ! [X0] : (v1_finset_1(k10_xtuple_0(X0)) | ~v1_finset_1(k9_xtuple_0(X0)) | ~v1_funct_1(X0) | ~v1_relat_1(X0)) [flattening 43]
+49. ! [X0] : (v1_finset_1(k3_tarski(X0)) | (~v5_finset_1(X0) | ~v1_finset_1(X0))) [ennf transformation 17]
+50. ! [X0] : (v1_finset_1(k3_tarski(X0)) | ~v5_finset_1(X0) | ~v1_finset_1(X0)) [flattening 49]
+51. ? [X0] : (~v1_finset_1(k3_tarski(k10_xtuple_0(X0))) & v1_finset_1(k9_xtuple_0(X0)) & v2_finset_1(X0) & v1_funct_1(X0) & v1_relat_1(X0)) => (~v1_finset_1(k3_tarski(k10_xtuple_0(sK0))) & v1_finset_1(k9_xtuple_0(sK0)) & v2_finset_1(sK0) & v1_funct_1(sK0) & v1_relat_1(sK0)) [choice axiom]
+52. ~v1_finset_1(k3_tarski(k10_xtuple_0(sK0))) & v1_finset_1(k9_xtuple_0(sK0)) & v2_finset_1(sK0) & v1_funct_1(sK0) & v1_relat_1(sK0) [skolemisation 24,51]
+59. v1_relat_1(sK0) [cnf transformation 52] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+60. v1_funct_1(sK0) [cnf transformation 52] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+61. v2_finset_1(sK0) [cnf transformation 52] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+62. v1_finset_1(k9_xtuple_0(sK0)) [cnf transformation 52] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+63. ~v1_finset_1(k3_tarski(k10_xtuple_0(sK0))) [cnf transformation 52] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+72. v5_finset_1(k10_xtuple_0(X0)) | ~v2_finset_1(X0) | ~v1_relat_1(X0) [cnf transformation 36] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+78. ~v1_finset_1(k9_xtuple_0(X0)) | v1_finset_1(k10_xtuple_0(X0)) | ~v1_funct_1(X0) | ~v1_relat_1(X0) [cnf transformation 44] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+81. v1_finset_1(k3_tarski(X0)) | ~v5_finset_1(X0) | ~v1_finset_1(X0) [cnf transformation 50] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+89. 1 <=> v1_finset_1(k3_tarski(k10_xtuple_0(sK0))) [avatar definition]
+91. ~v1_finset_1(k3_tarski(k10_xtuple_0(sK0))) <- (~1) [avatar component clause 89] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+92. ~1 [avatar split clause 63,89]
+94. 2 <=> v1_finset_1(k9_xtuple_0(sK0)) [avatar definition]
+96. v1_finset_1(k9_xtuple_0(sK0)) <- (2) [avatar component clause 94] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+97. 2 [avatar split clause 62,94]
+99. 3 <=> v2_finset_1(sK0) [avatar definition]
+101. v2_finset_1(sK0) <- (3) [avatar component clause 99] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+102. 3 [avatar split clause 61,99]
+104. 4 <=> v1_funct_1(sK0) [avatar definition]
+106. v1_funct_1(sK0) <- (4) [avatar component clause 104] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+107. 4 [avatar split clause 60,104]
+109. 5 <=> v1_relat_1(sK0) [avatar definition]
+111. v1_relat_1(sK0) <- (5) [avatar component clause 109] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+112. 5 [avatar split clause 59,109]
+145. ~v5_finset_1(k10_xtuple_0(sK0)) | ~v1_finset_1(k10_xtuple_0(sK0)) <- (~1) [resolution 81,91] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+147. 12 <=> v1_finset_1(k10_xtuple_0(sK0)) [avatar definition]
+151. 13 <=> v5_finset_1(k10_xtuple_0(sK0)) [avatar definition]
+153. ~v5_finset_1(k10_xtuple_0(sK0)) <- (~13) [avatar component clause 151] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+154. ~12 | ~13 | 1 [avatar split clause 145,89,151,147]
+173. v1_finset_1(k10_xtuple_0(sK0)) | ~v1_funct_1(sK0) | ~v1_relat_1(sK0) <- (2) [resolution 78,96] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+183. v1_finset_1(k10_xtuple_0(sK0)) | ~v1_relat_1(sK0) <- (2, 4) [subsumption resolution 173,106] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+184. v1_finset_1(k10_xtuple_0(sK0)) <- (2, 4, 5) [subsumption resolution 183,111] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+185. 12 | ~2 | ~4 | ~5 [avatar split clause 184,109,104,94,147]
+187. ~v2_finset_1(sK0) | ~v1_relat_1(sK0) <- (~13) [resolution 153,72] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+189. ~v1_relat_1(sK0) <- (3, ~13) [subsumption resolution 187,101] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+190. $false <- (3, 5, ~13) [subsumption resolution 189,111] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+191. ~3 | ~5 | 13 [avatar contradiction clause 190]
+192. $false [avatar sat refutation 92,97,102,107,112,154,185,191] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:78,thDist:-78}
+% SZS output end Proof for card_fin__t39_card_fin
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 21
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 29
+% Generated clauses: 76
+% Active clauses: 28
+% Passive clauses: 36
+% Final active clauses: 27
+% Final passive clauses: 6
+% Main loop iterations started: 30
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 6
+% Fw subsumption resolutions: 8
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 15
+% Unit resulting resolution: 2
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 20
+% SAT solver unit clauses: 11
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

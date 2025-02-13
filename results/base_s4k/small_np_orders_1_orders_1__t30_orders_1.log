@@ -1,0 +1,124 @@
+i: [1,15,0,2,1,1,0,0] t30_orders_1
+a: [3,38,0,2,1,15]
+s: 38
+i: [1,17,0,3,1,1,0,0] t30_orders_1
+a: [3,28,0,3,1,17]
+s: 28
+i: [1,16,0,3,1,1,0,0] t30_orders_1
+a: [3,33,0,3,1,16]
+s: 33
+i: [1,18,0,8,3,0,0,1] d6_orders_1
+s: 18
+i: [1,19,0,8,3,0,0,1] d6_orders_1
+s: 19
+i: [1,21,0,8,3,0,0,255] d7_orders_1
+s: 21
+d: [2,40,1,5,2,1,40,21,33]
+d: [2,41,1,3,1,2,21,40,38]
+a: [3,45,1,3,1,41]
+s: 45
+i: [1,22,0,8,3,0,0,255] d7_orders_1
+s: 22
+d: [2,47,1,5,2,1,40,22,33]
+d: [2,48,1,3,1,2,21,47,38]
+a: [3,52,1,3,1,48]
+s: 52
+i: [1,23,0,8,3,0,0,255] d7_orders_1
+s: 23
+i: [1,20,0,11,4,0,0,1] d6_orders_1
+s: 20
+d: [2,61,2,0,0,4,52,38,45,28,52,20]
+e: 61
+d: [2,62,2,8,3,1,40,20,52]
+d: [2,64,2,5,2,2,21,62,28]
+d: [2,65,2,2,1,3,21,64,45]
+d: [2,66,2,0,0,4,21,65,38]
+e: 66
+f: 66,48,41,15,16,17
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for orders_1__t30_orders_1
+% SZS output start Proof for orders_1__t30_orders_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) => r1_orders_1(X0,X1))) [input t30_orders_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) => r1_orders_1(X0,X1))) [negated conjecture 1]
+3. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r1_orders_1(X0,X1) <=> (r8_relat_2(X0,X1) & r1_relat_2(X0,X1)))) [input d6_orders_1]
+4. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r2_orders_1(X0,X1) <=> (r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)))) [input d7_orders_1]
+5. ? [X0] : (? [X1] : (~r1_orders_1(X0,X1) & r2_orders_1(X0,X1)) & v1_relat_1(X0)) [ennf transformation 2]
+6. ! [X0] : (! [X1] : (r1_orders_1(X0,X1) <=> (r8_relat_2(X0,X1) & r1_relat_2(X0,X1))) | ~v1_relat_1(X0)) [ennf transformation 3]
+7. ! [X0] : (! [X1] : (r2_orders_1(X0,X1) <=> (r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1))) | ~v1_relat_1(X0)) [ennf transformation 4]
+8. ? [X0] : (? [X1] : (~r1_orders_1(X0,X1) & r2_orders_1(X0,X1)) & v1_relat_1(X0)) => (? [X1] : (~r1_orders_1(sK0,X1) & r2_orders_1(sK0,X1)) & v1_relat_1(sK0)) [choice axiom]
+9. ? [X1] : (~r1_orders_1(sK0,X1) & r2_orders_1(sK0,X1)) => (~r1_orders_1(sK0,sK1) & r2_orders_1(sK0,sK1)) [choice axiom]
+10. (~r1_orders_1(sK0,sK1) & r2_orders_1(sK0,sK1)) & v1_relat_1(sK0) [skolemisation 5,9,8]
+11. ! [X0] : (! [X1] : ((r1_orders_1(X0,X1) | (~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1))) & ((r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r1_orders_1(X0,X1))) | ~v1_relat_1(X0)) [nnf transformation 6]
+12. ! [X0] : (! [X1] : ((r1_orders_1(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1)) & ((r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r1_orders_1(X0,X1))) | ~v1_relat_1(X0)) [flattening 11]
+13. ! [X0] : (! [X1] : ((r2_orders_1(X0,X1) | (~r4_relat_2(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1))) & ((r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r2_orders_1(X0,X1))) | ~v1_relat_1(X0)) [nnf transformation 7]
+14. ! [X0] : (! [X1] : ((r2_orders_1(X0,X1) | ~r4_relat_2(X0,X1) | ~r8_relat_2(X0,X1) | ~r1_relat_2(X0,X1)) & ((r4_relat_2(X0,X1) & r8_relat_2(X0,X1) & r1_relat_2(X0,X1)) | ~r2_orders_1(X0,X1))) | ~v1_relat_1(X0)) [flattening 13]
+15. v1_relat_1(sK0) [cnf transformation 10] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+16. r2_orders_1(sK0,sK1) [cnf transformation 10] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+17. ~r1_orders_1(sK0,sK1) [cnf transformation 10] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+20. ~r8_relat_2(X0,X1) | r1_orders_1(X0,X1) | ~r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 12] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+21. ~r2_orders_1(X0,X1) | r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+22. ~r2_orders_1(X0,X1) | r8_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 14] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+26. 1 <=> r1_orders_1(sK0,sK1) [avatar definition]
+28. ~r1_orders_1(sK0,sK1) <- (~1) [avatar component clause 26] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+29. ~1 [avatar split clause 17,26]
+31. 2 <=> r2_orders_1(sK0,sK1) [avatar definition]
+33. r2_orders_1(sK0,sK1) <- (2) [avatar component clause 31] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+34. 2 [avatar split clause 16,31]
+36. 3 <=> v1_relat_1(sK0) [avatar definition]
+38. v1_relat_1(sK0) <- (3) [avatar component clause 36] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+39. 3 [avatar split clause 15,36]
+40. r1_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (2) [resolution 21,33] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+41. r1_relat_2(sK0,sK1) <- (2, 3) [subsumption resolution 40,38] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+43. 4 <=> r1_relat_2(sK0,sK1) [avatar definition]
+45. r1_relat_2(sK0,sK1) <- (4) [avatar component clause 43] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+46. 4 | ~2 | ~3 [avatar split clause 41,36,31,43]
+47. r8_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (2) [resolution 22,33] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+48. r8_relat_2(sK0,sK1) <- (2, 3) [subsumption resolution 47,38] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+50. 5 <=> r8_relat_2(sK0,sK1) [avatar definition]
+52. r8_relat_2(sK0,sK1) <- (5) [avatar component clause 50] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+53. 5 | ~2 | ~3 [avatar split clause 48,36,31,50]
+62. r1_orders_1(sK0,sK1) | ~r1_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (5) [resolution 20,52] {a:2,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+64. ~r1_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (~1, 5) [subsumption resolution 62,28] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+65. ~v1_relat_1(sK0) <- (~1, 4, 5) [subsumption resolution 64,45] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+66. $false <- (~1, 3, 4, 5) [subsumption resolution 65,38] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+67. 1 | ~3 | ~4 | ~5 [avatar contradiction clause 66]
+68. $false [avatar sat refutation 29,34,39,46,53,67] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:53,thDist:-53}
+% SZS output end Proof for orders_1__t30_orders_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 3
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 10
+% Generated clauses: 27
+% Active clauses: 11
+% Passive clauses: 13
+% Final active clauses: 11
+% Final passive clauses: 2
+% Main loop iterations started: 11
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 6
+% 
+% >>> Generating Inferences
+% Binary resolution: 4
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

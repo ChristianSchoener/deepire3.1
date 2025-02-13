@@ -1,0 +1,230 @@
+i: [1,61,0,2,1,1,0,0] t1_yellow_4
+a: [3,111,0,2,1,61]
+s: 111
+i: [1,64,0,3,1,1,0,0] t1_yellow_4
+a: [3,96,0,3,1,64]
+s: 96
+i: [1,63,0,3,1,1,0,0] t1_yellow_4
+a: [3,101,0,3,1,63]
+s: 101
+i: [1,62,0,4,1,1,0,0] t1_yellow_4
+a: [3,106,0,4,1,62]
+s: 106
+i: [1,65,0,6,1,1,0,0] t1_yellow_4
+a: [3,91,0,6,1,65]
+s: 91
+i: [1,66,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,116,0,2,1,66]
+s: 116
+i: [1,85,0,2,1,0,0,1] existence_l1_orders_2
+a: [3,126,0,2,1,85]
+s: 126
+i: [1,67,0,3,1,0,0,255] d2_xboole_0
+a: [3,121,0,3,1,67]
+s: 121
+r: 116
+d: [2,128,0,2,1,2,23,116,121]
+a: [3,132,0,2,1,128]
+s: 132
+i: [1,82,0,4,1,0,0,1] existence_m1_subset_1
+s: 82
+i: [1,68,0,5,2,0,0,255] t6_boole
+s: 68
+i: [1,81,0,5,2,0,0,3] t7_boole
+s: 81
+i: [1,78,0,6,2,0,0,1] t1_subset
+s: 78
+d: [2,136,1,2,1,1,40,81,101]
+a: [3,140,1,2,1,136]
+s: 140
+i: [1,84,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 84
+i: [1,80,0,7,3,0,0,2] t8_boole
+s: 80
+d: [2,142,1,3,1,1,40,78,101]
+a: [3,146,1,3,1,142]
+s: 146
+i: [1,79,0,8,3,0,0,3] t2_subset
+s: 79
+d: [2,148,1,3,1,1,40,84,101]
+a: [3,152,1,3,1,148]
+s: 152
+i: [1,83,0,8,2,0,0,1] dt_k1_yellow_0
+s: 83
+i: [1,76,0,16,4,0,0,2] d9_lattice3
+s: 76
+d: [2,154,1,7,2,1,40,79,106]
+a: [3,164,1,3,1,154]
+s: 164
+i: [1,75,0,17,4,0,0,2] d9_lattice3
+s: 75
+d: [2,156,1,6,2,0,40,79,82]
+s: 156
+i: [1,77,0,17,4,0,0,2] d9_lattice3
+s: 77
+i: [1,87,0,17,4,0,0,1] d9_yellow_0
+s: 87
+d: [2,171,2,6,2,0,40,156,84]
+s: 171
+d: [2,174,0,11,3,0,21,87,83]
+s: 174
+d: [2,134,1,7,3,0,44,68,68]
+s: 134
+i: [1,74,0,21,6,0,0,2] d9_lattice3
+s: 74
+i: [1,71,0,25,6,0,0,1] d9_yellow_0
+s: 71
+d: [2,166,1,11,3,0,40,83,79]
+s: 166
+i: [1,72,0,25,6,0,0,1] d9_yellow_0
+s: 72
+d: [2,179,2,11,3,0,40,166,84]
+s: 179
+i: [1,73,0,25,6,0,0,1] d9_yellow_0
+s: 73
+i: [1,86,0,25,6,0,0,1] d9_yellow_0
+s: 86
+d: [2,169,1,12,4,0,40,76,81]
+s: 169
+d: [2,185,0,19,5,0,21,86,83]
+s: 185
+d: [2,187,2,8,3,1,40,169,106]
+d: [2,194,2,6,2,2,21,187,111]
+s: 194
+d: [2,167,1,16,4,0,40,76,84]
+s: 167
+d: [2,168,1,16,4,0,40,76,78]
+s: 168
+d: [2,190,2,10,3,0,40,169,82]
+s: 190
+d: [2,175,1,26,7,0,40,74,174]
+d: [2,176,1,24,6,0,18,175]
+d: [2,177,1,18,5,0,21,176,83]
+s: 177
+d: [2,204,2,0,0,5,52,111,96,101,106,91,177]
+e: 204
+d: [2,205,2,12,4,1,40,177,91]
+d: [2,209,2,8,3,2,21,205,106]
+d: [2,210,2,5,2,3,21,209,101]
+d: [2,211,2,3,1,4,21,210,111]
+d: [2,212,2,0,0,5,21,211,96]
+e: 212
+f: 212,61,62,63,64,65
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for yellow_4__t1_yellow_4
+% SZS output start Proof for yellow_4__t1_yellow_4
+1. ! [X0] : (l1_orders_2(X0) => ! [X1] : ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((r1_yellow_0(X0,X1) & r2_hidden(X2,X1)) => r1_orders_2(X0,X2,k1_yellow_0(X0,X1))))) [input t1_yellow_4]
+2. ~! [X0] : (l1_orders_2(X0) => ! [X1] : ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((r1_yellow_0(X0,X1) & r2_hidden(X2,X1)) => r1_orders_2(X0,X2,k1_yellow_0(X0,X1))))) [negated conjecture 1]
+5. ! [X0] : (l1_orders_2(X0) => ! [X1] : ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => (r2_lattice3(X0,X1,X2) <=> ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r2_hidden(X3,X1) => r1_orders_2(X0,X3,X2)))))) [input d9_lattice3]
+6. ! [X0] : (l1_orders_2(X0) => ! [X1] : ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => (r1_yellow_0(X0,X1) => (k1_yellow_0(X0,X1) = X2 <=> (! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r2_lattice3(X0,X1,X3) => r1_orders_2(X0,X2,X3))) & r2_lattice3(X0,X1,X2)))))) [input d9_yellow_0]
+8. ! [X0,X1] : (l1_orders_2(X0) => m1_subset_1(k1_yellow_0(X0,X1),u1_struct_0(X0))) [input dt_k1_yellow_0]
+22. ~! [X0] : (l1_orders_2(X0) => ! [X1,X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ((r1_yellow_0(X0,X1) & r2_hidden(X2,X1)) => r1_orders_2(X0,X2,k1_yellow_0(X0,X1))))) [flattening 2]
+23. ! [X0] : (l1_orders_2(X0) => ! [X1,X2] : (m1_subset_1(X2,u1_struct_0(X0)) => (r1_yellow_0(X0,X1) => (k1_yellow_0(X0,X1) = X2 <=> (! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r2_lattice3(X0,X1,X3) => r1_orders_2(X0,X2,X3))) & r2_lattice3(X0,X1,X2)))))) [flattening 6]
+24. ! [X0] : (l1_orders_2(X0) => ! [X1,X2] : (m1_subset_1(X2,u1_struct_0(X0)) => (r2_lattice3(X0,X1,X2) <=> ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r2_hidden(X3,X1) => r1_orders_2(X0,X3,X2)))))) [flattening 5]
+31. ? [X0] : (? [X1,X2] : ((~r1_orders_2(X0,X2,k1_yellow_0(X0,X1)) & (r1_yellow_0(X0,X1) & r2_hidden(X2,X1))) & m1_subset_1(X2,u1_struct_0(X0))) & l1_orders_2(X0)) [ennf transformation 22]
+32. ? [X0] : (? [X1,X2] : (~r1_orders_2(X0,X2,k1_yellow_0(X0,X1)) & r1_yellow_0(X0,X1) & r2_hidden(X2,X1) & m1_subset_1(X2,u1_struct_0(X0))) & l1_orders_2(X0)) [flattening 31]
+34. ! [X0] : (! [X1,X2] : (((k1_yellow_0(X0,X1) = X2 <=> (! [X3] : ((r1_orders_2(X0,X2,X3) | ~r2_lattice3(X0,X1,X3)) | ~m1_subset_1(X3,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2))) | ~r1_yellow_0(X0,X1)) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [ennf transformation 23]
+35. ! [X0] : (! [X1,X2] : ((k1_yellow_0(X0,X1) = X2 <=> (! [X3] : (r1_orders_2(X0,X2,X3) | ~r2_lattice3(X0,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2))) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [flattening 34]
+36. ! [X0] : (! [X1,X2] : ((r2_lattice3(X0,X1,X2) <=> ! [X3] : ((r1_orders_2(X0,X3,X2) | ~r2_hidden(X3,X1)) | ~m1_subset_1(X3,u1_struct_0(X0)))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [ennf transformation 24]
+37. ! [X0] : (! [X1,X2] : ((r2_lattice3(X0,X1,X2) <=> ! [X3] : (r1_orders_2(X0,X3,X2) | ~r2_hidden(X3,X1) | ~m1_subset_1(X3,u1_struct_0(X0)))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [flattening 36]
+43. ! [X0,X1] : (m1_subset_1(k1_yellow_0(X0,X1),u1_struct_0(X0)) | ~l1_orders_2(X0)) [ennf transformation 8]
+45. ? [X0] : (? [X1,X2] : (~r1_orders_2(X0,X2,k1_yellow_0(X0,X1)) & r1_yellow_0(X0,X1) & r2_hidden(X2,X1) & m1_subset_1(X2,u1_struct_0(X0))) & l1_orders_2(X0)) => (? [X2,X1] : (~r1_orders_2(sK0,X2,k1_yellow_0(sK0,X1)) & r1_yellow_0(sK0,X1) & r2_hidden(X2,X1) & m1_subset_1(X2,u1_struct_0(sK0))) & l1_orders_2(sK0)) [choice axiom]
+46. ? [X2,X1] : (~r1_orders_2(sK0,X2,k1_yellow_0(sK0,X1)) & r1_yellow_0(sK0,X1) & r2_hidden(X2,X1) & m1_subset_1(X2,u1_struct_0(sK0))) => (~r1_orders_2(sK0,sK2,k1_yellow_0(sK0,sK1)) & r1_yellow_0(sK0,sK1) & r2_hidden(sK2,sK1) & m1_subset_1(sK2,u1_struct_0(sK0))) [choice axiom]
+47. (~r1_orders_2(sK0,sK2,k1_yellow_0(sK0,sK1)) & r1_yellow_0(sK0,sK1) & r2_hidden(sK2,sK1) & m1_subset_1(sK2,u1_struct_0(sK0))) & l1_orders_2(sK0) [skolemisation 32,46,45]
+48. ! [X0] : (! [X1,X2] : (((k1_yellow_0(X0,X1) = X2 | (? [X3] : (~r1_orders_2(X0,X2,X3) & r2_lattice3(X0,X1,X3) & m1_subset_1(X3,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2))) & ((! [X3] : (r1_orders_2(X0,X2,X3) | ~r2_lattice3(X0,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2)) | k1_yellow_0(X0,X1) != X2)) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [nnf transformation 35]
+49. ! [X0] : (! [X1,X2] : (((k1_yellow_0(X0,X1) = X2 | ? [X3] : (~r1_orders_2(X0,X2,X3) & r2_lattice3(X0,X1,X3) & m1_subset_1(X3,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2)) & ((! [X3] : (r1_orders_2(X0,X2,X3) | ~r2_lattice3(X0,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2)) | k1_yellow_0(X0,X1) != X2)) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [flattening 48]
+50. ! [X0] : (! [X1,X2] : (((k1_yellow_0(X0,X1) = X2 | ? [X3] : (~r1_orders_2(X0,X2,X3) & r2_lattice3(X0,X1,X3) & m1_subset_1(X3,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2)) & ((! [X4] : (r1_orders_2(X0,X2,X4) | ~r2_lattice3(X0,X1,X4) | ~m1_subset_1(X4,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2)) | k1_yellow_0(X0,X1) != X2)) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [rectify 49]
+51. ! [X2,X1,X0] : (? [X3] : (~r1_orders_2(X0,X2,X3) & r2_lattice3(X0,X1,X3) & m1_subset_1(X3,u1_struct_0(X0))) => (~r1_orders_2(X0,X2,sK3(X0,X1,X2)) & r2_lattice3(X0,X1,sK3(X0,X1,X2)) & m1_subset_1(sK3(X0,X1,X2),u1_struct_0(X0)))) [choice axiom]
+52. ! [X0] : (! [X1,X2] : (((k1_yellow_0(X0,X1) = X2 | (~r1_orders_2(X0,X2,sK3(X0,X1,X2)) & r2_lattice3(X0,X1,sK3(X0,X1,X2)) & m1_subset_1(sK3(X0,X1,X2),u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2)) & ((! [X4] : (r1_orders_2(X0,X2,X4) | ~r2_lattice3(X0,X1,X4) | ~m1_subset_1(X4,u1_struct_0(X0))) & r2_lattice3(X0,X1,X2)) | k1_yellow_0(X0,X1) != X2)) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [skolemisation 50,51]
+53. ! [X0] : (! [X1,X2] : (((r2_lattice3(X0,X1,X2) | ? [X3] : (~r1_orders_2(X0,X3,X2) & r2_hidden(X3,X1) & m1_subset_1(X3,u1_struct_0(X0)))) & (! [X3] : (r1_orders_2(X0,X3,X2) | ~r2_hidden(X3,X1) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [nnf transformation 37]
+54. ! [X0] : (! [X1,X2] : (((r2_lattice3(X0,X1,X2) | ? [X3] : (~r1_orders_2(X0,X3,X2) & r2_hidden(X3,X1) & m1_subset_1(X3,u1_struct_0(X0)))) & (! [X4] : (r1_orders_2(X0,X4,X2) | ~r2_hidden(X4,X1) | ~m1_subset_1(X4,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [rectify 53]
+55. ! [X2,X1,X0] : (? [X3] : (~r1_orders_2(X0,X3,X2) & r2_hidden(X3,X1) & m1_subset_1(X3,u1_struct_0(X0))) => (~r1_orders_2(X0,sK4(X0,X1,X2),X2) & r2_hidden(sK4(X0,X1,X2),X1) & m1_subset_1(sK4(X0,X1,X2),u1_struct_0(X0)))) [choice axiom]
+56. ! [X0] : (! [X1,X2] : (((r2_lattice3(X0,X1,X2) | (~r1_orders_2(X0,sK4(X0,X1,X2),X2) & r2_hidden(sK4(X0,X1,X2),X1) & m1_subset_1(sK4(X0,X1,X2),u1_struct_0(X0)))) & (! [X4] : (r1_orders_2(X0,X4,X2) | ~r2_hidden(X4,X1) | ~m1_subset_1(X4,u1_struct_0(X0))) | ~r2_lattice3(X0,X1,X2))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~l1_orders_2(X0)) [skolemisation 54,55]
+61. l1_orders_2(sK0) [cnf transformation 47] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+62. m1_subset_1(sK2,u1_struct_0(sK0)) [cnf transformation 47] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+63. r2_hidden(sK2,sK1) [cnf transformation 47] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+64. r1_yellow_0(sK0,sK1) [cnf transformation 47] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+65. ~r1_orders_2(sK0,sK2,k1_yellow_0(sK0,sK1)) [cnf transformation 47] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+69. r2_lattice3(X0,X1,X2) | k1_yellow_0(X0,X1) != X2 | ~r1_yellow_0(X0,X1) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~l1_orders_2(X0) [cnf transformation 52] {a:0,w:18,wCS:7200,sine:1,thAx:0,allAx:2,thDist:-2}
+74. ~r2_lattice3(X0,X1,X2) | ~r2_hidden(X4,X1) | ~m1_subset_1(X4,u1_struct_0(X0)) | r1_orders_2(X0,X4,X2) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~l1_orders_2(X0) [cnf transformation 56] {a:0,w:21,wCS:8400,nSel:1,sine:2,thAx:0,allAx:2,thDist:-2}
+83. m1_subset_1(k1_yellow_0(X0,X1),u1_struct_0(X0)) | ~l1_orders_2(X0) [cnf transformation 43] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+87. r2_lattice3(X0,X1,k1_yellow_0(X0,X1)) | ~r1_yellow_0(X0,X1) | ~m1_subset_1(k1_yellow_0(X0,X1),u1_struct_0(X0)) | ~l1_orders_2(X0) [equality resolution 69] {a:0,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+89. 1 <=> r1_orders_2(sK0,sK2,k1_yellow_0(sK0,sK1)) [avatar definition]
+91. ~r1_orders_2(sK0,sK2,k1_yellow_0(sK0,sK1)) <- (~1) [avatar component clause 89] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+92. ~1 [avatar split clause 65,89]
+94. 2 <=> r1_yellow_0(sK0,sK1) [avatar definition]
+96. r1_yellow_0(sK0,sK1) <- (2) [avatar component clause 94] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+97. 2 [avatar split clause 64,94]
+99. 3 <=> r2_hidden(sK2,sK1) [avatar definition]
+101. r2_hidden(sK2,sK1) <- (3) [avatar component clause 99] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+102. 3 [avatar split clause 63,99]
+104. 4 <=> m1_subset_1(sK2,u1_struct_0(sK0)) [avatar definition]
+106. m1_subset_1(sK2,u1_struct_0(sK0)) <- (4) [avatar component clause 104] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+107. 4 [avatar split clause 62,104]
+109. 5 <=> l1_orders_2(sK0) [avatar definition]
+111. l1_orders_2(sK0) <- (5) [avatar component clause 109] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+112. 5 [avatar split clause 61,109]
+174. r2_lattice3(X0,X1,k1_yellow_0(X0,X1)) | ~r1_yellow_0(X0,X1) | ~l1_orders_2(X0) [subsumption resolution 87,83] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+175. ~r2_hidden(X0,X1) | ~m1_subset_1(X0,u1_struct_0(X2)) | r1_orders_2(X2,X0,k1_yellow_0(X2,X1)) | ~m1_subset_1(k1_yellow_0(X2,X1),u1_struct_0(X2)) | ~l1_orders_2(X2) | ~r1_yellow_0(X2,X1) | ~l1_orders_2(X2) [resolution 74,174] {a:1,w:26,wCS:10400,sine:1,thAx:0,allAx:4,thDist:-4}
+176. ~r2_hidden(X0,X1) | ~m1_subset_1(X0,u1_struct_0(X2)) | r1_orders_2(X2,X0,k1_yellow_0(X2,X1)) | ~m1_subset_1(k1_yellow_0(X2,X1),u1_struct_0(X2)) | ~l1_orders_2(X2) | ~r1_yellow_0(X2,X1) [duplicate literal removal 175] {a:1,w:24,wCS:9600,sine:1,thAx:0,allAx:4,thDist:-4}
+177. r1_orders_2(X2,X0,k1_yellow_0(X2,X1)) | ~m1_subset_1(X0,u1_struct_0(X2)) | ~r2_hidden(X0,X1) | ~l1_orders_2(X2) | ~r1_yellow_0(X2,X1) [subsumption resolution 176,83] {a:1,w:18,wCS:7200,nSel:1,sine:1,thAx:0,allAx:4,thDist:-4}
+205. ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~r2_hidden(sK2,sK1) | ~l1_orders_2(sK0) | ~r1_yellow_0(sK0,sK1) <- (~1) [resolution 177,91] {a:2,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+209. ~r2_hidden(sK2,sK1) | ~l1_orders_2(sK0) | ~r1_yellow_0(sK0,sK1) <- (~1, 4) [subsumption resolution 205,106] {a:2,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+210. ~l1_orders_2(sK0) | ~r1_yellow_0(sK0,sK1) <- (~1, 3, 4) [subsumption resolution 209,101] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+211. ~r1_yellow_0(sK0,sK1) <- (~1, 3, 4, 5) [subsumption resolution 210,111] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+212. $false <- (~1, 2, 3, 4, 5) [subsumption resolution 211,96] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+213. 1 | ~2 | ~3 | ~4 | ~5 [avatar contradiction clause 212]
+216. $false [avatar sat refutation 92,97,102,107,112,213] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:82,thDist:-82}
+% SZS output end Proof for yellow_4__t1_yellow_4
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 20
+% >>> Preprocessing
+% Introduced skolems: 7
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 25
+% Generated clauses: 95
+% Active clauses: 40
+% Passive clauses: 51
+% Final active clauses: 39
+% Final passive clauses: 8
+% Main loop iterations started: 43
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 8
+% Fw subsumption resolutions: 13
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 3
+% Forward subsumptions: 7
+% 
+% >>> Generating Inferences
+% Binary resolution: 32
+% Unit resulting resolution: 1
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 17
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% passive container maintenance: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

@@ -1,0 +1,794 @@
+i: [1,53,0,2,1,1,0,0] t46_tsep_1
+a: [3,101,0,2,1,53]
+s: 101
+i: [1,58,0,11,3,1,0,0] t46_tsep_1
+a: [3,76,0,3,1,58]
+s: 76
+a: [3,83,0,4,1,58]
+s: 83
+i: [1,55,0,5,1,1,0,0] t46_tsep_1
+a: [3,91,0,5,1,55]
+s: 91
+i: [1,54,0,5,1,1,0,0] t46_tsep_1
+a: [3,96,0,5,1,54]
+s: 96
+i: [1,72,0,2,1,0,0,1] existence_l1_pre_topc
+a: [3,106,0,2,1,72]
+s: 106
+i: [1,66,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 66
+i: [1,65,0,4,1,0,0,1] existence_m1_subset_1
+s: 65
+i: [1,67,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 67
+i: [1,64,0,7,2,0,0,255] t3_subset
+s: 64
+i: [1,62,0,8,2,0,0,255] t83_xboole_1
+s: 62
+i: [1,63,0,8,2,0,0,255] t83_xboole_1
+s: 63
+i: [1,68,0,11,2,0,0,2] dt_k7_subset_1
+s: 68
+i: [1,69,0,12,2,0,0,255] redefinition_k7_subset_1
+s: 69
+i: [1,59,0,19,5,0,0,1] t1_connsp_1
+s: 59
+d: [2,111,1,0,0,5,52,101,76,83,96,91,59]
+e: 111
+r: 76
+a: [3,80,0,4,1,58]
+s: 80
+d: [2,112,1,14,4,1,40,59,91]
+d: [2,118,1,12,3,2,21,112,101]
+s: 118
+a: [3,75,0,3,1,58]
+s: 75
+d: [2,145,1,3,1,1,40,75,67]
+a: [3,149,1,3,1,145]
+s: 149
+i: [1,70,0,20,5,0,0,1] symmetry_r2_tsep_1
+s: 70
+i: [1,71,0,20,5,0,0,1] symmetry_r1_connsp_1
+s: 71
+d: [2,120,2,7,2,2,40,118,91]
+a: [3,128,2,4,1,120]
+s: 128
+i: [1,60,0,28,5,0,0,1] d5_tsep_1
+s: 60
+d: [2,124,2,13,2,2,40,118,65]
+a: [3,139,2,7,1,124]
+s: 139
+i: [1,61,0,28,5,0,0,1] d5_tsep_1
+s: 61
+d: [2,113,1,14,4,1,40,59,96]
+d: [2,119,1,12,3,2,21,113,101]
+s: 119
+d: [2,177,2,7,2,2,40,119,96]
+a: [3,184,2,4,1,177]
+s: 184
+d: [2,152,1,15,4,1,40,70,91]
+d: [2,157,1,13,3,2,21,152,101]
+s: 157
+d: [2,180,2,13,2,2,40,119,65]
+a: [3,193,2,7,1,180]
+s: 193
+d: [2,153,1,15,4,1,40,70,96]
+d: [2,158,1,13,3,2,21,153,101]
+s: 158
+d: [2,159,1,15,4,1,40,71,91]
+d: [2,164,1,13,3,2,21,159,101]
+s: 164
+r: 80
+r: 83
+a: [3,79,0,4,1,58]
+s: 79
+a: [3,84,0,4,1,58]
+s: 84
+d: [2,213,2,8,2,3,40,158,91]
+d: [2,218,2,4,1,4,21,213,80]
+a: [3,221,2,4,1,218]
+s: 221
+d: [2,160,1,15,4,1,40,71,96]
+d: [2,165,1,13,3,2,21,160,101]
+s: 165
+d: [2,109,1,14,3,0,44,68,69]
+d: [2,110,1,10,2,0,18,109]
+s: 110
+d: [2,234,2,8,2,3,40,164,96]
+d: [2,238,2,4,1,4,21,234,83]
+a: [3,241,2,4,1,238]
+s: 241
+d: [2,114,1,18,5,0,40,59,64]
+s: 114
+d: [2,203,2,14,2,2,40,157,65]
+a: [3,207,2,7,1,203]
+s: 207
+d: [2,154,1,19,5,0,40,70,64]
+s: 154
+d: [2,161,1,19,5,0,40,71,64]
+s: 161
+d: [2,217,2,14,2,2,40,158,65]
+a: [3,227,2,7,1,217]
+s: 227
+d: [2,116,1,20,4,0,40,59,65]
+s: 116
+d: [2,122,2,11,3,2,40,118,64]
+s: 122
+d: [2,156,1,21,4,0,40,70,65]
+s: 156
+d: [2,163,1,21,4,0,40,71,65]
+s: 163
+d: [2,288,3,9,2,2,40,122,66]
+a: [3,296,3,5,1,288]
+s: 296
+d: [2,167,1,31,6,0,44,60,69]
+d: [2,168,1,26,5,0,18,167]
+s: 168
+d: [2,178,2,11,3,2,40,119,64]
+s: 178
+d: [2,166,1,31,6,0,44,60,69]
+d: [2,169,1,26,5,0,18,166]
+s: 169
+d: [2,172,1,31,6,0,44,61,69]
+d: [2,173,1,26,5,0,18,172]
+s: 173
+d: [2,301,3,9,2,2,40,178,66]
+a: [3,309,3,5,1,301]
+s: 309
+d: [2,171,1,31,6,0,44,61,69]
+d: [2,174,1,26,5,0,18,171]
+s: 174
+d: [2,264,2,13,4,1,40,114,91]
+d: [2,270,2,11,3,2,21,264,101]
+s: 270
+d: [2,115,1,27,5,0,40,59,68]
+s: 115
+d: [2,155,1,28,5,0,40,70,68]
+s: 155
+d: [2,324,3,9,2,2,40,270,66]
+a: [3,332,3,5,1,324]
+s: 332
+d: [2,162,1,28,5,0,40,71,68]
+s: 162
+d: [2,265,2,13,4,1,40,114,96]
+d: [2,271,2,11,3,2,21,265,101]
+s: 271
+d: [2,201,2,12,3,2,40,157,64]
+s: 201
+d: [2,215,2,12,3,2,40,158,64]
+s: 215
+d: [2,352,3,9,2,2,40,271,66]
+a: [3,360,3,5,1,352]
+s: 360
+d: [2,235,2,12,3,2,40,164,64]
+s: 235
+d: [2,362,3,10,2,2,40,201,66]
+a: [3,370,3,5,1,362]
+s: 370
+d: [2,249,2,12,3,2,40,165,64]
+s: 249
+d: [2,272,2,14,4,1,40,154,91]
+d: [2,278,2,12,3,2,21,272,101]
+s: 278
+a: [3,365,3,5,1,362]
+s: 365
+d: [2,273,2,14,4,1,40,154,96]
+d: [2,279,2,12,3,2,21,273,101]
+s: 279
+d: [2,372,3,10,2,2,40,215,66]
+a: [3,375,3,5,1,372]
+s: 375
+d: [2,280,2,14,4,1,40,161,91]
+d: [2,286,2,12,3,2,21,280,101]
+s: 286
+d: [2,281,2,14,4,1,40,161,96]
+d: [2,287,2,12,3,2,21,281,101]
+s: 287
+a: [3,380,3,5,1,372]
+s: 380
+d: [2,261,2,16,3,2,40,110,119]
+s: 261
+d: [2,262,2,16,3,2,40,110,118]
+s: 262
+d: [2,257,2,17,3,2,40,110,165]
+s: 257
+d: [2,258,2,17,3,2,40,110,164]
+s: 258
+d: [2,259,2,17,3,2,40,110,158]
+s: 259
+d: [2,260,2,17,3,2,40,110,157]
+s: 260
+d: [2,123,2,20,3,2,40,118,68]
+s: 123
+d: [2,179,2,20,3,2,40,119,68]
+s: 179
+d: [2,202,2,21,3,2,40,157,68]
+s: 202
+d: [2,216,2,21,3,2,40,158,68]
+s: 216
+d: [2,236,2,21,3,2,40,164,68]
+s: 236
+d: [2,250,2,21,3,2,40,165,68]
+s: 250
+d: [2,267,2,17,5,0,40,114,64]
+s: 267
+d: [2,275,2,18,5,0,40,154,64]
+s: 275
+d: [2,409,3,15,4,0,40,267,66]
+s: 409
+d: [2,283,2,18,5,0,40,161,64]
+s: 283
+d: [2,410,3,16,4,0,40,275,66]
+s: 410
+d: [2,269,2,19,4,0,40,114,65]
+s: 269
+d: [2,277,2,20,4,0,40,154,65]
+s: 277
+d: [2,411,3,16,4,0,40,283,66]
+s: 411
+d: [2,285,2,20,4,0,40,161,65]
+s: 285
+d: [2,268,2,22,5,0,40,114,110]
+s: 268
+d: [2,256,2,23,5,0,40,110,59]
+s: 256
+d: [2,276,2,23,5,0,40,154,110]
+s: 276
+d: [2,284,2,23,5,0,40,161,110]
+s: 284
+d: [2,336,2,28,6,0,44,115,69]
+d: [2,337,2,23,5,0,18,336]
+s: 337
+d: [2,254,2,24,5,0,40,110,71]
+s: 254
+d: [2,255,2,24,5,0,40,110,70]
+s: 255
+d: [2,298,2,29,6,0,44,168,69]
+d: [2,300,2,24,5,0,18,298]
+s: 300
+d: [2,431,3,37,8,0,40,300,256]
+d: [2,434,3,30,6,0,18,431]
+d: [2,439,3,23,5,0,21,434,110]
+s: 439
+d: [2,312,2,29,6,0,44,169,69]
+d: [2,313,2,24,5,0,18,312]
+s: 313
+d: [2,440,4,23,5,0,40,439,67]
+s: 440
+d: [2,315,2,29,6,0,44,173,69]
+d: [2,317,2,24,5,0,18,315]
+s: 317
+d: [2,321,2,29,6,0,44,174,69]
+d: [2,322,2,24,5,0,18,321]
+s: 322
+d: [2,342,2,29,6,0,44,155,69]
+d: [2,343,2,24,5,0,18,342]
+s: 343
+d: [2,346,2,29,6,0,44,162,69]
+d: [2,347,2,24,5,0,18,346]
+s: 347
+d: [2,430,3,38,8,0,40,300,254]
+d: [2,435,3,31,6,0,18,430]
+d: [2,438,3,24,5,0,21,435,110]
+s: 438
+d: [2,335,2,39,8,0,40,115,169]
+d: [2,338,2,32,6,0,18,335]
+d: [2,341,2,25,5,0,21,338,110]
+s: 341
+d: [2,266,2,26,5,0,40,114,68]
+s: 266
+d: [2,441,4,24,6,0,44,439,62]
+s: 441
+d: [2,345,2,40,8,0,40,162,169]
+d: [2,348,2,33,6,0,18,345]
+d: [2,351,2,26,5,0,21,348,110]
+s: 351
+d: [2,472,5,19,5,1,40,441,91]
+d: [2,478,5,17,4,2,21,472,101]
+s: 478
+r: 79
+r: 84
+r: 221
+r: 241
+s: 80
+s: 83
+a: [3,131,2,3,1,120]
+s: 131
+a: [3,222,2,4,1,218]
+s: 222
+a: [3,242,2,4,1,238]
+s: 242
+d: [2,274,2,27,5,0,40,154,68]
+s: 274
+d: [2,282,2,27,5,0,40,161,68]
+s: 282
+d: [2,495,6,16,4,2,40,478,64]
+s: 495
+d: [2,299,2,27,6,0,44,168,62]
+s: 299
+d: [2,527,7,16,4,2,40,495,67]
+s: 527
+d: [2,311,2,27,6,0,44,169,62]
+s: 311
+d: [2,316,2,27,6,0,44,173,62]
+s: 316
+d: [2,473,5,19,5,1,40,441,96]
+d: [2,479,5,17,4,2,21,473,101]
+s: 479
+a: [3,187,2,3,1,177]
+s: 187
+d: [2,614,6,16,4,2,40,479,64]
+s: 614
+d: [2,320,2,27,6,0,44,174,62]
+s: 320
+d: [2,334,2,43,8,0,40,115,60]
+d: [2,339,2,36,6,0,18,334]
+d: [2,340,2,27,5,0,21,339,68]
+s: 340
+d: [2,626,7,16,4,2,40,614,67]
+s: 626
+d: [2,344,2,44,8,0,40,162,60]
+d: [2,349,2,37,6,0,18,344]
+d: [2,350,2,28,5,0,21,349,68]
+s: 350
+d: [2,530,3,31,7,2,40,299,123]
+d: [2,555,3,26,6,2,18,530]
+d: [2,559,3,21,5,2,21,555,91]
+d: [2,560,3,19,4,2,21,559,101]
+s: 560
+d: [2,532,3,31,7,2,40,299,179]
+d: [2,553,3,26,6,2,18,532]
+d: [2,563,3,21,5,2,21,553,96]
+d: [2,564,3,19,4,2,21,563,101]
+s: 564
+d: [2,529,3,32,7,2,40,299,236]
+d: [2,556,3,27,6,2,18,529]
+d: [2,557,3,22,5,2,21,556,91]
+d: [2,558,3,20,4,2,21,557,101]
+s: 558
+d: [2,655,4,22,5,2,44,560,69]
+d: [2,656,4,17,4,2,18,655]
+s: 656
+d: [2,531,3,32,7,2,40,299,250]
+d: [2,554,3,27,6,2,18,531]
+d: [2,561,3,22,5,2,21,554,96]
+d: [2,562,3,20,4,2,21,561,101]
+s: 562
+d: [2,673,5,16,4,2,40,656,64]
+s: 673
+d: [2,415,3,41,8,0,40,256,168]
+d: [2,417,3,34,6,0,18,415]
+d: [2,418,3,25,5,0,21,417,68]
+s: 418
+d: [2,432,3,25,6,0,44,300,62]
+s: 432
+d: [2,686,6,16,4,2,40,673,67]
+s: 686
+d: [2,433,3,25,6,0,44,300,62]
+s: 433
+d: [2,658,4,22,5,2,44,564,69]
+d: [2,659,4,17,4,2,18,658]
+s: 659
+d: [2,447,3,25,6,0,44,317,62]
+s: 447
+d: [2,448,3,25,6,0,44,317,62]
+s: 448
+d: [2,768,5,16,4,2,40,659,64]
+s: 768
+d: [2,462,3,25,5,0,40,341,67]
+s: 462
+d: [2,780,6,16,4,2,40,768,67]
+s: 780
+d: [2,483,3,41,8,0,40,351,256]
+d: [2,487,3,34,6,0,18,483]
+d: [2,491,3,25,5,0,21,487,68]
+s: 491
+d: [2,542,3,30,7,0,44,299,69]
+d: [2,543,3,25,6,0,18,542]
+s: 543
+d: [2,720,4,29,7,2,40,433,261]
+d: [2,740,4,24,6,2,18,720]
+d: [2,748,4,19,5,2,21,740,96]
+d: [2,749,4,17,4,2,21,748,101]
+s: 749
+d: [2,534,3,37,9,0,40,299,266]
+d: [2,551,3,30,7,0,18,534]
+d: [2,566,3,25,6,0,21,551,64]
+s: 566
+d: [2,663,4,23,5,2,44,558,69]
+d: [2,664,4,18,4,2,18,663]
+s: 664
+d: [2,590,3,30,7,0,44,311,69]
+d: [2,591,3,25,6,0,18,590]
+s: 591
+d: [2,608,3,30,7,0,44,316,69]
+d: [2,609,3,25,6,0,18,608]
+s: 609
+d: [2,794,5,19,5,2,44,664,62]
+d: [2,800,5,16,4,2,21,794,67]
+s: 800
+d: [2,629,3,30,7,0,44,320,69]
+d: [2,630,3,25,6,0,18,629]
+s: 630
+d: [2,804,6,15,4,2,40,800,64]
+s: 804
+d: [2,634,3,30,6,0,44,340,69]
+d: [2,635,3,25,5,0,18,634]
+s: 635
+d: [2,423,3,42,8,0,40,254,168]
+d: [2,425,3,35,6,0,18,423]
+d: [2,426,3,26,5,0,21,425,68]
+s: 426
+d: [2,792,5,29,7,2,40,664,256]
+d: [2,796,5,24,6,2,18,792]
+d: [2,798,5,19,5,2,21,796,91]
+d: [2,799,5,17,4,2,21,798,101]
+s: 799
+d: [2,463,3,26,6,0,44,341,62]
+s: 463
+d: [2,679,4,23,5,2,44,562,69]
+d: [2,680,4,18,4,2,18,679]
+s: 680
+d: [2,533,3,38,9,0,40,299,282]
+d: [2,552,3,31,7,0,18,533]
+d: [2,565,3,26,6,0,21,552,64]
+s: 565
+d: [2,582,3,38,9,0,40,311,115]
+d: [2,599,3,26,6,0,18,582]
+s: 599
+d: [2,834,5,19,5,2,44,680,62]
+d: [2,840,5,16,4,2,21,834,67]
+s: 840
+d: [2,644,3,31,6,0,44,350,69]
+d: [2,647,3,26,5,0,18,644]
+s: 647
+d: [2,867,6,15,4,2,40,840,64]
+s: 867
+d: [2,485,3,27,6,0,44,351,62]
+s: 485
+d: [2,581,3,39,9,0,40,311,162]
+d: [2,600,3,27,6,0,18,581]
+s: 600
+d: [2,832,5,29,7,2,40,680,256]
+d: [2,836,5,24,6,2,18,832]
+d: [2,838,5,19,5,2,21,836,96]
+d: [2,839,5,17,4,2,21,838,101]
+s: 839
+d: [2,632,3,27,5,0,40,340,67]
+s: 632
+d: [2,717,4,30,7,2,40,433,258]
+d: [2,743,4,25,6,2,18,717]
+d: [2,744,4,20,5,2,21,743,91]
+d: [2,745,4,18,4,2,21,744,101]
+s: 745
+d: [2,643,3,43,8,0,40,350,115]
+d: [2,648,3,36,6,0,18,643]
+d: [2,653,3,27,5,0,21,648,68]
+s: 653
+d: [2,429,3,36,8,0,40,300,268]
+d: [2,436,3,29,6,0,18,429]
+s: 436
+d: [2,719,4,30,7,2,40,433,257]
+d: [2,741,4,25,6,2,18,719]
+d: [2,746,4,20,5,2,21,741,96]
+d: [2,747,4,18,4,2,21,746,101]
+s: 747
+d: [2,428,3,37,8,0,40,300,284]
+d: [2,437,3,30,6,0,18,428]
+s: 437
+d: [2,654,4,19,4,2,40,560,67]
+s: 654
+d: [2,467,3,38,8,0,40,266,168]
+d: [2,470,3,31,6,0,18,467]
+s: 470
+d: [2,481,3,38,8,0,40,351,266]
+d: [2,489,3,31,6,0,18,481]
+s: 489
+d: [2,657,4,19,4,2,40,564,67]
+s: 657
+d: [2,521,3,39,8,0,40,282,168]
+d: [2,524,3,32,6,0,18,521]
+s: 524
+d: [2,661,4,31,7,2,40,558,115]
+d: [2,666,4,26,6,2,18,661]
+d: [2,668,4,21,5,2,21,666,91]
+d: [2,669,4,19,4,2,21,668,101]
+s: 669
+d: [2,412,3,40,8,0,40,268,169]
+d: [2,414,3,33,6,0,18,412]
+s: 414
+d: [2,541,3,55,8,0,40,299,116]
+d: [2,544,3,53,7,0,18,541]
+d: [2,577,3,45,6,0,21,544,65]
+d: [2,578,3,33,5,0,21,577,68]
+s: 578
+d: [2,677,4,31,7,2,40,562,115]
+d: [2,682,4,26,6,2,18,677]
+d: [2,684,4,21,5,2,21,682,96]
+d: [2,685,4,19,4,2,21,684,101]
+s: 685
+d: [2,420,3,41,8,0,40,284,169]
+d: [2,422,3,34,6,0,18,420]
+s: 422
+d: [2,872,4,31,7,2,40,485,123]
+d: [2,899,4,26,6,2,18,872]
+d: [2,901,4,24,5,2,21,899,101]
+d: [2,902,4,19,4,2,21,901,91]
+s: 902
+d: [2,539,3,54,9,0,40,299,256]
+d: [2,546,3,52,8,0,18,539]
+d: [2,573,3,45,7,0,21,546,110]
+d: [2,574,3,34,6,0,21,573,68]
+s: 574
+d: [2,540,3,56,8,0,40,299,163]
+d: [2,545,3,54,7,0,18,540]
+d: [2,575,3,46,6,0,21,545,65]
+d: [2,576,3,34,5,0,21,575,68]
+s: 576
+d: [2,932,5,22,5,2,44,902,69]
+d: [2,933,5,17,4,2,18,932]
+s: 933
+a: [3,210,2,7,1,203]
+s: 210
+d: [2,954,6,16,4,2,40,933,64]
+s: 954
+d: [2,466,3,42,8,0,40,266,60]
+d: [2,471,3,35,6,0,18,466]
+s: 471
+d: [2,538,3,55,9,0,40,299,254]
+d: [2,547,3,53,8,0,18,538]
+d: [2,571,3,46,7,0,21,547,110]
+d: [2,572,3,35,6,0,21,571,68]
+s: 572
+d: [2,966,7,16,4,2,40,954,67]
+s: 966
+d: [2,641,3,42,8,0,40,350,266]
+d: [2,650,3,35,6,0,18,641]
+s: 650
+d: [2,874,4,31,7,2,40,485,179]
+d: [2,897,4,26,6,2,18,874]
+d: [2,903,4,24,5,2,21,897,101]
+d: [2,904,4,19,4,2,21,903,96]
+s: 904
+d: [2,519,3,43,8,0,40,282,60]
+d: [2,526,3,36,6,0,18,519]
+s: 526
+d: [2,537,3,66,9,0,40,299,115]
+d: [2,548,3,64,8,0,18,537]
+d: [2,569,3,55,7,0,21,548,68]
+d: [2,570,3,42,6,0,21,569,68]
+s: 570
+d: [2,985,5,22,5,2,44,904,69]
+d: [2,986,5,17,4,2,18,985]
+s: 986
+a: [3,230,2,7,1,217]
+s: 230
+d: [2,995,6,16,4,2,40,986,64]
+s: 995
+d: [2,536,3,67,9,0,40,299,162]
+d: [2,549,3,65,8,0,18,536]
+d: [2,567,3,56,7,0,21,549,68]
+d: [2,568,3,43,6,0,21,567,68]
+s: 568
+d: [2,587,3,53,9,0,40,311,268]
+d: [2,594,3,51,8,0,18,587]
+d: [2,604,3,44,7,0,21,594,110]
+s: 604
+d: [2,1007,7,16,4,2,40,995,67]
+s: 1007
+d: [2,589,3,54,8,0,40,311,269]
+d: [2,592,3,52,7,0,18,589]
+d: [2,606,3,44,6,0,21,592,65]
+s: 606
+d: [2,931,5,19,4,2,40,902,67]
+s: 931
+d: [2,586,3,54,9,0,40,311,284]
+d: [2,595,3,52,8,0,18,586]
+d: [2,603,3,45,7,0,21,595,110]
+s: 603
+d: [2,588,3,55,8,0,40,311,285]
+d: [2,593,3,53,7,0,18,588]
+d: [2,605,3,45,6,0,21,593,65]
+s: 605
+d: [2,1034,6,22,5,2,44,931,69]
+d: [2,1035,6,17,4,2,18,1034]
+s: 1035
+d: [2,585,3,65,9,0,40,311,266]
+d: [2,596,3,63,8,0,18,585]
+d: [2,602,3,54,7,0,21,596,68]
+s: 602
+d: [2,984,5,19,4,2,40,904,67]
+s: 984
+d: [2,584,3,66,9,0,40,311,282]
+d: [2,597,3,64,8,0,18,584]
+d: [2,601,3,55,7,0,21,597,68]
+s: 601
+d: [2,776,4,26,7,0,44,448,62]
+d: [2,778,4,23,6,0,21,776,67]
+d: [2,779,4,20,5,0,21,778,59]
+s: 779
+d: [2,1095,5,0,0,5,52,101,80,83,96,91,779]
+e: 1095
+d: [2,1096,5,0,0,5,52,101,222,242,91,96,779]
+e: 1096
+r: 80
+r: 83
+r: 222
+r: 242
+i: [1,57,0,8,2,1,0,0] t46_tsep_1
+i: [1,56,0,7,2,1,0,0] t46_tsep_1
+d: [2,121,2,7,2,3,40,118,96]
+d: [2,134,2,3,1,4,21,121,83]
+d: [2,247,2,8,2,3,40,165,91]
+d: [2,802,6,11,3,3,40,800,96]
+d: [2,1137,6,8,2,4,21,802,75]
+f: 1137,1096,247,234,213,134,53,54,55,56,57,58
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for tsep_1__t46_tsep_1
+% SZS output start Proof for tsep_1__t46_tsep_1
+1. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => ! [X1] : (m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => ((r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2)) <=> r1_connsp_1(X0,X1,X2))))) [input t46_tsep_1]
+2. ~! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => ! [X1] : (m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => ((r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2)) <=> r1_connsp_1(X0,X1,X2))))) [negated conjecture 1]
+3. ! [X0] : (l1_pre_topc(X0) => ! [X1] : (m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => (r2_tsep_1(X0,X1,X2) <=> r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1)))))) [input d5_tsep_1]
+6. ! [X0,X1,X2] : (m1_subset_1(X1,k1_zfmisc_1(X0)) => m1_subset_1(k7_subset_1(X0,X1,X2),k1_zfmisc_1(X0))) [input dt_k7_subset_1]
+14. ! [X0,X1,X2] : (m1_subset_1(X1,k1_zfmisc_1(X0)) => k7_subset_1(X0,X1,X2) = k4_xboole_0(X1,X2)) [input redefinition_k7_subset_1]
+16. ! [X0,X1,X2] : ((m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) & l1_pre_topc(X0)) => (r1_connsp_1(X0,X1,X2) => r1_connsp_1(X0,X2,X1))) [input symmetry_r1_connsp_1]
+17. ! [X0,X1] : (r1_xboole_0(X0,X1) => r1_xboole_0(X1,X0)) [input symmetry_r1_xboole_0]
+18. ! [X0,X1,X2] : ((m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) & l1_pre_topc(X0)) => (r2_tsep_1(X0,X1,X2) => r2_tsep_1(X0,X2,X1))) [input symmetry_r2_tsep_1]
+19. ! [X0] : (l1_pre_topc(X0) => ! [X1] : (m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => (r1_connsp_1(X0,X1,X2) => r1_xboole_0(X1,X2))))) [input t1_connsp_1]
+21. ! [X0] : ! [X1] : (r1_xboole_0(X0,X1) <=> k4_xboole_0(X0,X1) = X0) [input t83_xboole_1]
+22. ! [X0,X1] : (r1_xboole_0(X0,X1) <=> k4_xboole_0(X0,X1) = X0) [flattening 21]
+28. ~! [X0] : (l1_pre_topc(X0) => ! [X1] : (m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) => ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => ((r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2)) <=> r1_connsp_1(X0,X1,X2))))) [pure predicate removal 2]
+29. ? [X0] : (? [X1] : (? [X2] : (((r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2)) <~> r1_connsp_1(X0,X1,X2)) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) & l1_pre_topc(X0)) [ennf transformation 28]
+30. ! [X0] : (! [X1] : (! [X2] : ((r1_xboole_0(X1,X2) | ~r1_connsp_1(X0,X1,X2)) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) | ~l1_pre_topc(X0)) [ennf transformation 19]
+31. ! [X0] : (! [X1] : (! [X2] : (r1_xboole_0(X1,X2) | ~r1_connsp_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) | ~l1_pre_topc(X0)) [flattening 30]
+32. ! [X0] : (! [X1] : (! [X2] : ((r2_tsep_1(X0,X1,X2) <=> r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) | ~l1_pre_topc(X0)) [ennf transformation 3]
+34. ! [X0,X1] : (r1_xboole_0(X1,X0) | ~r1_xboole_0(X0,X1)) [ennf transformation 17]
+35. ! [X0,X1,X2] : (m1_subset_1(k7_subset_1(X0,X1,X2),k1_zfmisc_1(X0)) | ~m1_subset_1(X1,k1_zfmisc_1(X0))) [ennf transformation 6]
+36. ! [X0,X1,X2] : (k7_subset_1(X0,X1,X2) = k4_xboole_0(X1,X2) | ~m1_subset_1(X1,k1_zfmisc_1(X0))) [ennf transformation 14]
+37. ! [X0,X1,X2] : ((r2_tsep_1(X0,X2,X1) | ~r2_tsep_1(X0,X1,X2)) | (~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0))) [ennf transformation 18]
+38. ! [X0,X1,X2] : (r2_tsep_1(X0,X2,X1) | ~r2_tsep_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0)) [flattening 37]
+39. ! [X0,X1,X2] : ((r1_connsp_1(X0,X2,X1) | ~r1_connsp_1(X0,X1,X2)) | (~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0))) [ennf transformation 16]
+40. ! [X0,X1,X2] : (r1_connsp_1(X0,X2,X1) | ~r1_connsp_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0)) [flattening 39]
+41. ? [X0] : (? [X1] : (? [X2] : (((~r1_connsp_1(X0,X1,X2) | (~r2_tsep_1(X0,X1,X2) | ~r1_xboole_0(X1,X2))) & (r1_connsp_1(X0,X1,X2) | (r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2)))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) & l1_pre_topc(X0)) [nnf transformation 29]
+42. ? [X0] : (? [X1] : (? [X2] : ((~r1_connsp_1(X0,X1,X2) | ~r2_tsep_1(X0,X1,X2) | ~r1_xboole_0(X1,X2)) & (r1_connsp_1(X0,X1,X2) | (r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) & l1_pre_topc(X0)) [flattening 41]
+43. ? [X0] : (? [X1] : (? [X2] : ((~r1_connsp_1(X0,X1,X2) | ~r2_tsep_1(X0,X1,X2) | ~r1_xboole_0(X1,X2)) & (r1_connsp_1(X0,X1,X2) | (r2_tsep_1(X0,X1,X2) & r1_xboole_0(X1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) & l1_pre_topc(X0)) => (? [X1] : (? [X2] : ((~r1_connsp_1(sK0,X1,X2) | ~r2_tsep_1(sK0,X1,X2) | ~r1_xboole_0(X1,X2)) & (r1_connsp_1(sK0,X1,X2) | (r2_tsep_1(sK0,X1,X2) & r1_xboole_0(X1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0)))) & l1_pre_topc(sK0)) [choice axiom]
+44. ? [X1] : (? [X2] : ((~r1_connsp_1(sK0,X1,X2) | ~r2_tsep_1(sK0,X1,X2) | ~r1_xboole_0(X1,X2)) & (r1_connsp_1(sK0,X1,X2) | (r2_tsep_1(sK0,X1,X2) & r1_xboole_0(X1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) & m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0)))) => (? [X2] : ((~r1_connsp_1(sK0,sK1,X2) | ~r2_tsep_1(sK0,sK1,X2) | ~r1_xboole_0(sK1,X2)) & (r1_connsp_1(sK0,sK1,X2) | (r2_tsep_1(sK0,sK1,X2) & r1_xboole_0(sK1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) & m1_subset_1(sK1,k1_zfmisc_1(u1_struct_0(sK0)))) [choice axiom]
+45. ? [X2] : ((~r1_connsp_1(sK0,sK1,X2) | ~r2_tsep_1(sK0,sK1,X2) | ~r1_xboole_0(sK1,X2)) & (r1_connsp_1(sK0,sK1,X2) | (r2_tsep_1(sK0,sK1,X2) & r1_xboole_0(sK1,X2))) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) => ((~r1_connsp_1(sK0,sK1,sK2) | ~r2_tsep_1(sK0,sK1,sK2) | ~r1_xboole_0(sK1,sK2)) & (r1_connsp_1(sK0,sK1,sK2) | (r2_tsep_1(sK0,sK1,sK2) & r1_xboole_0(sK1,sK2))) & m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0)))) [choice axiom]
+46. (((~r1_connsp_1(sK0,sK1,sK2) | ~r2_tsep_1(sK0,sK1,sK2) | ~r1_xboole_0(sK1,sK2)) & (r1_connsp_1(sK0,sK1,sK2) | (r2_tsep_1(sK0,sK1,sK2) & r1_xboole_0(sK1,sK2))) & m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0)))) & m1_subset_1(sK1,k1_zfmisc_1(u1_struct_0(sK0)))) & l1_pre_topc(sK0) [skolemisation 42,45,44,43]
+47. ! [X0] : (! [X1] : (! [X2] : (((r2_tsep_1(X0,X1,X2) | ~r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1))) & (r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1)) | ~r2_tsep_1(X0,X1,X2))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0)))) | ~l1_pre_topc(X0)) [nnf transformation 32]
+48. ! [X0,X1] : ((r1_xboole_0(X0,X1) | k4_xboole_0(X0,X1) != X0) & (k4_xboole_0(X0,X1) = X0 | ~r1_xboole_0(X0,X1))) [nnf transformation 22]
+53. l1_pre_topc(sK0) [cnf transformation 46] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+54. m1_subset_1(sK1,k1_zfmisc_1(u1_struct_0(sK0))) [cnf transformation 46] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+55. m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0))) [cnf transformation 46] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+56. r1_connsp_1(sK0,sK1,sK2) | r1_xboole_0(sK1,sK2) [cnf transformation 46] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+57. r1_connsp_1(sK0,sK1,sK2) | r2_tsep_1(sK0,sK1,sK2) [cnf transformation 46] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+58. ~r1_connsp_1(sK0,sK1,sK2) | ~r2_tsep_1(sK0,sK1,sK2) | ~r1_xboole_0(sK1,sK2) [cnf transformation 46] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+59. ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~r1_connsp_1(X0,X1,X2) | r1_xboole_0(X1,X2) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [cnf transformation 31] {a:0,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+60. r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1)) | ~r2_tsep_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [cnf transformation 47] {a:0,w:28,wCS:11200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+61. ~r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X1,X2),k7_subset_1(u1_struct_0(X0),X2,X1)) | r2_tsep_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [cnf transformation 47] {a:0,w:28,wCS:11200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+62. k4_xboole_0(X0,X1) = X0 | ~r1_xboole_0(X0,X1) [cnf transformation 48] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+67. ~r1_xboole_0(X0,X1) | r1_xboole_0(X1,X0) [cnf transformation 34] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+68. m1_subset_1(k7_subset_1(X0,X1,X2),k1_zfmisc_1(X0)) | ~m1_subset_1(X1,k1_zfmisc_1(X0)) [cnf transformation 35] {a:0,w:11,wCS:4400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+69. k7_subset_1(X0,X1,X2) = k4_xboole_0(X1,X2) | ~m1_subset_1(X1,k1_zfmisc_1(X0)) [cnf transformation 36] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+70. ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~r2_tsep_1(X0,X1,X2) | r2_tsep_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [cnf transformation 38] {a:0,w:20,wCS:8000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+71. ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~r1_connsp_1(X0,X1,X2) | r1_connsp_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [cnf transformation 40] {a:0,w:20,wCS:8000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+74. 1 <=> r1_xboole_0(sK1,sK2) [avatar definition]
+75. r1_xboole_0(sK1,sK2) <- (1) [avatar component clause 74] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+78. 2 <=> r2_tsep_1(sK0,sK1,sK2) [avatar definition]
+82. 3 <=> r1_connsp_1(sK0,sK1,sK2) [avatar definition]
+83. r1_connsp_1(sK0,sK1,sK2) <- (3) [avatar component clause 82] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+85. ~1 | ~2 | ~3 [avatar split clause 58,82,78,74]
+86. 2 | 3 [avatar split clause 57,82,78]
+87. 1 | 3 [avatar split clause 56,82,74]
+89. 4 <=> m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0))) [avatar definition]
+91. m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0))) <- (4) [avatar component clause 89] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+92. 4 [avatar split clause 55,89]
+94. 5 <=> m1_subset_1(sK1,k1_zfmisc_1(u1_struct_0(sK0))) [avatar definition]
+96. m1_subset_1(sK1,k1_zfmisc_1(u1_struct_0(sK0))) <- (5) [avatar component clause 94] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+97. 5 [avatar split clause 54,94]
+99. 6 <=> l1_pre_topc(sK0) [avatar definition]
+101. l1_pre_topc(sK0) <- (6) [avatar component clause 99] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+102. 6 [avatar split clause 53,99]
+112. ~r1_connsp_1(sK0,X0,sK2) | r1_xboole_0(X0,sK2) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) <- (4) [resolution 59,91] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+118. ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | r1_xboole_0(X0,sK2) | ~r1_connsp_1(sK0,X0,sK2) <- (4, 6) [subsumption resolution 112,101] {a:1,w:12,wCS:1200,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+121. r1_xboole_0(sK1,sK2) | ~r1_connsp_1(sK0,sK1,sK2) <- (4, 5, 6) [resolution 118,96] {a:2,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+134. r1_xboole_0(sK1,sK2) <- (3, 4, 5, 6) [subsumption resolution 121,83] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+135. 1 | ~3 | ~4 | ~5 | ~6 [avatar split clause 134,99,94,89,82,74]
+153. ~r2_tsep_1(sK0,X1,sK1) | r2_tsep_1(sK0,sK1,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) <- (5) [resolution 70,96] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+158. ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0))) | r2_tsep_1(sK0,sK1,X1) | ~r2_tsep_1(sK0,X1,sK1) <- (5, 6) [subsumption resolution 153,101] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+159. ~r1_connsp_1(sK0,X0,sK2) | r1_connsp_1(sK0,sK2,X0) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) <- (4) [resolution 71,91] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+160. ~r1_connsp_1(sK0,X1,sK1) | r1_connsp_1(sK0,sK1,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) <- (5) [resolution 71,96] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+164. ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | r1_connsp_1(sK0,sK2,X0) | ~r1_connsp_1(sK0,X0,sK2) <- (4, 6) [subsumption resolution 159,101] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+165. ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0))) | r1_connsp_1(sK0,sK1,X1) | ~r1_connsp_1(sK0,X1,sK1) <- (5, 6) [subsumption resolution 160,101] {a:1,w:13,wCS:1300,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+167. r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X2,X1),k4_xboole_0(X1,X2)) | ~r2_tsep_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) [superposition 60,69] {a:1,w:31,wCS:12400,sine:1,thAx:0,allAx:2,thDist:-2}
+168. r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X2,X1),k4_xboole_0(X1,X2)) | ~r2_tsep_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [duplicate literal removal 167] {a:1,w:26,wCS:10400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+172. ~r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X2,X1),k4_xboole_0(X1,X2)) | r2_tsep_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) [superposition 61,69] {a:1,w:31,wCS:12400,sine:1,thAx:0,allAx:2,thDist:-2}
+173. ~r1_connsp_1(X0,k7_subset_1(u1_struct_0(X0),X2,X1),k4_xboole_0(X1,X2)) | r2_tsep_1(X0,X2,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [duplicate literal removal 172] {a:1,w:26,wCS:10400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+213. r2_tsep_1(sK0,sK1,sK2) | ~r2_tsep_1(sK0,sK2,sK1) <- (4, 5, 6) [resolution 158,91] {a:2,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+220. 19 <=> r2_tsep_1(sK0,sK2,sK1) [avatar definition]
+222. ~r2_tsep_1(sK0,sK2,sK1) <- (~19) [avatar component clause 220] {a:2,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+234. r1_connsp_1(sK0,sK2,sK1) | ~r1_connsp_1(sK0,sK1,sK2) <- (4, 5, 6) [resolution 164,96] {a:2,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+236. ~r1_connsp_1(sK0,k7_subset_1(u1_struct_0(sK0),X1,X2),sK2) | r1_connsp_1(sK0,sK2,k7_subset_1(u1_struct_0(sK0),X1,X2)) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(sK0))) <- (4, 6) [resolution 164,68] {a:2,w:21,wCS:2100,nSel:1,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+240. 22 <=> r1_connsp_1(sK0,sK2,sK1) [avatar definition]
+242. r1_connsp_1(sK0,sK2,sK1) <- (22) [avatar component clause 240] {a:2,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+244. ~19 | 2 | ~4 | ~5 | ~6 [avatar split clause 213,99,94,89,78,220]
+246. ~3 | 22 | ~4 | ~5 | ~6 [avatar split clause 234,99,94,89,240,82]
+247. r1_connsp_1(sK0,sK1,sK2) | ~r1_connsp_1(sK0,sK2,sK1) <- (4, 5, 6) [resolution 165,91] {a:2,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+299. r1_connsp_1(X2,k7_subset_1(u1_struct_0(X2),X1,X0),X0) | ~r2_tsep_1(X2,X1,X0) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(X2))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X2))) | ~l1_pre_topc(X2) | ~r1_xboole_0(X0,X1) [superposition 168,62] {a:2,w:27,wCS:10800,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+315. ~r1_connsp_1(X0,k4_xboole_0(X1,X2),k4_xboole_0(X2,X1)) | r2_tsep_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) [superposition 173,69] {a:2,w:29,wCS:11600,sine:1,thAx:0,allAx:3,thDist:-3}
+317. ~r1_connsp_1(X0,k4_xboole_0(X1,X2),k4_xboole_0(X2,X1)) | r2_tsep_1(X0,X1,X2) | ~m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X0))) | ~l1_pre_topc(X0) [duplicate literal removal 315] {a:2,w:24,wCS:9600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+448. ~r1_connsp_1(X2,k4_xboole_0(X1,X0),X0) | r2_tsep_1(X2,X1,X0) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(X2))) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X2))) | ~l1_pre_topc(X2) | ~r1_xboole_0(X0,X1) [superposition 317,62] {a:3,w:25,wCS:10000,nSel:1,sine:1,thAx:0,allAx:4,thDist:-4}
+516. ~22 | 3 | ~4 | ~5 | ~6 [avatar split clause 247,99,94,89,82,240]
+529. ~r2_tsep_1(sK0,X0,sK2) | ~m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0))) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) | ~r1_xboole_0(sK2,X0) | r1_connsp_1(sK0,sK2,k7_subset_1(u1_struct_0(sK0),X0,sK2)) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) <- (4, 6) [resolution 299,236] {a:3,w:32,wCS:3200,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+556. ~r2_tsep_1(sK0,X0,sK2) | ~m1_subset_1(sK2,k1_zfmisc_1(u1_struct_0(sK0))) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) | ~r1_xboole_0(sK2,X0) | r1_connsp_1(sK0,sK2,k7_subset_1(u1_struct_0(sK0),X0,sK2)) <- (4, 6) [duplicate literal removal 529] {a:3,w:27,wCS:2700,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+557. ~r2_tsep_1(sK0,X0,sK2) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~l1_pre_topc(sK0) | ~r1_xboole_0(sK2,X0) | r1_connsp_1(sK0,sK2,k7_subset_1(u1_struct_0(sK0),X0,sK2)) <- (4, 6) [subsumption resolution 556,91] {a:3,w:22,wCS:2200,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+558. r1_connsp_1(sK0,sK2,k7_subset_1(u1_struct_0(sK0),X0,sK2)) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~r1_xboole_0(sK2,X0) | ~r2_tsep_1(sK0,X0,sK2) <- (4, 6) [subsumption resolution 557,101] {a:3,w:20,wCS:2000,nSel:1,goal:1,sine:1,thAx:0,allAx:9,thDist:-9}
+663. r1_connsp_1(sK0,sK2,k4_xboole_0(X0,sK2)) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~r1_xboole_0(sK2,X0) | ~r2_tsep_1(sK0,X0,sK2) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) <- (4, 6) [superposition 558,69] {a:4,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+664. r1_connsp_1(sK0,sK2,k4_xboole_0(X0,sK2)) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~r1_xboole_0(sK2,X0) | ~r2_tsep_1(sK0,X0,sK2) <- (4, 6) [duplicate literal removal 663] {a:4,w:18,wCS:1800,nSel:1,goal:1,sine:1,thAx:0,allAx:10,thDist:-10}
+776. ~r1_connsp_1(X2,X0,X1) | r2_tsep_1(X2,X0,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X2))) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(X2))) | ~l1_pre_topc(X2) | ~r1_xboole_0(X1,X0) | ~r1_xboole_0(X0,X1) [superposition 448,62] {a:4,w:26,wCS:10400,sine:1,thAx:0,allAx:5,thDist:-5}
+778. ~r1_connsp_1(X2,X0,X1) | r2_tsep_1(X2,X0,X1) | ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X2))) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(X2))) | ~l1_pre_topc(X2) | ~r1_xboole_0(X0,X1) [subsumption resolution 776,67] {a:4,w:23,wCS:9200,sine:1,thAx:0,allAx:5,thDist:-5}
+779. ~m1_subset_1(X1,k1_zfmisc_1(u1_struct_0(X2))) | r2_tsep_1(X2,X0,X1) | ~r1_connsp_1(X2,X0,X1) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(X2))) | ~l1_pre_topc(X2) [subsumption resolution 778,59] {a:4,w:20,wCS:8000,nSel:1,sine:1,thAx:0,allAx:5,thDist:-5}
+794. r1_connsp_1(sK0,sK2,X0) | ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | ~r1_xboole_0(sK2,X0) | ~r2_tsep_1(sK0,X0,sK2) | ~r1_xboole_0(X0,sK2) <- (4, 6) [superposition 664,62] {a:5,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:11,thDist:-11}
+800. ~m1_subset_1(X0,k1_zfmisc_1(u1_struct_0(sK0))) | r1_connsp_1(sK0,sK2,X0) | ~r2_tsep_1(sK0,X0,sK2) | ~r1_xboole_0(X0,sK2) <- (4, 6) [subsumption resolution 794,67] {a:5,w:16,wCS:1600,nSel:1,goal:1,sine:1,thAx:0,allAx:11,thDist:-11}
+802. r1_connsp_1(sK0,sK2,sK1) | ~r2_tsep_1(sK0,sK1,sK2) | ~r1_xboole_0(sK1,sK2) <- (4, 5, 6) [resolution 800,96] {a:6,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:15,thDist:-15}
+1096. $false <- (4, 5, 6, ~19, 22) [unit resulting resolution 101,222,242,91,96,779] {a:5,w:0,goal:1,sine:1,thAx:0,allAx:35,thDist:-35}
+1104. ~4 | ~5 | ~6 | 19 | ~22 [avatar contradiction clause 1096]
+1137. r1_connsp_1(sK0,sK2,sK1) | ~r2_tsep_1(sK0,sK1,sK2) <- (1, 4, 5, 6) [subsumption resolution 802,75] {a:6,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:15,thDist:-15}
+1138. ~2 | 22 | ~1 | ~4 | ~5 | ~6 [avatar split clause 1137,99,94,89,74,240,78]
+1139. $false [avatar sat refutation 85,86,87,92,97,102,135,244,246,516,1104,1138] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:731,thDist:-731}
+% SZS output end Proof for tsep_1__t46_tsep_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 20
+% >>> Preprocessing
+% Introduced skolems: 5
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 921
+% Active clauses: 186
+% Passive clauses: 345
+% Final active clauses: 175
+% Final passive clauses: 128
+% Main loop iterations started: 216
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 337
+% Fw subsumption resolutions: 131
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 26
+% Forward subsumptions: 169
+% 
+% >>> Generating Inferences
+% Binary resolution: 358
+% Unit resulting resolution: 3
+% Forward superposition: 120
+% Backward superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 35
+% Split components: 75
+% Sat splitting refutations: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 51
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 10234
+% Time elapsed: 0.013 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% binary resolution index maintenance: 0.001 s
+% backward subsumption index maintenance: 0.001 s
+% backward demodulation index maintenance: 0.002 s
+% forward subsumption: 0.004 s
+% other: 0.013 s ( own 0.005 s ) 
+

@@ -1,0 +1,727 @@
+i: [1,81,0,2,1,1,0,0] t65_rewrite1
+a: [3,144,0,2,1,81]
+s: 144
+i: [1,82,0,3,1,1,0,0] t65_rewrite1
+a: [3,139,0,3,1,82]
+s: 139
+i: [1,84,0,11,2,1,0,0] t65_rewrite1
+a: [3,129,0,4,1,84]
+s: 129
+a: [3,132,0,7,1,84]
+s: 132
+i: [1,98,0,6,2,0,0,1] existence_m2_rewrite1
+s: 98
+i: [1,102,0,6,3,0,0,255] cc10_rewrite1
+s: 102
+i: [1,108,0,6,3,0,0,255] cc9_rewrite1
+s: 108
+i: [1,110,0,6,3,0,0,2] cc14_rewrite1
+s: 110
+i: [1,111,0,6,3,0,0,2] cc14_rewrite1
+s: 111
+i: [1,113,0,6,3,0,0,3] cc6_rewrite1
+s: 113
+i: [1,119,0,6,3,0,0,255] cc2_rewrite1
+s: 119
+i: [1,120,0,6,3,0,0,255] cc2_rewrite1
+s: 120
+i: [1,122,0,6,3,0,0,2] cc5_rewrite1
+s: 122
+i: [1,124,0,6,3,0,0,255] cc7_rewrite1
+s: 124
+i: [1,125,0,6,3,0,0,255] cc7_rewrite1
+s: 125
+i: [1,85,0,7,3,0,0,1] dt_m2_rewrite1
+s: 85
+d: [2,146,1,4,2,1,40,85,139]
+d: [2,149,1,2,1,2,21,146,144]
+a: [3,153,1,2,1,149]
+s: 153
+i: [1,86,0,7,3,0,0,1] dt_m2_rewrite1
+s: 86
+d: [2,155,1,4,2,1,40,86,139]
+d: [2,158,1,2,1,2,21,155,144]
+a: [3,162,1,2,1,158]
+s: 162
+i: [1,100,0,8,4,0,0,255] cc3_rewrite1
+s: 100
+i: [1,104,0,8,4,0,0,2] cc11_rewrite1
+s: 104
+d: [2,164,2,4,2,1,40,162,111]
+d: [2,166,2,2,1,2,21,164,153]
+a: [3,170,2,2,1,166]
+s: 170
+i: [1,115,0,8,4,0,0,255] cc13_rewrite1
+s: 115
+d: [2,165,2,4,2,1,40,162,110]
+d: [2,172,2,2,1,2,21,165,153]
+a: [3,176,2,2,1,172]
+s: 176
+i: [1,117,0,8,4,0,0,2] cc15_rewrite1
+s: 117
+i: [1,95,0,9,3,0,0,255] d6_rewrite1
+s: 95
+d: [2,178,3,4,2,1,40,170,125]
+d: [2,180,3,2,1,2,21,178,153]
+a: [3,184,3,2,1,180]
+s: 184
+i: [1,91,0,10,3,0,0,255] t37_rewrite1
+s: 91
+d: [2,179,3,4,2,1,40,170,124]
+d: [2,186,3,2,1,2,21,179,153]
+a: [3,190,3,2,1,186]
+s: 190
+i: [1,96,0,10,3,0,0,255] d6_rewrite1
+s: 96
+i: [1,105,0,12,4,0,0,255] t54_rewrite1
+s: 105
+d: [2,225,1,12,4,1,44,105,132]
+d: [2,228,1,10,3,2,21,225,153]
+a: [3,232,1,2,1,228]
+s: 232
+i: [1,92,0,13,3,0,0,255] d7_rewrite1
+s: 92
+d: [2,192,3,4,2,1,40,176,122]
+d: [2,195,3,2,1,2,21,192,153]
+a: [3,199,3,2,1,195]
+s: 199
+i: [1,93,0,13,3,0,0,255] d7_rewrite1
+s: 93
+i: [1,97,0,13,4,0,0,255] d6_rewrite1
+s: 97
+d: [2,193,3,4,2,1,40,176,120]
+d: [2,201,3,2,1,2,21,193,153]
+a: [3,205,3,2,1,201]
+s: 205
+i: [1,94,0,14,4,0,0,255] d7_rewrite1
+s: 94
+d: [2,194,3,4,2,1,40,176,119]
+d: [2,207,3,2,1,2,21,194,153]
+a: [3,211,3,2,1,207]
+s: 211
+i: [1,87,0,17,6,0,0,255] d28_rewrite1
+s: 87
+d: [2,248,0,15,5,0,21,87,85]
+d: [2,249,0,13,4,0,21,248,86]
+s: 249
+d: [2,216,4,4,2,1,40,190,108]
+d: [2,217,4,2,1,2,21,216,153]
+a: [3,221,4,2,1,217]
+s: 221
+d: [2,250,5,0,0,3,52,153,232,221,102]
+e: 250
+d: [2,251,5,4,2,1,40,221,102]
+d: [2,253,5,2,1,2,21,251,232]
+d: [2,254,5,0,0,3,21,253,153]
+e: 254
+r: 232
+i: [1,88,0,17,6,0,0,255] d28_rewrite1
+s: 88
+a: [3,231,1,2,1,228]
+s: 231
+d: [2,258,0,15,5,0,21,88,85]
+d: [2,259,0,13,4,0,21,258,86]
+s: 259
+i: [1,106,0,17,5,0,0,1] t55_rewrite1
+s: 106
+a: [3,236,1,6,1,228]
+s: 236
+i: [1,89,0,25,6,0,0,255] d28_rewrite1
+s: 89
+d: [2,289,2,7,2,1,40,236,95]
+d: [2,298,2,5,1,2,21,289,153]
+a: [3,302,2,5,1,298]
+s: 302
+i: [1,90,0,25,6,0,0,255] d28_rewrite1
+s: 90
+d: [2,260,1,17,5,1,44,106,132]
+d: [2,276,1,15,4,2,21,260,231]
+d: [2,277,1,13,3,3,21,276,199]
+d: [2,278,1,11,2,4,21,277,153]
+s: 278
+d: [2,288,2,8,2,1,40,236,96]
+d: [2,292,2,6,1,2,21,288,153]
+a: [3,296,2,6,1,292]
+s: 296
+d: [2,263,1,17,5,1,44,106,132]
+d: [2,279,1,15,4,2,21,263,231]
+d: [2,280,1,13,3,3,21,279,199]
+d: [2,281,1,11,2,4,21,280,153]
+s: 281
+d: [2,315,3,15,5,1,44,302,106]
+d: [2,317,3,13,4,2,21,315,231]
+d: [2,318,3,11,3,3,21,317,199]
+d: [2,319,3,9,2,4,21,318,153]
+s: 319
+d: [2,266,1,17,5,1,44,132,106]
+d: [2,282,1,15,4,2,21,266,231]
+d: [2,283,1,13,3,3,21,282,199]
+d: [2,284,1,11,2,4,21,283,153]
+s: 284
+d: [2,268,1,17,5,1,44,132,106]
+d: [2,285,1,15,4,2,21,268,231]
+d: [2,286,1,13,3,3,21,285,199]
+d: [2,287,1,11,2,4,21,286,153]
+s: 287
+d: [2,427,4,13,3,5,44,319,281]
+a: [3,436,4,4,1,427]
+s: 436
+d: [2,147,1,7,3,0,40,85,98]
+d: [2,148,1,5,2,0,18,147]
+s: 148
+d: [2,316,3,15,5,1,44,302,106]
+d: [2,320,3,13,4,2,21,316,231]
+d: [2,321,3,11,3,3,21,320,199]
+d: [2,322,3,9,2,4,21,321,153]
+s: 322
+d: [2,156,1,7,3,0,40,86,98]
+d: [2,157,1,5,2,0,18,156]
+s: 157
+d: [2,224,1,13,5,0,40,105,95]
+d: [2,226,1,11,4,0,18,224]
+s: 226
+d: [2,330,3,9,2,5,44,302,278]
+s: 330
+d: [2,223,1,14,5,0,40,105,96]
+d: [2,227,1,12,4,0,18,223]
+s: 227
+d: [2,388,3,9,2,5,44,302,281]
+s: 388
+r: 129
+r: 281
+r: 278
+r: 132
+r: 236
+r: 322
+r: 319
+r: 302
+a: [3,128,0,4,1,84]
+s: 128
+a: [3,133,0,7,1,84]
+s: 133
+a: [3,301,2,5,1,298]
+s: 301
+d: [2,516,4,0,0,4,52,231,153,199,301,226]
+e: 516
+d: [2,517,3,6,3,1,40,301,226]
+d: [2,521,3,4,2,2,21,517,199]
+d: [2,522,3,2,1,3,21,521,153]
+d: [2,523,3,0,0,4,21,522,231]
+e: 523
+r: 296
+r: 301
+a: [3,235,1,6,1,228]
+s: 235
+s: 302
+d: [2,506,1,9,3,1,40,128,249]
+d: [2,507,1,7,2,2,21,506,144]
+s: 507
+d: [2,508,1,17,5,1,44,133,106]
+d: [2,510,1,15,4,2,21,508,231]
+d: [2,511,1,13,3,3,21,510,199]
+d: [2,512,1,11,2,4,21,511,153]
+s: 512
+d: [2,547,2,4,1,4,47,512]
+a: [3,563,2,4,1,547]
+s: 563
+d: [2,509,1,17,5,1,44,133,106]
+d: [2,513,1,15,4,2,21,509,231]
+d: [2,514,1,13,3,3,21,513,199]
+d: [2,515,1,11,2,4,21,514,153]
+s: 515
+d: [2,569,2,4,1,4,47,515]
+a: [3,585,2,4,1,569]
+s: 585
+d: [2,269,1,22,8,0,44,105,106]
+d: [2,270,1,16,5,0,18,269]
+s: 270
+d: [2,267,1,22,8,0,44,105,106]
+d: [2,271,1,16,5,0,18,267]
+s: 271
+a: [3,295,2,6,1,292]
+s: 295
+d: [2,245,1,19,5,0,40,94,93]
+d: [2,246,1,17,4,0,18,245]
+s: 246
+d: [2,542,2,9,3,2,40,507,91]
+s: 542
+d: [2,617,3,0,0,5,52,153,139,563,542]
+e: 617
+d: [2,618,3,5,2,3,40,542,563]
+d: [2,622,3,2,1,4,21,618,139]
+d: [2,623,3,0,0,5,21,622,153]
+e: 623
+r: 542
+r: 507
+r: 128
+r: 515
+r: 512
+r: 133
+r: 235
+r: 295
+s: 129
+s: 132
+s: 236
+d: [2,625,1,17,5,1,44,132,106]
+d: [2,634,1,15,4,2,21,625,231]
+d: [2,635,1,13,3,3,21,634,199]
+d: [2,636,1,11,2,4,21,635,153]
+s: 636
+s: 296
+d: [2,626,1,17,5,1,44,132,106]
+d: [2,637,1,15,4,2,21,626,231]
+d: [2,638,1,13,3,3,21,637,199]
+d: [2,639,1,11,2,4,21,638,153]
+s: 639
+d: [2,628,1,17,5,1,44,106,132]
+d: [2,644,1,15,4,2,21,628,231]
+d: [2,645,1,13,3,3,21,644,199]
+d: [2,646,1,11,2,4,21,645,153]
+s: 646
+a: [3,439,4,9,2,427]
+s: 439
+d: [2,629,1,17,5,1,44,106,132]
+d: [2,647,1,15,4,2,21,629,231]
+d: [2,648,1,13,3,3,21,647,199]
+d: [2,649,1,11,2,4,21,648,153]
+s: 649
+d: [2,428,4,13,3,5,44,319,278]
+a: [3,443,4,9,2,428]
+s: 443
+d: [2,244,1,19,5,0,40,94,92]
+d: [2,247,1,17,4,0,18,244]
+s: 247
+d: [2,240,1,21,5,0,40,97,93]
+d: [2,241,1,19,4,0,18,240]
+s: 241
+d: [2,632,2,16,5,1,44,270,132]
+d: [2,654,2,14,4,2,21,632,231]
+d: [2,655,2,12,3,3,21,654,199]
+d: [2,656,2,10,2,4,21,655,153]
+s: 656
+d: [2,239,1,21,5,0,40,97,92]
+d: [2,242,1,19,4,0,18,239]
+s: 242
+d: [2,633,2,16,5,1,44,271,132]
+d: [2,657,2,14,4,2,21,633,231]
+d: [2,658,2,12,3,3,21,657,199]
+d: [2,659,2,10,2,4,21,658,153]
+s: 659
+d: [2,265,1,27,9,0,44,106,106]
+d: [2,272,1,21,6,0,18,265]
+s: 272
+d: [2,264,1,27,9,0,44,106,106]
+d: [2,273,1,21,6,0,18,264]
+s: 273
+d: [2,662,2,16,5,1,44,236,106]
+d: [2,666,2,14,4,2,21,662,231]
+d: [2,667,2,12,3,3,21,666,199]
+d: [2,668,2,10,2,4,21,667,153]
+s: 668
+d: [2,262,1,27,9,0,44,106,106]
+d: [2,274,1,21,6,0,18,262]
+s: 274
+d: [2,1222,3,11,3,4,40,668,95]
+d: [2,1235,3,9,2,4,21,1222,153]
+s: 1235
+d: [2,261,1,27,9,0,44,106,106]
+d: [2,275,1,21,6,0,18,261]
+s: 275
+d: [2,311,1,27,7,0,40,89,91]
+d: [2,312,1,25,6,0,18,311]
+s: 312
+d: [2,663,2,16,5,1,44,236,106]
+d: [2,669,2,14,4,2,21,663,231]
+d: [2,670,2,12,3,3,21,669,199]
+d: [2,671,2,10,2,4,21,670,153]
+s: 671
+d: [2,310,1,30,8,0,40,89,259]
+d: [2,313,1,28,7,0,21,310,85]
+d: [2,314,1,26,6,0,21,313,86]
+s: 314
+d: [2,1474,3,11,3,4,40,671,95]
+d: [2,1489,3,9,2,4,21,1474,153]
+s: 1489
+d: [2,677,2,10,2,5,44,236,636]
+s: 677
+d: [2,679,2,16,5,4,44,105,636]
+d: [2,706,2,14,4,4,21,679,231]
+d: [2,707,2,12,3,4,21,706,199]
+d: [2,708,2,10,2,4,21,707,153]
+s: 708
+d: [2,1574,3,10,2,4,44,708,132]
+a: [3,1596,3,6,1,1574]
+s: 1596
+r: 1596
+r: 585
+d: [2,683,2,16,5,4,44,227,636]
+d: [2,715,2,14,4,4,21,683,199]
+d: [2,716,2,12,3,4,21,715,153]
+d: [2,717,2,10,2,4,21,716,231]
+s: 717
+a: [3,1592,3,4,1,1574]
+s: 1592
+d: [2,686,2,16,5,4,44,105,636]
+d: [2,724,2,14,4,4,21,686,231]
+d: [2,725,2,12,3,4,21,724,199]
+d: [2,726,2,10,2,4,21,725,153]
+s: 726
+d: [2,690,2,16,5,4,44,227,636]
+d: [2,733,2,14,4,4,21,690,199]
+d: [2,734,2,12,3,4,21,733,153]
+d: [2,735,2,10,2,4,21,734,231]
+s: 735
+s: 1596
+d: [2,762,2,10,2,5,44,236,639]
+s: 762
+d: [2,1630,4,8,2,1,40,1596,96]
+d: [2,1642,4,6,1,2,21,1630,153]
+a: [3,1646,4,6,1,1642]
+s: 1646
+d: [2,764,2,16,5,4,44,105,639]
+d: [2,791,2,14,4,4,21,764,231]
+d: [2,792,2,12,3,4,21,791,199]
+d: [2,793,2,10,2,4,21,792,153]
+s: 793
+d: [2,768,2,16,5,4,44,227,639]
+d: [2,800,2,14,4,4,21,768,199]
+d: [2,801,2,12,3,4,21,800,153]
+d: [2,802,2,10,2,4,21,801,231]
+s: 802
+d: [2,771,2,16,5,4,44,105,639]
+d: [2,809,2,14,4,4,21,771,231]
+d: [2,810,2,12,3,4,21,809,199]
+d: [2,811,2,10,2,4,21,810,153]
+s: 811
+d: [2,775,2,16,5,4,44,227,639]
+d: [2,818,2,14,4,4,21,775,199]
+d: [2,819,2,12,3,4,21,818,153]
+d: [2,820,2,10,2,4,21,819,231]
+s: 820
+d: [2,744,3,10,2,5,44,296,636]
+s: 744
+d: [2,684,2,20,6,4,44,270,636]
+d: [2,718,2,18,5,4,21,684,231]
+d: [2,719,2,16,4,4,21,718,199]
+d: [2,720,2,14,3,4,21,719,153]
+s: 720
+d: [2,685,2,20,6,4,44,271,636]
+d: [2,721,2,18,5,4,21,685,231]
+d: [2,722,2,16,4,4,21,721,199]
+d: [2,723,2,14,3,4,21,722,153]
+s: 723
+d: [2,1578,3,14,3,4,44,708,636]
+d: [2,1587,3,10,2,4,18,1578]
+a: [3,1604,3,4,1,1587]
+s: 1604
+r: 744
+r: 735
+r: 723
+r: 720
+r: 717
+r: 708
+r: 677
+r: 659
+r: 636
+r: 439
+r: 1592
+r: 563
+d: [2,691,2,20,6,4,44,270,636]
+d: [2,736,2,18,5,4,21,691,231]
+d: [2,737,2,16,4,4,21,736,199]
+d: [2,738,2,14,3,4,21,737,153]
+s: 738
+d: [2,1577,3,14,3,4,44,708,639]
+a: [3,1600,3,8,2,1577]
+s: 1600
+d: [2,692,2,20,6,4,44,271,636]
+d: [2,739,2,18,5,4,21,692,231]
+d: [2,740,2,16,4,4,21,739,199]
+d: [2,741,2,14,3,4,21,740,153]
+s: 741
+d: [2,769,2,20,6,4,44,270,639]
+d: [2,803,2,18,5,4,21,769,231]
+d: [2,804,2,16,4,4,21,803,199]
+d: [2,805,2,14,3,4,21,804,153]
+s: 805
+d: [2,742,3,12,3,1,40,296,94]
+d: [2,747,3,10,2,2,21,742,153]
+s: 747
+d: [2,770,2,20,6,4,44,271,639]
+d: [2,806,2,18,5,4,21,770,231]
+d: [2,807,2,16,4,4,21,806,199]
+d: [2,808,2,14,3,4,21,807,153]
+s: 808
+d: [2,2152,4,4,1,2,40,747,296]
+a: [3,2169,4,4,1,2152]
+s: 2169
+d: [2,2245,5,0,0,3,52,153,1604,2169,91]
+e: 2245
+d: [2,2247,5,6,2,1,40,2169,91]
+d: [2,2249,5,2,1,2,21,2247,1604]
+d: [2,2250,5,0,0,3,21,2249,153]
+e: 2250
+r: 1604
+s: 636
+s: 563
+s: 585
+s: 659
+a: [3,1591,3,4,1,1574]
+s: 1591
+s: 677
+s: 708
+d: [2,2153,5,4,1,3,40,747,1646]
+a: [3,2174,5,4,1,2153]
+s: 2174
+d: [2,2520,6,0,0,3,52,153,563,2174,91]
+e: 2520
+d: [2,2521,6,0,0,4,52,144,139,129,2174,259]
+e: 2521
+d: [2,2523,6,6,2,1,40,2174,91]
+d: [2,2526,6,2,1,2,21,2523,563]
+d: [2,2527,6,0,0,3,21,2526,153]
+e: 2527
+i: [1,83,0,11,2,1,0,0] t65_rewrite1
+d: [2,256,5,2,1,2,21,251,153]
+d: [2,631,2,12,4,1,44,227,132]
+d: [2,650,2,10,3,2,21,631,199]
+d: [2,651,2,8,2,3,21,650,153]
+d: [2,652,2,6,1,4,21,651,231]
+d: [2,2156,4,10,4,2,40,747,227]
+d: [2,2177,4,8,3,3,21,2156,199]
+d: [2,2178,4,6,2,3,21,2177,153]
+d: [2,2179,4,4,1,4,21,2178,231]
+f: 2521,2179,652,623,547,256,217,195,186,172,166,158,149,81,82,83,84
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for rewrite1__t65_rewrite1
+% SZS output start Proof for rewrite1__t65_rewrite1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (m2_rewrite1(X1,X0) => ! [X2] : ! [X3] : (r2_rewrite1(X0,X2,X3) <=> k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3)))) [input t65_rewrite1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (m2_rewrite1(X1,X0) => ! [X2] : ! [X3] : (r2_rewrite1(X0,X2,X3) <=> k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3)))) [negated conjecture 1]
+3. ! [X0] : ((v5_rewrite1(X0) & v1_relat_1(X0)) => (v4_rewrite1(X0) & v1_relat_1(X0))) [input cc10_rewrite1]
+6. ! [X0] : ((v10_rewrite1(X0) & v1_relat_1(X0)) => (v7_rewrite1(X0) & v3_rewrite1(X0) & v1_relat_1(X0))) [input cc14_rewrite1]
+10. ! [X0] : ((v3_rewrite1(X0) & v1_relat_1(X0)) => (v2_rewrite1(X0) & v1_relat_1(X0))) [input cc5_rewrite1]
+12. ! [X0] : ((v7_rewrite1(X0) & v1_relat_1(X0)) => (v9_rewrite1(X0) & v8_rewrite1(X0) & v1_relat_1(X0))) [input cc7_rewrite1]
+13. ! [X0] : ((v8_rewrite1(X0) & v1_relat_1(X0)) => (v5_rewrite1(X0) & v1_relat_1(X0))) [input cc9_rewrite1]
+14. ! [X0] : (v1_relat_1(X0) => ! [X1] : ((v10_rewrite1(X1) & v1_relat_1(X1)) => (m2_rewrite1(X1,X0) <=> ! [X2] : ! [X3] : (r2_rewrite1(X0,X2,X3) <=> r5_rewrite1(X1,X2,X3))))) [input d28_rewrite1]
+15. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r4_rewrite1(X0,X1,X2) <=> (r1_rewrite1(X0,X1,X2) & r3_rewrite1(X0,X2)))) [input d6_rewrite1]
+16. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [input d7_rewrite1]
+18. ! [X0] : (v1_relat_1(X0) => ! [X1] : (m2_rewrite1(X1,X0) => (v10_rewrite1(X1) & v1_relat_1(X1)))) [input dt_m2_rewrite1]
+20. ! [X0] : (v1_relat_1(X0) => ! [X1] : ! [X2] : ((r6_rewrite1(X0,X1,X2) | r5_rewrite1(X0,X1,X2)) => r2_rewrite1(X0,X1,X2))) [input t37_rewrite1]
+21. ! [X0] : ((v4_rewrite1(X0) & v2_rewrite1(X0) & v1_relat_1(X0)) => ! [X1] : r4_rewrite1(X0,X1,k2_rewrite1(X0,X1))) [input t54_rewrite1]
+22. ! [X0] : ((v4_rewrite1(X0) & v2_rewrite1(X0) & v1_relat_1(X0)) => ! [X1] : ! [X2] : (r2_rewrite1(X0,X1,X2) => k2_rewrite1(X0,X1) = k2_rewrite1(X0,X2))) [input t55_rewrite1]
+23. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (m2_rewrite1(X1,X0) => ! [X2,X3] : (r2_rewrite1(X0,X2,X3) <=> k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3)))) [flattening 2]
+24. ! [X0] : (v1_relat_1(X0) => ! [X1] : ((v10_rewrite1(X1) & v1_relat_1(X1)) => (m2_rewrite1(X1,X0) <=> ! [X2,X3] : (r2_rewrite1(X0,X2,X3) <=> r5_rewrite1(X1,X2,X3))))) [flattening 14]
+25. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : ((r6_rewrite1(X0,X1,X2) | r5_rewrite1(X0,X1,X2)) => r2_rewrite1(X0,X1,X2))) [flattening 20]
+26. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)))) [flattening 16]
+27. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r4_rewrite1(X0,X1,X2) <=> (r1_rewrite1(X0,X1,X2) & r3_rewrite1(X0,X2)))) [flattening 15]
+28. ! [X0] : ((v4_rewrite1(X0) & v2_rewrite1(X0) & v1_relat_1(X0)) => ! [X1,X2] : (r2_rewrite1(X0,X1,X2) => k2_rewrite1(X0,X1) = k2_rewrite1(X0,X2))) [flattening 22]
+29. ! [X0] : (v1_relat_1(X0) => ! [X1,X2] : (r5_rewrite1(X0,X1,X2) => r2_rewrite1(X0,X1,X2))) [pure predicate removal 25]
+30. ? [X0] : (? [X1] : (? [X2,X3] : (r2_rewrite1(X0,X2,X3) <~> k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3)) & m2_rewrite1(X1,X0)) & v1_relat_1(X0)) [ennf transformation 23]
+31. ! [X0] : (! [X1] : ((v10_rewrite1(X1) & v1_relat_1(X1)) | ~m2_rewrite1(X1,X0)) | ~v1_relat_1(X0)) [ennf transformation 18]
+32. ! [X0] : (! [X1] : ((m2_rewrite1(X1,X0) <=> ! [X2,X3] : (r2_rewrite1(X0,X2,X3) <=> r5_rewrite1(X1,X2,X3))) | (~v10_rewrite1(X1) | ~v1_relat_1(X1))) | ~v1_relat_1(X0)) [ennf transformation 24]
+33. ! [X0] : (! [X1] : ((m2_rewrite1(X1,X0) <=> ! [X2,X3] : (r2_rewrite1(X0,X2,X3) <=> r5_rewrite1(X1,X2,X3))) | ~v10_rewrite1(X1) | ~v1_relat_1(X1)) | ~v1_relat_1(X0)) [flattening 32]
+34. ! [X0] : (! [X1,X2] : (r2_rewrite1(X0,X1,X2) | ~r5_rewrite1(X0,X1,X2)) | ~v1_relat_1(X0)) [ennf transformation 29]
+35. ! [X0] : (! [X1,X2] : (r5_rewrite1(X0,X1,X2) <=> ? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3))) | ~v1_relat_1(X0)) [ennf transformation 26]
+36. ! [X0] : (! [X1,X2] : (r4_rewrite1(X0,X1,X2) <=> (r1_rewrite1(X0,X1,X2) & r3_rewrite1(X0,X2))) | ~v1_relat_1(X0)) [ennf transformation 27]
+40. ! [X0] : ((v4_rewrite1(X0) & v1_relat_1(X0)) | (~v5_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 3]
+41. ! [X0] : ((v4_rewrite1(X0) & v1_relat_1(X0)) | ~v5_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 40]
+44. ! [X0] : (! [X1] : r4_rewrite1(X0,X1,k2_rewrite1(X0,X1)) | (~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 21]
+45. ! [X0] : (! [X1] : r4_rewrite1(X0,X1,k2_rewrite1(X0,X1)) | ~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 44]
+46. ! [X0] : (! [X1,X2] : (k2_rewrite1(X0,X1) = k2_rewrite1(X0,X2) | ~r2_rewrite1(X0,X1,X2)) | (~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 28]
+47. ! [X0] : (! [X1,X2] : (k2_rewrite1(X0,X1) = k2_rewrite1(X0,X2) | ~r2_rewrite1(X0,X1,X2)) | ~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 46]
+48. ! [X0] : ((v5_rewrite1(X0) & v1_relat_1(X0)) | (~v8_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 13]
+49. ! [X0] : ((v5_rewrite1(X0) & v1_relat_1(X0)) | ~v8_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 48]
+50. ! [X0] : ((v7_rewrite1(X0) & v3_rewrite1(X0) & v1_relat_1(X0)) | (~v10_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 6]
+51. ! [X0] : ((v7_rewrite1(X0) & v3_rewrite1(X0) & v1_relat_1(X0)) | ~v10_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 50]
+60. ! [X0] : ((v2_rewrite1(X0) & v1_relat_1(X0)) | (~v3_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 10]
+61. ! [X0] : ((v2_rewrite1(X0) & v1_relat_1(X0)) | ~v3_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 60]
+62. ! [X0] : ((v9_rewrite1(X0) & v8_rewrite1(X0) & v1_relat_1(X0)) | (~v7_rewrite1(X0) | ~v1_relat_1(X0))) [ennf transformation 12]
+63. ! [X0] : ((v9_rewrite1(X0) & v8_rewrite1(X0) & v1_relat_1(X0)) | ~v7_rewrite1(X0) | ~v1_relat_1(X0)) [flattening 62]
+64. ? [X0] : (? [X1] : (? [X2,X3] : ((k2_rewrite1(X1,X2) != k2_rewrite1(X1,X3) | ~r2_rewrite1(X0,X2,X3)) & (k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3) | r2_rewrite1(X0,X2,X3))) & m2_rewrite1(X1,X0)) & v1_relat_1(X0)) [nnf transformation 30]
+65. ? [X0] : (? [X1] : (? [X2,X3] : ((k2_rewrite1(X1,X2) != k2_rewrite1(X1,X3) | ~r2_rewrite1(X0,X2,X3)) & (k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3) | r2_rewrite1(X0,X2,X3))) & m2_rewrite1(X1,X0)) & v1_relat_1(X0)) => (? [X1] : (? [X3,X2] : ((k2_rewrite1(X1,X2) != k2_rewrite1(X1,X3) | ~r2_rewrite1(sK0,X2,X3)) & (k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3) | r2_rewrite1(sK0,X2,X3))) & m2_rewrite1(X1,sK0)) & v1_relat_1(sK0)) [choice axiom]
+66. ? [X1] : (? [X3,X2] : ((k2_rewrite1(X1,X2) != k2_rewrite1(X1,X3) | ~r2_rewrite1(sK0,X2,X3)) & (k2_rewrite1(X1,X2) = k2_rewrite1(X1,X3) | r2_rewrite1(sK0,X2,X3))) & m2_rewrite1(X1,sK0)) => (? [X3,X2] : ((k2_rewrite1(sK1,X2) != k2_rewrite1(sK1,X3) | ~r2_rewrite1(sK0,X2,X3)) & (k2_rewrite1(sK1,X2) = k2_rewrite1(sK1,X3) | r2_rewrite1(sK0,X2,X3))) & m2_rewrite1(sK1,sK0)) [choice axiom]
+67. ? [X3,X2] : ((k2_rewrite1(sK1,X2) != k2_rewrite1(sK1,X3) | ~r2_rewrite1(sK0,X2,X3)) & (k2_rewrite1(sK1,X2) = k2_rewrite1(sK1,X3) | r2_rewrite1(sK0,X2,X3))) => ((k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,sK3) | ~r2_rewrite1(sK0,sK2,sK3)) & (k2_rewrite1(sK1,sK2) = k2_rewrite1(sK1,sK3) | r2_rewrite1(sK0,sK2,sK3))) [choice axiom]
+68. (((k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,sK3) | ~r2_rewrite1(sK0,sK2,sK3)) & (k2_rewrite1(sK1,sK2) = k2_rewrite1(sK1,sK3) | r2_rewrite1(sK0,sK2,sK3))) & m2_rewrite1(sK1,sK0)) & v1_relat_1(sK0) [skolemisation 64,67,66,65]
+69. ! [X0] : (! [X1] : (((m2_rewrite1(X1,X0) | ? [X2,X3] : ((~r5_rewrite1(X1,X2,X3) | ~r2_rewrite1(X0,X2,X3)) & (r5_rewrite1(X1,X2,X3) | r2_rewrite1(X0,X2,X3)))) & (! [X2,X3] : ((r2_rewrite1(X0,X2,X3) | ~r5_rewrite1(X1,X2,X3)) & (r5_rewrite1(X1,X2,X3) | ~r2_rewrite1(X0,X2,X3))) | ~m2_rewrite1(X1,X0))) | ~v10_rewrite1(X1) | ~v1_relat_1(X1)) | ~v1_relat_1(X0)) [nnf transformation 33]
+70. ! [X0] : (! [X1] : (((m2_rewrite1(X1,X0) | ? [X2,X3] : ((~r5_rewrite1(X1,X2,X3) | ~r2_rewrite1(X0,X2,X3)) & (r5_rewrite1(X1,X2,X3) | r2_rewrite1(X0,X2,X3)))) & (! [X4,X5] : ((r2_rewrite1(X0,X4,X5) | ~r5_rewrite1(X1,X4,X5)) & (r5_rewrite1(X1,X4,X5) | ~r2_rewrite1(X0,X4,X5))) | ~m2_rewrite1(X1,X0))) | ~v10_rewrite1(X1) | ~v1_relat_1(X1)) | ~v1_relat_1(X0)) [rectify 69]
+71. ! [X1,X0] : (? [X2,X3] : ((~r5_rewrite1(X1,X2,X3) | ~r2_rewrite1(X0,X2,X3)) & (r5_rewrite1(X1,X2,X3) | r2_rewrite1(X0,X2,X3))) => ((~r5_rewrite1(X1,sK4(X0,X1),sK5(X0,X1)) | ~r2_rewrite1(X0,sK4(X0,X1),sK5(X0,X1))) & (r5_rewrite1(X1,sK4(X0,X1),sK5(X0,X1)) | r2_rewrite1(X0,sK4(X0,X1),sK5(X0,X1))))) [choice axiom]
+72. ! [X0] : (! [X1] : (((m2_rewrite1(X1,X0) | ((~r5_rewrite1(X1,sK4(X0,X1),sK5(X0,X1)) | ~r2_rewrite1(X0,sK4(X0,X1),sK5(X0,X1))) & (r5_rewrite1(X1,sK4(X0,X1),sK5(X0,X1)) | r2_rewrite1(X0,sK4(X0,X1),sK5(X0,X1))))) & (! [X4,X5] : ((r2_rewrite1(X0,X4,X5) | ~r5_rewrite1(X1,X4,X5)) & (r5_rewrite1(X1,X4,X5) | ~r2_rewrite1(X0,X4,X5))) | ~m2_rewrite1(X1,X0))) | ~v10_rewrite1(X1) | ~v1_relat_1(X1)) | ~v1_relat_1(X0)) [skolemisation 70,71]
+73. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X3] : (r1_rewrite1(X0,X2,X3) & r1_rewrite1(X0,X1,X3)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [nnf transformation 35]
+74. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [rectify 73]
+75. ! [X2,X1,X0] : (? [X4] : (r1_rewrite1(X0,X2,X4) & r1_rewrite1(X0,X1,X4)) => (r1_rewrite1(X0,X2,sK6(X0,X1,X2)) & r1_rewrite1(X0,X1,sK6(X0,X1,X2)))) [choice axiom]
+76. ! [X0] : (! [X1,X2] : ((r5_rewrite1(X0,X1,X2) | ! [X3] : (~r1_rewrite1(X0,X2,X3) | ~r1_rewrite1(X0,X1,X3))) & ((r1_rewrite1(X0,X2,sK6(X0,X1,X2)) & r1_rewrite1(X0,X1,sK6(X0,X1,X2))) | ~r5_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [skolemisation 74,75]
+77. ! [X0] : (! [X1,X2] : ((r4_rewrite1(X0,X1,X2) | (~r1_rewrite1(X0,X1,X2) | ~r3_rewrite1(X0,X2))) & ((r1_rewrite1(X0,X1,X2) & r3_rewrite1(X0,X2)) | ~r4_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [nnf transformation 36]
+78. ! [X0] : (! [X1,X2] : ((r4_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X1,X2) | ~r3_rewrite1(X0,X2)) & ((r1_rewrite1(X0,X1,X2) & r3_rewrite1(X0,X2)) | ~r4_rewrite1(X0,X1,X2))) | ~v1_relat_1(X0)) [flattening 77]
+81. v1_relat_1(sK0) [cnf transformation 68] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+82. m2_rewrite1(sK1,sK0) [cnf transformation 68] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+83. k2_rewrite1(sK1,sK2) = k2_rewrite1(sK1,sK3) | r2_rewrite1(sK0,sK2,sK3) [cnf transformation 68] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+84. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,sK3) | ~r2_rewrite1(sK0,sK2,sK3) [cnf transformation 68] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+85. ~m2_rewrite1(X1,X0) | v1_relat_1(X1) | ~v1_relat_1(X0) [cnf transformation 31] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+86. ~m2_rewrite1(X1,X0) | v10_rewrite1(X1) | ~v1_relat_1(X0) [cnf transformation 31] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+87. r5_rewrite1(X1,X4,X5) | ~r2_rewrite1(X0,X4,X5) | ~m2_rewrite1(X1,X0) | ~v10_rewrite1(X1) | ~v1_relat_1(X1) | ~v1_relat_1(X0) [cnf transformation 72] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:2,thDist:-2}
+88. r2_rewrite1(X0,X4,X5) | ~r5_rewrite1(X1,X4,X5) | ~m2_rewrite1(X1,X0) | ~v10_rewrite1(X1) | ~v1_relat_1(X1) | ~v1_relat_1(X0) [cnf transformation 72] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:2,thDist:-2}
+91. ~r5_rewrite1(X0,X1,X2) | r2_rewrite1(X0,X1,X2) | ~v1_relat_1(X0) [cnf transformation 34] {a:0,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+94. ~r1_rewrite1(X0,X2,X3) | r5_rewrite1(X0,X1,X2) | ~r1_rewrite1(X0,X1,X3) | ~v1_relat_1(X0) [cnf transformation 76] {a:0,w:14,wCS:5600,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+96. ~r4_rewrite1(X0,X1,X2) | r1_rewrite1(X0,X1,X2) | ~v1_relat_1(X0) [cnf transformation 78] {a:0,w:10,wCS:4000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+102. ~v5_rewrite1(X0) | v4_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 41] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+105. r4_rewrite1(X0,X1,k2_rewrite1(X0,X1)) | ~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 45] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+106. k2_rewrite1(X0,X1) = k2_rewrite1(X0,X2) | ~r2_rewrite1(X0,X1,X2) | ~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 47] {a:0,w:17,wCS:6800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+108. ~v8_rewrite1(X0) | v5_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 49] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+110. ~v10_rewrite1(X0) | v3_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 51] {a:0,w:6,wCS:2400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+111. ~v10_rewrite1(X0) | v7_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 51] {a:0,w:6,wCS:2400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+122. ~v3_rewrite1(X0) | v2_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 61] {a:0,w:6,wCS:2400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+124. ~v7_rewrite1(X0) | v8_rewrite1(X0) | ~v1_relat_1(X0) [cnf transformation 63] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+127. 1 <=> r2_rewrite1(sK0,sK2,sK3) [avatar definition]
+128. r2_rewrite1(sK0,sK2,sK3) <- (1) [avatar component clause 127] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+129. ~r2_rewrite1(sK0,sK2,sK3) <- (~1) [avatar component clause 127] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+131. 2 <=> k2_rewrite1(sK1,sK2) = k2_rewrite1(sK1,sK3) [avatar definition]
+132. k2_rewrite1(sK1,sK2) = k2_rewrite1(sK1,sK3) <- (2) [avatar component clause 131] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+133. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,sK3) <- (~2) [avatar component clause 131] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+134. ~1 | ~2 [avatar split clause 84,131,127]
+135. 1 | 2 [avatar split clause 83,131,127]
+137. 3 <=> m2_rewrite1(sK1,sK0) [avatar definition]
+139. m2_rewrite1(sK1,sK0) <- (3) [avatar component clause 137] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+140. 3 [avatar split clause 82,137]
+142. 4 <=> v1_relat_1(sK0) [avatar definition]
+144. v1_relat_1(sK0) <- (4) [avatar component clause 142] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+145. 4 [avatar split clause 81,142]
+146. v1_relat_1(sK1) | ~v1_relat_1(sK0) <- (3) [resolution 85,139] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+149. v1_relat_1(sK1) <- (3, 4) [subsumption resolution 146,144] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+151. 5 <=> v1_relat_1(sK1) [avatar definition]
+153. v1_relat_1(sK1) <- (5) [avatar component clause 151] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+154. 5 | ~3 | ~4 [avatar split clause 149,142,137,151]
+155. v10_rewrite1(sK1) | ~v1_relat_1(sK0) <- (3) [resolution 86,139] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+158. v10_rewrite1(sK1) <- (3, 4) [subsumption resolution 155,144] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+160. 6 <=> v10_rewrite1(sK1) [avatar definition]
+162. v10_rewrite1(sK1) <- (6) [avatar component clause 160] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+163. 6 | ~3 | ~4 [avatar split clause 158,142,137,160]
+164. v7_rewrite1(sK1) | ~v1_relat_1(sK1) <- (6) [resolution 162,111] {a:2,w:4,wCS:400,goal:1,sine:2,thAx:0,allAx:6,thDist:-6}
+165. v3_rewrite1(sK1) | ~v1_relat_1(sK1) <- (6) [resolution 162,110] {a:2,w:4,wCS:400,goal:1,sine:2,thAx:0,allAx:6,thDist:-6}
+166. v7_rewrite1(sK1) <- (5, 6) [subsumption resolution 164,153] {a:2,w:2,wCS:200,goal:1,sine:2,thAx:0,allAx:6,thDist:-6}
+168. 7 <=> v7_rewrite1(sK1) [avatar definition]
+170. v7_rewrite1(sK1) <- (7) [avatar component clause 168] {a:2,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+171. 7 | ~5 | ~6 [avatar split clause 166,160,151,168]
+172. v3_rewrite1(sK1) <- (5, 6) [subsumption resolution 165,153] {a:2,w:2,wCS:200,goal:1,sine:2,thAx:0,allAx:6,thDist:-6}
+174. 8 <=> v3_rewrite1(sK1) [avatar definition]
+176. v3_rewrite1(sK1) <- (8) [avatar component clause 174] {a:2,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+177. 8 | ~5 | ~6 [avatar split clause 172,160,151,174]
+179. v8_rewrite1(sK1) | ~v1_relat_1(sK1) <- (7) [resolution 170,124] {a:3,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+186. v8_rewrite1(sK1) <- (5, 7) [subsumption resolution 179,153] {a:3,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+188. 10 <=> v8_rewrite1(sK1) [avatar definition]
+190. v8_rewrite1(sK1) <- (10) [avatar component clause 188] {a:3,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+191. 10 | ~5 | ~7 [avatar split clause 186,168,151,188]
+192. v2_rewrite1(sK1) | ~v1_relat_1(sK1) <- (8) [resolution 176,122] {a:3,w:4,wCS:400,goal:1,sine:2,thAx:0,allAx:7,thDist:-7}
+195. v2_rewrite1(sK1) <- (5, 8) [subsumption resolution 192,153] {a:3,w:2,wCS:200,goal:1,sine:2,thAx:0,allAx:7,thDist:-7}
+197. 11 <=> v2_rewrite1(sK1) [avatar definition]
+199. v2_rewrite1(sK1) <- (11) [avatar component clause 197] {a:3,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+200. 11 | ~5 | ~8 [avatar split clause 195,174,151,197]
+216. v5_rewrite1(sK1) | ~v1_relat_1(sK1) <- (10) [resolution 190,108] {a:4,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+217. v5_rewrite1(sK1) <- (5, 10) [subsumption resolution 216,153] {a:4,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+219. 14 <=> v5_rewrite1(sK1) [avatar definition]
+221. v5_rewrite1(sK1) <- (14) [avatar component clause 219] {a:4,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+222. 14 | ~5 | ~10 [avatar split clause 217,188,151,219]
+223. ~v4_rewrite1(X0) | ~v2_rewrite1(X0) | ~v1_relat_1(X0) | r1_rewrite1(X0,X1,k2_rewrite1(X0,X1)) | ~v1_relat_1(X0) [resolution 105,96] {a:1,w:14,wCS:5600,sine:255,thAx:0,allAx:2,thDist:-2}
+227. r1_rewrite1(X0,X1,k2_rewrite1(X0,X1)) | ~v2_rewrite1(X0) | ~v1_relat_1(X0) | ~v4_rewrite1(X0) [duplicate literal removal 223] {a:1,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+230. 15 <=> v4_rewrite1(sK1) [avatar definition]
+231. v4_rewrite1(sK1) <- (15) [avatar component clause 230] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+248. r5_rewrite1(X1,X4,X5) | ~r2_rewrite1(X0,X4,X5) | ~m2_rewrite1(X1,X0) | ~v10_rewrite1(X1) | ~v1_relat_1(X0) [subsumption resolution 87,85] {a:0,w:15,wCS:6000,sine:1,thAx:0,allAx:2,thDist:-2}
+249. ~r2_rewrite1(X0,X4,X5) | r5_rewrite1(X1,X4,X5) | ~m2_rewrite1(X1,X0) | ~v1_relat_1(X0) [subsumption resolution 248,86] {a:0,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+251. v4_rewrite1(sK1) | ~v1_relat_1(sK1) <- (14) [resolution 221,102] {a:5,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+256. v4_rewrite1(sK1) <- (5, 14) [subsumption resolution 251,153] {a:5,w:2,wCS:200,goal:1,sine:255,thAx:0,allAx:9,thDist:-9}
+257. 15 | ~5 | ~14 [avatar split clause 256,219,151,230]
+258. r2_rewrite1(X0,X4,X5) | ~r5_rewrite1(X1,X4,X5) | ~m2_rewrite1(X1,X0) | ~v10_rewrite1(X1) | ~v1_relat_1(X0) [subsumption resolution 88,85] {a:0,w:15,wCS:6000,sine:1,thAx:0,allAx:2,thDist:-2}
+259. ~r5_rewrite1(X1,X4,X5) | r2_rewrite1(X0,X4,X5) | ~m2_rewrite1(X1,X0) | ~v1_relat_1(X0) [subsumption resolution 258,86] {a:0,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+294. 17 <=> r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) [avatar definition]
+296. r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) <- (17) [avatar component clause 294] {a:2,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+506. r5_rewrite1(X0,sK2,sK3) | ~m2_rewrite1(X0,sK0) | ~v1_relat_1(sK0) <- (1) [resolution 128,249] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+507. r5_rewrite1(X0,sK2,sK3) | ~m2_rewrite1(X0,sK0) <- (1, 4) [subsumption resolution 506,144] {a:1,w:7,wCS:700,nSel:1,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+508. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,X0) | ~r2_rewrite1(sK1,X0,sK3) | ~v4_rewrite1(sK1) | ~v2_rewrite1(sK1) | ~v1_relat_1(sK1) <- (~2) [superposition 133,106] {a:1,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+510. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,X0) | ~r2_rewrite1(sK1,X0,sK3) | ~v2_rewrite1(sK1) | ~v1_relat_1(sK1) <- (~2, 15) [subsumption resolution 508,231] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+511. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,X0) | ~r2_rewrite1(sK1,X0,sK3) | ~v1_relat_1(sK1) <- (~2, 11, 15) [subsumption resolution 510,199] {a:1,w:13,wCS:1300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+512. k2_rewrite1(sK1,sK2) != k2_rewrite1(sK1,X0) | ~r2_rewrite1(sK1,X0,sK3) <- (~2, 5, 11, 15) [subsumption resolution 511,153] {a:1,w:11,wCS:1100,nSel:1,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+542. r2_rewrite1(X2,sK2,sK3) | ~m2_rewrite1(X2,sK0) | ~v1_relat_1(X2) <- (1, 4) [resolution 507,91] {a:2,w:9,wCS:900,nSel:1,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+547. ~r2_rewrite1(sK1,sK2,sK3) <- (~2, 5, 11, 15) [equality resolution 512] {a:2,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+561. 22 <=> r2_rewrite1(sK1,sK2,sK3) [avatar definition]
+563. ~r2_rewrite1(sK1,sK2,sK3) <- (~22) [avatar component clause 561] {a:2,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+564. ~22 | 2 | ~5 | ~11 | ~15 [avatar split clause 547,230,197,151,131,561]
+618. ~m2_rewrite1(sK1,sK0) | ~v1_relat_1(sK1) <- (1, 4, ~22) [resolution 542,563] {a:3,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:12,thDist:-12}
+622. ~v1_relat_1(sK1) <- (1, 3, 4, ~22) [subsumption resolution 618,139] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:12,thDist:-12}
+623. $false <- (1, 3, 4, 5, ~22) [subsumption resolution 622,153] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:12,thDist:-12}
+624. ~1 | ~3 | ~4 | ~5 | 22 [avatar contradiction clause 623]
+631. r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) | ~v2_rewrite1(sK1) | ~v1_relat_1(sK1) | ~v4_rewrite1(sK1) <- (2) [superposition 227,132] {a:2,w:12,wCS:1200,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+650. r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) | ~v1_relat_1(sK1) | ~v4_rewrite1(sK1) <- (2, 11) [subsumption resolution 631,199] {a:2,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+651. r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) | ~v4_rewrite1(sK1) <- (2, 5, 11) [subsumption resolution 650,153] {a:2,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+652. r1_rewrite1(sK1,sK3,k2_rewrite1(sK1,sK2)) <- (2, 5, 11, 15) [subsumption resolution 651,231] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+653. 17 | ~2 | ~5 | ~11 | ~15 [avatar split clause 652,230,197,151,131,294]
+742. r5_rewrite1(sK1,X0,sK3) | ~r1_rewrite1(sK1,X0,k2_rewrite1(sK1,sK2)) | ~v1_relat_1(sK1) <- (17) [resolution 296,94] {a:3,w:12,wCS:1200,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+747. ~r1_rewrite1(sK1,X0,k2_rewrite1(sK1,sK2)) | r5_rewrite1(sK1,X0,sK3) <- (5, 17) [subsumption resolution 742,153] {a:3,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+2156. r5_rewrite1(sK1,sK2,sK3) | ~v2_rewrite1(sK1) | ~v1_relat_1(sK1) | ~v4_rewrite1(sK1) <- (5, 17) [resolution 747,227] {a:4,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:10,thDist:-10}
+2172. 33 <=> r5_rewrite1(sK1,sK2,sK3) [avatar definition]
+2174. r5_rewrite1(sK1,sK2,sK3) <- (33) [avatar component clause 2172] {a:5,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:19,thDist:-19}
+2177. r5_rewrite1(sK1,sK2,sK3) | ~v1_relat_1(sK1) | ~v4_rewrite1(sK1) <- (5, 11, 17) [subsumption resolution 2156,199] {a:4,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:10,thDist:-10}
+2178. r5_rewrite1(sK1,sK2,sK3) | ~v4_rewrite1(sK1) <- (5, 11, 17) [subsumption resolution 2177,153] {a:4,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:10,thDist:-10}
+2179. r5_rewrite1(sK1,sK2,sK3) <- (5, 11, 15, 17) [subsumption resolution 2178,231] {a:4,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:10,thDist:-10}
+2180. 33 | ~5 | ~11 | ~15 | ~17 [avatar split clause 2179,294,230,197,151,2172]
+2521. $false <- (~1, 3, 4, 33) [unit resulting resolution 144,139,129,2174,259] {a:6,w:0,goal:1,sine:1,thAx:0,allAx:33,thDist:-33}
+2525. 1 | ~3 | ~4 | ~33 [avatar contradiction clause 2521]
+2529. $false [avatar sat refutation 134,135,140,145,154,163,171,177,191,200,222,257,564,624,653,2180,2525] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:1193,thDist:-1193}
+% SZS output end Proof for rewrite1__t65_rewrite1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 21
+% >>> Preprocessing
+% Introduced skolems: 8
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 45
+% Generated clauses: 2309
+% Active clauses: 121
+% Passive clauses: 663
+% Final active clauses: 87
+% Final passive clauses: 461
+% Main loop iterations started: 137
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 361
+% Fw subsumption resolutions: 1212
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 16
+% Forward subsumptions: 204
+% Backward subsumptions: 12
+% 
+% >>> Generating Inferences
+% Binary resolution: 113
+% Unit resulting resolution: 6
+% Factoring: 2
+% Forward superposition: 436
+% Backward superposition: 246
+% Self superposition: 21
+% Equality resolution: 2
+% 
+% >>> AVATAR
+% Split clauses: 31
+% Split components: 63
+% Sat splitting refutations: 11
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 81
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 6140
+% Time elapsed: 0.010 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% congruence closure: 0.001 s
+% forward subsumption: 0.001 s
+% forward subsumption resolution: 0.001 s
+% forward demodulation: 0.001 s
+% superposition: 0.002 s
+% other: 0.010 s ( own 0.004 s ) 
+

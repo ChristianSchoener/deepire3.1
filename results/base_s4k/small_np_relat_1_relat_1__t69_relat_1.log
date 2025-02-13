@@ -1,0 +1,88 @@
+i: [1,13,0,2,1,1,0,0] t69_relat_1
+a: [3,26,0,2,1,13]
+s: 26
+i: [1,14,0,6,1,1,0,0] t69_relat_1
+a: [3,21,0,6,1,14]
+s: 21
+i: [1,16,0,6,2,0,0,1] dt_k5_relat_1
+s: 16
+i: [1,17,0,6,2,0,0,1] dt_k5_relat_1
+s: 17
+i: [1,15,0,8,2,0,0,1] rd4_relat_1
+s: 15
+d: [2,28,1,0,0,2,52,26,21,15]
+e: 28
+d: [2,29,1,5,2,1,44,21,15]
+d: [2,32,1,2,1,1,19,29]
+d: [2,34,1,0,0,2,21,32,26]
+e: 34
+f: 34,13,14
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relat_1__t69_relat_1
+% SZS output start Proof for relat_1__t69_relat_1
+1. ! [X0] : (v1_relat_1(X0) => k5_relat_1(X0,k9_xtuple_0(X0)) = X0) [input t69_relat_1]
+2. ~! [X0] : (v1_relat_1(X0) => k5_relat_1(X0,k9_xtuple_0(X0)) = X0) [negated conjecture 1]
+6. ! [X0] : (v1_relat_1(X0) => k5_relat_1(X0,k9_xtuple_0(X0)) = X0) [input rd4_relat_1]
+7. ? [X0] : (k5_relat_1(X0,k9_xtuple_0(X0)) != X0 & v1_relat_1(X0)) [ennf transformation 2]
+8. ! [X0] : (k5_relat_1(X0,k9_xtuple_0(X0)) = X0 | ~v1_relat_1(X0)) [ennf transformation 6]
+11. ? [X0] : (k5_relat_1(X0,k9_xtuple_0(X0)) != X0 & v1_relat_1(X0)) => (sK0 != k5_relat_1(sK0,k9_xtuple_0(sK0)) & v1_relat_1(sK0)) [choice axiom]
+12. sK0 != k5_relat_1(sK0,k9_xtuple_0(sK0)) & v1_relat_1(sK0) [skolemisation 7,11]
+13. v1_relat_1(sK0) [cnf transformation 12] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+14. sK0 != k5_relat_1(sK0,k9_xtuple_0(sK0)) [cnf transformation 12] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+15. k5_relat_1(X0,k9_xtuple_0(X0)) = X0 | ~v1_relat_1(X0) [cnf transformation 8] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+19. 1 <=> sK0 = k5_relat_1(sK0,k9_xtuple_0(sK0)) [avatar definition]
+21. sK0 != k5_relat_1(sK0,k9_xtuple_0(sK0)) <- (~1) [avatar component clause 19] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+22. ~1 [avatar split clause 14,19]
+24. 2 <=> v1_relat_1(sK0) [avatar definition]
+26. v1_relat_1(sK0) <- (2) [avatar component clause 24] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+27. 2 [avatar split clause 13,24]
+29. sK0 != sK0 | ~v1_relat_1(sK0) <- (~1) [superposition 21,15] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+32. ~v1_relat_1(sK0) <- (~1) [trivial inequality removal 29] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+34. $false <- (~1, 2) [subsumption resolution 32,26] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+35. 1 | ~2 [avatar contradiction clause 34]
+36. $false [avatar sat refutation 22,27,35] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:14,thDist:-14}
+% SZS output end Proof for relat_1__t69_relat_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% Introduced skolems: 1
+% 
+% >>> Saturation
+% Initial clauses: 5
+% Generated clauses: 13
+% Active clauses: 4
+% Passive clauses: 5
+% Final active clauses: 4
+% Main loop iterations started: 5
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 1
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 6
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

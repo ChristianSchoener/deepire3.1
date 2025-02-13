@@ -1,0 +1,125 @@
+i: [1,16,0,3,1,1,0,0] t76_xboole_1
+a: [3,30,0,3,1,16]
+s: 30
+i: [1,17,0,7,1,1,0,0] t76_xboole_1
+a: [3,25,0,7,1,17]
+s: 25
+i: [1,19,0,5,1,0,0,255] idempotence_k3_xboole_0
+s: 19
+i: [1,21,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 21
+i: [1,20,0,7,1,0,0,255] commutativity_k3_xboole_0
+s: 20
+r: 25
+d: [2,38,0,7,1,1,23,25,20]
+d: [2,39,0,7,1,1,22,38,20]
+a: [3,43,0,7,1,39]
+s: 43
+d: [2,32,1,3,1,1,40,21,30]
+a: [3,36,1,3,1,32]
+s: 36
+i: [1,18,0,8,2,0,0,1] t74_xboole_1
+s: 18
+d: [2,47,1,5,1,1,40,18,43]
+a: [3,54,1,5,1,47]
+s: 54
+d: [2,46,1,8,2,0,40,18,21]
+s: 46
+d: [2,56,2,0,0,2,52,36,54,46]
+e: 56
+d: [2,58,2,3,1,1,40,46,54]
+d: [2,64,2,0,0,2,21,58,36]
+e: 64
+f: 64,47,39,32,16,17
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t76_xboole_1
+% SZS output start Proof for xboole_1__t76_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : (r1_xboole_0(X0,X1) => r1_xboole_0(k3_xboole_0(X2,X0),k3_xboole_0(X2,X1))) [input t76_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : (r1_xboole_0(X0,X1) => r1_xboole_0(k3_xboole_0(X2,X0),k3_xboole_0(X2,X1))) [negated conjecture 1]
+3. ! [X0,X1] : k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [input commutativity_k3_xboole_0]
+6. ! [X0,X1] : (r1_xboole_0(X0,X1) => r1_xboole_0(X1,X0)) [input symmetry_r1_xboole_0]
+7. ! [X0] : ! [X1] : ! [X2] : ~(r1_xboole_0(X0,X1) & ~r1_xboole_0(X0,k3_xboole_0(X1,X2))) [input t74_xboole_1]
+8. ~! [X0,X1,X2] : (r1_xboole_0(X0,X1) => r1_xboole_0(k3_xboole_0(X2,X0),k3_xboole_0(X2,X1))) [flattening 2]
+9. ! [X0,X1,X2] : ~(r1_xboole_0(X0,X1) & ~r1_xboole_0(X0,k3_xboole_0(X1,X2))) [flattening 7]
+11. ? [X0,X1,X2] : (~r1_xboole_0(k3_xboole_0(X2,X0),k3_xboole_0(X2,X1)) & r1_xboole_0(X0,X1)) [ennf transformation 8]
+12. ! [X0,X1,X2] : (~r1_xboole_0(X0,X1) | r1_xboole_0(X0,k3_xboole_0(X1,X2))) [ennf transformation 9]
+13. ! [X0,X1] : (r1_xboole_0(X1,X0) | ~r1_xboole_0(X0,X1)) [ennf transformation 6]
+14. ? [X0,X1,X2] : (~r1_xboole_0(k3_xboole_0(X2,X0),k3_xboole_0(X2,X1)) & r1_xboole_0(X0,X1)) => (~r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK2,sK1)) & r1_xboole_0(sK0,sK1)) [choice axiom]
+15. ~r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK2,sK1)) & r1_xboole_0(sK0,sK1) [skolemisation 11,14]
+16. r1_xboole_0(sK0,sK1) [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+17. ~r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK2,sK1)) [cnf transformation 15] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+18. r1_xboole_0(X0,k3_xboole_0(X1,X2)) | ~r1_xboole_0(X0,X1) [cnf transformation 12] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+20. k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [cnf transformation 3] {a:0,w:7,wCS:2800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+21. ~r1_xboole_0(X0,X1) | r1_xboole_0(X1,X0) [cnf transformation 13] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+23. 1 <=> r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK2,sK1)) [avatar definition]
+25. ~r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK2,sK1)) <- (~1) [avatar component clause 23] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+26. ~1 [avatar split clause 17,23]
+28. 2 <=> r1_xboole_0(sK0,sK1) [avatar definition]
+30. r1_xboole_0(sK0,sK1) <- (2) [avatar component clause 28] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+31. 2 [avatar split clause 16,28]
+32. r1_xboole_0(sK1,sK0) <- (2) [resolution 21,30] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+34. 3 <=> r1_xboole_0(sK1,sK0) [avatar definition]
+36. r1_xboole_0(sK1,sK0) <- (3) [avatar component clause 34] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+37. 3 | ~2 [avatar split clause 32,28,34]
+38. ~r1_xboole_0(k3_xboole_0(sK2,sK0),k3_xboole_0(sK1,sK2)) <- (~1) [backward demodulation 25,20] {a:0,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+39. ~r1_xboole_0(k3_xboole_0(sK0,sK2),k3_xboole_0(sK1,sK2)) <- (~1) [forward demodulation 38,20] {a:0,w:7,wCS:700,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+41. 4 <=> r1_xboole_0(k3_xboole_0(sK0,sK2),k3_xboole_0(sK1,sK2)) [avatar definition]
+43. ~r1_xboole_0(k3_xboole_0(sK0,sK2),k3_xboole_0(sK1,sK2)) <- (~4) [avatar component clause 41] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+44. ~4 | 1 [avatar split clause 39,23,41]
+46. r1_xboole_0(k3_xboole_0(X1,X2),X0) | ~r1_xboole_0(X0,X1) [resolution 18,21] {a:1,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+47. ~r1_xboole_0(k3_xboole_0(sK0,sK2),sK1) <- (~4) [resolution 18,43] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+52. 5 <=> r1_xboole_0(k3_xboole_0(sK0,sK2),sK1) [avatar definition]
+54. ~r1_xboole_0(k3_xboole_0(sK0,sK2),sK1) <- (~5) [avatar component clause 52] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+55. ~5 | 4 [avatar split clause 47,41,52]
+58. ~r1_xboole_0(sK1,sK0) <- (~5) [resolution 46,54] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+64. $false <- (3, ~5) [subsumption resolution 58,36] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+65. ~3 | 5 [avatar contradiction clause 64]
+66. $false [avatar sat refutation 26,31,37,44,55,65] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:33,thDist:-33}
+% SZS output end Proof for xboole_1__t76_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 6
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 6
+% Generated clauses: 28
+% Active clauses: 10
+% Passive clauses: 12
+% Final active clauses: 9
+% Final passive clauses: 2
+% Main loop iterations started: 10
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 3
+% 
+% >>> Generating Inferences
+% Binary resolution: 7
+% Unit resulting resolution: 1
+% Forward superposition: 6
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 9
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 5
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward demodulation: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

@@ -1,0 +1,168 @@
+i: [1,28,0,3,1,1,0,0] l58_xboole_1
+a: [3,45,0,3,1,28]
+s: 45
+i: [1,27,0,3,1,1,0,0] l58_xboole_1
+a: [3,50,0,3,1,27]
+s: 50
+i: [1,26,0,3,1,1,0,0] l58_xboole_1
+a: [3,55,0,3,1,26]
+s: 55
+i: [1,36,0,3,1,0,0,1] irreflexivity_r2_xboole_0
+s: 36
+i: [1,37,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 37
+i: [1,39,0,3,1,0,0,255] d10_xboole_0
+s: 39
+i: [1,40,0,3,1,0,0,255] d10_xboole_0
+s: 40
+i: [1,41,0,3,1,0,0,255] d8_xboole_0
+s: 41
+i: [1,32,0,6,2,0,0,255] d8_xboole_0
+s: 32
+i: [1,38,0,6,2,0,0,1] antisymmetry_r2_xboole_0
+s: 38
+i: [1,31,0,9,3,0,0,255] d10_xboole_0
+s: 31
+d: [2,57,1,3,1,1,40,32,50]
+a: [3,61,1,3,1,57]
+s: 61
+i: [1,34,0,9,3,0,0,255] d8_xboole_0
+s: 34
+d: [2,63,1,3,1,1,40,38,50]
+a: [3,67,1,3,1,63]
+s: 67
+i: [1,35,0,9,3,0,0,1] t1_xboole_1
+s: 35
+d: [2,69,1,6,2,1,40,31,55]
+a: [3,74,1,3,1,69]
+s: 74
+a: [3,77,1,3,1,69]
+s: 77
+d: [2,90,1,6,2,1,40,34,55]
+a: [3,96,1,3,1,90]
+s: 96
+d: [2,80,2,6,2,1,40,61,31]
+a: [3,84,2,3,1,80]
+s: 84
+d: [2,100,1,6,2,1,40,35,55]
+s: 100
+d: [2,103,2,3,1,1,40,96,38]
+a: [3,108,2,3,1,103]
+s: 108
+d: [2,102,2,6,2,1,40,35,61]
+s: 102
+d: [2,111,3,3,1,2,40,102,55]
+a: [3,116,3,3,1,111]
+s: 116
+d: [2,119,4,6,2,1,40,116,34]
+d: [2,121,4,3,1,2,21,119,45]
+f: 121,111,80,63,57,26,27,28
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__l58_xboole_1
+% SZS output start Proof for xboole_1__l58_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : ((r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r2_xboole_0(X0,X2)) [input l58_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ((r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r2_xboole_0(X0,X2)) [negated conjecture 1]
+3. ! [X0,X1] : (r2_xboole_0(X0,X1) => ~r2_xboole_0(X1,X0)) [input antisymmetry_r2_xboole_0]
+4. ! [X0] : ! [X1] : (X0 = X1 <=> (r1_tarski(X1,X0) & r1_tarski(X0,X1))) [input d10_xboole_0]
+5. ! [X0] : ! [X1] : (r2_xboole_0(X0,X1) <=> (X0 != X1 & r1_tarski(X0,X1))) [input d8_xboole_0]
+8. ! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [input t1_xboole_1]
+9. ~! [X0,X1,X2] : ((r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r2_xboole_0(X0,X2)) [flattening 2]
+10. ! [X0,X1] : (X0 = X1 <=> (r1_tarski(X1,X0) & r1_tarski(X0,X1))) [flattening 4]
+11. ! [X0,X1] : (r2_xboole_0(X0,X1) <=> (X0 != X1 & r1_tarski(X0,X1))) [flattening 5]
+12. ! [X0,X1,X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [flattening 8]
+15. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & (r2_xboole_0(X1,X2) & r1_tarski(X0,X1))) [ennf transformation 9]
+16. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) [flattening 15]
+17. ! [X0,X1,X2] : (r1_tarski(X0,X2) | (~r1_tarski(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 12]
+18. ! [X0,X1,X2] : (r1_tarski(X0,X2) | ~r1_tarski(X1,X2) | ~r1_tarski(X0,X1)) [flattening 17]
+19. ! [X0,X1] : (~r2_xboole_0(X1,X0) | ~r2_xboole_0(X0,X1)) [ennf transformation 3]
+20. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => (~r2_xboole_0(sK0,sK2) & r2_xboole_0(sK1,sK2) & r1_tarski(sK0,sK1)) [choice axiom]
+21. ~r2_xboole_0(sK0,sK2) & r2_xboole_0(sK1,sK2) & r1_tarski(sK0,sK1) [skolemisation 16,20]
+22. ! [X0,X1] : ((X0 = X1 | (~r1_tarski(X1,X0) | ~r1_tarski(X0,X1))) & ((r1_tarski(X1,X0) & r1_tarski(X0,X1)) | X0 != X1)) [nnf transformation 10]
+23. ! [X0,X1] : ((X0 = X1 | ~r1_tarski(X1,X0) | ~r1_tarski(X0,X1)) & ((r1_tarski(X1,X0) & r1_tarski(X0,X1)) | X0 != X1)) [flattening 22]
+24. ! [X0,X1] : ((r2_xboole_0(X0,X1) | (X0 = X1 | ~r1_tarski(X0,X1))) & ((X0 != X1 & r1_tarski(X0,X1)) | ~r2_xboole_0(X0,X1))) [nnf transformation 11]
+25. ! [X0,X1] : ((r2_xboole_0(X0,X1) | X0 = X1 | ~r1_tarski(X0,X1)) & ((X0 != X1 & r1_tarski(X0,X1)) | ~r2_xboole_0(X0,X1))) [flattening 24]
+26. r1_tarski(sK0,sK1) [cnf transformation 21] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+27. r2_xboole_0(sK1,sK2) [cnf transformation 21] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+28. ~r2_xboole_0(sK0,sK2) [cnf transformation 21] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+31. ~r1_tarski(X1,X0) | X0 = X1 | ~r1_tarski(X0,X1) [cnf transformation 23] {a:0,w:9,wCS:3600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+32. ~r2_xboole_0(X0,X1) | r1_tarski(X0,X1) [cnf transformation 25] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+34. ~r1_tarski(X0,X1) | X0 = X1 | r2_xboole_0(X0,X1) [cnf transformation 25] {a:0,w:9,wCS:3600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+35. ~r1_tarski(X1,X2) | r1_tarski(X0,X2) | ~r1_tarski(X0,X1) [cnf transformation 18] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+38. ~r2_xboole_0(X1,X0) | ~r2_xboole_0(X0,X1) [cnf transformation 19] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+43. 1 <=> r2_xboole_0(sK0,sK2) [avatar definition]
+45. ~r2_xboole_0(sK0,sK2) <- (~1) [avatar component clause 43] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+46. ~1 [avatar split clause 28,43]
+48. 2 <=> r2_xboole_0(sK1,sK2) [avatar definition]
+50. r2_xboole_0(sK1,sK2) <- (2) [avatar component clause 48] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+51. 2 [avatar split clause 27,48]
+53. 3 <=> r1_tarski(sK0,sK1) [avatar definition]
+55. r1_tarski(sK0,sK1) <- (3) [avatar component clause 53] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+56. 3 [avatar split clause 26,53]
+57. r1_tarski(sK1,sK2) <- (2) [resolution 32,50] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+59. 4 <=> r1_tarski(sK1,sK2) [avatar definition]
+61. r1_tarski(sK1,sK2) <- (4) [avatar component clause 59] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+62. 4 | ~2 [avatar split clause 57,48,59]
+63. ~r2_xboole_0(sK2,sK1) <- (2) [resolution 38,50] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+65. 5 <=> r2_xboole_0(sK2,sK1) [avatar definition]
+68. ~5 | ~2 [avatar split clause 63,48,65]
+80. sK1 = sK2 | ~r1_tarski(sK2,sK1) <- (4) [resolution 61,31] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+82. 8 <=> r1_tarski(sK2,sK1) [avatar definition]
+86. 9 <=> sK1 = sK2 [avatar definition]
+89. ~8 | 9 | ~4 [avatar split clause 80,59,86,82]
+102. ~r1_tarski(X3,sK1) | r1_tarski(X3,sK2) <- (4) [resolution 35,61] {a:2,w:6,wCS:600,nSel:1,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+111. r1_tarski(sK0,sK2) <- (3, 4) [resolution 102,55] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+114. 12 <=> r1_tarski(sK0,sK2) [avatar definition]
+116. r1_tarski(sK0,sK2) <- (12) [avatar component clause 114] {a:3,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+117. 12 | ~3 | ~4 [avatar split clause 111,59,53,114]
+119. sK0 = sK2 | r2_xboole_0(sK0,sK2) <- (12) [resolution 116,34] {a:4,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+121. sK0 = sK2 <- (~1, 12) [subsumption resolution 119,45] {a:4,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+123. 13 <=> sK0 = sK2 [avatar definition]
+126. 13 | 1 | ~12 [avatar split clause 121,114,43,123]
+132. sK0 != sK2 | ~r1_tarski(sK0,sK1) | r1_tarski(sK2,sK1) [theory tautology sat conflict] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:1,thDist:-1}
+133. sK1 != sK2 | r2_xboole_0(sK2,sK1) | ~r2_xboole_0(sK1,sK2) [theory tautology sat conflict] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:1,thDist:-1}
+134. $false [avatar sat refutation 46,51,56,62,68,89,117,126,132,133] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:77,thDist:-77}
+% SZS output end Proof for xboole_1__l58_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 13
+% Generated clauses: 44
+% Active clauses: 20
+% Passive clauses: 24
+% Final active clauses: 20
+% Final passive clauses: 1
+% Main loop iterations started: 23
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Equational tautologies: 2
+% Forward subsumptions: 7
+% 
+% >>> Generating Inferences
+% Binary resolution: 19
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 18
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

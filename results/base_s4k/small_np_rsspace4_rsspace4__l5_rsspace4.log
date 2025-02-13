@@ -1,0 +1,83 @@
+i: [1,610,0,96,8,1,0,0] l5_rsspace4
+i: [1,655,0,12,1,0,0,1] fc3_rsspace4
+i: [1,654,0,12,1,0,0,1] fc3_rsspace4
+i: [1,653,0,12,1,0,0,1] fc3_rsspace4
+i: [1,652,0,12,1,0,0,1] fc3_rsspace4
+i: [1,651,0,12,1,0,0,1] fc3_rsspace4
+i: [1,650,0,12,1,0,0,1] fc3_rsspace4
+i: [1,649,0,12,1,0,0,1] fc3_rsspace4
+i: [1,647,0,12,1,0,0,1] fc3_rsspace4
+f: 647,649,650,651,652,653,654,655,610
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for rsspace4__l5_rsspace4
+% SZS output start Proof for rsspace4__l5_rsspace4
+1. v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [input l5_rsspace4]
+2. ~(v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4)))) [negated conjecture 1]
+242. v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v1_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) & v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [input fc3_rsspace4]
+280. ~v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [ennf transformation 2]
+610. ~v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) | ~v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 280] {a:0,w:96,wCS:9600,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+647. v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+649. v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+650. v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+651. v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+652. v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+653. v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+654. v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+655. v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [cnf transformation 242] {a:0,w:12,wCS:4800,sine:1,thAx:0,allAx:1,thDist:-1}
+1008. 1 <=> v2_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1012. 2 <=> v3_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1016. 3 <=> v4_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1020. 4 <=> v13_algstr_0(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1024. 5 <=> v5_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1028. 6 <=> v6_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1032. 7 <=> v7_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1036. 8 <=> v8_rlvect_1(g1_rlvect_1(k1_rsspace4,k10_rsspace(k7_rsspace,k1_rsspace4),k8_rsspace(k7_rsspace,k1_rsspace4),k9_rsspace(k7_rsspace,k1_rsspace4))) [avatar definition]
+1039. ~1 | ~2 | ~3 | ~4 | ~5 | ~6 | ~7 | ~8 [avatar split clause 610,1036,1032,1028,1024,1020,1016,1012,1008]
+1216. 8 [avatar split clause 655,1036]
+1217. 7 [avatar split clause 654,1032]
+1218. 6 [avatar split clause 653,1028]
+1219. 5 [avatar split clause 652,1024]
+1220. 3 [avatar split clause 651,1016]
+1221. 2 [avatar split clause 650,1012]
+1222. 1 [avatar split clause 649,1008]
+1228. 4 [avatar split clause 647,1020]
+1654. $false [avatar sat refutation 1039,1216,1217,1218,1219,1220,1221,1222,1228] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:354,thDist:-354}
+% SZS output end Proof for rsspace4__l5_rsspace4
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 241
+% >>> Preprocessing
+% Introduced skolems: 50
+% Pure predicates: 12
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 397
+% Generated clauses: 397
+% Passive clauses: 223
+% Final passive clauses: 223
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 43
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 133
+% SAT solver unit clauses: 130
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% sat proof minimization: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

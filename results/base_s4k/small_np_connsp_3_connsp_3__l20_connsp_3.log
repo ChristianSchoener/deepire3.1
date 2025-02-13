@@ -1,0 +1,290 @@
+i: [1,102,0,2,1,1,0,0] l20_connsp_3
+a: [3,146,0,2,1,102]
+s: 146
+i: [1,105,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,151,0,2,1,105]
+s: 151
+i: [1,141,0,2,1,0,0,2] existence_l1_struct_0
+a: [3,166,0,2,1,141]
+s: 166
+i: [1,142,0,2,1,0,0,1] existence_l1_pre_topc
+a: [3,171,0,2,1,142]
+s: 171
+i: [1,108,0,3,1,0,0,2] fc1_subset_1
+s: 108
+i: [1,109,0,3,1,0,0,255] t2_xboole_1
+s: 109
+i: [1,134,0,3,1,0,0,2] rc2_subset_1
+s: 134
+i: [1,137,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 137
+i: [1,106,0,3,1,0,0,255] d2_xboole_0
+a: [3,156,0,3,1,106]
+s: 156
+r: 151
+d: [2,173,0,2,1,2,23,151,156]
+a: [3,177,0,2,1,173]
+s: 177
+i: [1,119,0,4,2,0,0,2] dt_l1_pre_topc
+s: 119
+d: [2,179,1,2,1,1,40,119,146]
+a: [3,184,1,2,1,179]
+s: 184
+i: [1,132,0,4,1,0,0,1] existence_m1_subset_1
+s: 132
+d: [2,180,1,2,1,1,40,119,171]
+a: [3,189,1,2,1,180]
+s: 189
+i: [1,136,0,4,1,0,0,255] rc3_subset_1
+s: 136
+i: [1,107,0,4,1,0,0,255] t2_zfmisc_1
+a: [3,161,0,4,1,107]
+s: 161
+i: [1,104,0,17,3,1,0,0] l20_connsp_3
+s: 104
+i: [1,103,0,19,3,1,0,0] l20_connsp_3
+s: 103
+i: [1,113,0,5,2,0,0,2] rc1_subset_1
+s: 113
+i: [1,116,0,5,2,0,0,1] fc3_struct_0
+s: 116
+i: [1,121,0,5,2,0,0,1] rc1_connsp_1
+s: 121
+i: [1,122,0,5,2,0,0,2] t6_boole
+s: 122
+i: [1,129,0,5,2,0,0,1] t7_boole
+s: 129
+i: [1,133,0,5,1,0,0,2] rc2_subset_1
+s: 133
+i: [1,135,0,5,1,0,0,255] rc3_subset_1
+s: 135
+i: [1,115,0,6,2,0,0,255] rc4_subset_1
+s: 115
+d: [2,194,1,5,2,0,44,109,122]
+s: 194
+i: [1,117,0,6,2,0,0,1] d2_struct_0
+s: 117
+i: [1,125,0,6,2,0,0,1] t1_subset
+s: 125
+i: [1,138,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 138
+i: [1,112,0,7,2,0,0,2] rc1_subset_1
+s: 112
+d: [2,192,1,6,2,1,44,161,122]
+s: 192
+i: [1,114,0,7,2,0,0,255] rc4_subset_1
+s: 114
+i: [1,127,0,7,2,0,0,255] t3_subset
+s: 127
+i: [1,128,0,7,3,0,0,1] t8_boole
+s: 128
+i: [1,118,0,8,2,0,0,1] dt_k1_struct_0
+s: 118
+d: [2,191,1,7,3,0,44,122,122]
+s: 191
+i: [1,120,0,8,2,0,0,1] rc1_connsp_1
+s: 120
+d: [2,197,1,9,3,0,44,118,117]
+d: [2,198,1,7,2,0,18,197]
+s: 198
+i: [1,123,0,8,3,0,0,2] cc1_subset_1
+s: 123
+i: [1,126,0,8,3,0,0,1] t2_subset
+s: 126
+d: [2,208,1,5,2,0,40,123,135]
+s: 208
+i: [1,124,0,9,3,0,0,255] cc4_subset_1
+s: 124
+d: [2,216,1,8,2,0,40,126,133]
+d: [2,224,1,5,1,0,21,216,108]
+s: 224
+i: [1,131,0,9,3,0,0,1] t5_subset
+s: 131
+i: [1,130,0,10,3,0,0,1] t4_subset
+s: 130
+d: [2,217,1,8,2,0,40,126,135]
+d: [2,225,1,5,1,0,21,217,108]
+s: 225
+i: [1,110,0,11,4,0,0,255] cc3_subset_1
+s: 110
+d: [2,274,1,9,3,0,40,110,135]
+d: [2,282,1,5,2,0,21,274,136]
+s: 282
+i: [1,111,0,11,4,0,0,255] cc2_subset_1
+s: 111
+i: [1,139,0,11,2,0,0,255] redefinition_k5_setfam_1
+s: 139
+d: [2,285,1,21,4,0,44,104,139]
+d: [2,286,1,15,3,0,18,285]
+s: 286
+i: [1,140,0,11,2,0,0,1] dt_k5_setfam_1
+s: 140
+d: [2,288,2,14,3,1,44,286,161]
+a: [3,293,2,6,1,288]
+s: 293
+d: [2,313,3,0,0,1,52,109,293,127]
+e: 313
+d: [2,314,3,5,1,1,40,293,127]
+d: [2,317,3,0,0,1,21,314,109]
+e: 317
+r: 293
+d: [2,284,1,23,4,0,44,103,139]
+d: [2,287,1,17,3,0,18,284]
+s: 287
+d: [2,206,1,6,2,0,40,123,132]
+s: 206
+a: [3,301,2,4,1,288]
+s: 301
+d: [2,326,3,0,0,2,52,184,301,117]
+e: 326
+d: [2,327,3,5,2,1,44,301,117]
+d: [2,328,3,2,1,1,19,327]
+d: [2,330,3,0,0,2,21,328,184]
+e: 330
+r: 301
+d: [2,215,1,6,2,0,40,126,132]
+s: 215
+a: [3,297,2,4,1,288]
+s: 297
+d: [2,335,3,0,0,2,52,177,297,129]
+e: 335
+d: [2,338,3,2,1,1,40,297,129]
+d: [2,341,3,0,0,2,21,338,177]
+e: 341
+f: 341,330,317,288,179,173,107,106,105,102
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for connsp_3__l20_connsp_3
+% SZS output start Proof for connsp_3__l20_connsp_3
+1. ! [X0] : (l1_pre_topc(X0) => ? [X1] : (k1_struct_0(X0) = k5_setfam_1(u1_struct_0(X0),X1) & ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => (r2_hidden(X2,X1) => v3_connsp_1(X2,X0))) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))))) [input l20_connsp_3]
+2. ~! [X0] : (l1_pre_topc(X0) => ? [X1] : (k1_struct_0(X0) = k5_setfam_1(u1_struct_0(X0),X1) & ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => (r2_hidden(X2,X1) => v3_connsp_1(X2,X0))) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))))) [negated conjecture 1]
+10. ! [X0] : (l1_struct_0(X0) => k1_struct_0(X0) = k1_xboole_0) [input d2_struct_0]
+11. k1_xboole_0 = o_0_0_xboole_0 [input d2_xboole_0]
+17. ! [X0] : (l1_pre_topc(X0) => l1_struct_0(X0)) [input dt_l1_pre_topc]
+20. v1_xboole_0(o_0_0_xboole_0) [input dt_o_0_0_xboole_0]
+32. ! [X0,X1] : (m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(X0))) => k5_setfam_1(X0,X1) = k3_tarski(X1)) [input redefinition_k5_setfam_1]
+36. ! [X0] : r1_tarski(k1_xboole_0,X0) [input t2_xboole_1]
+37. k1_xboole_0 = k3_tarski(k1_xboole_0) [input t2_zfmisc_1]
+38. ! [X0] : ! [X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) <=> r1_tarski(X0,X1)) [input t3_subset]
+42. ! [X0] : ! [X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [input t7_boole]
+46. ! [X0,X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) <=> r1_tarski(X0,X1)) [flattening 38]
+48. ! [X0,X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [flattening 42]
+52. ! [X0,X1] : (r1_tarski(X0,X1) => m1_subset_1(X0,k1_zfmisc_1(X1))) [unused predicate definition removal 46]
+55. ~! [X0] : (l1_pre_topc(X0) => ? [X1] : (k1_struct_0(X0) = k5_setfam_1(u1_struct_0(X0),X1) & ! [X2] : (m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0))) => ~r2_hidden(X2,X1)) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))))) [pure predicate removal 2]
+56. ? [X0] : (! [X1] : (k1_struct_0(X0) != k5_setfam_1(u1_struct_0(X0),X1) | ? [X2] : (r2_hidden(X2,X1) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0))))) & l1_pre_topc(X0)) [ennf transformation 55]
+64. ! [X0] : (k1_struct_0(X0) = k1_xboole_0 | ~l1_struct_0(X0)) [ennf transformation 10]
+66. ! [X0] : (l1_struct_0(X0) | ~l1_pre_topc(X0)) [ennf transformation 17]
+74. ! [X0,X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) | ~r1_tarski(X0,X1)) [ennf transformation 52]
+76. ! [X0,X1] : (~v1_xboole_0(X1) | ~r2_hidden(X0,X1)) [ennf transformation 48]
+81. ! [X0,X1] : (k5_setfam_1(X0,X1) = k3_tarski(X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(X0)))) [ennf transformation 32]
+83. ? [X0] : (! [X1] : (k1_struct_0(X0) != k5_setfam_1(u1_struct_0(X0),X1) | ? [X2] : (r2_hidden(X2,X1) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(X0)))) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0))))) & l1_pre_topc(X0)) => (! [X1] : (k1_struct_0(sK0) != k5_setfam_1(u1_struct_0(sK0),X1) | ? [X2] : (r2_hidden(X2,X1) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0))))) & l1_pre_topc(sK0)) [choice axiom]
+84. ! [X1] : (? [X2] : (r2_hidden(X2,X1) & m1_subset_1(X2,k1_zfmisc_1(u1_struct_0(sK0)))) => (r2_hidden(sK1(X1),X1) & m1_subset_1(sK1(X1),k1_zfmisc_1(u1_struct_0(sK0))))) [choice axiom]
+85. ! [X1] : (k1_struct_0(sK0) != k5_setfam_1(u1_struct_0(sK0),X1) | (r2_hidden(sK1(X1),X1) & m1_subset_1(sK1(X1),k1_zfmisc_1(u1_struct_0(sK0)))) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0))))) & l1_pre_topc(sK0) [skolemisation 56,84,83]
+102. l1_pre_topc(sK0) [cnf transformation 85] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+104. k1_struct_0(sK0) != k5_setfam_1(u1_struct_0(sK0),X1) | r2_hidden(sK1(X1),X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) [cnf transformation 85] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+105. v1_xboole_0(o_0_0_xboole_0) [cnf transformation 20] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+106. k1_xboole_0 = o_0_0_xboole_0 [cnf transformation 11] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+107. k1_xboole_0 = k3_tarski(k1_xboole_0) [cnf transformation 37] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+109. r1_tarski(k1_xboole_0,X0) [cnf transformation 36] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+117. k1_struct_0(X0) = k1_xboole_0 | ~l1_struct_0(X0) [cnf transformation 64] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+119. ~l1_pre_topc(X0) | l1_struct_0(X0) [cnf transformation 66] {a:0,w:4,wCS:1600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+127. m1_subset_1(X0,k1_zfmisc_1(X1)) | ~r1_tarski(X0,X1) [cnf transformation 74] {a:0,w:7,wCS:2800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+129. ~r2_hidden(X0,X1) | ~v1_xboole_0(X1) [cnf transformation 76] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+139. k5_setfam_1(X0,X1) = k3_tarski(X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(X0))) [cnf transformation 81] {a:0,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+144. 1 <=> l1_pre_topc(sK0) [avatar definition]
+146. l1_pre_topc(sK0) <- (1) [avatar component clause 144] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+147. 1 [avatar split clause 102,144]
+149. 2 <=> v1_xboole_0(o_0_0_xboole_0) [avatar definition]
+151. v1_xboole_0(o_0_0_xboole_0) <- (2) [avatar component clause 149] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+152. 2 [avatar split clause 105,149]
+154. 3 <=> k1_xboole_0 = o_0_0_xboole_0 [avatar definition]
+156. k1_xboole_0 = o_0_0_xboole_0 <- (3) [avatar component clause 154] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+157. 3 [avatar split clause 106,154]
+159. 4 <=> k1_xboole_0 = k3_tarski(k1_xboole_0) [avatar definition]
+161. k1_xboole_0 = k3_tarski(k1_xboole_0) <- (4) [avatar component clause 159] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+162. 4 [avatar split clause 107,159]
+173. v1_xboole_0(k1_xboole_0) <- (2, 3) [backward demodulation 151,156] {a:0,w:2,wCS:800,sine:255,thAx:0,allAx:1,thDist:-1}
+175. 7 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+177. v1_xboole_0(k1_xboole_0) <- (7) [avatar component clause 175] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+178. 7 | ~2 | ~3 [avatar split clause 173,154,149,175]
+179. l1_struct_0(sK0) <- (1) [resolution 119,146] {a:1,w:2,wCS:200,goal:1,sine:2,thAx:0,allAx:4,thDist:-4}
+182. 8 <=> l1_struct_0(sK0) [avatar definition]
+184. l1_struct_0(sK0) <- (8) [avatar component clause 182] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+185. 8 | ~1 [avatar split clause 179,144,182]
+285. k3_tarski(X1) != k1_struct_0(sK0) | r2_hidden(sK1(X1),X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) [superposition 104,139] {a:1,w:21,wCS:2100,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+286. k3_tarski(X1) != k1_struct_0(sK0) | r2_hidden(sK1(X1),X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) [duplicate literal removal 285] {a:1,w:15,wCS:1500,nSel:1,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+288. k1_xboole_0 != k1_struct_0(sK0) | r2_hidden(sK1(k1_xboole_0),k1_xboole_0) | ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) <- (4) [superposition 286,161] {a:2,w:14,wCS:1400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+291. 12 <=> m1_subset_1(k1_xboole_0,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) [avatar definition]
+293. ~m1_subset_1(k1_xboole_0,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) <- (~12) [avatar component clause 291] {a:2,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+295. 13 <=> r2_hidden(sK1(k1_xboole_0),k1_xboole_0) [avatar definition]
+297. r2_hidden(sK1(k1_xboole_0),k1_xboole_0) <- (13) [avatar component clause 295] {a:2,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+299. 14 <=> k1_xboole_0 = k1_struct_0(sK0) [avatar definition]
+301. k1_xboole_0 != k1_struct_0(sK0) <- (~14) [avatar component clause 299] {a:2,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+302. ~12 | 13 | ~14 | ~4 [avatar split clause 288,159,299,295,291]
+314. ~r1_tarski(k1_xboole_0,k1_zfmisc_1(u1_struct_0(sK0))) <- (~12) [resolution 293,127] {a:3,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+317. $false <- (~12) [subsumption resolution 314,109] {a:3,w:0,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+318. 12 [avatar contradiction clause 317]
+327. k1_xboole_0 != k1_xboole_0 | ~l1_struct_0(sK0) <- (~14) [superposition 301,117] {a:3,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+328. ~l1_struct_0(sK0) <- (~14) [trivial inequality removal 327] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+330. $false <- (8, ~14) [subsumption resolution 328,184] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+331. ~8 | 14 [avatar contradiction clause 330]
+338. ~v1_xboole_0(k1_xboole_0) <- (13) [resolution 297,129] {a:3,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+341. $false <- (7, 13) [subsumption resolution 338,177] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+342. ~7 | ~13 [avatar contradiction clause 341]
+344. $false [avatar sat refutation 147,152,157,162,178,185,302,318,331,342] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:96,thDist:-96}
+% SZS output end Proof for connsp_3__l20_connsp_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 42
+% >>> Preprocessing
+% Introduced skolems: 10
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 41
+% Generated clauses: 182
+% Active clauses: 57
+% Passive clauses: 110
+% Final active clauses: 54
+% Final passive clauses: 51
+% Main loop iterations started: 59
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 7
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 20
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% Forward subsumptions: 15
+% 
+% >>> Generating Inferences
+% Binary resolution: 76
+% Unit resulting resolution: 3
+% Forward superposition: 10
+% Backward superposition: 6
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 3
+% Split components: 8
+% Sat splitting refutations: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 20
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 7
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% property evaluation: 0.001 s
+% forward subsumption: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

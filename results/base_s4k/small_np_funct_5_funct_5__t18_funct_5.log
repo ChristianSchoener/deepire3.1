@@ -1,0 +1,42 @@
+i: [1,9,0,10,2,1,0,0] t18_funct_5
+d: [2,10,0,0,0,0,19,9]
+e: 10
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for funct_5__t18_funct_5
+% SZS output start Proof for funct_5__t18_funct_5
+1. ! [X0] : (v1_relat_1(X0) => (k10_xtuple_0(X0) = k10_xtuple_0(X0) & k9_xtuple_0(X0) = k9_xtuple_0(X0))) [input t18_funct_5]
+2. ~! [X0] : (v1_relat_1(X0) => (k10_xtuple_0(X0) = k10_xtuple_0(X0) & k9_xtuple_0(X0) = k9_xtuple_0(X0))) [negated conjecture 1]
+5. ~! [X0] : (k10_xtuple_0(X0) = k10_xtuple_0(X0) & k9_xtuple_0(X0) = k9_xtuple_0(X0)) [pure predicate removal 2]
+6. ? [X0] : (k10_xtuple_0(X0) != k10_xtuple_0(X0) | k9_xtuple_0(X0) != k9_xtuple_0(X0)) [ennf transformation 5]
+7. ? [X0] : (k10_xtuple_0(X0) != k10_xtuple_0(X0) | k9_xtuple_0(X0) != k9_xtuple_0(X0)) => (k10_xtuple_0(sK0) != k10_xtuple_0(sK0) | k9_xtuple_0(sK0) != k9_xtuple_0(sK0)) [choice axiom]
+8. k10_xtuple_0(sK0) != k10_xtuple_0(sK0) | k9_xtuple_0(sK0) != k9_xtuple_0(sK0) [skolemisation 6,7]
+9. k10_xtuple_0(sK0) != k10_xtuple_0(sK0) | k9_xtuple_0(sK0) != k9_xtuple_0(sK0) [cnf transformation 8] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+10. $false [trivial inequality removal 9] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+% SZS output end Proof for funct_5__t18_funct_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 3
+% >>> Preprocessing
+% Introduced skolems: 1
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 1
+% Generated clauses: 2
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 1
+% 
+% Memory used [KB]: 4733
+% Time elapsed: 0.0000 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.0000 s
+

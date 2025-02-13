@@ -1,0 +1,179 @@
+i: [1,39,0,2,1,1,0,0] t51_funct_1
+a: [3,72,0,2,1,39]
+s: 72
+i: [1,38,0,2,1,1,0,0] t51_funct_1
+a: [3,77,0,2,1,38]
+s: 77
+i: [1,40,0,3,1,1,0,0] t51_funct_1
+a: [3,67,0,3,1,40]
+s: 67
+i: [1,54,0,2,1,0,0,1] rc1_funct_1
+a: [3,82,0,2,1,54]
+s: 82
+i: [1,53,0,2,1,0,0,1] rc1_funct_1
+a: [3,87,0,2,1,53]
+s: 87
+i: [1,41,0,18,2,1,0,0] t51_funct_1
+a: [3,58,0,9,1,41]
+s: 58
+i: [1,48,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 48
+i: [1,47,0,4,1,0,0,255] existence_m1_subset_1
+s: 47
+i: [1,49,0,6,2,0,0,1] dt_k5_relat_1
+s: 49
+i: [1,43,0,7,2,0,0,255] t3_subset
+s: 43
+i: [1,44,0,7,2,0,0,255] t3_subset
+s: 44
+d: [2,89,1,5,1,0,40,43,47]
+s: 89
+i: [1,42,0,8,3,0,0,255] cc2_relat_1
+s: 42
+d: [2,91,1,6,2,0,40,42,47]
+s: 91
+i: [1,51,0,8,3,0,0,1] fc8_funct_1
+s: 51
+i: [1,52,0,8,3,0,0,1] fc8_funct_1
+s: 52
+d: [2,92,1,7,3,0,40,42,44]
+s: 92
+i: [1,50,0,11,2,0,0,1] rd5_relat_1
+s: 50
+d: [2,93,2,4,2,1,40,92,67]
+a: [3,103,2,2,1,93]
+s: 103
+i: [1,45,0,14,3,0,0,1] t74_relat_1
+s: 45
+i: [1,46,0,14,3,0,0,1] t73_relat_1
+s: 46
+d: [2,125,1,0,0,3,52,77,67,58,46]
+e: 125
+d: [2,130,1,12,3,1,44,58,46]
+d: [2,136,1,5,2,1,19,130]
+d: [2,140,1,2,1,2,21,136,67]
+d: [2,141,1,0,0,3,21,140,77]
+e: 141
+r: 58
+d: [2,109,1,12,3,1,44,58,45]
+d: [2,114,1,10,2,2,21,109,77]
+a: [3,118,1,3,1,114]
+s: 118
+a: [3,57,0,9,1,41]
+s: 57
+d: [2,145,1,16,3,1,44,46,57]
+a: [3,152,1,4,1,145]
+s: 152
+d: [2,157,2,0,0,2,52,77,152,49]
+e: 157
+d: [2,158,2,2,1,1,40,152,49]
+d: [2,160,2,0,0,2,21,158,77]
+e: 160
+r: 152
+a: [3,62,0,9,1,41]
+s: 62
+d: [2,162,1,0,0,3,52,77,67,62,45]
+e: 162
+d: [2,164,1,12,3,1,44,62,45]
+d: [2,165,1,5,2,1,19,164]
+d: [2,167,1,2,1,2,21,165,67]
+d: [2,168,1,0,0,3,21,167,77]
+e: 168
+f: 168,141,38,40,41
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for funct_1__t51_funct_1
+% SZS output start Proof for funct_1__t51_funct_1
+1. ! [X0] : ! [X1] : ! [X2] : ((v1_funct_1(X2) & v1_relat_1(X2)) => (r1_tarski(X0,X1) => (k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) & k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1)))) [input t51_funct_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ((v1_funct_1(X2) & v1_relat_1(X2)) => (r1_tarski(X0,X1) => (k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) & k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1)))) [negated conjecture 1]
+13. ! [X0] : ! [X1] : ! [X2] : (v1_relat_1(X2) => (r1_tarski(X0,X1) => k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1))) [input t73_relat_1]
+14. ! [X0] : ! [X1] : ! [X2] : (v1_relat_1(X2) => (r1_tarski(X0,X1) => k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0))) [input t74_relat_1]
+15. ~! [X0,X1,X2] : ((v1_funct_1(X2) & v1_relat_1(X2)) => (r1_tarski(X0,X1) => (k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) & k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1)))) [flattening 2]
+17. ! [X0,X1,X2] : (v1_relat_1(X2) => (r1_tarski(X0,X1) => k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0))) [flattening 14]
+18. ! [X0,X1,X2] : (v1_relat_1(X2) => (r1_tarski(X0,X1) => k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1))) [flattening 13]
+20. ? [X0,X1,X2] : (((k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X1),X0) | k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X0),X1)) & r1_tarski(X0,X1)) & (v1_funct_1(X2) & v1_relat_1(X2))) [ennf transformation 15]
+21. ? [X0,X1,X2] : ((k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X1),X0) | k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X0),X1)) & r1_tarski(X0,X1) & v1_funct_1(X2) & v1_relat_1(X2)) [flattening 20]
+23. ! [X0,X1,X2] : ((k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) | ~r1_tarski(X0,X1)) | ~v1_relat_1(X2)) [ennf transformation 17]
+24. ! [X0,X1,X2] : (k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) | ~r1_tarski(X0,X1) | ~v1_relat_1(X2)) [flattening 23]
+25. ! [X0,X1,X2] : ((k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1) | ~r1_tarski(X0,X1)) | ~v1_relat_1(X2)) [ennf transformation 18]
+26. ! [X0,X1,X2] : (k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1) | ~r1_tarski(X0,X1) | ~v1_relat_1(X2)) [flattening 25]
+31. ? [X0,X1,X2] : ((k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X1),X0) | k5_relat_1(X2,X0) != k5_relat_1(k5_relat_1(X2,X0),X1)) & r1_tarski(X0,X1) & v1_funct_1(X2) & v1_relat_1(X2)) => ((k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK1),sK0) | k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK0),sK1)) & r1_tarski(sK0,sK1) & v1_funct_1(sK2) & v1_relat_1(sK2)) [choice axiom]
+32. (k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK1),sK0) | k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK0),sK1)) & r1_tarski(sK0,sK1) & v1_funct_1(sK2) & v1_relat_1(sK2) [skolemisation 21,31]
+38. v1_relat_1(sK2) [cnf transformation 32] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+40. r1_tarski(sK0,sK1) [cnf transformation 32] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+41. k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK1),sK0) | k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK0),sK1) [cnf transformation 32] {a:0,w:18,wCS:1800,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+45. k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X1),X0) | ~r1_tarski(X0,X1) | ~v1_relat_1(X2) [cnf transformation 24] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+46. k5_relat_1(X2,X0) = k5_relat_1(k5_relat_1(X2,X0),X1) | ~r1_tarski(X0,X1) | ~v1_relat_1(X2) [cnf transformation 26] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+56. 1 <=> k5_relat_1(sK2,sK0) = k5_relat_1(k5_relat_1(sK2,sK0),sK1) [avatar definition]
+58. k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK0),sK1) <- (~1) [avatar component clause 56] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+60. 2 <=> k5_relat_1(sK2,sK0) = k5_relat_1(k5_relat_1(sK2,sK1),sK0) [avatar definition]
+62. k5_relat_1(sK2,sK0) != k5_relat_1(k5_relat_1(sK2,sK1),sK0) <- (~2) [avatar component clause 60] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+63. ~1 | ~2 [avatar split clause 41,60,56]
+65. 3 <=> r1_tarski(sK0,sK1) [avatar definition]
+67. r1_tarski(sK0,sK1) <- (3) [avatar component clause 65] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+68. 3 [avatar split clause 40,65]
+75. 5 <=> v1_relat_1(sK2) [avatar definition]
+77. v1_relat_1(sK2) <- (5) [avatar component clause 75] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+78. 5 [avatar split clause 38,75]
+130. k5_relat_1(sK2,sK0) != k5_relat_1(sK2,sK0) | ~r1_tarski(sK0,sK1) | ~v1_relat_1(sK2) <- (~1) [superposition 58,46] {a:1,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+136. ~r1_tarski(sK0,sK1) | ~v1_relat_1(sK2) <- (~1) [trivial inequality removal 130] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+140. ~v1_relat_1(sK2) <- (~1, 3) [subsumption resolution 136,67] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+141. $false <- (~1, 3, 5) [subsumption resolution 140,77] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+142. 1 | ~3 | ~5 [avatar contradiction clause 141]
+164. k5_relat_1(sK2,sK0) != k5_relat_1(sK2,sK0) | ~r1_tarski(sK0,sK1) | ~v1_relat_1(sK2) <- (~2) [superposition 62,45] {a:1,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+165. ~r1_tarski(sK0,sK1) | ~v1_relat_1(sK2) <- (~2) [trivial inequality removal 164] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+167. ~v1_relat_1(sK2) <- (~2, 3) [subsumption resolution 165,67] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+168. $false <- (~2, 3, 5) [subsumption resolution 167,77] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+169. 2 | ~3 | ~5 [avatar contradiction clause 168]
+170. $false [avatar sat refutation 63,68,78,142,169] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:69,thDist:-69}
+% SZS output end Proof for funct_1__t51_funct_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 13
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 17
+% Generated clauses: 82
+% Active clauses: 24
+% Passive clauses: 32
+% Final active clauses: 22
+% Final passive clauses: 7
+% Main loop iterations started: 25
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% Trivial inequalities: 2
+% Fw subsumption resolutions: 9
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% Forward subsumptions: 12
+% 
+% >>> Generating Inferences
+% Binary resolution: 8
+% Unit resulting resolution: 3
+% Forward superposition: 6
+% Backward superposition: 16
+% Self superposition: 3
+% 
+% >>> AVATAR
+% Split clauses: 4
+% Split components: 8
+% Sat splitting refutations: 6
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 17
+% SAT solver unit clauses: 5
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward subsumption: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

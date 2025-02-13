@@ -1,0 +1,115 @@
+i: [1,24,0,3,1,1,0,0] t56_xboole_1
+a: [3,36,0,3,1,24]
+s: 36
+i: [1,23,0,3,1,1,0,0] t56_xboole_1
+a: [3,41,0,3,1,23]
+s: 41
+i: [1,22,0,3,1,1,0,0] t56_xboole_1
+a: [3,46,0,3,1,22]
+s: 46
+i: [1,29,0,3,1,0,0,1] irreflexivity_r2_xboole_0
+s: 29
+i: [1,30,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 30
+i: [1,32,0,3,1,0,0,255] d8_xboole_0
+s: 32
+i: [1,25,0,6,2,0,0,255] d8_xboole_0
+s: 25
+i: [1,31,0,6,2,0,0,1] antisymmetry_r2_xboole_0
+s: 31
+d: [2,48,1,3,1,1,40,25,41]
+a: [3,53,1,3,1,48]
+s: 53
+i: [1,27,0,9,3,0,0,255] d8_xboole_0
+s: 27
+i: [1,28,0,9,3,0,0,255] l58_xboole_1
+s: 28
+d: [2,49,1,3,1,1,40,25,46]
+a: [3,58,1,3,1,49]
+s: 58
+d: [2,76,2,0,0,3,52,36,41,58,28]
+e: 76
+f: 76,49,22,23,24
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t56_xboole_1
+% SZS output start Proof for xboole_1__t56_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : ((r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1)) => r2_xboole_0(X0,X2)) [input t56_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ((r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1)) => r2_xboole_0(X0,X2)) [negated conjecture 1]
+4. ! [X0] : ! [X1] : (r2_xboole_0(X0,X1) <=> (X0 != X1 & r1_tarski(X0,X1))) [input d8_xboole_0]
+6. ! [X0] : ! [X1] : ! [X2] : ((r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r2_xboole_0(X0,X2)) [input l58_xboole_1]
+8. ~! [X0,X1,X2] : ((r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1)) => r2_xboole_0(X0,X2)) [flattening 2]
+9. ! [X0,X1] : (r2_xboole_0(X0,X1) <=> (X0 != X1 & r1_tarski(X0,X1))) [flattening 4]
+10. ! [X0,X1,X2] : ((r2_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r2_xboole_0(X0,X2)) [flattening 6]
+13. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & (r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1))) [ennf transformation 8]
+14. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1)) [flattening 13]
+15. ! [X0,X1,X2] : (r2_xboole_0(X0,X2) | (~r2_xboole_0(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 10]
+16. ! [X0,X1,X2] : (r2_xboole_0(X0,X2) | ~r2_xboole_0(X1,X2) | ~r1_tarski(X0,X1)) [flattening 15]
+18. ? [X0,X1,X2] : (~r2_xboole_0(X0,X2) & r2_xboole_0(X1,X2) & r2_xboole_0(X0,X1)) => (~r2_xboole_0(sK0,sK2) & r2_xboole_0(sK1,sK2) & r2_xboole_0(sK0,sK1)) [choice axiom]
+19. ~r2_xboole_0(sK0,sK2) & r2_xboole_0(sK1,sK2) & r2_xboole_0(sK0,sK1) [skolemisation 14,18]
+20. ! [X0,X1] : ((r2_xboole_0(X0,X1) | (X0 = X1 | ~r1_tarski(X0,X1))) & ((X0 != X1 & r1_tarski(X0,X1)) | ~r2_xboole_0(X0,X1))) [nnf transformation 9]
+21. ! [X0,X1] : ((r2_xboole_0(X0,X1) | X0 = X1 | ~r1_tarski(X0,X1)) & ((X0 != X1 & r1_tarski(X0,X1)) | ~r2_xboole_0(X0,X1))) [flattening 20]
+22. r2_xboole_0(sK0,sK1) [cnf transformation 19] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+23. r2_xboole_0(sK1,sK2) [cnf transformation 19] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+24. ~r2_xboole_0(sK0,sK2) [cnf transformation 19] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+25. ~r2_xboole_0(X0,X1) | r1_tarski(X0,X1) [cnf transformation 21] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+28. ~r1_tarski(X0,X1) | ~r2_xboole_0(X1,X2) | r2_xboole_0(X0,X2) [cnf transformation 16] {a:0,w:9,wCS:3600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+34. 1 <=> r2_xboole_0(sK0,sK2) [avatar definition]
+36. ~r2_xboole_0(sK0,sK2) <- (~1) [avatar component clause 34] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+37. ~1 [avatar split clause 24,34]
+39. 2 <=> r2_xboole_0(sK1,sK2) [avatar definition]
+41. r2_xboole_0(sK1,sK2) <- (2) [avatar component clause 39] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+42. 2 [avatar split clause 23,39]
+44. 3 <=> r2_xboole_0(sK0,sK1) [avatar definition]
+46. r2_xboole_0(sK0,sK1) <- (3) [avatar component clause 44] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+47. 3 [avatar split clause 22,44]
+49. r1_tarski(sK0,sK1) <- (3) [resolution 25,46] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+56. 5 <=> r1_tarski(sK0,sK1) [avatar definition]
+58. r1_tarski(sK0,sK1) <- (5) [avatar component clause 56] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+59. 5 | ~3 [avatar split clause 49,44,56]
+76. $false <- (~1, 2, 5) [unit resulting resolution 36,41,58,28] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:8,thDist:-8}
+79. 1 | ~2 | ~5 [avatar contradiction clause 76]
+80. $false [avatar sat refutation 37,42,47,59,79] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:37,thDist:-37}
+% SZS output end Proof for xboole_1__t56_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 6
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 10
+% Generated clauses: 28
+% Active clauses: 11
+% Passive clauses: 15
+% Final active clauses: 11
+% Final passive clauses: 3
+% Main loop iterations started: 12
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Equational tautologies: 1
+% Forward subsumptions: 3
+% 
+% >>> Generating Inferences
+% Binary resolution: 10
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% forward demodulation: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

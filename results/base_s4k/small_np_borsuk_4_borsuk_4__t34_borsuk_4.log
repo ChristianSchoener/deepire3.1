@@ -1,0 +1,51 @@
+i: [1,602,0,3,1,1,0,0] t34_borsuk_4
+i: [1,637,0,3,1,0,0,1] fc2_borsuk_4
+f: 637,602
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for borsuk_4__t34_borsuk_4
+% SZS output start Proof for borsuk_4__t34_borsuk_4
+1. v1_tsep_1(k1_borsuk_4,k5_topmetr) [input t34_borsuk_4]
+2. ~v1_tsep_1(k1_borsuk_4,k5_topmetr) [negated conjecture 1]
+219. v1_tsep_1(k1_borsuk_4,k5_topmetr) & v1_pre_topc(k1_borsuk_4) [input fc2_borsuk_4]
+220. ~v1_tsep_1(k1_borsuk_4,k5_topmetr) [flattening 2]
+602. ~v1_tsep_1(k1_borsuk_4,k5_topmetr) [cnf transformation 220] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+637. v1_tsep_1(k1_borsuk_4,k5_topmetr) [cnf transformation 219] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+963. 1 <=> v1_tsep_1(k1_borsuk_4,k5_topmetr) [avatar definition]
+966. ~1 [avatar split clause 602,963]
+1120. 1 [avatar split clause 637,963]
+1675. $false [avatar sat refutation 966,1120] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:407,thDist:-407}
+% SZS output end Proof for borsuk_4__t34_borsuk_4
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 218
+% >>> Preprocessing
+% Introduced skolems: 63
+% Pure predicates: 12
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 360
+% Generated clauses: 360
+% Passive clauses: 179
+% Final passive clauses: 179
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 32
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 151
+% SAT solver unit clauses: 149
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% sat proof minimization: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

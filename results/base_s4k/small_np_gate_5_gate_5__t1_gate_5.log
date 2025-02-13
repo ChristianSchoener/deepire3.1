@@ -1,0 +1,992 @@
+i: [1,357,0,32,8,1,0,0] t1_gate_5
+a: [3,390,0,2,1,357]
+s: 390
+a: [3,398,0,2,1,357]
+s: 398
+a: [3,406,0,2,1,357]
+s: 406
+a: [3,414,0,2,1,357]
+s: 414
+i: [1,101,0,4,2,1,0,0] t1_gate_5
+a: [3,434,0,2,1,101]
+s: 434
+i: [1,99,0,4,2,1,0,0] t1_gate_5
+a: [3,440,0,2,1,99]
+s: 440
+i: [1,97,0,4,2,1,0,0] t1_gate_5
+a: [3,446,0,2,1,97]
+s: 446
+i: [1,95,0,4,2,1,0,0] t1_gate_5
+a: [3,452,0,2,1,95]
+s: 452
+i: [1,89,0,11,2,1,0,0] t1_gate_5
+a: [3,475,0,2,1,89]
+s: 475
+i: [1,85,0,6,2,1,0,0] t1_gate_5
+a: [3,486,0,4,1,85]
+s: 486
+a: [3,395,0,6,1,357]
+s: 395
+i: [1,93,0,9,2,1,0,0] t1_gate_5
+a: [3,458,0,7,1,93]
+s: 458
+i: [1,91,0,9,2,1,0,0] t1_gate_5
+a: [3,464,0,7,1,91]
+s: 464
+i: [1,358,0,2,1,0,0,1] fc1_xboole_0
+a: [3,493,0,2,1,358]
+s: 493
+i: [1,382,0,2,1,0,0,1] rc2_xboole_0
+a: [3,498,0,2,1,382]
+s: 498
+i: [1,383,0,2,1,0,0,1] rc1_xboole_0
+a: [3,503,0,2,1,383]
+s: 503
+a: [3,470,0,9,1,89]
+s: 470
+i: [1,87,0,11,2,1,0,0] t1_gate_5
+a: [3,480,0,9,1,87]
+s: 480
+i: [1,366,0,6,2,0,0,1] fc4_gate_1
+s: 366
+i: [1,365,0,7,1,0,0,2] commutativity_k2_gate_1
+s: 365
+i: [1,367,0,8,3,0,0,1] fc3_gate_1
+s: 367
+d: [2,505,1,2,1,1,40,366,486]
+a: [3,509,1,2,1,505]
+s: 509
+i: [1,359,0,9,1,0,0,1] d1_gate_5
+s: 359
+d: [2,511,1,6,2,0,44,366,365]
+s: 511
+i: [1,372,0,9,3,0,0,1] fc33_gate_1
+s: 372
+i: [1,373,0,9,3,0,0,1] fc34_gate_1
+s: 373
+d: [2,516,2,2,1,1,40,511,486]
+a: [3,523,2,2,1,516]
+s: 523
+i: [1,374,0,9,3,0,0,1] fc35_gate_1
+s: 374
+d: [2,512,1,6,2,0,44,366,365]
+s: 512
+i: [1,379,0,9,3,0,0,1] fc38_gate_1
+s: 379
+i: [1,380,0,9,3,0,0,1] fc37_gate_1
+s: 380
+d: [2,526,1,6,2,1,40,379,470]
+d: [2,530,1,4,1,2,21,526,493]
+a: [3,534,1,4,1,530]
+s: 534
+i: [1,381,0,9,3,0,0,1] fc36_gate_1
+s: 381
+d: [2,547,2,2,1,1,40,534,511]
+a: [3,552,2,2,1,547]
+s: 552
+i: [1,368,0,11,4,0,0,1] fc32_gate_1
+s: 368
+i: [1,369,0,11,4,0,0,1] fc29_gate_1
+s: 369
+r: 470
+r: 475
+r: 534
+r: 414
+r: 434
+r: 458
+a: [3,415,0,2,1,357]
+s: 415
+a: [3,435,0,2,1,101]
+s: 435
+a: [3,474,0,2,1,89]
+s: 474
+a: [3,459,0,7,1,93]
+s: 459
+a: [3,471,0,9,1,89]
+s: 471
+a: [3,533,1,4,1,530]
+s: 533
+d: [2,583,3,0,0,3,52,509,552,533,367]
+e: 583
+d: [2,584,2,4,2,1,40,533,367]
+d: [2,586,2,2,1,2,21,584,552]
+d: [2,587,2,0,0,3,21,586,509]
+e: 587
+r: 552
+i: [1,370,0,11,4,0,0,1] fc31_gate_1
+s: 370
+a: [3,551,2,2,1,547]
+s: 551
+i: [1,371,0,11,4,0,0,1] fc30_gate_1
+s: 371
+i: [1,375,0,11,4,0,0,1] fc28_gate_1
+s: 375
+d: [2,537,1,6,2,1,40,380,470]
+d: [2,541,1,4,1,2,21,537,493]
+a: [3,545,1,4,1,541]
+s: 545
+i: [1,376,0,11,4,0,0,1] fc26_gate_1
+s: 376
+d: [2,605,2,2,1,1,40,545,366]
+a: [3,609,2,2,1,605]
+s: 609
+i: [1,377,0,11,4,0,0,1] fc27_gate_1
+s: 377
+i: [1,378,0,11,4,0,0,1] fc25_gate_1
+s: 378
+d: [2,554,1,6,2,1,40,381,458]
+d: [2,559,1,4,1,2,21,554,493]
+a: [3,563,1,4,1,559]
+s: 563
+d: [2,633,3,0,0,2,52,551,563,511]
+e: 633
+d: [2,634,2,2,1,1,40,563,511]
+d: [2,637,2,0,0,2,21,634,551]
+e: 637
+r: 406
+r: 440
+r: 464
+r: 563
+a: [3,407,0,2,1,357]
+s: 407
+a: [3,441,0,2,1,99]
+s: 441
+a: [3,465,0,7,1,91]
+s: 465
+i: [1,360,0,14,1,0,0,1] d2_gate_5
+s: 360
+r: 480
+d: [2,646,0,6,1,1,23,480,360]
+d: [2,659,0,0,0,2,21,646,395]
+e: 659
+r: 395
+a: [3,562,1,4,1,559]
+s: 562
+a: [3,394,0,6,1,357]
+s: 394
+a: [3,402,0,6,1,357]
+s: 402
+i: [1,363,0,14,1,0,0,2] d36_gate_1
+s: 363
+i: [1,364,0,14,1,0,0,2] d35_gate_1
+s: 364
+d: [2,668,1,11,3,0,44,372,363]
+s: 668
+i: [1,361,0,18,1,0,0,1] d4_gate_5
+s: 361
+d: [2,673,1,11,3,0,44,381,363]
+s: 673
+i: [1,362,0,18,1,0,0,1] d3_gate_5
+s: 362
+d: [2,647,1,14,1,0,44,360,365]
+s: 647
+d: [2,691,2,12,3,0,44,673,361]
+d: [2,692,2,10,2,1,21,691,493]
+s: 692
+d: [2,648,1,14,1,0,44,360,365]
+s: 648
+d: [2,703,2,11,1,0,44,647,360]
+s: 703
+d: [2,649,1,14,1,0,44,360,365]
+s: 649
+d: [2,650,1,14,1,0,44,360,365]
+s: 650
+d: [2,704,2,11,1,0,44,360,647]
+s: 704
+d: [2,652,1,16,4,0,44,369,360]
+d: [2,661,1,14,3,1,21,652,493]
+s: 661
+d: [2,721,2,11,1,0,44,649,647]
+s: 721
+d: [2,655,1,16,4,0,44,375,360]
+d: [2,662,1,14,3,1,21,655,493]
+s: 662
+d: [2,657,1,16,4,0,44,377,360]
+d: [2,663,1,14,3,1,21,657,493]
+s: 663
+d: [2,722,2,11,1,0,44,649,360]
+s: 722
+d: [2,658,1,16,4,0,44,378,360]
+d: [2,664,1,14,3,1,21,658,493]
+s: 664
+d: [2,723,2,11,1,0,44,647,649]
+s: 723
+d: [2,669,1,14,3,0,44,373,363]
+s: 669
+d: [2,670,1,14,3,0,44,374,363]
+s: 670
+d: [2,724,2,11,1,0,44,360,649]
+s: 724
+d: [2,671,1,14,3,0,44,379,363]
+s: 671
+d: [2,740,3,11,1,0,44,721,703]
+s: 740
+d: [2,672,1,14,3,0,44,380,363]
+s: 672
+d: [2,675,1,16,4,0,44,368,364]
+s: 675
+d: [2,741,3,11,1,0,44,721,703]
+s: 741
+d: [2,676,1,16,4,0,44,369,364]
+s: 676
+d: [2,742,3,11,1,0,44,721,703]
+s: 742
+d: [2,677,1,16,4,0,44,370,364]
+s: 677
+d: [2,678,1,16,4,0,44,371,364]
+s: 678
+d: [2,743,3,11,1,0,44,721,703]
+s: 743
+d: [2,679,1,16,4,0,44,375,364]
+s: 679
+d: [2,745,3,11,1,0,44,703,721]
+s: 745
+d: [2,680,1,16,4,0,44,376,364]
+s: 680
+d: [2,681,1,16,4,0,44,377,364]
+s: 681
+d: [2,746,3,11,1,0,44,703,721]
+s: 746
+d: [2,682,1,16,4,0,44,378,364]
+s: 682
+d: [2,748,3,11,1,0,44,703,721]
+s: 748
+d: [2,683,1,18,1,0,44,361,365]
+s: 683
+d: [2,684,1,18,1,0,44,361,365]
+s: 684
+d: [2,749,3,11,1,0,44,703,721]
+s: 749
+d: [2,685,1,18,1,0,44,361,365]
+s: 685
+d: [2,701,2,14,1,0,44,647,365]
+s: 701
+d: [2,686,1,18,1,0,44,361,365]
+s: 686
+d: [2,687,1,18,1,0,44,361,365]
+s: 687
+d: [2,906,2,12,3,0,44,673,687]
+d: [2,909,2,10,2,1,21,906,493]
+s: 909
+d: [2,688,1,18,1,0,44,361,365]
+s: 688
+d: [2,702,2,14,1,0,44,647,365]
+s: 702
+d: [2,693,1,18,1,0,44,362,365]
+s: 693
+d: [2,694,1,18,1,0,44,362,365]
+s: 694
+d: [2,706,2,16,4,0,44,369,647]
+d: [2,713,2,14,3,1,21,706,493]
+s: 713
+d: [2,695,1,18,1,0,44,362,365]
+s: 695
+d: [2,929,3,16,4,1,40,713,663]
+d: [2,937,3,12,3,1,18,929]
+a: [3,940,3,8,2,937]
+s: 940
+d: [2,696,1,18,1,0,44,362,365]
+s: 696
+d: [2,697,1,18,1,0,44,362,365]
+s: 697
+d: [2,709,2,16,4,0,44,375,647]
+d: [2,714,2,14,3,1,21,709,493]
+s: 714
+d: [2,698,1,18,1,0,44,362,365]
+s: 698
+d: [2,711,2,16,4,0,44,377,647]
+d: [2,715,2,14,3,1,21,711,493]
+s: 715
+d: [2,667,1,19,1,0,44,363,363]
+s: 667
+d: [2,674,1,19,1,0,44,364,363]
+s: 674
+d: [2,712,2,16,4,0,44,378,647]
+d: [2,716,2,14,3,1,21,712,493]
+s: 716
+d: [2,717,2,14,1,0,44,649,365]
+s: 717
+d: [2,718,2,14,1,0,44,649,365]
+s: 718
+d: [2,726,2,16,4,0,44,369,649]
+d: [2,733,2,14,3,1,21,726,493]
+s: 733
+d: [2,729,2,16,4,0,44,375,649]
+d: [2,734,2,14,3,1,21,729,493]
+s: 734
+d: [2,731,2,16,4,0,44,377,649]
+d: [2,735,2,14,3,1,21,731,493]
+s: 735
+d: [2,732,2,16,4,0,44,378,649]
+d: [2,736,2,14,3,1,21,732,493]
+s: 736
+d: [2,738,3,14,3,1,44,661,703]
+s: 738
+d: [2,806,2,17,3,0,44,672,361]
+d: [2,807,2,15,2,1,21,806,493]
+s: 807
+a: [3,411,0,6,1,357]
+s: 411
+d: [2,1115,3,12,3,1,40,807,380]
+d: [2,1122,3,10,2,1,21,1115,493]
+s: 1122
+d: [2,854,2,17,3,0,44,672,683]
+d: [2,860,2,15,2,1,21,854,493]
+s: 860
+d: [2,1124,3,6,1,2,40,860,471]
+a: [3,1135,3,6,1,1124]
+s: 1135
+d: [2,867,2,17,3,0,44,672,685]
+d: [2,873,2,15,2,1,21,867,493]
+s: 873
+d: [2,902,2,17,3,0,44,672,687]
+d: [2,908,2,15,2,1,21,902,493]
+s: 908
+d: [2,1139,3,6,1,2,40,873,471]
+a: [3,1150,3,6,1,1139]
+s: 1150
+d: [2,850,2,18,1,0,44,683,365]
+s: 850
+d: [2,1116,3,12,3,1,40,807,379]
+d: [2,1123,3,10,2,1,21,1116,493]
+s: 1123
+d: [2,851,2,18,1,0,44,683,365]
+s: 851
+d: [2,852,2,18,1,0,44,683,365]
+s: 852
+d: [2,1126,3,12,3,1,40,860,380]
+d: [2,1137,3,10,2,1,21,1126,493]
+s: 1137
+d: [2,853,2,18,1,0,44,683,365]
+s: 853
+d: [2,1127,3,12,3,1,40,860,379]
+d: [2,1138,3,10,2,1,21,1127,493]
+s: 1138
+d: [2,861,2,18,1,0,44,685,365]
+s: 861
+d: [2,862,2,18,1,0,44,685,365]
+s: 862
+d: [2,1142,3,12,3,1,40,873,379]
+d: [2,1152,3,10,2,1,21,1142,493]
+s: 1152
+d: [2,865,2,18,1,0,44,685,365]
+s: 865
+d: [2,1159,3,11,1,0,44,850,687]
+s: 1159
+d: [2,866,2,18,1,0,44,685,365]
+s: 866
+d: [2,896,2,18,1,0,44,687,365]
+s: 896
+d: [2,1160,3,11,1,0,44,687,850]
+s: 1160
+d: [2,897,2,18,1,0,44,687,365]
+s: 897
+d: [2,1174,3,11,1,0,44,852,685]
+s: 1174
+d: [2,898,2,18,1,0,44,687,365]
+s: 898
+d: [2,899,2,18,1,0,44,687,365]
+s: 899
+d: [2,1175,3,11,1,0,44,685,852]
+s: 1175
+d: [2,912,2,18,1,0,44,693,365]
+s: 912
+d: [2,1188,3,11,1,0,44,865,683]
+s: 1188
+d: [2,913,2,18,1,0,44,693,365]
+s: 913
+d: [2,914,2,18,1,0,44,693,365]
+s: 914
+d: [2,1189,3,11,1,0,44,683,865]
+s: 1189
+d: [2,915,2,18,1,0,44,693,365]
+s: 915
+d: [2,1214,3,11,1,0,44,912,697]
+s: 1214
+d: [2,945,2,18,1,0,44,695,365]
+s: 945
+d: [2,946,2,18,1,0,44,695,365]
+s: 946
+d: [2,1215,3,11,1,0,44,697,912]
+s: 1215
+d: [2,949,2,18,1,0,44,695,365]
+s: 949
+d: [2,1234,3,11,1,0,44,914,695]
+s: 1234
+d: [2,950,2,18,1,0,44,695,365]
+s: 950
+d: [2,971,2,18,1,0,44,697,365]
+s: 971
+d: [2,1235,3,11,1,0,44,695,914]
+s: 1235
+d: [2,972,2,18,1,0,44,697,365]
+s: 972
+d: [2,739,3,14,3,1,44,661,703]
+s: 739
+d: [2,973,2,18,1,0,44,697,365]
+s: 973
+d: [2,974,2,18,1,0,44,697,365]
+s: 974
+d: [2,744,3,14,3,1,44,661,721]
+s: 744
+d: [2,798,2,19,3,0,44,670,361]
+s: 798
+d: [2,747,3,14,3,1,44,661,721]
+s: 747
+d: [2,813,2,21,4,0,44,677,362]
+d: [2,815,2,19,3,1,21,813,493]
+s: 815
+d: [2,828,2,21,4,0,44,680,362]
+d: [2,831,2,19,3,1,21,828,493]
+s: 831
+d: [2,1296,3,16,3,1,40,815,807]
+d: [2,1304,3,12,2,1,21,1296,692]
+s: 1304
+d: [2,835,2,21,4,0,44,681,362]
+d: [2,838,2,19,3,1,21,835,493]
+s: 838
+d: [2,1315,4,12,2,1,44,1304,1159]
+s: 1315
+d: [2,843,2,21,4,0,44,682,362]
+d: [2,847,2,19,3,1,21,843,493]
+s: 847
+d: [2,1335,3,0,0,4,52,562,402,471,847]
+e: 1335
+d: [2,1336,3,10,2,2,40,847,471]
+d: [2,1350,3,4,1,3,21,1336,402]
+d: [2,1351,3,0,0,4,21,1350,562]
+e: 1351
+r: 402
+a: [3,387,0,6,1,357]
+d: [2,1357,0,4,1,1,22,387,359]
+d: [2,1358,0,0,0,2,21,1357,486]
+e: 1358
+r: 390
+r: 452
+r: 486
+r: 398
+r: 446
+r: 471
+r: 474
+r: 533
+r: 551
+r: 562
+a: [3,481,0,9,1,87]
+d: [2,1377,0,6,1,1,22,481,360]
+d: [2,1378,0,0,0,2,21,1377,394]
+e: 1378
+r: 394
+r: 415
+r: 435
+r: 459
+a: [3,391,0,2,1,357]
+s: 391
+a: [3,399,0,2,1,357]
+s: 399
+s: 414
+s: 434
+a: [3,447,0,2,1,97]
+s: 447
+a: [3,453,0,2,1,95]
+s: 453
+s: 475
+a: [3,487,0,4,1,85]
+s: 487
+d: [2,1383,3,0,0,3,52,509,523,487,367]
+e: 1383
+d: [2,1385,1,4,2,1,40,487,367]
+d: [2,1388,1,2,1,2,21,1385,523]
+d: [2,1389,1,0,0,3,21,1388,509]
+e: 1389
+r: 509
+a: [3,508,1,2,1,505]
+s: 508
+s: 395
+s: 458
+s: 552
+s: 470
+r: 407
+r: 411
+r: 414
+r: 434
+r: 441
+r: 458
+r: 465
+s: 406
+s: 415
+s: 435
+s: 440
+s: 402
+s: 534
+d: [2,1425,2,0,0,2,52,508,534,366]
+e: 1425
+d: [2,1427,2,2,1,1,40,534,366]
+d: [2,1429,2,0,0,2,21,1427,508]
+e: 1429
+r: 508
+r: 523
+r: 391
+r: 453
+r: 487
+s: 390
+s: 452
+s: 509
+s: 486
+s: 523
+a: [3,410,0,6,1,357]
+s: 410
+d: [2,1439,4,0,0,3,52,402,410,1304]
+e: 1439
+d: [2,1446,4,6,1,2,40,410,1304]
+d: [2,1451,4,0,0,3,21,1446,402]
+e: 1451
+r: 390
+r: 395
+r: 399
+r: 402
+r: 410
+r: 447
+r: 452
+r: 470
+r: 475
+r: 486
+r: 509
+r: 534
+s: 391
+s: 398
+s: 446
+s: 453
+s: 474
+s: 487
+s: 508
+s: 394
+s: 533
+a: [3,403,0,6,1,357]
+s: 403
+s: 411
+s: 563
+s: 459
+s: 464
+s: 471
+d: [2,1494,3,0,0,4,52,563,403,471,838]
+e: 1494
+d: [2,1496,3,10,2,2,40,471,838]
+d: [2,1504,3,6,1,3,21,1496,563]
+d: [2,1505,3,0,0,4,21,1504,403]
+e: 1505
+r: 391
+r: 394
+r: 398
+r: 411
+r: 415
+r: 435
+r: 446
+r: 453
+r: 459
+r: 471
+r: 474
+r: 487
+r: 508
+r: 533
+i: [1,297,0,32,8,1,0,0] t1_gate_5
+i: [1,165,0,32,8,1,0,0] t1_gate_5
+i: [1,162,0,32,8,1,0,0] t1_gate_5
+i: [1,153,0,32,8,1,0,0] t1_gate_5
+i: [1,150,0,32,8,1,0,0] t1_gate_5
+i: [1,117,0,32,8,1,0,0] t1_gate_5
+i: [1,114,0,32,8,1,0,0] t1_gate_5
+i: [1,105,0,32,8,1,0,0] t1_gate_5
+i: [1,102,0,32,8,1,0,0] t1_gate_5
+i: [1,100,0,4,2,1,0,0] t1_gate_5
+i: [1,98,0,4,2,1,0,0] t1_gate_5
+i: [1,96,0,4,2,1,0,0] t1_gate_5
+i: [1,94,0,4,2,1,0,0] t1_gate_5
+i: [1,92,0,9,2,1,0,0] t1_gate_5
+i: [1,90,0,9,2,1,0,0] t1_gate_5
+i: [1,88,0,11,2,1,0,0] t1_gate_5
+i: [1,86,0,11,2,1,0,0] t1_gate_5
+i: [1,84,0,6,2,1,0,0] t1_gate_5
+d: [2,525,1,4,2,1,40,379,458]
+d: [2,573,1,2,1,2,21,525,493]
+d: [2,566,1,10,3,1,40,369,480]
+d: [2,569,1,8,2,2,21,566,493]
+d: [2,621,1,8,3,1,40,378,464]
+d: [2,630,1,6,2,2,21,621,474]
+d: [2,631,1,4,1,3,21,630,493]
+d: [2,1113,3,6,1,2,40,807,471]
+d: [2,1355,3,6,1,3,21,1336,562]
+d: [2,641,1,8,3,1,40,465,375]
+d: [2,1362,1,6,2,2,21,641,493]
+d: [2,640,1,8,3,1,40,465,376]
+d: [2,1364,1,6,2,2,21,640,493]
+d: [2,577,1,6,2,1,40,459,373]
+d: [2,1407,1,6,2,1,40,458,381]
+d: [2,1410,1,4,1,2,21,1407,493]
+d: [2,1412,3,10,2,2,40,470,831]
+d: [2,1413,3,10,2,2,40,470,815]
+d: [2,1417,1,6,2,1,40,470,379]
+d: [2,1422,1,4,1,2,21,1417,493]
+d: [2,1414,3,10,2,1,40,470,798]
+d: [2,604,2,2,1,1,40,545,511]
+d: [2,1453,0,6,1,1,22,480,360]
+d: [2,1455,0,4,1,1,22,387,359]
+d: [2,1458,1,4,2,1,40,487,367]
+d: [2,1460,1,2,1,2,21,1458,523]
+d: [2,1468,4,8,2,2,40,394,744]
+d: [2,1478,4,8,2,2,22,1468,365]
+d: [2,1479,4,8,2,2,22,1478,365]
+d: [2,1480,4,4,1,3,21,1479,545]
+d: [2,1491,1,8,3,1,40,464,371]
+d: [2,1507,1,6,2,2,21,1491,493]
+d: [2,1508,1,2,1,3,21,1507,563]
+d: [2,1510,0,6,1,1,22,481,360]
+a: [3,386,0,6,1,357]
+d: [2,1512,0,4,1,1,22,386,359]
+f: 1512,1510,1508,1505,1480,1460,1455,1453,1451,604,1427,1414,1422,1413,1412,1410,577,1364,1362,1355,1113,631,569,573,541,358,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,105,114,117,150,153,162,165,297
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gate_5__t1_gate_5
+% SZS output start Proof for gate_5__t1_gate_5
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : ! [X7] : ! [X8] : ! [X9] : ! [X10] : ! [X11] : ! [X12] : ~(~(~(v1_xboole_0(X7) & ~v1_xboole_0(k4_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k4_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(k3_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k3_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(k2_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k2_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(k1_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k1_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X4))) & ~(v1_xboole_0(X7) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(X8)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(X4)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X10) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X10)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(k2_gate_1(X0,X2))) & ~(v1_xboole_0(k2_gate_1(X0,X2)) & ~v1_xboole_0(X8))) [input t1_gate_5]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : ! [X6] : ! [X7] : ! [X8] : ! [X9] : ! [X10] : ! [X11] : ! [X12] : ~(~(~(v1_xboole_0(X7) & ~v1_xboole_0(k4_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k4_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(k3_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k3_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(k2_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k2_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(k1_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k1_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X4))) & ~(v1_xboole_0(X7) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(X8)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(X4)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X10) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X10)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(k2_gate_1(X0,X2))) & ~(v1_xboole_0(k2_gate_1(X0,X2)) & ~v1_xboole_0(X8))) [negated conjecture 1]
+3. ! [X0,X1] : k2_gate_1(X0,X1) = k2_gate_1(X1,X0) [input commutativity_k2_gate_1]
+4. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k2_gate_1(X0,X2) = k1_gate_5(X0,X1,X2,X3) [input d1_gate_5]
+5. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0) = k2_gate_5(X0,X1,X2,X3) [input d2_gate_5]
+6. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : k35_gate_1(X0,X1,X2,X3,X4) = k10_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [input d35_gate_1]
+7. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : k36_gate_1(X0,X1,X2,X3,X4) = k11_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [input d36_gate_1]
+8. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k3_gate_5(X0,X1,X2,X3) = k35_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [input d3_gate_5]
+9. ! [X0] : ! [X1] : ! [X2] : ! [X3] : k4_gate_5(X0,X1,X2,X3) = k36_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [input d4_gate_5]
+20. v1_xboole_0(k1_xboole_0) [input fc1_xboole_0]
+21. ! [X0,X1,X2] : ((v1_xboole_0(X2) & v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k10_gate_1(X0,X1,X2))) [input fc25_gate_1]
+22. ! [X0,X1,X2] : ((~v1_xboole_0(X2) & v1_xboole_0(X1) & v1_xboole_0(X0)) => ~v1_xboole_0(k10_gate_1(X0,X1,X2))) [input fc26_gate_1]
+23. ! [X0,X1,X2] : ((~v1_xboole_0(X2) & v1_xboole_0(X1) & v1_xboole_0(X0)) => ~v1_xboole_0(k10_gate_1(X0,X2,X1))) [input fc27_gate_1]
+24. ! [X0,X1,X2] : ((~v1_xboole_0(X2) & v1_xboole_0(X1) & v1_xboole_0(X0)) => ~v1_xboole_0(k10_gate_1(X2,X0,X1))) [input fc28_gate_1]
+25. ! [X0,X1,X2] : ((v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => v1_xboole_0(k10_gate_1(X0,X1,X2))) [input fc29_gate_1]
+26. ! [X0,X1,X2] : ((v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => v1_xboole_0(k10_gate_1(X0,X2,X1))) [input fc30_gate_1]
+27. ! [X0,X1,X2] : ((v1_xboole_0(X2) & ~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => v1_xboole_0(k10_gate_1(X2,X0,X1))) [input fc31_gate_1]
+30. ! [X0,X1,X2] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k11_gate_1(X0,X2,X1))) [input fc34_gate_1]
+31. ! [X0,X1,X2] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k11_gate_1(X2,X0,X1))) [input fc35_gate_1]
+32. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X0,X1,X2))) [input fc36_gate_1]
+33. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X0,X2,X1))) [input fc37_gate_1]
+34. ! [X0,X1,X2] : ((v1_xboole_0(X1) & v1_xboole_0(X0)) => v1_xboole_0(k11_gate_1(X2,X0,X1))) [input fc38_gate_1]
+35. ! [X0,X1] : ((~v1_xboole_0(X1) & ~v1_xboole_0(X0)) => ~v1_xboole_0(k2_gate_1(X0,X1))) [input fc3_gate_1]
+36. ! [X0,X1] : (v1_xboole_0(X0) => v1_xboole_0(k2_gate_1(X0,X1))) [input fc4_gate_1]
+39. ~! [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12] : ~(~(~(v1_xboole_0(X7) & ~v1_xboole_0(k4_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k4_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(k3_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k3_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(k2_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k2_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(k1_gate_5(X0,X1,X2,X3))) & ~(v1_xboole_0(k1_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X4))) & ~(v1_xboole_0(X7) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(X7)) & ~(v1_xboole_0(X6) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(X6)) & ~(v1_xboole_0(X5) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(X5)) & ~(v1_xboole_0(X4) & ~v1_xboole_0(X8)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(X4)) & ~(v1_xboole_0(X12) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X12)) & ~(v1_xboole_0(X11) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) & ~v1_xboole_0(X11)) & ~(v1_xboole_0(X10) & ~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X10)) & ~(v1_xboole_0(X9) & ~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & ~(v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) & ~v1_xboole_0(X9)) & ~(v1_xboole_0(X8) & ~v1_xboole_0(k2_gate_1(X0,X2))) & ~(v1_xboole_0(k2_gate_1(X0,X2)) & ~v1_xboole_0(X8))) [flattening 2]
+40. ! [X0,X1,X2,X3] : k2_gate_1(X0,X2) = k1_gate_5(X0,X1,X2,X3) [flattening 4]
+41. ! [X0,X1,X2,X3] : k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0) = k2_gate_5(X0,X1,X2,X3) [flattening 5]
+42. ! [X0,X1,X2,X3] : k4_gate_5(X0,X1,X2,X3) = k36_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [flattening 9]
+43. ! [X0,X1,X2,X3] : k3_gate_5(X0,X1,X2,X3) = k35_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [flattening 8]
+44. ! [X0,X1,X2,X3,X4] : k36_gate_1(X0,X1,X2,X3,X4) = k11_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [flattening 7]
+45. ! [X0,X1,X2,X3,X4] : k35_gate_1(X0,X1,X2,X3,X4) = k10_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [flattening 6]
+46. ? [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12] : (((v1_xboole_0(X7) & ~v1_xboole_0(k4_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k4_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X7)) | (v1_xboole_0(X6) & ~v1_xboole_0(k3_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k3_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X6)) | (v1_xboole_0(X5) & ~v1_xboole_0(k2_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k2_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X5)) | (v1_xboole_0(X4) & ~v1_xboole_0(k1_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k1_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X4))) & (~v1_xboole_0(X7) | v1_xboole_0(X12)) & (~v1_xboole_0(X12) | v1_xboole_0(X7)) & (~v1_xboole_0(X6) | v1_xboole_0(X11)) & (~v1_xboole_0(X11) | v1_xboole_0(X6)) & (~v1_xboole_0(X5) | v1_xboole_0(X9)) & (~v1_xboole_0(X9) | v1_xboole_0(X5)) & (~v1_xboole_0(X4) | v1_xboole_0(X8)) & (~v1_xboole_0(X8) | v1_xboole_0(X4)) & (~v1_xboole_0(X12) | v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) | v1_xboole_0(X12)) & (~v1_xboole_0(X11) | v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) | v1_xboole_0(X11)) & (~v1_xboole_0(X10) | v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) | v1_xboole_0(X10)) & (~v1_xboole_0(X9) | v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) | v1_xboole_0(X9)) & (~v1_xboole_0(X8) | v1_xboole_0(k2_gate_1(X0,X2))) & (~v1_xboole_0(k2_gate_1(X0,X2)) | v1_xboole_0(X8))) [ennf transformation 39]
+47. ! [X0,X1] : (v1_xboole_0(k2_gate_1(X0,X1)) | ~v1_xboole_0(X0)) [ennf transformation 36]
+48. ! [X0,X1] : (~v1_xboole_0(k2_gate_1(X0,X1)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 35]
+49. ! [X0,X1] : (~v1_xboole_0(k2_gate_1(X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 48]
+52. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X1,X2)) | (~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 25]
+53. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X1,X2)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 52]
+54. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X2,X0,X1)) | (~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 27]
+55. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X2,X0,X1)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 54]
+56. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X2,X1)) | (~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 26]
+57. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X2,X1)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 56]
+60. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X2,X1)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 30]
+61. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X0,X2,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 60]
+62. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X2,X0,X1)) | (v1_xboole_0(X1) | v1_xboole_0(X0))) [ennf transformation 31]
+63. ! [X0,X1,X2] : (~v1_xboole_0(k11_gate_1(X2,X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0)) [flattening 62]
+64. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X2,X0,X1)) | (v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 24]
+65. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X2,X0,X1)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 64]
+66. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X0,X1,X2)) | (v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 22]
+67. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X0,X1,X2)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 66]
+68. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X0,X2,X1)) | (v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 23]
+69. ! [X0,X1,X2] : (~v1_xboole_0(k10_gate_1(X0,X2,X1)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 68]
+70. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X1,X2)) | (~v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 21]
+71. ! [X0,X1,X2] : (v1_xboole_0(k10_gate_1(X0,X1,X2)) | ~v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 70]
+72. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X2,X0,X1)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 34]
+73. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X2,X0,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 72]
+74. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X2,X1)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 33]
+75. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X2,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 74]
+76. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X1,X2)) | (~v1_xboole_0(X1) | ~v1_xboole_0(X0))) [ennf transformation 32]
+77. ! [X0,X1,X2] : (v1_xboole_0(k11_gate_1(X0,X1,X2)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0)) [flattening 76]
+78. ? [X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12] : (((v1_xboole_0(X7) & ~v1_xboole_0(k4_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k4_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X7)) | (v1_xboole_0(X6) & ~v1_xboole_0(k3_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k3_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X6)) | (v1_xboole_0(X5) & ~v1_xboole_0(k2_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k2_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X5)) | (v1_xboole_0(X4) & ~v1_xboole_0(k1_gate_5(X0,X1,X2,X3))) | (v1_xboole_0(k1_gate_5(X0,X1,X2,X3)) & ~v1_xboole_0(X4))) & (~v1_xboole_0(X7) | v1_xboole_0(X12)) & (~v1_xboole_0(X12) | v1_xboole_0(X7)) & (~v1_xboole_0(X6) | v1_xboole_0(X11)) & (~v1_xboole_0(X11) | v1_xboole_0(X6)) & (~v1_xboole_0(X5) | v1_xboole_0(X9)) & (~v1_xboole_0(X9) | v1_xboole_0(X5)) & (~v1_xboole_0(X4) | v1_xboole_0(X8)) & (~v1_xboole_0(X8) | v1_xboole_0(X4)) & (~v1_xboole_0(X12) | v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) | v1_xboole_0(X12)) & (~v1_xboole_0(X11) | v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X3),k1_xboole_0,X10)) | v1_xboole_0(X11)) & (~v1_xboole_0(X10) | v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) | v1_xboole_0(X10)) & (~v1_xboole_0(X9) | v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0)) | v1_xboole_0(X9)) & (~v1_xboole_0(X8) | v1_xboole_0(k2_gate_1(X0,X2))) & (~v1_xboole_0(k2_gate_1(X0,X2)) | v1_xboole_0(X8))) => (((v1_xboole_0(sK7) & ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK7)) | (v1_xboole_0(sK6) & ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK6)) | (v1_xboole_0(sK5) & ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK5)) | (v1_xboole_0(sK4) & ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK4))) & (~v1_xboole_0(sK7) | v1_xboole_0(sK12)) & (~v1_xboole_0(sK12) | v1_xboole_0(sK7)) & (~v1_xboole_0(sK6) | v1_xboole_0(sK11)) & (~v1_xboole_0(sK11) | v1_xboole_0(sK6)) & (~v1_xboole_0(sK5) | v1_xboole_0(sK9)) & (~v1_xboole_0(sK9) | v1_xboole_0(sK5)) & (~v1_xboole_0(sK4) | v1_xboole_0(sK8)) & (~v1_xboole_0(sK8) | v1_xboole_0(sK4)) & (~v1_xboole_0(sK12) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK12)) & (~v1_xboole_0(sK11) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK11)) & (~v1_xboole_0(sK10) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK10)) & (~v1_xboole_0(sK9) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK9)) & (~v1_xboole_0(sK8) | v1_xboole_0(k2_gate_1(sK0,sK2))) & (~v1_xboole_0(k2_gate_1(sK0,sK2)) | v1_xboole_0(sK8))) [choice axiom]
+79. ((v1_xboole_0(sK7) & ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK7)) | (v1_xboole_0(sK6) & ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK6)) | (v1_xboole_0(sK5) & ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK5)) | (v1_xboole_0(sK4) & ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3))) | (v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) & ~v1_xboole_0(sK4))) & (~v1_xboole_0(sK7) | v1_xboole_0(sK12)) & (~v1_xboole_0(sK12) | v1_xboole_0(sK7)) & (~v1_xboole_0(sK6) | v1_xboole_0(sK11)) & (~v1_xboole_0(sK11) | v1_xboole_0(sK6)) & (~v1_xboole_0(sK5) | v1_xboole_0(sK9)) & (~v1_xboole_0(sK9) | v1_xboole_0(sK5)) & (~v1_xboole_0(sK4) | v1_xboole_0(sK8)) & (~v1_xboole_0(sK8) | v1_xboole_0(sK4)) & (~v1_xboole_0(sK12) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK12)) & (~v1_xboole_0(sK11) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK11)) & (~v1_xboole_0(sK10) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0))) & (~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK10)) & (~v1_xboole_0(sK9) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0))) & (~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK9)) & (~v1_xboole_0(sK8) | v1_xboole_0(k2_gate_1(sK0,sK2))) & (~v1_xboole_0(k2_gate_1(sK0,sK2)) | v1_xboole_0(sK8)) [skolemisation 46,78]
+84. ~v1_xboole_0(k2_gate_1(sK0,sK2)) | v1_xboole_0(sK8) [cnf transformation 79] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+85. ~v1_xboole_0(sK8) | v1_xboole_0(k2_gate_1(sK0,sK2)) [cnf transformation 79] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+86. ~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK9) [cnf transformation 79] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+87. ~v1_xboole_0(sK9) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) [cnf transformation 79] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+88. ~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) | v1_xboole_0(sK10) [cnf transformation 79] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+89. ~v1_xboole_0(sK10) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) [cnf transformation 79] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+90. ~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK11) [cnf transformation 79] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+91. ~v1_xboole_0(sK11) | v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) [cnf transformation 79] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+92. ~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) | v1_xboole_0(sK12) [cnf transformation 79] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+93. ~v1_xboole_0(sK12) | v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) [cnf transformation 79] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+94. ~v1_xboole_0(sK8) | v1_xboole_0(sK4) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+95. ~v1_xboole_0(sK4) | v1_xboole_0(sK8) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+96. ~v1_xboole_0(sK9) | v1_xboole_0(sK5) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+97. ~v1_xboole_0(sK5) | v1_xboole_0(sK9) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+98. ~v1_xboole_0(sK11) | v1_xboole_0(sK6) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+99. ~v1_xboole_0(sK6) | v1_xboole_0(sK11) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+100. ~v1_xboole_0(sK12) | v1_xboole_0(sK7) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+101. ~v1_xboole_0(sK7) | v1_xboole_0(sK12) [cnf transformation 79] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+102. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK6) | ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK5) | ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK4) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+105. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK6) | ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+114. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK6) | v1_xboole_0(sK5) | v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK4) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+117. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK6) | v1_xboole_0(sK5) | v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(sK4) | v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+150. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | v1_xboole_0(sK6) | v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK5) | ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK4) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+153. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | v1_xboole_0(sK6) | v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+162. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | v1_xboole_0(sK6) | v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(sK5) | v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK4) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+165. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK7) | v1_xboole_0(sK6) | v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(sK5) | v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(sK4) | v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+297. v1_xboole_0(sK7) | v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK6) | ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(sK5) | v1_xboole_0(sK4) | v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [cnf transformation 79] {a:0,w:32,wCS:3200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+358. v1_xboole_0(k1_xboole_0) [cnf transformation 20] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+359. k2_gate_1(X0,X2) = k1_gate_5(X0,X1,X2,X3) [cnf transformation 40] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+360. k10_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0) = k2_gate_5(X0,X1,X2,X3) [cnf transformation 41] {a:0,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+361. k4_gate_5(X0,X1,X2,X3) = k36_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [cnf transformation 42] {a:0,w:18,wCS:7200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+362. k3_gate_5(X0,X1,X2,X3) = k35_gate_1(k2_gate_1(X1,X2),k2_gate_1(X0,X3),k1_xboole_0,k2_gate_1(X1,X3),k1_xboole_0) [cnf transformation 43] {a:0,w:18,wCS:7200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+363. k36_gate_1(X0,X1,X2,X3,X4) = k11_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [cnf transformation 44] {a:0,w:14,wCS:5600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+364. k35_gate_1(X0,X1,X2,X3,X4) = k10_gate_1(X2,X3,k11_gate_1(X0,X1,X4)) [cnf transformation 45] {a:0,w:14,wCS:5600,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+365. k2_gate_1(X0,X1) = k2_gate_1(X1,X0) [cnf transformation 3] {a:0,w:7,wCS:2800,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+366. v1_xboole_0(k2_gate_1(X0,X1)) | ~v1_xboole_0(X0) [cnf transformation 47] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+367. ~v1_xboole_0(k2_gate_1(X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 49] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+369. v1_xboole_0(k10_gate_1(X0,X1,X2)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 53] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+370. v1_xboole_0(k10_gate_1(X2,X0,X1)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 55] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+371. v1_xboole_0(k10_gate_1(X0,X2,X1)) | ~v1_xboole_0(X2) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 57] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+373. ~v1_xboole_0(k11_gate_1(X0,X2,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 61] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+374. ~v1_xboole_0(k11_gate_1(X2,X0,X1)) | v1_xboole_0(X1) | v1_xboole_0(X0) [cnf transformation 63] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+375. ~v1_xboole_0(k10_gate_1(X2,X0,X1)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 65] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+376. ~v1_xboole_0(k10_gate_1(X0,X1,X2)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 67] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+377. ~v1_xboole_0(k10_gate_1(X0,X2,X1)) | v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 69] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+378. v1_xboole_0(k10_gate_1(X0,X1,X2)) | ~v1_xboole_0(X2) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 71] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+379. v1_xboole_0(k11_gate_1(X2,X0,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 73] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+380. v1_xboole_0(k11_gate_1(X0,X2,X1)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 75] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+381. v1_xboole_0(k11_gate_1(X0,X1,X2)) | ~v1_xboole_0(X1) | ~v1_xboole_0(X0) [cnf transformation 77] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+385. 1 <=> v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) [avatar definition]
+386. ~v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) <- (~1) [avatar component clause 385] {a:0,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+387. v1_xboole_0(k1_gate_5(sK0,sK1,sK2,sK3)) <- (1) [avatar component clause 385] {a:0,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+389. 2 <=> v1_xboole_0(sK4) [avatar definition]
+393. 3 <=> v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) [avatar definition]
+394. ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) <- (~3) [avatar component clause 393] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+397. 4 <=> v1_xboole_0(sK5) [avatar definition]
+401. 5 <=> v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) [avatar definition]
+402. ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (~5) [avatar component clause 401] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+403. v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (5) [avatar component clause 401] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+405. 6 <=> v1_xboole_0(sK6) [avatar definition]
+409. 7 <=> v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) [avatar definition]
+410. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) <- (~7) [avatar component clause 409] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+413. 8 <=> v1_xboole_0(sK7) [avatar definition]
+422. 1 | 2 | ~4 | ~3 | ~6 | ~5 | 7 | 8 [avatar split clause 297,413,409,401,405,393,397,389,385]
+424. 1 | 2 | 3 | 4 | 5 | 6 | ~8 | ~7 [avatar split clause 165,409,413,405,401,397,393,389,385]
+425. ~2 | ~1 | 3 | 4 | 5 | 6 | ~8 | ~7 [avatar split clause 162,409,413,405,401,397,393,385,389]
+426. 1 | 2 | ~4 | ~3 | 5 | 6 | ~8 | ~7 [avatar split clause 153,409,413,405,401,393,397,389,385]
+427. ~2 | ~1 | ~4 | ~3 | 5 | 6 | ~8 | ~7 [avatar split clause 150,409,413,405,401,393,397,385,389]
+428. 1 | 2 | 3 | 4 | ~6 | ~5 | ~8 | ~7 [avatar split clause 117,409,413,401,405,397,393,389,385]
+429. ~2 | ~1 | 3 | 4 | ~6 | ~5 | ~8 | ~7 [avatar split clause 114,409,413,401,405,397,393,385,389]
+430. 1 | 2 | ~4 | ~3 | ~6 | ~5 | ~8 | ~7 [avatar split clause 105,409,413,401,405,393,397,389,385]
+431. ~2 | ~1 | ~4 | ~3 | ~6 | ~5 | ~8 | ~7 [avatar split clause 102,409,413,401,405,393,397,385,389]
+433. 9 <=> v1_xboole_0(sK12) [avatar definition]
+436. 9 | ~8 [avatar split clause 101,413,433]
+437. 8 | ~9 [avatar split clause 100,433,413]
+439. 10 <=> v1_xboole_0(sK11) [avatar definition]
+442. 10 | ~6 [avatar split clause 99,405,439]
+443. 6 | ~10 [avatar split clause 98,439,405]
+445. 11 <=> v1_xboole_0(sK9) [avatar definition]
+448. 11 | ~4 [avatar split clause 97,397,445]
+449. 4 | ~11 [avatar split clause 96,445,397]
+451. 12 <=> v1_xboole_0(sK8) [avatar definition]
+454. 12 | ~2 [avatar split clause 95,389,451]
+455. 2 | ~12 [avatar split clause 94,451,389]
+457. 13 <=> v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) [avatar definition]
+458. ~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) <- (~13) [avatar component clause 457] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+459. v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) <- (13) [avatar component clause 457] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+460. 13 | ~9 [avatar split clause 93,433,457]
+461. 9 | ~13 [avatar split clause 92,457,433]
+463. 14 <=> v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) [avatar definition]
+464. ~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) <- (~14) [avatar component clause 463] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+465. v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK3),k1_xboole_0,sK10)) <- (14) [avatar component clause 463] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+466. 14 | ~10 [avatar split clause 91,439,463]
+467. 10 | ~14 [avatar split clause 90,463,439]
+469. 15 <=> v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) [avatar definition]
+470. ~v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) <- (~15) [avatar component clause 469] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+471. v1_xboole_0(k11_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) <- (15) [avatar component clause 469] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+473. 16 <=> v1_xboole_0(sK10) [avatar definition]
+474. v1_xboole_0(sK10) <- (16) [avatar component clause 473] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+476. 15 | ~16 [avatar split clause 89,473,469]
+477. 16 | ~15 [avatar split clause 88,469,473]
+479. 17 <=> v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) [avatar definition]
+480. ~v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) <- (~17) [avatar component clause 479] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+481. v1_xboole_0(k10_gate_1(k2_gate_1(sK1,sK2),k2_gate_1(sK0,sK3),k1_xboole_0)) <- (17) [avatar component clause 479] {a:0,w:9,wCS:900,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+482. 17 | ~11 [avatar split clause 87,445,479]
+483. 11 | ~17 [avatar split clause 86,479,445]
+485. 18 <=> v1_xboole_0(k2_gate_1(sK0,sK2)) [avatar definition]
+487. v1_xboole_0(k2_gate_1(sK0,sK2)) <- (18) [avatar component clause 485] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+488. 18 | ~12 [avatar split clause 85,451,485]
+489. 12 | ~18 [avatar split clause 84,485,451]
+491. 19 <=> v1_xboole_0(k1_xboole_0) [avatar definition]
+493. v1_xboole_0(k1_xboole_0) <- (19) [avatar component clause 491] {a:0,w:2,wCS:800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+494. 19 [avatar split clause 358,491]
+507. 22 <=> v1_xboole_0(sK0) [avatar definition]
+511. v1_xboole_0(k2_gate_1(X1,X0)) | ~v1_xboole_0(X0) [superposition 366,365] {a:1,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+521. 23 <=> v1_xboole_0(sK2) [avatar definition]
+523. ~v1_xboole_0(sK2) <- (~23) [avatar component clause 521] {a:2,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+525. ~v1_xboole_0(sK10) | ~v1_xboole_0(k1_xboole_0) <- (~13) [resolution 379,458] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+532. 24 <=> v1_xboole_0(k2_gate_1(sK0,sK3)) [avatar definition]
+534. ~v1_xboole_0(k2_gate_1(sK0,sK3)) <- (~24) [avatar component clause 532] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+537. ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK1,sK2)) <- (~15) [resolution 380,470] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+541. ~v1_xboole_0(k2_gate_1(sK1,sK2)) <- (~15, 19) [subsumption resolution 537,493] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+543. 25 <=> v1_xboole_0(k2_gate_1(sK1,sK2)) [avatar definition]
+545. ~v1_xboole_0(k2_gate_1(sK1,sK2)) <- (~25) [avatar component clause 543] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+546. ~25 | 15 | ~19 [avatar split clause 541,491,469,543]
+561. 27 <=> v1_xboole_0(k2_gate_1(sK1,sK3)) [avatar definition]
+562. v1_xboole_0(k2_gate_1(sK1,sK3)) <- (27) [avatar component clause 561] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+563. ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~27) [avatar component clause 561] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+566. ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(k2_gate_1(sK0,sK3)) | v1_xboole_0(k2_gate_1(sK1,sK2)) <- (~17) [resolution 369,480] {a:1,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+569. v1_xboole_0(k2_gate_1(sK0,sK3)) | v1_xboole_0(k2_gate_1(sK1,sK2)) <- (~17, 19) [subsumption resolution 566,493] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+573. ~v1_xboole_0(sK10) <- (~13, 19) [subsumption resolution 525,493] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+574. ~16 | 13 | ~19 [avatar split clause 573,491,457,473]
+575. 25 | 24 | 17 | ~19 [avatar split clause 569,491,479,532,543]
+577. v1_xboole_0(sK10) | v1_xboole_0(k2_gate_1(sK1,sK3)) <- (13) [resolution 459,373] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+604. ~v1_xboole_0(sK2) <- (~25) [resolution 545,511] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+621. ~v1_xboole_0(sK10) | ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~14) [resolution 378,464] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+630. ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~14, 16) [subsumption resolution 621,474] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+631. ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~14, 16, 19) [subsumption resolution 630,493] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+632. ~27 | 14 | ~16 | ~19 [avatar split clause 631,491,473,463,561]
+640. v1_xboole_0(sK10) | ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (14) [resolution 465,376] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+641. v1_xboole_0(k2_gate_1(sK1,sK3)) | ~v1_xboole_0(sK10) | ~v1_xboole_0(k1_xboole_0) <- (14) [resolution 465,375] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+647. k2_gate_5(X2,X0,X1,X3) = k10_gate_1(k2_gate_1(X1,X0),k2_gate_1(X2,X3),k1_xboole_0) [superposition 360,365] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+649. k2_gate_5(X0,X2,X3,X1) = k10_gate_1(k2_gate_1(X2,X3),k2_gate_1(X1,X0),k1_xboole_0) [superposition 360,365] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+652. v1_xboole_0(k2_gate_5(X6,X4,X5,X7)) | ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(k2_gate_1(X6,X7)) | v1_xboole_0(k2_gate_1(X4,X5)) [superposition 369,360] {a:1,w:16,wCS:6400,sine:1,thAx:0,allAx:2,thDist:-2}
+661. v1_xboole_0(k2_gate_5(X6,X4,X5,X7)) | v1_xboole_0(k2_gate_1(X6,X7)) | v1_xboole_0(k2_gate_1(X4,X5)) <- (19) [subsumption resolution 652,493] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+670. ~v1_xboole_0(k36_gate_1(X12,X13,X10,X11,X14)) | v1_xboole_0(k11_gate_1(X12,X13,X14)) | v1_xboole_0(X11) [superposition 374,363] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+672. v1_xboole_0(k36_gate_1(X22,X23,X20,X21,X24)) | ~v1_xboole_0(k11_gate_1(X22,X23,X24)) | ~v1_xboole_0(X20) [superposition 380,363] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+673. v1_xboole_0(k36_gate_1(X27,X28,X25,X26,X29)) | ~v1_xboole_0(X26) | ~v1_xboole_0(X25) [superposition 381,363] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+677. v1_xboole_0(k35_gate_1(X12,X13,X10,X11,X14)) | ~v1_xboole_0(X10) | v1_xboole_0(k11_gate_1(X12,X13,X14)) | v1_xboole_0(X11) [superposition 370,364] {a:1,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+680. ~v1_xboole_0(k35_gate_1(X27,X28,X25,X26,X29)) | v1_xboole_0(k11_gate_1(X27,X28,X29)) | ~v1_xboole_0(X26) | ~v1_xboole_0(X25) [superposition 376,364] {a:1,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+681. ~v1_xboole_0(k35_gate_1(X32,X33,X30,X31,X34)) | v1_xboole_0(X31) | ~v1_xboole_0(k11_gate_1(X32,X33,X34)) | ~v1_xboole_0(X30) [superposition 377,364] {a:1,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+682. v1_xboole_0(k35_gate_1(X37,X38,X35,X36,X39)) | ~v1_xboole_0(k11_gate_1(X37,X38,X39)) | ~v1_xboole_0(X36) | ~v1_xboole_0(X35) [superposition 378,364] {a:1,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+691. v1_xboole_0(k4_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k2_gate_1(X0,X3)) | ~v1_xboole_0(k1_xboole_0) [superposition 673,361] {a:2,w:12,wCS:4800,sine:1,thAx:0,allAx:3,thDist:-3}
+692. v1_xboole_0(k4_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k2_gate_1(X0,X3)) <- (19) [subsumption resolution 691,493] {a:2,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+721. k2_gate_5(X6,X5,X4,X7) = k2_gate_5(X7,X4,X5,X6) [superposition 649,647] {a:2,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:4,thDist:-4}
+744. v1_xboole_0(k2_gate_5(X3,X2,X1,X0)) | v1_xboole_0(k2_gate_1(X0,X3)) | v1_xboole_0(k2_gate_1(X1,X2)) <- (19) [superposition 661,721] {a:3,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:6,thDist:-6}
+798. v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k4_gate_5(X2,X0,X1,X3)) | v1_xboole_0(k2_gate_1(X0,X3)) [superposition 670,361] {a:2,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+806. v1_xboole_0(k4_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k1_xboole_0) [superposition 672,361] {a:2,w:17,wCS:6800,sine:1,thAx:0,allAx:3,thDist:-3}
+807. ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | v1_xboole_0(k4_gate_5(X2,X0,X1,X3)) <- (19) [subsumption resolution 806,493] {a:2,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+813. v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | v1_xboole_0(k2_gate_1(X0,X3)) [superposition 677,362] {a:2,w:21,wCS:8400,sine:1,thAx:0,allAx:3,thDist:-3}
+815. v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | v1_xboole_0(k2_gate_1(X0,X3)) <- (19) [subsumption resolution 813,493] {a:2,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+828. ~v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k2_gate_1(X0,X3)) | ~v1_xboole_0(k1_xboole_0) [superposition 680,362] {a:2,w:21,wCS:8400,sine:1,thAx:0,allAx:3,thDist:-3}
+831. v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k2_gate_1(X0,X3)) <- (19) [subsumption resolution 828,493] {a:2,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+835. ~v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | v1_xboole_0(k2_gate_1(X0,X3)) | ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k1_xboole_0) [superposition 681,362] {a:2,w:21,wCS:8400,sine:1,thAx:0,allAx:3,thDist:-3}
+838. ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | v1_xboole_0(k2_gate_1(X0,X3)) | ~v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) <- (19) [subsumption resolution 835,493] {a:2,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+843. v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | ~v1_xboole_0(k2_gate_1(X0,X3)) | ~v1_xboole_0(k1_xboole_0) [superposition 682,362] {a:2,w:21,wCS:8400,sine:1,thAx:0,allAx:3,thDist:-3}
+847. ~v1_xboole_0(k11_gate_1(k2_gate_1(X0,X1),k2_gate_1(X2,X3),k1_xboole_0)) | v1_xboole_0(k3_gate_5(X2,X0,X1,X3)) | ~v1_xboole_0(k2_gate_1(X0,X3)) <- (19) [subsumption resolution 843,493] {a:2,w:19,wCS:7600,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1113. v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) <- (15, 19) [resolution 807,471] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1121. 7 | ~15 | ~19 [avatar split clause 1113,491,469,409]
+1296. v1_xboole_0(k3_gate_5(X8,X9,X10,X11)) | v1_xboole_0(k2_gate_1(X9,X11)) | v1_xboole_0(k4_gate_5(X8,X9,X10,X11)) <- (19) [resolution 815,807] {a:3,w:16,wCS:6400,sine:1,thAx:0,allAx:6,thDist:-6}
+1304. v1_xboole_0(k4_gate_5(X8,X9,X10,X11)) | v1_xboole_0(k3_gate_5(X8,X9,X10,X11)) <- (19) [subsumption resolution 1296,692] {a:3,w:12,wCS:4800,nSel:1,sine:1,thAx:0,allAx:6,thDist:-6}
+1336. v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (15, 19) [resolution 847,471] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1355. v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (15, 19, 27) [subsumption resolution 1336,562] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1356. 5 | ~15 | ~19 | ~27 [avatar split clause 1355,561,491,469,401]
+1362. v1_xboole_0(k2_gate_1(sK1,sK3)) | ~v1_xboole_0(sK10) <- (14, 19) [subsumption resolution 641,493] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1363. ~16 | 27 | ~14 | ~19 [avatar split clause 1362,491,463,561,473]
+1364. v1_xboole_0(sK10) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (14, 19) [subsumption resolution 640,493] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1365. ~27 | 16 | ~14 | ~19 [avatar split clause 1364,491,463,473,561]
+1366. 27 | 16 | ~13 [avatar split clause 577,457,473,561]
+1407. ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~13) [resolution 458,381] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1410. ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~13, 19) [subsumption resolution 1407,493] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1411. ~27 | 13 | ~19 [avatar split clause 1410,491,457,561]
+1412. ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | ~v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~15, 19) [resolution 470,831] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1413. v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~15, 19) [resolution 470,815] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1414. ~v1_xboole_0(k4_gate_5(sK0,sK1,sK2,sK3)) | v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~15) [resolution 470,798] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1417. ~v1_xboole_0(k1_xboole_0) | ~v1_xboole_0(k2_gate_1(sK0,sK3)) <- (~15) [resolution 470,379] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1418. ~27 | ~5 | 15 | ~19 [avatar split clause 1412,491,469,401,561]
+1419. 27 | 5 | 15 | ~19 [avatar split clause 1413,491,469,401,561]
+1422. ~v1_xboole_0(k2_gate_1(sK0,sK3)) <- (~15, 19) [subsumption resolution 1417,493] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1423. ~24 | 15 | ~19 [avatar split clause 1422,491,469,532]
+1424. 27 | ~7 | 15 [avatar split clause 1414,469,409,561]
+1427. ~v1_xboole_0(sK0) <- (~24) [resolution 534,366] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+1431. ~22 | 24 [avatar split clause 1427,532,507]
+1433. ~23 | 25 [avatar split clause 604,543,521]
+1446. v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (~7, 19) [resolution 410,1304] {a:4,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1451. $false <- (~5, ~7, 19) [subsumption resolution 1446,402] {a:4,w:0,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1452. 5 | 7 | ~19 [avatar contradiction clause 1451]
+1453. ~v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) <- (~17) [forward demodulation 480,360] {a:0,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+1454. ~3 | 17 [avatar split clause 1453,479,393]
+1455. v1_xboole_0(k2_gate_1(sK0,sK2)) <- (1) [forward demodulation 387,359] {a:0,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+1456. 18 | ~1 [avatar split clause 1455,385,485]
+1458. v1_xboole_0(sK2) | v1_xboole_0(sK0) <- (18) [resolution 487,367] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1460. v1_xboole_0(sK0) <- (18, ~23) [subsumption resolution 1458,523] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1461. 22 | ~18 | 23 [avatar split clause 1460,521,485,507]
+1468. v1_xboole_0(k2_gate_1(sK3,sK0)) | v1_xboole_0(k2_gate_1(sK2,sK1)) <- (~3, 19) [resolution 394,744] {a:4,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1478. v1_xboole_0(k2_gate_1(sK0,sK3)) | v1_xboole_0(k2_gate_1(sK2,sK1)) <- (~3, 19) [forward demodulation 1468,365] {a:4,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1479. v1_xboole_0(k2_gate_1(sK1,sK2)) | v1_xboole_0(k2_gate_1(sK0,sK3)) <- (~3, 19) [forward demodulation 1478,365] {a:4,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1480. v1_xboole_0(k2_gate_1(sK0,sK3)) <- (~3, 19, ~25) [subsumption resolution 1479,545] {a:4,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+1481. 24 | 3 | ~19 | 25 [avatar split clause 1480,543,491,393,532]
+1491. ~v1_xboole_0(k1_xboole_0) | v1_xboole_0(sK10) | v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~14) [resolution 464,371] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1496. v1_xboole_0(k2_gate_1(sK1,sK3)) | ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (15, 19) [resolution 471,838] {a:3,w:10,wCS:1000,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1504. ~v1_xboole_0(k3_gate_5(sK0,sK1,sK2,sK3)) <- (15, 19, ~27) [subsumption resolution 1496,563] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1505. $false <- (5, 15, 19, ~27) [subsumption resolution 1504,403] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+1506. ~5 | ~15 | ~19 | 27 [avatar contradiction clause 1505]
+1507. v1_xboole_0(sK10) | v1_xboole_0(k2_gate_1(sK1,sK3)) <- (~14, 19) [subsumption resolution 1491,493] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1508. v1_xboole_0(sK10) <- (~14, 19, ~27) [subsumption resolution 1507,563] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+1509. 16 | 14 | ~19 | 27 [avatar split clause 1508,561,491,463,473]
+1510. v1_xboole_0(k2_gate_5(sK0,sK1,sK2,sK3)) <- (17) [forward demodulation 481,360] {a:0,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+1511. 3 | ~17 [avatar split clause 1510,479,393]
+1512. ~v1_xboole_0(k2_gate_1(sK0,sK2)) <- (~1) [forward demodulation 386,359] {a:0,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+1513. ~18 | 1 [avatar split clause 1512,385,485]
+1514. $false [avatar sat refutation 422,424,425,426,427,428,429,430,431,436,437,442,443,448,449,454,455,460,461,466,467,476,477,482,483,488,489,494,546,574,575,632,1121,1356,1363,1365,1366,1411,1418,1419,1423,1424,1431,1433,1452,1454,1456,1461,1481,1506,1509,1511,1513] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:735,thDist:-735}
+% SZS output end Proof for gate_5__t1_gate_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 37
+% Introduced skolems: 15
+% 
+% >>> Saturation
+% Initial clauses: 300
+% Generated clauses: 1350
+% Active clauses: 171
+% Passive clauses: 382
+% Final active clauses: 104
+% Final passive clauses: 153
+% Main loop iterations started: 225
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 75
+% Fw subsumption resolutions: 107
+% Fw demodulations: 45
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 322
+% Forward subsumptions: 362
+% 
+% >>> Generating Inferences
+% Binary resolution: 239
+% Unit resulting resolution: 7
+% Forward superposition: 252
+% Backward superposition: 191
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 45
+% Split components: 186
+% Sat splitting refutations: 17
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 112
+% SAT solver unit clauses: 3
+% SAT solver binary clauses: 41
+% 
+% Memory used [KB]: 6268
+% Time elapsed: 0.017 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% property evaluation: 0.001 s
+% term sharing: 0.001 s
+% backward subsumption index maintenance: 0.001 s ( own 0.0000 s ) 
+% backward superposition index maintenance: 0.001 s
+% forward subsumption: 0.003 s
+% forward subsumption resolution: 0.002 s
+% forward demodulation: 0.001 s
+% unit resulting resolution: 0.002 s
+% superposition: 0.002 s
+% other: 0.017 s ( own 0.004 s ) 
+

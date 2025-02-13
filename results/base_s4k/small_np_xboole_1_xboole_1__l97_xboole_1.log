@@ -1,0 +1,160 @@
+i: [1,27,0,7,1,1,0,0] l97_xboole_1
+a: [3,42,0,7,1,27]
+s: 42
+i: [1,33,0,5,1,0,0,1] idempotence_k3_xboole_0
+s: 33
+i: [1,34,0,5,1,0,0,2] idempotence_k2_xboole_0
+s: 34
+i: [1,38,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 38
+i: [1,28,0,7,1,0,0,255] t89_xboole_1
+s: 28
+i: [1,35,0,7,1,0,0,1] commutativity_k5_xboole_0
+s: 35
+d: [2,45,1,5,1,0,44,28,33]
+s: 45
+i: [1,36,0,7,1,0,0,1] commutativity_k3_xboole_0
+s: 36
+d: [2,46,2,5,1,0,40,45,38]
+s: 46
+i: [1,37,0,7,1,0,0,2] commutativity_k2_xboole_0
+s: 37
+i: [1,31,0,8,2,0,0,1] t70_xboole_1
+s: 31
+d: [2,44,1,7,1,0,40,28,38]
+s: 44
+i: [1,32,0,8,2,0,0,1] t70_xboole_1
+s: 32
+d: [2,47,1,7,1,0,44,28,36]
+s: 47
+i: [1,29,0,11,1,0,0,255] d6_xboole_0
+s: 29
+i: [1,30,0,11,3,0,0,1] t70_xboole_1
+s: 30
+d: [2,48,1,7,1,0,44,28,36]
+s: 48
+d: [2,66,1,7,1,0,44,29,34]
+s: 66
+r: 46
+r: 45
+d: [2,83,1,5,1,0,23,45,66]
+s: 83
+d: [2,69,1,7,1,0,44,34,29]
+s: 69
+d: [2,52,1,8,2,0,44,31,37]
+s: 52
+d: [2,82,2,5,1,0,23,46,66]
+s: 82
+d: [2,53,1,8,2,0,44,31,37]
+s: 53
+d: [2,86,2,7,1,0,44,47,66]
+d: [2,89,2,5,1,0,22,86,33]
+s: 89
+d: [2,70,1,10,2,0,44,32,29]
+s: 70
+d: [2,71,1,10,2,0,44,31,29]
+s: 71
+d: [2,87,2,7,1,0,44,44,66]
+d: [2,90,2,5,1,0,22,87,33]
+s: 90
+d: [2,67,1,11,1,0,44,29,37]
+s: 67
+d: [2,88,2,7,1,0,44,28,66]
+d: [2,91,2,5,1,0,22,88,33]
+s: 91
+d: [2,68,1,11,1,0,44,29,37]
+s: 68
+d: [2,72,1,11,1,0,44,37,29]
+s: 72
+d: [2,92,2,5,1,0,40,83,38]
+s: 92
+d: [2,73,1,11,1,0,44,37,29]
+s: 73
+d: [2,56,2,7,1,0,44,44,36]
+s: 56
+d: [2,76,1,11,3,0,40,30,38]
+s: 76
+d: [2,80,1,15,3,0,44,30,29]
+s: 80
+d: [2,137,2,0,0,1,52,42,28,47,80]
+e: 137
+f: 137,27
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__l97_xboole_1
+% SZS output start Proof for xboole_1__l97_xboole_1
+1. ! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [input l97_xboole_1]
+2. ~! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [negated conjecture 1]
+4. ! [X0,X1] : k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [input commutativity_k3_xboole_0]
+6. ! [X0] : ! [X1] : k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [input d6_xboole_0]
+14. ! [X0] : ! [X1] : ! [X2] : (~(r1_xboole_0(X0,k2_xboole_0(X1,X2)) & ~(r1_xboole_0(X0,X2) & r1_xboole_0(X0,X1))) & ~(r1_xboole_0(X0,X2) & r1_xboole_0(X0,X1) & ~r1_xboole_0(X0,k2_xboole_0(X1,X2)))) [input t70_xboole_1]
+15. ! [X0] : ! [X1] : r1_xboole_0(k3_xboole_0(X0,X1),k4_xboole_0(X0,X1)) [input t89_xboole_1]
+16. ~! [X0,X1] : r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [flattening 2]
+17. ! [X0,X1] : r1_xboole_0(k3_xboole_0(X0,X1),k4_xboole_0(X0,X1)) [flattening 15]
+18. ! [X0,X1] : k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [flattening 6]
+19. ! [X0,X1,X2] : (~(r1_xboole_0(X0,k2_xboole_0(X1,X2)) & ~(r1_xboole_0(X0,X2) & r1_xboole_0(X0,X1))) & ~(r1_xboole_0(X0,X2) & r1_xboole_0(X0,X1) & ~r1_xboole_0(X0,k2_xboole_0(X1,X2)))) [flattening 14]
+22. ? [X0,X1] : ~r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) [ennf transformation 16]
+23. ! [X0,X1,X2] : ((~r1_xboole_0(X0,k2_xboole_0(X1,X2)) | (r1_xboole_0(X0,X2) & r1_xboole_0(X0,X1))) & (~r1_xboole_0(X0,X2) | ~r1_xboole_0(X0,X1) | r1_xboole_0(X0,k2_xboole_0(X1,X2)))) [ennf transformation 19]
+25. ? [X0,X1] : ~r1_xboole_0(k3_xboole_0(X0,X1),k5_xboole_0(X0,X1)) => ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [choice axiom]
+26. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [skolemisation 22,25]
+27. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [cnf transformation 26] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+28. r1_xboole_0(k3_xboole_0(X0,X1),k4_xboole_0(X0,X1)) [cnf transformation 17] {a:0,w:7,wCS:2800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+29. k5_xboole_0(X0,X1) = k2_xboole_0(k4_xboole_0(X0,X1),k4_xboole_0(X1,X0)) [cnf transformation 18] {a:0,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+30. r1_xboole_0(X0,k2_xboole_0(X1,X2)) | ~r1_xboole_0(X0,X1) | ~r1_xboole_0(X0,X2) [cnf transformation 23] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+36. k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [cnf transformation 4] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+40. 1 <=> r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) [avatar definition]
+42. ~r1_xboole_0(k3_xboole_0(sK0,sK1),k5_xboole_0(sK0,sK1)) <- (~1) [avatar component clause 40] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+43. ~1 [avatar split clause 27,40]
+47. r1_xboole_0(k3_xboole_0(X2,X1),k4_xboole_0(X1,X2)) [superposition 28,36] {a:1,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+80. ~r1_xboole_0(X10,k4_xboole_0(X9,X8)) | ~r1_xboole_0(X10,k4_xboole_0(X8,X9)) | r1_xboole_0(X10,k5_xboole_0(X8,X9)) [superposition 30,29] {a:1,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+137. $false <- (~1) [unit resulting resolution 42,28,47,80] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+144. 1 [avatar contradiction clause 137]
+147. $false [avatar sat refutation 43,144] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:10,thDist:-10}
+% SZS output end Proof for xboole_1__l97_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 14
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 12
+% Generated clauses: 115
+% Active clauses: 25
+% Passive clauses: 53
+% Final active clauses: 23
+% Final passive clauses: 17
+% Main loop iterations started: 36
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 3
+% Fw subsumption resolutions: 2
+% Fw demodulations: 7
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 6
+% Forward subsumptions: 49
+% 
+% >>> Generating Inferences
+% Binary resolution: 28
+% Unit resulting resolution: 1
+% Forward superposition: 40
+% Backward superposition: 19
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 4
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

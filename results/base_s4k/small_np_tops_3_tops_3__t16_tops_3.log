@@ -1,0 +1,89 @@
+i: [1,58,0,2,1,1,0,0] t16_tops_3
+a: [3,74,0,2,1,58]
+s: 74
+i: [1,59,0,4,1,1,0,0] t16_tops_3
+a: [3,69,0,4,1,59]
+s: 69
+i: [1,64,0,2,1,0,0,255] existence_l1_struct_0
+a: [3,79,0,2,1,64]
+s: 79
+i: [1,65,0,2,1,0,0,1] existence_l1_pre_topc
+a: [3,84,0,2,1,65]
+s: 84
+i: [1,61,0,4,2,0,0,255] dt_l1_pre_topc
+s: 61
+i: [1,62,0,6,2,0,0,1] fc12_tops_1
+s: 62
+d: [2,98,1,0,0,2,52,74,69,62]
+e: 98
+d: [2,99,1,2,1,1,40,62,69]
+d: [2,101,1,0,0,2,21,99,74]
+e: 101
+f: 101,58,59
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for tops_3__t16_tops_3
+% SZS output start Proof for tops_3__t16_tops_3
+1. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => v1_tops_1(k2_struct_0(X0),X0)) [input t16_tops_3]
+2. ~! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => v1_tops_1(k2_struct_0(X0),X0)) [negated conjecture 1]
+21. ! [X0] : (l1_pre_topc(X0) => v1_tops_1(k2_struct_0(X0),X0)) [input fc12_tops_1]
+43. ~! [X0] : (l1_pre_topc(X0) => v1_tops_1(k2_struct_0(X0),X0)) [pure predicate removal 2]
+45. ? [X0] : (~v1_tops_1(k2_struct_0(X0),X0) & l1_pre_topc(X0)) [ennf transformation 43]
+48. ! [X0] : (v1_tops_1(k2_struct_0(X0),X0) | ~l1_pre_topc(X0)) [ennf transformation 21]
+50. ? [X0] : (~v1_tops_1(k2_struct_0(X0),X0) & l1_pre_topc(X0)) => (~v1_tops_1(k2_struct_0(sK0),sK0) & l1_pre_topc(sK0)) [choice axiom]
+51. ~v1_tops_1(k2_struct_0(sK0),sK0) & l1_pre_topc(sK0) [skolemisation 45,50]
+58. l1_pre_topc(sK0) [cnf transformation 51] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+59. ~v1_tops_1(k2_struct_0(sK0),sK0) [cnf transformation 51] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+62. v1_tops_1(k2_struct_0(X0),X0) | ~l1_pre_topc(X0) [cnf transformation 48] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+67. 1 <=> v1_tops_1(k2_struct_0(sK0),sK0) [avatar definition]
+69. ~v1_tops_1(k2_struct_0(sK0),sK0) <- (~1) [avatar component clause 67] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+70. ~1 [avatar split clause 59,67]
+72. 2 <=> l1_pre_topc(sK0) [avatar definition]
+74. l1_pre_topc(sK0) <- (2) [avatar component clause 72] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+75. 2 [avatar split clause 58,72]
+99. ~l1_pre_topc(sK0) <- (~1) [resolution 62,69] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+101. $false <- (~1, 2) [subsumption resolution 99,74] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+102. 1 | ~2 [avatar contradiction clause 101]
+103. $false [avatar sat refutation 70,75,102] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:30,thDist:-30}
+% SZS output end Proof for tops_3__t16_tops_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 22
+% >>> Preprocessing
+% Introduced skolems: 4
+% Pure predicates: 6
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 8
+% Generated clauses: 19
+% Active clauses: 6
+% Passive clauses: 10
+% Final active clauses: 6
+% Final passive clauses: 4
+% Main loop iterations started: 6
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 3
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

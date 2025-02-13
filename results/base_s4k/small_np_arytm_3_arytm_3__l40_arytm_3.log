@@ -1,0 +1,228 @@
+i: [1,153,0,2,1,1,0,0] l40_arytm_3
+a: [3,232,0,2,1,153]
+s: 232
+i: [1,154,0,2,1,0,0,2] spc1_boole
+a: [3,237,0,2,1,154]
+s: 237
+i: [1,155,0,2,1,0,0,2] fc1_xboole_0
+a: [3,242,0,2,1,155]
+s: 242
+i: [1,161,0,2,1,0,0,2] fc6_ordinal1
+a: [3,267,0,2,1,161]
+s: 267
+i: [1,160,0,2,1,0,0,2] fc6_ordinal1
+a: [3,272,0,2,1,160]
+s: 272
+i: [1,218,0,2,1,0,0,1] rc2_xboole_0
+a: [3,292,0,2,1,218]
+s: 292
+i: [1,219,0,2,1,0,0,3] rc4_ordinal1
+a: [3,297,0,2,1,219]
+s: 297
+i: [1,220,0,2,1,0,0,3] rc1_ordinal1
+a: [3,302,0,2,1,220]
+s: 302
+i: [1,221,0,2,1,0,0,1] rc1_xboole_0
+a: [3,307,0,2,1,221]
+s: 307
+i: [1,225,0,2,1,0,0,255] rc2_ordinal1
+a: [3,312,0,2,1,225]
+s: 312
+i: [1,224,0,2,1,0,0,255] rc2_ordinal1
+a: [3,317,0,2,1,224]
+s: 317
+i: [1,223,0,2,1,0,0,255] rc2_ordinal1
+a: [3,322,0,2,1,223]
+s: 322
+i: [1,222,0,2,1,0,0,255] rc2_ordinal1
+a: [3,327,0,2,1,222]
+s: 327
+i: [1,227,0,2,1,0,0,3] rc5_ordinal1
+a: [3,332,0,2,1,227]
+s: 332
+i: [1,226,0,2,1,0,0,3] rc5_ordinal1
+a: [3,337,0,2,1,226]
+s: 337
+i: [1,165,0,3,1,0,0,255] fc2_xboole_0
+s: 165
+i: [1,166,0,3,1,0,0,3] fc1_subset_1
+s: 166
+i: [1,205,0,3,1,0,0,3] rc2_subset_1
+s: 205
+i: [1,208,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 208
+i: [1,156,0,3,1,0,0,255] redefinition_k5_numbers
+a: [3,247,0,3,1,156]
+s: 247
+r: 272
+r: 267
+d: [2,339,0,2,1,2,23,272,247]
+a: [3,344,0,2,1,339]
+s: 344
+d: [2,340,0,2,1,2,23,267,247]
+a: [3,349,0,2,1,340]
+s: 349
+i: [1,157,0,3,1,0,0,2] t1_numerals
+a: [3,252,0,3,1,157]
+s: 252
+i: [1,164,0,3,1,0,0,255] spc1_numerals
+a: [3,277,0,3,1,164]
+s: 277
+i: [1,163,0,3,1,0,0,255] spc1_numerals
+a: [3,282,0,3,1,163]
+s: 282
+d: [2,351,0,3,1,2,22,252,247]
+a: [3,355,0,3,1,351]
+s: 355
+i: [1,174,0,4,2,0,0,3] cc6_ordinal1
+s: 174
+i: [1,175,0,4,2,0,0,255] cc1_ordinal1
+s: 175
+d: [2,357,1,2,1,1,40,174,297]
+a: [3,362,1,2,1,357]
+s: 362
+i: [1,176,0,4,2,0,0,255] cc1_ordinal1
+s: 176
+i: [1,179,0,4,2,0,0,255] cc9_ordinal1
+s: 179
+d: [2,407,1,2,1,1,40,179,232]
+a: [3,414,1,2,1,407]
+s: 414
+i: [1,180,0,4,2,0,0,3] cc7_ordinal1
+s: 180
+d: [2,426,1,2,1,1,40,180,232]
+a: [3,433,1,2,1,426]
+s: 433
+i: [1,181,0,4,2,0,0,3] cc3_ordinal1
+s: 181
+i: [1,203,0,4,1,0,0,2] existence_m1_subset_1
+s: 203
+d: [2,445,2,2,1,1,40,433,174]
+a: [3,449,2,2,1,445]
+s: 449
+i: [1,207,0,4,1,0,0,255] rc3_subset_1
+s: 207
+d: [2,466,3,2,1,1,40,449,176]
+a: [3,471,3,2,1,466]
+s: 471
+i: [1,209,0,4,1,0,0,255] fc3_xboole_0
+s: 209
+i: [1,158,0,4,1,0,0,255] dt_k5_numbers
+a: [3,257,0,4,1,158]
+s: 257
+d: [2,467,3,2,1,1,40,449,175]
+a: [3,476,3,2,1,467]
+s: 476
+i: [1,162,0,4,1,0,0,255] spc1_numerals
+a: [3,287,0,4,1,162]
+s: 287
+d: [2,358,1,2,1,1,40,174,332]
+a: [3,367,1,2,1,358]
+s: 367
+i: [1,170,0,5,2,0,0,3] rc1_subset_1
+s: 170
+i: [1,182,0,5,2,0,0,2] t6_boole
+s: 182
+d: [2,370,1,2,1,1,40,175,302]
+a: [3,375,1,2,1,370]
+s: 375
+i: [1,185,0,5,2,0,0,2] cc8_ordinal1
+s: 185
+d: [2,371,1,2,1,1,40,175,349]
+a: [3,380,1,2,1,371]
+s: 380
+i: [1,198,0,5,2,0,0,2] t7_boole
+s: 198
+i: [1,204,0,5,1,0,0,3] rc2_subset_1
+s: 204
+d: [2,388,1,2,1,1,40,176,349]
+a: [3,395,1,2,1,388]
+s: 395
+i: [1,206,0,5,1,0,0,255] rc3_subset_1
+s: 206
+d: [2,390,1,2,1,1,40,176,302]
+a: [3,405,1,2,1,390]
+s: 405
+i: [1,159,0,5,1,0,0,1] l39_arytm_3
+a: [3,262,0,5,1,159]
+s: 262
+d: [2,494,1,0,0,2,52,232,262,198]
+e: 494
+d: [2,495,1,2,1,1,40,262,198]
+d: [2,497,1,0,0,2,21,495,232]
+e: 497
+f: 497,159,153
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for arytm_3__l40_arytm_3
+% SZS output start Proof for arytm_3__l40_arytm_3
+1. ~v1_xboole_0(a_0_0_arytm_3) [input l40_arytm_3]
+2. ~~v1_xboole_0(a_0_0_arytm_3) [negated conjecture 1]
+60. ! [X0] : ! [X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [input t7_boole]
+66. r2_hidden(k4_tarski(1,1),a_0_0_arytm_3) [input l39_arytm_3]
+67. v1_xboole_0(a_0_0_arytm_3) [flattening 2]
+73. ! [X0,X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [flattening 60]
+106. ! [X0,X1] : (~v1_xboole_0(X1) | ~r2_hidden(X0,X1)) [ennf transformation 73]
+153. v1_xboole_0(a_0_0_arytm_3) [cnf transformation 67] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+159. r2_hidden(k4_tarski(1,1),a_0_0_arytm_3) [cnf transformation 66] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+198. ~r2_hidden(X0,X1) | ~v1_xboole_0(X1) [cnf transformation 106] {a:0,w:5,wCS:2000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+230. 1 <=> v1_xboole_0(a_0_0_arytm_3) [avatar definition]
+232. v1_xboole_0(a_0_0_arytm_3) <- (1) [avatar component clause 230] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+233. 1 [avatar split clause 153,230]
+260. 7 <=> r2_hidden(k4_tarski(1,1),a_0_0_arytm_3) [avatar definition]
+262. r2_hidden(k4_tarski(1,1),a_0_0_arytm_3) <- (7) [avatar component clause 260] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+263. 7 [avatar split clause 159,260]
+495. ~v1_xboole_0(a_0_0_arytm_3) <- (7) [resolution 262,198] {a:1,w:2,wCS:800,sine:2,thAx:0,allAx:2,thDist:-2}
+497. $false <- (1, 7) [subsumption resolution 495,232] {a:1,w:0,goal:1,sine:2,thAx:0,allAx:2,thDist:-2}
+498. ~1 | ~7 [avatar contradiction clause 497]
+499. $false [avatar sat refutation 233,263,498] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:179,thDist:-179}
+% SZS output end Proof for arytm_3__l40_arytm_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 65
+% >>> Preprocessing
+% Introduced skolems: 15
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 75
+% Generated clauses: 158
+% Active clauses: 53
+% Passive clauses: 105
+% Final active clauses: 51
+% Final passive clauses: 50
+% Main loop iterations started: 55
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 2
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 28
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 51
+% SAT solver unit clauses: 22
+% SAT solver binary clauses: 24
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.002 s
+

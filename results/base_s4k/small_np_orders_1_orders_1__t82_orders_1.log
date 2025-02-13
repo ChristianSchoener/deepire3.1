@@ -1,0 +1,94 @@
+i: [1,13,0,2,1,1,0,0] t82_orders_1
+a: [3,32,0,2,1,13]
+s: 32
+i: [1,14,0,3,1,1,0,0] t82_orders_1
+a: [3,27,0,3,1,14]
+s: 27
+i: [1,15,0,4,1,1,0,0] t82_orders_1
+a: [3,22,0,4,1,15]
+s: 22
+i: [1,16,0,5,2,0,0,1] dt_k2_relat_1
+s: 16
+i: [1,17,0,7,2,0,0,255] involutiveness_k2_relat_1
+s: 17
+i: [1,18,0,9,3,0,0,1] l61_orders_1
+s: 18
+d: [2,35,1,0,0,3,52,32,27,22,18]
+e: 35
+d: [2,36,1,5,2,1,40,18,22]
+d: [2,39,1,2,1,2,21,36,27]
+d: [2,40,1,0,0,3,21,39,32]
+e: 40
+f: 40,13,14,15
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for orders_1__t82_orders_1
+% SZS output start Proof for orders_1__t82_orders_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r6_relat_2(X0,X1) => r6_relat_2(k2_relat_1(X0),X1))) [input t82_orders_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (r6_relat_2(X0,X1) => r6_relat_2(k2_relat_1(X0),X1))) [negated conjecture 1]
+5. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r6_relat_2(X0,X1) => r6_relat_2(k2_relat_1(X0),X1))) [input l61_orders_1]
+6. ? [X0] : (? [X1] : (~r6_relat_2(k2_relat_1(X0),X1) & r6_relat_2(X0,X1)) & v1_relat_1(X0)) [ennf transformation 2]
+9. ! [X0] : (! [X1] : (r6_relat_2(k2_relat_1(X0),X1) | ~r6_relat_2(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 5]
+10. ? [X0] : (? [X1] : (~r6_relat_2(k2_relat_1(X0),X1) & r6_relat_2(X0,X1)) & v1_relat_1(X0)) => (? [X1] : (~r6_relat_2(k2_relat_1(sK0),X1) & r6_relat_2(sK0,X1)) & v1_relat_1(sK0)) [choice axiom]
+11. ? [X1] : (~r6_relat_2(k2_relat_1(sK0),X1) & r6_relat_2(sK0,X1)) => (~r6_relat_2(k2_relat_1(sK0),sK1) & r6_relat_2(sK0,sK1)) [choice axiom]
+12. (~r6_relat_2(k2_relat_1(sK0),sK1) & r6_relat_2(sK0,sK1)) & v1_relat_1(sK0) [skolemisation 6,11,10]
+13. v1_relat_1(sK0) [cnf transformation 12] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+14. r6_relat_2(sK0,sK1) [cnf transformation 12] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+15. ~r6_relat_2(k2_relat_1(sK0),sK1) [cnf transformation 12] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+18. r6_relat_2(k2_relat_1(X0),X1) | ~r6_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 9] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+20. 1 <=> r6_relat_2(k2_relat_1(sK0),sK1) [avatar definition]
+22. ~r6_relat_2(k2_relat_1(sK0),sK1) <- (~1) [avatar component clause 20] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+23. ~1 [avatar split clause 15,20]
+25. 2 <=> r6_relat_2(sK0,sK1) [avatar definition]
+27. r6_relat_2(sK0,sK1) <- (2) [avatar component clause 25] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+28. 2 [avatar split clause 14,25]
+30. 3 <=> v1_relat_1(sK0) [avatar definition]
+32. v1_relat_1(sK0) <- (3) [avatar component clause 30] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+33. 3 [avatar split clause 13,30]
+36. ~r6_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (~1) [resolution 18,22] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+39. ~v1_relat_1(sK0) <- (~1, 2) [subsumption resolution 36,27] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+40. $false <- (~1, 2, 3) [subsumption resolution 39,32] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+41. 1 | ~2 | ~3 [avatar contradiction clause 40]
+43. $false [avatar sat refutation 23,28,33,41] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:26,thDist:-26}
+% SZS output end Proof for orders_1__t82_orders_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 4
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 6
+% Generated clauses: 16
+% Active clauses: 6
+% Passive clauses: 6
+% Final active clauses: 6
+% Main loop iterations started: 6
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 3
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 1
+% Forward superposition: 1
+% Backward superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,46 @@
+i: [1,192,0,5,1,1,0,0] l1_polyeq_2
+i: [1,203,0,5,1,0,0,1] rqRealMult__k3_xcmplx_0__r2_r2_r4
+f: 203,192
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for polyeq_2__l1_polyeq_2
+% SZS output start Proof for polyeq_2__l1_polyeq_2
+1. 4 = k3_xcmplx_0(2,2) [input l1_polyeq_2]
+2. ~4 = k3_xcmplx_0(2,2) [negated conjecture 1]
+87. 4 = k3_xcmplx_0(2,2) [input rqRealMult__k3_xcmplx_0__r2_r2_r4]
+89. 4 != k3_xcmplx_0(2,2) [flattening 2]
+192. 4 != k3_xcmplx_0(2,2) [cnf transformation 89] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+203. 4 = k3_xcmplx_0(2,2) [cnf transformation 87] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+287. 1 <=> 4 = k3_xcmplx_0(2,2) [avatar definition]
+290. ~1 [avatar split clause 192,287]
+341. 1 [avatar split clause 203,287]
+512. $false [avatar sat refutation 290,341] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:111,thDist:-111}
+% SZS output end Proof for polyeq_2__l1_polyeq_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 87
+% >>> Preprocessing
+% Introduced skolems: 11
+% Pure predicates: 4
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 94
+% Generated clauses: 94
+% Passive clauses: 48
+% Final passive clauses: 48
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 48
+% SAT solver unit clauses: 46
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

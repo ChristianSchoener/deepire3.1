@@ -1,0 +1,137 @@
+i: [1,63,0,6,1,1,0,0] t1_recdef_2
+a: [3,105,0,6,1,63]
+s: 105
+i: [1,89,0,2,1,0,0,2] rc2_xtuple_0
+a: [3,110,0,2,1,89]
+s: 110
+i: [1,90,0,2,1,0,0,255] rc1_xtuple_0
+a: [3,115,0,2,1,90]
+s: 115
+i: [1,64,0,9,1,1,0,0] t1_recdef_2
+a: [3,100,0,9,1,64]
+s: 100
+i: [1,67,0,4,2,0,0,255] cc1_xtuple_0
+s: 67
+i: [1,81,0,4,1,0,0,255] fc1_xtuple_0
+s: 81
+d: [2,117,1,2,1,1,40,67,110]
+a: [3,121,1,2,1,117]
+s: 121
+i: [1,85,0,5,1,0,0,2] fc2_xtuple_0
+s: 85
+d: [2,124,1,2,1,1,44,85,105]
+a: [3,128,1,2,1,124]
+s: 128
+i: [1,65,0,6,1,0,0,255] d6_xtuple_0
+s: 65
+i: [1,66,0,6,1,0,0,255] d7_xtuple_0
+s: 66
+d: [2,130,2,2,1,1,40,128,67]
+a: [3,134,2,2,1,130]
+s: 134
+i: [1,82,0,6,1,0,0,255] rd1_xtuple_0
+s: 82
+d: [2,123,1,5,1,0,40,85,67]
+s: 123
+i: [1,83,0,6,1,0,0,255] rd2_xtuple_0
+s: 83
+i: [1,84,0,7,1,0,0,255] commutativity_k2_tarski
+s: 84
+i: [1,86,0,7,1,0,0,1] rd5_xtuple_0
+s: 86
+i: [1,87,0,7,1,0,0,1] rd4_xtuple_0
+s: 87
+d: [2,141,1,4,1,1,44,86,105]
+a: [3,145,1,4,1,141]
+s: 145
+r: 100
+d: [2,153,0,8,1,2,23,100,145]
+a: [3,157,0,8,1,153]
+s: 157
+i: [1,88,0,7,1,0,0,1] rd6_xtuple_0
+s: 88
+d: [2,147,1,4,1,1,44,87,105]
+d: [2,159,1,4,1,1,44,88,105]
+f: 159,153,147,141,63,64
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for recdef_2__t1_recdef_2
+% SZS output start Proof for recdef_2__t1_recdef_2
+1. ! [X0] : (? [X1] : ? [X2] : ? [X3] : k3_xtuple_0(X1,X2,X3) = X0 => k3_xtuple_0(k4_xtuple_0(X0),k5_xtuple_0(X0),k2_xtuple_0(X0)) = X0) [input t1_recdef_2]
+2. ~! [X0] : (? [X1] : ? [X2] : ? [X3] : k3_xtuple_0(X1,X2,X3) = X0 => k3_xtuple_0(k4_xtuple_0(X0),k5_xtuple_0(X0),k2_xtuple_0(X0)) = X0) [negated conjecture 1]
+27. ! [X0,X1,X2] : k4_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X0 [input rd4_xtuple_0]
+28. ! [X0,X1,X2] : k5_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X1 [input rd5_xtuple_0]
+29. ! [X0,X1,X2] : k2_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X2 [input rd6_xtuple_0]
+31. ~! [X0] : (? [X1,X2,X3] : k3_xtuple_0(X1,X2,X3) = X0 => k3_xtuple_0(k4_xtuple_0(X0),k5_xtuple_0(X0),k2_xtuple_0(X0)) = X0) [flattening 2]
+37. ? [X0] : (k3_xtuple_0(k4_xtuple_0(X0),k5_xtuple_0(X0),k2_xtuple_0(X0)) != X0 & ? [X1,X2,X3] : k3_xtuple_0(X1,X2,X3) = X0) [ennf transformation 31]
+44. ? [X0] : (k3_xtuple_0(k4_xtuple_0(X0),k5_xtuple_0(X0),k2_xtuple_0(X0)) != X0 & ? [X1,X2,X3] : k3_xtuple_0(X1,X2,X3) = X0) => (sK0 != k3_xtuple_0(k4_xtuple_0(sK0),k5_xtuple_0(sK0),k2_xtuple_0(sK0)) & ? [X3,X2,X1] : k3_xtuple_0(X1,X2,X3) = sK0) [choice axiom]
+45. ? [X3,X2,X1] : k3_xtuple_0(X1,X2,X3) = sK0 => sK0 = k3_xtuple_0(sK1,sK2,sK3) [choice axiom]
+46. sK0 != k3_xtuple_0(k4_xtuple_0(sK0),k5_xtuple_0(sK0),k2_xtuple_0(sK0)) & sK0 = k3_xtuple_0(sK1,sK2,sK3) [skolemisation 37,45,44]
+63. sK0 = k3_xtuple_0(sK1,sK2,sK3) [cnf transformation 46] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+64. sK0 != k3_xtuple_0(k4_xtuple_0(sK0),k5_xtuple_0(sK0),k2_xtuple_0(sK0)) [cnf transformation 46] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+86. k5_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X1 [cnf transformation 28] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+87. k4_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X0 [cnf transformation 27] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+88. k2_xtuple_0(k3_xtuple_0(X0,X1,X2)) = X2 [cnf transformation 29] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+98. 1 <=> sK0 = k3_xtuple_0(k4_xtuple_0(sK0),k5_xtuple_0(sK0),k2_xtuple_0(sK0)) [avatar definition]
+100. sK0 != k3_xtuple_0(k4_xtuple_0(sK0),k5_xtuple_0(sK0),k2_xtuple_0(sK0)) <- (~1) [avatar component clause 98] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+101. ~1 [avatar split clause 64,98]
+103. 2 <=> sK0 = k3_xtuple_0(sK1,sK2,sK3) [avatar definition]
+105. sK0 = k3_xtuple_0(sK1,sK2,sK3) <- (2) [avatar component clause 103] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+106. 2 [avatar split clause 63,103]
+141. k5_xtuple_0(sK0) = sK2 <- (2) [superposition 86,105] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+143. 8 <=> k5_xtuple_0(sK0) = sK2 [avatar definition]
+145. k5_xtuple_0(sK0) = sK2 <- (8) [avatar component clause 143] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+146. 8 | ~2 [avatar split clause 141,103,143]
+147. k4_xtuple_0(sK0) = sK1 <- (2) [superposition 87,105] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+149. 9 <=> k4_xtuple_0(sK0) = sK1 [avatar definition]
+152. 9 | ~2 [avatar split clause 147,103,149]
+153. sK0 != k3_xtuple_0(k4_xtuple_0(sK0),sK2,k2_xtuple_0(sK0)) <- (~1, 8) [backward demodulation 100,145] {a:0,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+155. 10 <=> sK0 = k3_xtuple_0(k4_xtuple_0(sK0),sK2,k2_xtuple_0(sK0)) [avatar definition]
+158. ~10 | 1 | ~8 [avatar split clause 153,143,98,155]
+159. k2_xtuple_0(sK0) = sK3 <- (2) [superposition 88,105] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+161. 11 <=> k2_xtuple_0(sK0) = sK3 [avatar definition]
+164. 11 | ~2 [avatar split clause 159,103,161]
+165. k5_xtuple_0(sK0) != sK2 | k4_xtuple_0(sK0) != sK1 | k2_xtuple_0(sK0) != sK3 | sK0 != k3_xtuple_0(sK1,sK2,sK3) | sK0 = k3_xtuple_0(k4_xtuple_0(sK0),sK2,k2_xtuple_0(sK0)) [theory tautology sat conflict] {a:0,w:26,wCS:10400,sine:255,thAx:0,allAx:1,thDist:-1}
+166. $false [avatar sat refutation 101,106,146,152,158,164,165] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:57,thDist:-57}
+% SZS output end Proof for recdef_2__t1_recdef_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 29
+% Introduced skolems: 15
+% 
+% >>> Saturation
+% Initial clauses: 28
+% Generated clauses: 51
+% Active clauses: 21
+% Passive clauses: 39
+% Final active clauses: 20
+% Final passive clauses: 18
+% Main loop iterations started: 21
+% 
+% >>> Simplifying Inferences
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 3
+% Forward superposition: 6
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 14
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 6
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward demodulation: 0.001 s
+% other: 0.003 s ( own 0.002 s ) 
+

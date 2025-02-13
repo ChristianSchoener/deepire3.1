@@ -1,0 +1,91 @@
+i: [1,29,0,8,2,1,0,0] t9_gate_1
+a: [3,39,0,4,1,29]
+s: 39
+a: [3,44,0,4,1,29]
+s: 44
+i: [1,35,0,2,1,0,0,1] rc2_xboole_0
+a: [3,50,0,2,1,35]
+s: 50
+i: [1,36,0,2,1,0,0,1] rc1_xboole_0
+a: [3,55,0,2,1,36]
+s: 55
+i: [1,30,0,7,1,0,0,255] commutativity_k4_gate_1
+s: 30
+r: 39
+d: [2,57,0,4,1,1,23,39,30]
+d: [2,58,0,0,0,2,21,57,44]
+e: 58
+r: 44
+i: [1,26,0,8,2,1,0,0] t9_gate_1
+a: [3,40,0,4,1,29]
+d: [2,60,0,4,1,1,22,40,30]
+f: 60,58,26,29
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gate_1__t9_gate_1
+% SZS output start Proof for gate_1__t9_gate_1
+1. ! [X0] : ! [X1] : (~(v1_xboole_0(k4_gate_1(X0,X1)) & ~v1_xboole_0(k4_gate_1(X1,X0))) & ~(v1_xboole_0(k4_gate_1(X1,X0)) & ~v1_xboole_0(k4_gate_1(X0,X1)))) [input t9_gate_1]
+2. ~! [X0] : ! [X1] : (~(v1_xboole_0(k4_gate_1(X0,X1)) & ~v1_xboole_0(k4_gate_1(X1,X0))) & ~(v1_xboole_0(k4_gate_1(X1,X0)) & ~v1_xboole_0(k4_gate_1(X0,X1)))) [negated conjecture 1]
+3. ! [X0,X1] : k4_gate_1(X0,X1) = k4_gate_1(X1,X0) [input commutativity_k4_gate_1]
+12. ~! [X0,X1] : (~(v1_xboole_0(k4_gate_1(X0,X1)) & ~v1_xboole_0(k4_gate_1(X1,X0))) & ~(v1_xboole_0(k4_gate_1(X1,X0)) & ~v1_xboole_0(k4_gate_1(X0,X1)))) [flattening 2]
+13. ? [X0,X1] : ((v1_xboole_0(k4_gate_1(X0,X1)) & ~v1_xboole_0(k4_gate_1(X1,X0))) | (v1_xboole_0(k4_gate_1(X1,X0)) & ~v1_xboole_0(k4_gate_1(X0,X1)))) [ennf transformation 12]
+20. ? [X0,X1] : ((v1_xboole_0(k4_gate_1(X0,X1)) & ~v1_xboole_0(k4_gate_1(X1,X0))) | (v1_xboole_0(k4_gate_1(X1,X0)) & ~v1_xboole_0(k4_gate_1(X0,X1)))) => ((v1_xboole_0(k4_gate_1(sK0,sK1)) & ~v1_xboole_0(k4_gate_1(sK1,sK0))) | (v1_xboole_0(k4_gate_1(sK1,sK0)) & ~v1_xboole_0(k4_gate_1(sK0,sK1)))) [choice axiom]
+21. (v1_xboole_0(k4_gate_1(sK0,sK1)) & ~v1_xboole_0(k4_gate_1(sK1,sK0))) | (v1_xboole_0(k4_gate_1(sK1,sK0)) & ~v1_xboole_0(k4_gate_1(sK0,sK1))) [skolemisation 13,20]
+26. ~v1_xboole_0(k4_gate_1(sK1,sK0)) | ~v1_xboole_0(k4_gate_1(sK0,sK1)) [cnf transformation 21] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+29. v1_xboole_0(k4_gate_1(sK0,sK1)) | v1_xboole_0(k4_gate_1(sK1,sK0)) [cnf transformation 21] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+30. k4_gate_1(X0,X1) = k4_gate_1(X1,X0) [cnf transformation 3] {a:0,w:7,wCS:2800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+38. 1 <=> v1_xboole_0(k4_gate_1(sK1,sK0)) [avatar definition]
+39. ~v1_xboole_0(k4_gate_1(sK1,sK0)) <- (~1) [avatar component clause 38] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+40. v1_xboole_0(k4_gate_1(sK1,sK0)) <- (1) [avatar component clause 38] {a:0,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+42. 2 <=> v1_xboole_0(k4_gate_1(sK0,sK1)) [avatar definition]
+44. v1_xboole_0(k4_gate_1(sK0,sK1)) <- (2) [avatar component clause 42] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+45. 1 | 2 [avatar split clause 29,42,38]
+46. ~2 | ~1 [avatar split clause 26,38,42]
+57. ~v1_xboole_0(k4_gate_1(sK0,sK1)) <- (~1) [backward demodulation 39,30] {a:0,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+58. $false <- (~1, 2) [subsumption resolution 57,44] {a:0,w:0,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+59. 1 | ~2 [avatar contradiction clause 58]
+60. v1_xboole_0(k4_gate_1(sK0,sK1)) <- (1) [forward demodulation 40,30] {a:0,w:4,wCS:400,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+61. 2 | ~1 [avatar split clause 60,38,42]
+62. $false [avatar sat refutation 45,46,59,61] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:20,thDist:-20}
+% SZS output end Proof for gate_1__t9_gate_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 10
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 11
+% Generated clauses: 20
+% Active clauses: 5
+% Passive clauses: 10
+% Final active clauses: 3
+% Final passive clauses: 5
+% Main loop iterations started: 5
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 4
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

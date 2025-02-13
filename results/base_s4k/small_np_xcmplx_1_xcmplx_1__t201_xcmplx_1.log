@@ -1,0 +1,119 @@
+i: [1,19,0,2,1,1,0,0] t201_xcmplx_1
+a: [3,39,0,2,1,19]
+s: 39
+i: [1,18,0,2,1,1,0,0] t201_xcmplx_1
+a: [3,44,0,2,1,18]
+s: 44
+i: [1,21,0,3,1,1,0,0] t201_xcmplx_1
+a: [3,29,0,3,1,21]
+s: 29
+i: [1,20,0,5,1,1,0,0] t201_xcmplx_1
+a: [3,34,0,5,1,20]
+s: 34
+i: [1,25,0,2,1,0,0,1] rc1_xcmplx_0
+a: [3,49,0,2,1,25]
+s: 49
+i: [1,22,0,5,2,0,0,1] dt_k5_xcmplx_0
+s: 22
+d: [2,51,1,5,2,1,44,22,34]
+d: [2,52,1,3,1,2,21,51,39]
+a: [3,56,1,3,1,52]
+s: 56
+i: [1,23,0,7,2,0,0,1] involutiveness_k5_xcmplx_0
+s: 23
+d: [2,58,1,7,2,1,44,23,34]
+d: [2,60,1,5,1,2,21,58,39]
+a: [3,64,1,5,1,60]
+s: 64
+d: [2,66,2,5,2,1,44,64,23]
+d: [2,70,2,2,1,2,21,66,29]
+d: [2,71,2,0,0,3,21,70,44]
+e: 71
+d: [2,67,2,5,2,1,44,23,64]
+d: [2,73,2,2,1,2,21,67,29]
+d: [2,74,2,0,0,3,21,73,44]
+e: 74
+f: 74,60,18,19,20,21
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xcmplx_1__t201_xcmplx_1
+% SZS output start Proof for xcmplx_1__t201_xcmplx_1
+1. ! [X0] : (v1_xcmplx_0(X0) => ! [X1] : (v1_xcmplx_0(X1) => (k5_xcmplx_0(X0) = k5_xcmplx_0(X1) => X0 = X1))) [input t201_xcmplx_1]
+2. ~! [X0] : (v1_xcmplx_0(X0) => ! [X1] : (v1_xcmplx_0(X1) => (k5_xcmplx_0(X0) = k5_xcmplx_0(X1) => X0 = X1))) [negated conjecture 1]
+3. ! [X0] : (v1_xcmplx_0(X0) => k5_xcmplx_0(k5_xcmplx_0(X0)) = X0) [input involutiveness_k5_xcmplx_0]
+7. ? [X0] : (? [X1] : ((X0 != X1 & k5_xcmplx_0(X0) = k5_xcmplx_0(X1)) & v1_xcmplx_0(X1)) & v1_xcmplx_0(X0)) [ennf transformation 2]
+8. ? [X0] : (? [X1] : (X0 != X1 & k5_xcmplx_0(X0) = k5_xcmplx_0(X1) & v1_xcmplx_0(X1)) & v1_xcmplx_0(X0)) [flattening 7]
+10. ! [X0] : (k5_xcmplx_0(k5_xcmplx_0(X0)) = X0 | ~v1_xcmplx_0(X0)) [ennf transformation 3]
+13. ? [X0] : (? [X1] : (X0 != X1 & k5_xcmplx_0(X0) = k5_xcmplx_0(X1) & v1_xcmplx_0(X1)) & v1_xcmplx_0(X0)) => (? [X1] : (sK0 != X1 & k5_xcmplx_0(X1) = k5_xcmplx_0(sK0) & v1_xcmplx_0(X1)) & v1_xcmplx_0(sK0)) [choice axiom]
+14. ? [X1] : (sK0 != X1 & k5_xcmplx_0(X1) = k5_xcmplx_0(sK0) & v1_xcmplx_0(X1)) => (sK0 != sK1 & k5_xcmplx_0(sK0) = k5_xcmplx_0(sK1) & v1_xcmplx_0(sK1)) [choice axiom]
+15. (sK0 != sK1 & k5_xcmplx_0(sK0) = k5_xcmplx_0(sK1) & v1_xcmplx_0(sK1)) & v1_xcmplx_0(sK0) [skolemisation 8,14,13]
+18. v1_xcmplx_0(sK0) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+19. v1_xcmplx_0(sK1) [cnf transformation 15] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+20. k5_xcmplx_0(sK0) = k5_xcmplx_0(sK1) [cnf transformation 15] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+21. sK0 != sK1 [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+23. k5_xcmplx_0(k5_xcmplx_0(X0)) = X0 | ~v1_xcmplx_0(X0) [cnf transformation 10] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+27. 1 <=> sK0 = sK1 [avatar definition]
+29. sK0 != sK1 <- (~1) [avatar component clause 27] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+30. ~1 [avatar split clause 21,27]
+32. 2 <=> k5_xcmplx_0(sK0) = k5_xcmplx_0(sK1) [avatar definition]
+34. k5_xcmplx_0(sK0) = k5_xcmplx_0(sK1) <- (2) [avatar component clause 32] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+35. 2 [avatar split clause 20,32]
+37. 3 <=> v1_xcmplx_0(sK1) [avatar definition]
+39. v1_xcmplx_0(sK1) <- (3) [avatar component clause 37] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+40. 3 [avatar split clause 19,37]
+42. 4 <=> v1_xcmplx_0(sK0) [avatar definition]
+44. v1_xcmplx_0(sK0) <- (4) [avatar component clause 42] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+45. 4 [avatar split clause 18,42]
+58. sK1 = k5_xcmplx_0(k5_xcmplx_0(sK0)) | ~v1_xcmplx_0(sK1) <- (2) [superposition 23,34] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+60. sK1 = k5_xcmplx_0(k5_xcmplx_0(sK0)) <- (2, 3) [subsumption resolution 58,39] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+62. 7 <=> sK1 = k5_xcmplx_0(k5_xcmplx_0(sK0)) [avatar definition]
+64. sK1 = k5_xcmplx_0(k5_xcmplx_0(sK0)) <- (7) [avatar component clause 62] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+65. 7 | ~2 | ~3 [avatar split clause 60,37,32,62]
+67. sK0 = sK1 | ~v1_xcmplx_0(sK0) <- (7) [superposition 23,64] {a:2,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+73. ~v1_xcmplx_0(sK0) <- (~1, 7) [subsumption resolution 67,29] {a:2,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+74. $false <- (~1, 4, 7) [subsumption resolution 73,44] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+75. 1 | ~4 | ~7 [avatar contradiction clause 74]
+76. $false [avatar sat refutation 30,35,40,45,65,75] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:43,thDist:-43}
+% SZS output end Proof for xcmplx_1__t201_xcmplx_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 8
+% Generated clauses: 28
+% Active clauses: 9
+% Passive clauses: 10
+% Final active clauses: 9
+% Final passive clauses: 1
+% Main loop iterations started: 9
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 6
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Forward superposition: 3
+% Backward superposition: 4
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 11
+% SAT solver unit clauses: 5
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

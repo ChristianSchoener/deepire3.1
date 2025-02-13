@@ -1,0 +1,256 @@
+i: [1,79,0,17,3,1,0,0] t6_e_siec
+a: [3,115,0,5,1,79]
+s: 115
+i: [1,93,0,2,1,0,0,255] rc3_relat_1
+a: [3,128,0,2,1,93]
+s: 128
+i: [1,104,0,2,1,0,0,2] existence_l1_e_siec
+a: [3,133,0,2,1,104]
+s: 133
+i: [1,105,0,2,1,0,0,2] existence_l1_e_siec
+a: [3,138,0,2,1,105]
+s: 138
+i: [1,106,0,2,1,0,0,2] rc2_e_siec
+a: [3,143,0,2,1,106]
+s: 143
+i: [1,107,0,2,1,0,0,2] rc3_e_siec
+a: [3,148,0,2,1,107]
+s: 148
+i: [1,109,0,2,1,0,0,2] rc1_e_siec
+a: [3,153,0,2,1,109]
+s: 153
+i: [1,108,0,2,1,0,0,2] rc1_e_siec
+a: [3,158,0,2,1,108]
+s: 158
+i: [1,111,0,2,1,0,0,2] rc4_e_siec
+a: [3,163,0,2,1,111]
+s: 163
+i: [1,110,0,2,1,0,0,2] rc4_e_siec
+a: [3,168,0,2,1,110]
+s: 168
+i: [1,80,0,3,1,0,0,1] dt_k4_relat_1
+s: 80
+i: [1,82,0,3,1,0,0,1] dt_k2_e_siec
+s: 82
+i: [1,83,0,3,1,0,0,1] dt_k2_e_siec
+s: 83
+i: [1,84,0,3,1,0,0,1] dt_k2_e_siec
+s: 84
+i: [1,85,0,3,1,0,0,1] dt_k2_e_siec
+s: 85
+i: [1,86,0,3,1,0,0,255] fc28_relat_1
+s: 86
+i: [1,87,0,5,2,0,0,1] dt_u2_e_siec
+s: 87
+i: [1,88,0,5,2,0,0,1] dt_u1_e_siec
+s: 88
+i: [1,89,0,5,2,0,0,1] dt_u1_e_siec
+s: 89
+i: [1,90,0,5,2,0,0,1] dt_u2_e_siec
+s: 90
+i: [1,81,0,9,1,0,0,1] d4_e_siec
+s: 81
+i: [1,94,0,9,3,0,0,2] dt_g1_e_siec
+s: 94
+i: [1,95,0,9,3,0,0,2] dt_g1_e_siec
+s: 95
+i: [1,96,0,9,3,0,0,2] dt_g1_e_siec
+s: 96
+i: [1,97,0,9,3,0,0,2] dt_g1_e_siec
+s: 97
+i: [1,91,0,13,3,0,0,1] abstractness_v1_e_siec
+s: 91
+i: [1,92,0,13,3,0,0,1] abstractness_v1_e_siec
+s: 92
+i: [1,98,0,16,4,0,0,1] free_g1_e_siec
+s: 98
+d: [2,176,1,16,4,0,44,98,81]
+d: [2,181,1,13,3,0,18,176]
+d: [2,182,1,10,2,0,21,181,80]
+s: 182
+i: [1,99,0,16,4,0,0,1] free_g1_e_siec
+s: 99
+i: [1,100,0,16,4,0,0,1] free_g1_e_siec
+s: 100
+d: [2,185,2,8,2,0,44,182,81]
+s: 185
+i: [1,101,0,16,4,0,0,1] free_g1_e_siec
+s: 101
+d: [2,187,1,17,4,0,44,99,81]
+d: [2,192,1,14,3,0,18,187]
+d: [2,193,1,11,2,0,21,192,80]
+s: 193
+i: [1,102,0,16,4,0,0,1] free_g1_e_siec
+s: 102
+i: [1,103,0,16,4,0,0,1] free_g1_e_siec
+s: 103
+d: [2,206,2,10,2,0,44,193,81]
+s: 206
+d: [2,196,1,17,4,0,44,100,81]
+d: [2,201,1,14,3,0,18,196]
+d: [2,202,1,11,2,0,21,201,80]
+s: 202
+d: [2,186,2,12,4,0,44,182,91]
+s: 186
+d: [2,178,1,14,4,0,44,98,81]
+s: 178
+d: [2,177,1,20,6,0,44,98,91]
+d: [2,183,1,17,5,0,21,177,87]
+d: [2,184,1,14,4,0,21,183,88]
+s: 184
+d: [2,214,2,0,0,1,52,83,82,115,81,184]
+e: 214
+r: 115
+a: [3,114,0,5,1,79]
+s: 114
+a: [3,119,0,6,1,79]
+s: 119
+d: [2,219,1,17,3,1,44,91,114]
+d: [2,220,1,14,2,1,21,219,82]
+d: [2,221,1,11,1,1,21,220,83]
+a: [3,225,1,11,1,221]
+s: 225
+d: [2,227,2,0,0,2,52,119,225,193]
+e: 227
+r: 119
+a: [3,118,0,6,1,79]
+s: 118
+r: 225
+a: [3,123,0,6,1,79]
+s: 123
+d: [2,234,2,20,4,1,44,100,225]
+a: [3,244,2,4,1,234]
+s: 244
+d: [2,269,2,3,1,2,22,244,118]
+d: [2,270,2,0,0,2,21,269,80]
+e: 270
+d: [2,257,1,10,1,2,23,225,118]
+a: [3,263,1,10,1,257]
+s: 263
+d: [2,273,2,0,0,2,52,123,263,202]
+e: 273
+f: 273,257,227,221,214,79
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for e_siec__t6_e_siec
+% SZS output start Proof for e_siec__t6_e_siec
+1. ! [X0] : (k4_relat_1(X0) = u2_e_siec(k2_e_siec(X0)) & u1_e_siec(k2_e_siec(X0)) = k4_relat_1(X0) & u1_struct_0(k2_e_siec(X0)) = X0) [input t6_e_siec]
+2. ~! [X0] : (k4_relat_1(X0) = u2_e_siec(k2_e_siec(X0)) & u1_e_siec(k2_e_siec(X0)) = k4_relat_1(X0) & u1_struct_0(k2_e_siec(X0)) = X0) [negated conjecture 1]
+3. ! [X0,X1,X2] : ((v1_relat_1(X2) & v1_relat_1(X1)) => ! [X3,X4,X5] : (g1_e_siec(X0,X1,X2) = g1_e_siec(X3,X4,X5) => (X2 = X5 & X1 = X4 & X0 = X3))) [input free_g1_e_siec]
+5. ! [X0] : (l1_e_siec(X0) => (v1_e_siec(X0) => g1_e_siec(u1_struct_0(X0),u1_e_siec(X0),u2_e_siec(X0)) = X0)) [input abstractness_v1_e_siec]
+21. ! [X0] : (l1_e_siec(k2_e_siec(X0)) & v3_e_siec(k2_e_siec(X0)) & v2_e_siec(k2_e_siec(X0)) & v1_e_siec(k2_e_siec(X0))) [input dt_k2_e_siec]
+22. ! [X0] : v1_relat_1(k4_relat_1(X0)) [input dt_k4_relat_1]
+24. ! [X0] : (l1_e_siec(X0) => v1_relat_1(u1_e_siec(X0))) [input dt_u1_e_siec]
+26. ! [X0] : (l1_e_siec(X0) => v1_relat_1(u2_e_siec(X0))) [input dt_u2_e_siec]
+29. ! [X0] : k2_e_siec(X0) = g1_e_siec(X0,k4_relat_1(X0),k4_relat_1(X0)) [input d4_e_siec]
+34. ! [X0] : (l1_e_siec(k2_e_siec(X0)) & v2_e_siec(k2_e_siec(X0)) & v1_e_siec(k2_e_siec(X0))) [pure predicate removal 21]
+40. ! [X0] : (l1_e_siec(k2_e_siec(X0)) & v1_e_siec(k2_e_siec(X0))) [pure predicate removal 34]
+45. ? [X0] : (k4_relat_1(X0) != u2_e_siec(k2_e_siec(X0)) | u1_e_siec(k2_e_siec(X0)) != k4_relat_1(X0) | u1_struct_0(k2_e_siec(X0)) != X0) [ennf transformation 2]
+46. ! [X0] : (v1_relat_1(u2_e_siec(X0)) | ~l1_e_siec(X0)) [ennf transformation 26]
+47. ! [X0] : (v1_relat_1(u1_e_siec(X0)) | ~l1_e_siec(X0)) [ennf transformation 24]
+50. ! [X0] : ((g1_e_siec(u1_struct_0(X0),u1_e_siec(X0),u2_e_siec(X0)) = X0 | ~v1_e_siec(X0)) | ~l1_e_siec(X0)) [ennf transformation 5]
+51. ! [X0] : (g1_e_siec(u1_struct_0(X0),u1_e_siec(X0),u2_e_siec(X0)) = X0 | ~v1_e_siec(X0) | ~l1_e_siec(X0)) [flattening 50]
+58. ! [X0,X1,X2] : (! [X3,X4,X5] : ((X2 = X5 & X1 = X4 & X0 = X3) | g1_e_siec(X0,X1,X2) != g1_e_siec(X3,X4,X5)) | (~v1_relat_1(X2) | ~v1_relat_1(X1))) [ennf transformation 3]
+59. ! [X0,X1,X2] : (! [X3,X4,X5] : ((X2 = X5 & X1 = X4 & X0 = X3) | g1_e_siec(X0,X1,X2) != g1_e_siec(X3,X4,X5)) | ~v1_relat_1(X2) | ~v1_relat_1(X1)) [flattening 58]
+62. ? [X0] : (k4_relat_1(X0) != u2_e_siec(k2_e_siec(X0)) | u1_e_siec(k2_e_siec(X0)) != k4_relat_1(X0) | u1_struct_0(k2_e_siec(X0)) != X0) => (k4_relat_1(sK0) != u2_e_siec(k2_e_siec(sK0)) | k4_relat_1(sK0) != u1_e_siec(k2_e_siec(sK0)) | sK0 != u1_struct_0(k2_e_siec(sK0))) [choice axiom]
+63. k4_relat_1(sK0) != u2_e_siec(k2_e_siec(sK0)) | k4_relat_1(sK0) != u1_e_siec(k2_e_siec(sK0)) | sK0 != u1_struct_0(k2_e_siec(sK0)) [skolemisation 45,62]
+79. k4_relat_1(sK0) != u2_e_siec(k2_e_siec(sK0)) | k4_relat_1(sK0) != u1_e_siec(k2_e_siec(sK0)) | sK0 != u1_struct_0(k2_e_siec(sK0)) [cnf transformation 63] {a:0,w:17,wCS:1700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+80. v1_relat_1(k4_relat_1(X0)) [cnf transformation 22] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+81. k2_e_siec(X0) = g1_e_siec(X0,k4_relat_1(X0),k4_relat_1(X0)) [cnf transformation 29] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+82. v1_e_siec(k2_e_siec(X0)) [cnf transformation 40] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+83. l1_e_siec(k2_e_siec(X0)) [cnf transformation 40] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+87. v1_relat_1(u2_e_siec(X0)) | ~l1_e_siec(X0) [cnf transformation 46] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+88. v1_relat_1(u1_e_siec(X0)) | ~l1_e_siec(X0) [cnf transformation 47] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+91. g1_e_siec(u1_struct_0(X0),u1_e_siec(X0),u2_e_siec(X0)) = X0 | ~v1_e_siec(X0) | ~l1_e_siec(X0) [cnf transformation 51] {a:0,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+98. g1_e_siec(X0,X1,X2) != g1_e_siec(X3,X4,X5) | X0 = X3 | ~v1_relat_1(X2) | ~v1_relat_1(X1) [cnf transformation 59] {a:0,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+99. g1_e_siec(X0,X1,X2) != g1_e_siec(X3,X4,X5) | X1 = X4 | ~v1_relat_1(X2) | ~v1_relat_1(X1) [cnf transformation 59] {a:0,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+100. g1_e_siec(X0,X1,X2) != g1_e_siec(X3,X4,X5) | X2 = X5 | ~v1_relat_1(X2) | ~v1_relat_1(X1) [cnf transformation 59] {a:0,w:16,wCS:6400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+113. 1 <=> sK0 = u1_struct_0(k2_e_siec(sK0)) [avatar definition]
+114. sK0 = u1_struct_0(k2_e_siec(sK0)) <- (1) [avatar component clause 113] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+115. sK0 != u1_struct_0(k2_e_siec(sK0)) <- (~1) [avatar component clause 113] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+117. 2 <=> k4_relat_1(sK0) = u1_e_siec(k2_e_siec(sK0)) [avatar definition]
+118. k4_relat_1(sK0) = u1_e_siec(k2_e_siec(sK0)) <- (2) [avatar component clause 117] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+119. k4_relat_1(sK0) != u1_e_siec(k2_e_siec(sK0)) <- (~2) [avatar component clause 117] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+121. 3 <=> k4_relat_1(sK0) = u2_e_siec(k2_e_siec(sK0)) [avatar definition]
+123. k4_relat_1(sK0) != u2_e_siec(k2_e_siec(sK0)) <- (~3) [avatar component clause 121] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+124. ~1 | ~2 | ~3 [avatar split clause 79,121,117,113]
+177. g1_e_siec(X5,X6,X7) != X4 | u1_struct_0(X4) = X5 | ~v1_relat_1(u2_e_siec(X4)) | ~v1_relat_1(u1_e_siec(X4)) | ~v1_e_siec(X4) | ~l1_e_siec(X4) [superposition 98,91] {a:1,w:20,wCS:8000,sine:1,thAx:0,allAx:2,thDist:-2}
+183. g1_e_siec(X5,X6,X7) != X4 | u1_struct_0(X4) = X5 | ~v1_relat_1(u1_e_siec(X4)) | ~v1_e_siec(X4) | ~l1_e_siec(X4) [subsumption resolution 177,87] {a:1,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+184. g1_e_siec(X5,X6,X7) != X4 | u1_struct_0(X4) = X5 | ~v1_e_siec(X4) | ~l1_e_siec(X4) [subsumption resolution 183,88] {a:1,w:14,wCS:5600,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+187. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X2 | ~v1_relat_1(k4_relat_1(X0)) | ~v1_relat_1(k4_relat_1(X0)) [superposition 99,81] {a:1,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+192. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X2 | ~v1_relat_1(k4_relat_1(X0)) [duplicate literal removal 187] {a:1,w:14,wCS:5600,sine:1,thAx:0,allAx:2,thDist:-2}
+193. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X2 [subsumption resolution 192,80] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+196. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X3 | ~v1_relat_1(k4_relat_1(X0)) | ~v1_relat_1(k4_relat_1(X0)) [superposition 100,81] {a:1,w:17,wCS:6800,sine:1,thAx:0,allAx:2,thDist:-2}
+201. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X3 | ~v1_relat_1(k4_relat_1(X0)) [duplicate literal removal 196] {a:1,w:14,wCS:5600,sine:1,thAx:0,allAx:2,thDist:-2}
+202. k2_e_siec(X0) != g1_e_siec(X1,X2,X3) | k4_relat_1(X0) = X3 [subsumption resolution 201,80] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+214. $false <- (~1) [unit resulting resolution 83,82,115,81,184] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+218. 1 [avatar contradiction clause 214]
+219. k2_e_siec(sK0) = g1_e_siec(sK0,u1_e_siec(k2_e_siec(sK0)),u2_e_siec(k2_e_siec(sK0))) | ~v1_e_siec(k2_e_siec(sK0)) | ~l1_e_siec(k2_e_siec(sK0)) <- (1) [superposition 91,114] {a:1,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+220. k2_e_siec(sK0) = g1_e_siec(sK0,u1_e_siec(k2_e_siec(sK0)),u2_e_siec(k2_e_siec(sK0))) | ~l1_e_siec(k2_e_siec(sK0)) <- (1) [subsumption resolution 219,82] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+221. k2_e_siec(sK0) = g1_e_siec(sK0,u1_e_siec(k2_e_siec(sK0)),u2_e_siec(k2_e_siec(sK0))) <- (1) [subsumption resolution 220,83] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+223. 13 <=> k2_e_siec(sK0) = g1_e_siec(sK0,u1_e_siec(k2_e_siec(sK0)),u2_e_siec(k2_e_siec(sK0))) [avatar definition]
+225. k2_e_siec(sK0) = g1_e_siec(sK0,u1_e_siec(k2_e_siec(sK0)),u2_e_siec(k2_e_siec(sK0))) <- (13) [avatar component clause 223] {a:1,w:11,wCS:1100,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+226. 13 | ~1 [avatar split clause 221,113,223]
+227. $false <- (~2, 13) [unit resulting resolution 119,225,193] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+240. 2 | ~13 [avatar contradiction clause 227]
+257. k2_e_siec(sK0) = g1_e_siec(sK0,k4_relat_1(sK0),u2_e_siec(k2_e_siec(sK0))) <- (2, 13) [backward demodulation 225,118] {a:1,w:10,wCS:1000,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+261. 18 <=> k2_e_siec(sK0) = g1_e_siec(sK0,k4_relat_1(sK0),u2_e_siec(k2_e_siec(sK0))) [avatar definition]
+263. k2_e_siec(sK0) = g1_e_siec(sK0,k4_relat_1(sK0),u2_e_siec(k2_e_siec(sK0))) <- (18) [avatar component clause 261] {a:1,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+264. 18 | ~2 | ~13 [avatar split clause 257,223,117,261]
+273. $false <- (~3, 18) [unit resulting resolution 123,263,202] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+286. 3 | ~18 [avatar contradiction clause 273]
+288. $false [avatar sat refutation 124,218,226,240,264,286] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:90,thDist:-90}
+% SZS output end Proof for e_siec__t6_e_siec
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 28
+% >>> Preprocessing
+% Introduced skolems: 8
+% Pure predicates: 5
+% 
+% >>> Saturation
+% Initial clauses: 33
+% Generated clauses: 147
+% Active clauses: 35
+% Passive clauses: 65
+% Final active clauses: 32
+% Final passive clauses: 17
+% Main loop iterations started: 48
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 5
+% Fw subsumption resolutions: 17
+% Fw demodulations: 3
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Equational tautologies: 5
+% Forward subsumptions: 33
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 3
+% Forward superposition: 22
+% Backward superposition: 29
+% Equality resolution: 7
+% 
+% >>> AVATAR
+% Split clauses: 3
+% Split components: 9
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 21
+% SAT solver unit clauses: 10
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 4989
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

@@ -1,0 +1,126 @@
+i: [1,42,0,8,1,1,0,0] t12_sysrel
+a: [3,67,0,8,1,42]
+s: 67
+i: [1,43,0,3,1,0,0,1] dt_k4_relat_1
+s: 43
+i: [1,45,0,3,1,0,0,255] fc28_relat_1
+s: 45
+i: [1,53,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 53
+i: [1,46,0,4,1,0,0,255] fc28_relat_1
+s: 46
+i: [1,47,0,4,1,0,0,255] fc28_relat_1
+s: 47
+i: [1,52,0,4,1,0,0,255] existence_m1_subset_1
+s: 52
+i: [1,54,0,4,1,0,0,1] dt_k3_relat_1
+s: 54
+i: [1,57,0,4,1,0,0,255] rc3_relat_1
+s: 57
+i: [1,44,0,5,1,0,0,255] rd1_relat_1
+s: 44
+i: [1,58,0,5,1,0,0,255] rc3_relat_1
+s: 58
+i: [1,59,0,5,1,0,0,255] rc3_relat_1
+s: 59
+i: [1,50,0,7,2,0,0,255] t3_subset
+s: 50
+d: [2,69,1,5,1,0,40,50,52]
+s: 69
+i: [1,51,0,7,2,0,0,255] t3_subset
+s: 51
+i: [1,48,0,8,3,0,0,255] cc2_relat_1
+s: 48
+d: [2,71,1,6,2,0,40,48,52]
+s: 71
+i: [1,60,0,11,4,0,0,255] fc29_relat_1
+s: 60
+d: [2,72,1,7,3,0,40,48,51]
+s: 72
+i: [1,62,0,11,4,0,0,255] fc30_relat_1
+s: 62
+i: [1,49,0,12,3,0,0,255] t51_relat_1
+s: 49
+d: [2,75,1,13,3,1,44,67,49]
+d: [2,77,1,8,2,1,19,75]
+d: [2,78,1,5,1,1,21,77,43]
+d: [2,79,1,3,1,1,22,78,44]
+d: [2,80,1,0,0,1,21,79,53]
+e: 80
+f: 80,42
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for sysrel__t12_sysrel
+% SZS output start Proof for sysrel__t12_sysrel
+1. ! [X0] : k4_relat_1(X0) = k3_relat_1(k4_relat_1(X0),k4_relat_1(X0)) [input t12_sysrel]
+2. ~! [X0] : k4_relat_1(X0) = k3_relat_1(k4_relat_1(X0),k4_relat_1(X0)) [negated conjecture 1]
+8. ! [X0] : v1_relat_1(k4_relat_1(X0)) [input dt_k4_relat_1]
+16. ! [X0] : k9_xtuple_0(k4_relat_1(X0)) = X0 [input rd1_relat_1]
+17. ! [X0,X1] : r1_tarski(X0,X0) [input reflexivity_r1_tarski]
+19. ! [X0] : ! [X1] : (v1_relat_1(X1) => (r1_tarski(k9_xtuple_0(X1),X0) => k3_relat_1(k4_relat_1(X0),X1) = X1)) [input t51_relat_1]
+20. ! [X0,X1] : (v1_relat_1(X1) => (r1_tarski(k9_xtuple_0(X1),X0) => k3_relat_1(k4_relat_1(X0),X1) = X1)) [flattening 19]
+22. ! [X0] : r1_tarski(X0,X0) [rectify 17]
+23. ? [X0] : k4_relat_1(X0) != k3_relat_1(k4_relat_1(X0),k4_relat_1(X0)) [ennf transformation 2]
+25. ! [X0,X1] : ((k3_relat_1(k4_relat_1(X0),X1) = X1 | ~r1_tarski(k9_xtuple_0(X1),X0)) | ~v1_relat_1(X1)) [ennf transformation 20]
+26. ! [X0,X1] : (k3_relat_1(k4_relat_1(X0),X1) = X1 | ~r1_tarski(k9_xtuple_0(X1),X0) | ~v1_relat_1(X1)) [flattening 25]
+35. ? [X0] : k4_relat_1(X0) != k3_relat_1(k4_relat_1(X0),k4_relat_1(X0)) => k4_relat_1(sK0) != k3_relat_1(k4_relat_1(sK0),k4_relat_1(sK0)) [choice axiom]
+36. k4_relat_1(sK0) != k3_relat_1(k4_relat_1(sK0),k4_relat_1(sK0)) [skolemisation 23,35]
+42. k4_relat_1(sK0) != k3_relat_1(k4_relat_1(sK0),k4_relat_1(sK0)) [cnf transformation 36] {a:0,w:8,wCS:800,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+43. v1_relat_1(k4_relat_1(X0)) [cnf transformation 8] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+44. k9_xtuple_0(k4_relat_1(X0)) = X0 [cnf transformation 16] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+49. k3_relat_1(k4_relat_1(X0),X1) = X1 | ~r1_tarski(k9_xtuple_0(X1),X0) | ~v1_relat_1(X1) [cnf transformation 26] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+53. r1_tarski(X0,X0) [cnf transformation 22] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+65. 1 <=> k4_relat_1(sK0) = k3_relat_1(k4_relat_1(sK0),k4_relat_1(sK0)) [avatar definition]
+67. k4_relat_1(sK0) != k3_relat_1(k4_relat_1(sK0),k4_relat_1(sK0)) <- (~1) [avatar component clause 65] {a:0,w:8,wCS:800,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+68. ~1 [avatar split clause 42,65]
+75. k4_relat_1(sK0) != k4_relat_1(sK0) | ~r1_tarski(k9_xtuple_0(k4_relat_1(sK0)),sK0) | ~v1_relat_1(k4_relat_1(sK0)) <- (~1) [superposition 67,49] {a:1,w:13,wCS:1300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+77. ~r1_tarski(k9_xtuple_0(k4_relat_1(sK0)),sK0) | ~v1_relat_1(k4_relat_1(sK0)) <- (~1) [trivial inequality removal 75] {a:1,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+78. ~r1_tarski(k9_xtuple_0(k4_relat_1(sK0)),sK0) <- (~1) [subsumption resolution 77,43] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+79. ~r1_tarski(sK0,sK0) <- (~1) [forward demodulation 78,44] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+80. $false <- (~1) [subsumption resolution 79,53] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+81. 1 [avatar contradiction clause 80]
+82. $false [avatar sat refutation 68,81] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:6,thDist:-6}
+% SZS output end Proof for sysrel__t12_sysrel
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 18
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 22
+% Generated clauses: 35
+% Active clauses: 18
+% Passive clauses: 25
+% Final active clauses: 18
+% Final passive clauses: 4
+% Main loop iterations started: 21
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 2
+% Fw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 3
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 6
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 4
+% SAT solver unit clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

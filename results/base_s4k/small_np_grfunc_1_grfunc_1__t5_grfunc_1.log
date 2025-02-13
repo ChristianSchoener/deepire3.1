@@ -1,0 +1,93 @@
+i: [1,27,0,10,2,1,0,0] t5_grfunc_1
+a: [3,38,0,5,1,27]
+s: 38
+i: [1,34,0,2,1,0,0,1] rc1_funct_1
+a: [3,47,0,2,1,34]
+s: 47
+i: [1,33,0,2,1,0,0,1] rc1_funct_1
+a: [3,52,0,2,1,33]
+s: 52
+i: [1,29,0,5,1,0,0,1] fc1_funct_1
+s: 29
+i: [1,30,0,5,1,0,0,1] fc5_relat_1
+s: 30
+d: [2,55,1,0,0,1,40,30,38]
+e: 55
+d: [2,54,1,0,0,1,52,38,30]
+e: 54
+r: 38
+a: [3,42,0,5,1,27]
+d: [2,58,0,0,0,1,21,42,29]
+e: 58
+f: 58,54,27
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for grfunc_1__t5_grfunc_1
+% SZS output start Proof for grfunc_1__t5_grfunc_1
+1. ! [X0] : ! [X1] : (v1_funct_1(k1_tarski(k4_tarski(X0,X1))) & v1_relat_1(k1_tarski(k4_tarski(X0,X1)))) [input t5_grfunc_1]
+2. ~! [X0] : ! [X1] : (v1_funct_1(k1_tarski(k4_tarski(X0,X1))) & v1_relat_1(k1_tarski(k4_tarski(X0,X1)))) [negated conjecture 1]
+11. ! [X0,X1] : v1_funct_1(k1_tarski(k4_tarski(X0,X1))) [input fc1_funct_1]
+13. ! [X0,X1] : v1_relat_1(k1_tarski(k4_tarski(X0,X1))) [input fc5_relat_1]
+16. ~! [X0,X1] : (v1_funct_1(k1_tarski(k4_tarski(X0,X1))) & v1_relat_1(k1_tarski(k4_tarski(X0,X1)))) [flattening 2]
+22. ? [X0,X1] : (~v1_funct_1(k1_tarski(k4_tarski(X0,X1))) | ~v1_relat_1(k1_tarski(k4_tarski(X0,X1)))) [ennf transformation 16]
+23. ? [X0,X1] : (~v1_funct_1(k1_tarski(k4_tarski(X0,X1))) | ~v1_relat_1(k1_tarski(k4_tarski(X0,X1)))) => (~v1_funct_1(k1_tarski(k4_tarski(sK0,sK1))) | ~v1_relat_1(k1_tarski(k4_tarski(sK0,sK1)))) [choice axiom]
+24. ~v1_funct_1(k1_tarski(k4_tarski(sK0,sK1))) | ~v1_relat_1(k1_tarski(k4_tarski(sK0,sK1))) [skolemisation 22,23]
+27. ~v1_funct_1(k1_tarski(k4_tarski(sK0,sK1))) | ~v1_relat_1(k1_tarski(k4_tarski(sK0,sK1))) [cnf transformation 24] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+29. v1_funct_1(k1_tarski(k4_tarski(X0,X1))) [cnf transformation 11] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+30. v1_relat_1(k1_tarski(k4_tarski(X0,X1))) [cnf transformation 13] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+36. 1 <=> v1_relat_1(k1_tarski(k4_tarski(sK0,sK1))) [avatar definition]
+38. ~v1_relat_1(k1_tarski(k4_tarski(sK0,sK1))) <- (~1) [avatar component clause 36] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+40. 2 <=> v1_funct_1(k1_tarski(k4_tarski(sK0,sK1))) [avatar definition]
+42. ~v1_funct_1(k1_tarski(k4_tarski(sK0,sK1))) <- (~2) [avatar component clause 40] {a:0,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+43. ~1 | ~2 [avatar split clause 27,40,36]
+54. $false <- (~1) [unit resulting resolution 38,30] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+57. 1 [avatar contradiction clause 54]
+58. $false <- (~2) [subsumption resolution 42,29] {a:0,w:0,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+59. 2 [avatar contradiction clause 58]
+60. $false [avatar sat refutation 43,57,59] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:18,thDist:-18}
+% SZS output end Proof for grfunc_1__t5_grfunc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 14
+% >>> Preprocessing
+% Introduced skolems: 3
+% Pure predicates: 2
+% 
+% >>> Saturation
+% Initial clauses: 8
+% Generated clauses: 16
+% Active clauses: 5
+% Passive clauses: 8
+% Final active clauses: 4
+% Final passive clauses: 3
+% Main loop iterations started: 5
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 3
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 5
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,150 @@
+i: [1,79,0,2,1,1,0,0] t6_taxonom2
+a: [3,117,0,2,1,79]
+s: 117
+i: [1,80,0,2,1,0,0,1] fc1_xboole_0
+a: [3,122,0,2,1,80]
+s: 122
+i: [1,112,0,2,1,0,0,2] rc2_xboole_0
+a: [3,127,0,2,1,112]
+s: 127
+i: [1,113,0,2,1,0,0,2] rc1_xboole_0
+a: [3,132,0,2,1,113]
+s: 132
+i: [1,81,0,3,1,0,0,3] fc1_subset_1
+s: 81
+i: [1,106,0,3,1,0,0,3] rc2_subset_1
+s: 106
+i: [1,109,0,3,1,0,0,2] reflexivity_r1_tarski
+s: 109
+i: [1,104,0,4,1,0,0,3] existence_m1_subset_1
+s: 104
+i: [1,108,0,4,1,0,0,255] rc3_subset_1
+s: 108
+i: [1,85,0,5,2,0,0,3] rc1_subset_1
+s: 85
+i: [1,88,0,5,2,0,0,255] t6_boole
+s: 88
+d: [2,136,1,4,2,1,44,117,88]
+s: 136
+i: [1,101,0,5,2,0,0,2] t7_boole
+s: 101
+d: [2,138,2,2,1,2,40,136,132]
+a: [3,143,2,2,1,138]
+s: 143
+i: [1,105,0,5,1,0,0,3] rc2_subset_1
+s: 105
+i: [1,107,0,5,1,0,0,255] rc3_subset_1
+s: 107
+d: [2,139,2,3,1,1,40,136,106]
+s: 139
+i: [1,87,0,6,2,0,0,255] rc4_subset_1
+s: 87
+i: [1,91,0,6,2,0,0,1] d3_taxonom2
+s: 91
+i: [1,92,0,6,2,0,0,1] d3_taxonom2
+s: 92
+i: [1,96,0,6,2,0,0,2] t1_subset
+s: 96
+d: [2,145,1,4,2,0,40,91,101]
+d: [2,146,1,2,1,1,21,145,136]
+s: 146
+r: 127
+r: 85
+r: 81
+r: 88
+r: 136
+r: 101
+d: [2,154,2,0,0,1,40,146,106]
+e: 154
+d: [2,153,2,0,0,2,40,146,132]
+e: 153
+d: [2,152,2,0,0,2,40,146,122]
+e: 152
+d: [2,151,2,0,0,2,52,122,146]
+e: 151
+f: 154,79
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for taxonom2__t6_taxonom2
+% SZS output start Proof for taxonom2__t6_taxonom2
+1. v3_taxonom2(k1_xboole_0) [input t6_taxonom2]
+2. ~v3_taxonom2(k1_xboole_0) [negated conjecture 1]
+8. ! [X0] : (v3_taxonom2(X0) <=> ! [X1] : ! [X2] : ~(~r1_xboole_0(X1,X2) & ~r1_tarski(X2,X1) & ~r1_tarski(X1,X2) & r2_hidden(X2,X0) & r2_hidden(X1,X0))) [input d3_taxonom2]
+17. ! [X0] : ? [X1] : (v1_xboole_0(X1) & m1_subset_1(X1,k1_zfmisc_1(X0))) [input rc2_subset_1]
+28. ! [X0] : (v1_xboole_0(X0) => k1_xboole_0 = X0) [input t6_boole]
+29. ! [X0] : ! [X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [input t7_boole]
+31. ~v3_taxonom2(k1_xboole_0) [flattening 2]
+32. ! [X0] : (v3_taxonom2(X0) <=> ! [X1,X2] : ~(~r1_xboole_0(X1,X2) & ~r1_tarski(X2,X1) & ~r1_tarski(X1,X2) & r2_hidden(X2,X0) & r2_hidden(X1,X0))) [flattening 8]
+37. ! [X0,X1] : ~(v1_xboole_0(X1) & r2_hidden(X0,X1)) [flattening 29]
+41. ! [X0] : (! [X1,X2] : ~(~r1_xboole_0(X1,X2) & ~r1_tarski(X2,X1) & ~r1_tarski(X1,X2) & r2_hidden(X2,X0) & r2_hidden(X1,X0)) => v3_taxonom2(X0)) [unused predicate definition removal 32]
+48. ! [X0] : (k1_xboole_0 = X0 | ~v1_xboole_0(X0)) [ennf transformation 28]
+51. ! [X0] : (v3_taxonom2(X0) | ? [X1,X2] : (~r1_xboole_0(X1,X2) & ~r1_tarski(X2,X1) & ~r1_tarski(X1,X2) & r2_hidden(X2,X0) & r2_hidden(X1,X0))) [ennf transformation 41]
+56. ! [X0,X1] : (~v1_xboole_0(X1) | ~r2_hidden(X0,X1)) [ennf transformation 37]
+66. ! [X0] : (? [X1,X2] : (~r1_xboole_0(X1,X2) & ~r1_tarski(X2,X1) & ~r1_tarski(X1,X2) & r2_hidden(X2,X0) & r2_hidden(X1,X0)) => (~r1_xboole_0(sK2(X0),sK3(X0)) & ~r1_tarski(sK3(X0),sK2(X0)) & ~r1_tarski(sK2(X0),sK3(X0)) & r2_hidden(sK3(X0),X0) & r2_hidden(sK2(X0),X0))) [choice axiom]
+67. ! [X0] : (v3_taxonom2(X0) | (~r1_xboole_0(sK2(X0),sK3(X0)) & ~r1_tarski(sK3(X0),sK2(X0)) & ~r1_tarski(sK2(X0),sK3(X0)) & r2_hidden(sK3(X0),X0) & r2_hidden(sK2(X0),X0))) [skolemisation 51,66]
+71. ! [X0] : (? [X1] : (v1_xboole_0(X1) & m1_subset_1(X1,k1_zfmisc_1(X0))) => (v1_xboole_0(sK5(X0)) & m1_subset_1(sK5(X0),k1_zfmisc_1(X0)))) [choice axiom]
+72. ! [X0] : (v1_xboole_0(sK5(X0)) & m1_subset_1(sK5(X0),k1_zfmisc_1(X0))) [skolemisation 17,71]
+79. ~v3_taxonom2(k1_xboole_0) [cnf transformation 31] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+88. k1_xboole_0 = X0 | ~v1_xboole_0(X0) [cnf transformation 48] {a:0,w:5,wCS:2000,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+91. r2_hidden(sK2(X0),X0) | v3_taxonom2(X0) [cnf transformation 67] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+101. ~r2_hidden(X0,X1) | ~v1_xboole_0(X1) [cnf transformation 56] {a:0,w:5,wCS:2000,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+106. v1_xboole_0(sK5(X0)) [cnf transformation 72] {a:0,w:3,wCS:1200,nSel:1,sine:3,thAx:0,allAx:2,thDist:-2}
+115. 1 <=> v3_taxonom2(k1_xboole_0) [avatar definition]
+117. ~v3_taxonom2(k1_xboole_0) <- (~1) [avatar component clause 115] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+118. ~1 [avatar split clause 79,115]
+136. ~v1_xboole_0(X0) | ~v3_taxonom2(X0) <- (~1) [superposition 117,88] {a:1,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+145. v3_taxonom2(X0) | ~v1_xboole_0(X0) [resolution 91,101] {a:1,w:4,wCS:1600,sine:1,thAx:0,allAx:3,thDist:-3}
+146. ~v1_xboole_0(X0) <- (~1) [subsumption resolution 145,136] {a:1,w:2,wCS:200,nSel:1,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+154. $false <- (~1) [resolution 146,106] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+155. 1 [avatar contradiction clause 154]
+159. $false [avatar sat refutation 118,155] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:35,thDist:-35}
+% SZS output end Proof for taxonom2__t6_taxonom2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 29
+% >>> Preprocessing
+% Introduced skolems: 9
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 35
+% Generated clauses: 56
+% Active clauses: 22
+% Passive clauses: 43
+% Final active clauses: 16
+% Final passive clauses: 21
+% Main loop iterations started: 22
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 1
+% Backward subsumptions: 6
+% 
+% >>> Generating Inferences
+% Binary resolution: 10
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 11
+% SAT solver unit clauses: 5
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% preprocessing: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

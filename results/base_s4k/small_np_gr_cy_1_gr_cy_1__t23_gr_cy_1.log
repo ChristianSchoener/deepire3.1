@@ -1,0 +1,51 @@
+i: [1,768,0,9,1,1,0,0] t23_gr_cy_1
+i: [1,788,0,9,1,0,0,1] l27_gr_cy_1
+f: 788,768
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for gr_cy_1__t23_gr_cy_1
+% SZS output start Proof for gr_cy_1__t23_gr_cy_1
+1. k2_gr_cy_1 = k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [input t23_gr_cy_1]
+2. ~k2_gr_cy_1 = k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [negated conjecture 1]
+303. k2_gr_cy_1 = k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [input l27_gr_cy_1]
+304. k2_gr_cy_1 != k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [flattening 2]
+768. k2_gr_cy_1 != k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [cnf transformation 304] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+788. k2_gr_cy_1 = k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [cnf transformation 303] {a:0,w:9,wCS:3600,sine:1,thAx:0,allAx:1,thDist:-1}
+1258. 1 <=> k2_gr_cy_1 = k5_group_4(k2_gr_cy_1,k6_domain_1(u1_struct_0(k2_gr_cy_1),k5_gr_cy_1(1))) [avatar definition]
+1261. ~1 [avatar split clause 768,1258]
+1357. 1 [avatar split clause 788,1258]
+1917. $false [avatar sat refutation 1261,1357] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:378,thDist:-378}
+% SZS output end Proof for gr_cy_1__t23_gr_cy_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 302
+% >>> Preprocessing
+% Introduced skolems: 64
+% Pure predicates: 13
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 489
+% Generated clauses: 489
+% Passive clauses: 294
+% Final passive clauses: 294
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 55
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 142
+% SAT solver unit clauses: 140
+% 
+% Memory used [KB]: 10106
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% splitting component index usage: 0.001 s
+% other: 0.004 s ( own 0.0000 s ) 
+

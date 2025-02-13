@@ -1,0 +1,50 @@
+i: [1,151,0,3,1,1,0,0] l29_arytm_0
+i: [1,162,0,3,1,0,0,255] spc1_numerals
+f: 162,151
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for arytm_0__l29_arytm_0
+% SZS output start Proof for arytm_0__l29_arytm_0
+1. m1_subset_1(1,k1_numbers) [input l29_arytm_0]
+2. ~m1_subset_1(1,k1_numbers) [negated conjecture 1]
+63. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) & v2_xxreal_0(1) [input spc1_numerals]
+64. ~m1_subset_1(1,k1_numbers) [flattening 2]
+74. m1_subset_1(1,k1_numbers) & m1_subset_1(1,k5_numbers) & m2_subset_1(1,k1_numbers,k5_numbers) [pure predicate removal 63]
+151. ~m1_subset_1(1,k1_numbers) [cnf transformation 64] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+162. m1_subset_1(1,k1_numbers) [cnf transformation 74] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+230. 1 <=> m1_subset_1(1,k1_numbers) [avatar definition]
+233. ~1 [avatar split clause 151,230]
+274. 1 [avatar split clause 162,230]
+395. $false [avatar sat refutation 233,274] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:90,thDist:-90}
+% SZS output end Proof for arytm_0__l29_arytm_0
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 62
+% >>> Preprocessing
+% Introduced skolems: 14
+% Pure predicates: 4
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 78
+% Generated clauses: 78
+% Passive clauses: 36
+% Final passive clauses: 36
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 8
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 36
+% SAT solver unit clauses: 34
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% forward demodulation: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

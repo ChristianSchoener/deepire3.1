@@ -1,0 +1,77 @@
+i: [1,855,0,7,1,1,0,0] l12_dtconstr
+i: [1,873,0,2,1,0,0,1] dt_k5_dtconstr
+i: [1,872,0,2,1,0,0,1] dt_k5_dtconstr
+i: [1,871,0,2,1,0,0,1] dt_k5_dtconstr
+i: [1,1449,0,13,4,0,0,255] d2_dtconstr
+f: 1449,871,872,873,855
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for dtconstr__l12_dtconstr
+% SZS output start Proof for dtconstr__l12_dtconstr
+1. u1_struct_0(k5_dtconstr) = k7_domain_1(k5_numbers,k6_numbers,1) [input l12_dtconstr]
+2. ~u1_struct_0(k5_dtconstr) = k7_domain_1(k5_numbers,k6_numbers,1) [negated conjecture 1]
+309. l1_lang1(k5_dtconstr) & v1_lang1(k5_dtconstr) & ~v2_struct_0(k5_dtconstr) [input dt_k5_dtconstr]
+322. ! [X0] : ((l1_lang1(X0) & v1_lang1(X0) & ~v2_struct_0(X0)) => (k5_dtconstr = X0 <=> (! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m2_finseq_1(X2,u1_struct_0(X0)) => (r1_lang1(X0,X1,X2) <=> ((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1)))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0)))) [input d2_dtconstr]
+323. u1_struct_0(k5_dtconstr) != k7_domain_1(k5_numbers,k6_numbers,1) [flattening 2]
+492. ! [X0] : ((k5_dtconstr = X0 <=> (! [X1] : (! [X2] : ((r1_lang1(X0,X1,X2) <=> ((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1)) | ~m2_finseq_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0))) | (~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0))) [ennf transformation 322]
+493. ! [X0] : ((k5_dtconstr = X0 <=> (! [X1] : (! [X2] : ((r1_lang1(X0,X1,X2) <=> ((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1)) | ~m2_finseq_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0))) | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [flattening 492]
+704. ! [X0] : (((k5_dtconstr = X0 | (? [X1] : (? [X2] : (((((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1) | ~r1_lang1(X0,X1,X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | r1_lang1(X0,X1,X2))) & m2_finseq_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k7_domain_1(k5_numbers,k6_numbers,1) != u1_struct_0(X0))) & ((! [X1] : (! [X2] : (((r1_lang1(X0,X1,X2) | ((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | ~r1_lang1(X0,X1,X2))) | ~m2_finseq_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0)) | k5_dtconstr != X0)) | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [nnf transformation 493]
+705. ! [X0] : (((k5_dtconstr = X0 | ? [X1] : (? [X2] : (((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1 | ~r1_lang1(X0,X1,X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | r1_lang1(X0,X1,X2)) & m2_finseq_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k7_domain_1(k5_numbers,k6_numbers,1) != u1_struct_0(X0)) & ((! [X1] : (! [X2] : (((r1_lang1(X0,X1,X2) | (k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | ~r1_lang1(X0,X1,X2))) | ~m2_finseq_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0)) | k5_dtconstr != X0)) | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [flattening 704]
+706. ! [X0] : (((k5_dtconstr = X0 | ? [X1] : (? [X2] : (((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1 | ~r1_lang1(X0,X1,X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | r1_lang1(X0,X1,X2)) & m2_finseq_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) | k7_domain_1(k5_numbers,k6_numbers,1) != u1_struct_0(X0)) & ((! [X3] : (! [X4] : (((r1_lang1(X0,X3,X4) | (k3_pre_poly(k5_numbers,1) != X4 & k3_pre_poly(k5_numbers,k6_numbers) != X4) | 1 != X3) & (((k3_pre_poly(k5_numbers,1) = X4 | k3_pre_poly(k5_numbers,k6_numbers) = X4) & 1 = X3) | ~r1_lang1(X0,X3,X4))) | ~m2_finseq_1(X4,u1_struct_0(X0))) | ~m1_subset_1(X3,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0)) | k5_dtconstr != X0)) | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [rectify 705]
+707. ! [X0] : (? [X1] : (? [X2] : (((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != X1 | ~r1_lang1(X0,X1,X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = X1) | r1_lang1(X0,X1,X2)) & m2_finseq_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) => (? [X2] : (((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != sK18(X0) | ~r1_lang1(X0,sK18(X0),X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = sK18(X0)) | r1_lang1(X0,sK18(X0),X2)) & m2_finseq_1(X2,u1_struct_0(X0))) & m1_subset_1(sK18(X0),u1_struct_0(X0)))) [choice axiom]
+708. ! [X0] : (? [X2] : (((k3_pre_poly(k5_numbers,1) != X2 & k3_pre_poly(k5_numbers,k6_numbers) != X2) | 1 != sK18(X0) | ~r1_lang1(X0,sK18(X0),X2)) & (((k3_pre_poly(k5_numbers,1) = X2 | k3_pre_poly(k5_numbers,k6_numbers) = X2) & 1 = sK18(X0)) | r1_lang1(X0,sK18(X0),X2)) & m2_finseq_1(X2,u1_struct_0(X0))) => (((k3_pre_poly(k5_numbers,1) != sK19(X0) & k3_pre_poly(k5_numbers,k6_numbers) != sK19(X0)) | 1 != sK18(X0) | ~r1_lang1(X0,sK18(X0),sK19(X0))) & (((k3_pre_poly(k5_numbers,1) = sK19(X0) | k3_pre_poly(k5_numbers,k6_numbers) = sK19(X0)) & 1 = sK18(X0)) | r1_lang1(X0,sK18(X0),sK19(X0))) & m2_finseq_1(sK19(X0),u1_struct_0(X0)))) [choice axiom]
+709. ! [X0] : (((k5_dtconstr = X0 | ((((k3_pre_poly(k5_numbers,1) != sK19(X0) & k3_pre_poly(k5_numbers,k6_numbers) != sK19(X0)) | 1 != sK18(X0) | ~r1_lang1(X0,sK18(X0),sK19(X0))) & (((k3_pre_poly(k5_numbers,1) = sK19(X0) | k3_pre_poly(k5_numbers,k6_numbers) = sK19(X0)) & 1 = sK18(X0)) | r1_lang1(X0,sK18(X0),sK19(X0))) & m2_finseq_1(sK19(X0),u1_struct_0(X0))) & m1_subset_1(sK18(X0),u1_struct_0(X0))) | k7_domain_1(k5_numbers,k6_numbers,1) != u1_struct_0(X0)) & ((! [X3] : (! [X4] : (((r1_lang1(X0,X3,X4) | (k3_pre_poly(k5_numbers,1) != X4 & k3_pre_poly(k5_numbers,k6_numbers) != X4) | 1 != X3) & (((k3_pre_poly(k5_numbers,1) = X4 | k3_pre_poly(k5_numbers,k6_numbers) = X4) & 1 = X3) | ~r1_lang1(X0,X3,X4))) | ~m2_finseq_1(X4,u1_struct_0(X0))) | ~m1_subset_1(X3,u1_struct_0(X0))) & k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0)) | k5_dtconstr != X0)) | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0)) [skolemisation 706,708,707]
+855. u1_struct_0(k5_dtconstr) != k7_domain_1(k5_numbers,k6_numbers,1) [cnf transformation 323] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+871. ~v2_struct_0(k5_dtconstr) [cnf transformation 309] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+872. v1_lang1(k5_dtconstr) [cnf transformation 309] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+873. l1_lang1(k5_dtconstr) [cnf transformation 309] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+1041. k7_domain_1(k5_numbers,k6_numbers,1) = u1_struct_0(X0) | k5_dtconstr != X0 | ~l1_lang1(X0) | ~v1_lang1(X0) | v2_struct_0(X0) [cnf transformation 709] {a:0,w:16,wCS:6400,sine:255,thAx:0,allAx:3,thDist:-3}
+1449. u1_struct_0(k5_dtconstr) = k7_domain_1(k5_numbers,k6_numbers,1) | ~l1_lang1(k5_dtconstr) | ~v1_lang1(k5_dtconstr) | v2_struct_0(k5_dtconstr) [equality resolution 1041] {a:0,w:13,wCS:5200,sine:255,thAx:0,allAx:3,thDist:-3}
+1451. 1 <=> u1_struct_0(k5_dtconstr) = k7_domain_1(k5_numbers,k6_numbers,1) [avatar definition]
+1454. ~1 [avatar split clause 855,1451]
+1516. 14 <=> l1_lang1(k5_dtconstr) [avatar definition]
+1521. 15 <=> v1_lang1(k5_dtconstr) [avatar definition]
+1526. 16 <=> v2_struct_0(k5_dtconstr) [avatar definition]
+1530. 14 [avatar split clause 873,1516]
+1531. 15 [avatar split clause 872,1521]
+1532. ~16 [avatar split clause 871,1526]
+1593. 16 | ~15 | ~14 | 1 [avatar split clause 1449,1451,1516,1521,1526]
+2404. $false [avatar sat refutation 1454,1530,1531,1532,1593] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:575,thDist:-575}
+% SZS output end Proof for dtconstr__l12_dtconstr
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 321
+% >>> Preprocessing
+% Introduced skolems: 91
+% Pure predicates: 12
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 586
+% Generated clauses: 586
+% Passive clauses: 329
+% Final passive clauses: 329
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 65
+% 
+% >>> AVATAR
+% Split clauses: 5
+% Split components: 24
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 194
+% SAT solver unit clauses: 187
+% 
+% Memory used [KB]: 10490
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% forward subsumption: 0.001 s
+% other: 0.005 s ( own 0.001 s ) 
+

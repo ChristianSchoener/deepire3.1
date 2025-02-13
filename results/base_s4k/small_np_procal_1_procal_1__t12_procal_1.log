@@ -1,0 +1,147 @@
+i: [1,58,0,2,1,1,0,0] t12_procal_1
+a: [3,92,0,2,1,58]
+s: 92
+i: [1,59,0,6,1,1,0,0] t12_procal_1
+a: [3,87,0,6,1,59]
+s: 87
+i: [1,78,0,2,1,0,0,1] existence_m1_qc_lang1
+a: [3,97,0,2,1,78]
+s: 97
+i: [1,60,0,10,1,1,0,0] t12_procal_1
+a: [3,82,0,10,1,60]
+s: 82
+i: [1,66,0,4,1,0,0,2] existence_m1_subset_1
+s: 66
+i: [1,61,0,5,2,0,0,3] dt_k9_qc_lang1
+s: 61
+i: [1,62,0,5,2,0,0,3] fc2_cqc_lang
+s: 62
+i: [1,67,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 67
+i: [1,63,0,8,2,0,0,1] dt_k4_cqc_the1
+s: 63
+i: [1,64,0,8,2,0,0,2] dt_k3_cqc_lang
+s: 64
+i: [1,71,0,14,4,0,0,2] existence_m2_subset_1
+s: 71
+i: [1,68,0,15,5,0,0,2] dt_m2_subset_1
+s: 68
+i: [1,69,0,15,5,0,0,2] redefinition_m2_subset_1
+s: 69
+d: [2,101,1,18,5,0,40,68,64]
+d: [2,103,1,15,4,0,21,101,62]
+d: [2,104,1,12,3,0,21,103,61]
+s: 104
+i: [1,70,0,15,5,0,0,2] redefinition_m2_subset_1
+s: 70
+i: [1,72,0,17,4,0,0,255] dt_k3_qc_lang2
+s: 72
+d: [2,111,2,6,2,1,40,104,87]
+d: [2,113,2,4,1,2,21,111,92]
+a: [3,117,2,4,1,113]
+s: 117
+i: [1,73,0,17,4,0,0,255] dt_k2_qc_lang2
+s: 73
+d: [2,112,2,22,5,0,40,104,71]
+d: [2,119,2,16,4,0,21,112,64]
+d: [2,120,2,13,3,0,21,119,62]
+d: [2,121,2,10,2,0,21,120,61]
+s: 121
+i: [1,74,0,19,4,0,0,255] redefinition_k8_cqc_lang
+s: 74
+i: [1,75,0,19,4,0,0,255] redefinition_k9_cqc_lang
+s: 75
+d: [2,107,1,18,5,0,40,69,64]
+d: [2,109,1,15,4,0,21,107,62]
+d: [2,110,1,12,3,0,21,109,61]
+s: 110
+i: [1,76,0,19,4,0,0,1] dt_k9_cqc_lang
+s: 76
+d: [2,132,2,6,2,1,40,110,87]
+d: [2,134,2,4,1,2,21,132,92]
+a: [3,138,2,4,1,134]
+s: 138
+i: [1,77,0,19,4,0,0,1] dt_k8_cqc_lang
+s: 77
+i: [1,65,0,24,4,0,0,1] t3_procal_1
+s: 65
+d: [2,151,1,0,0,3,52,92,87,87,82,65]
+e: 151
+d: [2,152,1,14,3,1,40,65,82]
+d: [2,154,1,8,2,1,18,152]
+d: [2,156,1,2,1,2,21,154,87]
+d: [2,157,1,0,0,3,21,156,92]
+e: 157
+f: 157,58,59,60
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for procal_1__t12_procal_1
+% SZS output start Proof for procal_1__t12_procal_1
+1. ! [X0] : (m1_qc_lang1(X0) => ! [X1] : (m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0)) => r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X1)),k4_cqc_the1(X0)))) [input t12_procal_1]
+2. ~! [X0] : (m1_qc_lang1(X0) => ! [X1] : (m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0)) => r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X1)),k4_cqc_the1(X0)))) [negated conjecture 1]
+22. ! [X0] : (m1_qc_lang1(X0) => ! [X1] : (m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0)) => ! [X2] : (m2_subset_1(X2,k9_qc_lang1(X0),k3_cqc_lang(X0)) => r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X2)),k4_cqc_the1(X0))))) [input t3_procal_1]
+23. ? [X0] : (? [X1] : (~r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X1)),k4_cqc_the1(X0)) & m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0))) & m1_qc_lang1(X0)) [ennf transformation 2]
+28. ! [X0] : (! [X1] : (! [X2] : (r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X2)),k4_cqc_the1(X0)) | ~m2_subset_1(X2,k9_qc_lang1(X0),k3_cqc_lang(X0))) | ~m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0))) | ~m1_qc_lang1(X0)) [ennf transformation 22]
+48. ? [X0] : (? [X1] : (~r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X1)),k4_cqc_the1(X0)) & m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0))) & m1_qc_lang1(X0)) => (? [X1] : (~r2_hidden(k8_cqc_lang(sK0,X1,k9_cqc_lang(sK0,X1,X1)),k4_cqc_the1(sK0)) & m2_subset_1(X1,k9_qc_lang1(sK0),k3_cqc_lang(sK0))) & m1_qc_lang1(sK0)) [choice axiom]
+49. ? [X1] : (~r2_hidden(k8_cqc_lang(sK0,X1,k9_cqc_lang(sK0,X1,X1)),k4_cqc_the1(sK0)) & m2_subset_1(X1,k9_qc_lang1(sK0),k3_cqc_lang(sK0))) => (~r2_hidden(k8_cqc_lang(sK0,sK1,k9_cqc_lang(sK0,sK1,sK1)),k4_cqc_the1(sK0)) & m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0))) [choice axiom]
+50. (~r2_hidden(k8_cqc_lang(sK0,sK1,k9_cqc_lang(sK0,sK1,sK1)),k4_cqc_the1(sK0)) & m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0))) & m1_qc_lang1(sK0) [skolemisation 23,49,48]
+58. m1_qc_lang1(sK0) [cnf transformation 50] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+59. m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) [cnf transformation 50] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+60. ~r2_hidden(k8_cqc_lang(sK0,sK1,k9_cqc_lang(sK0,sK1,sK1)),k4_cqc_the1(sK0)) [cnf transformation 50] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+65. r2_hidden(k8_cqc_lang(X0,X1,k9_cqc_lang(X0,X1,X2)),k4_cqc_the1(X0)) | ~m2_subset_1(X2,k9_qc_lang1(X0),k3_cqc_lang(X0)) | ~m2_subset_1(X1,k9_qc_lang1(X0),k3_cqc_lang(X0)) | ~m1_qc_lang1(X0) [cnf transformation 28] {a:0,w:24,wCS:9600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+80. 1 <=> r2_hidden(k8_cqc_lang(sK0,sK1,k9_cqc_lang(sK0,sK1,sK1)),k4_cqc_the1(sK0)) [avatar definition]
+82. ~r2_hidden(k8_cqc_lang(sK0,sK1,k9_cqc_lang(sK0,sK1,sK1)),k4_cqc_the1(sK0)) <- (~1) [avatar component clause 80] {a:0,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+83. ~1 [avatar split clause 60,80]
+85. 2 <=> m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) [avatar definition]
+87. m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) <- (2) [avatar component clause 85] {a:0,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+88. 2 [avatar split clause 59,85]
+90. 3 <=> m1_qc_lang1(sK0) [avatar definition]
+92. m1_qc_lang1(sK0) <- (3) [avatar component clause 90] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+93. 3 [avatar split clause 58,90]
+152. ~m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) | ~m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) | ~m1_qc_lang1(sK0) <- (~1) [resolution 65,82] {a:1,w:14,wCS:1400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+154. ~m2_subset_1(sK1,k9_qc_lang1(sK0),k3_cqc_lang(sK0)) | ~m1_qc_lang1(sK0) <- (~1) [duplicate literal removal 152] {a:1,w:8,wCS:800,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+156. ~m1_qc_lang1(sK0) <- (~1, 2) [subsumption resolution 154,87] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+157. $false <- (~1, 2, 3) [subsumption resolution 156,92] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+158. 1 | ~2 | ~3 [avatar contradiction clause 157]
+159. $false [avatar sat refutation 83,88,93,158] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:48,thDist:-48}
+% SZS output end Proof for procal_1__t12_procal_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 21
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 21
+% Generated clauses: 75
+% Active clauses: 26
+% Passive clauses: 40
+% Final active clauses: 26
+% Final passive clauses: 14
+% Main loop iterations started: 26
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 7
+% Fw subsumption resolutions: 19
+% 
+% >>> Generating Inferences
+% Binary resolution: 19
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 4
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% congruence closure: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

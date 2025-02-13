@@ -1,0 +1,218 @@
+i: [1,72,0,2,1,1,0,0] t22_int_2
+a: [3,122,0,2,1,72]
+s: 122
+i: [1,71,0,2,1,1,0,0] t22_int_2
+a: [3,127,0,2,1,71]
+s: 127
+i: [1,70,0,2,1,1,0,0] t22_int_2
+a: [3,132,0,2,1,70]
+s: 132
+i: [1,74,0,3,1,1,0,0] t22_int_2
+a: [3,112,0,3,1,74]
+s: 112
+i: [1,73,0,3,1,1,0,0] t22_int_2
+a: [3,117,0,3,1,73]
+s: 117
+i: [1,75,0,5,1,1,0,0] t22_int_2
+a: [3,107,0,5,1,75]
+s: 107
+i: [1,97,0,2,1,0,0,255] rc1_ordinal1
+a: [3,144,0,2,1,97]
+s: 144
+i: [1,98,0,2,1,0,0,2] rc4_ordinal1
+a: [3,149,0,2,1,98]
+s: 149
+i: [1,99,0,2,1,0,0,1] rc2_int_1
+a: [3,154,0,2,1,99]
+s: 154
+i: [1,100,0,2,1,0,0,255] rc3_xreal_0
+a: [3,159,0,2,1,100]
+s: 159
+i: [1,76,0,4,2,0,0,255] cc1_ordinal1
+s: 76
+d: [2,161,1,2,1,1,40,76,144]
+a: [3,165,1,2,1,161]
+s: 165
+i: [1,77,0,4,2,0,0,255] cc1_ordinal1
+s: 77
+d: [2,167,1,2,1,1,40,77,144]
+a: [3,171,1,2,1,167]
+s: 171
+i: [1,78,0,4,2,0,0,255] cc6_ordinal1
+s: 78
+i: [1,79,0,4,2,0,0,2] cc2_int_1
+s: 79
+d: [2,173,1,2,1,1,40,78,149]
+a: [3,177,1,2,1,173]
+s: 177
+i: [1,80,0,4,2,0,0,255] cc1_nat_1
+s: 80
+d: [2,179,1,2,1,1,40,79,149]
+a: [3,183,1,2,1,179]
+s: 183
+i: [1,83,0,4,2,0,0,255] cc3_nat_1
+s: 83
+i: [1,92,0,7,3,0,0,1] reflexivity_r1_int_1
+a: [3,139,0,5,2,92]
+s: 139
+d: [2,197,1,2,1,1,40,83,149]
+a: [3,201,1,2,1,197]
+s: 201
+i: [1,91,0,6,3,0,0,255] cc2_ordinal1
+s: 91
+d: [2,185,2,2,1,1,40,177,77]
+a: [3,190,2,2,1,185]
+s: 190
+i: [1,93,0,8,3,0,0,1] dt_k3_int_2
+s: 93
+i: [1,94,0,8,3,0,0,1] dt_k3_int_2
+s: 94
+d: [2,186,2,2,1,1,40,177,76]
+a: [3,195,2,2,1,186]
+s: 195
+i: [1,95,0,11,3,0,0,2] commutativity_k3_int_2
+s: 95
+d: [2,205,1,8,3,0,40,93,83]
+s: 205
+i: [1,96,0,11,3,0,0,2] commutativity_k3_int_2
+s: 96
+i: [1,102,0,13,4,0,0,1] d2_int_2
+s: 102
+d: [2,206,1,8,3,0,40,93,79]
+s: 206
+d: [2,216,0,9,3,0,21,102,93]
+s: 216
+d: [2,207,1,8,3,0,40,93,78]
+s: 207
+i: [1,103,0,13,4,0,0,1] d2_int_2
+s: 103
+d: [2,231,0,9,3,0,21,103,93]
+s: 231
+d: [2,225,2,8,3,0,40,207,77]
+s: 225
+i: [1,101,0,21,7,0,0,1] d2_int_2
+s: 101
+d: [2,226,2,8,3,0,40,207,76]
+s: 226
+d: [2,241,0,17,6,0,21,101,93]
+s: 241
+d: [2,246,1,0,0,6,52,132,127,122,117,112,107,241]
+e: 246
+d: [2,247,1,12,5,1,40,241,107]
+d: [2,253,1,9,4,2,21,247,112]
+d: [2,254,1,6,3,3,21,253,117]
+d: [2,255,1,4,2,4,21,254,122]
+d: [2,256,1,2,1,5,21,255,127]
+d: [2,257,1,0,0,6,21,256,132]
+e: 257
+f: 257,70,71,72,73,74,75
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for int_2__t22_int_2
+% SZS output start Proof for int_2__t22_int_2
+1. ! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v1_int_1(X2) => ((r1_int_1(X2,X1) & r1_int_1(X2,X0)) => r1_int_1(X2,k3_int_2(X0,X1)))))) [input t22_int_2]
+2. ~! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v1_int_1(X2) => ((r1_int_1(X2,X1) & r1_int_1(X2,X0)) => r1_int_1(X2,k3_int_2(X0,X1)))))) [negated conjecture 1]
+14. ! [X0,X1] : ((v1_int_1(X1) & v1_int_1(X0)) => v7_ordinal1(k3_int_2(X0,X1))) [input dt_k3_int_2]
+23. ! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v7_ordinal1(X2) => (k3_int_2(X0,X1) = X2 <=> (! [X3] : (v1_int_1(X3) => ((r1_int_1(X3,X1) & r1_int_1(X3,X0)) => r1_int_1(X3,X2))) & r1_int_1(X2,X1) & r1_int_1(X2,X0)))))) [input d2_int_2]
+32. ? [X0] : (? [X1] : (? [X2] : ((~r1_int_1(X2,k3_int_2(X0,X1)) & (r1_int_1(X2,X1) & r1_int_1(X2,X0))) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) [ennf transformation 2]
+33. ? [X0] : (? [X1] : (? [X2] : (~r1_int_1(X2,k3_int_2(X0,X1)) & r1_int_1(X2,X1) & r1_int_1(X2,X0) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) [flattening 32]
+39. ! [X0] : (! [X1] : (! [X2] : ((k3_int_2(X0,X1) = X2 <=> (! [X3] : ((r1_int_1(X3,X2) | (~r1_int_1(X3,X1) | ~r1_int_1(X3,X0))) | ~v1_int_1(X3)) & r1_int_1(X2,X1) & r1_int_1(X2,X0))) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [ennf transformation 23]
+40. ! [X0] : (! [X1] : (! [X2] : ((k3_int_2(X0,X1) = X2 <=> (! [X3] : (r1_int_1(X3,X2) | ~r1_int_1(X3,X1) | ~r1_int_1(X3,X0) | ~v1_int_1(X3)) & r1_int_1(X2,X1) & r1_int_1(X2,X0))) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [flattening 39]
+45. ! [X0,X1] : (v7_ordinal1(k3_int_2(X0,X1)) | (~v1_int_1(X1) | ~v1_int_1(X0))) [ennf transformation 14]
+46. ! [X0,X1] : (v7_ordinal1(k3_int_2(X0,X1)) | ~v1_int_1(X1) | ~v1_int_1(X0)) [flattening 45]
+53. ? [X0] : (? [X1] : (? [X2] : (~r1_int_1(X2,k3_int_2(X0,X1)) & r1_int_1(X2,X1) & r1_int_1(X2,X0) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) => (? [X1] : (? [X2] : (~r1_int_1(X2,k3_int_2(sK0,X1)) & r1_int_1(X2,X1) & r1_int_1(X2,sK0) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(sK0)) [choice axiom]
+54. ? [X1] : (? [X2] : (~r1_int_1(X2,k3_int_2(sK0,X1)) & r1_int_1(X2,X1) & r1_int_1(X2,sK0) & v1_int_1(X2)) & v1_int_1(X1)) => (? [X2] : (~r1_int_1(X2,k3_int_2(sK0,sK1)) & r1_int_1(X2,sK1) & r1_int_1(X2,sK0) & v1_int_1(X2)) & v1_int_1(sK1)) [choice axiom]
+55. ? [X2] : (~r1_int_1(X2,k3_int_2(sK0,sK1)) & r1_int_1(X2,sK1) & r1_int_1(X2,sK0) & v1_int_1(X2)) => (~r1_int_1(sK2,k3_int_2(sK0,sK1)) & r1_int_1(sK2,sK1) & r1_int_1(sK2,sK0) & v1_int_1(sK2)) [choice axiom]
+56. ((~r1_int_1(sK2,k3_int_2(sK0,sK1)) & r1_int_1(sK2,sK1) & r1_int_1(sK2,sK0) & v1_int_1(sK2)) & v1_int_1(sK1)) & v1_int_1(sK0) [skolemisation 33,55,54,53]
+57. ! [X0] : (! [X1] : (! [X2] : (((k3_int_2(X0,X1) = X2 | (? [X3] : (~r1_int_1(X3,X2) & r1_int_1(X3,X1) & r1_int_1(X3,X0) & v1_int_1(X3)) | ~r1_int_1(X2,X1) | ~r1_int_1(X2,X0))) & ((! [X3] : (r1_int_1(X3,X2) | ~r1_int_1(X3,X1) | ~r1_int_1(X3,X0) | ~v1_int_1(X3)) & r1_int_1(X2,X1) & r1_int_1(X2,X0)) | k3_int_2(X0,X1) != X2)) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [nnf transformation 40]
+58. ! [X0] : (! [X1] : (! [X2] : (((k3_int_2(X0,X1) = X2 | ? [X3] : (~r1_int_1(X3,X2) & r1_int_1(X3,X1) & r1_int_1(X3,X0) & v1_int_1(X3)) | ~r1_int_1(X2,X1) | ~r1_int_1(X2,X0)) & ((! [X3] : (r1_int_1(X3,X2) | ~r1_int_1(X3,X1) | ~r1_int_1(X3,X0) | ~v1_int_1(X3)) & r1_int_1(X2,X1) & r1_int_1(X2,X0)) | k3_int_2(X0,X1) != X2)) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [flattening 57]
+59. ! [X0] : (! [X1] : (! [X2] : (((k3_int_2(X0,X1) = X2 | ? [X3] : (~r1_int_1(X3,X2) & r1_int_1(X3,X1) & r1_int_1(X3,X0) & v1_int_1(X3)) | ~r1_int_1(X2,X1) | ~r1_int_1(X2,X0)) & ((! [X4] : (r1_int_1(X4,X2) | ~r1_int_1(X4,X1) | ~r1_int_1(X4,X0) | ~v1_int_1(X4)) & r1_int_1(X2,X1) & r1_int_1(X2,X0)) | k3_int_2(X0,X1) != X2)) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [rectify 58]
+60. ! [X2,X1,X0] : (? [X3] : (~r1_int_1(X3,X2) & r1_int_1(X3,X1) & r1_int_1(X3,X0) & v1_int_1(X3)) => (~r1_int_1(sK3(X0,X1,X2),X2) & r1_int_1(sK3(X0,X1,X2),X1) & r1_int_1(sK3(X0,X1,X2),X0) & v1_int_1(sK3(X0,X1,X2)))) [choice axiom]
+61. ! [X0] : (! [X1] : (! [X2] : (((k3_int_2(X0,X1) = X2 | (~r1_int_1(sK3(X0,X1,X2),X2) & r1_int_1(sK3(X0,X1,X2),X1) & r1_int_1(sK3(X0,X1,X2),X0) & v1_int_1(sK3(X0,X1,X2))) | ~r1_int_1(X2,X1) | ~r1_int_1(X2,X0)) & ((! [X4] : (r1_int_1(X4,X2) | ~r1_int_1(X4,X1) | ~r1_int_1(X4,X0) | ~v1_int_1(X4)) & r1_int_1(X2,X1) & r1_int_1(X2,X0)) | k3_int_2(X0,X1) != X2)) | ~v7_ordinal1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [skolemisation 59,60]
+70. v1_int_1(sK0) [cnf transformation 56] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+71. v1_int_1(sK1) [cnf transformation 56] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+72. v1_int_1(sK2) [cnf transformation 56] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+73. r1_int_1(sK2,sK0) [cnf transformation 56] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+74. r1_int_1(sK2,sK1) [cnf transformation 56] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+75. ~r1_int_1(sK2,k3_int_2(sK0,sK1)) [cnf transformation 56] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+86. r1_int_1(X4,X2) | ~r1_int_1(X4,X1) | ~r1_int_1(X4,X0) | ~v1_int_1(X4) | k3_int_2(X0,X1) != X2 | ~v7_ordinal1(X2) | ~v1_int_1(X1) | ~v1_int_1(X0) [cnf transformation 61] {a:0,w:22,wCS:8800,sine:1,thAx:0,allAx:2,thDist:-2}
+93. v7_ordinal1(k3_int_2(X0,X1)) | ~v1_int_1(X1) | ~v1_int_1(X0) [cnf transformation 46] {a:0,w:8,wCS:3200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+101. r1_int_1(X4,k3_int_2(X0,X1)) | ~r1_int_1(X4,X1) | ~r1_int_1(X4,X0) | ~v1_int_1(X4) | ~v7_ordinal1(k3_int_2(X0,X1)) | ~v1_int_1(X1) | ~v1_int_1(X0) [equality resolution 86] {a:0,w:21,wCS:8400,sine:1,thAx:0,allAx:2,thDist:-2}
+105. 1 <=> r1_int_1(sK2,k3_int_2(sK0,sK1)) [avatar definition]
+107. ~r1_int_1(sK2,k3_int_2(sK0,sK1)) <- (~1) [avatar component clause 105] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+108. ~1 [avatar split clause 75,105]
+110. 2 <=> r1_int_1(sK2,sK1) [avatar definition]
+112. r1_int_1(sK2,sK1) <- (2) [avatar component clause 110] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+113. 2 [avatar split clause 74,110]
+115. 3 <=> r1_int_1(sK2,sK0) [avatar definition]
+117. r1_int_1(sK2,sK0) <- (3) [avatar component clause 115] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+118. 3 [avatar split clause 73,115]
+120. 4 <=> v1_int_1(sK2) [avatar definition]
+122. v1_int_1(sK2) <- (4) [avatar component clause 120] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+123. 4 [avatar split clause 72,120]
+125. 5 <=> v1_int_1(sK1) [avatar definition]
+127. v1_int_1(sK1) <- (5) [avatar component clause 125] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+128. 5 [avatar split clause 71,125]
+130. 6 <=> v1_int_1(sK0) [avatar definition]
+132. v1_int_1(sK0) <- (6) [avatar component clause 130] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+133. 6 [avatar split clause 70,130]
+241. r1_int_1(X4,k3_int_2(X0,X1)) | ~r1_int_1(X4,X1) | ~r1_int_1(X4,X0) | ~v1_int_1(X4) | ~v1_int_1(X1) | ~v1_int_1(X0) [subsumption resolution 101,93] {a:0,w:17,wCS:6800,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+247. ~r1_int_1(sK2,sK1) | ~r1_int_1(sK2,sK0) | ~v1_int_1(sK2) | ~v1_int_1(sK1) | ~v1_int_1(sK0) <- (~1) [resolution 241,107] {a:1,w:12,wCS:1200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+253. ~r1_int_1(sK2,sK0) | ~v1_int_1(sK2) | ~v1_int_1(sK1) | ~v1_int_1(sK0) <- (~1, 2) [subsumption resolution 247,112] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+254. ~v1_int_1(sK2) | ~v1_int_1(sK1) | ~v1_int_1(sK0) <- (~1, 2, 3) [subsumption resolution 253,117] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+255. ~v1_int_1(sK1) | ~v1_int_1(sK0) <- (~1, 2, 3, 4) [subsumption resolution 254,122] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+256. ~v1_int_1(sK0) <- (~1, 2, 3, 4, 5) [subsumption resolution 255,127] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+257. $false <- (~1, 2, 3, 4, 5, 6) [subsumption resolution 256,132] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+258. 1 | ~2 | ~3 | ~4 | ~5 | ~6 [avatar contradiction clause 257]
+259. $false [avatar sat refutation 108,113,118,123,128,133,258] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:114,thDist:-114}
+% SZS output end Proof for int_2__t22_int_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 22
+% >>> Preprocessing
+% Introduced skolems: 8
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 31
+% Generated clauses: 110
+% Active clauses: 34
+% Passive clauses: 46
+% Final active clauses: 34
+% Final passive clauses: 6
+% Main loop iterations started: 40
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 36
+% Fw subsumption resolutions: 8
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 22
+% 
+% >>> Generating Inferences
+% Binary resolution: 16
+% Unit resulting resolution: 1
+% Forward superposition: 16
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 22
+% SAT solver unit clauses: 10
+% SAT solver binary clauses: 8
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

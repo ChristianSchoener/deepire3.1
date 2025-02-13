@@ -1,0 +1,53 @@
+i: [1,228,0,7,1,1,0,0] l4_polyeq_2
+i: [1,237,0,5,1,0,0,1] rqRealAdd__k2_xcmplx_0__r2_r1_r3
+i: [1,242,0,5,1,0,0,1] rqRealMult__k3_xcmplx_0__r2_r1_r2
+f: 242,237,228
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for polyeq_2__l4_polyeq_2
+% SZS output start Proof for polyeq_2__l4_polyeq_2
+1. 3 = k2_xcmplx_0(k3_xcmplx_0(2,1),1) [input l4_polyeq_2]
+2. ~3 = k2_xcmplx_0(k3_xcmplx_0(2,1),1) [negated conjecture 1]
+98. 2 = k3_xcmplx_0(2,1) [input rqRealMult__k3_xcmplx_0__r2_r1_r2]
+99. 3 = k2_xcmplx_0(2,1) [input rqRealAdd__k2_xcmplx_0__r2_r1_r3]
+103. 3 != k2_xcmplx_0(k3_xcmplx_0(2,1),1) [flattening 2]
+228. 3 != k2_xcmplx_0(k3_xcmplx_0(2,1),1) [cnf transformation 103] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+237. 3 = k2_xcmplx_0(2,1) [cnf transformation 99] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+242. 2 = k3_xcmplx_0(2,1) [cnf transformation 98] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:1,thDist:-1}
+336. 1 <=> 3 = k2_xcmplx_0(k3_xcmplx_0(2,1),1) [avatar definition]
+339. ~1 [avatar split clause 228,336]
+381. 10 <=> 3 = k2_xcmplx_0(2,1) [avatar definition]
+384. 10 [avatar split clause 237,381]
+406. 15 <=> 2 = k3_xcmplx_0(2,1) [avatar definition]
+409. 15 [avatar split clause 242,406]
+575. 2 != k3_xcmplx_0(2,1) | 3 != k2_xcmplx_0(2,1) | 3 = k2_xcmplx_0(k3_xcmplx_0(2,1),1) [theory tautology sat conflict] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:1,thDist:-1}
+576. $false [avatar sat refutation 339,384,409,575] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:116,thDist:-116}
+% SZS output end Proof for polyeq_2__l4_polyeq_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 101
+% >>> Preprocessing
+% Introduced skolems: 11
+% Pure predicates: 4
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 107
+% Generated clauses: 107
+% Passive clauses: 59
+% Final passive clauses: 59
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 51
+% SAT solver unit clauses: 48
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

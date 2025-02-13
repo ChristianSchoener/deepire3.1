@@ -1,0 +1,99 @@
+i: [1,28,0,5,1,1,0,0] t13_exchsort
+a: [3,40,0,5,1,28]
+s: 40
+i: [1,35,0,2,1,0,0,2] rc1_ordinal1
+a: [3,45,0,2,1,35]
+s: 45
+i: [1,29,0,3,1,0,0,1] dt_k3_ordinal2
+s: 29
+i: [1,30,0,4,2,0,0,255] cc1_ordinal1
+s: 30
+i: [1,31,0,4,2,0,0,255] cc1_ordinal1
+s: 31
+i: [1,34,0,6,3,0,0,255] cc2_ordinal1
+s: 34
+d: [2,47,1,2,1,1,40,30,45]
+a: [3,52,1,2,1,47]
+s: 52
+i: [1,36,0,9,2,0,0,255] d3_exchsort
+s: 36
+d: [2,54,1,2,1,1,40,31,45]
+a: [3,59,1,2,1,54]
+s: 59
+d: [2,61,0,5,1,0,21,36,29]
+s: 61
+d: [2,64,1,0,0,1,40,61,40]
+e: 64
+d: [2,63,1,0,0,1,52,40,61]
+e: 63
+f: 63,28
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for exchsort__t13_exchsort
+% SZS output start Proof for exchsort__t13_exchsort
+1. ! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0)))) [input t13_exchsort]
+2. ~! [X0] : ((v1_funct_1(X0) & v1_relat_1(X0)) => v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0)))) [negated conjecture 1]
+5. ! [X0] : v3_ordinal1(k3_ordinal2(X0)) [input dt_k3_ordinal2]
+11. ! [X0] : (v3_ordinal1(X0) => ! [X1] : (v3_exchsort(X1,X0) <=> k3_ordinal2(k9_xtuple_0(X1)) = X0)) [input d3_exchsort]
+14. ~! [X0] : (v1_relat_1(X0) => v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0)))) [pure predicate removal 2]
+16. ~! [X0] : v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0))) [pure predicate removal 14]
+18. ? [X0] : ~v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0))) [ennf transformation 16]
+20. ! [X0] : (! [X1] : (v3_exchsort(X1,X0) <=> k3_ordinal2(k9_xtuple_0(X1)) = X0) | ~v3_ordinal1(X0)) [ennf transformation 11]
+23. ? [X0] : ~v3_exchsort(X0,k3_ordinal2(k9_xtuple_0(X0))) => ~v3_exchsort(sK0,k3_ordinal2(k9_xtuple_0(sK0))) [choice axiom]
+24. ~v3_exchsort(sK0,k3_ordinal2(k9_xtuple_0(sK0))) [skolemisation 18,23]
+25. ! [X0] : (! [X1] : ((v3_exchsort(X1,X0) | k3_ordinal2(k9_xtuple_0(X1)) != X0) & (k3_ordinal2(k9_xtuple_0(X1)) = X0 | ~v3_exchsort(X1,X0))) | ~v3_ordinal1(X0)) [nnf transformation 20]
+28. ~v3_exchsort(sK0,k3_ordinal2(k9_xtuple_0(sK0))) [cnf transformation 24] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+29. v3_ordinal1(k3_ordinal2(X0)) [cnf transformation 5] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+33. v3_exchsort(X1,X0) | k3_ordinal2(k9_xtuple_0(X1)) != X0 | ~v3_ordinal1(X0) [cnf transformation 25] {a:0,w:10,wCS:4000,sine:255,thAx:0,allAx:1,thDist:-1}
+36. v3_exchsort(X1,k3_ordinal2(k9_xtuple_0(X1))) | ~v3_ordinal1(k3_ordinal2(k9_xtuple_0(X1))) [equality resolution 33] {a:0,w:9,wCS:3600,sine:255,thAx:0,allAx:1,thDist:-1}
+38. 1 <=> v3_exchsort(sK0,k3_ordinal2(k9_xtuple_0(sK0))) [avatar definition]
+40. ~v3_exchsort(sK0,k3_ordinal2(k9_xtuple_0(sK0))) <- (~1) [avatar component clause 38] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+41. ~1 [avatar split clause 28,38]
+61. v3_exchsort(X1,k3_ordinal2(k9_xtuple_0(X1))) [subsumption resolution 36,29] {a:0,w:5,wCS:2000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+63. $false <- (~1) [unit resulting resolution 40,61] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+66. 1 [avatar contradiction clause 63]
+67. $false [avatar sat refutation 41,66] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:22,thDist:-22}
+% SZS output end Proof for exchsort__t13_exchsort
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 10
+% >>> Preprocessing
+% Introduced skolems: 2
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 8
+% Generated clauses: 20
+% Active clauses: 9
+% Passive clauses: 13
+% Final active clauses: 9
+% Final passive clauses: 3
+% Main loop iterations started: 10
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 6
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 8
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

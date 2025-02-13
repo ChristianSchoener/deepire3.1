@@ -1,0 +1,87 @@
+i: [1,1359,0,4,1,1,0,0] l29_topgen_5
+i: [1,1399,0,2,1,0,0,1] dt_k3_topgen_5
+i: [1,1398,0,2,1,0,0,1] dt_k3_topgen_5
+i: [1,1397,0,2,1,0,0,1] dt_k3_topgen_5
+i: [1,1396,0,2,1,0,0,1] dt_k3_topgen_5
+i: [1,2245,0,12,5,0,0,255] d3_topgen_5
+f: 2245,1396,1397,1398,1399,1359
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for topgen_5__l29_topgen_5
+% SZS output start Proof for topgen_5__l29_topgen_5
+1. u1_struct_0(k3_topgen_5) = k2_topgen_5 [input l29_topgen_5]
+2. ~u1_struct_0(k3_topgen_5) = k2_topgen_5 [negated conjecture 1]
+484. l1_pre_topc(k3_topgen_5) & v2_pre_topc(k3_topgen_5) & v1_pre_topc(k3_topgen_5) & ~v2_struct_0(k3_topgen_5) [input dt_k3_topgen_5]
+509. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0) & v1_pre_topc(X0) & ~v2_struct_0(X0)) => (k3_topgen_5 = X0 <=> (? [X1] : (! [X2] : (m1_subset_1(X2,k1_numbers) => ! [X3] : (m1_subset_1(X3,k1_numbers) => (~r1_xxreal_0(X3,k6_numbers) => k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3)))) & ! [X2] : (m1_subset_1(X2,k1_numbers) => k1_funct_1(X1,k19_euclid(X2,k6_numbers)) = a_1_0_topgen_5(X2)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0)))) [input d3_topgen_5]
+510. u1_struct_0(k3_topgen_5) != k2_topgen_5 [flattening 2]
+511. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0) & v1_pre_topc(X0) & ~v2_struct_0(X0)) => (k3_topgen_5 = X0 <=> (? [X1] : (! [X2] : (m1_subset_1(X2,k1_numbers) => ! [X3] : (m1_subset_1(X3,k1_numbers) => (~r1_xxreal_0(X3,k6_numbers) => k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3)))) & ! [X4] : (m1_subset_1(X4,k1_numbers) => k1_funct_1(X1,k19_euclid(X4,k6_numbers)) = a_1_0_topgen_5(X4)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0)))) [rectify 509]
+750. ! [X0] : ((k3_topgen_5 = X0 <=> (? [X1] : (! [X2] : (! [X3] : ((k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3) | r1_xxreal_0(X3,k6_numbers)) | ~m1_subset_1(X3,k1_numbers)) | ~m1_subset_1(X2,k1_numbers)) & ! [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) = a_1_0_topgen_5(X4) | ~m1_subset_1(X4,k1_numbers)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0))) | (~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0))) [ennf transformation 511]
+751. ! [X0] : ((k3_topgen_5 = X0 <=> (? [X1] : (! [X2] : (! [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3) | r1_xxreal_0(X3,k6_numbers) | ~m1_subset_1(X3,k1_numbers)) | ~m1_subset_1(X2,k1_numbers)) & ! [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) = a_1_0_topgen_5(X4) | ~m1_subset_1(X4,k1_numbers)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 750]
+1158. ! [X0] : (((k3_topgen_5 = X0 | (! [X1] : (? [X2] : (? [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) != a_2_0_topgen_5(X2,X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) & m1_subset_1(X2,k1_numbers)) | ? [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) != a_1_0_topgen_5(X4) & m1_subset_1(X4,k1_numbers)) | ~m1_topgen_2(X1,X0)) | k2_topgen_5 != u1_struct_0(X0))) & ((? [X1] : (! [X2] : (! [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3) | r1_xxreal_0(X3,k6_numbers) | ~m1_subset_1(X3,k1_numbers)) | ~m1_subset_1(X2,k1_numbers)) & ! [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) = a_1_0_topgen_5(X4) | ~m1_subset_1(X4,k1_numbers)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0)) | k3_topgen_5 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [nnf transformation 751]
+1159. ! [X0] : (((k3_topgen_5 = X0 | ! [X1] : (? [X2] : (? [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) != a_2_0_topgen_5(X2,X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) & m1_subset_1(X2,k1_numbers)) | ? [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) != a_1_0_topgen_5(X4) & m1_subset_1(X4,k1_numbers)) | ~m1_topgen_2(X1,X0)) | k2_topgen_5 != u1_struct_0(X0)) & ((? [X1] : (! [X2] : (! [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) = a_2_0_topgen_5(X2,X3) | r1_xxreal_0(X3,k6_numbers) | ~m1_subset_1(X3,k1_numbers)) | ~m1_subset_1(X2,k1_numbers)) & ! [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) = a_1_0_topgen_5(X4) | ~m1_subset_1(X4,k1_numbers)) & m1_topgen_2(X1,X0)) & k2_topgen_5 = u1_struct_0(X0)) | k3_topgen_5 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 1158]
+1160. ! [X0] : (((k3_topgen_5 = X0 | ! [X1] : (? [X2] : (? [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) != a_2_0_topgen_5(X2,X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) & m1_subset_1(X2,k1_numbers)) | ? [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) != a_1_0_topgen_5(X4) & m1_subset_1(X4,k1_numbers)) | ~m1_topgen_2(X1,X0)) | k2_topgen_5 != u1_struct_0(X0)) & ((? [X5] : (! [X6] : (! [X7] : (k1_funct_1(X5,k19_euclid(X6,X7)) = a_2_0_topgen_5(X6,X7) | r1_xxreal_0(X7,k6_numbers) | ~m1_subset_1(X7,k1_numbers)) | ~m1_subset_1(X6,k1_numbers)) & ! [X8] : (k1_funct_1(X5,k19_euclid(X8,k6_numbers)) = a_1_0_topgen_5(X8) | ~m1_subset_1(X8,k1_numbers)) & m1_topgen_2(X5,X0)) & k2_topgen_5 = u1_struct_0(X0)) | k3_topgen_5 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [rectify 1159]
+1161. ! [X1] : (? [X2] : (? [X3] : (k1_funct_1(X1,k19_euclid(X2,X3)) != a_2_0_topgen_5(X2,X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) & m1_subset_1(X2,k1_numbers)) => (? [X3] : (k1_funct_1(X1,k19_euclid(sK20(X1),X3)) != a_2_0_topgen_5(sK20(X1),X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) & m1_subset_1(sK20(X1),k1_numbers))) [choice axiom]
+1162. ! [X1] : (? [X3] : (k1_funct_1(X1,k19_euclid(sK20(X1),X3)) != a_2_0_topgen_5(sK20(X1),X3) & ~r1_xxreal_0(X3,k6_numbers) & m1_subset_1(X3,k1_numbers)) => (k1_funct_1(X1,k19_euclid(sK20(X1),sK21(X1))) != a_2_0_topgen_5(sK20(X1),sK21(X1)) & ~r1_xxreal_0(sK21(X1),k6_numbers) & m1_subset_1(sK21(X1),k1_numbers))) [choice axiom]
+1163. ! [X1] : (? [X4] : (k1_funct_1(X1,k19_euclid(X4,k6_numbers)) != a_1_0_topgen_5(X4) & m1_subset_1(X4,k1_numbers)) => (k1_funct_1(X1,k19_euclid(sK22(X1),k6_numbers)) != a_1_0_topgen_5(sK22(X1)) & m1_subset_1(sK22(X1),k1_numbers))) [choice axiom]
+1164. ! [X0] : (? [X5] : (! [X6] : (! [X7] : (k1_funct_1(X5,k19_euclid(X6,X7)) = a_2_0_topgen_5(X6,X7) | r1_xxreal_0(X7,k6_numbers) | ~m1_subset_1(X7,k1_numbers)) | ~m1_subset_1(X6,k1_numbers)) & ! [X8] : (k1_funct_1(X5,k19_euclid(X8,k6_numbers)) = a_1_0_topgen_5(X8) | ~m1_subset_1(X8,k1_numbers)) & m1_topgen_2(X5,X0)) => (! [X6] : (! [X7] : (a_2_0_topgen_5(X6,X7) = k1_funct_1(sK23(X0),k19_euclid(X6,X7)) | r1_xxreal_0(X7,k6_numbers) | ~m1_subset_1(X7,k1_numbers)) | ~m1_subset_1(X6,k1_numbers)) & ! [X8] : (a_1_0_topgen_5(X8) = k1_funct_1(sK23(X0),k19_euclid(X8,k6_numbers)) | ~m1_subset_1(X8,k1_numbers)) & m1_topgen_2(sK23(X0),X0))) [choice axiom]
+1165. ! [X0] : (((k3_topgen_5 = X0 | ! [X1] : (((k1_funct_1(X1,k19_euclid(sK20(X1),sK21(X1))) != a_2_0_topgen_5(sK20(X1),sK21(X1)) & ~r1_xxreal_0(sK21(X1),k6_numbers) & m1_subset_1(sK21(X1),k1_numbers)) & m1_subset_1(sK20(X1),k1_numbers)) | (k1_funct_1(X1,k19_euclid(sK22(X1),k6_numbers)) != a_1_0_topgen_5(sK22(X1)) & m1_subset_1(sK22(X1),k1_numbers)) | ~m1_topgen_2(X1,X0)) | k2_topgen_5 != u1_struct_0(X0)) & (((! [X6] : (! [X7] : (a_2_0_topgen_5(X6,X7) = k1_funct_1(sK23(X0),k19_euclid(X6,X7)) | r1_xxreal_0(X7,k6_numbers) | ~m1_subset_1(X7,k1_numbers)) | ~m1_subset_1(X6,k1_numbers)) & ! [X8] : (a_1_0_topgen_5(X8) = k1_funct_1(sK23(X0),k19_euclid(X8,k6_numbers)) | ~m1_subset_1(X8,k1_numbers)) & m1_topgen_2(sK23(X0),X0)) & k2_topgen_5 = u1_struct_0(X0)) | k3_topgen_5 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [skolemisation 1160,1164,1163,1162,1161]
+1359. u1_struct_0(k3_topgen_5) != k2_topgen_5 [cnf transformation 510] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+1396. ~v2_struct_0(k3_topgen_5) [cnf transformation 484] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+1397. v1_pre_topc(k3_topgen_5) [cnf transformation 484] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+1398. v2_pre_topc(k3_topgen_5) [cnf transformation 484] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+1399. l1_pre_topc(k3_topgen_5) [cnf transformation 484] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+1616. k2_topgen_5 = u1_struct_0(X0) | k3_topgen_5 != X0 | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0) [cnf transformation 1165] {a:0,w:15,wCS:6000,sine:255,thAx:0,allAx:5,thDist:-5}
+2245. u1_struct_0(k3_topgen_5) = k2_topgen_5 | ~l1_pre_topc(k3_topgen_5) | ~v2_pre_topc(k3_topgen_5) | ~v1_pre_topc(k3_topgen_5) | v2_struct_0(k3_topgen_5) [equality resolution 1616] {a:0,w:12,wCS:4800,sine:255,thAx:0,allAx:5,thDist:-5}
+2250. 1 <=> u1_struct_0(k3_topgen_5) = k2_topgen_5 [avatar definition]
+2253. ~1 [avatar split clause 1359,2250]
+2411. 33 <=> l1_pre_topc(k3_topgen_5) [avatar definition]
+2416. 34 <=> v2_pre_topc(k3_topgen_5) [avatar definition]
+2421. 35 <=> v1_pre_topc(k3_topgen_5) [avatar definition]
+2426. 36 <=> v2_struct_0(k3_topgen_5) [avatar definition]
+2430. 33 [avatar split clause 1399,2411]
+2431. 34 [avatar split clause 1398,2416]
+2432. 35 [avatar split clause 1397,2421]
+2433. ~36 [avatar split clause 1396,2426]
+2487. 36 | ~35 | ~34 | ~33 | 1 [avatar split clause 2245,2250,2411,2416,2421,2426]
+3550. $false [avatar sat refutation 2253,2430,2431,2432,2433,2487] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:774,thDist:-774}
+% SZS output end Proof for topgen_5__l29_topgen_5
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 508
+% >>> Preprocessing
+% Introduced skolems: 118
+% Pure predicates: 19
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 883
+% Generated clauses: 883
+% Passive clauses: 526
+% Final passive clauses: 526
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 92
+% 
+% >>> AVATAR
+% Split clauses: 5
+% Split components: 22
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 267
+% SAT solver unit clauses: 260
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 10874
+% Time elapsed: 0.007 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.003 s
+% preprocessing: 0.002 s ( own 0.001 s ) 
+% sine selection: 0.001 s
+% sat proof minimization: 0.001 s
+% passive container maintenance: 0.001 s
+% other: 0.007 s ( own 0.0000 s ) 
+

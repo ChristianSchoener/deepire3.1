@@ -1,0 +1,74 @@
+i: [1,778,0,4,1,1,0,0] t15_ami_3
+i: [1,777,0,6,1,1,0,0] t15_ami_3
+i: [1,776,0,4,1,1,0,0] t15_ami_3
+i: [1,1356,0,14,2,0,0,1] l22_ami_3
+f: 1356,776,777,778
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ami_3__t15_ami_3
+% SZS output start Proof for ami_3__t15_ami_3
+1. ! [X0] : (m1_subset_1(X0,u1_compos_1(k1_ami_3)) => (k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0 => v2_extpro_1(X0,2,k1_ami_3))) [input t15_ami_3]
+2. ~! [X0] : (m1_subset_1(X0,u1_compos_1(k1_ami_3)) => (k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0 => v2_extpro_1(X0,2,k1_ami_3))) [negated conjecture 1]
+331. ! [X0] : (m1_subset_1(X0,u1_compos_1(k1_ami_3)) => (k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0 => v2_extpro_1(X0,2,k1_ami_3))) [input l22_ami_3]
+382. ? [X0] : ((~v2_extpro_1(X0,2,k1_ami_3) & k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0) & m1_subset_1(X0,u1_compos_1(k1_ami_3))) [ennf transformation 2]
+383. ? [X0] : (~v2_extpro_1(X0,2,k1_ami_3) & k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0 & m1_subset_1(X0,u1_compos_1(k1_ami_3))) [flattening 382]
+438. ! [X0] : ((v2_extpro_1(X0,2,k1_ami_3) | k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) != X0) | ~m1_subset_1(X0,u1_compos_1(k1_ami_3))) [ennf transformation 331]
+439. ! [X0] : (v2_extpro_1(X0,2,k1_ami_3) | k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) != X0 | ~m1_subset_1(X0,u1_compos_1(k1_ami_3))) [flattening 438]
+614. ? [X0] : (~v2_extpro_1(X0,2,k1_ami_3) & k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = X0 & m1_subset_1(X0,u1_compos_1(k1_ami_3))) => (~v2_extpro_1(sK0,2,k1_ami_3) & k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = sK0 & m1_subset_1(sK0,u1_compos_1(k1_ami_3))) [choice axiom]
+615. ~v2_extpro_1(sK0,2,k1_ami_3) & k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = sK0 & m1_subset_1(sK0,u1_compos_1(k1_ami_3)) [skolemisation 383,614]
+776. m1_subset_1(sK0,u1_compos_1(k1_ami_3)) [cnf transformation 615] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+777. k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = sK0 [cnf transformation 615] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+778. ~v2_extpro_1(sK0,2,k1_ami_3) [cnf transformation 615] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+972. v2_extpro_1(X0,2,k1_ami_3) | k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) != X0 | ~m1_subset_1(X0,u1_compos_1(k1_ami_3)) [cnf transformation 439] {a:0,w:14,wCS:5600,sine:1,thAx:0,allAx:1,thDist:-1}
+1356. v2_extpro_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),2,k1_ami_3) | ~m1_subset_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),u1_compos_1(k1_ami_3)) [equality resolution 972] {a:0,w:14,wCS:5600,sine:1,thAx:0,allAx:1,thDist:-1}
+1362. 1 <=> v2_extpro_1(sK0,2,k1_ami_3) [avatar definition]
+1365. ~1 [avatar split clause 778,1362]
+1367. 2 <=> k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) = sK0 [avatar definition]
+1370. 2 [avatar split clause 777,1367]
+1372. 3 <=> m1_subset_1(sK0,u1_compos_1(k1_ami_3)) [avatar definition]
+1375. 3 [avatar split clause 776,1372]
+1896. 106 <=> m1_subset_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),u1_compos_1(k1_ami_3)) [avatar definition]
+1900. 107 <=> v2_extpro_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),2,k1_ami_3) [avatar definition]
+1903. ~106 | 107 [avatar split clause 1356,1900,1896]
+2522. k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) != sK0 | m1_subset_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),u1_compos_1(k1_ami_3)) | ~m1_subset_1(sK0,u1_compos_1(k1_ami_3)) [theory tautology sat conflict] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:1,thDist:-1}
+2523. k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0) != sK0 | v2_extpro_1(sK0,2,k1_ami_3) | ~v2_extpro_1(k3_xtuple_0(k6_numbers,k1_xboole_0,k1_xboole_0),2,k1_ami_3) [theory tautology sat conflict] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:1,thDist:-1}
+2524. $false [avatar sat refutation 1365,1370,1375,1903,2522,2523] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:620,thDist:-620}
+% SZS output end Proof for ami_3__t15_ami_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 330
+% >>> Preprocessing
+% Introduced skolems: 82
+% Pure predicates: 12
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 580
+% Generated clauses: 580
+% Passive clauses: 295
+% Final passive clauses: 295
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 46
+% 
+% >>> AVATAR
+% Split clauses: 8
+% Split components: 16
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 243
+% SAT solver unit clauses: 231
+% SAT solver binary clauses: 8
+% 
+% Memory used [KB]: 10746
+% Time elapsed: 0.005 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% preprocessing: 0.001 s
+% splitting component index usage: 0.001 s
+% other: 0.005 s ( own 0.001 s ) 
+

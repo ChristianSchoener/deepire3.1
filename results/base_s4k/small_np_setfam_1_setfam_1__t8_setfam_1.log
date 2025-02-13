@@ -1,0 +1,270 @@
+i: [1,89,0,3,1,1,0,0] t8_setfam_1
+a: [3,132,0,3,1,89]
+s: 132
+i: [1,88,0,3,1,1,0,0] t8_setfam_1
+a: [3,137,0,3,1,88]
+s: 137
+i: [1,90,0,4,1,1,0,0] t8_setfam_1
+a: [3,127,0,4,1,90]
+s: 127
+i: [1,91,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,142,0,2,1,91]
+s: 142
+i: [1,92,0,2,1,0,0,255] fc1_xboole_0
+a: [3,147,0,2,1,92]
+s: 147
+i: [1,122,0,2,1,0,0,2] rc2_xboole_0
+a: [3,157,0,2,1,122]
+s: 157
+i: [1,123,0,2,1,0,0,2] rc1_xboole_0
+a: [3,162,0,2,1,123]
+s: 162
+i: [1,94,0,3,1,0,0,2] fc1_subset_1
+s: 94
+i: [1,116,0,3,1,0,0,2] rc2_subset_1
+s: 116
+i: [1,119,0,3,1,0,0,2] reflexivity_r1_tarski
+s: 119
+i: [1,93,0,3,1,0,0,255] d2_xboole_0
+a: [3,152,0,3,1,93]
+s: 152
+r: 147
+i: [1,114,0,4,1,0,0,2] existence_m1_subset_1
+s: 114
+i: [1,118,0,4,1,0,0,255] rc3_subset_1
+s: 118
+i: [1,98,0,5,2,0,0,2] rc1_subset_1
+s: 98
+i: [1,101,0,5,2,0,0,255] t6_boole
+s: 101
+i: [1,110,0,5,2,0,0,1] t7_boole
+s: 110
+d: [2,166,1,2,1,1,40,110,137]
+a: [3,170,1,2,1,166]
+s: 170
+i: [1,115,0,5,1,0,0,2] rc2_subset_1
+s: 115
+i: [1,117,0,5,1,0,0,255] rc3_subset_1
+s: 117
+d: [2,165,0,5,2,1,22,101,152]
+s: 165
+i: [1,100,0,6,2,0,0,255] rc4_subset_1
+s: 100
+i: [1,104,0,6,2,0,0,1] t1_subset
+s: 104
+i: [1,120,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 120
+d: [2,174,1,3,1,1,40,104,137]
+a: [3,178,1,3,1,174]
+s: 178
+i: [1,121,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 121
+i: [1,97,0,7,2,0,0,2] rc1_subset_1
+s: 97
+d: [2,180,1,3,1,1,40,120,137]
+a: [3,184,1,3,1,180]
+s: 184
+i: [1,99,0,7,2,0,0,255] rc4_subset_1
+s: 99
+d: [2,186,1,3,1,1,40,121,132]
+a: [3,190,1,3,1,186]
+s: 190
+i: [1,105,0,7,2,0,0,1] t3_setfam_1
+s: 105
+i: [1,107,0,7,2,0,0,2] t3_subset
+s: 107
+d: [2,196,1,4,1,0,40,107,115]
+s: 196
+i: [1,108,0,7,2,0,0,2] t3_subset
+s: 108
+d: [2,197,1,4,1,0,40,107,117]
+s: 197
+i: [1,109,0,7,3,0,0,255] t8_boole
+s: 109
+i: [1,102,0,8,3,0,0,2] cc1_subset_1
+s: 102
+d: [2,195,1,5,1,0,40,107,114]
+s: 195
+i: [1,106,0,8,3,0,0,1] t2_subset
+s: 106
+d: [2,204,1,5,2,0,40,102,117]
+s: 204
+i: [1,103,0,9,3,0,0,255] cc4_subset_1
+s: 103
+i: [1,111,0,9,3,0,0,1] t63_xboole_1
+s: 111
+d: [2,210,1,8,2,0,40,106,115]
+d: [2,215,1,5,1,0,21,210,94]
+s: 215
+i: [1,113,0,9,3,0,0,1] t5_subset
+s: 113
+d: [2,211,1,8,2,0,40,106,117]
+d: [2,216,1,5,1,0,21,211,94]
+s: 216
+i: [1,112,0,10,3,0,0,1] t4_subset
+s: 112
+i: [1,95,0,11,4,0,0,255] cc3_subset_1
+s: 95
+d: [2,251,1,9,3,0,40,95,117]
+d: [2,255,1,5,2,0,21,251,118]
+s: 255
+i: [1,96,0,11,4,0,0,255] cc2_subset_1
+s: 96
+d: [2,228,2,5,1,0,40,215,120]
+s: 228
+d: [2,193,1,6,2,0,40,107,97]
+s: 193
+d: [2,194,1,6,2,0,40,107,99]
+s: 194
+d: [2,237,2,5,1,0,40,216,120]
+s: 237
+d: [2,202,1,6,2,0,40,102,114]
+s: 202
+d: [2,209,1,6,2,0,40,106,114]
+s: 209
+d: [2,221,1,6,2,0,40,103,115]
+s: 221
+d: [2,235,1,6,2,0,40,113,115]
+s: 235
+d: [2,236,1,6,2,0,40,113,117]
+s: 236
+d: [2,250,1,9,3,0,40,95,115]
+d: [2,254,1,6,2,0,21,250,116]
+s: 254
+d: [2,259,2,6,2,0,40,209,120]
+s: 259
+d: [2,172,1,7,3,1,44,165,165]
+s: 172
+d: [2,199,1,7,3,0,40,102,108]
+s: 199
+d: [2,205,1,10,3,0,40,106,108]
+d: [2,212,1,7,2,0,21,205,94]
+s: 212
+d: [2,207,1,10,3,0,40,106,97]
+d: [2,213,1,7,2,0,21,207,94]
+s: 213
+d: [2,208,1,10,3,0,40,106,99]
+d: [2,214,1,7,2,0,21,208,94]
+s: 214
+d: [2,220,1,7,2,0,40,103,114]
+s: 220
+d: [2,234,1,7,2,0,40,113,114]
+s: 234
+d: [2,244,1,7,2,0,40,112,115]
+s: 244
+d: [2,245,1,7,2,0,40,112,117]
+s: 245
+d: [2,226,2,7,2,0,40,111,196]
+s: 226
+d: [2,217,1,8,3,0,40,103,108]
+s: 217
+d: [2,231,1,8,3,0,40,113,108]
+s: 231
+d: [2,285,2,5,2,0,40,217,119]
+s: 285
+d: [2,243,1,8,2,0,40,112,114]
+s: 243
+d: [2,227,2,7,2,0,40,111,197]
+s: 227
+d: [2,240,1,9,3,0,40,112,108]
+s: 240
+d: [2,241,1,9,3,0,40,112,97]
+s: 241
+d: [2,272,2,7,2,0,40,212,120]
+s: 272
+d: [2,242,1,9,3,0,40,112,99]
+s: 242
+d: [2,275,2,7,2,0,40,213,120]
+s: 275
+d: [2,224,1,10,3,0,40,111,105]
+s: 224
+d: [2,312,2,0,0,3,52,137,132,127,224]
+e: 312
+f: 312,88,89,90
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for setfam_1__t8_setfam_1
+% SZS output start Proof for setfam_1__t8_setfam_1
+1. ! [X0] : ! [X1] : ! [X2] : ((r1_xboole_0(X0,X2) & r2_hidden(X0,X1)) => r1_xboole_0(k1_setfam_1(X1),X2)) [input t8_setfam_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ((r1_xboole_0(X0,X2) & r2_hidden(X0,X1)) => r1_xboole_0(k1_setfam_1(X1),X2)) [negated conjecture 1]
+34. ! [X0] : ! [X1] : (r2_hidden(X0,X1) => r1_tarski(k1_setfam_1(X1),X0)) [input t3_setfam_1]
+35. ! [X0] : ! [X1] : ! [X2] : ((r1_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [input t63_xboole_1]
+36. ~! [X0,X1,X2] : ((r1_xboole_0(X0,X2) & r2_hidden(X0,X1)) => r1_xboole_0(k1_setfam_1(X1),X2)) [flattening 2]
+38. ! [X0,X1] : (r2_hidden(X0,X1) => r1_tarski(k1_setfam_1(X1),X0)) [flattening 34]
+43. ! [X0,X1,X2] : ((r1_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [flattening 35]
+47. ? [X0,X1,X2] : (~r1_xboole_0(k1_setfam_1(X1),X2) & (r1_xboole_0(X0,X2) & r2_hidden(X0,X1))) [ennf transformation 36]
+48. ? [X0,X1,X2] : (~r1_xboole_0(k1_setfam_1(X1),X2) & r1_xboole_0(X0,X2) & r2_hidden(X0,X1)) [flattening 47]
+59. ! [X0,X1] : (r1_tarski(k1_setfam_1(X1),X0) | ~r2_hidden(X0,X1)) [ennf transformation 38]
+64. ! [X0,X1,X2] : (r1_xboole_0(X0,X2) | (~r1_xboole_0(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 43]
+65. ! [X0,X1,X2] : (r1_xboole_0(X0,X2) | ~r1_xboole_0(X1,X2) | ~r1_tarski(X0,X1)) [flattening 64]
+71. ? [X0,X1,X2] : (~r1_xboole_0(k1_setfam_1(X1),X2) & r1_xboole_0(X0,X2) & r2_hidden(X0,X1)) => (~r1_xboole_0(k1_setfam_1(sK1),sK2) & r1_xboole_0(sK0,sK2) & r2_hidden(sK0,sK1)) [choice axiom]
+72. ~r1_xboole_0(k1_setfam_1(sK1),sK2) & r1_xboole_0(sK0,sK2) & r2_hidden(sK0,sK1) [skolemisation 48,71]
+88. r2_hidden(sK0,sK1) [cnf transformation 72] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+89. r1_xboole_0(sK0,sK2) [cnf transformation 72] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+90. ~r1_xboole_0(k1_setfam_1(sK1),sK2) [cnf transformation 72] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+105. r1_tarski(k1_setfam_1(X1),X0) | ~r2_hidden(X0,X1) [cnf transformation 59] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+111. ~r1_tarski(X0,X1) | ~r1_xboole_0(X1,X2) | r1_xboole_0(X0,X2) [cnf transformation 65] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+125. 1 <=> r1_xboole_0(k1_setfam_1(sK1),sK2) [avatar definition]
+127. ~r1_xboole_0(k1_setfam_1(sK1),sK2) <- (~1) [avatar component clause 125] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+128. ~1 [avatar split clause 90,125]
+130. 2 <=> r1_xboole_0(sK0,sK2) [avatar definition]
+132. r1_xboole_0(sK0,sK2) <- (2) [avatar component clause 130] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+133. 2 [avatar split clause 89,130]
+135. 3 <=> r2_hidden(sK0,sK1) [avatar definition]
+137. r2_hidden(sK0,sK1) <- (3) [avatar component clause 135] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+138. 3 [avatar split clause 88,135]
+224. r1_xboole_0(k1_setfam_1(X4),X3) | ~r1_xboole_0(X2,X3) | ~r2_hidden(X2,X4) [resolution 111,105] {a:1,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+312. $false <- (~1, 2, 3) [unit resulting resolution 137,132,127,224] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:8,thDist:-8}
+315. 1 | ~2 | ~3 [avatar contradiction clause 312]
+316. $false [avatar sat refutation 128,133,138,315] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:49,thDist:-49}
+% SZS output end Proof for setfam_1__t8_setfam_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 34
+% Introduced skolems: 10
+% 
+% >>> Saturation
+% Initial clauses: 36
+% Generated clauses: 179
+% Active clauses: 77
+% Passive clauses: 99
+% Final active clauses: 76
+% Final passive clauses: 19
+% Main loop iterations started: 80
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% Fw subsumption resolutions: 8
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 19
+% Forward subsumptions: 38
+% 
+% >>> Generating Inferences
+% Binary resolution: 116
+% Unit resulting resolution: 1
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 15
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% term sharing: 0.001 s
+% congruence closure: 0.001 s
+% resolution: 0.001 s ( own 0.0000 s ) 
+% other: 0.002 s ( own 0.0000 s ) 
+

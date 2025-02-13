@@ -1,0 +1,84 @@
+i: [1,500,0,5,1,1,0,0] t57_complfld
+i: [1,508,0,3,1,0,0,255] redefinition_k5_complex1
+i: [1,510,0,3,1,0,0,1] redefinition_k6_numbers
+i: [1,514,0,4,1,0,0,1] t44_complex1
+i: [1,538,0,2,1,0,0,1] dt_k1_complfld
+i: [1,537,0,2,1,0,0,1] dt_k1_complfld
+i: [1,771,0,8,3,0,0,255] d1_complfld
+f: 771,537,538,514,510,508,500
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for complfld__t57_complfld
+% SZS output start Proof for complfld__t57_complfld
+1. k17_complex1(k4_struct_0(k1_complfld)) = k6_numbers [input t57_complfld]
+2. ~k17_complex1(k4_struct_0(k1_complfld)) = k6_numbers [negated conjecture 1]
+173. k1_xboole_0 = k5_complex1 [input redefinition_k5_complex1]
+174. k6_numbers = k1_xboole_0 [input redefinition_k6_numbers]
+177. l6_algstr_0(k1_complfld) & v36_algstr_0(k1_complfld) [input dt_k1_complfld]
+198. ! [X0] : ((l6_algstr_0(X0) & v36_algstr_0(X0)) => (k1_complfld = X0 <=> (k4_struct_0(X0) = k5_complex1 & k5_struct_0(X0) = k6_complex1 & u2_algstr_0(X0) = k29_binop_2 & u1_algstr_0(X0) = k27_binop_2 & u1_struct_0(X0) = k2_numbers))) [input d1_complfld]
+199. k6_numbers = k17_complex1(k6_numbers) [input t44_complex1]
+200. k17_complex1(k4_struct_0(k1_complfld)) != k6_numbers [flattening 2]
+360. ! [X0] : ((k1_complfld = X0 <=> (k4_struct_0(X0) = k5_complex1 & k5_struct_0(X0) = k6_complex1 & u2_algstr_0(X0) = k29_binop_2 & u1_algstr_0(X0) = k27_binop_2 & u1_struct_0(X0) = k2_numbers)) | (~l6_algstr_0(X0) | ~v36_algstr_0(X0))) [ennf transformation 198]
+361. ! [X0] : ((k1_complfld = X0 <=> (k4_struct_0(X0) = k5_complex1 & k5_struct_0(X0) = k6_complex1 & u2_algstr_0(X0) = k29_binop_2 & u1_algstr_0(X0) = k27_binop_2 & u1_struct_0(X0) = k2_numbers)) | ~l6_algstr_0(X0) | ~v36_algstr_0(X0)) [flattening 360]
+430. ! [X0] : (((k1_complfld = X0 | (k4_struct_0(X0) != k5_complex1 | k5_struct_0(X0) != k6_complex1 | u2_algstr_0(X0) != k29_binop_2 | u1_algstr_0(X0) != k27_binop_2 | u1_struct_0(X0) != k2_numbers)) & ((k4_struct_0(X0) = k5_complex1 & k5_struct_0(X0) = k6_complex1 & u2_algstr_0(X0) = k29_binop_2 & u1_algstr_0(X0) = k27_binop_2 & u1_struct_0(X0) = k2_numbers) | k1_complfld != X0)) | ~l6_algstr_0(X0) | ~v36_algstr_0(X0)) [nnf transformation 361]
+431. ! [X0] : (((k1_complfld = X0 | k4_struct_0(X0) != k5_complex1 | k5_struct_0(X0) != k6_complex1 | u2_algstr_0(X0) != k29_binop_2 | u1_algstr_0(X0) != k27_binop_2 | u1_struct_0(X0) != k2_numbers) & ((k4_struct_0(X0) = k5_complex1 & k5_struct_0(X0) = k6_complex1 & u2_algstr_0(X0) = k29_binop_2 & u1_algstr_0(X0) = k27_binop_2 & u1_struct_0(X0) = k2_numbers) | k1_complfld != X0)) | ~l6_algstr_0(X0) | ~v36_algstr_0(X0)) [flattening 430]
+500. k17_complex1(k4_struct_0(k1_complfld)) != k6_numbers [cnf transformation 200] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+508. k1_xboole_0 = k5_complex1 [cnf transformation 173] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+510. k6_numbers = k1_xboole_0 [cnf transformation 174] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+514. k6_numbers = k17_complex1(k6_numbers) [cnf transformation 199] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+537. v36_algstr_0(k1_complfld) [cnf transformation 177] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+538. l6_algstr_0(k1_complfld) [cnf transformation 177] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+665. k4_struct_0(X0) = k5_complex1 | k1_complfld != X0 | ~l6_algstr_0(X0) | ~v36_algstr_0(X0) [cnf transformation 431] {a:0,w:11,wCS:4400,sine:255,thAx:0,allAx:1,thDist:-1}
+771. k4_struct_0(k1_complfld) = k5_complex1 | ~l6_algstr_0(k1_complfld) | ~v36_algstr_0(k1_complfld) [equality resolution 665] {a:0,w:8,wCS:3200,sine:255,thAx:0,allAx:1,thDist:-1}
+777. 1 <=> k17_complex1(k4_struct_0(k1_complfld)) = k6_numbers [avatar definition]
+780. ~1 [avatar split clause 500,777]
+817. 9 <=> k1_xboole_0 = k5_complex1 [avatar definition]
+820. 9 [avatar split clause 508,817]
+827. 11 <=> k6_numbers = k1_xboole_0 [avatar definition]
+830. 11 [avatar split clause 510,827]
+847. 15 <=> k6_numbers = k17_complex1(k6_numbers) [avatar definition]
+850. 15 [avatar split clause 514,847]
+882. 22 <=> v36_algstr_0(k1_complfld) [avatar definition]
+944. 34 <=> l6_algstr_0(k1_complfld) [avatar definition]
+949. 34 [avatar split clause 538,944]
+950. 22 [avatar split clause 537,882]
+982. 41 <=> k4_struct_0(k1_complfld) = k5_complex1 [avatar definition]
+985. ~22 | ~34 | 41 [avatar split clause 771,982,944,882]
+1311. k6_numbers != k1_xboole_0 | k1_xboole_0 != k5_complex1 | k4_struct_0(k1_complfld) != k5_complex1 | k6_numbers != k17_complex1(k6_numbers) | k17_complex1(k4_struct_0(k1_complfld)) = k6_numbers [theory tautology sat conflict] {a:0,w:19,wCS:7600,sine:255,thAx:0,allAx:1,thDist:-1}
+1312. $false [avatar sat refutation 780,820,830,850,949,950,985,1311] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:294,thDist:-294}
+% SZS output end Proof for complfld__t57_complfld
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 198
+% >>> Preprocessing
+% Introduced skolems: 38
+% Pure predicates: 12
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 271
+% Generated clauses: 271
+% Passive clauses: 150
+% Final passive clauses: 150
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 10
+% 
+% >>> AVATAR
+% Split clauses: 5
+% Split components: 15
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 114
+% SAT solver unit clauses: 106
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.003 s ( own 0.002 s ) 
+

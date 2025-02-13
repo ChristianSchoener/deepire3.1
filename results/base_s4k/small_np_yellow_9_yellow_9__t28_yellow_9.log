@@ -1,0 +1,55 @@
+i: [1,321,0,3,1,1,0,0] t28_yellow_9
+i: [1,319,0,3,1,1,0,0] t28_yellow_9
+f: 319,321
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for yellow_9__t28_yellow_9
+% SZS output start Proof for yellow_9__t28_yellow_9
+1. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v2_cantor_1(X1,X0) & v1_tops_2(X1,X0)) => v1_tops_2(X1,X0))) [input t28_yellow_9]
+2. ~! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v2_cantor_1(X1,X0) & v1_tops_2(X1,X0)) => v1_tops_2(X1,X0))) [negated conjecture 1]
+147. ~! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0)) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v1_tops_2(X1,X0)) => v1_tops_2(X1,X0))) [pure predicate removal 2]
+148. ~! [X0] : (l1_pre_topc(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v1_tops_2(X1,X0)) => v1_tops_2(X1,X0))) [pure predicate removal 147]
+149. ? [X0] : (? [X1] : (~v1_tops_2(X1,X0) & (m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v1_tops_2(X1,X0))) & l1_pre_topc(X0)) [ennf transformation 148]
+150. ? [X0] : (? [X1] : (~v1_tops_2(X1,X0) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v1_tops_2(X1,X0)) & l1_pre_topc(X0)) [flattening 149]
+240. ? [X0] : (? [X1] : (~v1_tops_2(X1,X0) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(X0)))) & v1_tops_2(X1,X0)) & l1_pre_topc(X0)) => (? [X1] : (~v1_tops_2(X1,sK0) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) & v1_tops_2(X1,sK0)) & l1_pre_topc(sK0)) [choice axiom]
+241. ? [X1] : (~v1_tops_2(X1,sK0) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) & v1_tops_2(X1,sK0)) => (~v1_tops_2(sK1,sK0) & m1_subset_1(sK1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) & v1_tops_2(sK1,sK0)) [choice axiom]
+242. (~v1_tops_2(sK1,sK0) & m1_subset_1(sK1,k1_zfmisc_1(k1_zfmisc_1(u1_struct_0(sK0)))) & v1_tops_2(sK1,sK0)) & l1_pre_topc(sK0) [skolemisation 150,241,240]
+319. v1_tops_2(sK1,sK0) [cnf transformation 242] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+321. ~v1_tops_2(sK1,sK0) [cnf transformation 242] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+487. 1 <=> v1_tops_2(sK1,sK0) [avatar definition]
+490. ~1 [avatar split clause 321,487]
+496. 1 [avatar split clause 319,487]
+807. $false [avatar sat refutation 490,496] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:185,thDist:-185}
+% SZS output end Proof for yellow_9__t28_yellow_9
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 121
+% >>> Preprocessing
+% Introduced skolems: 39
+% Pure predicates: 10
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 168
+% Generated clauses: 168
+% Passive clauses: 92
+% Final passive clauses: 92
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 11
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 67
+% SAT solver unit clauses: 65
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% passive container maintenance: 0.001 s
+% other: 0.002 s ( own 0.0000 s ) 
+

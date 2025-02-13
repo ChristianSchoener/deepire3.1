@@ -1,0 +1,350 @@
+i: [1,167,0,3,1,1,0,0] l5_axioms
+a: [3,253,0,3,1,167]
+s: 253
+i: [1,168,0,2,1,0,0,1] fc2_arytm_2
+a: [3,258,0,2,1,168]
+s: 258
+i: [1,169,0,2,1,0,0,2] fc1_numbers
+a: [3,263,0,2,1,169]
+s: 263
+i: [1,170,0,2,1,0,0,255] spc1_boole
+a: [3,268,0,2,1,170]
+s: 268
+i: [1,171,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,273,0,2,1,171]
+s: 273
+i: [1,184,0,2,1,0,0,2] dt_k12_arytm_3
+a: [3,338,0,2,1,184]
+s: 338
+i: [1,183,0,2,1,0,0,2] dt_k12_arytm_3
+a: [3,343,0,2,1,183]
+s: 343
+i: [1,187,0,2,1,0,0,3] fc6_ordinal1
+a: [3,348,0,2,1,187]
+s: 348
+i: [1,186,0,2,1,0,0,3] fc6_ordinal1
+a: [3,353,0,2,1,186]
+s: 353
+i: [1,239,0,2,1,0,0,255] rc4_ordinal1
+a: [3,383,0,2,1,239]
+s: 383
+i: [1,240,0,2,1,0,0,3] rc1_ordinal1
+a: [3,388,0,2,1,240]
+s: 388
+i: [1,244,0,2,1,0,0,255] rc2_ordinal1
+a: [3,393,0,2,1,244]
+s: 393
+i: [1,243,0,2,1,0,0,255] rc2_ordinal1
+a: [3,398,0,2,1,243]
+s: 398
+i: [1,242,0,2,1,0,0,255] rc2_ordinal1
+a: [3,403,0,2,1,242]
+s: 403
+i: [1,241,0,2,1,0,0,255] rc2_ordinal1
+a: [3,408,0,2,1,241]
+s: 408
+i: [1,246,0,2,1,0,0,255] rc5_ordinal1
+a: [3,413,0,2,1,246]
+s: 413
+i: [1,245,0,2,1,0,0,255] rc5_ordinal1
+a: [3,418,0,2,1,245]
+s: 418
+i: [1,247,0,2,1,0,0,255] rc4_xreal_0
+a: [3,423,0,2,1,247]
+s: 423
+i: [1,227,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 227
+i: [1,172,0,3,1,0,0,255] redefinition_k12_arytm_3
+a: [3,278,0,3,1,172]
+s: 278
+r: 343
+r: 338
+d: [2,425,0,2,1,2,23,343,278]
+a: [3,430,0,2,1,425]
+s: 430
+d: [2,426,0,2,1,2,23,338,278]
+a: [3,435,0,2,1,426]
+s: 435
+i: [1,173,0,3,1,0,0,1] redefinition_k6_numbers
+a: [3,283,0,3,1,173]
+s: 283
+i: [1,174,0,3,1,0,0,255] d1_arytm_3
+a: [3,288,0,3,1,174]
+s: 288
+r: 435
+r: 430
+r: 278
+d: [2,437,0,2,1,2,23,435,288]
+a: [3,443,0,2,1,437]
+s: 443
+i: [1,175,0,3,1,0,0,2] redefinition_k5_numbers
+a: [3,293,0,3,1,175]
+s: 293
+i: [1,176,0,3,1,0,0,255] d2_xboole_0
+a: [3,298,0,3,1,176]
+s: 298
+i: [1,177,0,3,1,0,0,2] redefinition_k11_arytm_3
+a: [3,303,0,3,1,177]
+s: 303
+i: [1,178,0,3,1,0,0,2] dt_k11_arytm_3
+a: [3,308,0,3,1,178]
+s: 308
+i: [1,179,0,3,1,0,0,3] t1_numerals
+a: [3,313,0,3,1,179]
+s: 313
+i: [1,185,0,3,1,0,0,2] dt_k12_arytm_3
+a: [3,333,0,3,1,185]
+s: 333
+i: [1,190,0,3,1,0,0,255] spc1_numerals
+a: [3,358,0,3,1,190]
+s: 358
+i: [1,189,0,3,1,0,0,255] spc1_numerals
+a: [3,363,0,3,1,189]
+s: 363
+i: [1,192,0,3,1,0,0,1] t20_arytm_2
+a: [3,373,0,3,1,192]
+s: 373
+i: [1,191,0,3,1,0,0,1] t20_arytm_2
+a: [3,378,0,3,1,191]
+s: 378
+d: [2,439,0,3,1,2,23,278,288]
+a: [3,448,0,3,1,439]
+s: 448
+r: 373
+r: 333
+d: [2,450,0,3,1,2,22,298,283]
+a: [3,454,0,3,1,450]
+s: 454
+r: 273
+d: [2,486,0,2,1,2,23,273,454]
+a: [3,490,0,2,1,486]
+s: 490
+d: [2,456,0,3,1,2,22,303,283]
+a: [3,460,0,3,1,456]
+s: 460
+r: 378
+r: 308
+d: [2,462,0,3,1,2,22,313,283]
+a: [3,466,0,3,1,462]
+s: 466
+d: [2,468,0,3,1,2,22,363,293]
+a: [3,472,0,3,1,468]
+s: 472
+d: [2,474,0,3,1,2,23,373,448]
+a: [3,479,0,3,1,474]
+s: 479
+d: [2,475,0,3,1,2,23,333,448]
+a: [3,484,0,3,1,475]
+s: 484
+d: [2,492,0,3,1,2,23,378,460]
+a: [3,497,0,3,1,492]
+s: 497
+d: [2,493,0,3,1,2,23,308,460]
+a: [3,502,0,3,1,493]
+s: 502
+i: [1,197,0,4,2,0,0,255] cc6_ordinal1
+s: 197
+d: [2,504,1,2,1,1,40,197,383]
+a: [3,509,1,2,1,504]
+s: 509
+i: [1,198,0,4,2,0,0,255] cc1_ordinal1
+s: 198
+d: [2,505,1,2,1,1,40,197,413]
+a: [3,514,1,2,1,505]
+s: 514
+i: [1,199,0,4,2,0,0,255] cc1_ordinal1
+s: 199
+i: [1,201,0,4,2,0,0,255] cc9_ordinal1
+s: 201
+d: [2,516,1,2,1,1,40,198,348]
+a: [3,524,1,2,1,516]
+s: 524
+i: [1,202,0,4,2,0,0,255] cc7_ordinal1
+s: 202
+d: [2,517,1,2,1,1,40,198,443]
+a: [3,529,1,2,1,517]
+s: 529
+i: [1,203,0,4,2,0,0,3] cc3_ordinal1
+s: 203
+i: [1,226,0,4,1,0,0,1] existence_m1_subset_1
+s: 226
+d: [2,519,1,2,1,1,40,198,388]
+a: [3,539,1,2,1,519]
+s: 539
+i: [1,180,0,4,1,0,0,2] dt_k5_numbers
+a: [3,318,0,4,1,180]
+s: 318
+d: [2,547,1,2,1,1,40,199,348]
+a: [3,556,1,2,1,547]
+s: 556
+i: [1,181,0,4,1,0,0,1] dt_k6_numbers
+a: [3,323,0,4,1,181]
+s: 323
+i: [1,188,0,4,1,0,0,255] spc1_numerals
+a: [3,368,0,4,1,188]
+s: 368
+d: [2,548,1,2,1,1,40,199,443]
+a: [3,561,1,2,1,548]
+s: 561
+d: [2,614,0,4,1,2,22,318,293]
+a: [3,618,0,4,1,614]
+s: 618
+d: [2,550,1,2,1,1,40,199,388]
+a: [3,571,1,2,1,550]
+s: 571
+d: [2,620,0,4,1,2,22,323,293]
+a: [3,624,0,4,1,620]
+s: 624
+d: [2,626,0,4,1,2,22,368,293]
+a: [3,630,0,4,1,626]
+s: 630
+d: [2,578,1,2,1,1,40,201,423]
+a: [3,583,1,2,1,578]
+s: 583
+i: [1,193,0,5,1,0,0,255] t4_boole
+s: 193
+d: [2,579,1,2,1,1,40,201,490]
+a: [3,588,1,2,1,579]
+s: 588
+i: [1,194,0,5,1,0,0,255] t3_boole
+s: 194
+i: [1,195,0,5,1,0,0,255] t1_boole
+s: 195
+d: [2,590,1,2,1,1,40,202,423]
+a: [3,595,1,2,1,590]
+s: 595
+i: [1,204,0,5,2,0,0,2] t6_boole
+s: 204
+d: [2,591,1,2,1,1,40,202,490]
+a: [3,600,1,2,1,591]
+s: 600
+i: [1,205,0,5,2,0,0,255] cc8_ordinal1
+s: 205
+i: [1,221,0,5,2,0,0,2] t7_boole
+s: 221
+d: [2,602,1,2,1,1,40,203,423]
+a: [3,607,1,2,1,602]
+s: 607
+i: [1,228,0,5,1,0,0,255] idempotence_k2_xboole_0
+s: 228
+d: [2,603,1,2,1,1,40,203,490]
+a: [3,612,1,2,1,603]
+s: 612
+d: [2,632,0,5,1,1,22,193,283]
+s: 632
+d: [2,633,0,5,1,1,22,194,283]
+s: 633
+d: [2,641,1,2,1,1,40,205,472]
+a: [3,646,1,2,1,641]
+s: 646
+d: [2,634,0,5,1,1,22,195,283]
+s: 634
+d: [2,518,2,2,1,1,40,198,509]
+a: [3,534,2,2,1,518]
+s: 534
+d: [2,637,0,5,2,1,22,204,283]
+s: 637
+i: [1,206,0,6,3,0,0,255] cc2_ordinal1
+s: 206
+d: [2,681,1,5,2,2,44,253,637]
+s: 681
+i: [1,217,0,6,2,0,0,2] t1_subset
+s: 217
+d: [2,703,1,0,0,2,52,253,497,217]
+e: 703
+d: [2,705,1,3,1,1,40,217,497]
+d: [2,707,1,0,0,2,21,705,253]
+e: 707
+f: 707,492,456,191,177,173,167
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for axioms__l5_axioms
+% SZS output start Proof for axioms__l5_axioms
+1. m1_subset_1(k6_numbers,k2_arytm_2) [input l5_axioms]
+2. ~m1_subset_1(k6_numbers,k2_arytm_2) [negated conjecture 1]
+72. k1_xboole_0 = k11_arytm_3 [input redefinition_k11_arytm_3]
+74. k6_numbers = k1_xboole_0 [input redefinition_k6_numbers]
+81. ! [X0] : ! [X1] : (r2_hidden(X0,X1) => m1_subset_1(X0,X1)) [input t1_subset]
+83. r2_hidden(k12_arytm_3,k2_arytm_2) & r2_hidden(k11_arytm_3,k2_arytm_2) [input t20_arytm_2]
+84. ~m1_subset_1(k6_numbers,k2_arytm_2) [flattening 2]
+86. ! [X0,X1] : (r2_hidden(X0,X1) => m1_subset_1(X0,X1)) [flattening 81]
+123. ! [X0,X1] : (m1_subset_1(X0,X1) | ~r2_hidden(X0,X1)) [ennf transformation 86]
+167. ~m1_subset_1(k6_numbers,k2_arytm_2) [cnf transformation 84] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+173. k6_numbers = k1_xboole_0 [cnf transformation 74] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+177. k1_xboole_0 = k11_arytm_3 [cnf transformation 72] {a:0,w:3,wCS:1200,sine:2,thAx:0,allAx:1,thDist:-1}
+191. r2_hidden(k11_arytm_3,k2_arytm_2) [cnf transformation 83] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+217. ~r2_hidden(X0,X1) | m1_subset_1(X0,X1) [cnf transformation 123] {a:0,w:6,wCS:2400,nSel:1,sine:2,thAx:0,allAx:1,thDist:-1}
+251. 1 <=> m1_subset_1(k6_numbers,k2_arytm_2) [avatar definition]
+253. ~m1_subset_1(k6_numbers,k2_arytm_2) <- (~1) [avatar component clause 251] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+254. ~1 [avatar split clause 167,251]
+281. 7 <=> k6_numbers = k1_xboole_0 [avatar definition]
+283. k6_numbers = k1_xboole_0 <- (7) [avatar component clause 281] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+284. 7 [avatar split clause 173,281]
+301. 11 <=> k1_xboole_0 = k11_arytm_3 [avatar definition]
+303. k1_xboole_0 = k11_arytm_3 <- (11) [avatar component clause 301] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+304. 11 [avatar split clause 177,301]
+376. 26 <=> r2_hidden(k11_arytm_3,k2_arytm_2) [avatar definition]
+378. r2_hidden(k11_arytm_3,k2_arytm_2) <- (26) [avatar component clause 376] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+379. 26 [avatar split clause 191,376]
+456. k6_numbers = k11_arytm_3 <- (7, 11) [forward demodulation 303,283] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+458. 41 <=> k6_numbers = k11_arytm_3 [avatar definition]
+460. k6_numbers = k11_arytm_3 <- (41) [avatar component clause 458] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+461. 41 | ~7 | ~11 [avatar split clause 456,301,281,458]
+492. r2_hidden(k6_numbers,k2_arytm_2) <- (26, 41) [backward demodulation 378,460] {a:0,w:3,wCS:1200,sine:255,thAx:0,allAx:1,thDist:-1}
+495. 47 <=> r2_hidden(k6_numbers,k2_arytm_2) [avatar definition]
+497. r2_hidden(k6_numbers,k2_arytm_2) <- (47) [avatar component clause 495] {a:0,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+498. 47 | ~26 | ~41 [avatar split clause 492,458,376,495]
+705. m1_subset_1(k6_numbers,k2_arytm_2) <- (47) [resolution 217,497] {a:1,w:3,wCS:1200,sine:2,thAx:0,allAx:2,thDist:-2}
+707. $false <- (~1, 47) [subsumption resolution 705,253] {a:1,w:0,goal:1,sine:2,thAx:0,allAx:2,thDist:-2}
+708. 1 | ~47 [avatar contradiction clause 707]
+709. $false [avatar sat refutation 254,284,304,379,461,498,708] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:283,thDist:-283}
+% SZS output end Proof for axioms__l5_axioms
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 82
+% >>> Preprocessing
+% Introduced skolems: 11
+% Pure predicates: 6
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 81
+% Generated clauses: 232
+% Active clauses: 77
+% Passive clauses: 135
+% Final active clauses: 67
+% Final passive clauses: 47
+% Main loop iterations started: 88
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 11
+% Bw demodulations: 10
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 14
+% 
+% >>> Generating Inferences
+% Binary resolution: 39
+% Unit resulting resolution: 1
+% Backward superposition: 12
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 82
+% SAT solver unit clauses: 36
+% SAT solver binary clauses: 27
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.002 s
+

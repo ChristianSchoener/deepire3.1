@@ -1,0 +1,58 @@
+i: [1,239,0,4,1,1,0,0] t47_card_1
+i: [1,245,0,4,1,0,0,255] t46_card_1
+i: [1,248,0,5,1,0,0,255] l24_card_1
+f: 248,245,239
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for card_1__t47_card_1
+% SZS output start Proof for card_1__t47_card_1
+1. k4_ordinal1 = k1_card_1(k4_ordinal1) [input t47_card_1]
+2. ~k4_ordinal1 = k1_card_1(k4_ordinal1) [negated conjecture 1]
+109. ! [X0] : (v3_ordinal1(X0) => (v4_ordinal1(X0) => (! [X1] : ((v5_ordinal1(X1) & v1_funct_1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k3_card_1(X2))) & k9_xtuple_0(X1) = X0) => k3_card_1(X0) = k1_card_1(k4_ordinal2(X1)))) | k1_xboole_0 = X0))) & ! [X0] : (v3_ordinal1(X0) => k3_card_1(k1_ordinal1(X0)) = k2_card_1(k3_tarski(k1_tarski(k3_card_1(X0))))) & k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [input l24_card_1]
+110. k4_ordinal1 = k3_card_1(k1_xboole_0) [input t46_card_1]
+111. k4_ordinal1 != k1_card_1(k4_ordinal1) [flattening 2]
+112. ! [X0] : (v3_ordinal1(X0) => (v4_ordinal1(X0) => (! [X1] : ((v5_ordinal1(X1) & v1_funct_1(X1) & v1_relat_1(X1)) => ((! [X2] : (v3_ordinal1(X2) => (r2_hidden(X2,X0) => k1_funct_1(X1,X2) = k3_card_1(X2))) & k9_xtuple_0(X1) = X0) => k3_card_1(X0) = k1_card_1(k4_ordinal2(X1)))) | k1_xboole_0 = X0))) & ! [X3] : (v3_ordinal1(X3) => k3_card_1(k1_ordinal1(X3)) = k2_card_1(k3_tarski(k1_tarski(k3_card_1(X3))))) & k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [rectify 109]
+118. ! [X3] : (v3_ordinal1(X3) => k3_card_1(k1_ordinal1(X3)) = k2_card_1(k3_tarski(k1_tarski(k3_card_1(X3))))) & k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [pure predicate removal 112]
+123. ! [X3] : (k3_card_1(k1_ordinal1(X3)) = k2_card_1(k3_tarski(k1_tarski(k3_card_1(X3)))) | ~v3_ordinal1(X3)) & k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [ennf transformation 118]
+198. ! [X0] : (k3_card_1(k1_ordinal1(X0)) = k2_card_1(k3_tarski(k1_tarski(k3_card_1(X0)))) | ~v3_ordinal1(X0)) & k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [rectify 123]
+239. k4_ordinal1 != k1_card_1(k4_ordinal1) [cnf transformation 111] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+245. k4_ordinal1 = k3_card_1(k1_xboole_0) [cnf transformation 110] {a:0,w:4,wCS:1600,sine:255,thAx:0,allAx:1,thDist:-1}
+248. k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [cnf transformation 198] {a:0,w:5,wCS:2000,sine:255,thAx:0,allAx:1,thDist:-1}
+380. 1 <=> k4_ordinal1 = k1_card_1(k4_ordinal1) [avatar definition]
+383. ~1 [avatar split clause 239,380]
+410. 7 <=> k4_ordinal1 = k3_card_1(k1_xboole_0) [avatar definition]
+413. 7 [avatar split clause 245,410]
+425. 10 <=> k1_card_1(k4_ordinal1) = k3_card_1(k1_xboole_0) [avatar definition]
+428. 10 [avatar split clause 248,425]
+644. k4_ordinal1 != k3_card_1(k1_xboole_0) | k1_card_1(k4_ordinal1) != k3_card_1(k1_xboole_0) | k4_ordinal1 = k1_card_1(k4_ordinal1) [theory tautology sat conflict] {a:0,w:13,wCS:5200,sine:255,thAx:0,allAx:1,thDist:-1}
+645. $false [avatar sat refutation 383,413,428,644] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:150,thDist:-150}
+% SZS output end Proof for card_1__t47_card_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 109
+% >>> Preprocessing
+% Introduced skolems: 20
+% Pure predicates: 4
+% 
+% >>> Saturation
+% Initial clauses: 140
+% Generated clauses: 140
+% Passive clauses: 74
+% Final passive clauses: 74
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 13
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 56
+% SAT solver unit clauses: 53
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

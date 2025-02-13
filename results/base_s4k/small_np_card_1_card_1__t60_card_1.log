@@ -1,0 +1,146 @@
+i: [1,38,0,2,1,1,0,0] t60_card_1
+a: [3,68,0,2,1,38]
+s: 68
+i: [1,37,0,2,1,1,0,0] t60_card_1
+a: [3,73,0,2,1,37]
+s: 73
+i: [1,40,0,3,1,1,0,0] t60_card_1
+a: [3,58,0,3,1,40]
+s: 58
+i: [1,39,0,3,1,1,0,0] t60_card_1
+a: [3,63,0,3,1,39]
+s: 63
+i: [1,52,0,2,1,0,0,255] rc1_card_1
+a: [3,78,0,2,1,52]
+s: 78
+i: [1,53,0,2,1,0,0,1] rc4_ordinal1
+a: [3,83,0,2,1,53]
+s: 83
+i: [1,54,0,2,1,0,0,1] rc1_ordinal1
+a: [3,88,0,2,1,54]
+s: 88
+i: [1,48,0,3,1,0,0,1] reflexivity_r2_wellord2
+s: 48
+i: [1,41,0,4,2,0,0,255] cc1_card_1
+s: 41
+i: [1,42,0,4,2,0,0,255] cc3_card_1
+s: 42
+i: [1,43,0,4,2,0,0,1] cc6_ordinal1
+s: 43
+d: [2,96,1,2,1,1,40,42,68]
+a: [3,101,1,2,1,96]
+s: 101
+i: [1,44,0,4,2,0,0,255] cc1_ordinal1
+s: 44
+d: [2,108,1,2,1,1,40,43,68]
+a: [3,113,1,2,1,108]
+s: 113
+i: [1,45,0,4,2,0,0,255] cc1_ordinal1
+s: 45
+i: [1,47,0,6,3,0,0,255] cc2_ordinal1
+s: 47
+d: [2,122,1,2,1,1,40,44,73]
+a: [3,127,1,2,1,122]
+s: 127
+i: [1,49,0,6,2,0,0,1] symmetry_r2_wellord2
+s: 49
+d: [2,140,1,2,1,1,40,45,73]
+a: [3,146,1,2,1,140]
+s: 146
+i: [1,50,0,6,2,0,0,255] redefinition_r2_wellord2
+s: 50
+i: [1,51,0,6,2,0,0,255] redefinition_r2_wellord2
+s: 51
+d: [2,134,2,2,1,1,40,113,44]
+a: [3,138,2,2,1,134]
+s: 138
+i: [1,46,0,10,4,0,0,1] l56_card_1
+s: 46
+d: [2,173,1,0,0,4,52,73,68,58,63,46]
+e: 173
+d: [2,174,1,7,3,1,40,46,63]
+d: [2,177,1,4,2,2,21,174,58]
+d: [2,178,1,2,1,3,21,177,68]
+d: [2,179,1,0,0,4,21,178,73]
+e: 179
+f: 179,37,38,39,40
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for card_1__t60_card_1
+% SZS output start Proof for card_1__t60_card_1
+1. ! [X0] : (v3_ordinal1(X0) => ! [X1] : (v7_ordinal1(X1) => (r2_wellord2(X0,X1) => X0 = X1))) [input t60_card_1]
+2. ~! [X0] : (v3_ordinal1(X0) => ! [X1] : (v7_ordinal1(X1) => (r2_wellord2(X0,X1) => X0 = X1))) [negated conjecture 1]
+14. ! [X0] : (v3_ordinal1(X0) => ! [X1] : (v7_ordinal1(X1) => (r2_wellord2(X0,X1) => X0 = X1))) [input l56_card_1]
+16. ? [X0] : (? [X1] : ((X0 != X1 & r2_wellord2(X0,X1)) & v7_ordinal1(X1)) & v3_ordinal1(X0)) [ennf transformation 2]
+17. ? [X0] : (? [X1] : (X0 != X1 & r2_wellord2(X0,X1) & v7_ordinal1(X1)) & v3_ordinal1(X0)) [flattening 16]
+22. ! [X0] : (! [X1] : ((X0 = X1 | ~r2_wellord2(X0,X1)) | ~v7_ordinal1(X1)) | ~v3_ordinal1(X0)) [ennf transformation 14]
+23. ! [X0] : (! [X1] : (X0 = X1 | ~r2_wellord2(X0,X1) | ~v7_ordinal1(X1)) | ~v3_ordinal1(X0)) [flattening 22]
+27. ? [X0] : (? [X1] : (X0 != X1 & r2_wellord2(X0,X1) & v7_ordinal1(X1)) & v3_ordinal1(X0)) => (? [X1] : (sK0 != X1 & r2_wellord2(sK0,X1) & v7_ordinal1(X1)) & v3_ordinal1(sK0)) [choice axiom]
+28. ? [X1] : (sK0 != X1 & r2_wellord2(sK0,X1) & v7_ordinal1(X1)) => (sK0 != sK1 & r2_wellord2(sK0,sK1) & v7_ordinal1(sK1)) [choice axiom]
+29. (sK0 != sK1 & r2_wellord2(sK0,sK1) & v7_ordinal1(sK1)) & v3_ordinal1(sK0) [skolemisation 17,28,27]
+37. v3_ordinal1(sK0) [cnf transformation 29] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+38. v7_ordinal1(sK1) [cnf transformation 29] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+39. r2_wellord2(sK0,sK1) [cnf transformation 29] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+40. sK0 != sK1 [cnf transformation 29] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+46. ~r2_wellord2(X0,X1) | X0 = X1 | ~v7_ordinal1(X1) | ~v3_ordinal1(X0) [cnf transformation 23] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+56. 1 <=> sK0 = sK1 [avatar definition]
+58. sK0 != sK1 <- (~1) [avatar component clause 56] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+59. ~1 [avatar split clause 40,56]
+61. 2 <=> r2_wellord2(sK0,sK1) [avatar definition]
+63. r2_wellord2(sK0,sK1) <- (2) [avatar component clause 61] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+64. 2 [avatar split clause 39,61]
+66. 3 <=> v7_ordinal1(sK1) [avatar definition]
+68. v7_ordinal1(sK1) <- (3) [avatar component clause 66] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+69. 3 [avatar split clause 38,66]
+71. 4 <=> v3_ordinal1(sK0) [avatar definition]
+73. v3_ordinal1(sK0) <- (4) [avatar component clause 71] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+74. 4 [avatar split clause 37,71]
+174. sK0 = sK1 | ~v7_ordinal1(sK1) | ~v3_ordinal1(sK0) <- (2) [resolution 46,63] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+177. ~v7_ordinal1(sK1) | ~v3_ordinal1(sK0) <- (~1, 2) [subsumption resolution 174,58] {a:1,w:4,wCS:400,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+178. ~v3_ordinal1(sK0) <- (~1, 2, 3) [subsumption resolution 177,68] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+179. $false <- (~1, 2, 3, 4) [subsumption resolution 178,73] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+180. 1 | ~2 | ~3 | ~4 [avatar contradiction clause 179]
+181. $false [avatar sat refutation 59,64,69,74,180] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:124,thDist:-124}
+% SZS output end Proof for card_1__t60_card_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 13
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 18
+% Generated clauses: 61
+% Active clauses: 23
+% Passive clauses: 32
+% Final active clauses: 23
+% Final passive clauses: 9
+% Main loop iterations started: 23
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 3
+% 
+% >>> Deletion Inferences
+% Equational tautologies: 1
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 19
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 25
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 14
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

@@ -1,0 +1,130 @@
+i: [1,19,0,3,1,1,0,0] t64_xboole_1
+a: [3,26,0,3,1,19]
+s: 26
+i: [1,18,0,3,1,1,0,0] t64_xboole_1
+a: [3,31,0,3,1,18]
+s: 31
+i: [1,17,0,3,1,1,0,0] t64_xboole_1
+a: [3,36,0,3,1,17]
+s: 36
+i: [1,16,0,3,1,1,0,0] t64_xboole_1
+a: [3,41,0,3,1,16]
+s: 41
+i: [1,21,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 21
+i: [1,22,0,6,2,0,0,1] symmetry_r1_xboole_0
+s: 22
+d: [2,43,1,3,1,1,40,22,31]
+a: [3,47,1,3,1,43]
+s: 47
+i: [1,20,0,9,3,0,0,1] t63_xboole_1
+s: 20
+d: [2,50,1,6,2,1,40,20,31]
+s: 50
+d: [2,52,2,3,1,2,40,50,41]
+a: [3,57,2,3,1,52]
+s: 57
+d: [2,51,2,6,2,1,40,20,47]
+s: 51
+d: [2,60,3,3,1,1,40,57,22]
+a: [3,64,3,3,1,60]
+s: 64
+d: [2,66,3,3,1,2,40,51,36]
+a: [3,71,3,3,1,66]
+s: 71
+d: [2,76,4,3,1,1,40,71,22]
+a: [3,80,4,3,1,76]
+s: 80
+d: [2,82,5,0,0,3,52,41,26,80,20]
+e: 82
+f: 82,76,66,43,16,17,18,19
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t64_xboole_1
+% SZS output start Proof for xboole_1__t64_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ((r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [input t64_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ((r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [negated conjecture 1]
+4. ! [X0,X1] : (r1_xboole_0(X0,X1) => r1_xboole_0(X1,X0)) [input symmetry_r1_xboole_0]
+5. ! [X0] : ! [X1] : ! [X2] : ((r1_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [input t63_xboole_1]
+6. ~! [X0,X1,X2,X3] : ((r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [flattening 2]
+7. ! [X0,X1,X2] : ((r1_xboole_0(X1,X2) & r1_tarski(X0,X1)) => r1_xboole_0(X0,X2)) [flattening 5]
+9. ? [X0,X1,X2,X3] : (~r1_xboole_0(X0,X2) & (r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1))) [ennf transformation 6]
+10. ? [X0,X1,X2,X3] : (~r1_xboole_0(X0,X2) & r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) [flattening 9]
+11. ! [X0,X1,X2] : (r1_xboole_0(X0,X2) | (~r1_xboole_0(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 7]
+12. ! [X0,X1,X2] : (r1_xboole_0(X0,X2) | ~r1_xboole_0(X1,X2) | ~r1_tarski(X0,X1)) [flattening 11]
+13. ! [X0,X1] : (r1_xboole_0(X1,X0) | ~r1_xboole_0(X0,X1)) [ennf transformation 4]
+14. ? [X0,X1,X2,X3] : (~r1_xboole_0(X0,X2) & r1_xboole_0(X1,X3) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) => (~r1_xboole_0(sK0,sK2) & r1_xboole_0(sK1,sK3) & r1_tarski(sK2,sK3) & r1_tarski(sK0,sK1)) [choice axiom]
+15. ~r1_xboole_0(sK0,sK2) & r1_xboole_0(sK1,sK3) & r1_tarski(sK2,sK3) & r1_tarski(sK0,sK1) [skolemisation 10,14]
+16. r1_tarski(sK0,sK1) [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+17. r1_tarski(sK2,sK3) [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+18. r1_xboole_0(sK1,sK3) [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+19. ~r1_xboole_0(sK0,sK2) [cnf transformation 15] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. ~r1_xboole_0(X1,X2) | r1_xboole_0(X0,X2) | ~r1_tarski(X0,X1) [cnf transformation 12] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+22. ~r1_xboole_0(X0,X1) | r1_xboole_0(X1,X0) [cnf transformation 13] {a:0,w:6,wCS:2400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+24. 1 <=> r1_xboole_0(sK0,sK2) [avatar definition]
+26. ~r1_xboole_0(sK0,sK2) <- (~1) [avatar component clause 24] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+27. ~1 [avatar split clause 19,24]
+29. 2 <=> r1_xboole_0(sK1,sK3) [avatar definition]
+31. r1_xboole_0(sK1,sK3) <- (2) [avatar component clause 29] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+32. 2 [avatar split clause 18,29]
+34. 3 <=> r1_tarski(sK2,sK3) [avatar definition]
+36. r1_tarski(sK2,sK3) <- (3) [avatar component clause 34] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+37. 3 [avatar split clause 17,34]
+39. 4 <=> r1_tarski(sK0,sK1) [avatar definition]
+41. r1_tarski(sK0,sK1) <- (4) [avatar component clause 39] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+42. 4 [avatar split clause 16,39]
+43. r1_xboole_0(sK3,sK1) <- (2) [resolution 22,31] {a:1,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+45. 5 <=> r1_xboole_0(sK3,sK1) [avatar definition]
+47. r1_xboole_0(sK3,sK1) <- (5) [avatar component clause 45] {a:1,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+48. 5 | ~2 [avatar split clause 43,29,45]
+51. ~r1_tarski(X1,sK3) | r1_xboole_0(X1,sK1) <- (5) [resolution 20,47] {a:2,w:6,wCS:600,nSel:1,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+66. r1_xboole_0(sK2,sK1) <- (3, 5) [resolution 51,36] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+69. 8 <=> r1_xboole_0(sK2,sK1) [avatar definition]
+71. r1_xboole_0(sK2,sK1) <- (8) [avatar component clause 69] {a:3,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:6,thDist:-6}
+72. 8 | ~3 | ~5 [avatar split clause 66,45,34,69]
+76. r1_xboole_0(sK1,sK2) <- (8) [resolution 71,22] {a:4,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:7,thDist:-7}
+78. 9 <=> r1_xboole_0(sK1,sK2) [avatar definition]
+80. r1_xboole_0(sK1,sK2) <- (9) [avatar component clause 78] {a:4,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:7,thDist:-7}
+81. 9 | ~8 [avatar split clause 76,69,78]
+82. $false <- (~1, 4, 9) [unit resulting resolution 41,26,80,20] {a:5,w:0,goal:1,sine:1,thAx:0,allAx:12,thDist:-12}
+85. 1 | ~4 | ~9 [avatar contradiction clause 82]
+86. $false [avatar sat refutation 27,32,37,42,48,72,81,85] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:63,thDist:-63}
+% SZS output end Proof for xboole_1__t64_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 4
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 7
+% Generated clauses: 33
+% Active clauses: 14
+% Passive clauses: 17
+% Final active clauses: 14
+% Final passive clauses: 3
+% Main loop iterations started: 14
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 5
+% 
+% >>> Generating Inferences
+% Binary resolution: 16
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 12
+% SAT solver unit clauses: 4
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

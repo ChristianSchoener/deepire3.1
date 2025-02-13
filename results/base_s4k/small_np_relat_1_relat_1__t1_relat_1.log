@@ -1,0 +1,88 @@
+i: [1,18,0,2,1,1,0,0] t1_relat_1
+a: [3,32,0,2,1,18]
+s: 32
+i: [1,17,0,2,1,1,0,0] t1_relat_1
+a: [3,37,0,2,1,17]
+s: 37
+i: [1,19,0,10,1,1,0,0] t1_relat_1
+a: [3,27,0,10,1,19]
+s: 27
+i: [1,21,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 21
+i: [1,22,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 22
+i: [1,23,0,8,3,0,0,1] fc3_relat_1
+s: 23
+i: [1,20,0,10,1,0,0,1] t23_xtuple_0
+s: 20
+d: [2,47,1,9,1,1,44,27,20]
+d: [2,52,1,0,0,1,19,47]
+e: 52
+d: [2,43,1,0,0,1,52,27,20]
+e: 43
+f: 43,19
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relat_1__t1_relat_1
+% SZS output start Proof for relat_1__t1_relat_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)))) [input t1_relat_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (v1_relat_1(X1) => k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)))) [negated conjecture 1]
+8. ! [X0] : ! [X1] : k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [input t23_xtuple_0]
+9. ! [X0,X1] : k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [flattening 8]
+11. ? [X0] : (? [X1] : (k9_xtuple_0(k2_xboole_0(X0,X1)) != k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) & v1_relat_1(X1)) & v1_relat_1(X0)) [ennf transformation 2]
+14. ? [X0] : (? [X1] : (k9_xtuple_0(k2_xboole_0(X0,X1)) != k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) & v1_relat_1(X1)) & v1_relat_1(X0)) => (? [X1] : (k9_xtuple_0(k2_xboole_0(sK0,X1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(X1)) & v1_relat_1(X1)) & v1_relat_1(sK0)) [choice axiom]
+15. ? [X1] : (k9_xtuple_0(k2_xboole_0(sK0,X1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(X1)) & v1_relat_1(X1)) => (k9_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(sK1)) & v1_relat_1(sK1)) [choice axiom]
+16. (k9_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(sK1)) & v1_relat_1(sK1)) & v1_relat_1(sK0) [skolemisation 11,15,14]
+19. k9_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(sK1)) [cnf transformation 16] {a:0,w:10,wCS:1000,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+20. k9_xtuple_0(k2_xboole_0(X0,X1)) = k2_xboole_0(k9_xtuple_0(X0),k9_xtuple_0(X1)) [cnf transformation 9] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+25. 1 <=> k9_xtuple_0(k2_xboole_0(sK0,sK1)) = k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(sK1)) [avatar definition]
+27. k9_xtuple_0(k2_xboole_0(sK0,sK1)) != k2_xboole_0(k9_xtuple_0(sK0),k9_xtuple_0(sK1)) <- (~1) [avatar component clause 25] {a:0,w:10,wCS:1000,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+28. ~1 [avatar split clause 19,25]
+43. $false <- (~1) [unit resulting resolution 27,20] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+54. 1 [avatar contradiction clause 43]
+55. $false [avatar sat refutation 28,54] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:20,thDist:-20}
+% SZS output end Proof for relat_1__t1_relat_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 7
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 7
+% Generated clauses: 24
+% Active clauses: 7
+% Passive clauses: 7
+% Final active clauses: 7
+% Main loop iterations started: 7
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 1
+% Trivial inequalities: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 2
+% Fw demodulations to eq. taut.: 2
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Forward superposition: 6
+% Backward superposition: 5
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 5
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

@@ -1,0 +1,175 @@
+i: [1,42,0,3,1,1,0,0] t120_zfmisc_1
+a: [3,69,0,3,1,42]
+s: 69
+i: [1,41,0,3,1,1,0,0] t120_zfmisc_1
+a: [3,74,0,3,1,41]
+s: 74
+i: [1,43,0,7,1,1,0,0] t120_zfmisc_1
+a: [3,64,0,7,1,43]
+s: 64
+i: [1,44,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,79,0,2,1,44]
+s: 79
+i: [1,45,0,2,1,0,0,2] fc1_xboole_0
+a: [3,84,0,2,1,45]
+s: 84
+i: [1,59,0,2,1,0,0,2] rc2_xboole_0
+a: [3,94,0,2,1,59]
+s: 94
+i: [1,60,0,2,1,0,0,2] rc1_xboole_0
+a: [3,99,0,2,1,60]
+s: 99
+i: [1,46,0,3,1,0,0,255] d2_xboole_0
+a: [3,89,0,3,1,46]
+s: 89
+r: 79
+i: [1,55,0,4,1,0,0,1] fc3_xboole_0
+s: 55
+i: [1,47,0,5,1,0,0,1] t4_boole
+s: 47
+i: [1,48,0,5,1,0,0,1] t3_boole
+s: 48
+i: [1,49,0,5,2,0,0,2] t6_boole
+s: 49
+i: [1,53,0,5,2,0,0,1] t7_boole
+s: 53
+i: [1,57,0,6,2,0,0,255] symmetry_r1_xboole_0
+s: 57
+i: [1,58,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 58
+i: [1,52,0,7,3,0,0,1] t8_boole
+s: 52
+i: [1,56,0,7,1,0,0,1] commutativity_k2_tarski
+s: 56
+i: [1,50,0,8,2,0,0,255] t83_xboole_1
+s: 50
+d: [2,108,1,8,2,1,44,64,50]
+d: [2,109,1,5,1,1,19,108]
+a: [3,113,1,5,1,109]
+s: 113
+i: [1,51,0,8,2,0,0,255] t83_xboole_1
+s: 51
+i: [1,54,0,11,3,0,0,255] l143_zfmisc_1
+s: 54
+d: [2,116,1,6,2,0,44,51,48]
+d: [2,118,1,3,1,0,19,116]
+s: 118
+d: [2,115,1,6,2,0,44,51,47]
+d: [2,119,1,3,1,0,19,115]
+s: 119
+d: [2,123,2,3,1,0,40,118,57]
+s: 123
+d: [2,102,1,7,3,0,44,49,49]
+s: 102
+d: [2,103,1,7,2,0,44,48,49]
+s: 103
+d: [2,124,2,5,2,0,44,118,49]
+s: 124
+d: [2,104,1,7,2,0,44,47,49]
+s: 104
+d: [2,133,2,5,2,1,44,64,104]
+d: [2,136,2,2,1,1,19,133]
+a: [3,140,2,2,1,136]
+s: 140
+d: [2,120,1,11,3,0,40,54,57]
+s: 120
+d: [2,142,2,0,0,3,52,69,74,113,120]
+e: 142
+d: [2,144,2,6,2,1,40,120,113]
+d: [2,148,2,3,1,2,21,144,74]
+d: [2,149,2,0,0,3,21,148,69]
+e: 149
+f: 149,109,41,42,43
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zfmisc_1__t120_zfmisc_1
+% SZS output start Proof for zfmisc_1__t120_zfmisc_1
+1. ! [X0] : ! [X1] : ! [X2] : ~(k4_xboole_0(X2,k2_tarski(X0,X1)) != X2 & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [input t120_zfmisc_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ~(k4_xboole_0(X2,k2_tarski(X0,X1)) != X2 & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [negated conjecture 1]
+12. ! [X0] : ! [X1] : ! [X2] : ~(~r1_xboole_0(k2_tarski(X0,X1),X2) & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [input l143_zfmisc_1]
+15. ! [X0,X1] : (r1_xboole_0(X0,X1) => r1_xboole_0(X1,X0)) [input symmetry_r1_xboole_0]
+20. ! [X0] : ! [X1] : (r1_xboole_0(X0,X1) <=> k4_xboole_0(X0,X1) = X0) [input t83_xboole_1]
+22. ~! [X0,X1,X2] : ~(k4_xboole_0(X2,k2_tarski(X0,X1)) != X2 & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [flattening 2]
+23. ! [X0,X1] : (r1_xboole_0(X0,X1) <=> k4_xboole_0(X0,X1) = X0) [flattening 20]
+26. ! [X0,X1,X2] : ~(~r1_xboole_0(k2_tarski(X0,X1),X2) & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [flattening 12]
+27. ? [X0,X1,X2] : (k4_xboole_0(X2,k2_tarski(X0,X1)) != X2 & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) [ennf transformation 22]
+31. ! [X0,X1,X2] : (r1_xboole_0(k2_tarski(X0,X1),X2) | r2_hidden(X1,X2) | r2_hidden(X0,X2)) [ennf transformation 26]
+32. ! [X0,X1] : (r1_xboole_0(X1,X0) | ~r1_xboole_0(X0,X1)) [ennf transformation 15]
+34. ? [X0,X1,X2] : (k4_xboole_0(X2,k2_tarski(X0,X1)) != X2 & ~r2_hidden(X1,X2) & ~r2_hidden(X0,X2)) => (sK2 != k4_xboole_0(sK2,k2_tarski(sK0,sK1)) & ~r2_hidden(sK1,sK2) & ~r2_hidden(sK0,sK2)) [choice axiom]
+35. sK2 != k4_xboole_0(sK2,k2_tarski(sK0,sK1)) & ~r2_hidden(sK1,sK2) & ~r2_hidden(sK0,sK2) [skolemisation 27,34]
+36. ! [X0,X1] : ((r1_xboole_0(X0,X1) | k4_xboole_0(X0,X1) != X0) & (k4_xboole_0(X0,X1) = X0 | ~r1_xboole_0(X0,X1))) [nnf transformation 23]
+41. ~r2_hidden(sK0,sK2) [cnf transformation 35] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+42. ~r2_hidden(sK1,sK2) [cnf transformation 35] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+43. sK2 != k4_xboole_0(sK2,k2_tarski(sK0,sK1)) [cnf transformation 35] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+50. k4_xboole_0(X0,X1) = X0 | ~r1_xboole_0(X0,X1) [cnf transformation 36] {a:0,w:8,wCS:3200,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+54. r1_xboole_0(k2_tarski(X0,X1),X2) | r2_hidden(X1,X2) | r2_hidden(X0,X2) [cnf transformation 31] {a:0,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+57. ~r1_xboole_0(X0,X1) | r1_xboole_0(X1,X0) [cnf transformation 32] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+62. 1 <=> sK2 = k4_xboole_0(sK2,k2_tarski(sK0,sK1)) [avatar definition]
+64. sK2 != k4_xboole_0(sK2,k2_tarski(sK0,sK1)) <- (~1) [avatar component clause 62] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+65. ~1 [avatar split clause 43,62]
+67. 2 <=> r2_hidden(sK1,sK2) [avatar definition]
+69. ~r2_hidden(sK1,sK2) <- (~2) [avatar component clause 67] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+70. ~2 [avatar split clause 42,67]
+72. 3 <=> r2_hidden(sK0,sK2) [avatar definition]
+74. ~r2_hidden(sK0,sK2) <- (~3) [avatar component clause 72] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+75. ~3 [avatar split clause 41,72]
+108. sK2 != sK2 | ~r1_xboole_0(sK2,k2_tarski(sK0,sK1)) <- (~1) [superposition 64,50] {a:1,w:8,wCS:800,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+109. ~r1_xboole_0(sK2,k2_tarski(sK0,sK1)) <- (~1) [trivial inequality removal 108] {a:1,w:5,wCS:500,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+111. 9 <=> r1_xboole_0(sK2,k2_tarski(sK0,sK1)) [avatar definition]
+113. ~r1_xboole_0(sK2,k2_tarski(sK0,sK1)) <- (~9) [avatar component clause 111] {a:1,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+114. ~9 | 1 [avatar split clause 109,62,111]
+120. r1_xboole_0(X1,k2_tarski(X2,X0)) | r2_hidden(X2,X1) | r2_hidden(X0,X1) [resolution 54,57] {a:1,w:11,wCS:4400,nSel:1,sine:255,thAx:0,allAx:2,thDist:-2}
+144. r2_hidden(sK0,sK2) | r2_hidden(sK1,sK2) <- (~9) [resolution 120,113] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+148. r2_hidden(sK1,sK2) <- (~3, ~9) [subsumption resolution 144,74] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+149. $false <- (~2, ~3, ~9) [subsumption resolution 148,69] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+150. 2 | 3 | 9 [avatar contradiction clause 149]
+151. $false [avatar sat refutation 65,70,75,114,150] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:46,thDist:-46}
+% SZS output end Proof for zfmisc_1__t120_zfmisc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 20
+% Introduced skolems: 5
+% 
+% >>> Saturation
+% Initial clauses: 20
+% Generated clauses: 68
+% Active clauses: 28
+% Passive clauses: 34
+% Final active clauses: 27
+% Final passive clauses: 4
+% Main loop iterations started: 30
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 7
+% Fw subsumption resolutions: 2
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 13
+% 
+% >>> Generating Inferences
+% Binary resolution: 7
+% Unit resulting resolution: 1
+% Forward superposition: 9
+% Backward superposition: 10
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 14
+% SAT solver unit clauses: 8
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% superposition: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

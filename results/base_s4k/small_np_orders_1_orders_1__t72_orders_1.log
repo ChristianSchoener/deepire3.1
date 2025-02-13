@@ -1,0 +1,104 @@
+i: [1,24,0,2,1,1,0,0] t72_orders_1
+a: [3,48,0,2,1,24]
+s: 48
+i: [1,25,0,3,1,1,0,0] t72_orders_1
+a: [3,43,0,3,1,25]
+s: 43
+i: [1,26,0,4,1,1,0,0] t72_orders_1
+a: [3,38,0,4,1,26]
+s: 38
+i: [1,29,0,4,1,0,0,255] fc6_relat_1
+s: 29
+i: [1,30,0,5,1,0,0,255] idempotence_k3_xboole_0
+s: 30
+i: [1,32,0,6,2,0,0,1] dt_k2_wellord1
+s: 32
+i: [1,33,0,6,2,0,0,2] fc1_relat_1
+s: 33
+i: [1,31,0,7,1,0,0,255] commutativity_k3_xboole_0
+s: 31
+d: [2,51,1,6,2,0,44,33,31]
+s: 51
+i: [1,28,0,9,3,0,0,1] l46_orders_1
+s: 28
+d: [2,56,1,0,0,3,52,48,43,38,28]
+e: 56
+d: [2,57,1,5,2,1,40,28,38]
+d: [2,59,1,2,1,2,21,57,43]
+d: [2,60,1,0,0,3,21,59,48]
+e: 60
+f: 60,24,25,26
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for orders_1__t72_orders_1
+% SZS output start Proof for orders_1__t72_orders_1
+1. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r1_relat_2(X0,X1) => v1_relat_2(k2_wellord1(X0,X1)))) [input t72_orders_1]
+2. ~! [X0] : (v1_relat_1(X0) => ! [X1] : (r1_relat_2(X0,X1) => v1_relat_2(k2_wellord1(X0,X1)))) [negated conjecture 1]
+12. ! [X0] : (v1_relat_1(X0) => ! [X1] : (r1_relat_2(X0,X1) => v1_relat_2(k2_wellord1(X0,X1)))) [input l46_orders_1]
+14. ? [X0] : (? [X1] : (~v1_relat_2(k2_wellord1(X0,X1)) & r1_relat_2(X0,X1)) & v1_relat_1(X0)) [ennf transformation 2]
+16. ! [X0] : (! [X1] : (v1_relat_2(k2_wellord1(X0,X1)) | ~r1_relat_2(X0,X1)) | ~v1_relat_1(X0)) [ennf transformation 12]
+21. ? [X0] : (? [X1] : (~v1_relat_2(k2_wellord1(X0,X1)) & r1_relat_2(X0,X1)) & v1_relat_1(X0)) => (? [X1] : (~v1_relat_2(k2_wellord1(sK0,X1)) & r1_relat_2(sK0,X1)) & v1_relat_1(sK0)) [choice axiom]
+22. ? [X1] : (~v1_relat_2(k2_wellord1(sK0,X1)) & r1_relat_2(sK0,X1)) => (~v1_relat_2(k2_wellord1(sK0,sK1)) & r1_relat_2(sK0,sK1)) [choice axiom]
+23. (~v1_relat_2(k2_wellord1(sK0,sK1)) & r1_relat_2(sK0,sK1)) & v1_relat_1(sK0) [skolemisation 14,22,21]
+24. v1_relat_1(sK0) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+25. r1_relat_2(sK0,sK1) [cnf transformation 23] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+26. ~v1_relat_2(k2_wellord1(sK0,sK1)) [cnf transformation 23] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:3,thDist:-3}
+28. v1_relat_2(k2_wellord1(X0,X1)) | ~r1_relat_2(X0,X1) | ~v1_relat_1(X0) [cnf transformation 16] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+36. 1 <=> v1_relat_2(k2_wellord1(sK0,sK1)) [avatar definition]
+38. ~v1_relat_2(k2_wellord1(sK0,sK1)) <- (~1) [avatar component clause 36] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+39. ~1 [avatar split clause 26,36]
+41. 2 <=> r1_relat_2(sK0,sK1) [avatar definition]
+43. r1_relat_2(sK0,sK1) <- (2) [avatar component clause 41] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+44. 2 [avatar split clause 25,41]
+46. 3 <=> v1_relat_1(sK0) [avatar definition]
+48. v1_relat_1(sK0) <- (3) [avatar component clause 46] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+49. 3 [avatar split clause 24,46]
+57. ~r1_relat_2(sK0,sK1) | ~v1_relat_1(sK0) <- (~1) [resolution 28,38] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+59. ~v1_relat_1(sK0) <- (~1, 2) [subsumption resolution 57,43] {a:1,w:2,wCS:200,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+60. $false <- (~1, 2, 3) [subsumption resolution 59,48] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+61. 1 | ~2 | ~3 [avatar contradiction clause 60]
+62. $false [avatar sat refutation 39,44,49,61] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:26,thDist:-26}
+% SZS output end Proof for orders_1__t72_orders_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 11
+% Introduced skolems: 2
+% 
+% >>> Saturation
+% Initial clauses: 11
+% Generated clauses: 24
+% Active clauses: 10
+% Passive clauses: 13
+% Final active clauses: 10
+% Final passive clauses: 3
+% Main loop iterations started: 10
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 2
+% Forward subsumptions: 2
+% 
+% >>> Generating Inferences
+% Binary resolution: 1
+% Unit resulting resolution: 1
+% Forward superposition: 4
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

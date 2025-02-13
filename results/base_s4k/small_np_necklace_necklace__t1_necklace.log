@@ -1,0 +1,56 @@
+i: [1,380,0,7,1,1,0,0] t1_necklace
+i: [1,388,0,3,1,0,0,1] redefinition_k6_numbers
+i: [1,394,0,7,1,0,0,1] t52_card_1
+f: 394,388,380
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for necklace__t1_necklace
+% SZS output start Proof for necklace__t1_necklace
+1. 4 = k2_enumset1(k6_numbers,1,2,3) [input t1_necklace]
+2. ~4 = k2_enumset1(k6_numbers,1,2,3) [negated conjecture 1]
+136. k6_numbers = k1_xboole_0 [input redefinition_k6_numbers]
+152. 4 = k2_enumset1(k1_xboole_0,1,2,3) [input t52_card_1]
+153. 4 != k2_enumset1(k6_numbers,1,2,3) [flattening 2]
+380. 4 != k2_enumset1(k6_numbers,1,2,3) [cnf transformation 153] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+388. k6_numbers = k1_xboole_0 [cnf transformation 136] {a:0,w:3,wCS:1200,sine:1,thAx:0,allAx:1,thDist:-1}
+394. 4 = k2_enumset1(k1_xboole_0,1,2,3) [cnf transformation 152] {a:0,w:7,wCS:2800,sine:1,thAx:0,allAx:1,thDist:-1}
+614. 1 <=> 4 = k2_enumset1(k6_numbers,1,2,3) [avatar definition]
+617. ~1 [avatar split clause 380,614]
+654. 9 <=> k6_numbers = k1_xboole_0 [avatar definition]
+657. 9 [avatar split clause 388,654]
+684. 15 <=> 4 = k2_enumset1(k1_xboole_0,1,2,3) [avatar definition]
+687. 15 [avatar split clause 394,684]
+1133. k6_numbers != k1_xboole_0 | 4 != k2_enumset1(k1_xboole_0,1,2,3) | 4 = k2_enumset1(k6_numbers,1,2,3) [theory tautology sat conflict] {a:0,w:17,wCS:6800,sine:255,thAx:0,allAx:1,thDist:-1}
+1134. $false [avatar sat refutation 617,657,687,1133] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:280,thDist:-280}
+% SZS output end Proof for necklace__t1_necklace
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 151
+% >>> Preprocessing
+% Introduced skolems: 45
+% Pure predicates: 8
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 233
+% Generated clauses: 233
+% Passive clauses: 108
+% Final passive clauses: 108
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 21
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 107
+% SAT solver unit clauses: 104
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% other: 0.003 s ( own 0.001 s ) 
+

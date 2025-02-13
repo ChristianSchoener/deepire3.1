@@ -1,0 +1,172 @@
+i: [1,128,0,7,1,1,0,0] t14_relset_1
+a: [3,191,0,7,1,128]
+s: 191
+i: [1,129,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,196,0,2,1,129]
+s: 196
+i: [1,130,0,2,1,0,0,255] fc1_xboole_0
+a: [3,201,0,2,1,130]
+s: 201
+i: [1,183,0,2,1,0,0,2] rc2_xboole_0
+a: [3,211,0,2,1,183]
+s: 211
+i: [1,184,0,2,1,0,0,2] rc1_xboole_0
+a: [3,216,0,2,1,184]
+s: 216
+i: [1,186,0,2,1,0,0,2] rc1_relat_1
+a: [3,221,0,2,1,186]
+s: 221
+i: [1,185,0,2,1,0,0,2] rc1_relat_1
+a: [3,226,0,2,1,185]
+s: 226
+i: [1,187,0,2,1,0,0,255] rc2_relat_1
+a: [3,231,0,2,1,187]
+s: 231
+i: [1,132,0,3,1,0,0,1] fc1_subset_1
+s: 132
+i: [1,133,0,3,1,0,0,1] dt_k4_relat_1
+s: 133
+i: [1,135,0,3,1,0,0,1] fc28_relat_1
+s: 135
+i: [1,166,0,3,1,0,0,1] rc2_subset_1
+s: 166
+i: [1,169,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 169
+i: [1,131,0,3,1,0,0,255] d2_xboole_0
+a: [3,206,0,3,1,131]
+s: 206
+r: 201
+i: [1,136,0,4,1,0,0,1] fc28_relat_1
+s: 136
+i: [1,137,0,4,1,0,0,1] fc28_relat_1
+s: 137
+i: [1,145,0,4,2,0,0,2] cc1_relat_1
+s: 145
+i: [1,164,0,4,1,0,0,1] existence_m1_subset_1
+s: 164
+d: [2,234,1,2,1,1,40,145,196]
+a: [3,240,1,2,1,234]
+s: 240
+i: [1,168,0,4,1,0,0,255] rc3_subset_1
+s: 168
+i: [1,170,0,4,1,0,0,1] fc6_relat_1
+s: 170
+d: [2,236,1,2,1,1,40,145,216]
+a: [3,245,1,2,1,236]
+s: 245
+i: [1,180,0,4,1,0,0,2] rc3_relat_1
+s: 180
+d: [2,235,1,3,1,0,40,145,166]
+s: 235
+i: [1,141,0,5,2,0,0,1] rc1_subset_1
+s: 141
+i: [1,146,0,5,2,0,0,255] t6_boole
+s: 146
+i: [1,161,0,5,2,0,0,255] t7_boole
+s: 161
+i: [1,165,0,5,1,0,0,1] rc2_subset_1
+s: 165
+i: [1,167,0,5,1,0,0,255] rc3_subset_1
+s: 167
+i: [1,181,0,5,1,0,0,2] rc3_relat_1
+s: 181
+i: [1,182,0,5,1,0,0,2] rc3_relat_1
+s: 182
+d: [2,247,0,5,2,1,22,146,206]
+s: 247
+i: [1,134,0,6,1,0,0,255] t13_relset_1
+s: 134
+i: [1,143,0,6,2,0,0,255] rc4_subset_1
+s: 143
+i: [1,157,0,6,2,0,0,255] t1_subset
+s: 157
+i: [1,173,0,6,2,0,0,255] antisymmetry_r2_hidden
+s: 173
+i: [1,140,0,7,2,0,0,1] rc1_subset_1
+s: 140
+i: [1,142,0,7,2,0,0,255] rc4_subset_1
+s: 142
+i: [1,159,0,7,2,0,0,255] t3_subset
+s: 159
+d: [2,251,1,0,0,1,52,134,191,159]
+e: 251
+d: [2,252,1,6,1,1,40,159,191]
+d: [2,254,1,0,0,1,21,252,134]
+e: 254
+f: 254,128
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relset_1__t14_relset_1
+% SZS output start Proof for relset_1__t14_relset_1
+1. ! [X0] : m1_subset_1(k4_relat_1(X0),k1_zfmisc_1(k2_zfmisc_1(X0,X0))) [input t14_relset_1]
+2. ~! [X0] : m1_subset_1(k4_relat_1(X0),k1_zfmisc_1(k2_zfmisc_1(X0,X0))) [negated conjecture 1]
+50. ! [X0] : ! [X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) <=> r1_tarski(X0,X1)) [input t3_subset]
+51. ! [X0] : r1_tarski(k4_relat_1(X0),k2_zfmisc_1(X0,X0)) [input t13_relset_1]
+54. ! [X0,X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) <=> r1_tarski(X0,X1)) [flattening 50]
+62. ! [X0,X1] : (r1_tarski(X0,X1) => m1_subset_1(X0,k1_zfmisc_1(X1))) [unused predicate definition removal 54]
+66. ? [X0] : ~m1_subset_1(k4_relat_1(X0),k1_zfmisc_1(k2_zfmisc_1(X0,X0))) [ennf transformation 2]
+89. ! [X0,X1] : (m1_subset_1(X0,k1_zfmisc_1(X1)) | ~r1_tarski(X0,X1)) [ennf transformation 62]
+106. ? [X0] : ~m1_subset_1(k4_relat_1(X0),k1_zfmisc_1(k2_zfmisc_1(X0,X0))) => ~m1_subset_1(k4_relat_1(sK0),k1_zfmisc_1(k2_zfmisc_1(sK0,sK0))) [choice axiom]
+107. ~m1_subset_1(k4_relat_1(sK0),k1_zfmisc_1(k2_zfmisc_1(sK0,sK0))) [skolemisation 66,106]
+128. ~m1_subset_1(k4_relat_1(sK0),k1_zfmisc_1(k2_zfmisc_1(sK0,sK0))) [cnf transformation 107] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+134. r1_tarski(k4_relat_1(X0),k2_zfmisc_1(X0,X0)) [cnf transformation 51] {a:0,w:6,wCS:2400,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+159. m1_subset_1(X0,k1_zfmisc_1(X1)) | ~r1_tarski(X0,X1) [cnf transformation 89] {a:0,w:7,wCS:2800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+189. 1 <=> m1_subset_1(k4_relat_1(sK0),k1_zfmisc_1(k2_zfmisc_1(sK0,sK0))) [avatar definition]
+191. ~m1_subset_1(k4_relat_1(sK0),k1_zfmisc_1(k2_zfmisc_1(sK0,sK0))) <- (~1) [avatar component clause 189] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+192. ~1 [avatar split clause 128,189]
+252. ~r1_tarski(k4_relat_1(sK0),k2_zfmisc_1(sK0,sK0)) <- (~1) [resolution 159,191] {a:1,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+254. $false <- (~1) [subsumption resolution 252,134] {a:1,w:0,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+255. 1 [avatar contradiction clause 254]
+256. $false [avatar sat refutation 192,255] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:40,thDist:-40}
+% SZS output end Proof for relset_1__t14_relset_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 50
+% >>> Preprocessing
+% Introduced skolems: 11
+% Pure predicates: 2
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 60
+% Generated clauses: 82
+% Active clauses: 37
+% Passive clauses: 59
+% Final active clauses: 36
+% Final passive clauses: 20
+% Main loop iterations started: 39
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 7
+% Forward subsumptions: 3
+% 
+% >>> Generating Inferences
+% Binary resolution: 4
+% Unit resulting resolution: 1
+% Backward superposition: 2
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 15
+% SAT solver unit clauses: 11
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.003 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% sat proof minimization: 0.001 s
+% other: 0.003 s ( own 0.0000 s ) 
+

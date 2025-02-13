@@ -1,0 +1,116 @@
+i: [1,62,0,6,2,1,0,0] t171_relat_1
+a: [3,92,0,3,1,62]
+s: 92
+i: [1,63,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,101,0,2,1,63]
+s: 101
+i: [1,64,0,2,1,0,0,1] fc1_xboole_0
+a: [3,106,0,2,1,64]
+s: 106
+i: [1,82,0,2,1,0,0,255] rc2_zfmisc_1
+a: [3,116,0,2,1,82]
+s: 116
+i: [1,83,0,2,1,0,0,2] rc2_xboole_0
+a: [3,121,0,2,1,83]
+s: 121
+i: [1,84,0,2,1,0,0,2] rc1_xboole_0
+a: [3,126,0,2,1,84]
+s: 126
+i: [1,86,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,131,0,2,1,86]
+s: 131
+i: [1,85,0,2,1,0,0,255] rc1_zfmisc_1
+a: [3,136,0,2,1,85]
+s: 136
+i: [1,88,0,2,1,0,0,2] rc1_relat_1
+a: [3,141,0,2,1,88]
+s: 141
+i: [1,87,0,2,1,0,0,2] rc1_relat_1
+a: [3,146,0,2,1,87]
+s: 146
+i: [1,71,0,3,1,0,0,1] l186_relat_1
+s: 71
+d: [2,149,1,0,0,1,40,71,92]
+e: 149
+d: [2,148,1,0,0,1,52,92,71]
+e: 148
+r: 92
+a: [3,96,0,3,1,62]
+s: 96
+i: [1,72,0,3,1,0,0,1] l186_relat_1
+s: 72
+d: [2,153,1,0,0,1,40,72,96]
+e: 153
+d: [2,152,1,0,0,1,52,96,72]
+e: 152
+f: 152,148,62
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for relat_1__t171_relat_1
+% SZS output start Proof for relat_1__t171_relat_1
+1. ! [X0] : ! [X1] : (v5_relat_1(k1_xboole_0,X1) & v4_relat_1(k1_xboole_0,X0)) [input t171_relat_1]
+2. ~! [X0] : ! [X1] : (v5_relat_1(k1_xboole_0,X1) & v4_relat_1(k1_xboole_0,X0)) [negated conjecture 1]
+25. ! [X0] : ! [X1] : (v5_relat_1(k1_xboole_0,X1) & v4_relat_1(k1_xboole_0,X0)) [input l186_relat_1]
+26. ~! [X0,X1] : (v5_relat_1(k1_xboole_0,X1) & v4_relat_1(k1_xboole_0,X0)) [flattening 2]
+27. ! [X0,X1] : (v5_relat_1(k1_xboole_0,X1) & v4_relat_1(k1_xboole_0,X0)) [flattening 25]
+33. ? [X0,X1] : (~v5_relat_1(k1_xboole_0,X1) | ~v4_relat_1(k1_xboole_0,X0)) [ennf transformation 26]
+46. ? [X0,X1] : (~v5_relat_1(k1_xboole_0,X1) | ~v4_relat_1(k1_xboole_0,X0)) => (~v5_relat_1(k1_xboole_0,sK1) | ~v4_relat_1(k1_xboole_0,sK0)) [choice axiom]
+47. ~v5_relat_1(k1_xboole_0,sK1) | ~v4_relat_1(k1_xboole_0,sK0) [skolemisation 33,46]
+62. ~v5_relat_1(k1_xboole_0,sK1) | ~v4_relat_1(k1_xboole_0,sK0) [cnf transformation 47] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+71. v4_relat_1(k1_xboole_0,X0) [cnf transformation 27] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+72. v5_relat_1(k1_xboole_0,X1) [cnf transformation 27] {a:0,w:3,wCS:1200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+90. 1 <=> v4_relat_1(k1_xboole_0,sK0) [avatar definition]
+92. ~v4_relat_1(k1_xboole_0,sK0) <- (~1) [avatar component clause 90] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+94. 2 <=> v5_relat_1(k1_xboole_0,sK1) [avatar definition]
+96. ~v5_relat_1(k1_xboole_0,sK1) <- (~2) [avatar component clause 94] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+97. ~1 | ~2 [avatar split clause 62,94,90]
+148. $false <- (~1) [unit resulting resolution 92,71] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+151. 1 [avatar contradiction clause 148]
+152. $false <- (~2) [unit resulting resolution 96,72] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+155. 2 [avatar contradiction clause 152]
+156. $false [avatar sat refutation 97,151,155] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:43,thDist:-43}
+% SZS output end Proof for relat_1__t171_relat_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 24
+% >>> Preprocessing
+% Introduced skolems: 9
+% Pure predicates: 1
+% 
+% >>> Saturation
+% Initial clauses: 27
+% Generated clauses: 44
+% Active clauses: 13
+% Passive clauses: 27
+% Final active clauses: 12
+% Final passive clauses: 14
+% Main loop iterations started: 13
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 2
+% Unit resulting resolution: 2
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 17
+% SAT solver unit clauses: 14
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% backward subsumption index maintenance: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

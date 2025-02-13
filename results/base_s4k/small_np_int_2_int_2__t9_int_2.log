@@ -1,0 +1,119 @@
+i: [1,28,0,2,1,1,0,0] t9_int_2
+a: [3,53,0,2,1,28]
+s: 53
+i: [1,27,0,2,1,1,0,0] t9_int_2
+a: [3,58,0,2,1,27]
+s: 58
+i: [1,26,0,2,1,1,0,0] t9_int_2
+a: [3,63,0,2,1,26]
+s: 63
+i: [1,31,0,3,1,1,0,0] t9_int_2
+a: [3,38,0,3,1,31]
+s: 38
+i: [1,30,0,3,1,1,0,0] t9_int_2
+a: [3,43,0,3,1,30]
+s: 43
+i: [1,29,0,3,1,1,0,0] t9_int_2
+a: [3,48,0,3,1,29]
+s: 48
+i: [1,34,0,2,1,0,0,1] rc2_int_1
+a: [3,75,0,2,1,34]
+s: 75
+i: [1,33,0,7,3,0,0,1] reflexivity_r1_int_1
+a: [3,70,0,5,2,33]
+s: 70
+i: [1,32,0,15,6,0,0,1] l5_int_2
+s: 32
+d: [2,77,1,0,0,6,52,63,58,53,48,38,43,32]
+e: 77
+f: 77,26,27,28,29,30,31
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for int_2__t9_int_2
+% SZS output start Proof for int_2__t9_int_2
+1. ! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v1_int_1(X2) => ((r1_int_1(X1,X2) & r1_int_1(X0,X1)) => r1_int_1(X0,X2))))) [input t9_int_2]
+2. ~! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v1_int_1(X2) => ((r1_int_1(X1,X2) & r1_int_1(X0,X1)) => r1_int_1(X0,X2))))) [negated conjecture 1]
+9. ! [X0] : (v1_int_1(X0) => ! [X1] : (v1_int_1(X1) => ! [X2] : (v1_int_1(X2) => ((r1_int_1(X1,X2) & r1_int_1(X0,X1)) => r1_int_1(X0,X2))))) [input l5_int_2]
+14. ? [X0] : (? [X1] : (? [X2] : ((~r1_int_1(X0,X2) & (r1_int_1(X1,X2) & r1_int_1(X0,X1))) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) [ennf transformation 2]
+15. ? [X0] : (? [X1] : (? [X2] : (~r1_int_1(X0,X2) & r1_int_1(X1,X2) & r1_int_1(X0,X1) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) [flattening 14]
+16. ! [X0] : (! [X1] : (! [X2] : ((r1_int_1(X0,X2) | (~r1_int_1(X1,X2) | ~r1_int_1(X0,X1))) | ~v1_int_1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [ennf transformation 9]
+17. ! [X0] : (! [X1] : (! [X2] : (r1_int_1(X0,X2) | ~r1_int_1(X1,X2) | ~r1_int_1(X0,X1) | ~v1_int_1(X2)) | ~v1_int_1(X1)) | ~v1_int_1(X0)) [flattening 16]
+20. ? [X0] : (? [X1] : (? [X2] : (~r1_int_1(X0,X2) & r1_int_1(X1,X2) & r1_int_1(X0,X1) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(X0)) => (? [X1] : (? [X2] : (~r1_int_1(sK0,X2) & r1_int_1(X1,X2) & r1_int_1(sK0,X1) & v1_int_1(X2)) & v1_int_1(X1)) & v1_int_1(sK0)) [choice axiom]
+21. ? [X1] : (? [X2] : (~r1_int_1(sK0,X2) & r1_int_1(X1,X2) & r1_int_1(sK0,X1) & v1_int_1(X2)) & v1_int_1(X1)) => (? [X2] : (~r1_int_1(sK0,X2) & r1_int_1(sK1,X2) & r1_int_1(sK0,sK1) & v1_int_1(X2)) & v1_int_1(sK1)) [choice axiom]
+22. ? [X2] : (~r1_int_1(sK0,X2) & r1_int_1(sK1,X2) & r1_int_1(sK0,sK1) & v1_int_1(X2)) => (~r1_int_1(sK0,sK2) & r1_int_1(sK1,sK2) & r1_int_1(sK0,sK1) & v1_int_1(sK2)) [choice axiom]
+23. ((~r1_int_1(sK0,sK2) & r1_int_1(sK1,sK2) & r1_int_1(sK0,sK1) & v1_int_1(sK2)) & v1_int_1(sK1)) & v1_int_1(sK0) [skolemisation 15,22,21,20]
+26. v1_int_1(sK0) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+27. v1_int_1(sK1) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+28. v1_int_1(sK2) [cnf transformation 23] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+29. r1_int_1(sK0,sK1) [cnf transformation 23] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+30. r1_int_1(sK1,sK2) [cnf transformation 23] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+31. ~r1_int_1(sK0,sK2) [cnf transformation 23] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:4,thDist:-4}
+32. ~r1_int_1(X1,X2) | r1_int_1(X0,X2) | ~r1_int_1(X0,X1) | ~v1_int_1(X2) | ~v1_int_1(X1) | ~v1_int_1(X0) [cnf transformation 17] {a:0,w:15,wCS:6000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+36. 1 <=> r1_int_1(sK0,sK2) [avatar definition]
+38. ~r1_int_1(sK0,sK2) <- (~1) [avatar component clause 36] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+39. ~1 [avatar split clause 31,36]
+41. 2 <=> r1_int_1(sK1,sK2) [avatar definition]
+43. r1_int_1(sK1,sK2) <- (2) [avatar component clause 41] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+44. 2 [avatar split clause 30,41]
+46. 3 <=> r1_int_1(sK0,sK1) [avatar definition]
+48. r1_int_1(sK0,sK1) <- (3) [avatar component clause 46] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+49. 3 [avatar split clause 29,46]
+51. 4 <=> v1_int_1(sK2) [avatar definition]
+53. v1_int_1(sK2) <- (4) [avatar component clause 51] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+54. 4 [avatar split clause 28,51]
+56. 5 <=> v1_int_1(sK1) [avatar definition]
+58. v1_int_1(sK1) <- (5) [avatar component clause 56] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+59. 5 [avatar split clause 27,56]
+61. 6 <=> v1_int_1(sK0) [avatar definition]
+63. v1_int_1(sK0) <- (6) [avatar component clause 61] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+64. 6 [avatar split clause 26,61]
+77. $false <- (~1, 2, 3, 4, 5, 6) [unit resulting resolution 63,58,53,48,38,43,32] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:25,thDist:-25}
+82. 1 | ~2 | ~3 | ~4 | ~5 | ~6 [avatar contradiction clause 77]
+87. $false [avatar sat refutation 39,44,49,54,59,64,82] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:61,thDist:-61}
+% SZS output end Proof for int_2__t9_int_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 8
+% >>> Preprocessing
+% Introduced skolems: 4
+% Pure predicates: 3
+% 
+% >>> Saturation
+% Initial clauses: 9
+% Generated clauses: 26
+% Active clauses: 9
+% Passive clauses: 9
+% Final active clauses: 9
+% Main loop iterations started: 9
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 2
+% Fw subsumption resolutions: 4
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% 
+% >>> Generating Inferences
+% Binary resolution: 3
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 11
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 1
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

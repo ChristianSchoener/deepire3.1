@@ -1,0 +1,81 @@
+i: [1,601,0,4,1,1,0,0] l15_topgen_3
+i: [1,623,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,622,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,621,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,620,0,2,1,0,0,1] dt_k2_topgen_3
+i: [1,933,0,12,5,0,0,255] d2_topgen_3
+f: 933,620,621,622,623,601
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for topgen_3__l15_topgen_3
+% SZS output start Proof for topgen_3__l15_topgen_3
+1. u1_struct_0(k2_topgen_3) = k1_numbers [input l15_topgen_3]
+2. ~u1_struct_0(k2_topgen_3) = k1_numbers [negated conjecture 1]
+201. l1_pre_topc(k2_topgen_3) & v2_pre_topc(k2_topgen_3) & v1_pre_topc(k2_topgen_3) & ~v2_struct_0(k2_topgen_3) [input dt_k2_topgen_3]
+223. ! [X0] : ((l1_pre_topc(X0) & v2_pre_topc(X0) & v1_pre_topc(X0) & ~v2_struct_0(X0)) => (k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)))) [input d2_topgen_3]
+224. u1_struct_0(k2_topgen_3) != k1_numbers [flattening 2]
+395. ! [X0] : ((k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0))) | (~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0))) [ennf transformation 223]
+396. ! [X0] : ((k2_topgen_3 = X0 <=> (? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0))) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 395]
+515. ! [X0] : (((k2_topgen_3 = X0 | (! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0))) & ((? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [nnf transformation 396]
+516. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & ((? [X1] : (a_0_0_topgen_3 = X1 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X1) & m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [flattening 515]
+517. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & ((? [X2] : (a_0_0_topgen_3 = X2 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X2) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [rectify 516]
+518. ! [X0] : (? [X2] : (a_0_0_topgen_3 = X2 & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,X2) & m1_subset_1(X2,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) => (a_0_0_topgen_3 = sK22(X0) & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,sK22(X0)) & m1_subset_1(sK22(X0),k1_zfmisc_1(k1_zfmisc_1(k1_numbers))))) [choice axiom]
+519. ! [X0] : (((k2_topgen_3 = X0 | ! [X1] : (a_0_0_topgen_3 != X1 | u1_pre_topc(X0) != k1_cantor_1(k1_numbers,X1) | ~m1_subset_1(X1,k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) | k1_numbers != u1_struct_0(X0)) & (((a_0_0_topgen_3 = sK22(X0) & u1_pre_topc(X0) = k1_cantor_1(k1_numbers,sK22(X0)) & m1_subset_1(sK22(X0),k1_zfmisc_1(k1_zfmisc_1(k1_numbers)))) & k1_numbers = u1_struct_0(X0)) | k2_topgen_3 != X0)) | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0)) [skolemisation 517,518]
+601. u1_struct_0(k2_topgen_3) != k1_numbers [cnf transformation 224] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+620. ~v2_struct_0(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+621. v1_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+622. v2_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+623. l1_pre_topc(k2_topgen_3) [cnf transformation 201] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:1,thDist:-1}
+791. k1_numbers = u1_struct_0(X0) | k2_topgen_3 != X0 | ~l1_pre_topc(X0) | ~v2_pre_topc(X0) | ~v1_pre_topc(X0) | v2_struct_0(X0) [cnf transformation 519] {a:0,w:15,wCS:6000,sine:255,thAx:0,allAx:2,thDist:-2}
+933. u1_struct_0(k2_topgen_3) = k1_numbers | ~l1_pre_topc(k2_topgen_3) | ~v2_pre_topc(k2_topgen_3) | ~v1_pre_topc(k2_topgen_3) | v2_struct_0(k2_topgen_3) [equality resolution 791] {a:0,w:12,wCS:4800,sine:255,thAx:0,allAx:2,thDist:-2}
+936. 1 <=> u1_struct_0(k2_topgen_3) = k1_numbers [avatar definition]
+939. ~1 [avatar split clause 601,936]
+1011. 16 <=> l1_pre_topc(k2_topgen_3) [avatar definition]
+1016. 17 <=> v2_pre_topc(k2_topgen_3) [avatar definition]
+1021. 18 <=> v1_pre_topc(k2_topgen_3) [avatar definition]
+1026. 19 <=> v2_struct_0(k2_topgen_3) [avatar definition]
+1030. 16 [avatar split clause 623,1011]
+1031. 17 [avatar split clause 622,1016]
+1032. 18 [avatar split clause 621,1021]
+1033. ~19 [avatar split clause 620,1026]
+1087. 19 | ~18 | ~17 | ~16 | 1 [avatar split clause 933,936,1011,1016,1021,1026]
+1420. $false [avatar sat refutation 939,1030,1031,1032,1033,1087] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:288,thDist:-288}
+% SZS output end Proof for topgen_3__l15_topgen_3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 222
+% >>> Preprocessing
+% Introduced skolems: 63
+% Pure predicates: 5
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 328
+% Generated clauses: 328
+% Passive clauses: 219
+% Final passive clauses: 219
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% 
+% >>> AVATAR
+% Split clauses: 6
+% Split components: 24
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 102
+% SAT solver unit clauses: 94
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9978
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.002 s
+% property evaluation: 0.001 s
+% preprocessing: 0.001 s ( own 0.0000 s ) 
+% other: 0.004 s ( own 0.001 s ) 
+

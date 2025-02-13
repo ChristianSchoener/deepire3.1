@@ -1,0 +1,128 @@
+i: [1,21,0,6,2,1,0,0] t10_hilbert3
+a: [3,27,0,3,1,21]
+s: 27
+i: [1,20,0,3,1,1,0,0] t10_hilbert3
+a: [3,36,0,3,1,20]
+s: 36
+i: [1,19,0,11,1,1,0,0] t10_hilbert3
+a: [3,41,0,11,1,19]
+s: 41
+i: [1,23,0,9,1,0,0,255] t63_funct_4
+s: 23
+a: [3,30,0,3,1,21]
+s: 30
+r: 41
+d: [2,46,0,11,1,2,23,41,30]
+a: [3,50,0,11,1,46]
+s: 50
+i: [1,22,0,12,2,0,0,255] t63_funct_4
+s: 22
+d: [2,53,1,12,2,1,44,22,50]
+d: [2,56,1,9,1,2,21,53,36]
+a: [3,60,1,9,1,56]
+s: 60
+d: [2,62,2,6,2,1,44,60,22]
+d: [2,64,2,3,1,2,21,62,27]
+d: [2,65,2,0,0,3,21,64,36]
+e: 65
+d: [2,63,2,6,2,1,44,22,60]
+d: [2,67,2,3,1,2,21,63,27]
+d: [2,68,2,0,0,3,21,67,36]
+e: 68
+d: [2,43,1,9,1,1,44,23,41]
+d: [2,44,1,3,1,1,22,43,23]
+f: 68,56,46,44,19,20,21
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for hilbert3__t10_hilbert3
+% SZS output start Proof for hilbert3__t10_hilbert3
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : (k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5) => ((X3 = X5 & X2 = X4) | X0 = X1)) [input t10_hilbert3]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ! [X4] : ! [X5] : (k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5) => ((X3 = X5 & X2 = X4) | X0 = X1)) [negated conjecture 1]
+7. ! [X0] : ! [X1] : ! [X2] : ! [X3] : (k1_funct_1(k4_funct_4(X0,X1,X2,X3),X1) = X3 & (X0 != X1 => k1_funct_1(k4_funct_4(X0,X1,X2,X3),X0) = X2)) [input t63_funct_4]
+8. ~! [X0,X1,X2,X3,X4,X5] : (k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5) => ((X3 = X5 & X2 = X4) | X0 = X1)) [flattening 2]
+9. ! [X0,X1,X2,X3] : (k1_funct_1(k4_funct_4(X0,X1,X2,X3),X1) = X3 & (X0 != X1 => k1_funct_1(k4_funct_4(X0,X1,X2,X3),X0) = X2)) [flattening 7]
+14. ? [X0,X1,X2,X3,X4,X5] : (((X3 != X5 | X2 != X4) & X0 != X1) & k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5)) [ennf transformation 8]
+15. ? [X0,X1,X2,X3,X4,X5] : ((X3 != X5 | X2 != X4) & X0 != X1 & k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5)) [flattening 14]
+16. ! [X0,X1,X2,X3] : (k1_funct_1(k4_funct_4(X0,X1,X2,X3),X1) = X3 & (k1_funct_1(k4_funct_4(X0,X1,X2,X3),X0) = X2 | X0 = X1)) [ennf transformation 9]
+17. ? [X0,X1,X2,X3,X4,X5] : ((X3 != X5 | X2 != X4) & X0 != X1 & k4_funct_4(X0,X1,X2,X3) = k4_funct_4(X0,X1,X4,X5)) => ((sK3 != sK5 | sK2 != sK4) & sK0 != sK1 & k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK5)) [choice axiom]
+18. (sK3 != sK5 | sK2 != sK4) & sK0 != sK1 & k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK5) [skolemisation 15,17]
+19. k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK5) [cnf transformation 18] {a:0,w:11,wCS:1100,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. sK0 != sK1 [cnf transformation 18] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+21. sK3 != sK5 | sK2 != sK4 [cnf transformation 18] {a:0,w:6,wCS:600,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+22. k1_funct_1(k4_funct_4(X0,X1,X2,X3),X0) = X2 | X0 = X1 [cnf transformation 16] {a:0,w:12,wCS:4800,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+23. k1_funct_1(k4_funct_4(X0,X1,X2,X3),X1) = X3 [cnf transformation 16] {a:0,w:9,wCS:3600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+25. 1 <=> sK2 = sK4 [avatar definition]
+27. sK2 != sK4 <- (~1) [avatar component clause 25] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+29. 2 <=> sK3 = sK5 [avatar definition]
+30. sK3 = sK5 <- (2) [avatar component clause 29] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+32. ~1 | ~2 [avatar split clause 21,29,25]
+34. 3 <=> sK0 = sK1 [avatar definition]
+36. sK0 != sK1 <- (~3) [avatar component clause 34] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+37. ~3 [avatar split clause 20,34]
+39. 4 <=> k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK5) [avatar definition]
+41. k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK5) <- (4) [avatar component clause 39] {a:0,w:11,wCS:1100,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+42. 4 [avatar split clause 19,39]
+43. sK5 = k1_funct_1(k4_funct_4(sK0,sK1,sK2,sK3),sK1) <- (4) [superposition 23,41] {a:1,w:9,wCS:900,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+44. sK3 = sK5 <- (4) [forward demodulation 43,23] {a:1,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+45. 2 | ~4 [avatar split clause 44,39,29]
+46. k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK3) <- (2, 4) [backward demodulation 41,30] {a:0,w:11,wCS:1100,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+48. 5 <=> k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK3) [avatar definition]
+50. k4_funct_4(sK0,sK1,sK2,sK3) = k4_funct_4(sK0,sK1,sK4,sK3) <- (5) [avatar component clause 48] {a:0,w:11,wCS:1100,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+51. 5 | ~2 | ~4 [avatar split clause 46,39,29,48]
+53. sK4 = k1_funct_1(k4_funct_4(sK0,sK1,sK2,sK3),sK0) | sK0 = sK1 <- (5) [superposition 22,50] {a:1,w:12,wCS:1200,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+56. sK4 = k1_funct_1(k4_funct_4(sK0,sK1,sK2,sK3),sK0) <- (~3, 5) [subsumption resolution 53,36] {a:1,w:9,wCS:900,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+58. 6 <=> sK4 = k1_funct_1(k4_funct_4(sK0,sK1,sK2,sK3),sK0) [avatar definition]
+60. sK4 = k1_funct_1(k4_funct_4(sK0,sK1,sK2,sK3),sK0) <- (6) [avatar component clause 58] {a:1,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+61. 6 | 3 | ~5 [avatar split clause 56,48,34,58]
+63. sK2 = sK4 | sK0 = sK1 <- (6) [superposition 22,60] {a:2,w:6,wCS:600,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+67. sK0 = sK1 <- (~1, 6) [subsumption resolution 63,27] {a:2,w:3,wCS:300,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+68. $false <- (~1, ~3, 6) [subsumption resolution 67,36] {a:2,w:0,goal:1,sine:255,thAx:0,allAx:4,thDist:-4}
+69. 1 | 3 | ~6 [avatar contradiction clause 68]
+70. $false [avatar sat refutation 32,37,42,45,51,61,69] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:34,thDist:-34}
+% SZS output end Proof for hilbert3__t10_hilbert3
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 6
+% >>> Preprocessing
+% Introduced skolems: 6
+% Pure predicates: 2
+% 
+% >>> Saturation
+% Initial clauses: 5
+% Generated clauses: 23
+% Active clauses: 8
+% Passive clauses: 8
+% Final active clauses: 7
+% Main loop iterations started: 8
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 5
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 1
+% 
+% >>> Generating Inferences
+% Forward superposition: 3
+% Backward superposition: 2
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 10
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 4861
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% other: 0.001 s
+

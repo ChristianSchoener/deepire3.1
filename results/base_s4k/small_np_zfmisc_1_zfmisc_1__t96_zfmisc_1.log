@@ -1,0 +1,119 @@
+i: [1,19,0,3,1,1,0,0] t96_zfmisc_1
+a: [3,33,0,3,1,19]
+s: 33
+i: [1,18,0,3,1,1,0,0] t96_zfmisc_1
+a: [3,38,0,3,1,18]
+s: 38
+i: [1,20,0,7,1,1,0,0] t96_zfmisc_1
+a: [3,28,0,7,1,20]
+s: 28
+i: [1,24,0,3,1,0,0,1] reflexivity_r1_tarski
+s: 24
+i: [1,23,0,9,3,0,0,1] t1_xboole_1
+s: 23
+i: [1,21,0,10,2,0,0,1] t95_zfmisc_1
+s: 21
+d: [2,40,1,6,2,1,40,23,33]
+s: 40
+i: [1,22,0,10,2,0,0,1] t95_zfmisc_1
+s: 22
+d: [2,41,1,6,2,1,40,23,38]
+s: 41
+d: [2,43,1,13,3,0,40,21,23]
+s: 43
+d: [2,45,1,13,3,0,40,22,23]
+s: 45
+d: [2,48,2,13,3,0,40,43,21]
+s: 48
+d: [2,49,2,13,3,0,40,43,22]
+s: 49
+d: [2,56,3,0,0,3,52,33,38,28,49]
+e: 56
+d: [2,57,3,6,2,1,40,49,28]
+d: [2,62,3,3,1,2,21,57,38]
+d: [2,63,3,0,0,3,21,62,33]
+e: 63
+f: 63,18,19,20
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zfmisc_1__t96_zfmisc_1
+% SZS output start Proof for zfmisc_1__t96_zfmisc_1
+1. ! [X0] : ! [X1] : ! [X2] : ! [X3] : ((r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3))) [input t96_zfmisc_1]
+2. ~! [X0] : ! [X1] : ! [X2] : ! [X3] : ((r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3))) [negated conjecture 1]
+5. ! [X0] : ! [X1] : ! [X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [input t1_xboole_1]
+6. ! [X0] : ! [X1] : ! [X2] : (r1_tarski(X0,X1) => (r1_tarski(k2_zfmisc_1(X2,X0),k2_zfmisc_1(X2,X1)) & r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X2)))) [input t95_zfmisc_1]
+7. ~! [X0,X1,X2,X3] : ((r1_tarski(X2,X3) & r1_tarski(X0,X1)) => r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3))) [flattening 2]
+8. ! [X0,X1,X2] : (r1_tarski(X0,X1) => (r1_tarski(k2_zfmisc_1(X2,X0),k2_zfmisc_1(X2,X1)) & r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X2)))) [flattening 6]
+9. ! [X0,X1,X2] : ((r1_tarski(X1,X2) & r1_tarski(X0,X1)) => r1_tarski(X0,X2)) [flattening 5]
+11. ? [X0,X1,X2,X3] : (~r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3)) & (r1_tarski(X2,X3) & r1_tarski(X0,X1))) [ennf transformation 7]
+12. ? [X0,X1,X2,X3] : (~r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3)) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) [flattening 11]
+13. ! [X0,X1,X2] : ((r1_tarski(k2_zfmisc_1(X2,X0),k2_zfmisc_1(X2,X1)) & r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X2))) | ~r1_tarski(X0,X1)) [ennf transformation 8]
+14. ! [X0,X1,X2] : (r1_tarski(X0,X2) | (~r1_tarski(X1,X2) | ~r1_tarski(X0,X1))) [ennf transformation 9]
+15. ! [X0,X1,X2] : (r1_tarski(X0,X2) | ~r1_tarski(X1,X2) | ~r1_tarski(X0,X1)) [flattening 14]
+16. ? [X0,X1,X2,X3] : (~r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X3)) & r1_tarski(X2,X3) & r1_tarski(X0,X1)) => (~r1_tarski(k2_zfmisc_1(sK0,sK2),k2_zfmisc_1(sK1,sK3)) & r1_tarski(sK2,sK3) & r1_tarski(sK0,sK1)) [choice axiom]
+17. ~r1_tarski(k2_zfmisc_1(sK0,sK2),k2_zfmisc_1(sK1,sK3)) & r1_tarski(sK2,sK3) & r1_tarski(sK0,sK1) [skolemisation 12,16]
+18. r1_tarski(sK0,sK1) [cnf transformation 17] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+19. r1_tarski(sK2,sK3) [cnf transformation 17] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+20. ~r1_tarski(k2_zfmisc_1(sK0,sK2),k2_zfmisc_1(sK1,sK3)) [cnf transformation 17] {a:0,w:7,wCS:700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+21. r1_tarski(k2_zfmisc_1(X0,X2),k2_zfmisc_1(X1,X2)) | ~r1_tarski(X0,X1) [cnf transformation 13] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+22. r1_tarski(k2_zfmisc_1(X2,X0),k2_zfmisc_1(X2,X1)) | ~r1_tarski(X0,X1) [cnf transformation 13] {a:0,w:10,wCS:4000,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+23. ~r1_tarski(X1,X2) | r1_tarski(X0,X2) | ~r1_tarski(X0,X1) [cnf transformation 15] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+26. 1 <=> r1_tarski(k2_zfmisc_1(sK0,sK2),k2_zfmisc_1(sK1,sK3)) [avatar definition]
+28. ~r1_tarski(k2_zfmisc_1(sK0,sK2),k2_zfmisc_1(sK1,sK3)) <- (~1) [avatar component clause 26] {a:0,w:7,wCS:700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+29. ~1 [avatar split clause 20,26]
+31. 2 <=> r1_tarski(sK2,sK3) [avatar definition]
+33. r1_tarski(sK2,sK3) <- (2) [avatar component clause 31] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+34. 2 [avatar split clause 19,31]
+36. 3 <=> r1_tarski(sK0,sK1) [avatar definition]
+38. r1_tarski(sK0,sK1) <- (3) [avatar component clause 36] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+39. 3 [avatar split clause 18,36]
+43. ~r1_tarski(X2,k2_zfmisc_1(X0,X3)) | r1_tarski(X2,k2_zfmisc_1(X1,X3)) | ~r1_tarski(X0,X1) [resolution 21,23] {a:1,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+49. r1_tarski(k2_zfmisc_1(X7,X8),k2_zfmisc_1(X9,X10)) | ~r1_tarski(X7,X9) | ~r1_tarski(X8,X10) [resolution 43,22] {a:2,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:3,thDist:-3}
+57. ~r1_tarski(sK0,sK1) | ~r1_tarski(sK2,sK3) <- (~1) [resolution 49,28] {a:3,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+62. ~r1_tarski(sK2,sK3) <- (~1, 3) [subsumption resolution 57,38] {a:3,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+63. $false <- (~1, 2, 3) [subsumption resolution 62,33] {a:3,w:0,goal:1,sine:1,thAx:0,allAx:5,thDist:-5}
+64. 1 | ~2 | ~3 [avatar contradiction clause 63]
+65. $false [avatar sat refutation 29,34,39,64] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:23,thDist:-23}
+% SZS output end Proof for zfmisc_1__t96_zfmisc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 5
+% Introduced skolems: 4
+% 
+% >>> Saturation
+% Initial clauses: 7
+% Generated clauses: 33
+% Active clauses: 13
+% Passive clauses: 18
+% Final active clauses: 13
+% Final passive clauses: 5
+% Main loop iterations started: 13
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 2
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 4
+% 
+% >>> Generating Inferences
+% Binary resolution: 20
+% Unit resulting resolution: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 7
+% SAT solver unit clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% sat proof minimization: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

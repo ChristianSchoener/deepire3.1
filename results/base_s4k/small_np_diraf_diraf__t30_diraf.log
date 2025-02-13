@@ -1,0 +1,338 @@
+i: [1,106,0,2,1,1,0,0] t30_diraf
+a: [3,192,0,2,1,106]
+s: 192
+i: [1,105,0,2,1,1,0,0] t30_diraf
+a: [3,197,0,2,1,105]
+s: 197
+i: [1,104,0,2,1,1,0,0] t30_diraf
+a: [3,202,0,2,1,104]
+s: 202
+i: [1,109,0,4,1,1,0,0] t30_diraf
+a: [3,177,0,4,1,109]
+s: 177
+i: [1,108,0,4,1,1,0,0] t30_diraf
+a: [3,182,0,4,1,108]
+s: 182
+i: [1,107,0,4,1,1,0,0] t30_diraf
+a: [3,187,0,4,1,107]
+s: 187
+i: [1,111,0,25,5,1,0,0] t30_diraf
+a: [3,151,0,5,1,111]
+s: 151
+i: [1,110,0,5,1,1,0,0] t30_diraf
+a: [3,172,0,5,1,110]
+s: 172
+i: [1,112,0,2,1,0,0,255] spc1_boole
+a: [3,207,0,2,1,112]
+s: 207
+i: [1,113,0,2,1,0,0,255] fc1_xboole_0
+a: [3,212,0,2,1,113]
+s: 212
+i: [1,144,0,2,1,0,0,2] rc2_xboole_0
+a: [3,217,0,2,1,144]
+s: 217
+i: [1,145,0,2,1,0,0,1] existence_l1_analoaf
+a: [3,222,0,2,1,145]
+s: 222
+i: [1,146,0,2,1,0,0,2] existence_l1_struct_0
+a: [3,227,0,2,1,146]
+s: 227
+i: [1,147,0,2,1,0,0,2] rc1_xboole_0
+a: [3,232,0,2,1,147]
+s: 232
+i: [1,114,0,4,2,0,0,1] dt_l1_analoaf
+s: 114
+i: [1,142,0,4,1,0,0,1] existence_m1_subset_1
+s: 142
+d: [2,234,1,2,1,1,40,114,192]
+a: [3,239,1,2,1,234]
+s: 239
+i: [1,129,0,5,2,0,0,255] t6_boole
+s: 129
+d: [2,235,1,2,1,1,40,114,222]
+a: [3,244,1,2,1,235]
+s: 244
+i: [1,141,0,5,2,0,0,255] t7_boole
+s: 141
+i: [1,115,0,6,3,0,0,255] cc7_struct_0
+s: 115
+d: [2,248,1,4,2,1,40,115,227]
+a: [3,254,1,2,1,248]
+s: 254
+i: [1,116,0,6,3,0,0,255] cc5_struct_0
+s: 116
+d: [2,250,2,4,2,1,40,115,244]
+a: [3,263,2,2,1,250]
+s: 263
+i: [1,118,0,6,3,0,0,1] cc2_struct_0
+s: 118
+i: [1,119,0,6,3,0,0,1] cc17_struct_0
+s: 119
+i: [1,120,0,6,3,0,0,1] cc1_struct_0
+s: 120
+i: [1,123,0,6,3,0,0,255] cc4_struct_0
+s: 123
+i: [1,124,0,6,3,0,0,255] cc6_struct_0
+s: 124
+i: [1,138,0,6,2,0,0,255] t1_subset
+s: 138
+i: [1,143,0,6,2,0,0,255] antisymmetry_r2_hidden
+s: 143
+i: [1,121,0,7,3,0,0,255] cc8_struct_0
+s: 121
+i: [1,125,0,7,3,0,0,255] cc11_struct_0
+s: 125
+i: [1,126,0,7,3,0,0,255] cc11_struct_0
+s: 126
+i: [1,127,0,7,3,0,0,255] cc9_struct_0
+s: 127
+i: [1,130,0,7,3,0,0,1] fc2_struct_0
+s: 130
+i: [1,131,0,7,3,0,0,255] fc9_struct_0
+s: 131
+i: [1,134,0,7,3,0,0,255] fc6_struct_0
+s: 134
+i: [1,135,0,7,3,0,0,1] fc1_struct_0
+s: 135
+i: [1,136,0,7,3,0,0,255] fc8_struct_0
+s: 136
+i: [1,137,0,7,3,0,0,255] fc7_struct_0
+s: 137
+i: [1,140,0,7,3,0,0,255] t8_boole
+s: 140
+i: [1,139,0,8,3,0,0,255] t2_subset
+s: 139
+d: [2,279,1,7,2,1,40,139,177]
+a: [3,290,1,3,1,279]
+s: 290
+r: 290
+i: [1,128,0,9,4,0,0,255] cc10_struct_0
+s: 128
+i: [1,132,0,28,8,0,0,1] l37_diraf
+s: 132
+d: [2,313,1,0,0,8,52,202,197,192,187,182,172,151,177,132]
+e: 313
+d: [2,314,1,23,7,1,40,132,172]
+d: [2,316,1,18,6,2,21,314,151]
+d: [2,317,1,14,5,3,21,316,177]
+d: [2,318,1,10,4,4,21,317,182]
+d: [2,319,1,6,3,5,21,318,187]
+d: [2,320,1,4,2,6,21,319,192]
+d: [2,321,1,2,1,7,21,320,197]
+d: [2,322,1,0,0,8,21,321,202]
+e: 322
+r: 151
+a: [3,289,1,3,1,279]
+s: 289
+a: [3,150,0,5,1,111]
+s: 150
+d: [2,302,2,4,2,1,40,290,130]
+d: [2,303,2,2,1,2,21,302,239]
+a: [3,306,2,2,1,303]
+s: 306
+a: [3,155,0,5,1,111]
+s: 155
+i: [1,133,0,28,8,0,0,1] l37_diraf
+s: 133
+d: [2,335,1,0,0,8,52,202,197,192,187,182,172,155,177,133]
+e: 335
+d: [2,336,1,23,7,1,40,133,172]
+d: [2,339,1,18,6,2,21,336,155]
+d: [2,340,1,14,5,3,21,339,177]
+d: [2,341,1,10,4,4,21,340,182]
+d: [2,342,1,6,3,5,21,341,187]
+d: [2,343,1,4,2,6,21,342,192]
+d: [2,344,1,2,1,7,21,343,197]
+d: [2,345,1,0,0,8,21,344,202]
+e: 345
+r: 155
+a: [3,286,1,4,1,279]
+s: 286
+a: [3,154,0,5,1,111]
+s: 154
+d: [2,280,1,7,2,1,40,139,182]
+a: [3,295,1,4,1,280]
+s: 295
+a: [3,158,0,5,1,111]
+s: 158
+d: [2,324,1,19,6,2,21,314,177]
+d: [2,325,1,15,5,3,21,324,182]
+d: [2,326,1,11,4,4,21,325,187]
+d: [2,327,1,9,3,5,21,326,192]
+d: [2,328,1,7,2,6,21,327,197]
+d: [2,329,1,5,1,7,21,328,202]
+d: [2,353,1,19,6,2,21,336,177]
+d: [2,354,1,15,5,3,21,353,182]
+d: [2,355,1,11,4,4,21,354,187]
+d: [2,356,1,9,3,5,21,355,192]
+d: [2,357,1,7,2,6,21,356,197]
+d: [2,358,1,5,1,7,21,357,202]
+d: [2,337,1,23,7,1,40,133,150]
+d: [2,347,1,19,6,2,21,337,182]
+d: [2,348,1,15,5,3,21,347,177]
+d: [2,349,1,11,4,4,21,348,187]
+d: [2,350,1,9,3,5,21,349,192]
+d: [2,351,1,7,2,6,21,350,197]
+d: [2,352,1,5,1,7,21,351,202]
+d: [2,370,1,23,7,1,40,154,132]
+d: [2,371,1,19,6,2,21,370,177]
+d: [2,372,1,15,5,3,21,371,187]
+d: [2,373,1,11,4,4,21,372,182]
+d: [2,374,1,9,3,5,21,373,192]
+d: [2,375,1,7,2,6,21,374,197]
+d: [2,376,1,5,1,7,21,375,202]
+d: [2,386,1,23,7,1,40,158,133]
+d: [2,388,1,19,6,2,21,386,187]
+d: [2,389,1,15,5,3,21,388,177]
+d: [2,390,1,11,4,4,21,389,182]
+d: [2,391,1,9,3,5,21,390,192]
+d: [2,392,1,7,2,6,21,391,197]
+d: [2,393,1,5,1,7,21,392,202]
+f: 393,376,352,358,329,104,105,106,107,108,109,110,111
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for diraf__t30_diraf
+% SZS output start Proof for diraf__t30_diraf
+1. ! [X0] : ((l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r3_diraf(X0,X1,X2,X3) => (r3_diraf(X0,X3,X2,X1) & r3_diraf(X0,X3,X1,X2) & r3_diraf(X0,X2,X3,X1) & r3_diraf(X0,X2,X1,X3) & r3_diraf(X0,X1,X3,X2))))))) [input t30_diraf]
+2. ~! [X0] : ((l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r3_diraf(X0,X1,X2,X3) => (r3_diraf(X0,X3,X2,X1) & r3_diraf(X0,X3,X1,X2) & r3_diraf(X0,X2,X3,X1) & r3_diraf(X0,X2,X1,X3) & r3_diraf(X0,X1,X3,X2))))))) [negated conjecture 1]
+30. ! [X0] : ((l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0)) => ! [X1] : (m1_subset_1(X1,u1_struct_0(X0)) => ! [X2] : (m1_subset_1(X2,u1_struct_0(X0)) => ! [X3] : (m1_subset_1(X3,u1_struct_0(X0)) => (r3_diraf(X0,X1,X2,X3) => (r3_diraf(X0,X2,X1,X3) & r3_diraf(X0,X1,X3,X2))))))) [input l37_diraf]
+43. ? [X0] : (? [X1] : (? [X2] : (? [X3] : (((~r3_diraf(X0,X3,X2,X1) | ~r3_diraf(X0,X3,X1,X2) | ~r3_diraf(X0,X2,X3,X1) | ~r3_diraf(X0,X2,X1,X3) | ~r3_diraf(X0,X1,X3,X2)) & r3_diraf(X0,X1,X2,X3)) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & (l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0))) [ennf transformation 2]
+44. ? [X0] : (? [X1] : (? [X2] : (? [X3] : ((~r3_diraf(X0,X3,X2,X1) | ~r3_diraf(X0,X3,X1,X2) | ~r3_diraf(X0,X2,X3,X1) | ~r3_diraf(X0,X2,X1,X3) | ~r3_diraf(X0,X1,X3,X2)) & r3_diraf(X0,X1,X2,X3) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0)) [flattening 43]
+73. ! [X0] : (! [X1] : (! [X2] : (! [X3] : (((r3_diraf(X0,X2,X1,X3) & r3_diraf(X0,X1,X3,X2)) | ~r3_diraf(X0,X1,X2,X3)) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | (~l1_analoaf(X0) | ~v2_analoaf(X0) | v7_struct_0(X0))) [ennf transformation 30]
+74. ! [X0] : (! [X1] : (! [X2] : (! [X3] : ((r3_diraf(X0,X2,X1,X3) & r3_diraf(X0,X1,X3,X2)) | ~r3_diraf(X0,X1,X2,X3) | ~m1_subset_1(X3,u1_struct_0(X0))) | ~m1_subset_1(X2,u1_struct_0(X0))) | ~m1_subset_1(X1,u1_struct_0(X0))) | ~l1_analoaf(X0) | ~v2_analoaf(X0) | v7_struct_0(X0)) [flattening 73]
+89. ? [X0] : (? [X1] : (? [X2] : (? [X3] : ((~r3_diraf(X0,X3,X2,X1) | ~r3_diraf(X0,X3,X1,X2) | ~r3_diraf(X0,X2,X3,X1) | ~r3_diraf(X0,X2,X1,X3) | ~r3_diraf(X0,X1,X3,X2)) & r3_diraf(X0,X1,X2,X3) & m1_subset_1(X3,u1_struct_0(X0))) & m1_subset_1(X2,u1_struct_0(X0))) & m1_subset_1(X1,u1_struct_0(X0))) & l1_analoaf(X0) & v2_analoaf(X0) & ~v7_struct_0(X0)) => (? [X1] : (? [X2] : (? [X3] : ((~r3_diraf(sK0,X3,X2,X1) | ~r3_diraf(sK0,X3,X1,X2) | ~r3_diraf(sK0,X2,X3,X1) | ~r3_diraf(sK0,X2,X1,X3) | ~r3_diraf(sK0,X1,X3,X2)) & r3_diraf(sK0,X1,X2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(X1,u1_struct_0(sK0))) & l1_analoaf(sK0) & v2_analoaf(sK0) & ~v7_struct_0(sK0)) [choice axiom]
+90. ? [X1] : (? [X2] : (? [X3] : ((~r3_diraf(sK0,X3,X2,X1) | ~r3_diraf(sK0,X3,X1,X2) | ~r3_diraf(sK0,X2,X3,X1) | ~r3_diraf(sK0,X2,X1,X3) | ~r3_diraf(sK0,X1,X3,X2)) & r3_diraf(sK0,X1,X2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(X1,u1_struct_0(sK0))) => (? [X2] : (? [X3] : ((~r3_diraf(sK0,X3,X2,sK1) | ~r3_diraf(sK0,X3,sK1,X2) | ~r3_diraf(sK0,X2,X3,sK1) | ~r3_diraf(sK0,X2,sK1,X3) | ~r3_diraf(sK0,sK1,X3,X2)) & r3_diraf(sK0,sK1,X2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) & m1_subset_1(X2,u1_struct_0(sK0))) & m1_subset_1(sK1,u1_struct_0(sK0))) [choice axiom]
+91. ? [X2] : (? [X3] : ((~r3_diraf(sK0,X3,X2,sK1) | ~r3_diraf(sK0,X3,sK1,X2) | ~r3_diraf(sK0,X2,X3,sK1) | ~r3_diraf(sK0,X2,sK1,X3) | ~r3_diraf(sK0,sK1,X3,X2)) & r3_diraf(sK0,sK1,X2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) & m1_subset_1(X2,u1_struct_0(sK0))) => (? [X3] : ((~r3_diraf(sK0,X3,sK2,sK1) | ~r3_diraf(sK0,X3,sK1,sK2) | ~r3_diraf(sK0,sK2,X3,sK1) | ~r3_diraf(sK0,sK2,sK1,X3) | ~r3_diraf(sK0,sK1,X3,sK2)) & r3_diraf(sK0,sK1,sK2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) & m1_subset_1(sK2,u1_struct_0(sK0))) [choice axiom]
+92. ? [X3] : ((~r3_diraf(sK0,X3,sK2,sK1) | ~r3_diraf(sK0,X3,sK1,sK2) | ~r3_diraf(sK0,sK2,X3,sK1) | ~r3_diraf(sK0,sK2,sK1,X3) | ~r3_diraf(sK0,sK1,X3,sK2)) & r3_diraf(sK0,sK1,sK2,X3) & m1_subset_1(X3,u1_struct_0(sK0))) => ((~r3_diraf(sK0,sK3,sK2,sK1) | ~r3_diraf(sK0,sK3,sK1,sK2) | ~r3_diraf(sK0,sK2,sK3,sK1) | ~r3_diraf(sK0,sK2,sK1,sK3) | ~r3_diraf(sK0,sK1,sK3,sK2)) & r3_diraf(sK0,sK1,sK2,sK3) & m1_subset_1(sK3,u1_struct_0(sK0))) [choice axiom]
+93. ((((~r3_diraf(sK0,sK3,sK2,sK1) | ~r3_diraf(sK0,sK3,sK1,sK2) | ~r3_diraf(sK0,sK2,sK3,sK1) | ~r3_diraf(sK0,sK2,sK1,sK3) | ~r3_diraf(sK0,sK1,sK3,sK2)) & r3_diraf(sK0,sK1,sK2,sK3) & m1_subset_1(sK3,u1_struct_0(sK0))) & m1_subset_1(sK2,u1_struct_0(sK0))) & m1_subset_1(sK1,u1_struct_0(sK0))) & l1_analoaf(sK0) & v2_analoaf(sK0) & ~v7_struct_0(sK0) [skolemisation 44,92,91,90,89]
+104. ~v7_struct_0(sK0) [cnf transformation 93] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+105. v2_analoaf(sK0) [cnf transformation 93] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+106. l1_analoaf(sK0) [cnf transformation 93] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+107. m1_subset_1(sK1,u1_struct_0(sK0)) [cnf transformation 93] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+108. m1_subset_1(sK2,u1_struct_0(sK0)) [cnf transformation 93] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+109. m1_subset_1(sK3,u1_struct_0(sK0)) [cnf transformation 93] {a:0,w:4,wCS:400,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+110. r3_diraf(sK0,sK1,sK2,sK3) [cnf transformation 93] {a:0,w:5,wCS:500,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+111. ~r3_diraf(sK0,sK3,sK2,sK1) | ~r3_diraf(sK0,sK3,sK1,sK2) | ~r3_diraf(sK0,sK2,sK3,sK1) | ~r3_diraf(sK0,sK2,sK1,sK3) | ~r3_diraf(sK0,sK1,sK3,sK2) [cnf transformation 93] {a:0,w:25,wCS:2500,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+132. ~r3_diraf(X0,X1,X2,X3) | r3_diraf(X0,X1,X3,X2) | ~m1_subset_1(X3,u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v2_analoaf(X0) | v7_struct_0(X0) [cnf transformation 74] {a:0,w:28,wCS:11200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+133. ~r3_diraf(X0,X1,X2,X3) | r3_diraf(X0,X2,X1,X3) | ~m1_subset_1(X3,u1_struct_0(X0)) | ~m1_subset_1(X2,u1_struct_0(X0)) | ~m1_subset_1(X1,u1_struct_0(X0)) | ~l1_analoaf(X0) | ~v2_analoaf(X0) | v7_struct_0(X0) [cnf transformation 74] {a:0,w:28,wCS:11200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+149. 1 <=> r3_diraf(sK0,sK1,sK3,sK2) [avatar definition]
+150. r3_diraf(sK0,sK1,sK3,sK2) <- (1) [avatar component clause 149] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+153. 2 <=> r3_diraf(sK0,sK2,sK1,sK3) [avatar definition]
+154. r3_diraf(sK0,sK2,sK1,sK3) <- (2) [avatar component clause 153] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+157. 3 <=> r3_diraf(sK0,sK2,sK3,sK1) [avatar definition]
+158. r3_diraf(sK0,sK2,sK3,sK1) <- (3) [avatar component clause 157] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+161. 4 <=> r3_diraf(sK0,sK3,sK1,sK2) [avatar definition]
+165. 5 <=> r3_diraf(sK0,sK3,sK2,sK1) [avatar definition]
+168. ~1 | ~2 | ~3 | ~4 | ~5 [avatar split clause 111,165,161,157,153,149]
+170. 6 <=> r3_diraf(sK0,sK1,sK2,sK3) [avatar definition]
+172. r3_diraf(sK0,sK1,sK2,sK3) <- (6) [avatar component clause 170] {a:0,w:5,wCS:500,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+173. 6 [avatar split clause 110,170]
+175. 7 <=> m1_subset_1(sK3,u1_struct_0(sK0)) [avatar definition]
+177. m1_subset_1(sK3,u1_struct_0(sK0)) <- (7) [avatar component clause 175] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+178. 7 [avatar split clause 109,175]
+180. 8 <=> m1_subset_1(sK2,u1_struct_0(sK0)) [avatar definition]
+182. m1_subset_1(sK2,u1_struct_0(sK0)) <- (8) [avatar component clause 180] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+183. 8 [avatar split clause 108,180]
+185. 9 <=> m1_subset_1(sK1,u1_struct_0(sK0)) [avatar definition]
+187. m1_subset_1(sK1,u1_struct_0(sK0)) <- (9) [avatar component clause 185] {a:0,w:4,wCS:400,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+188. 9 [avatar split clause 107,185]
+190. 10 <=> l1_analoaf(sK0) [avatar definition]
+192. l1_analoaf(sK0) <- (10) [avatar component clause 190] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+193. 10 [avatar split clause 106,190]
+195. 11 <=> v2_analoaf(sK0) [avatar definition]
+197. v2_analoaf(sK0) <- (11) [avatar component clause 195] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+198. 11 [avatar split clause 105,195]
+200. 12 <=> v7_struct_0(sK0) [avatar definition]
+202. ~v7_struct_0(sK0) <- (~12) [avatar component clause 200] {a:0,w:2,wCS:200,nSel:1,goal:1,sine:255,thAx:0,allAx:5,thDist:-5}
+203. ~12 [avatar split clause 104,200]
+314. r3_diraf(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6) [resolution 132,172] {a:1,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+324. r3_diraf(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7) [subsumption resolution 314,177] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+325. r3_diraf(sK0,sK1,sK3,sK2) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8) [subsumption resolution 324,182] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+326. r3_diraf(sK0,sK1,sK3,sK2) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8, 9) [subsumption resolution 325,187] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+327. r3_diraf(sK0,sK1,sK3,sK2) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8, 9, 10) [subsumption resolution 326,192] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+328. r3_diraf(sK0,sK1,sK3,sK2) | v7_struct_0(sK0) <- (6, 7, 8, 9, 10, 11) [subsumption resolution 327,197] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+329. r3_diraf(sK0,sK1,sK3,sK2) <- (6, 7, 8, 9, 10, 11, ~12) [subsumption resolution 328,202] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+330. 1 | ~6 | ~7 | ~8 | ~9 | ~10 | ~11 | 12 [avatar split clause 329,200,195,190,185,180,175,170,149]
+336. r3_diraf(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6) [resolution 133,172] {a:1,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+337. r3_diraf(sK0,sK3,sK1,sK2) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (1) [resolution 133,150] {a:1,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+347. r3_diraf(sK0,sK3,sK1,sK2) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (1, 8) [subsumption resolution 337,182] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+348. r3_diraf(sK0,sK3,sK1,sK2) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (1, 7, 8) [subsumption resolution 347,177] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+349. r3_diraf(sK0,sK3,sK1,sK2) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (1, 7, 8, 9) [subsumption resolution 348,187] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+350. r3_diraf(sK0,sK3,sK1,sK2) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (1, 7, 8, 9, 10) [subsumption resolution 349,192] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+351. r3_diraf(sK0,sK3,sK1,sK2) | v7_struct_0(sK0) <- (1, 7, 8, 9, 10, 11) [subsumption resolution 350,197] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+352. r3_diraf(sK0,sK3,sK1,sK2) <- (1, 7, 8, 9, 10, 11, ~12) [subsumption resolution 351,202] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+353. r3_diraf(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7) [subsumption resolution 336,177] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+354. r3_diraf(sK0,sK2,sK1,sK3) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8) [subsumption resolution 353,182] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+355. r3_diraf(sK0,sK2,sK1,sK3) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8, 9) [subsumption resolution 354,187] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+356. r3_diraf(sK0,sK2,sK1,sK3) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (6, 7, 8, 9, 10) [subsumption resolution 355,192] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+357. r3_diraf(sK0,sK2,sK1,sK3) | v7_struct_0(sK0) <- (6, 7, 8, 9, 10, 11) [subsumption resolution 356,197] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+358. r3_diraf(sK0,sK2,sK1,sK3) <- (6, 7, 8, 9, 10, 11, ~12) [subsumption resolution 357,202] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+359. 2 | ~6 | ~7 | ~8 | ~9 | ~10 | ~11 | 12 [avatar split clause 358,200,195,190,185,180,175,170,153]
+360. 4 | ~1 | ~7 | ~8 | ~9 | ~10 | ~11 | 12 [avatar split clause 352,200,195,190,185,180,175,149,161]
+370. r3_diraf(sK0,sK2,sK3,sK1) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (2) [resolution 154,132] {a:1,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+371. r3_diraf(sK0,sK2,sK3,sK1) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (2, 7) [subsumption resolution 370,177] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+372. r3_diraf(sK0,sK2,sK3,sK1) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (2, 7, 9) [subsumption resolution 371,187] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+373. r3_diraf(sK0,sK2,sK3,sK1) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (2, 7, 8, 9) [subsumption resolution 372,182] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+374. r3_diraf(sK0,sK2,sK3,sK1) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (2, 7, 8, 9, 10) [subsumption resolution 373,192] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+375. r3_diraf(sK0,sK2,sK3,sK1) | v7_struct_0(sK0) <- (2, 7, 8, 9, 10, 11) [subsumption resolution 374,197] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+376. r3_diraf(sK0,sK2,sK3,sK1) <- (2, 7, 8, 9, 10, 11, ~12) [subsumption resolution 375,202] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+377. 3 | ~2 | ~7 | ~8 | ~9 | ~10 | ~11 | 12 [avatar split clause 376,200,195,190,185,180,175,153,157]
+386. r3_diraf(sK0,sK3,sK2,sK1) | ~m1_subset_1(sK1,u1_struct_0(sK0)) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (3) [resolution 158,133] {a:1,w:23,wCS:2300,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+388. r3_diraf(sK0,sK3,sK2,sK1) | ~m1_subset_1(sK3,u1_struct_0(sK0)) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (3, 9) [subsumption resolution 386,187] {a:1,w:19,wCS:1900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+389. r3_diraf(sK0,sK3,sK2,sK1) | ~m1_subset_1(sK2,u1_struct_0(sK0)) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (3, 7, 9) [subsumption resolution 388,177] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+390. r3_diraf(sK0,sK3,sK2,sK1) | ~l1_analoaf(sK0) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (3, 7, 8, 9) [subsumption resolution 389,182] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+391. r3_diraf(sK0,sK3,sK2,sK1) | ~v2_analoaf(sK0) | v7_struct_0(sK0) <- (3, 7, 8, 9, 10) [subsumption resolution 390,192] {a:1,w:9,wCS:900,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+392. r3_diraf(sK0,sK3,sK2,sK1) | v7_struct_0(sK0) <- (3, 7, 8, 9, 10, 11) [subsumption resolution 391,197] {a:1,w:7,wCS:700,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+393. r3_diraf(sK0,sK3,sK2,sK1) <- (3, 7, 8, 9, 10, 11, ~12) [subsumption resolution 392,202] {a:1,w:5,wCS:500,goal:1,sine:1,thAx:0,allAx:6,thDist:-6}
+394. 5 | ~3 | ~7 | ~8 | ~9 | ~10 | ~11 | 12 [avatar split clause 393,200,195,190,185,180,175,157,165]
+395. $false [avatar sat refutation 168,173,178,183,188,193,198,203,330,359,360,377,394] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:323,thDist:-323}
+% SZS output end Proof for diraf__t30_diraf
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 37
+% Introduced skolems: 9
+% 
+% >>> Saturation
+% Initial clauses: 44
+% Generated clauses: 169
+% Active clauses: 51
+% Passive clauses: 65
+% Final active clauses: 48
+% Final passive clauses: 9
+% Main loop iterations started: 55
+% 
+% >>> Simplifying Inferences
+% Duplicate literals: 6
+% Fw subsumption resolutions: 46
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 9
+% Forward subsumptions: 12
+% 
+% >>> Generating Inferences
+% Binary resolution: 31
+% Unit resulting resolution: 2
+% Forward superposition: 2
+% Backward superposition: 1
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 6
+% Split components: 15
+% Sat splitting refutations: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 36
+% SAT solver unit clauses: 13
+% SAT solver binary clauses: 4
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% unit resulting resolution: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

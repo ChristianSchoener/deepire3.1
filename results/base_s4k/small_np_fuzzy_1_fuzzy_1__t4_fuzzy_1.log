@@ -1,0 +1,59 @@
+i: [1,350,0,3,1,1,0,0] t4_fuzzy_1
+i: [1,349,0,3,1,1,0,0] t4_fuzzy_1
+f: 349,350
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for fuzzy_1__t4_fuzzy_1
+% SZS output start Proof for fuzzy_1__t4_fuzzy_1
+1. ! [X0] : (~v1_xboole_0(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X1,X0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) => ! [X2] : ((m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X2,X0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) => ! [X3] : ((m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X3,X0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) => ((r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2)) => r1_fuzzy_1(X2,X3)))))) [input t4_fuzzy_1]
+2. ~! [X0] : (~v1_xboole_0(X0) => ! [X1] : ((m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X1,X0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) => ! [X2] : ((m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X2,X0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) => ! [X3] : ((m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X3,X0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) => ((r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2)) => r1_fuzzy_1(X2,X3)))))) [negated conjecture 1]
+172. ? [X0] : (? [X1] : (? [X2] : (? [X3] : ((~r1_fuzzy_1(X2,X3) & (r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2))) & (m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X3,X0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1)))) & (m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X2,X0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1)))) & (m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X1,X0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1)))) & ~v1_xboole_0(X0)) [ennf transformation 2]
+173. ? [X0] : (? [X1] : (? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X3,X0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X2,X0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X1,X0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) & ~v1_xboole_0(X0)) [flattening 172]
+295. ? [X0] : (? [X1] : (? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X3,X0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X2,X0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(X0,k1_numbers))) & v1_funct_2(X1,X0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) & ~v1_xboole_0(X0)) => (? [X1] : (? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X2,sK0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X1,sK0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) & ~v1_xboole_0(sK0)) [choice axiom]
+296. ? [X1] : (? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X2,sK0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X1,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X1,sK0,k1_numbers) & v1_funct_1(X1) & v5_relat_1(X1,k1_rcomp_1(k6_numbers,1))) => (? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(sK1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X2,sK0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK1,sK0,k1_numbers) & v1_funct_1(sK1) & v5_relat_1(sK1,k1_rcomp_1(k6_numbers,1))) [choice axiom]
+297. ? [X2] : (? [X3] : (~r1_fuzzy_1(X2,X3) & r1_fuzzy_1(X2,X3) & r1_fuzzy_1(sK1,X2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(X2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X2,sK0,k1_numbers) & v1_funct_1(X2) & v5_relat_1(X2,k1_rcomp_1(k6_numbers,1))) => (? [X3] : (~r1_fuzzy_1(sK2,X3) & r1_fuzzy_1(sK2,X3) & r1_fuzzy_1(sK1,sK2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK2,sK0,k1_numbers) & v1_funct_1(sK2) & v5_relat_1(sK2,k1_rcomp_1(k6_numbers,1))) [choice axiom]
+298. ? [X3] : (~r1_fuzzy_1(sK2,X3) & r1_fuzzy_1(sK2,X3) & r1_fuzzy_1(sK1,sK2) & m1_subset_1(X3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(X3,sK0,k1_numbers) & v1_funct_1(X3) & v5_relat_1(X3,k1_rcomp_1(k6_numbers,1))) => (~r1_fuzzy_1(sK2,sK3) & r1_fuzzy_1(sK2,sK3) & r1_fuzzy_1(sK1,sK2) & m1_subset_1(sK3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK3,sK0,k1_numbers) & v1_funct_1(sK3) & v5_relat_1(sK3,k1_rcomp_1(k6_numbers,1))) [choice axiom]
+299. (((~r1_fuzzy_1(sK2,sK3) & r1_fuzzy_1(sK2,sK3) & r1_fuzzy_1(sK1,sK2) & m1_subset_1(sK3,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK3,sK0,k1_numbers) & v1_funct_1(sK3) & v5_relat_1(sK3,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(sK2,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK2,sK0,k1_numbers) & v1_funct_1(sK2) & v5_relat_1(sK2,k1_rcomp_1(k6_numbers,1))) & m1_subset_1(sK1,k1_zfmisc_1(k2_zfmisc_1(sK0,k1_numbers))) & v1_funct_2(sK1,sK0,k1_numbers) & v1_funct_1(sK1) & v5_relat_1(sK1,k1_rcomp_1(k6_numbers,1))) & ~v1_xboole_0(sK0) [skolemisation 173,298,297,296,295]
+349. r1_fuzzy_1(sK2,sK3) [cnf transformation 299] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+350. ~r1_fuzzy_1(sK2,sK3) [cnf transformation 299] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:5,thDist:-5}
+527. 1 <=> r1_fuzzy_1(sK2,sK3) [avatar definition]
+530. ~1 [avatar split clause 350,527]
+531. 1 [avatar split clause 349,527]
+815. $false [avatar sat refutation 530,531] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:207,thDist:-207}
+% SZS output end Proof for fuzzy_1__t4_fuzzy_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 137
+% >>> Preprocessing
+% Introduced skolems: 21
+% Pure predicates: 8
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 191
+% Generated clauses: 191
+% Passive clauses: 110
+% Final passive clauses: 110
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 22
+% 
+% >>> AVATAR
+% Split clauses: 2
+% Split components: 4
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 61
+% SAT solver unit clauses: 57
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.002 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% other: 0.002 s ( own 0.001 s ) 
+

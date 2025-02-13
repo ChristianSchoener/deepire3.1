@@ -1,0 +1,158 @@
+i: [1,26,0,17,1,1,0,0] t102_xboole_1
+a: [3,39,0,17,1,26]
+s: 39
+i: [1,31,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 31
+i: [1,32,0,5,1,0,0,1] idempotence_k3_xboole_0
+s: 32
+i: [1,33,0,7,1,0,0,1] commutativity_k5_xboole_0
+s: 33
+i: [1,34,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 34
+i: [1,35,0,7,1,0,0,1] commutativity_k3_xboole_0
+s: 35
+r: 39
+d: [2,41,0,17,1,1,23,39,35]
+a: [3,45,0,17,1,41]
+s: 45
+i: [1,27,0,11,1,0,0,1] d6_xboole_0
+s: 27
+d: [2,47,1,7,1,0,44,27,31]
+s: 47
+i: [1,28,0,11,1,0,0,1] l98_xboole_1
+s: 28
+i: [1,29,0,11,1,0,0,1] t16_xboole_1
+s: 29
+d: [2,50,1,7,1,0,44,31,27]
+s: 50
+i: [1,30,0,13,1,0,0,1] t52_xboole_1
+s: 30
+d: [2,67,1,9,1,0,44,29,32]
+s: 67
+d: [2,48,1,11,1,0,44,27,34]
+s: 48
+d: [2,49,1,11,1,0,44,27,34]
+s: 49
+d: [2,92,2,9,1,0,44,67,35]
+s: 92
+d: [2,51,1,11,1,0,44,34,27]
+s: 51
+d: [2,93,2,9,1,0,44,67,35]
+s: 93
+d: [2,52,1,11,1,0,44,34,27]
+s: 52
+d: [2,56,1,11,1,0,44,28,34]
+s: 56
+d: [2,57,1,11,1,0,44,28,34]
+s: 57
+d: [2,60,1,11,1,0,44,28,35]
+s: 60
+d: [2,61,1,11,1,0,44,28,35]
+s: 61
+d: [2,68,1,11,1,0,44,29,35]
+s: 68
+d: [2,69,1,11,1,0,44,29,35]
+s: 69
+d: [2,71,1,11,1,0,44,29,32]
+s: 71
+d: [2,72,1,11,1,0,44,29,35]
+s: 72
+r: 45
+d: [2,223,0,17,1,1,23,45,72]
+d: [2,288,0,17,1,1,22,223,72]
+a: [3,292,0,17,1,288]
+s: 292
+d: [2,316,1,15,1,1,44,292,30]
+d: [2,317,1,11,1,1,22,316,28]
+d: [2,318,1,0,0,1,19,317]
+e: 318
+f: 318,288,41,26
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for xboole_1__t102_xboole_1
+% SZS output start Proof for xboole_1__t102_xboole_1
+1. ! [X0] : ! [X1] : ! [X2] : k4_xboole_0(X0,k5_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,k2_xboole_0(X1,X2)),k3_xboole_0(k3_xboole_0(X0,X1),X2)) [input t102_xboole_1]
+2. ~! [X0] : ! [X1] : ! [X2] : k4_xboole_0(X0,k5_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,k2_xboole_0(X1,X2)),k3_xboole_0(k3_xboole_0(X0,X1),X2)) [negated conjecture 1]
+4. ! [X0,X1] : k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [input commutativity_k3_xboole_0]
+13. ! [X0] : ! [X1] : k5_xboole_0(X0,X1) = k4_xboole_0(k2_xboole_0(X0,X1),k3_xboole_0(X0,X1)) [input l98_xboole_1]
+14. ! [X0] : ! [X1] : ! [X2] : k3_xboole_0(k3_xboole_0(X0,X1),X2) = k3_xboole_0(X0,k3_xboole_0(X1,X2)) [input t16_xboole_1]
+15. ! [X0] : ! [X1] : ! [X2] : k4_xboole_0(X0,k4_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,X1),k3_xboole_0(X0,X2)) [input t52_xboole_1]
+16. ~! [X0,X1,X2] : k4_xboole_0(X0,k5_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,k2_xboole_0(X1,X2)),k3_xboole_0(k3_xboole_0(X0,X1),X2)) [flattening 2]
+18. ! [X0,X1] : k5_xboole_0(X0,X1) = k4_xboole_0(k2_xboole_0(X0,X1),k3_xboole_0(X0,X1)) [flattening 13]
+19. ! [X0,X1,X2] : k3_xboole_0(k3_xboole_0(X0,X1),X2) = k3_xboole_0(X0,k3_xboole_0(X1,X2)) [flattening 14]
+20. ! [X0,X1,X2] : k4_xboole_0(X0,k4_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,X1),k3_xboole_0(X0,X2)) [flattening 15]
+23. ? [X0,X1,X2] : k4_xboole_0(X0,k5_xboole_0(X1,X2)) != k2_xboole_0(k4_xboole_0(X0,k2_xboole_0(X1,X2)),k3_xboole_0(k3_xboole_0(X0,X1),X2)) [ennf transformation 16]
+24. ? [X0,X1,X2] : k4_xboole_0(X0,k5_xboole_0(X1,X2)) != k2_xboole_0(k4_xboole_0(X0,k2_xboole_0(X1,X2)),k3_xboole_0(k3_xboole_0(X0,X1),X2)) => k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(k3_xboole_0(sK0,sK1),sK2)) [choice axiom]
+25. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(k3_xboole_0(sK0,sK1),sK2)) [skolemisation 23,24]
+26. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(k3_xboole_0(sK0,sK1),sK2)) [cnf transformation 25] {a:0,w:17,wCS:1700,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+28. k5_xboole_0(X0,X1) = k4_xboole_0(k2_xboole_0(X0,X1),k3_xboole_0(X0,X1)) [cnf transformation 18] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+29. k3_xboole_0(k3_xboole_0(X0,X1),X2) = k3_xboole_0(X0,k3_xboole_0(X1,X2)) [cnf transformation 19] {a:0,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+30. k4_xboole_0(X0,k4_xboole_0(X1,X2)) = k2_xboole_0(k4_xboole_0(X0,X1),k3_xboole_0(X0,X2)) [cnf transformation 20] {a:0,w:13,wCS:5200,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+35. k3_xboole_0(X0,X1) = k3_xboole_0(X1,X0) [cnf transformation 4] {a:0,w:7,wCS:2800,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+37. 1 <=> k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) = k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(k3_xboole_0(sK0,sK1),sK2)) [avatar definition]
+39. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(k3_xboole_0(sK0,sK1),sK2)) <- (~1) [avatar component clause 37] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+40. ~1 [avatar split clause 26,37]
+41. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK2,k3_xboole_0(sK0,sK1))) <- (~1) [backward demodulation 39,35] {a:0,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+43. 2 <=> k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) = k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK2,k3_xboole_0(sK0,sK1))) [avatar definition]
+45. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK2,k3_xboole_0(sK0,sK1))) <- (~2) [avatar component clause 43] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+46. ~2 | 1 [avatar split clause 41,37,43]
+72. k3_xboole_0(X5,k3_xboole_0(X6,X7)) = k3_xboole_0(X7,k3_xboole_0(X5,X6)) [superposition 29,35] {a:1,w:11,wCS:4400,nSel:1,sine:1,thAx:0,allAx:2,thDist:-2}
+223. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK1,k3_xboole_0(sK2,sK0))) <- (~2) [backward demodulation 45,72] {a:0,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+288. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK0,k3_xboole_0(sK1,sK2))) <- (~2) [forward demodulation 223,72] {a:0,w:17,wCS:1700,goal:1,sine:1,thAx:0,allAx:2,thDist:-2}
+290. 3 <=> k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) = k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK0,k3_xboole_0(sK1,sK2))) [avatar definition]
+292. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k2_xboole_0(k4_xboole_0(sK0,k2_xboole_0(sK1,sK2)),k3_xboole_0(sK0,k3_xboole_0(sK1,sK2))) <- (~3) [avatar component clause 290] {a:0,w:17,wCS:1700,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+293. ~3 | 2 [avatar split clause 288,43,290]
+316. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k4_xboole_0(sK0,k4_xboole_0(k2_xboole_0(sK1,sK2),k3_xboole_0(sK1,sK2))) <- (~3) [superposition 292,30] {a:1,w:15,wCS:1500,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+317. k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) != k4_xboole_0(sK0,k5_xboole_0(sK1,sK2)) <- (~3) [forward demodulation 316,28] {a:1,w:11,wCS:1100,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+318. $false <- (~3) [trivial inequality removal 317] {a:1,w:0,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+319. 3 [avatar contradiction clause 318]
+320. $false [avatar sat refutation 40,46,293,319] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:14,thDist:-14}
+% SZS output end Proof for xboole_1__t102_xboole_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 14
+% Introduced skolems: 3
+% 
+% >>> Saturation
+% Initial clauses: 10
+% Generated clauses: 281
+% Active clauses: 20
+% Passive clauses: 156
+% Final active clauses: 18
+% Final passive clauses: 127
+% Main loop iterations started: 29
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw demodulations: 64
+% Bw demodulations: 2
+% 
+% >>> Deletion Inferences
+% Forward subsumptions: 63
+% Fw demodulations to eq. taut.: 2
+% 
+% >>> Generating Inferences
+% Forward superposition: 109
+% Backward superposition: 82
+% Self superposition: 10
+% 
+% >>> AVATAR
+% Sat splitting refutations: 1
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 6
+% SAT solver unit clauses: 2
+% SAT solver binary clauses: 2
+% 
+% Memory used [KB]: 9594
+% Time elapsed: 0.004 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% parsing: 0.001 s
+% forward demodulation: 0.001 s
+% superposition: 0.001 s
+% other: 0.004 s ( own 0.001 s ) 
+

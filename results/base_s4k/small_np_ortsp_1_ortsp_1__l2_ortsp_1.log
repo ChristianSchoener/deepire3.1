@@ -1,0 +1,162 @@
+i: [1,100,0,3,1,1,0,0] l2_ortsp_1
+a: [3,149,0,3,1,100]
+s: 149
+i: [1,101,0,2,1,0,0,1] dt_c1__ortsp_1
+a: [3,154,0,2,1,101]
+s: 154
+i: [1,102,0,2,1,0,0,255] fc1_xboole_0
+a: [3,159,0,2,1,102]
+s: 159
+i: [1,141,0,2,1,0,0,2] rc2_xboole_0
+a: [3,189,0,2,1,141]
+s: 189
+i: [1,142,0,2,1,0,0,2] rc1_xboole_0
+a: [3,194,0,2,1,142]
+s: 194
+i: [1,108,0,3,1,0,0,2] fc2_xboole_0
+s: 108
+i: [1,109,0,3,1,0,0,4] fc1_subset_1
+s: 109
+i: [1,132,0,3,1,0,0,4] rc2_subset_1
+s: 132
+i: [1,135,0,3,1,0,0,255] reflexivity_r1_tarski
+s: 135
+i: [1,103,0,3,1,0,0,255] redefinition_k5_numbers
+a: [3,164,0,3,1,103]
+s: 164
+i: [1,104,0,3,1,0,0,255] redefinition_k6_numbers
+a: [3,169,0,3,1,104]
+s: 169
+r: 159
+d: [2,196,0,2,1,2,23,159,169]
+a: [3,200,0,2,1,196]
+s: 200
+i: [1,130,0,4,1,0,0,1] existence_m1_subset_1
+s: 130
+i: [1,134,0,4,1,0,0,255] rc3_subset_1
+s: 134
+i: [1,144,0,4,1,0,0,2] d1_tarski
+s: 144
+i: [1,105,0,4,1,0,0,1] de_c1__ortsp_1
+a: [3,174,0,4,1,105]
+s: 174
+d: [2,202,1,3,1,1,44,144,174]
+a: [3,207,1,3,1,202]
+s: 207
+i: [1,106,0,4,1,0,0,255] dt_k5_numbers
+a: [3,179,0,4,1,106]
+s: 179
+i: [1,107,0,4,1,0,0,255] dt_k6_numbers
+a: [3,184,0,4,1,107]
+s: 184
+i: [1,113,0,5,2,0,0,4] rc1_subset_1
+s: 113
+i: [1,116,0,5,2,0,0,255] t6_boole
+s: 116
+i: [1,127,0,5,2,0,0,3] t7_boole
+s: 127
+i: [1,131,0,5,1,0,0,4] rc2_subset_1
+s: 131
+i: [1,133,0,5,1,0,0,255] rc3_subset_1
+s: 133
+d: [2,209,0,5,2,1,22,116,169]
+s: 209
+i: [1,115,0,6,2,0,0,255] rc4_subset_1
+s: 115
+d: [2,217,1,5,2,2,44,149,209]
+s: 217
+i: [1,119,0,6,2,0,0,3] t1_subset
+s: 119
+d: [2,224,2,0,0,2,52,149,207,119]
+e: 224
+d: [2,226,2,3,1,1,40,119,207]
+d: [2,228,2,0,0,2,21,226,149]
+e: 228
+f: 228,202,105,100
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for ortsp_1__l2_ortsp_1
+% SZS output start Proof for ortsp_1__l2_ortsp_1
+1. m1_subset_1(k6_numbers,c1__ortsp_1) [input l2_ortsp_1]
+2. ~m1_subset_1(k6_numbers,c1__ortsp_1) [negated conjecture 1]
+38. c1__ortsp_1 = k1_tarski(k6_numbers) [input de_c1__ortsp_1]
+40. ! [X0] : ! [X1] : (r2_hidden(X0,X1) => m1_subset_1(X0,X1)) [input t1_subset]
+42. ! [X0] : ! [X1] : (k1_tarski(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> X0 = X2)) [input d1_tarski]
+43. ~m1_subset_1(k6_numbers,c1__ortsp_1) [flattening 2]
+44. ! [X0,X1] : (r2_hidden(X0,X1) => m1_subset_1(X0,X1)) [flattening 40]
+46. ! [X0,X1] : (k1_tarski(X0) = X1 <=> ! [X2] : (r2_hidden(X2,X1) <=> X0 = X2)) [flattening 42]
+63. ! [X0,X1] : (m1_subset_1(X0,X1) | ~r2_hidden(X0,X1)) [ennf transformation 44]
+83. ! [X0,X1] : ((k1_tarski(X0) = X1 | ? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1)))) & (! [X2] : ((r2_hidden(X2,X1) | X0 != X2) & (X0 = X2 | ~r2_hidden(X2,X1))) | k1_tarski(X0) != X1)) [nnf transformation 46]
+84. ! [X0,X1] : ((k1_tarski(X0) = X1 | ? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1)))) & (! [X3] : ((r2_hidden(X3,X1) | X0 != X3) & (X0 = X3 | ~r2_hidden(X3,X1))) | k1_tarski(X0) != X1)) [rectify 83]
+85. ! [X1,X0] : (? [X2] : ((X0 != X2 | ~r2_hidden(X2,X1)) & (X0 = X2 | r2_hidden(X2,X1))) => ((sK2(X0,X1) != X0 | ~r2_hidden(sK2(X0,X1),X1)) & (sK2(X0,X1) = X0 | r2_hidden(sK2(X0,X1),X1)))) [choice axiom]
+86. ! [X0,X1] : ((k1_tarski(X0) = X1 | ((sK2(X0,X1) != X0 | ~r2_hidden(sK2(X0,X1),X1)) & (sK2(X0,X1) = X0 | r2_hidden(sK2(X0,X1),X1)))) & (! [X3] : ((r2_hidden(X3,X1) | X0 != X3) & (X0 = X3 | ~r2_hidden(X3,X1))) | k1_tarski(X0) != X1)) [skolemisation 84,85]
+100. ~m1_subset_1(k6_numbers,c1__ortsp_1) [cnf transformation 43] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+105. c1__ortsp_1 = k1_tarski(k6_numbers) [cnf transformation 38] {a:0,w:4,wCS:1600,sine:1,thAx:0,allAx:1,thDist:-1}
+119. ~r2_hidden(X0,X1) | m1_subset_1(X0,X1) [cnf transformation 63] {a:0,w:6,wCS:2400,nSel:1,sine:3,thAx:0,allAx:1,thDist:-1}
+122. r2_hidden(X3,X1) | X0 != X3 | k1_tarski(X0) != X1 [cnf transformation 86] {a:0,w:10,wCS:4000,sine:2,thAx:0,allAx:2,thDist:-2}
+143. r2_hidden(X3,X1) | k1_tarski(X3) != X1 [equality resolution 122] {a:0,w:7,wCS:2800,sine:2,thAx:0,allAx:2,thDist:-2}
+144. r2_hidden(X3,k1_tarski(X3)) [equality resolution 143] {a:0,w:4,wCS:1600,nSel:1,sine:2,thAx:0,allAx:2,thDist:-2}
+147. 1 <=> m1_subset_1(k6_numbers,c1__ortsp_1) [avatar definition]
+149. ~m1_subset_1(k6_numbers,c1__ortsp_1) <- (~1) [avatar component clause 147] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:1,thDist:-1}
+150. ~1 [avatar split clause 100,147]
+172. 6 <=> c1__ortsp_1 = k1_tarski(k6_numbers) [avatar definition]
+174. c1__ortsp_1 = k1_tarski(k6_numbers) <- (6) [avatar component clause 172] {a:0,w:4,wCS:1600,nSel:1,sine:255,thAx:0,allAx:1,thDist:-1}
+175. 6 [avatar split clause 105,172]
+202. r2_hidden(k6_numbers,c1__ortsp_1) <- (6) [superposition 144,174] {a:1,w:3,wCS:1200,sine:2,thAx:0,allAx:3,thDist:-3}
+205. 12 <=> r2_hidden(k6_numbers,c1__ortsp_1) [avatar definition]
+207. r2_hidden(k6_numbers,c1__ortsp_1) <- (12) [avatar component clause 205] {a:1,w:3,wCS:1200,nSel:1,sine:255,thAx:0,allAx:3,thDist:-3}
+208. 12 | ~6 [avatar split clause 202,172,205]
+226. m1_subset_1(k6_numbers,c1__ortsp_1) <- (12) [resolution 119,207] {a:2,w:3,wCS:1200,sine:3,thAx:0,allAx:4,thDist:-4}
+228. $false <- (~1, 12) [subsumption resolution 226,149] {a:2,w:0,goal:1,sine:3,thAx:0,allAx:4,thDist:-4}
+229. 1 | ~12 [avatar contradiction clause 228]
+230. $false [avatar sat refutation 150,175,208,229] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:47,thDist:-47}
+% SZS output end Proof for ortsp_1__l2_ortsp_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 41
+% >>> Preprocessing
+% Introduced skolems: 9
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 43
+% Generated clauses: 73
+% Active clauses: 27
+% Passive clauses: 52
+% Final active clauses: 26
+% Final passive clauses: 24
+% Main loop iterations started: 28
+% 
+% >>> Simplifying Inferences
+% Fw subsumption resolutions: 1
+% Fw demodulations: 1
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 1
+% Forward subsumptions: 3
+% 
+% >>> Generating Inferences
+% Binary resolution: 5
+% Unit resulting resolution: 1
+% Backward superposition: 7
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 17
+% SAT solver unit clauses: 10
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9466
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% unit resulting resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

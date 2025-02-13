@@ -1,0 +1,56 @@
+i: [1,390,0,2,1,1,0,0] l86_card_2
+i: [1,604,0,2,1,0,0,1] d11_ordinal1
+f: 604,390
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for card_2__l86_card_2
+% SZS output start Proof for card_2__l86_card_2
+1. v4_ordinal1(k4_ordinal1) [input l86_card_2]
+2. ~v4_ordinal1(k4_ordinal1) [negated conjecture 1]
+148. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : (v3_ordinal1(X1) => ((v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1)) => r1_tarski(X0,X1))) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [input d11_ordinal1]
+149. ~v4_ordinal1(k4_ordinal1) [flattening 2]
+276. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : ((r1_tarski(X0,X1) | (~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1))) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [ennf transformation 148]
+277. ! [X0] : (k4_ordinal1 = X0 <=> (! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0))) [flattening 276]
+315. ! [X0] : ((k4_ordinal1 = X0 | (? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0))) & ((! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [nnf transformation 277]
+316. ! [X0] : ((k4_ordinal1 = X0 | ? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X1] : (r1_tarski(X0,X1) | ~v4_ordinal1(X1) | ~r2_hidden(k1_xboole_0,X1) | ~v3_ordinal1(X1)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [flattening 315]
+317. ! [X0] : ((k4_ordinal1 = X0 | ? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X2] : (r1_tarski(X0,X2) | ~v4_ordinal1(X2) | ~r2_hidden(k1_xboole_0,X2) | ~v3_ordinal1(X2)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [rectify 316]
+318. ! [X0] : (? [X1] : (~r1_tarski(X0,X1) & v4_ordinal1(X1) & r2_hidden(k1_xboole_0,X1) & v3_ordinal1(X1)) => (~r1_tarski(X0,sK11(X0)) & v4_ordinal1(sK11(X0)) & r2_hidden(k1_xboole_0,sK11(X0)) & v3_ordinal1(sK11(X0)))) [choice axiom]
+319. ! [X0] : ((k4_ordinal1 = X0 | (~r1_tarski(X0,sK11(X0)) & v4_ordinal1(sK11(X0)) & r2_hidden(k1_xboole_0,sK11(X0)) & v3_ordinal1(sK11(X0))) | ~v3_ordinal1(X0) | ~v4_ordinal1(X0) | ~r2_hidden(k1_xboole_0,X0)) & ((! [X2] : (r1_tarski(X0,X2) | ~v4_ordinal1(X2) | ~r2_hidden(k1_xboole_0,X2) | ~v3_ordinal1(X2)) & v3_ordinal1(X0) & v4_ordinal1(X0) & r2_hidden(k1_xboole_0,X0)) | k4_ordinal1 != X0)) [skolemisation 317,318]
+390. ~v4_ordinal1(k4_ordinal1) [cnf transformation 149] {a:0,w:2,wCS:200,goal:1,sine:0,thAx:0,allAx:1,thDist:-1}
+512. v4_ordinal1(X0) | k4_ordinal1 != X0 [cnf transformation 319] {a:0,w:5,wCS:2000,sine:1,thAx:0,allAx:2,thDist:-2}
+604. v4_ordinal1(k4_ordinal1) [equality resolution 512] {a:0,w:2,wCS:800,sine:1,thAx:0,allAx:2,thDist:-2}
+607. 1 <=> v4_ordinal1(k4_ordinal1) [avatar definition]
+610. ~1 [avatar split clause 390,607]
+687. 1 [avatar split clause 604,607]
+1013. $false [avatar sat refutation 610,687] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:233,thDist:-233}
+% SZS output end Proof for card_2__l86_card_2
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 147
+% >>> Preprocessing
+% Introduced skolems: 46
+% Pure predicates: 12
+% 
+% >>> Saturation
+% Initial clauses: 212
+% Generated clauses: 212
+% Passive clauses: 112
+% Final passive clauses: 112
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 17
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 85
+% SAT solver unit clauses: 83
+% 
+% Memory used [KB]: 9722
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% preprocessing: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+

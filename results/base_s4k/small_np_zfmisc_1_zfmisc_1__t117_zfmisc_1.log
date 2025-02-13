@@ -1,0 +1,148 @@
+i: [1,47,0,3,1,1,0,0] t117_zfmisc_1
+a: [3,76,0,3,1,47]
+s: 76
+i: [1,49,0,2,1,0,0,255] dt_o_0_0_xboole_0
+a: [3,81,0,2,1,49]
+s: 81
+i: [1,50,0,2,1,0,0,2] fc1_xboole_0
+a: [3,86,0,2,1,50]
+s: 86
+i: [1,66,0,2,1,0,0,2] rc2_xboole_0
+a: [3,96,0,2,1,66]
+s: 96
+i: [1,67,0,2,1,0,0,2] rc1_xboole_0
+a: [3,101,0,2,1,67]
+s: 101
+i: [1,48,0,9,1,1,0,0] t117_zfmisc_1
+a: [3,71,0,9,1,48]
+s: 71
+i: [1,52,0,3,1,0,0,1] fc2_xboole_0
+s: 52
+i: [1,51,0,3,1,0,0,255] d2_xboole_0
+a: [3,91,0,3,1,51]
+s: 91
+r: 81
+i: [1,53,0,5,1,0,0,1] t4_boole
+s: 53
+i: [1,54,0,5,1,0,0,1] t3_boole
+s: 54
+i: [1,55,0,5,1,0,0,2] t1_boole
+s: 55
+i: [1,56,0,5,2,0,0,2] t6_boole
+s: 56
+i: [1,60,0,5,2,0,0,1] t7_boole
+s: 60
+i: [1,61,0,5,1,0,0,1] idempotence_k2_xboole_0
+s: 61
+i: [1,63,0,6,2,0,0,1] fc4_xboole_0
+s: 63
+i: [1,64,0,6,2,0,0,1] fc5_xboole_0
+s: 64
+i: [1,65,0,6,2,0,0,1] antisymmetry_r2_hidden
+s: 65
+i: [1,59,0,7,3,0,0,2] t8_boole
+s: 59
+i: [1,62,0,7,1,0,0,1] commutativity_k2_xboole_0
+s: 62
+i: [1,57,0,9,1,0,0,1] t40_xboole_1
+s: 57
+i: [1,58,0,9,2,0,0,1] t57_zfmisc_1
+s: 58
+d: [2,124,1,6,1,1,44,71,57]
+a: [3,130,1,6,1,124]
+s: 130
+d: [2,145,2,0,0,2,52,76,130,58]
+e: 145
+d: [2,146,2,6,2,1,44,130,58]
+d: [2,147,2,3,1,1,19,146]
+d: [2,149,2,0,0,2,21,147,76]
+e: 149
+f: 149,124,47,48
+% Refutation found. Thanks to Tanya!
+% SZS status Theorem for zfmisc_1__t117_zfmisc_1
+% SZS output start Proof for zfmisc_1__t117_zfmisc_1
+1. ! [X0] : ! [X1] : (~r2_hidden(X0,X1) => k4_xboole_0(k2_xboole_0(X1,k1_tarski(X0)),k1_tarski(X0)) = X1) [input t117_zfmisc_1]
+2. ~! [X0] : ! [X1] : (~r2_hidden(X0,X1) => k4_xboole_0(k2_xboole_0(X1,k1_tarski(X0)),k1_tarski(X0)) = X1) [negated conjecture 1]
+20. ! [X0] : ! [X1] : k4_xboole_0(k2_xboole_0(X0,X1),X1) = k4_xboole_0(X0,X1) [input t40_xboole_1]
+22. ! [X0] : ! [X1] : (k4_xboole_0(X0,k1_tarski(X1)) = X0 <=> ~r2_hidden(X1,X0)) [input t57_zfmisc_1]
+26. ~! [X0,X1] : (~r2_hidden(X0,X1) => k4_xboole_0(k2_xboole_0(X1,k1_tarski(X0)),k1_tarski(X0)) = X1) [flattening 2]
+27. ! [X0,X1] : k4_xboole_0(k2_xboole_0(X0,X1),X1) = k4_xboole_0(X0,X1) [flattening 20]
+28. ! [X0,X1] : (k4_xboole_0(X0,k1_tarski(X1)) = X0 <=> ~r2_hidden(X1,X0)) [flattening 22]
+32. ! [X0,X1] : (~r2_hidden(X1,X0) => k4_xboole_0(X0,k1_tarski(X1)) = X0) [unused predicate definition removal 28]
+33. ? [X0,X1] : (k4_xboole_0(k2_xboole_0(X1,k1_tarski(X0)),k1_tarski(X0)) != X1 & ~r2_hidden(X0,X1)) [ennf transformation 26]
+35. ! [X0,X1] : (k4_xboole_0(X0,k1_tarski(X1)) = X0 | r2_hidden(X1,X0)) [ennf transformation 32]
+41. ? [X0,X1] : (k4_xboole_0(k2_xboole_0(X1,k1_tarski(X0)),k1_tarski(X0)) != X1 & ~r2_hidden(X0,X1)) => (sK1 != k4_xboole_0(k2_xboole_0(sK1,k1_tarski(sK0)),k1_tarski(sK0)) & ~r2_hidden(sK0,sK1)) [choice axiom]
+42. sK1 != k4_xboole_0(k2_xboole_0(sK1,k1_tarski(sK0)),k1_tarski(sK0)) & ~r2_hidden(sK0,sK1) [skolemisation 33,41]
+47. ~r2_hidden(sK0,sK1) [cnf transformation 42] {a:0,w:3,wCS:300,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+48. sK1 != k4_xboole_0(k2_xboole_0(sK1,k1_tarski(sK0)),k1_tarski(sK0)) [cnf transformation 42] {a:0,w:9,wCS:900,goal:1,sine:0,thAx:0,allAx:2,thDist:-2}
+57. k4_xboole_0(k2_xboole_0(X0,X1),X1) = k4_xboole_0(X0,X1) [cnf transformation 27] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+58. k4_xboole_0(X0,k1_tarski(X1)) = X0 | r2_hidden(X1,X0) [cnf transformation 35] {a:0,w:9,wCS:3600,nSel:1,sine:1,thAx:0,allAx:1,thDist:-1}
+69. 1 <=> sK1 = k4_xboole_0(k2_xboole_0(sK1,k1_tarski(sK0)),k1_tarski(sK0)) [avatar definition]
+71. sK1 != k4_xboole_0(k2_xboole_0(sK1,k1_tarski(sK0)),k1_tarski(sK0)) <- (~1) [avatar component clause 69] {a:0,w:9,wCS:900,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+72. ~1 [avatar split clause 48,69]
+74. 2 <=> r2_hidden(sK0,sK1) [avatar definition]
+76. ~r2_hidden(sK0,sK1) <- (~2) [avatar component clause 74] {a:0,w:3,wCS:300,nSel:1,goal:1,sine:255,thAx:0,allAx:2,thDist:-2}
+77. ~2 [avatar split clause 47,74]
+124. sK1 != k4_xboole_0(sK1,k1_tarski(sK0)) <- (~1) [superposition 71,57] {a:1,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:3,thDist:-3}
+128. 8 <=> sK1 = k4_xboole_0(sK1,k1_tarski(sK0)) [avatar definition]
+130. sK1 != k4_xboole_0(sK1,k1_tarski(sK0)) <- (~8) [avatar component clause 128] {a:1,w:6,wCS:600,nSel:1,goal:1,sine:255,thAx:0,allAx:3,thDist:-3}
+131. ~8 | 1 [avatar split clause 124,69,128]
+146. sK1 != sK1 | r2_hidden(sK0,sK1) <- (~8) [superposition 130,58] {a:2,w:6,wCS:600,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+147. r2_hidden(sK0,sK1) <- (~8) [trivial inequality removal 146] {a:2,w:3,wCS:300,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+149. $false <- (~2, ~8) [subsumption resolution 147,76] {a:2,w:0,goal:1,sine:1,thAx:0,allAx:4,thDist:-4}
+150. 2 | 8 [avatar contradiction clause 149]
+151. $false [avatar sat refutation 72,77,131,150] {a:0,w:0,goal:1,sine:0,thAx:0,allAx:39,thDist:-39}
+% SZS output end Proof for zfmisc_1__t117_zfmisc_1
+% ------------------------------
+% Version: Vampire 4.5.1 (commit 226f88162 on 2021-09-12 20:13:44 +0200)
+% Termination reason: Refutation
+
+% >>> Input
+% Input formulas: 24
+% >>> Preprocessing
+% Introduced skolems: 4
+% Unused predicate definitions: 1
+% 
+% >>> Saturation
+% Initial clauses: 21
+% Generated clauses: 62
+% Active clauses: 22
+% Passive clauses: 35
+% Final active clauses: 21
+% Final passive clauses: 13
+% Main loop iterations started: 22
+% 
+% >>> Simplifying Inferences
+% Trivial inequalities: 1
+% Fw subsumption resolutions: 1
+% Fw demodulations: 2
+% Bw demodulations: 1
+% 
+% >>> Deletion Inferences
+% Simple tautologies: 4
+% Forward subsumptions: 8
+% 
+% >>> Generating Inferences
+% Unit resulting resolution: 1
+% Forward superposition: 11
+% Backward superposition: 14
+% Self superposition: 1
+% 
+% >>> AVATAR
+% Split clauses: 1
+% Split components: 2
+% Sat splitting refutations: 2
+% 
+% >>> SAT Solver Statistics
+% SAT solver clauses: 13
+% SAT solver unit clauses: 7
+% SAT solver binary clauses: 3
+% 
+% Memory used [KB]: 9338
+% Time elapsed: 0.001 s
+% ------------------------------
+% ------------------------------
+% Time measurement results:
+% unit resulting resolution: 0.001 s
+% other: 0.001 s ( own 0.0000 s ) 
+
