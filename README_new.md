@@ -2,6 +2,7 @@
 Perform the following steps in order. Choose therefore a
 - folder `b_folder`, and use 
 - `b_file=raw_log_data_avF_thaxAxiomNames_useSineFalse.pt` (which is output by `log_loader`)
+Before, choose in `hyperparams.py` an appropriate number for NUMPROCESSES (Remark: With NUMPROCESSES=12, compression step takes ~65-70 GiB RAM @ peak)
 ## 0. Load problem files and create initial dump
 <pre>
 python3 log_loader.py\

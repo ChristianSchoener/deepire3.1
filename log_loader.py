@@ -16,6 +16,8 @@ from collections import ChainMap
 
 import sys,random,itertools
 
+import argparse
+
 from multiprocessing import Pool
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -34,6 +36,22 @@ def load_one(task):
     return (logname,time_elapsed),probdata
   else:
     None
+
+def parse_args():
+
+  parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
+  parser.add_argument("arguments", nargs="+", help="Arguments in key=value format (e.g., mode=pre folder=/path file=file.txt).")
+
+  args_ = parser.parse_args()
+
+  args = {}
+  for arg in args_.arguments:
+    if "=" not in arg:
+      parser.error(f"Invalid argument format '{arg}'. Use key=value.")
+    key, value = arg.split("=", 1)  # Split only on the first '='
+    args[key] = value
+  
+  return args
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -60,13 +78,17 @@ if __name__ == "__main__":
   #       spl = line.split()
   #       prob_easiness[spl[0]] = int(spl[1])
 
+  args = parse_args()
+  assert(args["file"])
+  assert(args["folder"])
+
   prob_data_list = [] # [(logname,(init,deriv,pars,selec,good)]
 
   tasks = []
-  with open(sys.argv[2],"r") as f:
+  with open(args["file"], "r") as f:
     for i,line in enumerate(f):
       logname = line[:-1]
-      tasks.append((i,logname))
+      tasks.append((i, logname))
     
   # with ThreadPoolExecutor(max_workers = 250) as executor:  # Number of threads to use
   #   futures = {executor.submit(load_one, task): task for task in tasks}
@@ -76,7 +98,7 @@ if __name__ == "__main__":
   #     result = future.result()
   #     if result:
   #       prob_data_list.append(result)
-  pool = Pool(processes=HP.NUMPROCESSES) # number of cores to use
+  pool = Pool(processes = HP.NUMPROCESSES) # number of cores to use
   results = pool.map(load_one, tasks, chunksize = 100)
   pool.close()
   pool.join()
@@ -122,12 +144,12 @@ if __name__ == "__main__":
   # print("axiom_hist", axiom_hist)
   print("thax_to_str", thax_to_str)
 
-  filename = "{}/data_sign.pt".format(sys.argv[1])
+  filename = "{}/data_sign.pt".format(args["folder"])
   print("Saving signature to", filename)
   torch.save((thax_sign, deriv_arits, thax_to_str), filename)
   print()
 
-  filename = "{}/raw_log_data{}".format(sys.argv[1], IC.name_raw_data_suffix())
+  filename = "{}/raw_log_data{}".format(args["folder"], IC.name_raw_data_suffix())
   print("Saving raw data to", filename)
   torch.save(prob_data_list, filename)
   print()
