@@ -28,6 +28,8 @@ from collections import ChainMap
 
 import sys,random,itertools
 
+import multiprocessing
+
 import asyncio
 
 import threading
@@ -468,8 +470,8 @@ class RuleWorker(threading.Thread):
 def greedy(data, stop_early=0):
   init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[1][:7] 
   
-  num_threads = 5*HP.NUMPROCESSES
   ids = [id for id, _ in init]
+  print(ids)
   id_to_ind = {ids[i]: i for i in range(len(ids))}
   rules = list(set(rule for _, rule in deriv))
   rule_ids = dict()
@@ -521,6 +523,7 @@ def greedy(data, stop_early=0):
     results_ = []
     while len(results_) < len(rules):
       time.sleep(0.0001)
+      # print(r,len(results_), end=" ", flush = True)
       if not result_queue.empty():
         results_.append(result_queue.get_nowait())
         if results_[-1] is not None:
@@ -530,7 +533,7 @@ def greedy(data, stop_early=0):
 
     # best_rule = max(empties, key=empties.get)
     best_rule = max(gain, key=gain.get)
-    # print(best_rule, gain, flush=True)
+    print(best_rule, gain, flush=True)
 
     task_queues[best_rule].put(("clean_biggest", best_rule))
     result_queue.get()
@@ -559,24 +562,24 @@ def greedy(data, stop_early=0):
   for p in workers.values():
     p.join()
 
+  cropped_keys = set(pos_vals.keys()) | set(neg_vals.keys())
 
-  sorted_keys = sorted(set(pos_vals.keys()) | set(neg_vals.keys()))  # Union of keys sorted
+  cropped_pos_values = []
+  cropped_neg_values = []
+  for k in ids:
+    if k in cropped_keys:
+      cropped_pos_values.append(pos_vals.get(k, 0.0))
+      cropped_neg_values.append(neg_vals.get(k, 0.0))
 
-  sorted_pos_values = []
-  sorted_neg_values = []
-  for k in sorted_keys:
-      sorted_pos_values.append(pos_vals.get(k, 0.0))  # Use .get() to default to 0.0
-      sorted_neg_values.append(neg_vals.get(k, 0.0))  # Use .get() to default to 0.0
-
-  pos = torch.tensor(sorted_pos_values, dtype=torch.float)
-  neg = torch.tensor(sorted_neg_values, dtype=torch.float)
+  pos = torch.tensor(cropped_pos_values, dtype=torch.float)
+  neg = torch.tensor(cropped_neg_values, dtype=torch.float)
 
   tot_pos = sum(pos)
   tot_neg = sum(neg)
 
   target = pos / (pos + neg)
 
-  mask = torch.tensor([id in sorted_keys for id in ids], dtype=torch.bool)
+  mask = torch.tensor([id in cropped_keys for id in ids], dtype=torch.bool)
 
   print()
 
@@ -666,13 +669,14 @@ if __name__ == "__main__":
   args = parse_args()
 
   if args["mode"] == "pre":
-    assert(args["file"])
-    assert(args["out_file_1"])
-    assert(args["folder"])
+    assert("file" in args)
+    assert("folder" in args)
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Compressing every individual problem.")
     prob_data_list = [IC.compress_prob_data([prob_data_list[i]]) for i in range(len(prob_data_list))]
+    print("For every problem and id, pick positive value if id has positive and negative value.")
+    prob_data_list = IC.pick_positive(prob_data_list)
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
 # The first reduction gets rid of many nodes with more than 2 parents, if not all.
@@ -719,9 +723,9 @@ if __name__ == "__main__":
     exit()
   
   if args["mode"] == "compress":
-    assert(args["file"])
-    assert(args["folder"])
-    assert(args["add_mode_1"])
+    assert("file" in args)
+    assert("folder" in args)
+    assert("add_mode_1" in args)
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
@@ -747,10 +751,84 @@ if __name__ == "__main__":
       new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
     print("Assigning new ids and weights to individual problems.", flush=True)
     prob_data_list = IC.adjust_ids_and_pos_neg_vals(new_prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
+    del old2new, old2new_, pos_vals, neg_vals, num_to_pos_vals, num_to_pos_vals_, num_to_neg_vals, num_to_neg_vals_
     print("Reducing problems a bit.", flush=True)
     prob_data_list = IC.reduce_problems(prob_data_list)
 
     print("Compressing.", flush=True)
+
+    # size_hist = defaultdict(int)
+
+    # sizes = []
+    # times = []
+
+    # size_and_prob = []
+
+    # for i, (metainfo, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
+    #   print(metainfo)
+
+    #   size = len(init) + len(deriv)
+      
+    #   size_and_prob.append((size, (metainfo, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax))))
+      
+    #   size_hist[len(init)+len(deriv)] += 1
+
+    # print("size_hist")
+    # tot = 0
+    # sum = 0
+    # small = 0
+    # big = 0
+    # for val , cnt in sorted(size_hist.items()):
+    #   sum += val * cnt
+    #   tot += cnt
+    #   # print(val,cnt)
+    #   if val > HP.COMPRESSION_THRESHOLD:
+    #     big += cnt
+    #   else:
+    #     small += cnt
+    # print("Average", sum / tot)
+    # print("Big", big)
+    # print("Small", small)
+
+    # print("Compressing for treshold", HP.COMPRESSION_THRESHOLD)
+    # size_and_prob.sort(key=lambda x : x[0])
+
+    # compressed = []
+
+    # while size_and_prob:
+    #   size, my_rest = size_and_prob.pop()
+
+    #   # print("Popped guy of size",size)
+
+    #   while size < HP.COMPRESSION_THRESHOLD and size_and_prob:
+    #     # print("Looking for a friend")
+    #     likes_sizes = int((HP.COMPRESSION_THRESHOLD - size) * 1.2)
+    #     idx_upper = bisect.bisect_right(size_and_prob,(likes_sizes, my_rest))
+
+    #     if not idx_upper:
+    #       idx_upper = 1
+
+    #     idx = random.randrange(idx_upper)
+      
+    #     # print("Idxupper",idx_upper,"idx",idx)
+
+    #     friend_size, friend_rest = size_and_prob[idx]
+    #     del size_and_prob[idx]
+
+    #     # print("friend_size",friend_size)
+
+    #     my_rest = IC.compress_prob_data_with_fixed_ids([my_rest, friend_rest])
+    #     metainfo, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax) = my_rest
+    #     size = len(init) + len(deriv)
+      
+    #     # print("aftermerge",size)
+
+    #   print("Storing a guy of size", size, "weight", metainfo[-1])
+    #   compressed.append(my_rest)
+
+    # print()
+    # print("Compressed to", len(compressed), "merged problems")
+
     print(len(prob_data_list), flush=True)
     # prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
     compressed = []
@@ -763,7 +841,7 @@ if __name__ == "__main__":
         to_compress.append(prob_data_list.pop())
         print(len(prob_data_list), flush=True)
         size += len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
-      compressed.append(IC.compress_prob_data(to_compress))
+      compressed.append(IC.compress_prob_data_with_fixed_ids(to_compress))
       print("compressed",len(compressed), flush=True)
     print("Done.", flush=True)
     prob_data_list = compressed
@@ -772,8 +850,13 @@ if __name__ == "__main__":
     print("Assigning weights.", flush=True)
     prob_data_list = IC.distribute_weights(prob_data_list)
     print("Done.", flush=True)
+  #   torch.save(prob_data_list, args["folder"] + "/reality_check.pt")
+  #   exit()
 
+  # if args["mode"] == "pieces":
+  #   prob_data_list = torch.load(args["folder"]+"/reality_check.pt",weights_only=False)
     print("Computing Greedy Evaluation Schemes.", flush=True)
+    multiprocessing.set_start_method("spawn")
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       new_prob_data_list = list(executor.map(greedy, prob_data_list))
     print("Done. Saving.", flush=True)
