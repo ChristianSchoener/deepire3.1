@@ -471,7 +471,7 @@ def greedy(data, stop_early=0):
   init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[1][:7] 
   
   ids = [id for id, _ in init]
-  print(ids)
+  # print(ids)
   id_to_ind = {ids[i]: i for i in range(len(ids))}
   rules = list(set(rule for _, rule in deriv))
   rule_ids = dict()
@@ -533,7 +533,7 @@ def greedy(data, stop_early=0):
 
     # best_rule = max(empties, key=empties.get)
     best_rule = max(gain, key=gain.get)
-    print(best_rule, gain, flush=True)
+    # print(best_rule, gain, flush=True)
 
     task_queues[best_rule].put(("clean_biggest", best_rule))
     result_queue.get()
@@ -585,7 +585,7 @@ def greedy(data, stop_early=0):
 
   return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "rule_52_limits": rule_52_limits, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "mask": mask, "target": target}
 
-def compress_to_threshold(prob_data_list,threshold):
+def compress_to_threshold(prob_data_list, threshold):
   
   # size_hist = defaultdict(int)
   
@@ -671,8 +671,14 @@ if __name__ == "__main__":
   if args["mode"] == "pre":
     assert("file" in args)
     assert("folder" in args)
+    multiprocessing.set_start_method('spawn', force=True)
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Dropping axiom information, not needed anymore")
+    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, axioms)) in prob_data_list]
+    print("Done")
+    print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and pos vals and neg vals fields")
+    prob_data_list = IC.setup_pos_vals_neg_vals(prob_data_list)
     print("Compressing every individual problem.")
     prob_data_list = [IC.compress_prob_data([prob_data_list[i]]) for i in range(len(prob_data_list))]
     print("For every problem and id, pick positive value if id has positive and negative value.")
@@ -683,7 +689,7 @@ if __name__ == "__main__":
 # Nodes with more than 2 parents are all derived by rule 52, which means, that those aren't important at all and can be dismissed.
 
     ax_to_prob = dict()
-    for i,(_,(init,_,_,_,_,_,_,_)) in enumerate(prob_data_list):
+    for i,(_,(init,_,_,_,_,_,_)) in enumerate(prob_data_list):
       for _, thax in init:
         if thax not in ax_to_prob:
           ax_to_prob[thax] = {i}
@@ -726,6 +732,7 @@ if __name__ == "__main__":
     assert("file" in args)
     assert("folder" in args)
     assert("add_mode_1" in args)
+    multiprocessing.set_start_method('spawn', force=True)
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
@@ -850,13 +857,8 @@ if __name__ == "__main__":
     print("Assigning weights.", flush=True)
     prob_data_list = IC.distribute_weights(prob_data_list)
     print("Done.", flush=True)
-  #   torch.save(prob_data_list, args["folder"] + "/reality_check.pt")
-  #   exit()
 
-  # if args["mode"] == "pieces":
-  #   prob_data_list = torch.load(args["folder"]+"/reality_check.pt",weights_only=False)
     print("Computing Greedy Evaluation Schemes.", flush=True)
-    multiprocessing.set_start_method("spawn")
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       new_prob_data_list = list(executor.map(greedy, prob_data_list))
     print("Done. Saving.", flush=True)

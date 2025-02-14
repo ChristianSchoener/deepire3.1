@@ -30,7 +30,7 @@ def load_one(task):
   print("Took", time.time()-start_time, flush=True)
   if result:
     probdata,time_elapsed = result
-    probdata = IC.setup_pos_vals_neg_vals(probdata)
+    # probdata = IC.setup_pos_vals_neg_vals(probdata)
     # probdata = IC.replace_axioms(probdata)
     # probdata = IC.compress_prob_data([probdata])
     return (logname,time_elapsed),probdata
@@ -55,7 +55,7 @@ def parse_args():
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
-  # what can be learned from a super-simple TreeNNaxiom_names_instead_of_thax
+  # what can be learned from a super-simple TreeNN
   # which distinguishes:
   # 1) conj, user_ax, theory_ax_kind in the leaves
   # 2) what inference leads to this in the tree nodes
@@ -79,8 +79,8 @@ if __name__ == "__main__":
   #       prob_easiness[spl[0]] = int(spl[1])
 
   args = parse_args()
-  assert(args["file"])
-  assert(args["folder"])
+  assert("file" in args)
+  assert("folder" in args)
 
   prob_data_list = [] # [(logname,(init,deriv,pars,selec,good)]
 
@@ -111,7 +111,7 @@ if __name__ == "__main__":
   times = []
   sizes = []
   easies = []
-  prob_data_list = [((logname,time_elapsed),((name,weight,size),rest)) for ((logname,time_elapsed),((name,weight,size),rest)) in prob_data_list if size < 30000]
+  # prob_data_list = [((logname,time_elapsed),((name,weight,size),rest)) for ((logname,time_elapsed),((name,weight,size),rest)) in prob_data_list if size < 30000]
   for i,((logname,time_elapsed),((_,_,size),rest)) in enumerate(prob_data_list):
     probname = IC.logname_to_probname(logname)
     # easy = prob_easiness[probname] if probname in prob_easiness else 1
@@ -134,9 +134,9 @@ if __name__ == "__main__":
   # plt.colorbar(sc)
   # plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
 
-  deriv_arits, axiom_hist = IC.prepare_signature(prob_data_list)
+  thax_sign, deriv_arits, axiom_hist = IC.prepare_signature(prob_data_list)
 
-  thax_sign, prob_data_list, thax_to_str = IC.axiom_names_instead_of_thax(axiom_hist, prob_data_list)
+  thax_sign, prob_data_list, thax_to_str = IC.axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list)
   
   print("thax_sign", thax_sign)
   # print("sine_sign", sine_sign) 

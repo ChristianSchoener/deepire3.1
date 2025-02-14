@@ -2,6 +2,7 @@
 
 # a module of concepts common to the inference based model development
 
+import multiprocessing.spawn
 import os
 
 import ctypes
@@ -30,6 +31,9 @@ from copy import deepcopy
 from bitarray import bitarray
 
 import math
+
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from functools import partial
 
 try:
     from typing_extensions import Final
@@ -572,7 +576,7 @@ class LearningModel(torch.nn.Module):
       init_embeds : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      data, training=True, use_cuda = False):
+      data, training = True, use_cuda = False):
       # thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos,neg,tot_pos,tot_neg,mask,target, training=True, use_cuda = False):
       # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
@@ -581,7 +585,7 @@ class LearningModel(torch.nn.Module):
       self.device = "cuda"
     else:
       self.device = "cpu"
-    
+
     self.thax = data["thax"]
     self.ids = data["ids"].to(self.device)
     self.rule_steps = data["rule_steps"].to(self.device)
@@ -594,7 +598,7 @@ class LearningModel(torch.nn.Module):
     if i in self.rule_52_limits.keys():
       self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
 
-    self.vectors = torch.empty(len(self.ids), HP.EMBED_SIZE).to(self.device)
+    self.vectors = torch.zeros(len(self.ids), HP.EMBED_SIZE).to(self.device)
     self.vectors[:len(self.thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in self.thax])
 
     self.deriv_mlps = deriv_mlps
@@ -614,11 +618,11 @@ class LearningModel(torch.nn.Module):
   
   def contribute(self):
     val = self.eval_net(self.vectors[self.mask]).squeeze()
-
+    
     self.posOK = (self.pos * (val >= 0)).sum()
     self.negOK = (self.neg * (val < 0)).sum()
 
-    contrib = self.criterion(val, self.target)
+    contrib = self.criterion(val, self.target[:sum(self.mask)].squeeze())
 
     if HP.FOCAL_LOSS:
       val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
@@ -640,7 +644,7 @@ class LearningModel(torch.nn.Module):
 
     self.contribute()
 
-    return (self.loss,self.posOK,self.negOK)
+    return (self.loss, self.posOK, self.negOK)
 
 def is_generating(rule):
   if rule == 666 or rule == 777:
@@ -822,11 +826,14 @@ def load_one(filename, max_size = None):
   return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
 
 def prepare_signature(prob_data_list):
+  thax_sign = set()
   # sine_sign = set()
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight,_), (_,deriv,pars,_,_,_,_,axioms) in prob_data_list:
+  for (_,probweight,_), (init,deriv,pars,_,_,axioms) in prob_data_list:
+    for id, thax in init:
+      thax_sign.add(thax)
     # for id, (_,sine) in init:
     #   sine_sign.add(sine)
 
@@ -844,26 +851,57 @@ def prepare_signature(prob_data_list):
     for id, ax in axioms.items():
       axiom_hist[ax] += probweight
 
-  return (deriv_arits, axiom_hist)
+  return (thax_sign, deriv_arits, axiom_hist)
 
-def axiom_names_instead_of_thax(axiom_hist, prob_data_list):
+def pick_positive(prob_data_list):
+  for i, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in enumerate(prob_data_list):
+    print()
+  
+    if True:
+      probweight = 1.0
+  
+    print(tot_pos, tot_neg)
+    
+    tot_pos = 0.0
+    tot_neg = 0.0
+
+    for id in pos_vals:
+      pos_vals[id] = 1.0
+      tot_pos += 1.0
+      if id in neg_vals:
+        del neg_vals[id]
+    for id in neg_vals:
+      neg_vals[id] = 1.0
+      tot_neg += 1.0
+
+    # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that tha whole problem has a sum of probweight
+    factor = probweight / (tot_pos + tot_neg)
+    for id in pos_vals:
+      pos_vals[id] *= factor
+    for id in neg_vals:
+      neg_vals[id] *= factor
+    tot_pos *= factor
+    tot_neg *= factor
+
+    print(tot_pos, tot_neg)
+
+    prob_data_list[i] = (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg))
+  return prob_data_list
+    
+def axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list):
   # (we didn't parse anything than 0 and -1 anyway:)
   # well, actually, in HOL/Sledgehammer we have both thax and user axioms
   # (and we treat all as user axioms (using a modified Vampire)
   
-  thax_sign = set()
   ax_idx = dict()
   thax_to_str = dict() 
   good_ax_cnt = 0
   for _, (ax, _) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
     good_ax_cnt += 1
-    if good_ax_cnt <= HP.MAX_USED_AXIOM_CNT:
-      ax_idx[ax] = good_ax_cnt
-    else:
-      ax_idx[ax] = 0
+    ax_idx[ax] = good_ax_cnt
     thax_to_str[good_ax_cnt] = ax
 
-  for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
+  for i,(metainfo,(init,deriv,pars,selec,good,axioms)) in enumerate(prob_data_list):
     new_init = []
     for id, thax in init:
       if thax == 0:
@@ -872,48 +910,50 @@ def axiom_names_instead_of_thax(axiom_hist, prob_data_list):
       new_init.append((id,thax))
       thax_sign.add(thax)
     thax_sign.add(0)
-    prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
+    prob_data_list[i] = metainfo,(new_init,deriv,pars,selec,good,axioms)
 
   return thax_sign, prob_data_list, thax_to_str
 
-def setup_pos_vals_neg_vals(prob_data):
-  (probname, probweight, size), (init, deriv, pars, selec, good, axioms) = prob_data
-  print(probname, len(init), len(deriv), len(pars), len(selec), len(good), len(axioms))
+def setup_pos_vals_neg_vals(prob_data_list):
 
-  pos_vals = {}
-  neg_vals = {}
-  tot_pos = 0.0
-  tot_neg = 0.0
+  thax_sign = set()
+  for i, ((probname, probweight, size), (init, deriv, pars, selec, good)) in enumerate(prob_data_list):
+    pos_vals = {}
+    neg_vals = {}
+    tot_pos = 0.0
+    tot_neg = 0.0
 
-  # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
-  # one_clause_weigth = 1.0/len(selec)
+    # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
+    # one_clause_weigth = 1.0/len(selec)
 
-  # New strategy: Apply the recursive depth of a node as it's weight. So inititals get 1, children of depth max. n get 1/n, ... 
+    # New strategy: Apply the recursive depth of a node as it's weight. So inititals get 1, children of depth max. n get 1/n, ... 
+    for id in selec:
+      if id in good:
+        pos_vals[id] = 1.0
+        tot_pos += 1.0
+      else:
+        neg_vals[id] = 1.0
+        tot_neg += 1.0
 
-  # depths = {}
-  # for id in [x for x, _ in init]:
-  #   depths[id] = 1
-  # for id in [x for x, _ in deriv]:
-  #   depths[id] = max(depths[id2] for id2 in pars[id]) + 1
-
-  for id in selec:
-    if id in good:
-      pos_vals[id] = 1.0
-      tot_pos += 1.0
-      # pos_vals[id] = one_clause_weigth
-      # tot_pos += one_clause_weigth
+    if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
+      new_init = []
+      for id, thax in init:
+        if thax > HP.MAX_USED_AXIOM_CNT:
+          thax = 0
+        
+        thax_sign.add(thax)
+        
+        new_init.append((id,thax))
     else:
-      neg_vals[id] = 1.0
-      tot_neg += 1.0
-      # neg_vals[id] = one_clause_weigth
-      # tot_neg += one_clause_weigth
+      new_init = init
 
-  return ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
+    prob_data_list[i] = ((probname, probweight, size), (new_init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg))
+  return prob_data_list
 
 def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals):
   for j in range(len(prob_data_list)):
     print(j, flush=True)
-    (probname,probweight,_), (init,deriv,pars,_,_,_,_,_) = prob_data_list[j]
+    (probname,probweight,_), (init,deriv,pars,_,_,_,_) = prob_data_list[j]
     if not (j in num_to_pos_vals.keys() or j in num_to_neg_vals.keys()):
       print("All pos_vals and neg_vals distributed. Emptying problem", j, "out of", len(prob_data_list), flush=True)
       prob_data_list[j] = (("",1.0,0.0),([],[],{},{},{},0.0,0.0,{}))
@@ -923,85 +963,88 @@ def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num
     these_pars = {old2new[j][id]: [old2new[j][val] for val in vals] for id, vals in pars.items()}
     these_pos_vals = dict()
     these_neg_vals = dict()
-    if j in set(num_to_pos_vals.keys()):
+    if j in num_to_pos_vals:
       for id in num_to_pos_vals[j]:
         these_pos_vals[id] = pos_vals[id]
-    if j in set(num_to_neg_vals.keys()):
+    if j in num_to_neg_vals:
       for id in num_to_neg_vals[j]:
         these_neg_vals[id] = neg_vals[id]
     this_tot_pos = sum(these_pos_vals.values())
     this_tot_neg = sum(these_neg_vals.values())
 
-    prob_data_list[j] = ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, these_pos_vals, these_neg_vals, this_tot_pos, this_tot_neg, {}))
+    prob_data_list[j] = ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, these_pos_vals, these_neg_vals, this_tot_pos, this_tot_neg))
   return prob_data_list
 
 def reduce_problems(prob_data_list):
   for j in range(len(prob_data_list)):
-    a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, _) = prob_data_list[j]
+    a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = prob_data_list[j]
     print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
     persistent = set(pos_vals.keys()) | set(neg_vals.keys())
     if len(persistent) == 0:
-      prob_data_list[j] = (("", 1.0, 0.0),([], [], {}, {}, {}, 0.0, 0.0, {}))
+      prob_data_list[j] = (("", 1.0, 0.0),([], [], {}, {}, {}, 0.0, 0.0))
       print("Reduced problem. Lengths after: 0.0, 0.0, 0.0", flush=True)
     else:
       pers_len = len(persistent)
       old_len = pers_len - 1
       while pers_len > old_len:
-        persistent = persistent.union(set([y for x in persistent.intersection(set([z for z, _ in deriv])) for y in pars[x]]))
+        persistent = persistent | set([y for x in persistent & set([z for z, _ in deriv]) for y in pars[x]])
         old_len = pers_len
         pers_len = len(persistent)
       this_init = [(x, y) for x, y in init if x in persistent]
       this_deriv = [(x, y) for x, y in deriv if x in persistent]
       these_pars = {x: y for x, y in pars.items() if x in persistent}
 
-      prob_data_list[j] = (a, (this_init, this_deriv, these_pars, pos_vals, neg_vals, tot_pos, tot_neg, {}))
+      print(tot_pos, tot_neg, flush=True)
+
+      prob_data_list[j] = (a, (this_init, this_deriv, these_pars, pos_vals, neg_vals, tot_pos, tot_neg))
       print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
   return prob_data_list
+
+def do_the_distribution(num, data, id_dict):
+  print(num, flush = True) 
+  a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = data
+  tot_pos = 0.0
+  tot_neg = 0.0
+  this_set = {x for x, _ in init} | {x for x, _ in deriv}
+  intersection = this_set & id_dict.keys()
+
+  for id in intersection:
+    id_data = id_dict[id]
+    if "pos" in id_data:
+      pos_vals[id] = id_data["pos"] / len(id_data["probs"])
+      tot_pos += pos_vals[id]
+# Trying this, maybe avoiding pos and neg at the same time is crucial. 
+# Maybe even more so if we distribute the mean value over the instances. 
+      id_data.pop("neg", None)
+      neg_vals.pop(id, None)
+    if "neg" in id_data:
+      neg_vals[id] = id_data["neg"] / len(id_data["probs"])
+      tot_neg += neg_vals[id]
+
+  return (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg))
 
 def distribute_weights(prob_data_list):
   id_dict = {}
   print("Getting ids, their problems and pos/neg vals.", flush=True)
-  for num, p in enumerate(prob_data_list):
-    this_set = set([x for x, _ in p[1][0]]) | set([x for x, _ in p[1][1]])
-    for id in this_set:
-      if id not in id_dict:
-        id_dict[id] = {}
-      if "probs" not in id_dict[id]:
-        id_dict[id]["probs"] = set() 
-      id_dict[id]["probs"].add(num)
-      if id in p[1][3]:
-        id_dict[id]["pos"] = p[1][3][id]
-      if id in p[1][4]:
-        id_dict[id]["neg"] = p[1][4][id]
 
-  print("Setting pos/neg vals in problems to 1. / depth and then normalize them to total of 1. If problem has positive and negative value, negative gets erased (Otherwise code doesn't work well).", flush=True)
-  for i, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
-    tot_pos = 0.0
-    tot_neg = 0.0
-    depths = {}
-    for id in [x for x, _ in init]:
-      depths[id] = 1
-    for id in [x for x, _ in deriv]:
-      depths[id] = max(depths[id2] for id2 in pars[id]) + 1
-    for id in set(id_dict.keys()) & set(depths.keys()):
-      if "pos" in id_dict[id]:
-        pos_vals[id] = 1. / depths[id]
-        tot_pos += 1. / depths[id]
-        if "neg" in id_dict[id]:
-          del id_dict[id]["neg"]
-          if id in neg_vals:
-            del neg_vals[id]
-      if "neg" in id_dict[id]:
-        neg_vals[id] = 1. / depths[id]
-        tot_neg += 1. / depths[id]
-    factor = 1. / (tot_pos + tot_neg)    
-    for id in pos_vals:
-      pos_vals[id] *= factor
-    for id in neg_vals:
-      neg_vals[id] *= factor
-    prob_data_list[i] = a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)
+  for num, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in enumerate(prob_data_list):
+    this_set = {x for x, _ in init} | {x for x, _ in deriv}
 
-  return prob_data_list
+    id_data = id_dict.setdefault(id, {"probs": set()})
+    id_data["probs"].add(num)
+
+    if id in pos_vals:
+      id_data["pos"] = pos_vals[id]
+    if id in neg_vals:
+      id_data["neg"] = neg_vals[id]
+
+  print("Distributing pos vals and neg vals.", flush=True)
+
+  do_the_distribution_with_id_dict = partial(do_the_distribution, id_dict=id_dict)
+
+  with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
+    new_prob_data_list = list(executor.map(do_the_distribution_with_id_dict, *zip(*enumerate(prob_data_list))))
+  return new_prob_data_list
 
 def compress_prob_data_with_fixed_ids(some_probs):
   out_probname = ""
@@ -1015,10 +1058,10 @@ def compress_prob_data_with_fixed_ids(some_probs):
   out_tot_pos = 0.0
   out_tot_neg = 0.0
 
-  for ((probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_)) in some_probs:
+  for ((probname, probweight, _), (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in some_probs:
   
     just_file = probname.split("/")[-1]
-    out_probname = f"{out_probname}+{just_file}" if out_probname else just_file
+    out_probname = f"{out_probname} + {just_file}" if out_probname else just_file
     out_probweight += probweight
 
     out_init.update(init)
@@ -1038,7 +1081,7 @@ def compress_prob_data_with_fixed_ids(some_probs):
 
   print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg, flush=True)
   sys.stdout.flush()
-  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,{})
+  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg)
 
 def compress_prob_data(some_probs, flag=False):
   id_cnt = 0
@@ -1067,7 +1110,7 @@ def compress_prob_data(some_probs, flag=False):
     checklist_pos = set()
     checklist_neg = set()
 
-  for i,((probname, probweight, _), (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, axioms)) in enumerate(some_probs):
+  for i,((probname, probweight, _), (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in enumerate(some_probs):
     # reset for evey problem in the list
     old2new[i] = {}
     just_file = probname.split("/")[-1]
@@ -1081,8 +1124,6 @@ def compress_prob_data(some_probs, flag=False):
         out_init.append((new_id, features))
         abs2new[features] = new_id
       old2new[i][old_id] = abs2new[features]
-
-    out_axioms.update(axioms)
 
     for old_id, features in deriv:
       new_pars = [old2new[i][par] for par in pars[old_id]]
@@ -1133,10 +1174,10 @@ def compress_prob_data(some_probs, flag=False):
   #   out_neg_vals[k] /= new_id_counter_neg[k]
 
   out_tot_pos = sum(out_pos_vals.values())
-  out_tot_neg = sum(out_pos_vals.values())
+  out_tot_neg = sum(out_neg_vals.values())
 
-  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg)
-  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg, out_axioms)
+  print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(pos_vals), len(neg_vals), out_tot_pos, out_tot_neg)
+  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg)
 
   if flag:
     return result, old2new, out_pos_vals, out_neg_vals, num_to_pos_vals, num_to_neg_vals
