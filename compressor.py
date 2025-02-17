@@ -40,7 +40,7 @@ import queue
 # import multiprocessing as mp
 torch.multiprocessing.set_sharing_strategy('file_system')
 
-# from copy import deepcopy
+from copy import deepcopy
 
 def parse_args():
 
@@ -83,6 +83,13 @@ def compress_by_probname(prob_data_list):
 def build_id_dict(num, p, id_dict):
   union_set = set(x for x, _ in p[1][0]) | set(x for x, _ in p[1][1])
   id_dict[num] = {"num": num, "length": len(union_set), "ids": union_set}
+
+def FCycle(k):
+  result = [x for x in range(k, 0, -1)] + [x for x in range(2, 3)]
+  for i in range(1, k - 1):
+    result += [x for x in range(i, 0, -1)] + [x for x in range(2, i + 3)]
+  result += [x for x in range(k - 1, 0, -1)] + [x for x in range(2, k)]
+  return result
 
 class MergeWorker(threading.Thread):
 # class MergeWorker(mp.Process):
@@ -770,32 +777,56 @@ if __name__ == "__main__":
       print("Saving tree and depth dict for next computation.", flush=True)
       torch.save(big_prob, args["out_file_1"])
       torch.save(depth_dict, args["out_file_2"])
-    depth_dict = {key: val for key, val in depth_dict.items() if val <= eval(args["add_mode_1"])}
-    print("Computing single multi-tree of max depth {}.".format(args["add_mode_1"]), flush=True)
-    a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = big_prob
-    new_init = [(x, y) for x, y in init if x in depth_dict]
-    new_deriv = [(x, y) for x, y in deriv if x in depth_dict]
-    new_pars = {key: val for key, val in pars.items() if key in depth_dict}
-    new_pos_vals = {key: val for key, val in pos_vals.items() if key in depth_dict}
-    new_neg_vals = {key: val for key, val in neg_vals.items() if key in depth_dict}
-    new_tot_pos = sum(new_pos_vals.values())
-    new_tot_neg = sum(new_neg_vals.values())
-    factor = 1. / (new_tot_pos + new_tot_neg)
-    for key in new_pos_vals:
-      new_pos_vals[key] *= factor
-    for key in new_neg_vals:
-      new_neg_vals[key] *= factor
-    new_tot_pos *= factor
-    new_tot_neg *= factor
-    new_prob = (a, (new_init, new_deriv, new_pars, new_pos_vals, new_neg_vals, new_tot_pos, new_tot_neg))
-    print("Saving single multi-tree of max depth {}.".format(args["add_mode_1"]), flush=True)
-    torch.save(new_prob, "{}/depth_below_{}.pt".format(args["folder"], args["add_mode_1"]))
-    print("Computing Greedy Evaluation Scheme.", flush=True)
-    below_greedy = greedy(new_prob)
-    print("Saving Greedy Evaluation Scheme and training index.", flush=True)
-    torch.save(below_greedy, "{}/pieces/depth_below_{}_greedy.pt".format(args["folder"], args["add_mode_1"]))
-    torch.save([(len(below_greedy["ids"]), "depth_below_{}_greedy.pt".format(args["add_mode_1"]))], "{}/train_index.pt".format(args["folder"]))
-    print("Done.", flush=True)
+    prob_copy = deepcopy(big_prob)
+    dict_copy = deepcopy(depth_dict)
+    for k in range(1, eval(args["add_mode_1"]) + 1):
+      big_prob = deepcopy(prob_copy)
+      depth_dict = deepcopy(dict_copy)
+      depth_dict = {key: val for key, val in depth_dict.items() if val <= k}
+      print("Computing single multi-tree of max depth {}.".format(k), flush=True)
+      a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = big_prob
+      new_init = [(x, y) for x, y in init if x in depth_dict]
+      new_deriv = [(x, y) for x, y in deriv if x in depth_dict]
+      new_pars = {key: val for key, val in pars.items() if key in depth_dict}
+      new_pos_vals = {key: val for key, val in pos_vals.items() if key in depth_dict}
+      new_neg_vals = {key: val for key, val in neg_vals.items() if key in depth_dict}
+      print("Cropping to relevant nodes.", flush=True)
+      persistent = set(new_pos_vals.keys()) | set(new_neg_vals.keys())
+      pers_len = len(persistent)
+      old_len = pers_len - 1
+      while pers_len > old_len:
+        persistent = persistent | set([y for x in persistent & set([z for z, _ in new_deriv]) for y in new_pars[x]])
+        old_len = pers_len
+        pers_len = len(persistent)
+      new_init = [(x, y) for x, y in new_init if x in persistent]
+      new_deriv = [(x, y) for x, y in new_deriv if x in persistent]
+      new_pars = {key: val for key, val in new_pars.items() if key in persistent}
+      new_pos_vals = {key: val for key, val in new_pos_vals.items() if key in persistent}
+      new_neg_vals = {key: val for key, val in new_neg_vals.items() if key in persistent}
+      new_tot_pos = sum(new_pos_vals.values())
+      new_tot_neg = sum(new_neg_vals.values())
+      factor = 1. / (new_tot_pos + new_tot_neg)
+      for key in new_pos_vals:
+        new_pos_vals[key] *= factor
+      for key in new_neg_vals:
+        new_neg_vals[key] *= factor
+      new_tot_pos *= factor
+      new_tot_neg *= factor
+
+      new_prob = (a, (new_init, new_deriv, new_pars, new_pos_vals, new_neg_vals, new_tot_pos, new_tot_neg))
+      print("Saving single multi-tree of max depth {}.".format(k), flush=True)
+      torch.save(new_prob, "{}/depth_below_{}.pt".format(args["folder"], k))
+      print("Computing Greedy Evaluation Scheme.", flush=True)
+      below_greedy = greedy(new_prob)
+      print("Saving Greedy Evaluation Scheme.", flush=True)
+      torch.save(below_greedy, "{}/pieces/depth_below_{}_greedy.pt".format(args["folder"], k))
+      # torch.save([(len(below_greedy["ids"]), "depth_below_{}_greedy.pt".format(k))], "{}/train_index.pt".format(args["folder"]))
+      print("Done.", flush=True)
+    index = []
+    print("Saving F-Cycle training index.", flush=True)
+    for k in FCycle(eval(args["add_mode_1"])):
+      index.append((len(below_greedy["ids"]), "depth_below_{}_greedy.pt".format(k)))
+    torch.save(index, "{}/train_index.pt".format(args["folder"]))
     exit()
 
   if args["mode"] == "compress":

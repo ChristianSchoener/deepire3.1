@@ -626,8 +626,8 @@ class LearningModel(torch.nn.Module):
     for i in range(len(self.rule_steps)):
       self.ind_steps[i] = self.ind_steps[i].to(self.device)
       self.pars_ind_steps[i] = self.pars_ind_steps[i].to(self.device)
-    if i in self.rule_52_limits.keys():
-      self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
+      if i in self.rule_52_limits.keys():
+        self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
 
     self.vectors = torch.zeros(len(self.ids), HP.EMBED_SIZE).to(self.device)
     self.vectors[:len(self.thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in self.thax])
