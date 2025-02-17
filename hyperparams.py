@@ -7,7 +7,7 @@ import torch
 # multi_inf_paralels_config:
 
 SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing_compress/pieces" # add /raid/. for dgx
-MAX_EPOCH = 100
+MAX_EPOCH = 1000
 
 # DATA PREPARATION PARAMS:
 
@@ -102,7 +102,7 @@ SWAPOUT = 0.0
 LEARN_RATE = 0.00005
 MOMENTUM = 0.9 # only for SGD
 
-NON_CONSTANT_10_50_250_LR = True
+NON_CONSTANT_10_50_250_LR = False
 
 # Corresponds to L2 regularization
 WEIGHT_DECAY = 0.0
@@ -134,3 +134,5 @@ FOCAL_LOSS = False
 CUDA = True
 
 NUM_STREAMS = 1
+
+CHECKPOINT = False

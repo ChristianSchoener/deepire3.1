@@ -6,40 +6,41 @@ import hyperparams as HP
 import numpy as np
 
 import torch
-from torch import Tensor
 
-import heapq
+# torch.set_default_dtype(torch.float16)
+# from torch import Tensor
+
+# import heapq
 
 import argparse
 
-import operator
+# import operator
 
 from itertools import combinations
 from bitarray import bitarray
 
 import time,bisect,random,math,os,errno
 
-from typing import Dict, List, Tuple, Optional
+# from typing import Dict, List, Tuple, Optional
 
-from multiprocessing import shared_memory
+# from multiprocessing import shared_memory
 
 from collections import defaultdict
-from collections import ChainMap
+# from collections import ChainMap
 
 import sys,random,itertools
 
 import multiprocessing
-
-import asyncio
+# import asyncio
 
 import threading
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import queue
 
-import multiprocessing as mp
+# import multiprocessing as mp
 torch.multiprocessing.set_sharing_strategy('file_system')
 
-from copy import deepcopy
+# from copy import deepcopy
 
 def parse_args():
 
@@ -424,6 +425,7 @@ def threaded_smallest_min_overlap_compression(prob_data_list):
   # torch.save(prob_data_list,sys.argv[1]+".final_single_correct")
 
 class RuleWorker(threading.Thread):
+# class RuleWorker(mp.Process):
   """ Persistent worker process that removes `id_pool` elements from `shared_pars[rule]`. """
   def __init__(self, rule, shared_pars, task_queue, result_queue):
     super().__init__()
@@ -433,6 +435,13 @@ class RuleWorker(threading.Thread):
     self.result_queue = result_queue
     self.num_empty_keys = 0
     self.empty_keys = set()
+    self.rev_shared_pars = dict()
+    for key, vals in self.shared_pars.items():
+      for val in vals:
+        self.rev_shared_pars[val] = set()
+    for key, vals in self.shared_pars.items():
+      for val in vals:
+        self.rev_shared_pars[val].add(key)
 
   def run(self):
     # print(f"Worker {self.rule} started with {len(self.shared_pars)} entries.", flush=True)
@@ -454,8 +463,11 @@ class RuleWorker(threading.Thread):
       self.result_queue.put(result) 
 
   def _handle_delete(self, data):
-    self.shared_pars = {key : val.difference(data) for key, val in self.shared_pars.items()}
-    self.empty_keys.update([key for key, val in self.shared_pars.items() if not val])
+    for id in set(data) & set(self.rev_shared_pars.keys()):
+      for val in self.rev_shared_pars[id]:
+        self.shared_pars[val].discard(id)
+      del self.rev_shared_pars[id]
+    self.empty_keys.update({key for key, val in self.shared_pars.items() if not val})
     self.shared_pars = {key: val for key, val in self.shared_pars.items() if val}
     result = (self.rule, len(self.empty_keys), self.empty_keys)
     return result
@@ -469,7 +481,7 @@ class RuleWorker(threading.Thread):
 
 def greedy(data, stop_early=0):
   init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[1][:7] 
-  
+  # multiprocessing.set_start_method('spawn', force=True)
   ids = [id for id, _ in init]
   # print(ids)
   id_to_ind = {ids[i]: i for i in range(len(ids))}
@@ -485,6 +497,9 @@ def greedy(data, stop_early=0):
 
   pars_len = {id: len(pars[id]) for id in pars}
  
+  # task_queues = {rule: mp.Queue() for rule in rules}
+  # result_queue = mp.Queue()
+
   task_queues = {rule: queue.Queue() for rule in rules}
   result_queue = queue.Queue()
 
@@ -676,7 +691,8 @@ if __name__ == "__main__":
     prob_data_list = torch.load(args["file"], weights_only=False)
     print("Dropping axiom information, not needed anymore")
     prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, axioms)) in prob_data_list]
-    print("Done")
+    print("Dropping large proofs (init+deriv > 30000)")
+    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init)+len(deriv) < 30000]
     print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and pos vals and neg vals fields")
     prob_data_list = IC.setup_pos_vals_neg_vals(prob_data_list)
     print("Compressing every individual problem.")
@@ -728,39 +744,83 @@ if __name__ == "__main__":
     del valid_data_list
     exit()
   
+  if args["mode"] == "depths":
+    assert("file" in args)
+    assert("folder" in args)
+    assert("add_mode_1" in args)
+    # multiprocessing.set_start_method('spawn', force=True)
+    print("Loading problem file.", flush=True)
+    prob_data_list = torch.load(args["file"], weights_only=False)
+    print("Compressing problems into a single multi-tree.", flush=True)
+    big_prob, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
+    print("Deleting neg val of node, if it has pos val.", flush=True)
+    big_prob = IC.pick_positive([big_prob])
+    big_prob = big_prob[0]
+    print("Computing depths of the nodes.", flush=True)
+    depth_dict = IC.get_depth_dict(big_prob)
+    depth_dict = {key: val for key, val in depth_dict.items() if val <= eval(args["add_mode_1"])}
+    print("Computing single multi-tree of max depth {}.".format(args["add_mode_1"]), flush=True)
+    a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = big_prob
+    new_init = [(x, y) for x, y in init if x in depth_dict]
+    new_deriv = [(x, y) for x, y in deriv if x in depth_dict]
+    new_pars = {key: val for key, val in pars.items() if key in depth_dict}
+    new_pos_vals = {key: val for key, val in pos_vals.items() if key in depth_dict}
+    new_neg_vals = {key: val for key, val in neg_vals.items() if key in depth_dict}
+    new_tot_pos = sum(new_pos_vals.values())
+    new_tot_neg = sum(new_neg_vals.values())
+    factor = 1. / (new_tot_pos + new_tot_neg)
+    for key in new_pos_vals:
+      new_pos_vals[key] *= factor
+    for key in new_neg_vals:
+      new_neg_vals[key] *= factor
+    new_tot_pos *= factor
+    new_tot_neg *= factor
+    new_prob = (a, (new_init, new_deriv, new_pars, new_pos_vals, new_neg_vals, new_tot_pos, new_tot_neg))
+    print("Saving single multi-tree of max depth {}.".format(args["add_mode_1"]), flush=True)
+    torch.save(new_prob, "{}/depth_below_{}.pt".format(args["folder"], args["add_mode_1"]))
+    print("Computing Greedy Evaluation Scheme.", flush=True)
+    below_greedy = greedy(new_prob)
+    print("Saving Greedy Evaluation Scheme and training index.", flush=True)
+    torch.save(below_greedy, "{}/pieces/depth_below_{}_greedy.pt".format(args["folder"], args["add_mode_1"]))
+    torch.save([(len(below_greedy["ids"]), "depth_below_{}_greedy.pt".format(args["add_mode_1"]))], "{}/train_index.pt".format(args["folder"]))
+    print("Done.", flush=True)
+    exit()
+
   if args["mode"] == "compress":
     assert("file" in args)
     assert("folder" in args)
     assert("add_mode_1" in args)
-    multiprocessing.set_start_method('spawn', force=True)
+    # multiprocessing.set_start_method('spawn', force=True)
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
-    _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
-    print("Generated old2new and num_to_pos/neg_vals. Aligning.", flush=True)
-    combined_keys = set(list(num_to_pos_vals.keys()) + list(num_to_neg_vals.keys()))
-    full_range = set([x for x in range(len(prob_data_list))])
-    missing = set(full_range - combined_keys)
-    num_to_pos_vals_ = dict()
-    num_to_neg_vals_ = dict()
-    old2new_ = dict()
-    new_prob_data_list = [None] * (len(full_range)-len(missing))
-    for key in full_range:
-      if key not in num_to_pos_vals:
-        num_to_pos_vals[key] = set()
-    for key in full_range:
-      if key not in num_to_neg_vals:
-        num_to_neg_vals[key] = set()
-    for i in range(len(combined_keys)):
-      num_to_pos_vals_[i] = num_to_pos_vals[list(combined_keys)[i]]
-      num_to_neg_vals_[i] = num_to_neg_vals[list(combined_keys)[i]]
-      old2new_[i] = old2new[list(combined_keys)[i]]
-      new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
-    print("Assigning new ids and weights to individual problems.", flush=True)
-    prob_data_list = IC.adjust_ids_and_pos_neg_vals(new_prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
-    del old2new, old2new_, pos_vals, neg_vals, num_to_pos_vals, num_to_pos_vals_, num_to_neg_vals, num_to_neg_vals_
-    print("Reducing problems a bit.", flush=True)
-    prob_data_list = IC.reduce_problems(prob_data_list)
+    if "add_mode_2" in args:
+      if args["add_mode_2"] == "reduce_max":
+        print("Extracting mapping between id in individual problem and id in one big problem, and according pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals of first occurence.", flush=True)
+        _, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
+        print("Generated old2new and num_to_pos/neg_vals. Aligning.", flush=True)
+        combined_keys = set(list(num_to_pos_vals.keys()) + list(num_to_neg_vals.keys()))
+        full_range = set([x for x in range(len(prob_data_list))])
+        missing = set(full_range - combined_keys)
+        num_to_pos_vals_ = dict()
+        num_to_neg_vals_ = dict()
+        old2new_ = dict()
+        new_prob_data_list = [None] * (len(full_range)-len(missing))
+        for key in full_range:
+          if key not in num_to_pos_vals:
+            num_to_pos_vals[key] = set()
+        for key in full_range:
+          if key not in num_to_neg_vals:
+            num_to_neg_vals[key] = set()
+        for i in range(len(combined_keys)):
+          num_to_pos_vals_[i] = num_to_pos_vals[list(combined_keys)[i]]
+          num_to_neg_vals_[i] = num_to_neg_vals[list(combined_keys)[i]]
+          old2new_[i] = old2new[list(combined_keys)[i]]
+          new_prob_data_list[i] = prob_data_list[list(combined_keys)[i]]
+        print("Assigning new ids and weights to individual problems.", flush=True)
+        prob_data_list = IC.adjust_ids_and_pos_neg_vals(new_prob_data_list, old2new_, pos_vals, neg_vals, num_to_pos_vals_, num_to_neg_vals_)
+        del old2new, old2new_, pos_vals, neg_vals, num_to_pos_vals, num_to_pos_vals_, num_to_neg_vals, num_to_neg_vals_, new_prob_data_list
+        print("Reducing problems a bit.", flush=True)
+        prob_data_list = IC.reduce_problems(prob_data_list)
 
     print("Compressing.", flush=True)
 
@@ -836,27 +896,37 @@ if __name__ == "__main__":
     # print()
     # print("Compressed to", len(compressed), "merged problems")
 
-    print(len(prob_data_list), flush=True)
-    # prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
     compressed = []
-    prob_data_list.sort(key=lambda t: -(len(t[1][0]) + len(t[1][1])))
-    while prob_data_list:
-      to_compress = [prob_data_list.pop()]
+    # prob_data_list = threaded_smallest_min_overlap_compression(prob_data_list)
+    while len(prob_data_list) > 1:
       print(len(prob_data_list), flush=True)
+      prob_data_list.sort(key=lambda t: -(len(t[1][0]) + len(t[1][1])))
+      to_compress = [prob_data_list.pop()]
       size = len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
       while size < HP.COMPRESSION_THRESHOLD and prob_data_list:
         to_compress.append(prob_data_list.pop())
-        print(len(prob_data_list), flush=True)
+        # print(len(prob_data_list), flush=True)
         size += len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
-      compressed.append(IC.compress_prob_data_with_fixed_ids(to_compress))
-      print("compressed",len(compressed), flush=True)
+      if "add_mode_2" in args:
+        if args["add_mode_2"] == "reduce_max":
+          to_compress = [IC.compress_prob_data_with_fixed_ids(to_compress)]
+      else:
+        to_compress = [IC.compress_prob_data(to_compress)]
+      size = len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
+      if size > HP.COMPRESSION_THRESHOLD:
+        compressed.extend(to_compress)
+      else:
+        prob_data_list.extend(to_compress)
+    print("compressed",len(compressed), flush=True)
     print("Done.", flush=True)
-    prob_data_list = compressed
+    prob_data_list.extend(compressed)
     del compressed
 
-    print("Assigning weights.", flush=True)
-    prob_data_list = IC.distribute_weights(prob_data_list)
-    print("Done.", flush=True)
+    if "add_mode_2" in args:
+      if args["add_mode_2"] == "reduce_max":
+        print("Assigning weights.", flush=True)
+        prob_data_list = IC.distribute_weights(prob_data_list)
+        print("Done.", flush=True)
 
     print("Computing Greedy Evaluation Schemes.", flush=True)
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:

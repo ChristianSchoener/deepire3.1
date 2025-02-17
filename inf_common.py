@@ -2,14 +2,14 @@
 
 # a module of concepts common to the inference based model development
 
-import multiprocessing.spawn
+# import multiprocessing.spawn
 import os
 
 import ctypes
 import ctypes.util
 libc = ctypes.CDLL(ctypes.util.find_library('c'))
 
-import operator
+# import operator
 
 os.environ["OMP_NUM_THREADS"] = "4"
 os.environ["OPENBLAS_NUM_THREADS"] = "4"
@@ -18,6 +18,9 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "4"
 os.environ["NUMEXPR_NUM_THREADS"] = "4"
 
 import torch
+
+# torch.set_default_dtype(torch.float16)
+
 from torch import Tensor
 
 torch.set_num_threads(1)
@@ -26,11 +29,13 @@ from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 
-from copy import deepcopy
+# from copy import deepcopy
 
-from bitarray import bitarray
+# from bitarray import bitarray
 
-import math
+# import math
+
+import torch.utils.checkpoint as checkpoint
 
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from functools import partial
@@ -42,13 +47,13 @@ except:
     # polyfill from `torch.jit`.
     from torch.jit import Final
 
-import itertools
+# import itertools
 from collections import defaultdict
 import sys,random
 
 import hyperparams as HP
 
-import multiprocessing
+# import multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 # A hacky, hardcoded log name normalizer!
@@ -88,9 +93,11 @@ class Embed(torch.nn.Module):
     return self.weight
 
 class CatAndNonLinearBinary(torch.nn.Module):
-  def __init__(self, dim : int, arit: int):
+  def __init__(self, dim: int, arit: int, checkpoint: bool):
     super().__init__()
     
+    self.checkpoint = checkpoint
+
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -109,22 +116,34 @@ class CatAndNonLinearBinary(torch.nn.Module):
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
-      self.epilog = torch.nn.Identity(dim) 
+      self.epilog = torch.nn.Identity(dim)
+
+  def _forward_impl(self, x):
+    x = self.prolog(x)
+    x = self.first(x)
+    x = self.nonlin(x)
+    x = self.second(x)
+    return self.epilog(x)
 
   def forward_impl_stack(self, args : Tensor) -> Tensor:
     if self.arit == 2:
-      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(args.shape[0] // 2, -1))))))
-      # return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(1, -1))))))
+      x = args.view(args.shape[0] // 2, -1)
     else:
-      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
+      x = args
+    if self.checkpoint:
+      return checkpoint.checkpoint(self._forward_impl, x)
+    else:
+      return self._forward_impl(x)
 
   def forward(self, args : Tensor) -> Tensor:
     return self.forward_impl_stack(args)
 
 class CatAndNonLinearMultiary(torch.nn.Module):
-  def __init__(self, dim : int, arit: int):
+  def __init__(self, dim: int, arit: int, checkpoint:bool):
     super().__init__()
   
+    self.checkpoint = checkpoint
+    
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -143,11 +162,21 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
-      self.epilog = torch.nn.Identity(dim) 
+      self.epilog = torch.nn.Identity(dim)
+
+  def _forward_impl(self, x):
+    x = self.prolog(x)
+    x = self.first(x)
+    x = self.nonlin(x)
+    x = self.second(x)
+    return self.epilog(x)
 
   def forward_impl_list(self, args : Tensor) -> Tensor:
-    return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
-  
+    if self.checkpoint:
+      return checkpoint.checkpoint(self._forward_impl, args)
+    else:
+      return self._forward_impl(args)
+    
   # def forward(self, args : Tensor) -> Tensor:
   #   x = args
   #   length = x.size(0)
@@ -220,7 +249,7 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     fill_start_inds = start_inds + lengths
     fill_end_inds = fill_start_inds + (lengths // 2)
 
-    return_mat = torch.zeros(the_len, HP.EMBED_SIZE)
+    return_mat = torch.zeros(the_len, HP.EMBED_SIZE).to(device)
 # Looping to prevent big temporary matrix
     for i in range(the_len):
       full_sized = torch.zeros(full_lengths[i], HP.EMBED_SIZE).to(device)
@@ -324,6 +353,8 @@ def get_initial_model(thax_sign, deriv_arits):
   else:
     device = "cpu"
     
+  checkpoint = HP.CHECKPOINT
+
   init_embeds = torch.nn.ModuleDict()
 
   for i in thax_sign:
@@ -332,10 +363,10 @@ def get_initial_model(thax_sign, deriv_arits):
   deriv_mlps = torch.nn.ModuleDict().to(device)
   for rule,arit in deriv_arits.items():
     if arit <= 2:
-      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE, arit).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE, arit, checkpoint).to(device)
     else:
       assert(arit == 3)
-      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE, 2).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE, 2, checkpoint).to(device)
 
   eval_net = torch.nn.Sequential(
     torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
@@ -1000,6 +1031,16 @@ def reduce_problems(prob_data_list):
       print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
   return prob_data_list
 
+def get_depth_dict(prob):
+  a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = prob
+  depths = defaultdict(int)
+  for id in [x for x, _ in init]:
+    depths[id] = 1
+  for id in [x for x, _ in deriv]:
+    depths[id] = max([depths[x] for x in pars[id]]) + 1
+
+  return depths
+
 def do_the_distribution(num, data, id_dict):
   print(num, flush = True) 
   a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = data
@@ -1011,15 +1052,24 @@ def do_the_distribution(num, data, id_dict):
   for id in intersection:
     id_data = id_dict[id]
     if "pos" in id_data:
-      pos_vals[id] = id_data["pos"] / len(id_data["probs"])
+      pos_vals[id] = 1.# / len(id_data["probs"])
       tot_pos += pos_vals[id]
 # Trying this, maybe avoiding pos and neg at the same time is crucial. 
 # Maybe even more so if we distribute the mean value over the instances. 
       id_data.pop("neg", None)
       neg_vals.pop(id, None)
     if "neg" in id_data:
-      neg_vals[id] = id_data["neg"] / len(id_data["probs"])
+      neg_vals[id] = 1. / len(id_data["probs"])
       tot_neg += neg_vals[id]
+
+    factor = 1. / (tot_pos + tot_neg)
+
+    for id in pos_vals:
+      pos_vals[id] += factor
+    for id in neg_vals:
+      neg_vals[id] += factor
+    tot_pos *= factor
+    tot_neg *= factor
 
   return (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg))
 
@@ -1035,6 +1085,8 @@ def distribute_weights(prob_data_list):
 
     if id in pos_vals:
       id_data["pos"] = pos_vals[id]
+      if id in neg_vals:
+        del neg_vals[id]
     if id in neg_vals:
       id_data["neg"] = neg_vals[id]
 
