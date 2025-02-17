@@ -6,7 +6,7 @@ import hyperparams as HP
 import numpy as np
 
 import torch
-
+torch.set_printoptions(precision=16)
 # torch.set_default_dtype(torch.float16)
 # from torch import Tensor
 
@@ -558,7 +558,7 @@ def greedy(data, stop_early=0):
     ids.extend(id_pool)
     rule_steps.append(best_rule)
     ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int32))
-    pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for this_id in pars[id]], dtype=torch.int32))
+    pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for _, this_id in enumerate(pars[id])], dtype=torch.int32))
 
     if best_rule == 52:
       rule_52_limits[len(ind_steps)-1] = torch.tensor([0] + list(np.cumsum([pars_len[id] for id in id_pool])), dtype=torch.int32)
@@ -581,20 +581,20 @@ def greedy(data, stop_early=0):
 
   cropped_pos_values = []
   cropped_neg_values = []
-  for k in ids:
+  for _, k in enumerate(ids):
     if k in cropped_keys:
       cropped_pos_values.append(pos_vals.get(k, 0.0))
       cropped_neg_values.append(neg_vals.get(k, 0.0))
 
-  pos = torch.tensor(cropped_pos_values, dtype=torch.float)
-  neg = torch.tensor(cropped_neg_values, dtype=torch.float)
+  pos = torch.tensor(cropped_pos_values, dtype=torch.float64)
+  neg = torch.tensor(cropped_neg_values, dtype=torch.float64)
 
   tot_pos = sum(pos)
   tot_neg = sum(neg)
 
   target = pos / (pos + neg)
 
-  mask = torch.tensor([id in cropped_keys for id in ids], dtype=torch.bool)
+  mask = torch.tensor([id in cropped_keys for _, id in enumerate(ids)], dtype=torch.bool)
 
   print()
 
@@ -748,16 +748,28 @@ if __name__ == "__main__":
     assert("file" in args)
     assert("folder" in args)
     assert("add_mode_1" in args)
-    # multiprocessing.set_start_method('spawn', force=True)
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
-    print("Compressing problems into a single multi-tree.", flush=True)
-    big_prob, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
-    print("Deleting neg val of node, if it has pos val.", flush=True)
-    big_prob = IC.pick_positive([big_prob])
-    big_prob = big_prob[0]
-    print("Computing depths of the nodes.", flush=True)
-    depth_dict = IC.get_depth_dict(big_prob)
+    if "add_mode_2" in args:
+      if args["add_mode_2"] == "precomputed":
+        assert "add_file_1" in args
+        print("Loading multi-tree.", flush=True)
+        big_prob = torch.load(args["file"], weights_only=False)
+        print("Loading depth dict.", flush=True)
+        depth_dict = torch.load(args["add_file_1"], weights_only=False)
+    else:
+      assert "out_file_1" in args
+      assert "out_file_2" in args
+      print("Loading problem file.", flush=True)
+      prob_data_list = torch.load(args["file"], weights_only=False)
+      print("Compressing problems into a single multi-tree.", flush=True)
+      big_prob, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals = IC.compress_prob_data(prob_data_list, True)
+      print("Deleting neg val of node, if it has pos val.", flush=True)
+      big_prob = IC.pick_positive([big_prob])
+      big_prob = big_prob[0]
+      print("Computing depths of the nodes.", flush=True)
+      depth_dict = IC.get_depth_dict(big_prob)
+      print("Saving tree and depth dict for next computation.", flush=True)
+      torch.save(big_prob, args["out_file_1"])
+      torch.save(depth_dict, args["out_file_2"])
     depth_dict = {key: val for key, val in depth_dict.items() if val <= eval(args["add_mode_1"])}
     print("Computing single multi-tree of max depth {}.".format(args["add_mode_1"]), flush=True)
     a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = big_prob
