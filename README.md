@@ -6,7 +6,7 @@ Remark:
 
 After trying out several things to save computation time for the training, I have come to the idea that a different setup of the neural network might be beneficial:
 
-Modeling positively rated clauses as non-zero vectors & negatively rated clauses as the zero vector; therefore removing biases from layers, turning activation into tanh, and concatenation into component-wise product (or convolution).
+Modeling positively rated clauses as non-zero vectors & negatively rated clauses as the zero vector; therefore removing biases from layers, turning activation into "x - tanh x", and concatenation into component-wise product (or convolution for more dynamics, let's see if weird ...).
 
 Thereby, it suffices to keep the positive "cone" leading to proofs, and attach 1 layer of negative boundary, but not add so much negative that the "selected" clauses show up (since zero vectors will stay zero vectors by construction of the neural network). This yields just about ~350,000 nodes instead of ~10,000,000 and can be trained very quickly.
 
