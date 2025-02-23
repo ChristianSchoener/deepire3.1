@@ -111,12 +111,13 @@ class EvalNet(torch.nn.Module):
       self.nonlin = torch.nn.Tanh()
     else:
       self.nonlin = torch.nn.ReLU()
-    self.B = torch.nn.Parameter(torch.randn(2*dim, dim))
+      
+    self.color = torch.nn.Parameter(torch.randn(2*dim, dim))
 
   def forward(self, args: Tensor, depths: Tensor) -> Tensor:
     x = self.A(args)
     x = self.nonlin(x)
-    x = self.B[depths] * x
+    x = self.color[depths] * x
     return x.sum(dim=-1)
   
 class CatAndNonLinearBinary(torch.nn.Module):
@@ -133,6 +134,8 @@ class CatAndNonLinearBinary(torch.nn.Module):
     else:
       self.nonlin = torch.nn.ReLU()
     
+    self.color = torch.nn.Parameter(torch.randn(2*dim, dim))
+
     self.arit = arit
     
     self.first = torch.nn.Linear(arit*dim, dim*2)
@@ -144,14 +147,16 @@ class CatAndNonLinearBinary(torch.nn.Module):
       self.epilog = torch.nn.Identity(dim)
 
   def _forward_impl(self, x):
-    x = self.prolog(x)
+    # x = self.prolog(x)
+    x = self.nonlin(x)    
     x = self.first(x)
     x = self.nonlin(x)
     x = self.second(x)
+    x = self.nonlin(x)
     return self.epilog(x)
 
-  def forward(self, args : Tensor) -> Tensor:
-    x = args
+  def forward(self, args : Tensor, depths: Tensor) -> Tensor:
+    x = self.color[depths] * args
     if self.arit == 2:
       x = x.view(x.shape[0] // 2, -1)
     return self._forward_impl(x)
@@ -685,10 +690,10 @@ class LearningModel(torch.nn.Module):
     self.negOK = torch.zeros(1).to(self.device)
 
     for step in range(len(self.rule_steps)):
-      if self.rule_steps[step].item() == 52:
-        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step], self.device)
-      else:
-        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
+      # if self.rule_steps[step].item() == 52:
+      #   self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step], self.device)
+      # else:
+      self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.depth_mask[self.pars_ind_steps[step]])
 
     self.contribute()
 
