@@ -3,6 +3,9 @@ Perform the following steps in order. Choose therefore a
 - folder `b_folder`, and use 
 - `b_file=raw_log_data_avF_thaxAxiomNames_useSineFalse.pt` (which is output by `log_loader`)
 Before, choose in `hyperparams.py` an appropriate number for NUMPROCESSES
+
+OUTDATED: Now, params are in hyperparams.py
+
 ## 0. Load problem files and create initial dump
 <pre>
 python3 log_loader.py\

@@ -30,16 +30,17 @@ libc = ctypes.CDLL(ctypes.util.find_library('c'))
 
 # models are global (anyway just read-only) to all workers (does not work on mac)
 
-def eval_on_one(my_parts,piece_name):
-  data = torch.load("{}/pieces/{}".format(sys.argv[1],piece_name))
-  init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms = data
+def eval_on_one(my_parts, piece_name):
+  data = torch.load("{}/pieces/{}".format(HP.VALID_BASE_FOLDER,piece_name), weights_only=False)
+  tot_pos = data["tot_pos"]
+  tot_neg = data["tot_neg"]
   
   with torch.no_grad():
-    model = IC.LearningModel(*my_parts,init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,False,False)
+    model = IC.LearningModel(*my_parts, data, False, False)
     model.eval()
-    (loss_sum,posOK_sum,negOK_sum) = model()
+    (loss_sum, posOK_sum, negOK_sum) = model()
 
-  return (loss_sum[0].detach().item(),posOK_sum,negOK_sum,tot_pos,tot_neg)
+  return (loss_sum.detach().item(), posOK_sum, negOK_sum, tot_pos, tot_neg)
 
 def worker(q_in, q_out):
   log = sys.stdout
@@ -48,17 +49,16 @@ def worker(q_in, q_out):
   my_model_path = None
 
   while True:
-    (model_path,piece_name) = q_in.get()
+    (model_path, piece_name) = q_in.get()
     
     if my_model_path != model_path:
-      (epoch,parts,optimizer) = torch.load(model_path)
-      my_parts = parts
+      (_, my_parts) = torch.load(model_path, map_location="cpu", weights_only=False)
       my_model_path = model_path
   
     start_time = time.time()
-    (loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg) = eval_on_one(my_parts,piece_name)
+    (loss_sum, posOK_sum, negOK_sum, tot_pos, tot_neg) = eval_on_one(my_parts, piece_name)
     
-    q_out.put((piece_name,loss_sum,posOK_sum,negOK_sum,tot_pos,tot_neg,start_time,time.time()))
+    q_out.put((piece_name, loss_sum, posOK_sum, negOK_sum, tot_pos, tot_neg, start_time, time.time()))
 
     libc.malloc_trim(ctypes.c_int(0))
 
@@ -93,7 +93,7 @@ def plot_summary_and_report_best(datapoints):
     negrates.append(negrate)
     negrates_devs.append(negrate_dev)
 
-  with open("{}/as_if_run_validate_{}".format(sys.argv[3],IC.name_learning_regime_suffix()), 'w') as f:
+  with open("{}/as_if_run_validate_{}".format(HP.VALID_TRAIN_FOLDER,IC.name_learning_regime_suffix()), 'w') as f:
     for (model_num,loss,loss_dev,posrate,posrate_dev,negrate,negrate_dev) in sorted(datapoints):
       print(f"Epoch {model_num} finished at <fake_time>",file=f)
       print(f"Loss: {loss} +/- {loss_dev}",file=f)
@@ -104,7 +104,7 @@ def plot_summary_and_report_best(datapoints):
   print("Best validation loss model:",times[best_idx],end=" ")
   print("loss",losses[best_idx],"posrate",posrates[best_idx],"negrate",negrates[best_idx])
 
-  IC.plot_with_devs("{}/plot.png".format(sys.argv[3]),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
+  IC.plot_with_devs("{}/plot.png".format(HP.VALID_TRAIN_FOLDER),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -128,24 +128,15 @@ if __name__ == "__main__":
   # This tool is meant to run in sync with training, so it will always look for the latest checkpoint it hasn't evaluated yet!
   
   # global redirect of prints to the just open "logfile"
-  log = open("{}/validate{}".format(sys.argv[3],IC.name_learning_regime_suffix()), 'w')
+  log = open("{}/validate{}".format(HP.VALID_TRAIN_FOLDER,IC.name_learning_regime_suffix()), 'w')
   sys.stdout = log
   sys.stderr = log
   
   # DATA PREPARATION
   
-  valid_data_idx = torch.load("{}/validation_index.pt".format(sys.argv[1]))
+  valid_data_idx = torch.load("{}/valid_index.pt".format(HP.VALID_BASE_FOLDER), weights_only=False)
   print("Loaded valid data:",len(valid_data_idx))
-  
-  # so that the largest ones start evaluating first
-  valid_data_idx.sort() # we pop (from the end), so no need for reverse=True!
-  
-  # don't validate on the huge ones. It eats crazy amounts of memory:
-  while valid_data_idx[-1][0] > HP.WHAT_IS_HUGE:
-    print("Dropping too huge:",valid_data_idx.pop())
     
-  # valid_data_idx = valid_data_idx[:10] # just to debug
-  
   print(flush=True)
 
   # LOAD DATAPOINTS if ALREADY HAVING SOME
@@ -153,7 +144,7 @@ if __name__ == "__main__":
   evaluated_models = set()
   datapoints = [] # a list of tuples (model_num,loss,loss_dev,posrate,posrate_dev,negrate,negrate_dev)
 
-  dir = "{}/points/".format(sys.argv[3])
+  dir = "{}/points/".format(HP.VALID_VALID_FOLDER)
   try:
     os.mkdir(dir)
   except OSError as exc:
@@ -165,7 +156,7 @@ if __name__ == "__main__":
     if filename.startswith("datapoint-") and filename.endswith(".pt"):
       print("Found saved datapoint",filename)
 
-      datapoint = torch.load(dir+filename)
+      datapoint = torch.load(dir+filename, weights_only=False)
       model_num = datapoint[0]
       if model_num in evaluated_models:
         print("Already known",filename,"Skipping...")
@@ -176,7 +167,7 @@ if __name__ == "__main__":
   if len(datapoints) > 0:
     plot_summary_and_report_best(datapoints)
 
-  MAX_ACTIVE_TASKS = 12
+  MAX_ACTIVE_TASKS = HP.NUMPROCESSES
   num_active_tasks = 0
 
   q_in = torch.multiprocessing.Queue()
@@ -192,7 +183,7 @@ if __name__ == "__main__":
     youngest_unevaluated = None
     youngests_age = 0.0
     # Look for a not yet evaluated check-point
-    for filename in os.listdir(sys.argv[2]):
+    for filename in os.listdir(HP.VALID_TRAIN_FOLDER):
       if filename.startswith("check-epoch") and filename.endswith(".pt"):
         model_num_str = filename[11:-3]
         dot_idx = model_num_str.find(".")
@@ -212,7 +203,7 @@ if __name__ == "__main__":
 
     if youngest_unevaluated:
       print("Selected youngest_unevaluated",youngest_unevaluated)
-      model_path = sys.argv[2]+"/"+youngest_unevaluated
+      model_path = HP.VALID_TRAIN_FOLDER+"/"+youngest_unevaluated
       print(model_path)
     else:
       print("Could not find unevaluated checkpoint. Exiting.")
@@ -283,7 +274,7 @@ if __name__ == "__main__":
     evaluated_models.add(youngests_age)
     datapoints.append(datapoint)
 
-    datapoint_name = "{}/points/datapoint-{}.pt".format(sys.argv[3],datapoint[0])
+    datapoint_name = "{}/points/datapoint-{}.pt".format(HP.VALID_TRAIN_FOLDER,datapoint[0])
     torch.save(datapoint,datapoint_name)
     
     plot_summary_and_report_best(datapoints)

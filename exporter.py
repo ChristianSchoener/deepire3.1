@@ -27,27 +27,18 @@ if __name__ == "__main__":
   #
   # To be called as in: ./exporter.py enigma_smt_447/data_sign.pt enigma_smt_447/models14/inf_14_Tanh_p0.9791753101758176_n0.5020857886700685.pt enigma_smt_447/model_14Tanh_best.pt
 
-  # inf_41_Tanh_p0.9905907013270361_n0.6047052650764457.pt
-
-  thax_sign,deriv_arits,thax_to_str = torch.load(sys.argv[1])
-  print("Loaded signature from",sys.argv[1])
-
-  # TODO: an ugly copy-paste from IC.get_initial_model which does not modify deriv_arits and so this needs to be repeated here
-  # if HP.SWAPOUT > 0.0:
-  #   # to have the arity 1 and 2 defaults
-  #   # NOTE: 1 and 2 don't conflict with proper rule indexes
-  #   deriv_arits[1] = 1
-  #   deriv_arits[2] = 3 # use the multiary for anything else than unary
+  thax_sign, deriv_arits, thax_to_str = torch.load(sys.argv[1], weights_only=False)
+  print("Loaded signature from", sys.argv[1])
 
   IC.create_saver(deriv_arits)
   import inf_saver as IS
 
-  (_epoch,parts,_optim) = torch.load(sys.argv[2])
-  (_epoch,parts_copies,_optim) = torch.load(sys.argv[2])
+  _, parts = torch.load(sys.argv[2], weights_only=False)
+  with torch.no_grad():
+    parts.to("cpu")
 
-  print("Loaded model from",sys.argv[2])
+  print("Loaded model from", sys.argv[2])
 
-  IS.save_net(sys.argv[3],parts,parts_copies,thax_to_str)
+  IS.save_net(sys.argv[3], parts, thax_to_str)
 
-  print("Exported to",sys.argv[3])
-
+  print("Exported to", sys.argv[3])

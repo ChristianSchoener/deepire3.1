@@ -5,6 +5,11 @@
 # import multiprocessing.spawn
 import os
 
+import math
+
+from copy import deepcopy
+
+import time
 import ctypes
 import ctypes.util
 libc = ctypes.CDLL(ctypes.util.find_library('c'))
@@ -18,7 +23,11 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "4"
 os.environ["NUMEXPR_NUM_THREADS"] = "4"
 
 import torch
+
+import torch.special
+
 torch.set_printoptions(precision=16)
+torch.set_default_dtype(torch.float64)
 # torch.set_default_dtype(torch.float16)
 
 from torch import Tensor
@@ -76,11 +85,11 @@ def logname_to_probname(logname):
     spl = logname[:-4].split("_")
     assert(spl[-1].startswith("m"))
     return "_".join(spl[:-1]) # drop the m<something> part altogether, because why not?
-
+  
 class Embed(torch.nn.Module):
   weight: Tensor
   
-  def __init__(self, dim : int):
+  def __init__(self, dim: int):
     super().__init__()
     
     self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
@@ -91,13 +100,29 @@ class Embed(torch.nn.Module):
 
   def forward(self) -> Tensor:
     return self.weight
-
-class CatAndNonLinearBinary(torch.nn.Module):
-  def __init__(self, dim: int, arit: int, checkpoint: bool):
+  
+class EvalNet(torch.nn.Module):
+  
+  def __init__(self, dim: int):
     super().__init__()
     
-    self.checkpoint = checkpoint
+    self.A = torch.nn.Linear(dim, dim)
+    if HP.NONLIN == HP.NonLinKind_TANH:
+      self.nonlin = torch.nn.Tanh()
+    else:
+      self.nonlin = torch.nn.ReLU()
+    self.B = torch.nn.Parameter(torch.randn(2*dim, dim))
 
+  def forward(self, args: Tensor, depths: Tensor) -> Tensor:
+    x = self.A(args)
+    x = self.nonlin(x)
+    x = self.B[depths] * x
+    return x.sum(dim=-1)
+  
+class CatAndNonLinearBinary(torch.nn.Module):
+  def __init__(self, dim: int, arit: int):
+    super().__init__()
+    
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -110,8 +135,8 @@ class CatAndNonLinearBinary(torch.nn.Module):
     
     self.arit = arit
     
-    self.first = torch.nn.Linear(arit*dim,dim*2)
-    self.second = torch.nn.Linear(dim*2,dim)
+    self.first = torch.nn.Linear(arit*dim, dim*2)
+    self.second = torch.nn.Linear(dim*2, dim)
     
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
@@ -124,26 +149,19 @@ class CatAndNonLinearBinary(torch.nn.Module):
     x = self.nonlin(x)
     x = self.second(x)
     return self.epilog(x)
-
-  def forward_impl_stack(self, args : Tensor) -> Tensor:
-    if self.arit == 2:
-      x = args.view(args.shape[0] // 2, -1)
-    else:
-      x = args
-    if self.checkpoint:
-      return checkpoint.checkpoint(self._forward_impl, x)
-    else:
-      return self._forward_impl(x)
 
   def forward(self, args : Tensor) -> Tensor:
-    return self.forward_impl_stack(args)
+    x = args
+    if self.arit == 2:
+      x = x.view(x.shape[0] // 2, -1)
+    return self._forward_impl(x)
 
 class CatAndNonLinearMultiary(torch.nn.Module):
-  def __init__(self, dim: int, arit: int, checkpoint:bool):
+  def __init__(self, dim: int, arit: int):
     super().__init__()
   
-    self.checkpoint = checkpoint
-    
+    self.dim = dim
+
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -164,18 +182,12 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     else:
       self.epilog = torch.nn.Identity(dim)
 
-  def _forward_impl(self, x):
+  def forward_impl_list(self, x : Tensor) -> Tensor:
     x = self.prolog(x)
     x = self.first(x)
     x = self.nonlin(x)
     x = self.second(x)
     return self.epilog(x)
-
-  def forward_impl_list(self, args : Tensor) -> Tensor:
-    if self.checkpoint:
-      return checkpoint.checkpoint(self._forward_impl, args)
-    else:
-      return self._forward_impl(args)
     
   # def forward(self, args : Tensor) -> Tensor:
   #   x = args
@@ -216,7 +228,7 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #   fill_start_ind = length
   #   fill_end_ind = fill_start_ind + (length // 2)
 
-  #   full_sized = torch.empty(2*length - 1, HP.EMBED_SIZE).to(device)
+  #   full_sized = torch.empty(2*length - 1, HP.EMBEDDING_SIZE).to(device)
 
   #   full_sized[:length] = args
 
@@ -238,75 +250,74 @@ class CatAndNonLinearMultiary(torch.nn.Module):
 
   #   return x
 
+#   def forward(self, args: Tensor, limits: Tensor, device: str) -> Tensor:
+#     limits = limits.to(device)
+#     lengths = torch.diff(limits)
+#     the_len = lengths.numel()
+
+#     full_lengths = 2*lengths - 1
+#     start_inds = torch.zeros(the_len, dtype=torch.int32).to(device)
+#     end_inds = 2 * (lengths // 2)
+#     fill_start_inds = deepcopy(lengths)
+#     fill_end_inds = fill_start_inds + (lengths // 2)
+#     HP.EMBEDDING_SIZE = HP.EMBEDDING_FACTOR * (HP.EMBEDDING_BASE**HP.EMBEDDING_MAX_SCALE)
+#     return_mat = torch.zeros(the_len, HP.EMBEDDING_SIZE).to(device)
+# # Looping to prevent big temporary matrix
+#     for i in range(the_len):
+#       full_sized = torch.zeros(full_lengths[i], HP.EMBEDDING_SIZE).to(device)
+#       select_range = torch.arange(limits[i], limits[i+1])
+#       fill_range = torch.arange(0, lengths[i])
+#       full_sized[fill_range] = args[select_range]
+#       while lengths[i] > 1:
+#         select_range = torch.arange(start_inds[i], end_inds[i])
+#         fill_range = torch.arange(fill_start_inds[i], fill_end_inds[i])
+#         full_sized[fill_range] = self.forward_impl_list(full_sized[select_range].view(lengths[i] // 2, -1))
+
+#         lengths[i] = (lengths[i] + 1) // 2
+#         start_inds[i] = deepcopy(end_inds[i])
+#         end_inds[i] = start_inds[i] + 2 * (lengths[i] // 2)
+#         fill_start_inds[i] = start_inds[i] + lengths[i]
+#         fill_end_inds[i] = fill_start_inds[i] + (lengths[i] // 2)
+
+#       return_mat[i] = full_sized[-1]
+#     return return_mat
+    
   def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
     limits = limits.to(device)
     lengths = torch.diff(limits)
     the_len = lengths.numel()
 
     full_lengths = 2*lengths - 1
-    start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
+    start_inds = torch.cat((torch.tensor([0], dtype=torch.int32).to(device), full_lengths[:-1].cumsum(dim=0)))
     end_inds = start_inds + 2 * (lengths // 2)
     fill_start_inds = start_inds + lengths
     fill_end_inds = fill_start_inds + (lengths // 2)
 
-    return_mat = torch.zeros(the_len, HP.EMBED_SIZE).to(device)
-# Looping to prevent big temporary matrix
+    full_sized = torch.zeros(full_lengths.sum(), args.size(1)).to(device)
+
     for i in range(the_len):
-      full_sized = torch.zeros(full_lengths[i], HP.EMBED_SIZE).to(device)
-      select_range = torch.arange(limits[i], limits[i+1])
-      full_sized = args[select_range]
+      full_sized[torch.arange(start_inds[i], start_inds[i] + lengths[i])] = args[torch.arange(limits[i], limits[i+1])]
 
-      while lengths[i] > 1:
-        select_range = torch.arange(start_inds[i], end_inds[i])
-        fill_range = torch.arange(fill_start_inds[i], fill_end_inds[i])
+    while max(lengths) > 1:
+      mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+      fill_mask = torch.zeros_like(mask).to(device)
 
-        full_sized[fill_range] = self.forward_impl_list(full_sized[select_range].view(lengths[i] // 2, -1))
+      for i in range(the_len):
+        mask[start_inds[i]:end_inds[i]] = True
+        fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
 
-        lengths[i] = (lengths[i] + 1) // 2
-        start_inds[i] = end_inds[i]
-        end_inds[i] = start_inds[i] + 2 * (lengths[i] // 2)
-        fill_start_inds[i] = start_inds[i] + lengths[i]
-        fill_end_inds[i] = fill_start_inds[i] + (lengths[i] // 2)
-      
-      return_mat[i] = full_sized[-1]
-    return return_mat
-    
-  # def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
-  #   limits = limits.to(device)
-  #   lengths = torch.diff(limits)
-  #   the_len = lengths.numel()
+      how_much = mask.sum().item()
+      full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
 
-  #   full_lengths = 2*lengths - 1
-  #   start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
-  #   end_inds = start_inds + 2 * (lengths // 2)
-  #   fill_start_inds = start_inds + lengths
-  #   fill_end_inds = fill_start_inds + (lengths // 2)
-
-  #   full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
-
-  #   for i in range(the_len):
-  #     full_sized[torch.arange(start_inds[i], start_inds[i] + lengths[i])] = args[torch.arange(limits[i], limits[i+1])]
-
-  #   while max(lengths) > 1:
-  #     mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
-  #     fill_mask = torch.zeros_like(mask).to(device)
-
-  #     for i in range(the_len):
-  #       mask[start_inds[i]:end_inds[i]] = True
-  #       fill_mask[fill_start_inds[i]:fill_end_inds[i]] = True
-
-  #     how_much = mask.sum().item()
-  #     full_sized[fill_mask] = self.forward_impl_list(full_sized[mask].view(how_much // 2, -1))
-
-  #     lengths = (lengths + 1) // 2
-  #     start_inds = end_inds
-  #     end_inds = start_inds + 2 * (lengths // 2)
-  #     fill_start_inds = start_inds + lengths
-  #     fill_end_inds = fill_start_inds + (lengths // 2)
+      lengths = (lengths + 1) // 2
+      start_inds = end_inds
+      end_inds = start_inds + 2 * (lengths // 2)
+      fill_start_inds = start_inds + lengths
+      fill_end_inds = fill_start_inds + (lengths // 2)
      
-  #   mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
-  #   mask[start_inds] = True
-  #   return full_sized[mask]
+    mask = torch.zeros(full_lengths.sum(), dtype=torch.bool).to(device)
+    mask[start_inds] = True
+    return full_sized[mask]
 
   # def forward(self, args : Tensor, limits : Tensor) -> Tensor:
   #   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -353,32 +364,31 @@ def get_initial_model(thax_sign, deriv_arits):
   else:
     device = "cpu"
     
-  checkpoint = HP.CHECKPOINT
-
   init_embeds = torch.nn.ModuleDict()
 
   for i in thax_sign:
-    init_embeds[str(i)] = Embed(HP.EMBED_SIZE).to(device)
+    init_embeds[str(i)] = Embed(HP.EMBEDDING_SIZE).to(device)
 
   deriv_mlps = torch.nn.ModuleDict().to(device)
-  for rule,arit in deriv_arits.items():
+  for rule, arit in deriv_arits.items():
     if arit <= 2:
-      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE, arit, checkpoint).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBEDDING_SIZE, arit).to(device)
     else:
       assert(arit == 3)
-      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBED_SIZE, 2, checkpoint).to(device)
+      deriv_mlps[str(rule)] = CatAndNonLinearMultiary(HP.EMBEDDING_SIZE, arit).to(device)
 
-  eval_net = torch.nn.Sequential(
-    torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBED_SIZE),
-    torch.nn.Linear(HP.EMBED_SIZE, HP.EMBED_SIZE * HP.BOTTLENECK_EXPANSION_RATIO // 2),
-    torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
-    torch.nn.Linear(HP.EMBED_SIZE,1)).to(device)
+  eval_net = EvalNet(HP.EMBEDDING_SIZE).to(device)
+  # torch.nn.Sequential(
+  #   torch.nn.Dropout(HP.DROPOUT) if HP.DROPOUT > 0.0 else torch.nn.Identity(HP.EMBEDDING_SIZE),
+  #   torch.nn.Linear(HP.EMBEDDING_SIZE, HP.EMBEDDING_SIZE * HP.BOTTLENECK_EXPANSION_RATIO // 2),
+  #   torch.nn.Tanh() if HP.NONLIN == HP.NonLinKind_TANH else torch.nn.ReLU(),
+  #   torch.nn.Linear(HP.EMBEDDING_SIZE,1)).to(device)
 
   return torch.nn.ModuleList([init_embeds, deriv_mlps, eval_net])
   
 def name_initial_model_suffix():
   return "_{}_{}_BER{}_LayerNorm{}_Dropout{}{}.pt".format(
-    HP.EMBED_SIZE,
+    HP.EMBEDDING_SIZE,
     HP.NonLinKindName(HP.NONLIN),
     HP.BOTTLENECK_EXPANSION_RATIO,
     HP.LAYER_NORM,
@@ -444,7 +454,8 @@ def save_net(name, parts, thax_to_str):
     abs_ids : Dict[int, int] # each id gets its abs_id
     embed_store : Dict[int, Tensor] # each abs_id (lazily) stores its embedding
     eval_store: Dict[int, float] # each abs_id (lazily) stores its eval
-
+    depth_store: Dict[int, Tensor]
+    
     initEmbeds : Dict[str, Tensor]
     
     def __init__(self,
@@ -459,6 +470,7 @@ bigpart2 ='''        eval_net : torch.nn.Module):
       self.abs_ids = {}
       self.embed_store = {}
       self.eval_store = {}
+      self.depth_store = {}
       
       self.initEmbeds = initEmbeds
       self.sine_embellisher = sine_embellisher'''
@@ -472,9 +484,9 @@ bigpart_no_longer_rec1 = '''
       if abs_id in self.eval_store:
         return self.eval_store[abs_id]
       else:
-        val = self.eval_net(self.embed_store[abs_id]) # must have been embedded already
-        self.eval_store[abs_id] = val[0].item()
-        return val[0].item()
+        val = self.eval_net(self.embed_store[abs_id], self.depth_store[abs_id]) # must have been embedded already
+        self.eval_store[abs_id] = val.item()
+        return val.item()
 
     @torch.jit.export
     def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
@@ -496,7 +508,8 @@ bigpart_no_longer_rec1 = '''
           embed = self.initEmbeds["0"]
         if {}:
           embed = self.sine_embellisher({},embed)
-        self.embed_store[abs_id] = embed'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "False",HP.USE_SINE,sine_val_prog)
+        self.embed_store[abs_id] = embed
+        self.depth_store[abs_id] = torch.tensor(1, dtype=torch.int32)'''.format("+'_'+str({})".format(sine_val_prog) if HP.USE_SINE else "False",HP.USE_SINE,sine_val_prog)
 
 bigpart_rec2='''
     @torch.jit.export
@@ -516,7 +529,8 @@ bigpart_rec2='''
       if abs_id not in self.embed_store:
         par_embeds = torch.stack([self.embed_store[self.abs_ids[par]].squeeze() for par in pars])
         embed = self.deriv_{}(par_embeds)
-        self.embed_store[abs_id] = embed'''
+        self.embed_store[abs_id] = embed
+        self.depth_store[abs_id] = torch.max(torch.stack([self.depth_store[self.abs_ids[par]] for par in pars])) + 1'''
 
 bigpart_rec2_rule_52='''
     @torch.jit.export
@@ -537,7 +551,8 @@ bigpart_rec2_rule_52='''
         par_embeds = [self.embed_store[self.abs_ids[par]].squeeze() for par in pars]
         limits = torch.cumsum(torch.tensor([0]+[len(i) for i in par_embeds]), dim=0)
         embed = self.deriv_52(torch.stack(par_embeds), limits, "cpu")
-        self.embed_store[abs_id] = embed'''
+        self.embed_store[abs_id] = embed
+        self.depth_store[abs_id] = torch.max(torch.stack([self.depth_store[self.abs_ids[par]] for par in pars])) + 1'''
 
 bigpart_avat = '''
     @torch.jit.export
@@ -557,7 +572,8 @@ bigpart_avat = '''
       if abs_id not in self.embed_store:
         par_embeds = torch.stack([self.embed_store[self.abs_ids[par]].squeeze()])
         embed = self.deriv_666(par_embeds) # special avatar code
-        self.embed_store[abs_id] = embed'''
+        self.embed_store[abs_id] = embed
+        self.depth_store[abs_id] = self.depth_store[self.abs_ids[par]] + 1'''
 
 bigpart3 = '''
   module = InfRecNet(
@@ -608,8 +624,6 @@ class LearningModel(torch.nn.Module):
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
       data, training = True, use_cuda = False):
-      # thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos,neg,tot_pos,tot_neg,mask,target, training=True, use_cuda = False):
-      # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
 
     if use_cuda and torch.cuda.is_available():
@@ -626,39 +640,42 @@ class LearningModel(torch.nn.Module):
     for i in range(len(self.rule_steps)):
       self.ind_steps[i] = self.ind_steps[i].to(self.device)
       self.pars_ind_steps[i] = self.pars_ind_steps[i].to(self.device)
-      if i in self.rule_52_limits.keys():
-        self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
+      # if i in self.rule_52_limits.keys():
+      #   self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
 
-    self.vectors = torch.zeros(len(self.ids), HP.EMBED_SIZE).to(self.device)
+    self.vectors = torch.zeros(len(self.ids), HP.EMBEDDING_SIZE).to(self.device)
     self.vectors[:len(self.thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in self.thax])
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
+    self.depths = data["depths"].to(self.device)
+# Want to go from 1 - 255
+    self.depths = (self.depths % 255) + 1
+    self.depth_mask = self.depths[self.ids]
+    
     self.pos = data["pos"].to(self.device)
     self.neg = data["neg"].to(self.device)
- 
+
     self.target = data["target"].to(self.device)
 
     self.mask = data["mask"].to(self.device)
 
     self.tot_neg = data["tot_neg"].to(self.device)
     self.tot_pos = data["tot_pos"].to(self.device)
-    self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)  
+    self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)
+
     self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=self.pos_weight, reduction="none")
-  
+
   def contribute(self):
-    val = self.eval_net(self.vectors[self.mask]).squeeze()
-    
-    self.posOK = (self.pos * (val >= 0)).sum()
-    self.negOK = (self.neg * (val < 0)).sum()
+    vals = self.eval_net(self.vectors[self.mask], self.depth_mask[self.mask]).squeeze()
 
-    contrib = self.criterion(val, self.target[:sum(self.mask)].squeeze())
+    self.posOK = (self.pos * (vals >= 0.0)).sum()
+    self.negOK = (self.neg * (vals < 0.0)).sum()
 
-    if HP.FOCAL_LOSS:
-      val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
-      contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
-      # contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * torch.log(1. - val_sigmoid)
+    # contrib = self.criterion(vals, self.target)
+    val_sigmoid = torch.clamp(torch.special.expit(vals), min=1.e-7, max=1. - 1.e-7)
+    contrib = -self.pos_weight * self.target * torch.log(val_sigmoid) - (1. - self.target) * torch.log(1. - val_sigmoid)
 
     self.loss = ((self.pos + self.neg) * contrib).sum()
 
@@ -777,7 +794,7 @@ def load_one(filename, max_size = None):
       spl = line.split()
       if spl[0] == "i:":
         val = eval(spl[1])
-        assert(val[0] == 1)
+        assert(val == 1)
         id = val[1]
         init.append((id,abstract_initial(val[2:])))
         
@@ -789,7 +806,7 @@ def load_one(filename, max_size = None):
       elif spl[0] == "d:":
         # d: [2,cl_id,age,weight,len,num_splits,rule,par1,par2,...]
         val = eval(spl[1])
-        assert(val[0] == 2)
+        assert(val == 2)
         deriv.append((val[1],abstract_deriv(tuple(val[2:7]))))
         id = val[1]
         pars[id] = val[7:]
@@ -801,7 +818,7 @@ def load_one(filename, max_size = None):
         # a: [3,cl_id,age,weight,len,causal_parent or -1]
         # treat it as deriv (with one parent):
         val = eval(spl[1])
-        assert(val[0] == 3)
+        assert(val == 3)
         deriv.append((val[1],abstract_deriv((val[2],val[3],val[4],1,666)))) # 1 for num_splits, 666 for rule
         id = val[1]
         pars[id] = [val[-1]]
@@ -884,7 +901,7 @@ def prepare_signature(prob_data_list):
 
   return (thax_sign, deriv_arits, axiom_hist)
 
-def pick_positive(prob_data_list):
+def pick_positive(prob_data_list, flag = False):
   for i, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in enumerate(prob_data_list):
     print()
   
@@ -905,14 +922,15 @@ def pick_positive(prob_data_list):
       neg_vals[id] = 1.0
       tot_neg += 1.0
 
-    # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that tha whole problem has a sum of probweight
-    factor = probweight / (tot_pos + tot_neg)
-    for id in pos_vals:
-      pos_vals[id] *= factor
-    for id in neg_vals:
-      neg_vals[id] *= factor
-    tot_pos *= factor
-    tot_neg *= factor
+    # if not flag:
+    #   # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that tha whole problem has a sum of probweight
+    #   factor = probweight / (tot_pos + tot_neg)
+    #   for id in pos_vals:
+    #     pos_vals[id] *= factor
+    #   for id in neg_vals:
+    #     neg_vals[id] *= factor
+    #   tot_pos *= factor
+    #   tot_neg *= factor
 
     print(tot_pos, tot_neg)
 
@@ -945,41 +963,100 @@ def axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list):
 
   return thax_sign, prob_data_list, thax_to_str
 
-def setup_pos_vals_neg_vals(prob_data_list):
+def get_subtree(start, match, pars):
+  persistent = deepcopy(start)
+  pers_len = len(persistent)
+  old_len = pers_len - 1
+  while pers_len > old_len:
+    persistent.update({y for x in persistent & {z for z, _ in match} for y in pars[x]})
+    old_len = pers_len
+    pers_len = len(persistent)
+  return persistent
 
-  thax_sign = set()
-  for i, ((probname, probweight, size), (init, deriv, pars, selec, good)) in enumerate(prob_data_list):
-    pos_vals = {}
-    neg_vals = {}
-    tot_pos = 0.0
-    tot_neg = 0.0
+def setup_pos_vals_neg_vals_cone(prob):
+  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
+  pos_vals = {}
+  neg_vals = {}
+  tot_pos = 0.0
+  tot_neg = 0.0
 
-    # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
-    # one_clause_weigth = 1.0/len(selec)
+# Determine the positive cone
+  persistent = get_subtree(good, deriv, pars)
 
-    # New strategy: Apply the recursive depth of a node as it's weight. So inititals get 1, children of depth max. n get 1/n, ... 
-    for id in selec:
-      if id in good:
-        pos_vals[id] = 1.0
-        tot_pos += 1.0
-      else:
+# Gather the positive cone and all ids that are child to positive cone or axioms, both negative 
+  all_ids = {x for x, _ in init} | {x for x, _ in deriv}
+  these_ids = set()
+  for id in all_ids:
+    if id in persistent:
+      these_ids.add(id)
+      pos_vals[id] = 1.0
+      tot_pos += 1.0
+    else:
+      if id not in pars or set(pars[id]) <= persistent:
+        these_ids.add(id)
         neg_vals[id] = 1.0
         tot_neg += 1.0
 
+  new_init = [(id, thax) for id, thax in init if id in these_ids]
+  new_deriv = [(id, rule) for id, rule in deriv if id in these_ids]
+  new_pars = {id: val for id, val in pars.items() if id in these_ids}
+
+  print("Positive Cone/Negative Boundary: Old/New Size: {} / {}, Good/Selec: {} / {}, tot_pos/tot_neg: {} / {}".format(len(init) + len(deriv), len(new_init) + len(new_deriv), len(good), len(selec), tot_pos, tot_neg), flush=True)
+
+  prob = ((probname, probweight, len(init) + len(deriv)), (new_init, new_deriv, new_pars, pos_vals, neg_vals, tot_pos, tot_neg))
+  return prob
+
+def setup_pos_vals_neg_vals(prob):
+  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
+  pos_vals = {}
+  neg_vals = {}
+  tot_pos = 0.0
+  tot_neg = 0.0
+
+# Determine the positive cone
+  persistent = get_subtree(selec, deriv, pars)
+  # persistent_good = get_subtree(good, deriv, pars)
+
+  these_ids = set()
+  # for id in persistent:
+  for id in good:
+      # these_ids.add(id)
+    pos_vals[id] = 1.0
+    tot_pos += 1.0
+  # for id in persistent - persistent_good:
+  for id in selec-good:
+      # these_ids.add(id)
+    neg_vals[id] = 1.0
+    tot_neg += 1.0
+
+  new_init = [(id, thax) for id, thax in init if id in persistent]
+  new_deriv = [(id, rule) for id, rule in deriv if id in persistent]
+  new_pars = {id: val for id, val in pars.items() if id in persistent}
+
+  print("Pos/Neg Vals: Old/New Size: {} / {}, Good/Selec: {} / {}, tot_pos/tot_neg: {} / {}".format(len(init) + len(deriv), len(new_init) + len(new_deriv), len(good), len(selec), tot_pos, tot_neg), flush=True)
+
+  prob = ((probname, probweight, len(init) + len(deriv)), (new_init, new_deriv, new_pars, pos_vals, neg_vals, tot_pos, tot_neg))
+  return prob
+
+def set_zero(prob_data_list, thax_to_str):
+  thax_sign = set()
+  for i, ((probname, probweight, size), (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg)) in enumerate(prob_data_list):
     if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
       new_init = []
       for id, thax in init:
         if thax > HP.MAX_USED_AXIOM_CNT:
+          if thax in thax_to_str:
+            del thax_to_str[thax]
           thax = 0
         
         thax_sign.add(thax)
         
-        new_init.append((id,thax))
+        new_init.append((id, thax))
     else:
       new_init = init
 
     prob_data_list[i] = ((probname, probweight, size), (new_init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg))
-  return prob_data_list
+  return prob_data_list, thax_sign, thax_to_str
 
 def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals):
   for j in range(len(prob_data_list)):
@@ -1006,6 +1083,24 @@ def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num
     prob_data_list[j] = ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, these_pos_vals, these_neg_vals, this_tot_pos, this_tot_neg))
   return prob_data_list
 
+def reduce_problems_selec(prob):
+  a, (init, deriv, pars, selec, good) = prob
+  print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
+  persistent = deepcopy(selec)
+  pers_len = len(persistent)
+  old_len = pers_len - 1
+  while pers_len > old_len:
+    persistent = persistent | set([y for x in persistent & set([z for z, _ in deriv]) for y in pars[x]])
+    old_len = pers_len
+    pers_len = len(persistent)
+  this_init = [(x, y) for x, y in init if x in persistent]
+  this_deriv = [(x, y) for x, y in deriv if x in persistent]
+  these_pars = {x: y for x, y in pars.items() if x in persistent}
+
+  prob = (a, (this_init, this_deriv, these_pars, selec, good))
+  print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
+  return prob
+
 def reduce_problems(prob_data_list):
   for j in range(len(prob_data_list)):
     a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = prob_data_list[j]
@@ -1031,12 +1126,11 @@ def reduce_problems(prob_data_list):
       print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
   return prob_data_list
 
-def get_depth_dict(prob):
-  a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg) = prob
-  depths = defaultdict(int)
-  for id in [x for x, _ in init]:
+def get_depth_dict(init, deriv, pars):
+  depths = {}
+  for id, _ in init:
     depths[id] = 1
-  for id in [x for x, _ in deriv]:
+  for id, _ in deriv:
     depths[id] = max([depths[x] for x in pars[id]]) + 1
 
   return depths

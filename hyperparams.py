@@ -59,7 +59,11 @@ FAKE_CONST_SINE_LEVEL = -1
 # MODEL PARAMS:
 
 # a hyper-parameter of the future model
-EMBED_SIZE = 128
+# 2*4^3 = 128 EMBED_SIZE
+EMBEDDING_SIZE = 128
+EMBEDDING_FACTOR = 2
+EMBEDDING_BASE = 4
+EMBEDDING_MAX_SCALE = 3
 
 NonLinKind_TANH = 1
 NonLinKind_RELU = 2
@@ -85,7 +89,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 12
+NUMPROCESSES = 6
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -119,7 +123,7 @@ def OptimizerName(val):
   elif val == Optimizer_ADAMW:
     return "AdamW"
 
-OPTIMIZER = Optimizer_ADAM
+OPTIMIZER = "AdaHessian"
 
 POS_WEIGHT_EXTRA = 1.0
 
@@ -127,12 +131,24 @@ FRACTIONAL_CHECKPOINTING = 0 # 0 means disabled, 1 does not make sense
 
 ALL_ONCE = True
 
-GLOBAL_TOT_NEG_TOT_POS_RATIO = 1.0
-
 FOCAL_LOSS = False
 
 CUDA = True
 
 NUM_STREAMS = 1
 
-CHECKPOINT = False
+PRE_FOLDER = "strat1new_better/classes_testing_compress/"
+PRE_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
+
+COM_FOLDER = "strat1new_better/classes_testing_compress/"
+COM_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt.valid"
+COM_ADD_MODE_1 = "valid"
+
+TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
+TRAIN_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
+TRAIN_USE_CHECKPOINT = False
+TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch1.pt"
+
+VALID_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
+VALID_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
+VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
