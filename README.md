@@ -4,7 +4,7 @@ https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11
 
 Remark (Research ongoing):
 
-- Evaluation now has a scalar product for every tree height of derivations instead of just a single one, making evaluation more fine-grained and thus capable. (In fact, just heights 1-255 cyclic)  
+- Evaluation and inferencew rules now have a derivation height-dependent coloring, i.e., componentwise tensor multiplication. For evaluation it, it for the scalar product, where for the inference rules, the initial step. Furthermore, inference rules now include three ReLU layers, yielding smooth cubic spline approximation (at least theoretically, it's the same as with attention, see https://arxiv.org/abs/2408.09624). In fact, just heights 1-255 cyclic are considered.  
 
 As a background info: The average tree height of the training instances is 24, and some neighboring niveaus contain ~500,000 nodes each, summed up over all instances (although not all are selected thus evaluated). At tree height 20, we have already 99% of nodes. The biggest tree height with a selected node on top is 455. Tree height above 256 is but very rare, and should not lead to unexpected behaviour.
 
