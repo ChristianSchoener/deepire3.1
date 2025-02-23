@@ -2,14 +2,20 @@ Derived from supplementary material (see https://github.com/quickbeam123/deepire
 
 https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11
 
-Modifications:
+Remark:
 
-1) Vectorization of the evaluation scheme by a greedy approach: Instead of performing computations one after another, the derivation rule for which the most derivations can be made simultaneously is chosen. Thereby, the number of function calls is reduced dramatically, by a factor of 10-100, and the computations are performed in an efficient vectorized manner.
-2) All problems arereduced for unnecessary derivations, i.e., derivations which have no labeled nodes in their sub-tree.
-3) Furthermore, all problems are scanned for common derivations, the weights are gathered into a single occurence, and then all other occurences are deleted, if above them is no node with a label. Afterwards, the gathered weights are spread uniformly over the remaining occurences of the derivation.
+After trying out several things to save computation time for the training, I have come to the idea that a different setup of the neural network might be beneficial:
 
-As an illustration: After loading the log files, the main data file is about ~2.5 GiB big. After step 2) about ~1.5 GiB, and after step 3), it is ~0.55 GiB.
+Modeling positively rated clauses as non-zero vectors & negatively rated clauses as the zero vector; therefore removing biases from layers, turning activation into "x - tanh x", and concatenation into component-wise product (or convolution for more dynamics, let's see if weird ...).
 
-Furthermore, I implemented what is necessary to use GPU for the training computations.
+Thereby, it suffices to keep the positive "cone" leading to proofs, and attach 1 layer of negative boundary, but not add so much negative that the "selected" clauses show up (since zero vectors will stay zero vectors by construction of the neural network). This yields just about ~350,000 nodes instead of ~10,000,000 and can be trained very quickly.
 
-On my PC, with 500 revealed axioms, training time decayed from ~24 minutes/epoch to <5 minutes/epoch. 
+It is unclear to me, which approach models "unseen" situations better. This new approach has the benefit, that negative stays negative, and cannot be turned positive by some circumstances.
+
+I have the hope, that the approach will lead to unseen derivations being rated positively more often, since producing the (close to) zero vector should be difficult?
+
+If clauses are rated negatively, they will maybe never be activated. But if they are required, the proof is impossible due to the guidance.
+
+Rating positive more aggressive is hence better.
+
+Let's see! :)
