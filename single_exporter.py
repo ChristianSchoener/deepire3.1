@@ -6,7 +6,14 @@ from torch import Tensor
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
 
+import multiprocessing
 import time
+
+import multiprocessing.shared_memory as shm
+
+from concurrent.futures import ProcessPoolExecutor
+
+from joblib import Parallel, delayed
 
 from typing import Dict, List, Tuple, Optional
 
@@ -16,7 +23,7 @@ torch.set_num_interop_threads(1)
 from collections import defaultdict
 from collections import ChainMap
 
-import sys,random,itertools,gc
+import msgpack
 
 import inf_common as IC
 
@@ -25,99 +32,155 @@ import hyperparams as HP
 import os
 import subprocess
 
-import ctypes
-import ctypes.util
-libc = ctypes.CDLL(ctypes.util.find_library('c'))
+shm_init = None
+shm_deriv = None
+shm_pars = None
+shm_good = None
+shm_neg = None
+shm_thax_to_str = None
 
-def worker(q_in, q_out):
-  log = sys.stdout
+def chunk_large_data(data, chunk_size=100000):
+  chunks = []
+  items = list(data.items())
+  
+  for i in range(0, len(items), chunk_size):
+    chunk_dict = dict(items[i:i + chunk_size])  # Create a dictionary for each chunk
+    chunks.append(chunk_dict)
+  
+  return chunks
 
-  while True:
-# q_in.put(this_data,(init_embeds,init_embed_mods,deriv_mlps,eval_net,thax_to_str),sys.argv[4])
-    (this_data,init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net,thax_to_str,folder) = q_in.get()
-    # this_data = [file problem, folder/file problem, axiom numbers] 
-    initEmbeds = {}
-    temp = torch.zeros(len(init_embeds["0"].weight))
-    for id in this_data[1]:
-      temp += init_embeds[str(id)].weight/len(this_data[0])
-    for id in this_data[1]:
-      initEmbeds[thax_to_str[id]] = torch.mv(init_embed_mods[str(id)].weight,temp)
-
-    folder_file = folder+"/"+this_data[0][0]+".model"
-    ISM.save_net_matrix(folder,this_data[0][0],initEmbeds,sine_embellisher,deriv_mlps,eval_net)
-    command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data[0][1],folder_file,"results"+"/"+"matrix_128" + "/"+this_data[0][1].replace("/","_")+".log")
-    # print(command)
-    subprocess.Popen(command,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+def worker(shared_data, this_data):
     
-    command2 = 'rm {}'.format(folder_file)
-    subprocess.Popen(command2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
-    q_out.put((1))
-    libc.malloc_trim(ctypes.c_int(0))
+  shm_init = shm.SharedMemory(name=shared_data['shm_init'])
+  shm_deriv = shm.SharedMemory(name=shared_data['shm_deriv'])
+  shm_pars = shm.SharedMemory(name=shared_data['shm_pars'])
+  shm_good = shm.SharedMemory(name=shared_data['shm_good'])
+  shm_neg = shm.SharedMemory(name=shared_data['shm_neg'])
+  shm_thax_to_str = shm.SharedMemory(name=shared_data['shm_thax_to_str'])
+  
+  init = msgpack.unpackb(shm_init.buf)
+  deriv = msgpack.unpackb(shm_deriv.buf)
+  pars = msgpack.unpackb(shm_pars.buf, strict_map_key=False)
+  good = set(msgpack.unpackb(shm_good.buf))
+  neg = set(msgpack.unpackb(shm_neg.buf))
+  thax_to_str = msgpack.unpackb(shm_thax_to_str.buf, strict_map_key=False)
+
+  this_init = [(id, thax) for id, thax in init if thax_to_str[thax] in this_data["axioms"]]
+  these_ids = {x for x, _ in this_init}
+  this_deriv = []
+  these_pars = {}
+  for id, rule in deriv:
+    if set(pars[id]) <= these_ids:
+      this_deriv.append((id, rule))
+      these_ids.add(id)
+      these_pars[id] = pars[id]
+  this_good = good & these_ids
+  this_neg = neg & these_ids 
+
+  init_abstractions = {}
+  for id, thax_nr in this_init:
+    if thax_nr == -1:
+      init_abstractions["-1"] = -1
+    else:
+      init_abstractions[thax_to_str[thax_nr]] = id
+  deriv_abstractions = {}
+  for id, rule in this_deriv:
+    abskey = ",".join([str(rule)]+[str(par) for par in these_pars[id]])
+    deriv_abstractions[abskey] = id
+  eval_store = {}
+  for id in this_good:
+    eval_store[id] = 1.0
+  for id in this_neg:
+    eval_store[id] = 0.0
+
+  max_id = max(set(init_abstractions.values()) | set(deriv_abstractions.values())) + 1
+
+  folder_file = HP.EXP_MODEL_FOLDER + "/" + this_data["short_name"] + ".model"
+  IS.save_net(folder_file, init_abstractions, deriv_abstractions, eval_store, max_id)
+  command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data["full_name"], folder_file, "results"+"/"+ "zero-test" + "/" + this_data["short_name"] + ".log")
+  # print(command)
+  subprocess.Popen(command,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+  
+  command2 = 'rm {}'.format(folder_file)
+  subprocess.Popen(command2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
 
 if __name__ == "__main__":
 
-  thax_sign,sine_sign,deriv_arits,thax_to_str = torch.load(sys.argv[1])
-  print("Loaded signature from",sys.argv[1])
+  thax_sign, deriv_arits, thax_to_str = torch.load(HP.EXP_DATA_SIGN)
+  print("Loaded signature from", HP.EXP_DATA_SIGN)
 
-  IC.create_saver(deriv_arits)
-  import inf_saver_matrix as ISM
+  IC.create_saver_zero(deriv_arits)
+  import inf_saver_zero as IS
 
-  problem_configuration = torch.load(sys.argv[2])
-  print("Loaded problem configuration",sys.argv[2])
+  problem_configuration = torch.load(HP.EXP_PROBLEM_CONFIGURATIONS)
+  print("Loaded problem configuration", HP.EXP_PROBLEM_CONFIGURATIONS)
 
-  (_,parts,_) = torch.load(sys.argv[3])
-  (_,parts_copies,_) = torch.load(sys.argv[3])
-
-  print("Loaded model from",sys.argv[3])
-
-  with open("all.txt","r") as f:
+  with open(HP.EXP_PROBLEM_FILES, "r") as f:
     file_names = f.readlines()
 
   file_names = [x.replace("\n","") for x in file_names]
-  prob_map = { x.split("__")[1] : x for x in file_names}
+  prob_list = [{"short_name": x.rsplit("/", 1)[1], "full_name" : x} for x in file_names]
 
   del file_names
 
-  for part,part_copy in zip(parts,parts_copies):
-    part_copy.load_state_dict(part.state_dict())
-  
-  # eval mode and no gradient
-  part_copy.eval()
-  for param in part_copy.parameters():
-    param.requires_grad = False
-
-  # from here on only use the updated copies
-  (init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net) = parts_copies
-
-  thax_to_str[0] = "0"
   thax_to_str[-1] = "-1"
+ 
+  tree = torch.load(HP.EXP_FILE, weights_only=False)
+  print("Loaded tree from", HP.EXP_FILE)
 
-  q_in = torch.multiprocessing.Queue()
-  q_out = torch.multiprocessing.Queue()
-  my_processes = []
-  for i in range(HP.NUMPROCESSES):
-    p = torch.multiprocessing.Process(target=worker, args=(q_in,q_out))
-    p.start()
-    my_processes.append(p)
+# Store data in shared memory manager
+  serialized_init = msgpack.packb(tree[0][1][0])
+  serialized_deriv = msgpack.packb(tree[0][1][1])
+  serialized_pars = msgpack.packb(tree[0][1][2])
+  serialized_good = msgpack.packb(list(tree[0][1][4]))
+  serialized_neg = msgpack.packb(list(tree[0][1][3] - tree[0][1][4]))
+  serialized_thax_to_str = msgpack.packb(thax_to_str)
 
-  MAX_ACTIVE_TASKS = HP.NUMPROCESSES
-  num_active_tasks = 0
-  numProblem = 0
-  while True:
-    while num_active_tasks < MAX_ACTIVE_TASKS and numProblem < len(prob_map):
-      num_active_tasks += 1
-      this_prob = list(prob_map.items())[numProblem]
-      this_data = [this_prob, problem_configuration[this_prob[0]]]
-      numProblem += 1
-      q_in.put((this_data,init_embeds,init_embed_mods,sine_embellisher,deriv_mlps,eval_net,thax_to_str,sys.argv[4]))
-    result = q_out.get()
-    num_active_tasks -= 1
+  del tree
 
-    if numProblem == len(problem_configuration):
-      break
-      
-  print("Exported to",sys.argv[4])
+  shm_init = shm.SharedMemory(create=True, size=len(serialized_init))
+  shm_deriv = shm.SharedMemory(create=True, size=len(serialized_deriv))
+  shm_pars = shm.SharedMemory(create=True, size=len(serialized_pars))
+  shm_good = shm.SharedMemory(create=True, size=len(serialized_good))
+  shm_neg = shm.SharedMemory(create=True, size=len(serialized_neg))
+  shm_thax_to_str = shm.SharedMemory(create=True, size=len(serialized_thax_to_str))
 
-  for p in my_processes:
-    p.kill()
+  shm_init.buf[:len(serialized_init)] = serialized_init
+  shm_deriv.buf[:len(serialized_deriv)] = serialized_deriv
+  shm_pars.buf[:len(serialized_pars)] = serialized_pars
+  shm_good.buf[:len(serialized_good)] = serialized_good
+  shm_neg.buf[:len(serialized_neg)] = serialized_neg
+  shm_thax_to_str.buf[:len(serialized_thax_to_str)] = serialized_thax_to_str
 
+  shared_data = {
+    'shm_init': shm_init.name,
+    'shm_deriv': shm_deriv.name,
+    'shm_pars': shm_pars.name,
+    'shm_good': shm_good.name,
+    'shm_neg': shm_neg.name,
+    'shm_thax_to_str': shm_thax_to_str.name
+  }
+
+
+  this_data = [{"short_name": prob_list[numProblem]["short_name"], 
+                "full_name": prob_list[numProblem]["full_name"], 
+                "axioms": problem_configuration[prob_list[numProblem]["short_name"]]
+               } 
+                for numProblem in range(len(prob_list))
+              ]
+  with multiprocessing.Pool(processes=HP.NUMPROCESSES) as pool:
+      results = pool.starmap(worker, [(shared_data, data) for data in this_data])
+
+  shm_init.close()
+  shm_deriv.close()
+  shm_pars.close()
+  shm_good.close()
+  shm_neg.close()
+  shm_thax_to_str.close()
+
+  shm_init.unlink()
+  shm_deriv.unlink()
+  shm_pars.unlink()
+  shm_good.unlink()
+  shm_neg.unlink()
+  shm_thax_to_str.unlink()

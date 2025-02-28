@@ -13,6 +13,8 @@ torch.set_default_dtype(torch.float64)
 
 # import heapq
 
+from functools import partial
+
 import argparse
 
 # import operator
@@ -46,384 +48,24 @@ from copy import deepcopy
 def parse_args():
 
   parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
-  parser.add_argument("arguments", nargs="+", help="Arguments in key=value format (e.g., mode=pre folder=/path file=file.txt).")
+  parser.add_argument("mode", help="Determines the mode. Can be zero-test, pre, or compress.")
+  
+  # This allows handling of unknown key=value arguments
+  args_, unknown_args = parser.parse_known_args()
 
-  args_ = parser.parse_args()
+  # If -h or --help is provided, argparse will automatically print help and exit
+  if "-h" in sys.argv or "--help" in sys.argv:
+    parser.print_help()
+    sys.exit()  # Ensure script exits
 
   args = {}
-  for arg in args_.arguments:
+  for arg in unknown_args:  # Process additional key=value arguments
     if "=" not in arg:
-      parser.error(f"Invalid argument format '{arg}'. Use key=value.")
+        parser.error(f"Invalid argument format '{arg}'. Use key=value.")
     key, value = arg.split("=", 1)  # Split only on the first '='
     args[key] = value
-  
+
   return args
-
-def compress_by_probname(prob_data_list):
-  by_probname = defaultdict(list)
-
-  for metainfo,rest in prob_data_list:
-    probname = metainfo[0]
-    by_probname[probname].append((metainfo,rest))
-
-  compressed = []
-
-  for probname,bucket in by_probname.items():
-    print("Compressing bucket of size",len(bucket),"for",probname,"of total weight",sum(metainfo[1] for metainfo,_ in bucket),"and sizes",[len(rest[0])+len(rest[1]) for _,rest in bucket],"and posval sizes",[len(rest[3]) for _,rest in bucket])
-
-    metainfo,rest = IC.compress_prob_data(bucket)
-
-    # print(metainfo)
-
-    print("Final size",len(rest[0])+len(rest[1]))
-
-    compressed.append((metainfo,rest))
-
-  return compressed
-
-def build_id_dict(num, p, id_dict):
-  union_set = set(x for x, _ in p[1][0]) | set(x for x, _ in p[1][1])
-  id_dict[num] = {"num": num, "length": len(union_set), "ids": union_set}
-
-class MergeWorker(threading.Thread):
-# class MergeWorker(mp.Process):
-  """ Persistent worker process that merges """
-  def __init__(self, id, nums, p_dicts, id_dicts, task_queue, result_queue):
-    super().__init__()
-    self.id = id
-    self.num_initial = nums
-    self.p_dict = p_dicts
-    self.id_dict = id_dicts
-    self.task_queue = task_queue
-    self.result_queue = result_queue
-    del id, nums, p_dicts, id_dicts
-
-  def run(self):
-    while True:
-      # while not self.task_queue.empty():
-        task = self.task_queue.get()
-        # print(f"Worker {self.id} received task: {task}", flush=True)  # Debugging statement
-            
-        if task is None:
-          # print(f"Worker {self.id} terminating.", flush=True)  # Debugging statement
-          break
-        
-        task_type, data = task
-
-        if task_type == "get_min":
-          result = self._handle_get_min(data)
-
-        if task_type == "compare":
-          result = self._handle_compare(data)
-
-        if task_type == "delete":
-          result = self._handle_delete(data)
-
-        if task_type == "update":
-          result = self._handle_update(data)
-
-        if task_type == "query":
-          result = self._handle_query(data)
-
-        if task_type == "move_weights":
-          result = self._handle_move_weights(data)
-
-        if task_type == "get_roots_without_children_with_weights":
-          result = self._handle_get_roots_without_children_with_weights(data)
-
-        if task_type == "finalize":
-          result = self._handle_finalize(data)
-
-        self.result_queue.put(result)
- 
-  def _handle_get_min(self, data):
-    if self.id_dict:
-      this_min = min((val for x, val in self.id_dict.items()), key=lambda t: t["length"])
-      result = (this_min["num"], this_min, self.p_dict[this_min["num"]])
-    else:
-      result = None
-    return result
-    
-  def _handle_query(self, data):
-    id_set = data
-    result = {id: {num for num in self.id_dict if id in self.id_dict[num]["ids"]} for id in id_set}
-    return result
-  
-  def _handle_move_weights(self, data):
-    moved = data
-    for mover in moved:
-      if mover["target_num"] in self.num_initial:
-        self.p_dict[mover["target_num"]][1][3][mover["id"]] = mover["pos_val"]
-        self.p_dict[mover["target_num"]][1][4][mover["id"]] = mover["neg_val"]
-    result = 1
-    return result
-  
-  def _handle_compare(self, data):
-    if self.id_dict:
-      mini1 = data
-      diffs = {num: mini1["ids"] - self.id_dict[num]["ids"] for num in self.id_dict}
-      lengths = {num: len(diffs[num]) + self.id_dict[num]["length"] for num in self.id_dict}
-      good = set(num for num in self.id_dict if lengths[num] < HP.COMPRESSION_THRESHOLD)
-      if good:
-        mini_num = min((num for num in good), key=lambda t: diffs[t])
-        mini2 = {"num": mini_num, "length": lengths[mini_num], "ids": self.id_dict[mini_num]["ids"], "diff": len(diffs[mini_num])}
-        result = (mini_num, mini2, self.p_dict[mini_num])
-      else:
-        result = None
-    else:
-      result = None
-    return result
-
-  def _handle_delete(self, data):
-    num = data
-    if num in self.num_initial:
-      del self.p_dict[num]
-      del self.id_dict[num]
-    result = 1
-    return result
-
-  def _handle_update(self, data):
-    num, mini, p = data
-    if num in self.num_initial:
-      self.p_dict[num] = p
-      self.id_dict[num] = mini
-    result = 1
-    return result
-
-  def _handle_finalize(self, data):
-    result = self.p_dict
-    return result
-
-def initialize_workers(num_threads, id_dict, p_dict):
-  """ Create workers and distribute tasks among threads. """
-  # task_queues = {i: mp.Queue() for i in range(num_threads)}
-  # result_queue = mp.Queue()
-
-  task_queues = {i: queue.Queue() for i in range(num_threads)}
-  result_queue = queue.Queue()
-  
-  split_points = np.linspace(0, len(id_dict), num_threads + 1, dtype=int)
-  ranges = {i: set(np.arange(split_points[i], split_points[i+1])) for i in range(num_threads)}
-  nums = {i: set(list(id_dict.keys())[x] for x in ranges[i]) for i in range(num_threads)}
-  p_dicts = {i: {x: p_dict[x] for x in nums[i]} for i in range(num_threads)}
-  id_dicts = {i: {x: id_dict[x] for x in nums[i]} for i in range(num_threads)}
-  
-  workers = {i: MergeWorker(i, nums[i], p_dicts[i], id_dicts[i], task_queues[i], result_queue) for i in range(num_threads)}
-  
-  for worker in workers.values():
-    worker.start()
-  
-  return workers, task_queues, result_queue
-
-def get_minimum_element(num_threads, task_queues, result_queue):
-  """ Retrieve minimum elements from all workers. """
-  for i in range(num_threads):
-    task_queues[i].put(("get_min", None))
-
-  results_, mins, ps = [], {}, {}
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-      if results_[-1] is not None:
-        num_, mini_, p_ = results_[-1]
-        mins[num_] = mini_
-        ps[num_] = p_
-
-  # print("Mins:", [(x, y["length"], ps[x][0][0]) for x, y in mins.items()],flush=True)
-  mini = min((num for num in mins.values()), key=lambda t: t["length"])
-  p = ps[mini["num"]]
-  
-  return mini, p
-
-def query_ids(num_threads, task_queues, result_queue, id_set):
-  """ Query elements. """
-  for i in range(num_threads):
-    task_queues[i].put(("query", id_set))
-
-  results_ = []
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-
-  # print([(x, y["length"]) for x, y in mins.items()],flush=True)
-  
-  return results_
-
-def get_compared_element(num_threads, task_queues, result_queue, mini):
-  """ Compare with mini. """
-  for i in range(num_threads):
-    task_queues[i].put(("compare", mini))
-
-  results_, mins, ps = [], {}, {}
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-      if results_[-1] is not None:
-        num_, mini_, p_ = results_[-1]
-        mins[num_] = mini_
-        ps[num_] = p_
-
-  # print("Comp:", [(x, y["length"], y["diff"], ps[x][0][0]) for x, y in mins.items()], flush=True)
-  mini = min((num for num in mins.values()), key=lambda t: (t["diff"], t["length"]))
-  p = ps[mini["num"]]
-  
-  return mini, p
-
-def delete_element(num_threads, task_queues, result_queue, num):
-  """ Delete the current minimum element from all workers. """
-  for i in range(num_threads):
-    task_queues[i].put(("delete", num))
-
-  results_ = []
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-
-def move_weights(num_threads, task_queues, result_queue, moved):
-  """ Move weights. """
-  for i in range(num_threads):
-    task_queues[i].put(("move_weights", moved))
-
-  results_ = []
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-
-def root_reduce(mini, p, moved):
-  """ Reduce roots. """
-  for mover in moved:
-    if mover["id"] in p[1][3]:
-      del p[1][3][mover["id"]]
-    if mover["id"] in p[1][4]:
-      del p[1][4][mover["id"]]
-  p = IC.reduce_problems([p])[0]
-  new_set = set([x for x, _ in p[1][0]]) | set([x for x, _ in p[1][1]])
-  mini = {"num": mini["num"], "length": len(new_set), "ids": new_set}
-  return mini, p
-
-def update_all_workers(num_threads, task_queues, result_queue, mini, p):
-  """ Update all workers with new merged data. """
-  for i in range(num_threads):
-      task_queues[i].put(("update", (mini["num"], mini, p)))
-
-  results_ = []
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-
-def finalize(num_threads, task_queues, result_queue):
-  for i in range(num_threads):
-    task_queues[i].put(("finalize", None))
-
-  results_ = []
-  while len(results_) < num_threads:
-    time.sleep(0.0001)
-    if not result_queue.empty():
-      results_.append(result_queue.get_nowait())
-
-  prob_data_list = []
-  for result in results_:
-    if result:
-      prob_data_list.extend(result.values())
-
-  return prob_data_list
-
-def get_roots_without_children_with_weights(p):
-  tmp = (set(p[1][3].keys()) | set(p[1][4].keys())) - set().union(*p[1][2].values())
-  result = {"ids": tmp,
-            "pos": {key: p[1][3].get(key, 0.0) for key in tmp},
-            "neg": {key: p[1][4].get(key, 0.0) for key in tmp}}
-  return result
-
-def get_move_dict(roots_with_weights, results):
-  moved = []
-  results = [result for result in results if any(val for val in result.values())]
-  if results:
-    for id in roots_with_weights["ids"]:
-      found = False
-      for result in results:
-        if id in result:
-          if result[id]:
-            where_to = list(result[id])[0]
-            if where_to:
-              moved.append({"id": id, 
-                        "pos_val": roots_with_weights["pos"][id],
-                        "neg_val": roots_with_weights["neg"][id],
-                        "target_num": where_to})
-  return moved
-
-def threaded_smallest_min_overlap_compression(prob_data_list):
-# Initially: ~20442 problems
-# After removing non-first occurence: ~16450
-# After root reduction: 16003
-# Just pick as many smallest problems to size strictly < 20000: 804
-# Pick smallest problem, merge with problem such that minimal additional nodes, and among those one with minimal size, to size strictly < 20000: 741
-# Huffmann-encoding (mergest 2 smallest problems) to size strictly < 20000: 986
-  num_threads = HP.NUMPROCESSES
-  # prob_data_list = torch.load(sys.argv[1],weights_only=False)
-  p_dict = {num: p for num, p in enumerate(prob_data_list) if p[1][0]}
-  del prob_data_list
-  print("Problems read in. Performing Huffman-alike merge, which introduces few additional nodes, to threshold.",flush=True)
-  id_dict = {}
-  for num, p in p_dict.items():
-    this_set = set([x for x, _ in p[1][0]]) | set([x for x, _ in p[1][1]]) 
-    id_dict[num] = {"num": num, "length": len(this_set), "ids": this_set}
-
-  workers, task_queues, result_queue = initialize_workers(num_threads, id_dict, p_dict)
-
-  mini1, p1 = get_minimum_element(num_threads, task_queues, result_queue)
-  delete_element(num_threads, task_queues, result_queue, mini1["num"])
-  mini2, p2 = get_minimum_element(num_threads, task_queues, result_queue)
-
-  while mini1["length"] + mini2["length"] < HP.COMPRESSION_THRESHOLD:
-    del mini2, p2
-
-    mini_ = {}
-    while not mini1 == mini_:
-      mini_ = mini1
-      roots_with_weights = get_roots_without_children_with_weights(p1)
-      results = query_ids(num_threads, task_queues, result_queue, roots_with_weights["ids"])
-      moved = get_move_dict(roots_with_weights, results)
-      move_weights(num_threads, task_queues, result_queue, moved)
-      mini1, p1 = root_reduce(mini1, p1, moved)
-      if mini1["length"] == 0:
-        break
-
-    del mini_
-    if mini1["length"] > 0:
-      mini2, p2 = get_compared_element(num_threads, task_queues, result_queue, mini1)
-      delete_element(num_threads, task_queues, result_queue, mini2["num"])
-
-      p = IC.compress_prob_data_with_fixed_ids([p1, p2])
-      new_set = mini1["ids"] | mini2["ids"]
-      mini = {"num": mini1["num"], "length": len(new_set), "ids": new_set}
-
-      update_all_workers(num_threads, task_queues, result_queue, mini, p)
-
-      del mini, mini1, p1, mini2, p2, p, new_set
-
-    mini1, p1 = get_minimum_element(num_threads, task_queues, result_queue)
-    delete_element(num_threads, task_queues, result_queue, mini1["num"])
-    print("Min length:",mini1["length"],flush=True)
-    mini2, p2 = get_minimum_element(num_threads, task_queues, result_queue)
-
-  prob_data_list = finalize(num_threads, task_queues, result_queue)
-
-  for i in range(num_threads):
-    task_queues[i].put(None)
-  for p in workers.values():
-    p.join()
-
-  print()
-  print("Compressed to", len(prob_data_list), "merged problems")
-  return prob_data_list
-  # torch.save(prob_data_list,sys.argv[1]+".final_single_correct")
 
 class RuleWorker(threading.Thread):
 # class RuleWorker(mp.Process):
@@ -480,8 +122,8 @@ class RuleWorker(threading.Thread):
     result = 1
     return result
 
-def greedy(data, stop_early=0):
-  init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg = data[1][:7] 
+def greedy(data, global_selec, global_good, stop_early=0):
+  init, deriv, pars = data[1][:3] 
 
   depth_dict = IC.get_depth_dict(init, deriv, pars)
   ids = [id for id, _ in init]
@@ -498,7 +140,6 @@ def greedy(data, stop_early=0):
   shared_pars = {rule: {id: set(vals) for id, vals in pars.items() if id in rule_ids[rule]} for rule in rules}
 
   # pars_len = {id: len(pars[id]) for id in pars}
- 
   # task_queues = {rule: mp.Queue() for rule in rules}
   # result_queue = mp.Queue()
 
@@ -572,8 +213,8 @@ def greedy(data, stop_early=0):
 
     rule_ids[best_rule] -= set(id_pool)
 
-    for id in id_pool:
-      del pars[id]
+    # for id in id_pool:
+    #   del pars[id]
 
     remaining_count = sum(map(len, rule_ids.values()))
     # empty_keys[best_rule] = set()
@@ -584,135 +225,127 @@ def greedy(data, stop_early=0):
   for p in workers.values():
     p.join()
 
-  cropped_keys = set(pos_vals.keys()) | set(neg_vals.keys())
+  this_good = global_good & set(ids)
+  this_neg = (global_selec - global_good) & set(ids)
 
-  cropped_pos_values = []
-  cropped_neg_values = []
-  for _, k in enumerate(ids):
-    if k in cropped_keys:
-      cropped_pos_values.append(pos_vals.get(k, 0.0))
-      cropped_neg_values.append(neg_vals.get(k, 0.0))
+  persistent_good = IC.get_subtree(this_good, deriv, pars)
+  ok = persistent_good - this_good
 
-  pos = torch.tensor(cropped_pos_values, dtype=torch.float64)
-  neg = torch.tensor(cropped_neg_values, dtype=torch.float64)
+  pos = []
+  neg = []
+  for _, id in enumerate(ids):
+    if id in this_good:
+      pos.append(1)
+      neg.append(0)
+    elif id in this_neg:
+      pos.append(0)
+      neg.append(1)
+    elif id in ok:
+      pos.append(0)
+      neg.append(0)
+    else:
+      pos.append(0)
+      neg.append(0)
+
+  pos = torch.tensor(pos, dtype=torch.float64)
+  neg = torch.tensor(neg, dtype=torch.float64)
 
   tot_pos = sum(pos)
   tot_neg = sum(neg)
 
   target = pos / (pos + neg)
 
-  mask = torch.tensor([id in cropped_keys for _, id in enumerate(ids)], dtype=torch.bool)
+  # mask = torch.tensor([id in cropped_keys for _, id in enumerate(ids)], dtype=torch.bool)
 
   print()
 
-  depths = torch.tensor([depth_dict[id] for _, id in enumerate(ids)])
-
-  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "rule_52_limits": rule_52_limits, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "mask": mask, "target": target, "depths": depths}
-
-def compress_to_threshold(prob_data_list, threshold):
-  
-  # size_hist = defaultdict(int)
-  
-  # sizes = []
-  # times = []
-  
-  # size_and_prob = []
-  
-  # for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
-  #   print(metainfo)
-
-  #   size = len(init)+len(deriv)
-  #   if size > 0:
-  #     size_and_prob.append((size,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))))
-  #     size_hist[len(init)+len(deriv)] += 1
-
-  # print("size_hist")
-  # tot = 0
-  # sum = 0
-  # small = 0
-  # big = 0
-  # for val,cnt in sorted(size_hist.items()):
-  #   sum += val*cnt
-  #   tot += cnt
-  #   # print(val,cnt)
-  #   if val > threshold:
-  #     big += cnt
-  #   else:
-  #     small += cnt
-  # print("Average",sum/tot)
-  # print("Big",big)
-  # print("Small",small)
-
-  print("Compressing for threshold",threshold)
-  prob_data_list.sort(key=lambda x : x[0][2])
-  
-  compressed = []
-  
-  while prob_data_list:
-    (a,b,size), my_rest = prob_data_list.pop(0)
-    my_friends = [((a,b,size), my_rest)]
-
-# We add up sizes before compression, which we only do up to size = size 
-    while size < threshold and prob_data_list:
-# When having compressed, we are sometimes below size = size again, hence we repeat the conditional loop
-      while size < threshold and prob_data_list:
-    
-        (a,b,friend_size), my_friend = prob_data_list.pop(0)
-        size += friend_size
-        my_friends.append(((a, b, friend_size), my_friend))
-
-        print("friend_size", friend_size, "total size", size, flush=True)
-
-      (a, b, size), my_rest = IC.compress_prob_data_with_fixed_ids(my_friends)
-      my_friends = [((a, b, size), my_rest)]
-
-    compressed.append(my_friends)
-
-  print()
-  print("Compressed to",len(compressed),"merged problems")
-  return compressed
+  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "target": target}
 
 if __name__ == "__main__":
 
   args = parse_args()
 
-  if args["mode"] == "pre":
-    args["file"] = HP.PRE_FILE
-    args["folder"] = HP.PRE_FOLDER
-    assert("file" in args)
-    assert("folder" in args)
+  assert("mode" in args), "A command line argument mode=... must be passed. \n" + \
+                          "Options:\n" + \
+                          "1. mode=zero-test, preparing the files for the analytic test.\n" + \
+                          "2. mode=pre, preparing the raw data for compression by excluding large cases, setting all axioms to zero which aren't among the chosen number of most common ones, and cleaning up data a bit, as well as splitting into training and validation sets.\n" + \
+                          "3. mode=compress, compressing the prepared files and splitting them up into individual training and validation instances."
+
+  if args["mode"] == "zero-test":
+    assert hasattr(HP, "ZERO_FILE"), "Parameter ZERO_FILE in hyperparams.py not set. This file is read in for producing the one big multi-tree."
+    assert isinstance(HP.ZERO_FILE, str), "Parameter ZERO_FILE in hyperparams.py is not a string. This file is read in for producing the one big multi-tree."
+    assert os.path.isfile(HP.ZERO_FILE), "Parameter ZERO_FILE in hyperparams.py does not point to an existing file. This file is read in for producing the one big multi-tree."
+
+    assert hasattr(HP, "ZERO_FOLDER"), "Parameter ZERO_FOLDER in hyperparams.py not set. This folder shall contain the raw data for producing the one big multi-tree."
+    assert isinstance(HP.ZERO_FOLDER, str), "Parameter ZERO_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data for producing the one big multi-tree."
+    assert os.path.isfile(HP.ZERO_FOLDER), "Parameter ZERO_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data for producing the one big multi-tree."
+
     print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
+    prob_data_list = torch.load(HP.ZERO_FILE, weights_only=False)
+
     print("Dropping axiom information, not needed anymore.")
     prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, _)) in prob_data_list]
+
     print("Dropping large proofs (init+deriv > 30000).")
     prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init) + len(deriv) < 30000]
-    # print("Reducing problems a bit.", flush=True)
-    # with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
-    #   prob_data_list = list(executor.map(IC.reduce_problems_selec, prob_data_list))
-    print("Setting positive cone and negative boundary.")
-    with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
-      prob_data_list = list(executor.map(IC.setup_pos_vals_neg_vals, prob_data_list))
-    print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT.")
-    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign.pt".format(args["folder"]), weights_only=False)
-    prob_data_list, thax_sign, thax_to_str = IC.set_zero(prob_data_list, thax_to_str)
-    print("Updating data signature.", flush=True)
-    torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(args["folder"]))
-    print("Compressing every individual problem.")
-    prob_data_list = [IC.compress_prob_data([p]) for p in prob_data_list]
-    # print("Reducing problems a bit.", flush=True)
-    # prob_data_list = IC.reduce_problems(prob_data_list)
-# The first reduction gets rid of many nodes with more than 2 parents, if not all.
-# Nodes with more than 2 parents are all derived by rule 52, which means, that those aren't important at all and can be dismissed.
 
+    print("Generating one multi-tree.", flush=True)
+    prob, old2new, selec, good = IC.compress_prob_data(prob_data_list, "long", True)
+    torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
+
+    print("Cropping multitree to what is induced by the selection.", flush=True)
+    prob_data_list = IC.crop(prob)
+
+    print("Saving.", flush=True)
+    torch.save(prob_data_list, "{}/full_tree_cropped.pt".format(HP.ZERO_FOLDER))
+
+    print("Done.", flush=True)
+    exit()
+
+  if args["mode"] == "pre":
+    assert hasattr(HP, "PRE_FILE"), "Parameter PRE_FILE in hyperparams.py not set. This file contains the raw data from log_loading."
+    assert isinstance(HP.PRE_FILE, str), "Parameter PRE_FILE in hyperparams.py is not a string. This file contains the raw data from log_loading."
+    assert os.path.isfile(HP.PRE_FILE), "Parameter PRE_FILE in hyperparams.py does not point to an existing file. This file contains the raw data from log_loading."
+
+    assert hasattr(HP, "PRE_FOLDER"), "Parameter PRE_FOLDER in hyperparams.py not set. This folder shall contains the raw data produced by log_loading."
+    assert isinstance(HP.PRE_FOLDER, str), "Parameter PRE_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data produced by log_loading."
+    assert os.path.isfile(HP.PRE_FOLDER), "Parameter PRE_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data produced by log_loading."
+
+    print("Loading problem file.", flush=True)
+    prob_data_list = torch.load(HP.PRE_FILE, weights_only=False)
+
+    print("Dropping axiom information, not needed anymore.")
+    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, _)) in prob_data_list]
+
+    print("Dropping large proofs (init+deriv > 30000).")
+    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init) + len(deriv) < 30000]
+
+    print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and updating thax number to name mapping.")
+    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign_full.pt".format(HP.PRE_FOLDER), weights_only=False)
+    prob_data_list, thax_sign, thax_to_str = IC.set_zero(prob_data_list, thax_to_str)
+
+    print("Updating data signature.", flush=True)
+    torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.PRE_FOLDER))
+
+    print("Compressing problems to get rid of several identical axioms and derivations form setting to zero.", flush=True)
+    prob_data_list = [IC.compress_prob_data([prob], "long") for prob in prob_data_list]
+    print("Generated old2new, selec, good from the modified data.", flush=True)
+    _, old2new, selec, good = IC.compress_prob_data(prob_data_list, "long", True)
+    torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
+    print("Assigning new ids to individual problems and cropping.", flush=True)
+    with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
+      prob_data_list = list(executor.map(lambda j, prob: IC.adjust_ids_and_crop(prob, old2new[j], selec), 
+                                         range(len(prob_data_list)), prob_data_list))
+
+    print("Extracting axiom-to-problem  and problem-to.axiom mappings to ensure, that every axiom is in the training. (And also having the data for swapping out uniformly, currently not implemented).", flush=True)
     ax_to_prob = dict()
-    for i,(_,(init,_,_,_,_,_,_)) in enumerate(prob_data_list):
+    for i,(_, (init, _, _, _, _)) in enumerate(prob_data_list):
       for _, thax in init:
         if thax not in ax_to_prob:
           ax_to_prob[thax] = {i}
         else:
           ax_to_prob[thax].add(i)
-    torch.save(ax_to_prob, "{}/axiom_counts.pt".format(args["folder"]))
+    torch.save(ax_to_prob, "{}/axiom_counts.pt".format(HP.PRE_FOLDER))
     print("Saved axiom counts for uniformly distributed expectation SWAPOUT")
     rev_ax_to_prob = dict()
     for key, vals in ax_to_prob.items():
@@ -737,24 +370,27 @@ if __name__ == "__main__":
     train_data_list += prob_data_list[:train_length]
     valid_data_list = prob_data_list[train_length:]
     del prob_data_list
-    print("Split problems into {} training instances and {} validation instances".format(len(train_data_list), len(valid_data_list)), flush=True)
-    torch.save(train_data_list, "{}.train".format(args["file"]))
-    torch.save(valid_data_list, "{}.valid".format(args["file"]))
+    print("Split problems into {} training instances and {} validation instances. Saving.".format(len(train_data_list), len(valid_data_list)), flush=True)
+    torch.save(train_data_list, "{}.train".format(HP.PRE_FILE))
+    torch.save(valid_data_list, "{}.valid".format(HP.PRE_FILE))
     print("Done.", flush=True)
-    del train_data_list
-    del valid_data_list
     exit()
 
   if args["mode"] == "compress":
-    args["file"] = HP.COM_FILE
-    args["folder"] = HP.COM_FOLDER
-    args["add_mode_1"] = HP.COM_ADD_MODE_1
-    assert("file" in args)
-    assert("folder" in args)
-    assert("add_mode_1" in args)
+    assert hasattr(HP, "COM_FILE"), "Parameter COM_FILE in hyperparams.py not set. This file contains the prepared data of the preparation step, either for training or validation."
+    assert isinstance(HP.COM_FILE, str), "Parameter COM_FILE in hyperparams.py is not a string. This file contains the prepared data of the preparation step, either for training or validation."
+    assert os.path.isfile(HP.COM_FILE), "Parameter COM_FILE in hyperparams.py does not point to an existing file. This file contains the prepared data of the preparation step, either for training or validation."
 
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(args["file"], weights_only=False)
+    assert hasattr(HP, "COM_FOLDER"), "Parameter COM_FOLDER in hyperparams.py not set. This folder is the base folder of the project."
+    assert isinstance(HP.COM_FOLDER, str), "Parameter COM_FOLDER in hyperparams.py is not a string. This folder is the base folder of the project."
+    assert os.path.isfile(HP.COM_FOLDER), "Parameter COM_FOLDER in hyperparams.py does not point to an existing directory. This folder is the base folder of the project."
+
+    assert hasattr(HP, "COM_ADD_MODE_1"), "Parameter COM_ADD_MODE_1 in hyperparams.py not set. This parameter takes values either train or valid an indicates, which of the data sets shall be compressed and further transformed to perform the computations."
+    assert(HP.COM_ADD_MODE_1 == "train" or HP.COM_ADD_MODE_1 == "valid"), "Parameter COM_ADD_MODE_1 in hyperparams.py is not train or valid. This parameter indicates, which of the data sets shall be compressed and further transformed to perform the computations."
+
+    print("Loading problem file and selec and good.", flush=True)
+    prob_data_list = torch.load(HP.COM_FILE, weights_only=False)
+    selec, good = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
 
     print("Compressing.", flush=True)
     compressed = []
@@ -766,41 +402,38 @@ if __name__ == "__main__":
       while size < HP.COMPRESSION_THRESHOLD and prob_data_list:
         to_compress.append(prob_data_list.pop())
         size += len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
-      to_compress = [IC.compress_prob_data(to_compress)]
+      to_compress = [IC.compress_prob_data_with_fixed_ids(to_compress)]
       size = len(to_compress[-1][1][0]) + len(to_compress[-1][1][1])
-      if size > HP.COMPRESSION_THRESHOLD:
+      if size >= HP.COMPRESSION_THRESHOLD:
         compressed.extend(to_compress)
       else:
         prob_data_list.extend(to_compress)
-    print("compressed",len(compressed), flush=True)
+    print("Compressed to {} many instances.".format(len(compressed)), flush=True)
     print("Done.", flush=True)
     prob_data_list.extend(compressed)
     del compressed
 
-    print("Pick positive value, if id has positive and negative value.")
-    prob_data_list = IC.pick_positive(prob_data_list, True)
-
-    print("Computing Greedy Evaluation Schemes.", flush=True)
+    print("Computing Greedy Evaluation Schemes and setting pos vals and neg vals.", flush=True)
+    greedy_partial = partial(greedy, global_selec=selec, global_good=good)
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
-      new_prob_data_list = list(executor.map(greedy, prob_data_list))
+      prob_data_list = list(executor.map(greedy_partial, prob_data_list))
     print("Done. Saving.", flush=True)
-    prob_data_list = new_prob_data_list
-    del new_prob_data_list
 
     print("Saving Pieces.", flush=True)
-    dir = "{}/pieces".format(args["folder"])
+    dir = "{}/pieces".format(HP.COM_FOLDER)
     os.makedirs(dir, exist_ok=True)
     for i, rest in enumerate(prob_data_list):
-      piece_name = "piece{}.pt.{}".format(i, args["add_mode_1"])
+      piece_name = "piece{}.pt.{}".format(i, HP.COM_ADD_MODE_1)
       print("Saving {}".format(piece_name), flush=True)
-      torch.save(rest, "{}/pieces/{}".format(args["folder"], piece_name))
+      torch.save(rest, "{}/pieces/{}".format(HP.COM_FOLDER, piece_name))
     if "ids" in prob_data_list[0]:
-      prob_data_list = [(len(prob_data_list[i]["ids"]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
+      prob_data_list = [(len(prob_data_list[i]["ids"]), "piece{}.pt.{}".format(i, HP.COM_ADD_MODE_1)) for i in range(len(prob_data_list))]
     else:
-      prob_data_list = [(len(prob_data_list[i][1][0]) + len(prob_data_list[i][1][1]), "piece{}.pt.{}".format(i, args["add_mode_1"])) for i in range(len(prob_data_list))]
-    filename = "{}/{}_index.pt".format(args["folder"], args["add_mode_1"])
-    print("Saving {} part to".format(args["add_mode_1"]), filename)
+      prob_data_list = [(len(prob_data_list[i][1][0]) + len(prob_data_list[i][1][1]), "piece{}.pt.{}".format(i, HP.COM_ADD_MODE_1)) for i in range(len(prob_data_list))]
+    filename = "{}/{}_index.pt".format(HP.COM_FOLDER, HP.COM_ADD_MODE_1)
+
+    print("Saving {} part to".format(HP.COM_ADD_MODE_1), filename)
     torch.save(prob_data_list, filename)
+
     print("Done.", flush=True)
-    del prob_data_list
     exit()

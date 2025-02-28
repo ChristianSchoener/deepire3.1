@@ -37,50 +37,29 @@ def load_one(task):
   else:
     None
 
-def parse_args():
+# def parse_args():
 
-  parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
-  parser.add_argument("arguments", nargs="+", help="Arguments in key=value format (e.g., mode=pre folder=/path file=file.txt).")
+#   parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
+#   parser.add_argument("arguments", nargs="+", help="Arguments in key=value format (e.g., mode=pre folder=/path file=file.txt).")
 
-  args_ = parser.parse_args()
+#   args_ = parser.parse_args()
 
-  args = {}
-  for arg in args_.arguments:
-    if "=" not in arg:
-      parser.error(f"Invalid argument format '{arg}'. Use key=value.")
-    key, value = arg.split("=", 1)  # Split only on the first '='
-    args[key] = value
+#   args = {}
+#   for arg in args_.arguments:
+#     if "=" not in arg:
+#       parser.error(f"Invalid argument format '{arg}'. Use key=value.")
+#     key, value = arg.split("=", 1)  # Split only on the first '='
+#     args[key] = value
   
-  return args
+#   return args
 
 if __name__ == "__main__":
-  # Experiments with pytorch and torch script
-  # what can be learned from a super-simple TreeNN
-  # which distinguishes:
-  # 1) conj, user_ax, theory_ax_kind in the leaves
-  # 2) what inference leads to this in the tree nodes
-  #
-  # Load a set of logs, passed in a file as the final argument, each will become a "training example tree"
-  # Scan the set and create a histogram (to learn which initial and derivational networks will be needed; including the "dropout" defaults)
-  # - save it to "data_hist.pt"
-  # normalize the training data and save that to "training_data.pt" / "validation_data.pt" using a 80:20 split
-  #
-  # To be called as in: ./log_loader.py <folder> *.log-files-listed-line-by-line-in-a-file (an "-s4k on" run of vampire)
-  #
-  # optionally, also a file with problem easyness line-by-line records, e.g. mizar_common/prob_easiness_strats1234.txt
-  #
-  # data_sign.pt and raw_log_data_*.pt are created in <folder>
 
-  # prob_easiness = {}
-  # if len(sys.argv) > 3:
-  #   with open(sys.argv[3],"r") as f:
-  #     for line in f:
-  #       spl = line.split()
-  #       prob_easiness[spl[0]] = int(spl[1])
-
-  args = parse_args()
-  assert("file" in args)
-  assert("folder" in args)
+  assert(HP.LOG_FOLDER)
+  assert(HP.LOG_FILES_TXT)
+  args = {}
+  args["folder"] = HP.LOG_FOLDER
+  args["file"] = HP.LOG_FILES_TXT
 
   prob_data_list = [] # [(logname,(init,deriv,pars,selec,good)]
 
@@ -90,14 +69,6 @@ if __name__ == "__main__":
       logname = line[:-1]
       tasks.append((i, logname))
     
-  # with ThreadPoolExecutor(max_workers = 250) as executor:  # Number of threads to use
-  #   futures = {executor.submit(load_one, task): task for task in tasks}
-
-  #   # Gather results as they are completed
-  #   for future in as_completed(futures):
-  #     result = future.result()
-  #     if result:
-  #       prob_data_list.append(result)
   pool = Pool(processes = HP.NUMPROCESSES) # number of cores to use
   results = pool.map(load_one, tasks, chunksize = 100)
   pool.close()
@@ -111,40 +82,27 @@ if __name__ == "__main__":
   times = []
   sizes = []
   easies = []
-  # prob_data_list = [((logname,time_elapsed),((name,weight,size),rest)) for ((logname,time_elapsed),((name,weight,size),rest)) in prob_data_list if size < 30000]
+
   for i,((logname,time_elapsed),((_,_,size),rest)) in enumerate(prob_data_list):
     probname = IC.logname_to_probname(logname)
-    # easy = prob_easiness[probname] if probname in prob_easiness else 1
 
     probweight = 1.0    
-    # probweight = 1.0/easy
     
     prob_data_list[i] = (probname,probweight,size),rest
     
-    # uncomment for plotting below:
     times.append(time_elapsed)
-    sizes.append(size) # len(init)+len(deriv)
-    # easies.append(easy)
+    sizes.append(size)
 
-  # plot the time_elapsed vs size distribution
-  # import matplotlib.pyplot as plt
-  # fig, ax = plt.subplots(figsize=(20,10))
-  # ax.set_yscale('log')
-  # sc = plt.scatter(times,sizes,c=easies,marker="+")
-  # plt.colorbar(sc)
-  # plt.savefig("{}/times_sizes{}.png".format(sys.argv[1],sys.argv[2].split("/")[0]),dpi=250)
 
   thax_sign, deriv_arits, axiom_hist = IC.prepare_signature(prob_data_list)
 
   thax_sign, prob_data_list, thax_to_str = IC.axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list)
   
   print("thax_sign", thax_sign)
-  # print("sine_sign", sine_sign) 
   print("deriv_arits", deriv_arits)
-  # print("axiom_hist", axiom_hist)
   print("thax_to_str", thax_to_str)
 
-  filename = "{}/data_sign.pt".format(args["folder"])
+  filename = "{}/data_sign_full.pt".format(args["folder"])
   print("Saving signature to", filename)
   torch.save((thax_sign, deriv_arits, thax_to_str), filename)
   print()

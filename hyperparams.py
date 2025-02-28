@@ -74,7 +74,7 @@ def NonLinKindName(val):
   elif val == NonLinKind_RELU:
     return "ReLU"
 
-NONLIN = NonLinKind_RELU
+NONLIN = NonLinKind_TANH
 
 BOTTLENECK_EXPANSION_RATIO = 2 # is used halved for the eval layer (and sine layer?)
 
@@ -137,18 +137,33 @@ CUDA = True
 
 NUM_STREAMS = 1
 
+LOG_FOLDER = "strat1new_better/classes_testing_compress/"
+LOG_FILES_TXT = "strat1new_better/loop0_logs.txt"
+
+ZERO_FOLDER = "strat1new_better/classes_testing_compress/"
+ZERO_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
+
 PRE_FOLDER = "strat1new_better/classes_testing_compress/"
 PRE_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 
 COM_FOLDER = "strat1new_better/classes_testing_compress/"
-COM_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt.valid"
-COM_ADD_MODE_1 = "valid"
+COM_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt.train"
+COM_ADD_MODE_1 = "train"
 
 TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
 TRAIN_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
 TRAIN_USE_CHECKPOINT = False
-TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch1.pt"
+TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch2.pt"
 
 VALID_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
 VALID_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
 VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
+
+EXP_DATA_SIGN = "strat1new_better/classes_testing_compress/data_sign_full.pt"
+EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt"
+EXP_FILE = "strat1new_better/classes_testing_compress/full_tree_cropped.pt"
+EXP_NAME = "strat1new_better/models/zero-test.pt"
+EXP_MODEL_FOLDER = "/media/chris/8b23eee9-a098-4f74-8836-d5f49654310e/Projektarbeit_Vampire_dump/zero-test-models"
+EXP_PROBLEM_CONFIGURATIONS = "key_problemName_val_axiomSet.pt"
+EXP_PROBLEM_FILES = "all_all_yes_rest.txt"
+EXP_CHECKPOINT_FILE = ""

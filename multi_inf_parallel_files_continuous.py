@@ -48,7 +48,7 @@ def eval_and_or_learn_on_one(problem, start_time, master_parts, data, epoch):
   tot_neg = data["tot_neg"]
 
   print(time.time() - start_time, "Generating Learning Model for {}".format(problem), flush=True)
-  model = IC.LearningModel(*master_parts, data, True, HP.CUDA)
+  model = IC.LearningModel(*master_parts, data, HP.CUDA)
   model.train()
   print(time.time() - start_time, "Starting training for {}".format(problem), flush=True)
   (loss, posOK_sum, negOK_sum) = model()
@@ -81,7 +81,35 @@ def weighted_std_deviation(weighted_mean,scaled_values,weights,weight_sum):
   std_dev = np.sqrt(np.sum(weights*squares,axis=0) / weight_sum)
   return std_dev
 
+def do_the_assertions():
+  assert hasattr(HP, "TRAIN_TRAIN_FOLDER"), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py not set. In this folder, restart files and logs of the run will be stored."
+  assert isinstance(HP.TRAIN_TRAIN_FOLDER, str), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py is not a string. In this folder, restart files and logs of the run will be stored."
+  assert os.path.isfile(HP.TRAIN_TRAIN_FOLDER), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py does not point to an existing directory. In this folder, restart files and logs of the run will be stored."
+
+  assert hasattr(HP, "TRAIN_BASE_FOLDER"), "Parameter TRAIN_BASE_FOLDER in hyperparams.py not set. This is the base folder containing the data signature, ..."
+  assert isinstance(HP.TRAIN_BASE_FOLDER, str), "Parameter TRAIN_BASE_FOLDER in hyperparams.py is not a string. This is the base folder containing the data signature, ..."
+  assert os.path.isfile(HP.TRAIN_BASE_FOLDER), "Parameter TRAIN_BASE_FOLDER in hyperparams.py does not point to an existing directory. This is the base folder containing the data signature, ..."
+
+  assert hasattr(HP, "CUDA"), "Parameter CUDA in hyperparams.py not set. This parameter determines, if the computation is performed on CUDA or CPU."
+  assert isinstance(HP.CUDA, bool), "Parameter CUDA in hyperparams.py is not Boolean. This parameter determines, if the computation is performed on CUDA or CPU."
+
+  assert hasattr(HP, "USE_CHECKPOINT"), "Parameter USE_CHECKPOINT in hyperparams.py not set. This parameter determines, if a restart file shall be used."
+  assert isinstance(HP.USE_CHECKPOINT, bool), "Parameter USE_CHECKPOINT in hyperparams.py is not a Boolean. This parameter determines, if a restart file shall be used."
+
+  assert hasattr(HP, "TRAIN_CHECKPOINT_FILE"), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py not set. This is the restart file to be used for the computation."
+  assert isinstance(HP.TRAIN_CHECKPOINT_FILE, str), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py is not a string. This is the restart file to be used for the computation."
+  assert os.path.isfile(HP.TRAIN_CHECKPOINT_FILE), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py does not point to a file. This is the restart file to be used for the computation."
+
+  assert hasattr(HP, "MAX_EPOCH"), "Parameter MAX_EPOCH in hyperparams.py not set."
+  assert isinstance(HP.MAX_EPOCH, int), "Parameter MAX_EPOCH is not an integer!"
+
+  assert hasattr(HP, "LEARN_RATE"), "Parameter LEARN_RATE in hyperparams.py not set."
+  assert isinstance(HP.LEARN_RATE, float), "Parameter LEARN_RATE is not a float!"
+  assert(HP.LEARN_RATE > 0.), "Parameter LEARN_RATE is below 0 but must be positive!"
+
 if __name__ == "__main__":
+  do_the_assertions()
+
   # multiprocessing.set_start_method('spawn', force=True)
   log = open("{}/run{}".format(HP.TRAIN_TRAIN_FOLDER, IC.name_learning_regime_suffix()), 'w')
   sys.stdout = log
@@ -94,7 +122,6 @@ if __name__ == "__main__":
   else:
     device = "cpu"
 
-  # train_data_idx = [(1, "depth_below_6_greedy.pt")]
   train_data_idx = torch.load("{}/train_index.pt".format(HP.TRAIN_BASE_FOLDER), weights_only=False)
   print("Loaded train data:",len(train_data_idx), flush=True)
   valid_data_idx = torch.load("{}/valid_index.pt".format(HP.TRAIN_BASE_FOLDER), weights_only=False)
@@ -146,8 +173,8 @@ if __name__ == "__main__":
 
   torch.cuda.empty_cache()
 
-  optimizer = torch.optim.Adam(master_parts.parameters(), lr = 5.e-5)
-  # optimizer = optim.Adahessian(master_parts.parameters(), lr = 0.00015)
+  optimizer = torch.optim.Adam(master_parts.parameters(), lr = lr)
+  # optimizer = optim.Adahessian(master_parts.parameters(), lr = 1.e-4)
 
   data_dict = {}
   for i, (size, name) in enumerate(train_data_idx):
@@ -162,7 +189,6 @@ if __name__ == "__main__":
     while train_data_idx:
       this_problem = random.choice(train_data_idx)
       train_data_idx.remove(this_problem)
-      # data = torch.load("{}/pieces/{}".format(HP.TRAIN_BASE_FOLDER, this_problem[1]), weights_only=False)
       loss, posOK_sum, negOK_sum, tot_pos, tot_neg = eval_and_or_learn_on_one(this_problem[1], start_time, master_parts, data_dict[this_problem[1]], epoch)
 
       stats[tt % samples_per_epoch] = (loss, posOK_sum.cpu(), negOK_sum.cpu())
@@ -200,35 +226,34 @@ if __name__ == "__main__":
     save_checkpoint(epoch, master_parts)
     print(flush=True)
 
-    if not epoch % 1:
-      # sum-up stats over the "samples_per_epoch" entries (retain the var name):
-      loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
-      tot_pos,tot_neg = np.sum(weights,axis=0)
-    
-      print("loss_sum,posOK_sum,negOK_sum",loss_sum,posOK_sum,negOK_sum,flush=True)
-      print("tot_pos,tot_neg",tot_pos,tot_neg,flush=True)
+    # sum-up stats over the "samples_per_epoch" entries (retain the var name):
+    loss_sum,posOK_sum,negOK_sum = np.sum(stats,axis=0)
+    tot_pos,tot_neg = np.sum(weights,axis=0)
+  
+    print("loss_sum,posOK_sum,negOK_sum",loss_sum,posOK_sum,negOK_sum,flush=True)
+    print("tot_pos,tot_neg",tot_pos,tot_neg,flush=True)
 
-      sum_stats = np.sum(stats,axis=0)
-      loss = sum_stats[0]/(tot_pos+tot_neg)
-      posrate = sum_stats[1]/tot_pos
-      negrate = sum_stats[2]/tot_neg
+    sum_stats = np.sum(stats,axis=0)
+    loss = sum_stats[0]/(tot_pos+tot_neg)
+    posrate = sum_stats[1]/tot_pos
+    negrate = sum_stats[2]/tot_neg
 
-      loss_dev = weighted_std_deviation(loss,stats[:,0],np.sum(weights,axis=1),tot_pos+tot_neg)
-      posrate_dev = weighted_std_deviation(posrate,stats[:,1],weights[:,0],tot_pos)
-      negrate_dev = weighted_std_deviation(negrate,stats[:,2],weights[:,1],tot_neg)
-      
-      print("Training stats:",flush=True)
-      print("Loss:",loss,"+/-",loss_dev,flush=True)
-      print("Posrate:",posrate,"+/-",posrate_dev,flush=True)
-      print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
-      print(flush=True)
+    loss_dev = weighted_std_deviation(loss,stats[:,0],np.sum(weights,axis=1),tot_pos+tot_neg)
+    posrate_dev = weighted_std_deviation(posrate,stats[:,1],weights[:,0],tot_pos)
+    negrate_dev = weighted_std_deviation(negrate,stats[:,2],weights[:,1],tot_neg)
     
-      times.append(epoch)
-      losses.append(loss)
-      losses_devs.append(loss_dev)
-      posrates.append(posrate)
-      posrates_devs.append(posrate_dev)
-      negrates.append(negrate)
-      negrates_devs.append(negrate_dev)
-      
-      IC.plot_with_devs("{}/plot.png".format(HP.TRAIN_TRAIN_FOLDER),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
+    print("Training stats:",flush=True)
+    print("Loss:",loss,"+/-",loss_dev,flush=True)
+    print("Posrate:",posrate,"+/-",posrate_dev,flush=True)
+    print("Negrate:",negrate,"+/-",negrate_dev,flush=True)
+    print(flush=True)
+  
+    times.append(epoch)
+    losses.append(loss)
+    losses_devs.append(loss_dev)
+    posrates.append(posrate)
+    posrates_devs.append(posrate_dev)
+    negrates.append(negrate)
+    negrates_devs.append(negrate_dev)
+    
+    IC.plot_with_devs("{}/plot.png".format(HP.TRAIN_TRAIN_FOLDER),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)

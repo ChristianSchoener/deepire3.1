@@ -36,7 +36,7 @@ def eval_on_one(my_parts, piece_name):
   tot_neg = data["tot_neg"]
   
   with torch.no_grad():
-    model = IC.LearningModel(*my_parts, data, False, False)
+    model = IC.LearningModel(*my_parts, data, False)
     model.eval()
     (loss_sum, posOK_sum, negOK_sum) = model()
 
