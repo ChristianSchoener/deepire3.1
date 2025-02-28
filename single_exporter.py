@@ -198,7 +198,7 @@ if __name__ == "__main__":
   shm_rule_steps.close()
   shm_ind_steps.close()
   shm_pars_ind_steps.close()
-  shm_pos.close()
+  shm_good.close()
   shm_neg.close()
   shm_thax_to_str.close()
 
@@ -207,6 +207,6 @@ if __name__ == "__main__":
   shm_rule_steps.unlink()
   shm_ind_steps.unlink()
   shm_pars_ind_steps.unlink()
-  shm_pos.unlink()
+  shm_good.unlink()
   shm_neg.unlink()
   shm_thax_to_str.unlink()
