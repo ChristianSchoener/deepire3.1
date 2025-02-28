@@ -32,68 +32,74 @@ import hyperparams as HP
 import os
 import subprocess
 
-shm_init = None
-shm_deriv = None
-shm_pars = None
+shm_thax = None
+shm_ids = None
+shm_rule_steps = None
+shm_ind_steps = None
+shm_pars_ind_steps = None
 shm_good = None
 shm_neg = None
 shm_thax_to_str = None
 
-def chunk_large_data(data, chunk_size=100000):
-  chunks = []
-  items = list(data.items())
-  
-  for i in range(0, len(items), chunk_size):
-    chunk_dict = dict(items[i:i + chunk_size])  # Create a dictionary for each chunk
-    chunks.append(chunk_dict)
-  
-  return chunks
-
 def worker(shared_data, this_data):
     
-  shm_init = shm.SharedMemory(name=shared_data['shm_init'])
-  shm_deriv = shm.SharedMemory(name=shared_data['shm_deriv'])
-  shm_pars = shm.SharedMemory(name=shared_data['shm_pars'])
+  shm_thax = shm.SharedMemory(name=shared_data['shm_thax'])
+  shm_ids = shm.SharedMemory(name=shared_data['shm_ids'])
+  shm_rule_steps = shm.SharedMemory(name=shared_data['shm_rule_steps'])
+  shm_ind_steps = shm.SharedMemory(name=shared_data['shm_ind_steps'])
+  shm_pars_ind_steps = shm.SharedMemory(name=shared_data['shm_pars_ind_steps'])
   shm_good = shm.SharedMemory(name=shared_data['shm_good'])
   shm_neg = shm.SharedMemory(name=shared_data['shm_neg'])
   shm_thax_to_str = shm.SharedMemory(name=shared_data['shm_thax_to_str'])
   
-  init = msgpack.unpackb(shm_init.buf)
-  deriv = msgpack.unpackb(shm_deriv.buf)
-  pars = msgpack.unpackb(shm_pars.buf, strict_map_key=False)
+  thax = msgpack.unpackb(shm_thax.buf)
+  ids = msgpack.unpackb(shm_ids.buf)
+  rule_steps = msgpack.unpackb(shm_rule_steps.buf)
+  ind_steps = msgpack.unpackb(shm_ind_steps.buf)
+  pars_ind_steps = msgpack.unpackb(shm_pars_ind_steps.buf)
   good = set(msgpack.unpackb(shm_good.buf))
   neg = set(msgpack.unpackb(shm_neg.buf))
   thax_to_str = msgpack.unpackb(shm_thax_to_str.buf, strict_map_key=False)
 
-  this_init = [(id, thax) for id, thax in init if thax_to_str[thax] in this_data["axioms"]]
-  these_ids = {x for x, _ in this_init}
+  this_init = {ids[i]: thax[i] for i in range(len(thax)) if thax_to_str[thax[i]] in this_data["axioms"]}
+  these_ids = set(this_init.keys())
+
   this_deriv = []
   these_pars = {}
-  for id, rule in deriv:
-    if set(pars[id]) <= these_ids:
-      this_deriv.append((id, rule))
-      these_ids.add(id)
-      these_pars[id] = pars[id]
+
+  for step, rule in enumerate(rule_steps):
+    pars = pars_ind_steps[step]
+    inds = ind_steps[step]
+
+    if len(pars) == len(inds):  # Single parent case
+      for i, ind in enumerate(pars):
+        if ind in these_ids:
+          new_id = inds[i]
+          these_ids.add(new_id)
+          this_deriv.append((new_id, rule))
+          these_pars[new_id] = [ind]
+
+    elif 2 * len(inds) == len(pars):  # Two-parent case
+      for i, ind in enumerate(inds):
+        p1, p2 = pars[2 * i], pars[2 * i + 1]
+        if p1 in these_ids and p2 in these_ids:
+          these_ids.add(ind)
+          this_deriv.append((ind, rule))
+          these_pars[ind] = [p1, p2]
+
   this_good = good & these_ids
   this_neg = neg & these_ids 
 
-  init_abstractions = {}
-  for id, thax_nr in this_init:
-    if thax_nr == -1:
-      init_abstractions["-1"] = -1
-    else:
-      init_abstractions[thax_to_str[thax_nr]] = id
-  deriv_abstractions = {}
-  for id, rule in this_deriv:
-    abskey = ",".join([str(rule)]+[str(par) for par in these_pars[id]])
-    deriv_abstractions[abskey] = id
-  eval_store = {}
-  for id in this_good:
-    eval_store[id] = 1.0
-  for id in this_neg:
-    eval_store[id] = 0.0
+  init_abstractions = {"-1": -1} if -1 in this_init.values() else {}
+  init_abstractions.update({thax_to_str[thax]: id for id, thax in this_init.items() if thax != -1})
+  deriv_abstractions = {
+    ",".join([str(rule)] + list(map(str, these_pars[id]))): id for id, rule in this_deriv
+  }
 
-  max_id = max(set(init_abstractions.values()) | set(deriv_abstractions.values())) + 1
+  eval_store = {id: 1.0 for id in this_good}
+  eval_store.update({id: 0.0 for id in this_neg})
+
+  max_id = max((*init_abstractions.values(), *deriv_abstractions.values()), default=-1) + 1
 
   folder_file = HP.EXP_MODEL_FOLDER + "/" + this_data["short_name"] + ".model"
   IS.save_net(folder_file, init_abstractions, deriv_abstractions, eval_store, max_id)
@@ -113,7 +119,8 @@ if __name__ == "__main__":
   import inf_saver_zero as IS
 
   problem_configuration = torch.load(HP.EXP_PROBLEM_CONFIGURATIONS)
-  print("Loaded problem configuration", HP.EXP_PROBLEM_CONFIGURATIONS)
+  axiom2Number, number2Axiom = torch.load(HP.EXP_AXIOM_NUMBER_MAPPING)
+  print("Loaded problem configurations", HP.EXP_PROBLEM_CONFIGURATIONS)
 
   with open(HP.EXP_PROBLEM_FILES, "r") as f:
     file_names = f.readlines()
@@ -128,34 +135,49 @@ if __name__ == "__main__":
   tree = torch.load(HP.EXP_FILE, weights_only=False)
   print("Loaded tree from", HP.EXP_FILE)
 
+  selec, good = torch.load(HP.EXP_SELEC_GOOD_FILE)
+  print("Loaded selec and good from", HP.EXP_SELEC_GOOD_FILE)
+
+  neg = selec - good
+
+  del selec
+
 # Store data in shared memory manager
-  serialized_init = msgpack.packb(tree[0][1][0])
-  serialized_deriv = msgpack.packb(tree[0][1][1])
-  serialized_pars = msgpack.packb(tree[0][1][2])
-  serialized_good = msgpack.packb(list(tree[0][1][4]))
-  serialized_neg = msgpack.packb(list(tree[0][1][3] - tree[0][1][4]))
+  serialized_thax = msgpack.packb(tree["thax"].tolist())
+  serialized_ids = msgpack.packb(tree["ids"].tolist())
+  serialized_rule_steps = msgpack.packb(tree["rule_steps"].tolist())
+  serialized_ind_steps = msgpack.packb([these_inds.tolist() for these_inds in tree["ind_steps"]])
+  serialized_pars_ind_steps = msgpack.packb([these_pars_inds.tolist() for these_pars_inds in tree["pars_ind_steps"]])
+  serialized_good = msgpack.packb(list(good))
+  serialized_neg = msgpack.packb(list(neg))
   serialized_thax_to_str = msgpack.packb(thax_to_str)
 
   del tree
 
-  shm_init = shm.SharedMemory(create=True, size=len(serialized_init))
-  shm_deriv = shm.SharedMemory(create=True, size=len(serialized_deriv))
-  shm_pars = shm.SharedMemory(create=True, size=len(serialized_pars))
+  shm_thax = shm.SharedMemory(create=True, size=len(serialized_thax))
+  shm_ids = shm.SharedMemory(create=True, size=len(serialized_ids))
+  shm_rule_steps = shm.SharedMemory(create=True, size=len(serialized_rule_steps))
+  shm_ind_steps = shm.SharedMemory(create=True, size=len(serialized_ind_steps))
+  shm_pars_ind_steps = shm.SharedMemory(create=True, size=len(serialized_pars_ind_steps))
   shm_good = shm.SharedMemory(create=True, size=len(serialized_good))
   shm_neg = shm.SharedMemory(create=True, size=len(serialized_neg))
   shm_thax_to_str = shm.SharedMemory(create=True, size=len(serialized_thax_to_str))
 
-  shm_init.buf[:len(serialized_init)] = serialized_init
-  shm_deriv.buf[:len(serialized_deriv)] = serialized_deriv
-  shm_pars.buf[:len(serialized_pars)] = serialized_pars
+  shm_thax.buf[:len(serialized_thax)] = serialized_thax
+  shm_ids.buf[:len(serialized_ids)] = serialized_ids
+  shm_rule_steps.buf[:len(serialized_rule_steps)] = serialized_rule_steps
+  shm_ind_steps.buf[:len(serialized_ind_steps)] = serialized_ind_steps
+  shm_pars_ind_steps.buf[:len(serialized_pars_ind_steps)] = serialized_pars_ind_steps
   shm_good.buf[:len(serialized_good)] = serialized_good
   shm_neg.buf[:len(serialized_neg)] = serialized_neg
   shm_thax_to_str.buf[:len(serialized_thax_to_str)] = serialized_thax_to_str
 
   shared_data = {
-    'shm_init': shm_init.name,
-    'shm_deriv': shm_deriv.name,
-    'shm_pars': shm_pars.name,
+    'shm_thax': shm_thax.name,
+    'shm_ids': shm_ids.name,
+    'shm_rule_steps': shm_rule_steps.name,
+    'shm_ind_steps': shm_ind_steps.name,
+    'shm_pars_ind_steps': shm_pars_ind_steps.name,
     'shm_good': shm_good.name,
     'shm_neg': shm_neg.name,
     'shm_thax_to_str': shm_thax_to_str.name
@@ -164,23 +186,27 @@ if __name__ == "__main__":
 
   this_data = [{"short_name": prob_list[numProblem]["short_name"], 
                 "full_name": prob_list[numProblem]["full_name"], 
-                "axioms": problem_configuration[prob_list[numProblem]["short_name"]]
+                "axioms": {number2Axiom[x] for x in problem_configuration[prob_list[numProblem]["short_name"]]}
                } 
                 for numProblem in range(len(prob_list))
               ]
   with multiprocessing.Pool(processes=HP.NUMPROCESSES) as pool:
       results = pool.starmap(worker, [(shared_data, data) for data in this_data])
 
-  shm_init.close()
-  shm_deriv.close()
-  shm_pars.close()
-  shm_good.close()
+  shm_thax.close()
+  shm_ids.close()
+  shm_rule_steps.close()
+  shm_ind_steps.close()
+  shm_pars_ind_steps.close()
+  shm_pos.close()
   shm_neg.close()
   shm_thax_to_str.close()
 
-  shm_init.unlink()
-  shm_deriv.unlink()
-  shm_pars.unlink()
-  shm_good.unlink()
+  shm_thax.unlink()
+  shm_ids.unlink()
+  shm_rule_steps.unlink()
+  shm_ind_steps.unlink()
+  shm_pars_ind_steps.unlink()
+  shm_pos.unlink()
   shm_neg.unlink()
   shm_thax_to_str.unlink()

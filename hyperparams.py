@@ -89,7 +89,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 6
+NUMPROCESSES = 12
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -164,6 +164,8 @@ EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt
 EXP_FILE = "strat1new_better/classes_testing_compress/full_tree_cropped.pt"
 EXP_NAME = "strat1new_better/models/zero-test.pt"
 EXP_MODEL_FOLDER = "/media/chris/8b23eee9-a098-4f74-8836-d5f49654310e/Projektarbeit_Vampire_dump/zero-test-models"
-EXP_PROBLEM_CONFIGURATIONS = "key_problemName_val_axiomSet.pt"
-EXP_PROBLEM_FILES = "all_all_yes_rest.txt"
+EXP_PROBLEM_CONFIGURATIONS = "key_problemName_val_axiomNumberSet.pt"
+EXP_PROBLEM_FILES = "all_all__yes_rest.txt"
 EXP_CHECKPOINT_FILE = ""
+EXP_AXIOM_NUMBER_MAPPING = "axiom2Number_number2Axiom.pt"
+EXP_SELEC_GOOD_FILE = "strat1new_better/classes_testing_compress/global_selec_and_good.pt"

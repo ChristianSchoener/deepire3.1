@@ -48,7 +48,7 @@ from copy import deepcopy
 def parse_args():
 
   parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
-  parser.add_argument("mode", help="Determines the mode. Can be zero-test, pre, or compress.")
+  # parser.add_argument("mode", help="Determines the mode. Can be zero-test, pre, or compress.")
   
   # This allows handling of unknown key=value arguments
   args_, unknown_args = parser.parse_known_args()
@@ -125,9 +125,7 @@ class RuleWorker(threading.Thread):
 def greedy(data, global_selec, global_good, stop_early=0):
   init, deriv, pars = data[1][:3] 
 
-  depth_dict = IC.get_depth_dict(init, deriv, pars)
   ids = [id for id, _ in init]
-  # print(ids)
   id_to_ind = {ids[i]: i for i in range(len(ids))}
   rules = list(set(rule for _, rule in deriv))
   rule_ids = dict()
@@ -278,7 +276,7 @@ if __name__ == "__main__":
 
     assert hasattr(HP, "ZERO_FOLDER"), "Parameter ZERO_FOLDER in hyperparams.py not set. This folder shall contain the raw data for producing the one big multi-tree."
     assert isinstance(HP.ZERO_FOLDER, str), "Parameter ZERO_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data for producing the one big multi-tree."
-    assert os.path.isfile(HP.ZERO_FOLDER), "Parameter ZERO_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data for producing the one big multi-tree."
+    assert os.path.isdir(HP.ZERO_FOLDER), "Parameter ZERO_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data for producing the one big multi-tree."
 
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(HP.ZERO_FILE, weights_only=False)
@@ -296,8 +294,11 @@ if __name__ == "__main__":
     print("Cropping multitree to what is induced by the selection.", flush=True)
     prob_data_list = IC.crop(prob)
 
+    print("Computing Greedy EValuation Scheme for fast processing on more efficient data structure.", flush=True)
+    tree_dict = greedy(prob_data_list[0], selec, good)
+
     print("Saving.", flush=True)
-    torch.save(prob_data_list, "{}/full_tree_cropped.pt".format(HP.ZERO_FOLDER))
+    torch.save(tree_dict, "{}/full_tree_cropped.pt".format(HP.ZERO_FOLDER))
 
     print("Done.", flush=True)
     exit()
@@ -309,7 +310,7 @@ if __name__ == "__main__":
 
     assert hasattr(HP, "PRE_FOLDER"), "Parameter PRE_FOLDER in hyperparams.py not set. This folder shall contains the raw data produced by log_loading."
     assert isinstance(HP.PRE_FOLDER, str), "Parameter PRE_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data produced by log_loading."
-    assert os.path.isfile(HP.PRE_FOLDER), "Parameter PRE_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data produced by log_loading."
+    assert os.path.isdir(HP.PRE_FOLDER), "Parameter PRE_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data produced by log_loading."
 
     print("Loading problem file.", flush=True)
     prob_data_list = torch.load(HP.PRE_FILE, weights_only=False)
@@ -383,7 +384,7 @@ if __name__ == "__main__":
 
     assert hasattr(HP, "COM_FOLDER"), "Parameter COM_FOLDER in hyperparams.py not set. This folder is the base folder of the project."
     assert isinstance(HP.COM_FOLDER, str), "Parameter COM_FOLDER in hyperparams.py is not a string. This folder is the base folder of the project."
-    assert os.path.isfile(HP.COM_FOLDER), "Parameter COM_FOLDER in hyperparams.py does not point to an existing directory. This folder is the base folder of the project."
+    assert os.path.isdir(HP.COM_FOLDER), "Parameter COM_FOLDER in hyperparams.py does not point to an existing directory. This folder is the base folder of the project."
 
     assert hasattr(HP, "COM_ADD_MODE_1"), "Parameter COM_ADD_MODE_1 in hyperparams.py not set. This parameter takes values either train or valid an indicates, which of the data sets shall be compressed and further transformed to perform the computations."
     assert(HP.COM_ADD_MODE_1 == "train" or HP.COM_ADD_MODE_1 == "valid"), "Parameter COM_ADD_MODE_1 in hyperparams.py is not train or valid. This parameter indicates, which of the data sets shall be compressed and further transformed to perform the computations."
