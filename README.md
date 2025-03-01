@@ -2,7 +2,7 @@ Derived from supplementary material (see https://github.com/quickbeam123/deepire
 
 https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11
 
-Remark (Research ongoing, but now slowly converging):
+Remark (Research ongoing, half understood, one-two analytical test runs to finish the story):
 
 - To save training effort, a vectorization following a greedy approach was implemented, that bundles calculations of individual inference rules based on which can perform the most at a certain instant.
 
