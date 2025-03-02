@@ -545,34 +545,99 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name, init_abstractions, deriv_abstractions, eval_store, max_id):
+def save_net(name, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, neg_vals, max_id):
   
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
     init_abstractions : Dict[str, int]
-    deriv_abstractions : Dict[str, int]
+    deriv_abstractions_keys : Tensor
+    deriv_abstractions_values : Tensor
+    neg_vals = Tensor
     eval_store: Dict[int, float]
     abs_ids : Dict[int, int]
     max_id : int
         
     def __init__(self,
           init_abstractions : Dict[str, int],
-          deriv_abstractions : Dict[str, int],
-          eval_store: Dict[int, float],
+          deriv_abstractions_keys : Tensor,
+          deriv_abstractions_values : Tensor,
+          neg_vals: Tensor,
           max_id: int):
       super().__init__()
 
       self.init_abstractions = init_abstractions
-      self.deriv_abstractions = deriv_abstractions
+      self.deriv_abstractions_keys = deriv_abstractions_keys
+      self.deriv_abstractions_values = deriv_abstractions_values
+      self.abs_ids = {}
+      self.neg_vals = neg_vals
+      self.max_id = max_id
+      self.eval_store = {}'''
+
+bigpart1_zero_unknown = '''#!/usr/bin/env python3
+
+import torch
+from torch import Tensor
+from typing import Dict, List, Tuple, Optional
+from collections import defaultdict
+import sys,random
+
+def save_net(name, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, neg_vals, max_id):
+  
+  # This is, how we envision inference:
+  class InfRecNet(torch.nn.Module):
+    init_abstractions : Dict[str, int]
+    deriv_abstractions_keys : Tensor
+    deriv_abstractions_values : Tensor
+    neg_vals = Tensor
+    eval_store: Dict[int, float]
+    abs_ids : Dict[int, int]
+    max_id : int
+        
+    def __init__(self,
+          init_abstractions : Dict[str, int],
+          deriv_abstractions_keys : Tensor,
+          deriv_abstractions_values : Tensor,
+          neg_vals : Tensor,
+          max_id : int):
+      super().__init__()
+
+      self.init_abstractions = init_abstractions
+      self.deriv_abstractions_keys = deriv_abstractions_keys
+      self.deriv_abstractions_values = deriv_abstractions_values
+      self.neg_vals = neg_vals
       self.abs_ids = {}
       self.max_id = max_id
-      self.eval_store = eval_store'''
+      self.eval_store = {}'''
 
 bigpart_no_longer_rec1_zero = '''
     @torch.jit.export
     def forward(self, id: int) -> float:
       abs_id = self.abs_ids[id] # must have been mentioned already
-      if abs_id in self.eval_store:
+      if torch.any(abs_id == self.neg_vals):
+        return 0.0
+      else:
+        return 1.0
+
+    @torch.jit.export
+    def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
+      # an init record is abstracted just by the name str
+      abskey = name
+      if abskey not in self.init_abstractions:
+        abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
+        self.init_abstractions[abskey] = abs_id
+      else:
+        abs_id = self.init_abstractions[abskey]
+
+      # assumes this is called exactly once
+      self.abs_ids[id] = abs_id'''
+
+bigpart_no_longer_rec1_zero_unknown = '''
+    @torch.jit.export
+    def forward(self, id: int) -> float:
+      abs_id = self.abs_ids[id] # must have been mentioned already
+      if torch.isin(torch.tensor([abs_id], dtype=torch.int32), neg_vals):
+        return 0.0
+      elif abs_id in self.eval_store:
         return self.eval_store[abs_id]
       else:
         self.eval_store[abs_id] = 1.0
@@ -595,14 +660,36 @@ bigpart_rec2_zero='''
     @torch.jit.export
     def new_deriv{}(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
       rule = features[-1]
-      abskey = ",".join([str(rule)]+[str(self.abs_ids[par]) for par in pars])
-      
-      if abskey not in self.deriv_abstractions:
+      if len(pars) == 1:
+        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
+      else:
+        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
+      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
+      indices = torch.nonzero(matches).squeeze(0)
+      if indices.numel() == 0:
         abs_id = self.max_id
         self.max_id = self.max_id + 1
-        self.deriv_abstractions[abskey] = abs_id
       else:
-        abs_id = self.deriv_abstractions[abskey]
+        abs_id = self.deriv_abstractions_values[indices[0]].item()
+      
+      # assumes this is called exactly once
+      self.abs_ids[id] = abs_id'''
+
+bigpart_rec2_zero_unknown='''
+    @torch.jit.export
+    def new_deriv{}(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
+      rule = features[-1]
+      if len(pars) == 1:
+        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
+      else:
+        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
+      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
+      indices = torch.nonzero(matches).squeeze(0)
+      if len(indices) == 0:
+        abs_id = self.max_id
+        self.max_id = self.max_id + 1
+      else:
+        abs_id = self.deriv_abstractions_values[indices[0]].item()
       
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
@@ -610,16 +697,18 @@ bigpart_rec2_zero='''
 bigpart_rec2_rule_52_zero='''
     @torch.jit.export
     def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      rule = features[-1]
-      abskey = ",".join(["52"]+[str(self.abs_ids[par]) for par in pars])
-      
-      if abskey not in self.deriv_abstractions:
-        abs_id = self.max_id
-        self.max_id = self.max_id + 1
-        self.deriv_abstractions[abskey] = abs_id
-      else:
-        abs_id = self.deriv_abstractions[abskey]
-      
+      abs_id = self.max_id
+      self.max_id = self.max_id + 1
+           
+      # assumes this is called exactly once
+      self.abs_ids[id] = abs_id'''
+
+bigpart_rec2_rule_52_zero_unknown='''
+    @torch.jit.export
+    def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
+      abs_id = self.max_id
+      self.max_id = self.max_id + 1
+           
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
 
@@ -627,14 +716,30 @@ bigpart_avat_zero = '''
     @torch.jit.export
     def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
       par = features[-1]
-      abskey = ",".join(["666", str(self.abs_ids[par])])
-      
-      if abskey not in self.deriv_abstractions:
+      abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
+      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
+      indices = torch.nonzero(matches).squeeze(0)
+      if indices.numel() == 0:
         abs_id = self.max_id
         self.max_id = self.max_id + 1
-        self.deriv_abstractions[abskey] = abs_id
       else:
-        abs_id = self.deriv_abstractions[abskey]
+        abs_id = self.deriv_abstractions_values[indices[0]].item()
+      
+      # assumes this is called exactly once
+      self.abs_ids[id] = abs_id'''
+
+bigpart_avat_zero_unknown = '''
+    @torch.jit.export
+    def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
+      par = features[-1]
+      abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
+      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
+      indices = torch.nonzero(matches).squeeze(0)
+      if len(indices) == 0:
+        abs_id = self.max_id
+        self.max_id = self.max_id + 1
+      else:
+        abs_id = self.deriv_abstractions_values[indices[0]].item()
       
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
@@ -642,8 +747,19 @@ bigpart_avat_zero = '''
 bigpart3_zero = '''
   module = InfRecNet(
     init_abstractions,
-    deriv_abstractions,
-    eval_store,
+    deriv_abstractions_keys,
+    deriv_abstractions_values,
+    neg_vals,
+    max_id)
+  script = torch.jit.script(module)
+  script.save(name)'''
+
+bigpart3_zero_unknown = '''
+  module = InfRecNet(
+    init_abstractions,
+    deriv_abstractions_keys,
+    deriv_abstractions_values,
+    neg_vals,
     max_id)
   script = torch.jit.script(module)
   script.save(name)'''
@@ -666,6 +782,25 @@ def create_saver_zero(deriv_arits):
       print(bigpart_rec2_rule_52_zero, file=f)
 
     print(bigpart3_zero, file=f)
+
+def create_saver_zero_unknown(deriv_arits):
+  with open("inf_saver_zero_unknown.py", "w") as f:
+
+    print(bigpart1_zero_unknown, file=f)
+
+    print(bigpart_no_longer_rec1_zero_unknown, file=f)
+
+    for rule in sorted(deriv_arits):
+      if rule not in [52, 666]: # avatar done differently in bigpart3, rul_52, too
+        print(bigpart_rec2_zero_unknown.format(str(rule), str(rule)), file=f)
+
+    if 666 in deriv_arits:
+      print(bigpart_avat_zero_unknown, file=f)
+
+    if 52 in deriv_arits:
+      print(bigpart_rec2_rule_52_zero_unknown, file=f)
+
+    print(bigpart3_zero_unknown, file=f)
 
 bigpart1 = '''#!/usr/bin/env python3
 
@@ -1175,89 +1310,6 @@ def get_subtree(start, match, pars):
     pers_len = len(persistent)
   return persistent
 
-def setup_pos_vals_neg_vals_cone(prob, selec, good):
-  (probname, probweight, _), (init, deriv, pars) = prob
-  pos_vals = {}
-  neg_vals = {}
-  tot_pos = 0.0
-  tot_neg = 0.0
-
-# Determine the positive cone
-  all_ids = {x for x, _ in init} | {x for x, _ in deriv}
-  this_good = good & all_ids
-  persistent_good = get_subtree(this_good, deriv, pars)
-
-# Gather the positive cone and all ids that do not have a negative parent
-  these_ids = set()
-  ok = persistent_good - good
-  for id in this_good:
-    these_ids.add(id)
-    pos_vals[id] = 5.0
-    tot_pos += 5.0
-  for id in ok:
-    these_ids.add(id)
-    pos_vals[id] = 1.0
-    tot_pos += 1.0
-  neg = all_ids - persistent_good
-  for id in neg:
-    if id not in pars or set(pars[id]) <= persistent_good:
-      these_ids.add(id)
-      if id in selec:
-        neg_vals[id] = 5.0
-        tot_neg += 5.0
-      else:
-        neg_vals[id] = 1.0
-        tot_neg += 1.0
-
-  new_init = [(id, thax) for id, thax in init if id in these_ids]
-  new_deriv = [(id, rule) for id, rule in deriv if id in these_ids]
-  new_pars = {id: val for id, val in pars.items() if id in these_ids}
-
-  print("Positive Cone/Negative Boundary: Old/New Size: {} / {}, tot_pos/tot_neg: {} / {}".format(len(init) + len(deriv), len(new_init) + len(new_deriv), tot_pos, tot_neg), flush=True)
-
-  prob = ((probname, probweight, len(init) + len(deriv)), (new_init, new_deriv, new_pars, pos_vals, neg_vals, tot_pos, tot_neg))
-  return prob
-
-def setup_pos_vals_neg_vals(prob):
-  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
-  pos_vals = {}
-  neg_vals = {}
-  tot_pos = 0.0
-  tot_neg = 0.0
-
-# Determine the cone and the positive cone
-  all_ids = {x for x, _ in init} | {x for x, _ in init}
-  this_good = good & all_ids
-  these_ids = selec & all_ids
-  persistent = get_subtree(these_ids, deriv, pars)
-  persistent_good = get_subtree(this_good, deriv, pars)
-
-  for id in this_good:
-    pos_vals[id] = 5.0
-    tot_pos += 5.0
-  ok = persistent_good - this_good
-  for id in ok:
-    pos_vals[id] = 1.0
-    tot_pos += 1.0
-  neg = persistent - persistent_good
-  this_neg = neg & selec
-  for id in this_neg:
-    neg_vals[id] = 5.0
-    tot_neg += 5.0
-  neg_ok = neg - this_neg
-  for id in neg_ok:
-    neg_vals[id] = 1.0
-    tot_neg += 1.0
-
-  new_init = [(id, thax) for id, thax in init if id in persistent]
-  new_deriv = [(id, rule) for id, rule in deriv if id in persistent]
-  new_pars = {id: val for id, val in pars.items() if id in persistent}
-
-  print("Pos/Neg Vals: Old/New Size: {} / {}, Good/Selec: {} / {}, tot_pos/tot_neg: {} / {}".format(len(init) + len(deriv), len(new_init) + len(new_deriv), len(this_good), len(these_ids), tot_pos, tot_neg), flush=True)
-
-  prob = ((probname, probweight, len(init) + len(deriv)), (new_init, new_deriv, new_pars, pos_vals, neg_vals, tot_pos, tot_neg))
-  return prob
-
 def set_zero(prob_data_list, thax_to_str):
   thax_sign = set()
   for i, ((probname, probweight, size), (init, deriv, pars, selec, good)) in enumerate(prob_data_list):
@@ -1302,70 +1354,6 @@ def crop(prob):
   print("Reduced. Lengths before / after: {} / {}".format(len(init) + len(deriv), len(this_init) + len(this_deriv)), flush=True)
   return [((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, selec & persistent, good & persistent))]
 
-def reduce_problems_selec(prob):
-  a, (init, deriv, pars, selec, good) = prob
-  print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
-  persistent = deepcopy(selec)
-  pers_len = len(persistent)
-  old_len = pers_len - 1
-  while pers_len > old_len:
-    persistent = persistent | {y for x in persistent & {z for z, _ in deriv} for y in pars[x]}
-    old_len = pers_len
-    pers_len = len(persistent)
-  this_init = [(x, y) for x, y in init if x in persistent]
-  this_deriv = [(x, y) for x, y in deriv if x in persistent]
-  these_pars = {x: y for x, y in pars.items() if x in persistent}
-
-  prob = (a, (this_init, this_deriv, these_pars, selec, good))
-  print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
-  return prob
-
-def reduce_problems(prob_data_list, global_selec):
-  for j, (a, (init, deriv, pars)) in enumerate(prob_data_list):
-    print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
-    persistent = get_subtree(({x for x, _ in init} | {x for x, _ in deriv}) & global_selec, deriv, pars)
-    if len(persistent) == 0:
-      prob_data_list[j] = (("", 1.0, 0.0),([], [], {}, {}, {}, 0.0, 0.0))
-      print("Reduced problem. Lengths after: 0.0, 0.0, 0.0", flush=True)
-    else:
-      this_init = [(x, y) for x, y in init if x in persistent]
-      this_deriv = [(x, y) for x, y in deriv if x in persistent]
-      these_pars = {x: y for x, y in pars.items() if x in persistent}
-
-    prob_data_list[j] = (a, (this_init, this_deriv, these_pars))
-    print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
-  return prob_data_list
-
-def reduce_problems_neg_layer(prob_data_list, global_good):
-  for j, (a, (init, deriv, pars)) in enumerate(prob_data_list):
-    print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
-    persistent_good = get_subtree(({x for x, _ in init} | {x for x, _ in deriv}) & global_good, deriv, pars)
-    if len(persistent_good) == 0:
-      prob_data_list[j] = (("", 1.0, 0.0),([], [], {}, {}, {}, 0.0, 0.0))
-      print("Reduced problem. Lengths after: 0.0, 0.0, 0.0", flush=True)
-    else:
-      all_ids = {x for x, _ in init} | {x for x, _ in deriv}
-      these_ids = deepcopy(persistent_good)
-      for id in all_ids:
-        if id not in pars or set(pars[id]) <= persistent_good:
-          these_ids.add(id)
-      this_init = [(x, y) for x, y in init if x in these_ids]
-      this_deriv = [(x, y) for x, y in deriv if x in these_ids]
-      these_pars = {x: y for x, y in pars.items() if x in these_ids}
-
-    prob_data_list[j] = (a, (this_init, this_deriv, these_pars))
-    print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
-  return prob_data_list
-
-def get_depth_dict(init, deriv, pars):
-  depths = {}
-  for id, _ in init:
-    depths[id] = 1
-  for id, _ in deriv:
-    depths[id] = max([depths[x] for x in pars[id]]) + 1
-
-  return depths
-
 def compress_prob_data_with_fixed_ids(some_probs):
   out_probname = ""
   out_probweight = 0.0
@@ -1394,7 +1382,7 @@ def compress_prob_data_with_fixed_ids(some_probs):
   sys.stdout.flush()
   return (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
 
-def compress_prob_data(some_probs, input="long", flag=False):
+def compress_prob_data(some_probs, flag=False):
   id_cnt = 0
   out_probname = ""
   out_probweight = 0.0
@@ -1410,10 +1398,7 @@ def compress_prob_data(some_probs, input="long", flag=False):
   old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
 
   for i, ((probname, probweight, _), specs) in enumerate(some_probs):
-    if input == "long":
-      init, deriv, pars, selec, good = specs
-    elif input == "short":
-      init, deriv, pars = specs
+    init, deriv, pars, selec, good = specs
 
     # reset for evey problem in the list
     old2new[i] = {}
@@ -1440,16 +1425,12 @@ def compress_prob_data(some_probs, input="long", flag=False):
         abs2new[abskey] = new_id
       old2new[i][old_id] = abs2new[abskey]
 
-    if input == "long":
-      for old_id in selec:
-        out_selec.add(old2new[i][old_id])
-      for old_id in good:
-        out_good.add(old2new[i][old_id])
+    for old_id in selec:
+      out_selec.add(old2new[i][old_id])
+    for old_id in good:
+      out_good.add(old2new[i][old_id])
 
-  if input == "long":
-    print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(out_selec), len(out_good))
-  elif input == "short":
-    print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars))
+  print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(out_selec), len(out_good))
   result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
 
   if flag:

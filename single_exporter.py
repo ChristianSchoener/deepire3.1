@@ -57,53 +57,57 @@ def worker(shared_data, this_data):
   rule_steps = msgpack.unpackb(shm_rule_steps.buf)
   ind_steps = msgpack.unpackb(shm_ind_steps.buf)
   pars_ind_steps = msgpack.unpackb(shm_pars_ind_steps.buf)
-  good = set(msgpack.unpackb(shm_good.buf))
+  # good = set(msgpack.unpackb(shm_good.buf))
   neg = set(msgpack.unpackb(shm_neg.buf))
   thax_to_str = msgpack.unpackb(shm_thax_to_str.buf, strict_map_key=False)
 
-  this_init = {ids[i]: thax[i] for i in range(len(thax)) if thax_to_str[thax[i]] in this_data["axioms"]}
+  if HP.EXP_REVEAL:
+    this_init = {ids[i]: thax[i] for i in range(len(thax))}
+  else:
+    this_init = {ids[i]: thax[i] for i in range(len(thax)) if thax_to_str[thax[i]] in this_data["axioms"]}
   these_ids = set(this_init.keys())
 
-  this_deriv = []
-  these_pars = {}
+  deriv_abstractions_keys = torch.tensor([], dtype=torch.int32)
+  deriv_abstractions_values = torch.tensor([], dtype=torch.int32)
 
   for step, rule in enumerate(rule_steps):
-    pars = pars_ind_steps[step]
-    inds = ind_steps[step]
+    pars = pars_ind_steps[step][:]
+    inds = ind_steps[step][:]
 
-    if len(pars) == len(inds):  # Single parent case
-      for i, ind in enumerate(pars):
-        if ind in these_ids:
-          new_id = inds[i]
+    if len(pars) == len(inds):
+      for i, par in enumerate(pars):
+        if par in these_ids:
+          new_id = ids[inds[i]]
           these_ids.add(new_id)
-          this_deriv.append((new_id, rule))
-          these_pars[new_id] = [ind]
+          deriv_abstractions_keys = torch.cat((deriv_abstractions_keys, torch.tensor((rule, par, par), dtype=torch.int32)))
+          deriv_abstractions_values = torch.cat((deriv_abstractions_values, torch.tensor([new_id], dtype=torch.int32)))
 
-    elif 2 * len(inds) == len(pars):  # Two-parent case
+    elif 2 * len(inds) == len(pars):
       for i, ind in enumerate(inds):
         p1, p2 = pars[2 * i], pars[2 * i + 1]
         if p1 in these_ids and p2 in these_ids:
-          these_ids.add(ind)
-          this_deriv.append((ind, rule))
-          these_pars[ind] = [p1, p2]
+          new_id = ids[ind]
+          these_ids.add(new_id)
+          deriv_abstractions_keys = torch.cat((deriv_abstractions_keys, torch.tensor((rule, p1, p2), dtype=torch.int32)))
+          deriv_abstractions_values = torch.cat((deriv_abstractions_values, torch.tensor([new_id], dtype=torch.int32)))
 
-  this_good = good & these_ids
-  this_neg = neg & these_ids 
+  deriv_abstractions_keys = deriv_abstractions_keys.view(-1, 3)
+
+  this_neg = torch.tensor(list(neg & these_ids), dtype=torch.int32) 
 
   init_abstractions = {"-1": -1} if -1 in this_init.values() else {}
-  init_abstractions.update({thax_to_str[thax]: id for id, thax in this_init.items() if thax != -1})
-  deriv_abstractions = {
-    ",".join([str(rule)] + list(map(str, these_pars[id]))): id for id, rule in this_deriv
-  }
+  init_abstractions.update({thax_to_str[this_thax]: id for id, this_thax in this_init.items() if this_thax != -1 and this_thax != 0})
+  if HP.EXP_REVEAL:
+    init_abstractions.update({"0": ids[thax.index(0)]})
+    init_abstractions.update({this_thax: ids[thax.index(0)] for this_thax in set(this_data["axioms"]) - set(thax_to_str.values())})
 
-  eval_store = {id: 1.0 for id in this_good}
-  eval_store.update({id: 0.0 for id in this_neg})
-
-  max_id = max((*init_abstractions.values(), *deriv_abstractions.values()), default=-1) + 1
+  max_id = max((*init_abstractions.values(), *deriv_abstractions_values.tolist()), default=-1) + 1
 
   folder_file = HP.EXP_MODEL_FOLDER + "/" + this_data["short_name"] + ".model"
-  IS.save_net(folder_file, init_abstractions, deriv_abstractions, eval_store, max_id)
-  command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data["full_name"], folder_file, "results"+"/"+ "zero-test" + "/" + this_data["short_name"] + ".log")
+
+  IS.save_net(folder_file, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, this_neg, max_id)
+  
+  command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data["full_name"], folder_file, HP.EXP_RESULTS_FOLDER + "/" + this_data["short_name"] + ".log")
   # print(command)
   subprocess.Popen(command,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
   
@@ -112,8 +116,8 @@ def worker(shared_data, this_data):
 
 if __name__ == "__main__":
 
-  thax_sign, deriv_arits, thax_to_str = torch.load(HP.EXP_DATA_SIGN)
-  print("Loaded signature from", HP.EXP_DATA_SIGN)
+  thax_sign, deriv_arits, thax_to_str = torch.load(HP.EXP_DATA_SIGN_PREPARED)
+  print("Loaded signature from", HP.EXP_DATA_SIGN_PREPARED)
 
   IC.create_saver_zero(deriv_arits)
   import inf_saver_zero as IS
@@ -191,7 +195,7 @@ if __name__ == "__main__":
                 for numProblem in range(len(prob_list))
               ]
   with multiprocessing.Pool(processes=HP.NUMPROCESSES) as pool:
-      results = pool.starmap(worker, [(shared_data, data) for data in this_data])
+    results = pool.starmap(worker, [(shared_data, data) for data in this_data])
 
   shm_thax.close()
   shm_ids.close()

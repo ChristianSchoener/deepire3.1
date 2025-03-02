@@ -226,9 +226,6 @@ def greedy(data, global_selec, global_good, stop_early=0):
   this_good = global_good & set(ids)
   this_neg = (global_selec - global_good) & set(ids)
 
-  persistent_good = IC.get_subtree(this_good, deriv, pars)
-  ok = persistent_good - this_good
-
   pos = []
   neg = []
   for _, id in enumerate(ids):
@@ -238,9 +235,6 @@ def greedy(data, global_selec, global_good, stop_early=0):
     elif id in this_neg:
       pos.append(0)
       neg.append(1)
-    elif id in ok:
-      pos.append(0)
-      neg.append(0)
     else:
       pos.append(0)
       neg.append(0)
@@ -287,18 +281,25 @@ if __name__ == "__main__":
     print("Dropping large proofs (init+deriv > 30000).")
     prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init) + len(deriv) < 30000]
 
+    print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and updating thax number to name mapping.")
+    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign_full.pt".format(HP.ZERO_FOLDER), weights_only=False)
+    prob_data_list, thax_sign, thax_to_str = IC.set_zero(prob_data_list, thax_to_str)
+
+    print("Updating data signature.", flush=True)
+    torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.ZERO_FOLDER))
+
     print("Generating one multi-tree.", flush=True)
-    prob, old2new, selec, good = IC.compress_prob_data(prob_data_list, "long", True)
+    prob, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
     torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
 
     print("Cropping multitree to what is induced by the selection.", flush=True)
     prob_data_list = IC.crop(prob)
 
-    print("Computing Greedy EValuation Scheme for fast processing on more efficient data structure.", flush=True)
+    print("Computing Greedy Evaluation Scheme for fast processing on more efficient data structure.", flush=True)
     tree_dict = greedy(prob_data_list[0], selec, good)
 
     print("Saving.", flush=True)
-    torch.save(tree_dict, "{}/full_tree_cropped.pt".format(HP.ZERO_FOLDER))
+    torch.save(tree_dict, "{}/full_tree_cropped_revealed_{}.pt".format(HP.ZERO_FOLDER, HP.MAX_USED_AXIOM_CNT))
 
     print("Done.", flush=True)
     exit()
@@ -329,10 +330,12 @@ if __name__ == "__main__":
     torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.PRE_FOLDER))
 
     print("Compressing problems to get rid of several identical axioms and derivations form setting to zero.", flush=True)
-    prob_data_list = [IC.compress_prob_data([prob], "long") for prob in prob_data_list]
+    prob_data_list = [IC.compress_prob_data([prob]) for prob in prob_data_list]
+
     print("Generated old2new, selec, good from the modified data.", flush=True)
-    _, old2new, selec, good = IC.compress_prob_data(prob_data_list, "long", True)
+    _, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
     torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
+
     print("Assigning new ids to individual problems and cropping.", flush=True)
     with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       prob_data_list = list(executor.map(lambda j, prob: IC.adjust_ids_and_crop(prob, old2new[j], selec), 
