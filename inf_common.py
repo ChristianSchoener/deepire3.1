@@ -545,12 +545,14 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, neg_vals, max_id):
+def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstractions_keys_first_par, deriv_abstractions_keys_second_par, deriv_abstractions_values, neg_vals, max_id):
   
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
     init_abstractions : Dict[str, int]
-    deriv_abstractions_keys : Tensor
+    deriv_abstractions_keys_rule : Tensor
+    deriv_abstractions_keys_first_par : Tensor
+    deriv_abstractions_keys_second_par : Tensor
     deriv_abstractions_values : Tensor
     neg_vals = Tensor
     eval_store: Dict[int, float]
@@ -559,53 +561,21 @@ def save_net(name, init_abstractions, deriv_abstractions_keys, deriv_abstraction
         
     def __init__(self,
           init_abstractions : Dict[str, int],
-          deriv_abstractions_keys : Tensor,
+          deriv_abstractions_keys_rule : Tensor,
+          deriv_abstractions_keys_first_par : Tensor,
+          deriv_abstractions_keys_second_par : Tensor,
           deriv_abstractions_values : Tensor,
           neg_vals: Tensor,
           max_id: int):
       super().__init__()
 
       self.init_abstractions = init_abstractions
-      self.deriv_abstractions_keys = deriv_abstractions_keys
+      self.deriv_abstractions_keys_rule = deriv_abstractions_keys_rule
+      self.deriv_abstractions_keys_first_par = deriv_abstractions_keys_first_par
+      self.deriv_abstractions_keys_second_par = deriv_abstractions_keys_second_par
       self.deriv_abstractions_values = deriv_abstractions_values
       self.abs_ids = {}
       self.neg_vals = neg_vals
-      self.max_id = max_id
-      self.eval_store = {}'''
-
-bigpart1_zero_unknown = '''#!/usr/bin/env python3
-
-import torch
-from torch import Tensor
-from typing import Dict, List, Tuple, Optional
-from collections import defaultdict
-import sys,random
-
-def save_net(name, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, neg_vals, max_id):
-  
-  # This is, how we envision inference:
-  class InfRecNet(torch.nn.Module):
-    init_abstractions : Dict[str, int]
-    deriv_abstractions_keys : Tensor
-    deriv_abstractions_values : Tensor
-    neg_vals = Tensor
-    eval_store: Dict[int, float]
-    abs_ids : Dict[int, int]
-    max_id : int
-        
-    def __init__(self,
-          init_abstractions : Dict[str, int],
-          deriv_abstractions_keys : Tensor,
-          deriv_abstractions_values : Tensor,
-          neg_vals : Tensor,
-          max_id : int):
-      super().__init__()
-
-      self.init_abstractions = init_abstractions
-      self.deriv_abstractions_keys = deriv_abstractions_keys
-      self.deriv_abstractions_values = deriv_abstractions_values
-      self.neg_vals = neg_vals
-      self.abs_ids = {}
       self.max_id = max_id
       self.eval_store = {}'''
 
@@ -613,34 +583,10 @@ bigpart_no_longer_rec1_zero = '''
     @torch.jit.export
     def forward(self, id: int) -> float:
       abs_id = self.abs_ids[id] # must have been mentioned already
-      if torch.any(abs_id == self.neg_vals):
+      ind = torch.searchsorted(self.neg_vals, abs_id)
+      if ind < self.neg_vals.numel():
         return 0.0
       else:
-        return 1.0
-
-    @torch.jit.export
-    def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
-      # an init record is abstracted just by the name str
-      abskey = name
-      if abskey not in self.init_abstractions:
-        abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
-        self.init_abstractions[abskey] = abs_id
-      else:
-        abs_id = self.init_abstractions[abskey]
-
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
-
-bigpart_no_longer_rec1_zero_unknown = '''
-    @torch.jit.export
-    def forward(self, id: int) -> float:
-      abs_id = self.abs_ids[id] # must have been mentioned already
-      if torch.isin(torch.tensor([abs_id], dtype=torch.int32), neg_vals):
-        return 0.0
-      elif abs_id in self.eval_store:
-        return self.eval_store[abs_id]
-      else:
-        self.eval_store[abs_id] = 1.0
         return 1.0
 
     @torch.jit.export
@@ -664,32 +610,31 @@ bigpart_rec2_zero='''
         abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
       else:
         abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
-      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
-      indices = torch.nonzero(matches).squeeze(0)
-      if indices.numel() == 0:
+      found = True
+      rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
+      rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
+      first_par_min = torch.tensor(0, dtype=torch.int32)
+      first_par_max = torch.tensor(0, dtype=torch.int32)
+      second_par_min =torch.tensor(0, dtype=torch.int32)
+      second_par_max =torch.tensor(0, dtype=torch.int32)
+      if rule_ind_max == rule_ind_min:
+        found = False
+      else:
+        first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
+        first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
+        if first_par_max == first_par_min:
+          found = False
+        else:
+          second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
+          second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
+          if first_par_max == first_par_min:
+            found = False
+  
+      if found:
+        abs_id = self.deriv_abstractions_values[second_par_min].item()
+      else:
         abs_id = self.max_id
         self.max_id = self.max_id + 1
-      else:
-        abs_id = self.deriv_abstractions_values[indices[0]].item()
-      
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
-
-bigpart_rec2_zero_unknown='''
-    @torch.jit.export
-    def new_deriv{}(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      rule = features[-1]
-      if len(pars) == 1:
-        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
-      else:
-        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
-      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
-      indices = torch.nonzero(matches).squeeze(0)
-      if len(indices) == 0:
-        abs_id = self.max_id
-        self.max_id = self.max_id + 1
-      else:
-        abs_id = self.deriv_abstractions_values[indices[0]].item()
       
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
@@ -703,43 +648,37 @@ bigpart_rec2_rule_52_zero='''
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
 
-bigpart_rec2_rule_52_zero_unknown='''
-    @torch.jit.export
-    def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      abs_id = self.max_id
-      self.max_id = self.max_id + 1
-           
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
-
 bigpart_avat_zero = '''
     @torch.jit.export
     def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
       par = features[-1]
       abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
-      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
-      indices = torch.nonzero(matches).squeeze(0)
-      if indices.numel() == 0:
-        abs_id = self.max_id
-        self.max_id = self.max_id + 1
-      else:
-        abs_id = self.deriv_abstractions_values[indices[0]].item()
-      
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
 
-bigpart_avat_zero_unknown = '''
-    @torch.jit.export
-    def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
-      par = features[-1]
-      abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
-      matches = (self.deriv_abstractions_keys == abskey.unsqueeze(0)).all(dim=1)
-      indices = torch.nonzero(matches).squeeze(0)
-      if len(indices) == 0:
+      found = True
+      rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
+      rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
+      first_par_min = torch.tensor(0, dtype=torch.int32)
+      first_par_max = torch.tensor(0, dtype=torch.int32)
+      second_par_min =torch.tensor(0, dtype=torch.int32)
+      second_par_max =torch.tensor(0, dtype=torch.int32)
+      if rule_ind_max == rule_ind_min:
+        found = False
+      else:
+        first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
+        first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
+        if first_par_max == first_par_min:
+          found = False
+        else:
+          second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
+          second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
+          if first_par_max == first_par_min:
+            found = False
+  
+      if found:
+        abs_id = self.deriv_abstractions_values[second_par_min].item()
+      else:
         abs_id = self.max_id
         self.max_id = self.max_id + 1
-      else:
-        abs_id = self.deriv_abstractions_values[indices[0]].item()
       
       # assumes this is called exactly once
       self.abs_ids[id] = abs_id'''
@@ -747,17 +686,9 @@ bigpart_avat_zero_unknown = '''
 bigpart3_zero = '''
   module = InfRecNet(
     init_abstractions,
-    deriv_abstractions_keys,
-    deriv_abstractions_values,
-    neg_vals,
-    max_id)
-  script = torch.jit.script(module)
-  script.save(name)'''
-
-bigpart3_zero_unknown = '''
-  module = InfRecNet(
-    init_abstractions,
-    deriv_abstractions_keys,
+    deriv_abstractions_keys_rule,
+    deriv_abstractions_keys_first_par,
+    deriv_abstractions_keys_second_par,
     deriv_abstractions_values,
     neg_vals,
     max_id)
@@ -782,25 +713,6 @@ def create_saver_zero(deriv_arits):
       print(bigpart_rec2_rule_52_zero, file=f)
 
     print(bigpart3_zero, file=f)
-
-def create_saver_zero_unknown(deriv_arits):
-  with open("inf_saver_zero_unknown.py", "w") as f:
-
-    print(bigpart1_zero_unknown, file=f)
-
-    print(bigpart_no_longer_rec1_zero_unknown, file=f)
-
-    for rule in sorted(deriv_arits):
-      if rule not in [52, 666]: # avatar done differently in bigpart3, rul_52, too
-        print(bigpart_rec2_zero_unknown.format(str(rule), str(rule)), file=f)
-
-    if 666 in deriv_arits:
-      print(bigpart_avat_zero_unknown, file=f)
-
-    if 52 in deriv_arits:
-      print(bigpart_rec2_rule_52_zero_unknown, file=f)
-
-    print(bigpart3_zero_unknown, file=f)
 
 bigpart1 = '''#!/usr/bin/env python3
 

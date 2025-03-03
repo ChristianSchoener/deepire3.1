@@ -25,6 +25,8 @@ from collections import ChainMap
 
 import msgpack
 
+import numpy as np
+
 import inf_common as IC
 
 import hyperparams as HP
@@ -37,7 +39,6 @@ shm_ids = None
 shm_rule_steps = None
 shm_ind_steps = None
 shm_pars_ind_steps = None
-shm_good = None
 shm_neg = None
 shm_thax_to_str = None
 
@@ -48,7 +49,6 @@ def worker(shared_data, this_data):
   shm_rule_steps = shm.SharedMemory(name=shared_data['shm_rule_steps'])
   shm_ind_steps = shm.SharedMemory(name=shared_data['shm_ind_steps'])
   shm_pars_ind_steps = shm.SharedMemory(name=shared_data['shm_pars_ind_steps'])
-  shm_good = shm.SharedMemory(name=shared_data['shm_good'])
   shm_neg = shm.SharedMemory(name=shared_data['shm_neg'])
   shm_thax_to_str = shm.SharedMemory(name=shared_data['shm_thax_to_str'])
   
@@ -57,7 +57,6 @@ def worker(shared_data, this_data):
   rule_steps = msgpack.unpackb(shm_rule_steps.buf)
   ind_steps = msgpack.unpackb(shm_ind_steps.buf)
   pars_ind_steps = msgpack.unpackb(shm_pars_ind_steps.buf)
-  # good = set(msgpack.unpackb(shm_good.buf))
   neg = set(msgpack.unpackb(shm_neg.buf))
   thax_to_str = msgpack.unpackb(shm_thax_to_str.buf, strict_map_key=False)
 
@@ -93,7 +92,18 @@ def worker(shared_data, this_data):
 
   deriv_abstractions_keys = deriv_abstractions_keys.view(-1, 3)
 
-  this_neg = torch.tensor(list(neg & these_ids), dtype=torch.int32) 
+  sorted_ind = np.lexsort(deriv_abstractions_keys.numpy()[:, ::-1].T)
+  deriv_abstractions_keys = deriv_abstractions_keys[sorted_ind]
+  deriv_abstractions_values = deriv_abstractions_values[sorted_ind]
+
+  deriv_abstractions_keys_rule = deriv_abstractions_keys[:, 0].contiguous()
+  deriv_abstractions_keys_first_par = deriv_abstractions_keys[:, 1].contiguous()
+  deriv_abstractions_keys_second_par = deriv_abstractions_keys[:, 2].contiguous()
+  del deriv_abstractions_keys
+
+  this_neg = torch.tensor(list(neg & these_ids), dtype=torch.int32)
+
+  this_neg, _ = torch.sort(this_neg)
 
   init_abstractions = {"-1": -1} if -1 in this_init.values() else {}
   init_abstractions.update({thax_to_str[this_thax]: id for id, this_thax in this_init.items() if this_thax != -1 and this_thax != 0})
@@ -105,7 +115,14 @@ def worker(shared_data, this_data):
 
   folder_file = HP.EXP_MODEL_FOLDER + "/" + this_data["short_name"] + ".model"
 
-  IS.save_net(folder_file, init_abstractions, deriv_abstractions_keys, deriv_abstractions_values, this_neg, max_id)
+  IS.save_net(folder_file, 
+              init_abstractions, 
+              deriv_abstractions_keys_rule, 
+              deriv_abstractions_keys_first_par, 
+              deriv_abstractions_keys_second_par, 
+              deriv_abstractions_values, 
+              this_neg, 
+              max_id)
   
   command = './vampire_Release_deepire3_4872 {} -tstat on --decode dis+1010_3:2_acc=on:afr=on:afp=1000:afq=1.2:amm=sco:bs=on:ccuc=first:fde=none:nm=0:nwc=4:urr=ec_only_100 -p off --output_axiom_names on -e4k {} -nesq on -nesqr 2,1 > {} 2>&1'.format(this_data["full_name"], folder_file, HP.EXP_RESULTS_FOLDER + "/" + this_data["short_name"] + ".log")
   # print(command)
@@ -130,7 +147,7 @@ if __name__ == "__main__":
     file_names = f.readlines()
 
   file_names = [x.replace("\n","") for x in file_names]
-  prob_list = [{"short_name": x.rsplit("/", 1)[1], "full_name" : x} for x in file_names]
+  prob_list = [{"short_name": x.rsplit("/", 1)[1], "full_name" : x} for x in file_names if x.strip() != ""]
 
   del file_names
 
@@ -152,7 +169,6 @@ if __name__ == "__main__":
   serialized_rule_steps = msgpack.packb(tree["rule_steps"].tolist())
   serialized_ind_steps = msgpack.packb([these_inds.tolist() for these_inds in tree["ind_steps"]])
   serialized_pars_ind_steps = msgpack.packb([these_pars_inds.tolist() for these_pars_inds in tree["pars_ind_steps"]])
-  serialized_good = msgpack.packb(list(good))
   serialized_neg = msgpack.packb(list(neg))
   serialized_thax_to_str = msgpack.packb(thax_to_str)
 
@@ -163,7 +179,6 @@ if __name__ == "__main__":
   shm_rule_steps = shm.SharedMemory(create=True, size=len(serialized_rule_steps))
   shm_ind_steps = shm.SharedMemory(create=True, size=len(serialized_ind_steps))
   shm_pars_ind_steps = shm.SharedMemory(create=True, size=len(serialized_pars_ind_steps))
-  shm_good = shm.SharedMemory(create=True, size=len(serialized_good))
   shm_neg = shm.SharedMemory(create=True, size=len(serialized_neg))
   shm_thax_to_str = shm.SharedMemory(create=True, size=len(serialized_thax_to_str))
 
@@ -172,7 +187,6 @@ if __name__ == "__main__":
   shm_rule_steps.buf[:len(serialized_rule_steps)] = serialized_rule_steps
   shm_ind_steps.buf[:len(serialized_ind_steps)] = serialized_ind_steps
   shm_pars_ind_steps.buf[:len(serialized_pars_ind_steps)] = serialized_pars_ind_steps
-  shm_good.buf[:len(serialized_good)] = serialized_good
   shm_neg.buf[:len(serialized_neg)] = serialized_neg
   shm_thax_to_str.buf[:len(serialized_thax_to_str)] = serialized_thax_to_str
 
@@ -182,7 +196,6 @@ if __name__ == "__main__":
     'shm_rule_steps': shm_rule_steps.name,
     'shm_ind_steps': shm_ind_steps.name,
     'shm_pars_ind_steps': shm_pars_ind_steps.name,
-    'shm_good': shm_good.name,
     'shm_neg': shm_neg.name,
     'shm_thax_to_str': shm_thax_to_str.name
   }
@@ -202,7 +215,6 @@ if __name__ == "__main__":
   shm_rule_steps.close()
   shm_ind_steps.close()
   shm_pars_ind_steps.close()
-  shm_good.close()
   shm_neg.close()
   shm_thax_to_str.close()
 
@@ -211,6 +223,5 @@ if __name__ == "__main__":
   shm_rule_steps.unlink()
   shm_ind_steps.unlink()
   shm_pars_ind_steps.unlink()
-  shm_good.unlink()
   shm_neg.unlink()
   shm_thax_to_str.unlink()
