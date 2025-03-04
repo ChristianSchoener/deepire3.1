@@ -40,7 +40,7 @@ ONLY_GENERATING_PARENTS = False
 # this needs to be done before/during the compression phase
 # note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
 # only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
-MAX_USED_AXIOM_CNT = 1000000
+MAX_USED_AXIOM_CNT = 500
 
 COMPRESSION_THRESHOLD = 20000
 
@@ -89,7 +89,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 12
+NUMPROCESSES = 10
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -161,13 +161,16 @@ VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
 
 EXP_DATA_SIGN = "strat1new_better/classes_testing_compress/data_sign_full.pt"
 EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt"
-EXP_FILE = "strat1new_better/classes_testing_compress/full_tree_cropped_revealed_1000000.pt"
+EXP_FILE = "strat1new_better/classes_testing_compress/full_tree_cropped_revealed_500.pt"
 EXP_NAME = "strat1new_better/models/zero-test.pt"
 EXP_MODEL_FOLDER = "/media/chris/8b23eee9-a098-4f74-8836-d5f49654310e/Projektarbeit_Vampire_dump/zero-test-models"
 EXP_PROBLEM_CONFIGURATIONS = "key_problemName_val_axiomNumberSet.pt"
+EXP_PROBLEM_FILES_ALL = "all.txt"
 EXP_PROBLEM_FILES = "all.txt"
 EXP_CHECKPOINT_FILE = ""
 EXP_AXIOM_NUMBER_MAPPING = "axiom2Number_number2Axiom.pt"
 EXP_SELEC_GOOD_FILE = "strat1new_better/classes_testing_compress/global_selec_and_good.pt"
-EXP_RESULTS_FOLDER = "results/zero-test"
-EXP_REVEAL = False
+EXP_RESULTS_FOLDER = "results/zero-test-500"
+EXP_REVEAL = True
+EXP_LOAD_DERIV_ABSTRACTIONS = True
+EXP_LOAD_DERIV_ABSTRACTIONS_FILE = "strat1new_better/classes_testing_compress/deriv_abstractions_file.pt"

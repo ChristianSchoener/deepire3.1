@@ -84,11 +84,11 @@ def weighted_std_deviation(weighted_mean,scaled_values,weights,weight_sum):
 def do_the_assertions():
   assert hasattr(HP, "TRAIN_TRAIN_FOLDER"), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py not set. In this folder, restart files and logs of the run will be stored."
   assert isinstance(HP.TRAIN_TRAIN_FOLDER, str), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py is not a string. In this folder, restart files and logs of the run will be stored."
-  assert os.path.isfile(HP.TRAIN_TRAIN_FOLDER), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py does not point to an existing directory. In this folder, restart files and logs of the run will be stored."
+  assert os.path.isdir(HP.TRAIN_TRAIN_FOLDER), "Parameter TRAIN_TRAIN_FOLDER in hyperparams.py does not point to an existing directory. In this folder, restart files and logs of the run will be stored."
 
   assert hasattr(HP, "TRAIN_BASE_FOLDER"), "Parameter TRAIN_BASE_FOLDER in hyperparams.py not set. This is the base folder containing the data signature, ..."
   assert isinstance(HP.TRAIN_BASE_FOLDER, str), "Parameter TRAIN_BASE_FOLDER in hyperparams.py is not a string. This is the base folder containing the data signature, ..."
-  assert os.path.isfile(HP.TRAIN_BASE_FOLDER), "Parameter TRAIN_BASE_FOLDER in hyperparams.py does not point to an existing directory. This is the base folder containing the data signature, ..."
+  assert os.path.isdir(HP.TRAIN_BASE_FOLDER), "Parameter TRAIN_BASE_FOLDER in hyperparams.py does not point to an existing directory. This is the base folder containing the data signature, ..."
 
   assert hasattr(HP, "CUDA"), "Parameter CUDA in hyperparams.py not set. This parameter determines, if the computation is performed on CUDA or CPU."
   assert isinstance(HP.CUDA, bool), "Parameter CUDA in hyperparams.py is not Boolean. This parameter determines, if the computation is performed on CUDA or CPU."
