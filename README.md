@@ -10,4 +10,4 @@ Remark (Close to finishing):
 
 - The guidance helps to prove theorems if enough clauses are correctly rated negatively to prevent combinatoric explosion, while not making a single mistake for the positive ratings - clauses required for proofs are believed to be almost never replaceable. When all problems are merged and positive rating is preferd over negative, when there is both positive and negative, the resulting ratio is 1:50 pos/neg - a very difficult problem setting! 
 
-- To shed insight on how generalization works, we compare the positive and negative derivations obtained without guidance, and with guidance by such model. (Work in progress)  
+- To shed insight into how generalization works, we compare the positive and negative derivations obtained without guidance, and those obtained with guidance by such model. (Work in progress)  
