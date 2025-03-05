@@ -8,6 +8,6 @@ Remark (Close to finishing):
 
 - Rule 52 (unit resulting resolution) does not lead to a selected node in any training instance used for testing (20,000 from unguided Vampire run with 10s time limit). And it's awfully slow to compute. It's banned for now, i.e., if new training instances arrive that contain a selected node which is derived by rule 52, it will still not be computed.
 
-- The guidance helps to prove theorems if enough clauses are correctly rated negatively to prevent combinatoric explosion, while not making a single mistake for the positive ratings - clauses required for proofs are believed to be almost never replaceable. When all problems are merged and positive rating is preferd over negative, when there is both positive and negative, the resulting ratio is 1:50 pos/neg - a very difficult problem setting! 
+- The guidance helps to prove theorems if enough clauses are correctly rated negatively to prevent combinatoric explosion, while making avery few mistakes for the positive ratings - such clauses will be looked at at some point by the usual heuristic, but this situation might not be recoverable because of the time limit. When all problems are merged and positive rating is prefered over negative rating in cases where there is both positive and negative in some problems, the resulting ratio is 1:50 pos/neg - a very difficult problem setting! 
 
 - To shed insight into how generalization works, we compare the positive and negative derivations obtained without guidance, and those obtained with guidance by such model. (Work in progress)  
