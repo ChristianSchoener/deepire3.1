@@ -12,4 +12,4 @@ Remark (Close to finishing):
 
 - To shed insight into how generalization works, we compare the positive and negative derivations obtained without guidance, and those obtained with guidance by such model.
 
-- While unguided Vampire solves ~20,000 problems without unit resulting resulting being of any use, guided Vampire solves ~25,000 problems, where ~900 are solved only with unit resulting resolution, but not without it, at least within 500 s and memory limit of 8 GiB.
+- While unguided Vampire solves ~20,000 problems without unit resulting resulting being of any use, Vampire guided by a neural model, where 500 axioms are revealed and embedding dimension is 128 solves ~25,000 problems, where ~900 are solved only with unit resulting resolution, but not without it; at least within 500 s and memory limit of 8 GiB.
