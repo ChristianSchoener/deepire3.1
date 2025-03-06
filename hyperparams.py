@@ -7,7 +7,7 @@ import torch
 # multi_inf_paralels_config:
 
 SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing_compress/pieces" # add /raid/. for dgx
-MAX_EPOCH = 1000
+MAX_EPOCH = 100
 
 # DATA PREPARATION PARAMS:
 
@@ -61,9 +61,6 @@ FAKE_CONST_SINE_LEVEL = -1
 # a hyper-parameter of the future model
 # 2*4^3 = 128 EMBED_SIZE
 EMBEDDING_SIZE = 128
-EMBEDDING_FACTOR = 2
-EMBEDDING_BASE = 4
-EMBEDDING_MAX_SCALE = 3
 
 NonLinKind_TANH = 1
 NonLinKind_RELU = 2
@@ -74,7 +71,7 @@ def NonLinKindName(val):
   elif val == NonLinKind_RELU:
     return "ReLU"
 
-NONLIN = NonLinKind_TANH
+NONLIN = NonLinKind_RELU
 
 BOTTLENECK_EXPANSION_RATIO = 2 # is used halved for the eval layer (and sine layer?)
 
@@ -89,7 +86,7 @@ DROPOUT = 0.2
 
 # LEARNING PARAMS:
 
-NUMPROCESSES = 10
+NUMPROCESSES = 6
 
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
@@ -123,7 +120,7 @@ def OptimizerName(val):
   elif val == Optimizer_ADAMW:
     return "AdamW"
 
-OPTIMIZER = "AdaHessian"
+OPTIMIZER = Optimizer_ADAM
 
 POS_WEIGHT_EXTRA = 1.0
 
@@ -137,8 +134,8 @@ CUDA = True
 
 NUM_STREAMS = 1
 
-LOG_FOLDER = "strat1new_better/classes_testing_compress/"
-LOG_FILES_TXT = "strat1new_better/loop0_logs.txt"
+LOG_FOLDER = "strat1new_better/classes_testing_compress_guided/"
+LOG_FILES_TXT = "loop0_guided.txt"
 
 ZERO_FOLDER = "strat1new_better/classes_testing_compress/"
 ZERO_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"

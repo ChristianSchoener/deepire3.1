@@ -545,7 +545,7 @@ from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import sys,random
 
-def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstractions_keys_first_par, deriv_abstractions_keys_second_par, deriv_abstractions_values, neg_vals, max_id):
+def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstractions_keys_first_par, deriv_abstractions_keys_second_par, deriv_abstractions_values, good_vals, neg_vals, max_id):
   
   # This is, how we envision inference:
   class InfRecNet(torch.nn.Module):
@@ -554,8 +554,9 @@ def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstra
     deriv_abstractions_keys_first_par : Tensor
     deriv_abstractions_keys_second_par : Tensor
     deriv_abstractions_values : Tensor
-    neg_vals = Tensor
-    eval_store: Dict[int, float]
+    good_vals : Tensor
+    neg_vals : Tensor
+    eval_store : Dict[int, float]
     abs_ids : Dict[int, int]
     max_id : int
         
@@ -565,8 +566,9 @@ def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstra
           deriv_abstractions_keys_first_par : Tensor,
           deriv_abstractions_keys_second_par : Tensor,
           deriv_abstractions_values : Tensor,
-          neg_vals: Tensor,
-          max_id: int):
+          good_vals : Tensor,          
+          neg_vals : Tensor,
+          max_id : int):
       super().__init__()
 
       self.init_abstractions = init_abstractions
@@ -575,6 +577,7 @@ def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstra
       self.deriv_abstractions_keys_second_par = deriv_abstractions_keys_second_par
       self.deriv_abstractions_values = deriv_abstractions_values
       self.abs_ids = {}
+      self.good_vals = good_vals
       self.neg_vals = neg_vals
       self.max_id = max_id
       self.eval_store = {}'''
@@ -582,106 +585,116 @@ def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstra
 bigpart_no_longer_rec1_zero = '''
     @torch.jit.export
     def forward(self, id: int) -> float:
-      abs_id = self.abs_ids[id] # must have been mentioned already
-      ind = torch.searchsorted(self.neg_vals, abs_id)
-      if ind < self.neg_vals.numel():
-        return 0.0
-      else:
-        return 1.0
+      return -10.0
+      # abs_id = self.abs_ids[id] # must have been mentioned already
+      # ind_good = torch.searchsorted(self.good_vals, abs_id)
+      # if ind_good < self.good_vals.numel():
+      #   return 1.0
+      # else:
+      #   ind_neg = torch.searchsorted(self.neg_vals, abs_id)
+      #   if ind_neg < self.neg_vals.numel():
+      #     return 0.0
+      #   else:
+      #     return 0.9
 
     @torch.jit.export
     def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
       # an init record is abstracted just by the name str
       abskey = name
-      if abskey not in self.init_abstractions:
-        abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
-        self.init_abstractions[abskey] = abs_id
-      else:
-        abs_id = self.init_abstractions[abskey]
+      # if abskey not in self.init_abstractions:
+      #   abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
+      #   self.init_abstractions[abskey] = abs_id
+      # else:
+      #   abs_id = self.init_abstractions[abskey]
 
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
+      # # assumes this is called exactly once
+      # self.abs_ids[id] = abs_id
+      '''
 
 bigpart_rec2_zero='''
     @torch.jit.export
     def new_deriv{}(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
       rule = features[-1]
-      if len(pars) == 1:
-        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
-      else:
-        abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
-      found = True
-      rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
-      rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
-      first_par_min = torch.tensor(0, dtype=torch.int32)
-      first_par_max = torch.tensor(0, dtype=torch.int32)
-      second_par_min =torch.tensor(0, dtype=torch.int32)
-      second_par_max =torch.tensor(0, dtype=torch.int32)
-      if rule_ind_max == rule_ind_min:
-        found = False
-      else:
-        first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
-        first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
-        if first_par_max == first_par_min:
-          found = False
-        else:
-          second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
-          second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
-          if first_par_max == first_par_min:
-            found = False
+      # if len(pars) == 1:
+      #   abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
+      # else:
+      #   abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
+      # found = True
+      # rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
+      # rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
+      # first_par_min = torch.tensor(0, dtype=torch.int32)
+      # first_par_max = torch.tensor(0, dtype=torch.int32)
+      # second_par_min = torch.tensor(0, dtype=torch.int32)
+      # second_par_max = torch.tensor(0, dtype=torch.int32)
+      # if rule_ind_max == rule_ind_min:
+      #   found = False
+      # else:
+      #   first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
+      #   first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
+      #   if first_par_max == first_par_min:
+      #     found = False
+      #   else:
+      #     second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
+      #     second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
+      #     if second_par_max == second_par_min:
+      #       found = False
   
-      if found:
-        abs_id = self.deriv_abstractions_values[second_par_min].item()
-      else:
-        abs_id = self.max_id
-        self.max_id = self.max_id + 1
+      # if found:
+      #   abs_id = self.deriv_abstractions_values[second_par_min].item()
+      # else:
+      #   abs_id = self.max_id
+      #   self.max_id = self.max_id + 1
       
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
+      # # assumes this is called exactly once
+      # self.abs_ids[id] = abs_id
+      '''
 
 bigpart_rec2_rule_52_zero='''
     @torch.jit.export
     def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      abs_id = self.max_id
-      self.max_id = self.max_id + 1
+      1
+      # abs_id = self.max_id
+      # self.max_id = self.max_id + 1
            
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
+      # # assumes this is called exactly once
+      # self.abs_ids[id] = abs_id
+      '''
 
 bigpart_avat_zero = '''
     @torch.jit.export
     def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
       par = features[-1]
-      abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
+      # abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
 
-      found = True
-      rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
-      rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
-      first_par_min = torch.tensor(0, dtype=torch.int32)
-      first_par_max = torch.tensor(0, dtype=torch.int32)
-      second_par_min =torch.tensor(0, dtype=torch.int32)
-      second_par_max =torch.tensor(0, dtype=torch.int32)
-      if rule_ind_max == rule_ind_min:
-        found = False
-      else:
-        first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
-        first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
-        if first_par_max == first_par_min:
-          found = False
-        else:
-          second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
-          second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
-          if first_par_max == first_par_min:
-            found = False
+      # found = True
+      # rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
+      # rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
+      # first_par_min = torch.tensor(0, dtype=torch.int32)
+      # first_par_max = torch.tensor(0, dtype=torch.int32)
+      # second_par_min =torch.tensor(0, dtype=torch.int32)
+      # second_par_max =torch.tensor(0, dtype=torch.int32)
+      # if rule_ind_max == rule_ind_min:
+      #   found = False
+      # else:
+      #   first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
+      #   first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
+      #   if first_par_max == first_par_min:
+      #     found = False
+      #   else:
+      #     second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
+      #     second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
+      #     if second_par_max == second_par_min:
+      #       found = False
   
-      if found:
-        abs_id = self.deriv_abstractions_values[second_par_min].item()
-      else:
-        abs_id = self.max_id
-        self.max_id = self.max_id + 1
+      # if found:
+      #   abs_id = self.deriv_abstractions_values[second_par_min].item()
+      # else:
+      #   abs_id = self.max_id
+      #   self.max_id = self.max_id + 1
       
-      # assumes this is called exactly once
-      self.abs_ids[id] = abs_id'''
+      # # assumes this is called exactly once
+      # self.abs_ids[id] = abs_id
+      '''
 
 bigpart3_zero = '''
   module = InfRecNet(
@@ -690,6 +703,7 @@ bigpart3_zero = '''
     deriv_abstractions_keys_first_par,
     deriv_abstractions_keys_second_par,
     deriv_abstractions_values,
+    good_vals,
     neg_vals,
     max_id)
   script = torch.jit.script(module)
@@ -947,25 +961,27 @@ class LearningModel(torch.nn.Module):
 
     self.target = data["target"].to(self.device)
 
+    self.mask = data["mask"].to(self.device)
+
     self.tot_neg = data["tot_neg"].to(self.device)
     self.tot_pos = data["tot_pos"].to(self.device)
     self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)
 
   def contribute(self):
-    self.vals = self.eval_net(self.vectors).squeeze()
+    self.vals = self.eval_net(self.vectors[self.mask]).squeeze()
 
-    self.posOK = (self.pos * (self.vals >= 0.0)).sum()
-    self.negOK = (self.neg * (self.vals < 0.0)).sum()
+    self.posOK = (self.pos[self.mask] * (self.vals >= 0.0)).sum()
+    self.negOK = (self.neg[self.mask] * (self.vals < 0.0)).sum()
 
     val_sigmoid = torch.special.expit(self.vals)
-    val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
-    val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
+    # val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
+    # val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
 
-    val_sigmoid = torch.where(self.pos > 0, val_sigmoid_pos, val_sigmoid)
-    val_sigmoid = torch.where(self.neg > 0, val_sigmoid_neg, val_sigmoid)
-    contrib = -self.pos_weight * self.target * torch.log(val_sigmoid) - (1. - self.target) * torch.log(1. - val_sigmoid)
+    # val_sigmoid = torch.where(self.pos > 0, val_sigmoid_pos, val_sigmoid)
+    # val_sigmoid = torch.where(self.neg > 0, val_sigmoid_neg, val_sigmoid)
+    contrib = -self.pos_weight * self.target[self.mask] * torch.log(val_sigmoid) - (1. - self.target[self.mask]) * torch.log(1. - val_sigmoid)
 
-    self.loss = ((self.pos + self.neg) * contrib).sum()
+    self.loss = ((self.pos[self.mask] + self.neg[self.mask]) * contrib).sum()
 
   def forward(self):
     self.loss = torch.zeros(1).to(self.device)
@@ -1216,22 +1232,25 @@ def get_subtree(start, match, pars):
   persistent = deepcopy(start)
   pers_len = len(persistent)
   old_len = pers_len - 1
+  matches = {z for z, _ in match}
   while pers_len > old_len:
-    persistent.update({y for x in persistent & {z for z, _ in match} for y in pars[x]})
+    persistent.update({y for x in persistent & matches for y in pars[x]})
     old_len = pers_len
     pers_len = len(persistent)
   return persistent
 
 def set_zero(prob_data_list, thax_to_str):
   thax_sign = set()
+  thax_to_str_out = {}
   for i, ((probname, probweight, size), (init, deriv, pars, selec, good)) in enumerate(prob_data_list):
     if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
       new_init = []
       for id, thax in init:
         if thax > HP.MAX_USED_AXIOM_CNT:
-          if thax in thax_to_str:
-            del thax_to_str[thax]
           thax = 0
+        else:
+          if thax in thax_to_str:
+            thax_to_str_out[thax] = thax_to_str[thax]
         
         thax_sign.add(thax)
         
@@ -1240,7 +1259,7 @@ def set_zero(prob_data_list, thax_to_str):
       new_init = init
 
     prob_data_list[i] = ((probname, probweight, size), (new_init, deriv, pars, selec, good))
-  return prob_data_list, thax_sign, thax_to_str
+  return prob_data_list, thax_sign, thax_to_str_out
 
 def adjust_ids_and_crop(prob, old2new, global_selec):
   (probname, probweight, _), (init, deriv, pars, selec, good) = prob

@@ -137,7 +137,7 @@ def greedy(data, global_selec, global_good, stop_early=0):
 
   shared_pars = {rule: {id: set(vals) for id, vals in pars.items() if id in rule_ids[rule]} for rule in rules}
 
-  # pars_len = {id: len(pars[id]) for id in pars}
+  pars_len = {id: len(pars[id]) for id in pars}
   # task_queues = {rule: mp.Queue() for rule in rules}
   # result_queue = mp.Queue()
 
@@ -179,13 +179,18 @@ def greedy(data, global_selec, global_good, stop_early=0):
     results_ = []
     while len(results_) < len(rules):
       time.sleep(0.0001)
-      # print(r,len(results_), end=" ", flush = True)
+      # print(r, len(results_), end=" ", flush = True)
       if not result_queue.empty():
         results_.append(result_queue.get_nowait())
         if results_[-1] is not None:
           rule_, empty_count_, empty_keys_ = results_[-1]
           gain[rule_] = empty_count_
           empty_keys[rule_] = empty_keys_
+
+    # print("\n {", end=" ",flush=True)
+    # for rule in rules:
+    #   print("{}: {}".format(rule, gain[rule]), end="    ", flush=True)
+    # print("} ", flush=True)
 
     # best_rule = max(empties, key=empties.get)
     best_rule = max(gain, key=gain.get)
@@ -199,15 +204,15 @@ def greedy(data, global_selec, global_good, stop_early=0):
         results_.append(result_queue.get_nowait())
 
     id_pool = list(empty_keys[best_rule])
-    if best_rule != 52:
-      id_to_ind.update({id: len(ids) + i for i, id in enumerate(id_pool)})
-      ids.extend(id_pool)
-      rule_steps.append(best_rule)
-      ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int32))
-      pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for _, this_id in enumerate(pars[id])], dtype=torch.int32))
+    # if best_rule != 52:
+    id_to_ind.update({id: len(ids) + i for i, id in enumerate(id_pool)})
+    ids.extend(id_pool)
+    rule_steps.append(best_rule)
+    ind_steps.append(torch.tensor([id_to_ind[id] for id in id_pool], dtype=torch.int32))
+    pars_ind_steps.append(torch.tensor([id_to_ind[this_id] for id in id_pool for _, this_id in enumerate(pars[id])], dtype=torch.int32))
 
-      # if best_rule == 52:
-      #   rule_52_limits[len(ind_steps)-1] = torch.tensor([0] + list(np.cumsum([pars_len[id] for id in id_pool])), dtype=torch.int32)
+    if best_rule == 52:
+      rule_52_limits[len(ind_steps)-1] = torch.tensor([0] + list(np.cumsum([pars_len[id] for id in id_pool])), dtype=torch.int32)
 
     rule_ids[best_rule] -= set(id_pool)
 
@@ -247,11 +252,11 @@ def greedy(data, global_selec, global_good, stop_early=0):
 
   target = pos / (pos + neg)
 
-  # mask = torch.tensor([id in cropped_keys for _, id in enumerate(ids)], dtype=torch.bool)
+  mask = (pos > 0) | (neg > 0)
 
   print()
 
-  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "target": target}
+  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "target": target, "rule_52_limits": rule_52_limits, "mask":mask}
 
 if __name__ == "__main__":
 
@@ -290,7 +295,7 @@ if __name__ == "__main__":
 
     print("Generating one multi-tree.", flush=True)
     prob, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
-    torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
+    torch.save((torch.tensor(list(selec), dtype=torch.int32), torch.tensor(list(good), dtype=torch.int32)), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
 
     print("Cropping multitree to what is induced by the selection.", flush=True)
     prob_data_list = IC.crop(prob)
@@ -334,7 +339,7 @@ if __name__ == "__main__":
 
     print("Generated old2new, selec, good from the modified data.", flush=True)
     _, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
-    torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
+    torch.save((torch.tensor(list(selec), dtype=torch.int32), torch.tensor(list(good), dtype=torch.int32)), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
 
     print("Assigning new ids to individual problems and cropping.", flush=True)
     with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
@@ -418,7 +423,7 @@ if __name__ == "__main__":
     del compressed
 
     print("Computing Greedy Evaluation Schemes and setting pos vals and neg vals.", flush=True)
-    greedy_partial = partial(greedy, global_selec=selec, global_good=good)
+    greedy_partial = partial(greedy, global_selec=set(selec.tolist()), global_good=set(good.tolist()))
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       prob_data_list = list(executor.map(greedy_partial, prob_data_list))
     print("Done. Saving.", flush=True)

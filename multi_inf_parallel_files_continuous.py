@@ -8,33 +8,17 @@ import torch
 
 torch.set_printoptions(precision=16)
 torch.set_default_dtype(torch.float64)
-# torch.set_default_dtype(torch.float16)
-# torch.backends.cuda.matmul.allow_tf32 = False
 
 torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
 
 torch.autograd.set_detect_anomaly(True)
 
-# from torch import Tensor
-# import multiprocessing
-# import torch.multiprocessing as mp
-# torch.multiprocessing.set_sharing_strategy('file_system')
-
 from copy import deepcopy
 
 import time
 
-from adan_pytorch import Adan
-import torch_optimizer as optim
-from hessianfree.optimizers import HessianFree
-
-# from typing import Dict, List, Tuple, Optional
-
-# from collections import defaultdict
-# from collections import ChainMap
-
-import sys,random,itertools,os,gc
+import sys,random,os
 
 import numpy as np
 
@@ -93,12 +77,12 @@ def do_the_assertions():
   assert hasattr(HP, "CUDA"), "Parameter CUDA in hyperparams.py not set. This parameter determines, if the computation is performed on CUDA or CPU."
   assert isinstance(HP.CUDA, bool), "Parameter CUDA in hyperparams.py is not Boolean. This parameter determines, if the computation is performed on CUDA or CPU."
 
-  assert hasattr(HP, "USE_CHECKPOINT"), "Parameter USE_CHECKPOINT in hyperparams.py not set. This parameter determines, if a restart file shall be used."
-  assert isinstance(HP.USE_CHECKPOINT, bool), "Parameter USE_CHECKPOINT in hyperparams.py is not a Boolean. This parameter determines, if a restart file shall be used."
-
-  assert hasattr(HP, "TRAIN_CHECKPOINT_FILE"), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py not set. This is the restart file to be used for the computation."
-  assert isinstance(HP.TRAIN_CHECKPOINT_FILE, str), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py is not a string. This is the restart file to be used for the computation."
-  assert os.path.isfile(HP.TRAIN_CHECKPOINT_FILE), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py does not point to a file. This is the restart file to be used for the computation."
+  assert hasattr(HP, "TRAIN_USE_CHECKPOINT"), "Parameter USE_CHECKPOINT in hyperparams.py not set. This parameter determines, if a restart file shall be used."
+  assert isinstance(HP.TRAIN_USE_CHECKPOINT, bool), "Parameter USE_CHECKPOINT in hyperparams.py is not a Boolean. This parameter determines, if a restart file shall be used."
+  if HP.TRAIN_USE_CHECKPOINT:
+    assert hasattr(HP, "TRAIN_CHECKPOINT_FILE"), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py not set. This is the restart file to be used for the computation."
+    assert isinstance(HP.TRAIN_CHECKPOINT_FILE, str), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py is not a string. This is the restart file to be used for the computation."
+    assert os.path.isfile(HP.TRAIN_CHECKPOINT_FILE), "Parameter TRAIN_CHECKPOINT_FILE in hyperparams.py does not point to a file. This is the restart file to be used for the computation."
 
   assert hasattr(HP, "MAX_EPOCH"), "Parameter MAX_EPOCH in hyperparams.py not set."
   assert isinstance(HP.MAX_EPOCH, int), "Parameter MAX_EPOCH is not an integer!"
@@ -174,11 +158,9 @@ if __name__ == "__main__":
   torch.cuda.empty_cache()
 
   optimizer = torch.optim.Adam(master_parts.parameters(), lr = lr)
-  # optimizer = optim.Adahessian(master_parts.parameters(), lr = 1.e-4)
 
   data_dict = {}
   for i, (size, name) in enumerate(train_data_idx):
-    # print(i/len(train_data_idx))
     data_dict[name] = torch.load("{}/pieces/{}".format(HP.TRAIN_BASE_FOLDER, name), weights_only=False)
 
   print(flush=True)
