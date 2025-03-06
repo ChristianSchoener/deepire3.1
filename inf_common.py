@@ -973,7 +973,7 @@ class LearningModel(torch.nn.Module):
     self.posOK = (self.pos[self.mask] * (self.vals >= 0.0)).sum()
     self.negOK = (self.neg[self.mask] * (self.vals < 0.0)).sum()
 
-    val_sigmoid = torch.special.expit(self.vals)
+    val_sigmoid = torch.clamp(torch.special.expit(self.vals), min=1.e-7, max=1.-1.e-7)
     # val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
     # val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
 
