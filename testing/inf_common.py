@@ -2,17 +2,13 @@
 
 # a module of concepts common to the inference based model development
 
-# import multiprocessing.spawn
 import os
 
-import math
-
-from copy import deepcopy
-
-import time
 import ctypes
 import ctypes.util
 libc = ctypes.CDLL(ctypes.util.find_library('c'))
+
+import operator
 
 os.environ["OMP_NUM_THREADS"] = "4"
 os.environ["OPENBLAS_NUM_THREADS"] = "4"
@@ -21,13 +17,6 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "4"
 os.environ["NUMEXPR_NUM_THREADS"] = "4"
 
 import torch
-
-import torch.special
-
-torch.set_printoptions(precision=16)
-torch.set_default_dtype(torch.float64)
-# torch.set_default_dtype(torch.float16)
-
 from torch import Tensor
 
 torch.set_num_threads(1)
@@ -36,14 +25,11 @@ from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 
-# from copy import deepcopy
+from copy import deepcopy
 
-# import math
+from bitarray import bitarray
 
-import torch.utils.checkpoint as checkpoint
-
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-from functools import partial
+import math
 
 try:
     from typing_extensions import Final
@@ -52,13 +38,13 @@ except:
     # polyfill from `torch.jit`.
     from torch.jit import Final
 
-# import itertools
+import itertools
 from collections import defaultdict
 import sys,random
 
 import hyperparams as HP
 
-# import multiprocessing
+import multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 # A hacky, hardcoded log name normalizer!
@@ -81,11 +67,11 @@ def logname_to_probname(logname):
     spl = logname[:-4].split("_")
     assert(spl[-1].startswith("m"))
     return "_".join(spl[:-1]) # drop the m<something> part altogether, because why not?
-  
+
 class Embed(torch.nn.Module):
   weight: Tensor
   
-  def __init__(self, dim: int):
+  def __init__(self, dim : int):
     super().__init__()
     
     self.weight = torch.nn.parameter.Parameter(torch.Tensor(dim))
@@ -96,156 +82,6 @@ class Embed(torch.nn.Module):
 
   def forward(self) -> Tensor:
     return self.weight
-  
-# Level vs. number of nodes in tree with all axioms  
-# In [60]: for i in range(1, 446, 5):
-#     ...:     print(" ".join(f"({(i+k):3}, {depth_count[i+k]:6})" for k in range(5)))
-# (  1,  46416) (  2, 240496) (  3, 581784) (  4, 750241) (  5, 889219)
-# (  6, 873045) (  7, 866634) (  8, 827017) (  9, 782900) ( 10, 753838)
-# ( 11, 716596) ( 12, 685865) ( 13, 646913) ( 14, 599756) ( 15, 537930)
-# ( 16, 477778) ( 17, 433063) ( 18, 390170) ( 19, 358508) ( 20, 323497)
-# ( 21, 289973) ( 22, 259696) ( 23, 236985) ( 24, 215313) ( 25, 198677)
-# ( 26, 180892) ( 27, 163594) ( 28, 151746) ( 29, 141299) ( 30, 129319)
-# ( 31, 117906) ( 32, 106164) ( 33,  97284) ( 34,  87746) ( 35,  79146)
-# ( 36,  72741) ( 37,  66970) ( 38,  61243) ( 39,  57030) ( 40,  53433)
-# ( 41,  50960) ( 42,  48661) ( 43,  44976) ( 44,  42124) ( 45,  40203)
-# ( 46,  37175) ( 47,  34459) ( 48,  32247) ( 49,  29450) ( 50,  27449)
-# ( 51,  24972) ( 52,  23734) ( 53,  21985) ( 54,  20725) ( 55,  19106)
-# ( 56,  17718) ( 57,  16871) ( 58,  15680) ( 59,  15049) ( 60,  14025)
-# ( 61,  12765) ( 62,  12326) ( 63,  11349) ( 64,  10129) ( 65,   9103)
-# ( 66,   8529) ( 67,   8011) ( 68,   7467) ( 69,   6888) ( 70,   6368)
-# ( 71,   6149) ( 72,   5862) ( 73,   5616) ( 74,   5331) ( 75,   4927)
-# ( 76,   4572) ( 77,   4484) ( 78,   4408) ( 79,   4184) ( 80,   3952)
-# ( 81,   3821) ( 82,   3494) ( 83,   3308) ( 84,   3234) ( 85,   3028)
-# ( 86,   2947) ( 87,   2918) ( 88,   2760) ( 89,   2530) ( 90,   2398)
-# ( 91,   2464) ( 92,   2471) ( 93,   2340) ( 94,   2278) ( 95,   2254)
-# ( 96,   2223) ( 97,   2116) ( 98,   1945) ( 99,   1863) (100,   1870)
-# (101,   1929) (102,   1881) (103,   1772) (104,   1640) (105,   1423)
-# (106,   1276) (107,   1153) (108,   1019) (109,    879) (110,    797)
-# (111,    720) (112,    711) (113,    664) (114,    609) (115,    597)
-# (116,    567) (117,    538) (118,    493) (119,    453) (120,    428)
-# (121,    406) (122,    374) (123,    358) (124,    362) (125,    327)
-# (126,    316) (127,    302) (128,    293) (129,    272) (130,    263)
-# (131,    243) (132,    241) (133,    239) (134,    231) (135,    230)
-# (136,    218) (137,    221) (138,    212) (139,    206) (140,    210)
-# (141,    198) (142,    181) (143,    174) (144,    190) (145,    192)
-# (146,    194) (147,    189) (148,    187) (149,    182) (150,    181)
-# (151,    184) (152,    179) (153,    168) (154,    188) (155,    171)
-# (156,    157) (157,    145) (158,    135) (159,    127) (160,    112)
-# (161,    119) (162,    140) (163,    136) (164,    134) (165,    134)
-# (166,    140) (167,    136) (168,    153) (169,    154) (170,    148)
-# (171,    148) (172,    150) (173,    140) (174,    153) (175,    146)
-# (176,    144) (177,    139) (178,    136) (179,    150) (180,    160)
-# (181,    154) (182,    156) (183,    148) (184,    137) (185,    115)
-# (186,    105) (187,    103) (188,    100) (189,     97) (190,     98)
-# (191,     90) (192,     90) (193,     88) (194,     91) (195,     89)
-# (196,     91) (197,     84) (198,     78) (199,     76) (200,     75)
-# (201,     70) (202,     68) (203,     61) (204,     62) (205,     60)
-# (206,     69) (207,     67) (208,     63) (209,     59) (210,     57)
-# (211,     58) (212,     54) (213,     55) (214,     55) (215,     52)
-# (216,     51) (217,     46) (218,     48) (219,     46) (220,     50)
-# (221,     49) (222,     52) (223,     53) (224,     51) (225,     48)
-# (226,     45) (227,     43) (228,     43) (229,     44) (230,     43)
-# (231,     39) (232,     38) (233,     36) (234,     35) (235,     35)
-# (236,     36) (237,     36) (238,     43) (239,     41) (240,     40)
-# (241,     36) (242,     34) (243,     34) (244,     42) (245,     41)
-# (246,     39) (247,     36) (248,     35) (249,     31) (250,     32)
-# (251,     35) (252,     36) (253,     33) (254,     33) (255,     36)
-# (256,     29) (257,     29) (258,     30) (259,     26) (260,     23)
-# (261,     20) (262,     18) (263,     19) (264,     18) (265,     20)
-# (266,     21) (267,     21) (268,     29) (269,     29) (270,     32)
-# (271,     29) (272,     29) (273,     27) (274,     28) (275,     27)
-# (276,     25) (277,     26) (278,     26) (279,     28) (280,     23)
-# (281,     25) (282,     27) (283,     26) (284,     25) (285,     21)
-# (286,     21) (287,     21) (288,     18) (289,     17) (290,     17)
-# (291,     16) (292,     18) (293,     20) (294,     20) (295,     18)
-# (296,     18) (297,     19) (298,     19) (299,     18) (300,     16)
-# (301,     16) (302,     20) (303,     18) (304,     16) (305,     18)
-# (306,     18) (307,     21) (308,     21) (309,     21) (310,     20)
-# (311,     19) (312,     18) (313,     17) (314,     16) (315,     16)
-# (316,     17) (317,     13) (318,     13) (319,     10) (320,      8)
-# (321,      8) (322,      8) (323,      8) (324,      8) (325,      8)
-# (326,      8) (327,      8) (328,      7) (329,      7) (330,      7)
-# (331,      7) (332,      8) (333,      8) (334,      8) (335,      6)
-# (336,      6) (337,      6) (338,      6) (339,      6) (340,      7)
-# (341,      7) (342,      6) (343,      4) (344,      4) (345,      3)
-# (346,      2) (347,      2) (348,      2) (349,      2) (350,      2)
-# (351,      2) (352,      2) (353,      2) (354,      2) (355,      2)
-# (356,      2) (357,      2) (358,      2) (359,      2) (360,      2)
-# (361,      2) (362,      2) (363,      2) (364,      2) (365,      2)
-# (366,      2) (367,      1) (368,      1) (369,      1) (370,      1)
-# (371,      1) (372,      1) (373,      1) (374,      1) (375,      1)
-# (376,      1) (377,      1) (378,      1) (379,      1) (380,      1)
-# (381,      1) (382,      1) (383,      1) (384,      1) (385,      1)
-# (386,      1) (387,      1) (388,      1) (389,      1) (390,      1)
-# (391,      1) (392,      1) (393,      1) (394,      1) (395,      1)
-# (396,      1) (397,      1) (398,      1) (399,      1) (400,      1)
-# (401,      1) (402,      1) (403,      1) (404,      1) (405,      1)
-# (406,      1) (407,      1) (408,      1) (409,      1) (410,      1)
-# (411,      1) (412,      1) (413,      1) (414,      1) (415,      1)
-# (416,      1) (417,      1) (418,      1) (419,      1) (420,      1)
-# (421,      1) (422,      1) (423,      1) (424,      1) (425,      1)
-# (426,      1) (427,      1) (428,      1) (429,      1) (430,      1)
-# (431,      1) (432,      1) (433,      1) (434,      1) (435,      1)
-# (436,      1) (437,      1) (438,      1) (439,      1) (440,      1)
-# (441,      1) (442,      1) (443,      1) (444,      1) (445,      1)
-
-# 500 revealed axioms, cone:
-# In [21]: for i in range(1, 317, 6):
-#     ...:     print(" ".join(f"({(i+k):3}, {data["depths"].tolist().count(i+k):6})" for k in range(6)))
-# (  1,    502) (  2,   6256) (  3,  47487) (  4, 119011) (  5, 170121) (  6, 147066)
-# (  7, 144312) (  8, 124135) (  9, 106812) ( 10,  97566) ( 11,  79712) ( 12,  73767)
-# ( 13,  62920) ( 14,  55041) ( 15,  42455) ( 16,  39183) ( 17,  34063) ( 18,  29231)
-# ( 19,  27617) ( 20,  23321) ( 21,  20629) ( 22,  19007) ( 23,  16815) ( 24,  15286)
-# ( 25,  13676) ( 26,  13095) ( 27,  11839) ( 28,  11599) ( 29,  10662) ( 30,   9497)
-# ( 31,   8777) ( 32,   8146) ( 33,   7342) ( 34,   6636) ( 35,   6104) ( 36,   5861)
-# ( 37,   5181) ( 38,   4835) ( 39,   4443) ( 40,   4320) ( 41,   3803) ( 42,   3988)
-# ( 43,   3233) ( 44,   3201) ( 45,   3048) ( 46,   2636) ( 47,   2403) ( 48,   2229)
-# ( 49,   1964) ( 50,   1971) ( 51,   1627) ( 52,   1760) ( 53,   1643) ( 54,   1524)
-# ( 55,   1382) ( 56,   1276) ( 57,   1445) ( 58,   1180) ( 59,   1147) ( 60,   1084)
-# ( 61,    915) ( 62,    889) ( 63,    831) ( 64,    743) ( 65,    793) ( 66,    757)
-# ( 67,    676) ( 68,    597) ( 69,    589) ( 70,    502) ( 71,    509) ( 72,    478)
-# ( 73,    448) ( 74,    498) ( 75,    353) ( 76,    389) ( 77,    385) ( 78,    373)
-# ( 79,    297) ( 80,    303) ( 81,    320) ( 82,    283) ( 83,    273) ( 84,    323)
-# ( 85,    218) ( 86,    264) ( 87,    218) ( 88,    213) ( 89,    166) ( 90,    166)
-# ( 91,    213) ( 92,    192) ( 93,    216) ( 94,    173) ( 95,    146) ( 96,    198)
-# ( 97,    139) ( 98,    162) ( 99,    181) (100,    163) (101,    169) (102,    166)
-# (103,    118) (104,    104) (105,     87) (106,     93) (107,     86) (108,     90)
-# (109,     78) (110,     76) (111,     88) (112,     73) (113,     80) (114,     81)
-# (115,     59) (116,     67) (117,     48) (118,     53) (119,     65) (120,     51)
-# (121,     51) (122,     58) (123,     55) (124,     60) (125,     58) (126,     53)
-# (127,     54) (128,     52) (129,     53) (130,     48) (131,     47) (132,     45)
-# (133,     42) (134,     42) (135,     42) (136,     42) (137,     45) (138,     43)
-# (139,     42) (140,     44) (141,     37) (142,     46) (143,     39) (144,     40)
-# (145,     36) (146,     34) (147,     35) (148,     39) (149,     34) (150,     31)
-# (151,     30) (152,     31) (153,     29) (154,     27) (155,     27) (156,     21)
-# (157,     20) (158,     20) (159,     19) (160,     19) (161,     18) (162,     22)
-# (163,     19) (164,     18) (165,     19) (166,     19) (167,     17) (168,     21)
-# (169,     18) (170,     15) (171,     21) (172,     22) (173,     18) (174,     27)
-# (175,     19) (176,     19) (177,     18) (178,     17) (179,     17) (180,     21)
-# (181,     16) (182,     15) (183,     15) (184,     15) (185,     17) (186,     16)
-# (187,     15) (188,     14) (189,     13) (190,     13) (191,     13) (192,     15)
-# (193,     14) (194,     13) (195,     13) (196,     15) (197,     11) (198,     11)
-# (199,     11) (200,     11) (201,     11) (202,     11) (203,     11) (204,     11)
-# (205,     11) (206,     16) (207,     11) (208,     11) (209,     12) (210,     11)
-# (211,     11) (212,     11) (213,     13) (214,      9) (215,      9) (216,      8)
-# (217,     10) (218,      9) (219,      7) (220,      7) (221,      7) (222,      6)
-# (223,      6) (224,      7) (225,      6) (226,      6) (227,      6) (228,      6)
-# (229,      6) (230,      5) (231,      5) (232,      5) (233,      5) (234,      5)
-# (235,      6) (236,      6) (237,      7) (238,     10) (239,      6) (240,      6)
-# (241,      6) (242,      6) (243,      6) (244,      6) (245,      6) (246,      5)
-# (247,      5) (248,      5) (249,      8) (250,      7) (251,      5) (252,      5)
-# (253,      5) (254,      5) (255,      8) (256,      5) (257,      5) (258,      5)
-# (259,      5) (260,      5) (261,      5) (262,      5) (263,      6) (264,      6)
-# (265,      7) (266,      6) (267,      6) (268,      5) (269,      5) (270,      5)
-# (271,      5) (272,      5) (273,      5) (274,      5) (275,      5) (276,      5)
-# (277,      6) (278,      5) (279,      5) (280,      5) (281,      7) (282,      7)
-# (283,      5) (284,      5) (285,      5) (286,      5) (287,      5) (288,      4)
-# (289,      4) (290,      4) (291,      5) (292,      4) (293,      4) (294,      4)
-# (295,      4) (296,      4) (297,      4) (298,      4) (299,      3) (300,      3)
-# (301,      3) (302,      3) (303,      3) (304,      2) (305,      3) (306,      2)
-# (307,      3) (308,      2) (309,      2) (310,      2) (311,      2) (312,      2)
-# (313,      3) (314,      4) (315,      2) (316,      2) (317,      0) (318,      0)
 
 class CatAndNonLinearBinary(torch.nn.Module):
   def __init__(self, dim : int, arit: int):
@@ -271,22 +107,20 @@ class CatAndNonLinearBinary(torch.nn.Module):
     else:
       self.epilog = torch.nn.Identity(dim) 
 
-  def forward(self, args : Tensor) -> Tensor:
-    x = args
+  def forward_impl_stack(self, args : Tensor) -> Tensor:
     if self.arit == 2:
-      x = x.view(x.shape[0] // 2, -1)
-    x = self.prolog(x)
-    x = self.first(x)
-    x = self.nonlin(x)
-    x = self.second(x)
-    return self.epilog(x)
-  
+      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(args.shape[0] // 2, -1))))))
+      # return self.epilog(self.second(self.nonlin(self.first(self.prolog(args.view(1, -1))))))
+    else:
+      return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
+
+  def forward(self, args : Tensor) -> Tensor:
+    return self.forward_impl_stack(args)
+
 class CatAndNonLinearMultiary(torch.nn.Module):
-  def __init__(self, dim: int, arit: int):
+  def __init__(self, dim : int, arit: int):
     super().__init__()
   
-    self.dim = dim
-
     if HP.DROPOUT > 0.0:
       self.prolog = torch.nn.Dropout(HP.DROPOUT)
     else:
@@ -305,15 +139,11 @@ class CatAndNonLinearMultiary(torch.nn.Module):
     if HP.LAYER_NORM:
       self.epilog = torch.nn.LayerNorm(dim)
     else:
-      self.epilog = torch.nn.Identity(dim)
+      self.epilog = torch.nn.Identity(dim) 
 
-  def forward_impl_list(self, x : Tensor) -> Tensor:
-    x = self.prolog(x)
-    x = self.first(x)
-    x = self.nonlin(x)
-    x = self.second(x)
-    return self.epilog(x)
-    
+  def forward_impl_list(self, args : Tensor) -> Tensor:
+    return self.epilog(self.second(self.nonlin(self.first(self.prolog(args)))))
+  
   # def forward(self, args : Tensor) -> Tensor:
   #   x = args
   #   length = x.size(0)
@@ -344,30 +174,29 @@ class CatAndNonLinearMultiary(torch.nn.Module):
      
   #   return x[0]
 
-  def forward(self, args : Tensor) -> Tensor: # 19s
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = "cpu"
-    length = torch.tensor(args.size(0), dtype=torch.int32)
+  # def forward(self, args : Tensor) -> Tensor: # 19s
+  #   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  #   length = args.shape[0]
 
-    start_ind = torch.zeros(1, dtype=torch.int32)
-    end_ind = 2 * (length // 2)
-    fill_start_ind = length
-    fill_end_ind = fill_start_ind + (length // 2)
+  #   start_ind = torch.zeros(1,dtype=torch.int32)
+  #   end_ind = 2 * (length // 2)
+  #   fill_start_ind = length
+  #   fill_end_ind = fill_start_ind + (length // 2)
 
-    full_sized = torch.empty(2*length - 1, HP.EMBED_SIZE).to(device)
+  #   full_sized = torch.empty(2*length - 1, HP.EMBED_SIZE).to(device)
 
-    full_sized[:length] = args
+  #   full_sized[:length] = args
 
-    while length > 1:
-      full_sized[fill_start_ind:fill_end_ind] = self.forward_impl_list(full_sized[start_ind:end_ind].view(length // 2, -1))
+  #   while length > 1:
+  #     full_sized[fill_start_ind:fill_end_ind] = self.forward_impl_list(full_sized[start_ind:end_ind].view(length // 2, -1))
 
-      length = (length + 1) // 2
-      start_ind = end_ind
-      end_ind = start_ind + 2 * (length // 2)
-      fill_start_ind = start_ind + length
-      fill_end_ind = fill_start_ind + (length // 2)
+  #     length = (length + 1) // 2
+  #     start_ind = end_ind
+  #     end_ind = start_ind + 2 * (length // 2)
+  #     fill_start_ind = start_ind + length
+  #     fill_end_ind = fill_start_ind + (length // 2)
      
-    return full_sized[start_ind]
+  #   return full_sized[start_ind]
 
   # def forward(self, args : Tensor) -> Tensor: # 23s
   #   x = args
@@ -376,37 +205,38 @@ class CatAndNonLinearMultiary(torch.nn.Module):
 
   #   return x
 
-#   def forward(self, args: Tensor, limits: Tensor, device: str) -> Tensor:
-#     limits = limits.to(device)
-#     lengths = torch.diff(limits)
-#     the_len = lengths.numel()
+  def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
+    limits = limits.to(device)
+    lengths = torch.diff(limits)
+    the_len = lengths.numel()
 
-#     full_lengths = 2*lengths - 1
-#     start_inds = torch.zeros(the_len, dtype=torch.int32).to(device)
-#     end_inds = 2 * (lengths // 2)
-#     fill_start_inds = deepcopy(lengths)
-#     fill_end_inds = fill_start_inds + (lengths // 2)
-#     HP.EMBED_SIZE = HP.EMBEDDING_FACTOR * (HP.EMBEDDING_BASE**HP.EMBEDDING_MAX_SCALE)
-#     return_mat = torch.zeros(the_len, HP.EMBED_SIZE).to(device)
-# # Looping to prevent big temporary matrix
-#     for i in range(the_len):
-#       full_sized = torch.zeros(full_lengths[i], HP.EMBED_SIZE).to(device)
-#       select_range = torch.arange(limits[i], limits[i+1])
-#       fill_range = torch.arange(0, lengths[i])
-#       full_sized[fill_range] = args[select_range]
-#       while lengths[i] > 1:
-#         select_range = torch.arange(start_inds[i], end_inds[i])
-#         fill_range = torch.arange(fill_start_inds[i], fill_end_inds[i])
-#         full_sized[fill_range] = self.forward_impl_list(full_sized[select_range].view(lengths[i] // 2, -1))
+    full_lengths = 2*lengths - 1
+    start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
+    end_inds = start_inds + 2 * (lengths // 2)
+    fill_start_inds = start_inds + lengths
+    fill_end_inds = fill_start_inds + (lengths // 2)
 
-#         lengths[i] = (lengths[i] + 1) // 2
-#         start_inds[i] = deepcopy(end_inds[i])
-#         end_inds[i] = start_inds[i] + 2 * (lengths[i] // 2)
-#         fill_start_inds[i] = start_inds[i] + lengths[i]
-#         fill_end_inds[i] = fill_start_inds[i] + (lengths[i] // 2)
+    return_mat = torch.zeros(the_len, HP.EMBED_SIZE)
+# Looping to prevent big temporary matrix
+    for i in range(the_len):
+      full_sized = torch.zeros(full_lengths[i], HP.EMBED_SIZE).to(device)
+      select_range = torch.arange(limits[i], limits[i+1])
+      full_sized = args[select_range]
 
-#       return_mat[i] = full_sized[-1]
-#     return return_mat
+      while lengths[i] > 1:
+        select_range = torch.arange(start_inds[i], end_inds[i])
+        fill_range = torch.arange(fill_start_inds[i], fill_end_inds[i])
+
+        full_sized[fill_range] = self.forward_impl_list(full_sized[select_range].view(lengths[i] // 2, -1))
+
+        lengths[i] = (lengths[i] + 1) // 2
+        start_inds[i] = end_inds[i]
+        end_inds[i] = start_inds[i] + 2 * (lengths[i] // 2)
+        fill_start_inds[i] = start_inds[i] + lengths[i]
+        fill_end_inds[i] = fill_start_inds[i] + (lengths[i] // 2)
+      
+      return_mat[i] = full_sized[-1]
+    return return_mat
     
   # def forward(self, args : Tensor, limits : Tensor, device : str) -> Tensor:
   #   limits = limits.to(device)
@@ -414,12 +244,12 @@ class CatAndNonLinearMultiary(torch.nn.Module):
   #   the_len = lengths.numel()
 
   #   full_lengths = 2*lengths - 1
-  #   start_inds = torch.cat((torch.tensor([0], dtype=torch.int32).to(device), full_lengths[:-1].cumsum(dim=0)))
+  #   start_inds = torch.cat((torch.tensor([0]).to(device), full_lengths[:-1].cumsum(dim=0)))
   #   end_inds = start_inds + 2 * (lengths // 2)
   #   fill_start_inds = start_inds + lengths
   #   fill_end_inds = fill_start_inds + (lengths // 2)
 
-  #   full_sized = torch.zeros(full_lengths.sum(), args.size(1)).to(device)
+  #   full_sized = torch.zeros(full_lengths.sum(), HP.EMBED_SIZE).to(device)
 
   #   for i in range(the_len):
   #     full_sized[torch.arange(start_inds[i], start_inds[i] + lengths[i])] = args[torch.arange(limits[i], limits[i+1])]
@@ -496,7 +326,7 @@ def get_initial_model(thax_sign, deriv_arits):
     init_embeds[str(i)] = Embed(HP.EMBED_SIZE).to(device)
 
   deriv_mlps = torch.nn.ModuleDict().to(device)
-  for rule, arit in deriv_arits.items():
+  for rule,arit in deriv_arits.items():
     if arit <= 2:
       deriv_mlps[str(rule)] = CatAndNonLinearBinary(HP.EMBED_SIZE, arit).to(device)
     else:
@@ -537,197 +367,6 @@ def name_raw_data_suffix():
     HP.TreatAvatarEmptiesName(HP.AVATAR_EMPTIES),
     HP.ThaxSourceName(HP.THAX_SOURCE),
     HP.USE_SINE)
-
-bigpart1_zero = '''#!/usr/bin/env python3
-
-import torch
-from torch import Tensor
-from typing import Dict, List, Tuple, Optional
-from collections import defaultdict
-import sys,random
-
-def save_net(name, init_abstractions, deriv_abstractions_keys_rule, deriv_abstractions_keys_first_par, deriv_abstractions_keys_second_par, deriv_abstractions_values, good_vals, neg_vals, max_id):
-  
-  # This is, how we envision inference:
-  class InfRecNet(torch.nn.Module):
-    init_abstractions : Dict[str, int]
-    deriv_abstractions_keys_rule : Tensor
-    deriv_abstractions_keys_first_par : Tensor
-    deriv_abstractions_keys_second_par : Tensor
-    deriv_abstractions_values : Tensor
-    good_vals : Tensor
-    neg_vals : Tensor
-    eval_store : Dict[int, float]
-    abs_ids : Dict[int, int]
-    max_id : int
-        
-    def __init__(self,
-          init_abstractions : Dict[str, int],
-          deriv_abstractions_keys_rule : Tensor,
-          deriv_abstractions_keys_first_par : Tensor,
-          deriv_abstractions_keys_second_par : Tensor,
-          deriv_abstractions_values : Tensor,
-          good_vals : Tensor,          
-          neg_vals : Tensor,
-          max_id : int):
-      super().__init__()
-
-      self.init_abstractions = init_abstractions
-      self.deriv_abstractions_keys_rule = deriv_abstractions_keys_rule
-      self.deriv_abstractions_keys_first_par = deriv_abstractions_keys_first_par
-      self.deriv_abstractions_keys_second_par = deriv_abstractions_keys_second_par
-      self.deriv_abstractions_values = deriv_abstractions_values
-      self.abs_ids = {}
-      self.good_vals = good_vals
-      self.neg_vals = neg_vals
-      self.max_id = max_id
-      self.eval_store = {}'''
-
-bigpart_no_longer_rec1_zero = '''
-    @torch.jit.export
-    def forward(self, id: int) -> float:
-      return -10.0
-      # abs_id = self.abs_ids[id] # must have been mentioned already
-      # ind_good = torch.searchsorted(self.good_vals, abs_id)
-      # if ind_good < self.good_vals.numel():
-      #   return 1.0
-      # else:
-      #   ind_neg = torch.searchsorted(self.neg_vals, abs_id)
-      #   if ind_neg < self.neg_vals.numel():
-      #     return 0.0
-      #   else:
-      #     return 0.9
-
-    @torch.jit.export
-    def new_init(self, id: int, features : Tuple[int, int, int, int, int, int], name: str) -> None:
-      # an init record is abstracted just by the name str
-      abskey = name
-      # if abskey not in self.init_abstractions:
-      #   abs_id = -(len(self.init_abstractions)+1) # using negative values for abstractions of init clauses
-      #   self.init_abstractions[abskey] = abs_id
-      # else:
-      #   abs_id = self.init_abstractions[abskey]
-
-      # # assumes this is called exactly once
-      # self.abs_ids[id] = abs_id
-      '''
-
-bigpart_rec2_zero='''
-    @torch.jit.export
-    def new_deriv{}(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      rule = features[-1]
-      # if len(pars) == 1:
-      #   abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[0]]], dtype=torch.int32)
-      # else:
-      #   abskey = torch.tensor([rule, self.abs_ids[pars[0]], self.abs_ids[pars[1]]], dtype=torch.int32)
-      # found = True
-      # rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
-      # rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
-      # first_par_min = torch.tensor(0, dtype=torch.int32)
-      # first_par_max = torch.tensor(0, dtype=torch.int32)
-      # second_par_min = torch.tensor(0, dtype=torch.int32)
-      # second_par_max = torch.tensor(0, dtype=torch.int32)
-      # if rule_ind_max == rule_ind_min:
-      #   found = False
-      # else:
-      #   first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
-      #   first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
-      #   if first_par_max == first_par_min:
-      #     found = False
-      #   else:
-      #     second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
-      #     second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
-      #     if second_par_max == second_par_min:
-      #       found = False
-  
-      # if found:
-      #   abs_id = self.deriv_abstractions_values[second_par_min].item()
-      # else:
-      #   abs_id = self.max_id
-      #   self.max_id = self.max_id + 1
-      
-      # # assumes this is called exactly once
-      # self.abs_ids[id] = abs_id
-      '''
-
-bigpart_rec2_rule_52_zero='''
-    @torch.jit.export
-    def new_deriv52(self, id: int, features : Tuple[int, int, int, int, int], pars : List[int]) -> None:
-      1
-      # abs_id = self.max_id
-      # self.max_id = self.max_id + 1
-           
-      # # assumes this is called exactly once
-      # self.abs_ids[id] = abs_id
-      '''
-
-bigpart_avat_zero = '''
-    @torch.jit.export
-    def new_avat(self, id: int, features : Tuple[int, int, int, int]) -> None:
-      par = features[-1]
-      # abskey = torch.tensor([666, self.abs_ids[par], self.abs_ids[par]], dtype=torch.int32)
-
-      # found = True
-      # rule_ind_min = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0])
-      # rule_ind_max = torch.searchsorted(self.deriv_abstractions_keys_rule, abskey[0], side="right")
-      # first_par_min = torch.tensor(0, dtype=torch.int32)
-      # first_par_max = torch.tensor(0, dtype=torch.int32)
-      # second_par_min =torch.tensor(0, dtype=torch.int32)
-      # second_par_max =torch.tensor(0, dtype=torch.int32)
-      # if rule_ind_max == rule_ind_min:
-      #   found = False
-      # else:
-      #   first_par_min = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1]) + rule_ind_min
-      #   first_par_max = torch.searchsorted(self.deriv_abstractions_keys_first_par[rule_ind_min:rule_ind_max], abskey[1], side="right") + rule_ind_min
-      #   if first_par_max == first_par_min:
-      #     found = False
-      #   else:
-      #     second_par_min = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2]) + first_par_min
-      #     second_par_max = torch.searchsorted(self.deriv_abstractions_keys_second_par[first_par_min:first_par_max], abskey[2], side="right") + first_par_min
-      #     if second_par_max == second_par_min:
-      #       found = False
-  
-      # if found:
-      #   abs_id = self.deriv_abstractions_values[second_par_min].item()
-      # else:
-      #   abs_id = self.max_id
-      #   self.max_id = self.max_id + 1
-      
-      # # assumes this is called exactly once
-      # self.abs_ids[id] = abs_id
-      '''
-
-bigpart3_zero = '''
-  module = InfRecNet(
-    init_abstractions,
-    deriv_abstractions_keys_rule,
-    deriv_abstractions_keys_first_par,
-    deriv_abstractions_keys_second_par,
-    deriv_abstractions_values,
-    good_vals,
-    neg_vals,
-    max_id)
-  script = torch.jit.script(module)
-  script.save(name)'''
-
-def create_saver_zero(deriv_arits):
-  with open("inf_saver_zero.py", "w") as f:
-
-    print(bigpart1_zero, file=f)
-
-    print(bigpart_no_longer_rec1_zero, file=f)
-
-    for rule in sorted(deriv_arits):
-      if rule not in [52, 666]: # avatar done differently in bigpart3, rul_52, too
-        print(bigpart_rec2_zero.format(str(rule), str(rule)), file=f)
-
-    if 666 in deriv_arits:
-      print(bigpart_avat_zero, file=f)
-
-    if 52 in deriv_arits:
-      print(bigpart_rec2_rule_52_zero, file=f)
-
-    print(bigpart3_zero, file=f)
 
 bigpart1 = '''#!/usr/bin/env python3
 
@@ -861,9 +500,8 @@ bigpart_rec2_rule_52='''
       
       if abs_id not in self.embed_store:
         par_embeds = [self.embed_store[self.abs_ids[par]].squeeze() for par in pars]
-        # limits = torch.tensor([0, len(par_embeds)], dtype=torch.int32)
-        embed = self.deriv_52(torch.stack(par_embeds))
-        # embed = self.deriv_52(torch.stack(par_embeds), limits, "cpu")
+        limits = torch.cumsum(torch.tensor([0]+[len(i) for i in par_embeds]), dim=0)
+        embed = self.deriv_52(torch.stack(par_embeds), limits, "cpu")
         self.embed_store[abs_id] = embed'''
 
 bigpart_avat = '''
@@ -934,7 +572,9 @@ class LearningModel(torch.nn.Module):
       init_embeds : torch.nn.ModuleDict,
       deriv_mlps : torch.nn.ModuleDict,
       eval_net : torch.nn.Module,
-      data, use_cuda = False):
+      data, training = True, use_cuda = False):
+      # thax, ids, rule_steps, ind_steps, pars_ind_steps, rule_52_limits,pos,neg,tot_pos,tot_neg,mask,target, training=True, use_cuda = False):
+      # init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,greedy_eval_scheme,save_logits = False,training = False):
     super(LearningModel,self).__init__()
 
     if use_cuda and torch.cuda.is_available():
@@ -947,43 +587,45 @@ class LearningModel(torch.nn.Module):
     self.rule_steps = data["rule_steps"].to(self.device)
     self.ind_steps = data["ind_steps"]
     self.pars_ind_steps = data["pars_ind_steps"]
+    self.rule_52_limits = data["rule_52_limits"]
     for i in range(len(self.rule_steps)):
       self.ind_steps[i] = self.ind_steps[i].to(self.device)
       self.pars_ind_steps[i] = self.pars_ind_steps[i].to(self.device)
+    if i in self.rule_52_limits.keys():
+      self.rule_52_limits[i] = self.rule_52_limits[i].to(self.device)
+
     self.vectors = torch.zeros(len(self.ids), HP.EMBED_SIZE).to(self.device)
     self.vectors[:len(self.thax)] = torch.stack([init_embeds[str(this_thax.item())]() for this_thax in self.thax])
-
-    self.vals = torch.zeros(len(self.ids)).to(self.device)
 
     self.deriv_mlps = deriv_mlps
     self.eval_net = eval_net
 
     self.pos = data["pos"].to(self.device)
     self.neg = data["neg"].to(self.device)
-
+ 
     self.target = data["target"].to(self.device)
 
     self.mask = data["mask"].to(self.device)
 
     self.tot_neg = data["tot_neg"].to(self.device)
     self.tot_pos = data["tot_pos"].to(self.device)
-    self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)
-
+    self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)  
+    self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=self.pos_weight, reduction="none")
+  
   def contribute(self):
-    self.vals = self.eval_net(self.vectors[self.mask]).squeeze()
+    val = self.eval_net(self.vectors[self.mask]).squeeze()
+    
+    self.posOK = (self.pos * (val >= 0)).sum()
+    self.negOK = (self.neg * (val < 0)).sum()
 
-    self.posOK = (self.pos[self.mask] * (self.vals >= 0.0)).sum()
-    self.negOK = (self.neg[self.mask] * (self.vals < 0.0)).sum()
+    contrib = self.criterion(val, self.target[:sum(self.mask)].squeeze())
 
-    val_sigmoid = torch.clamp(torch.special.expit(self.vals), min=1.e-7, max=1.-1.e-7)
-    # val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
-    # val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
+    if HP.FOCAL_LOSS:
+      val_sigmoid = torch.sigmoid(val).clamp(min=1.e-5, max=1. - 1.e-5)
+      contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * val_sigmoid**2 * torch.log(1. - val_sigmoid)
+      # contrib = -self.pos_weight * self.target * (1. - val_sigmoid)**2 * torch.log(val_sigmoid) - (1. - self.target) * torch.log(1. - val_sigmoid)
 
-    # val_sigmoid = torch.where(self.pos > 0, val_sigmoid_pos, val_sigmoid)
-    # val_sigmoid = torch.where(self.neg > 0, val_sigmoid_neg, val_sigmoid)
-    contrib = -self.pos_weight * self.target[self.mask] * torch.log(val_sigmoid) - (1. - self.target[self.mask]) * torch.log(1. - val_sigmoid)
-
-    self.loss = ((self.pos[self.mask] + self.neg[self.mask]) * contrib).sum()
+    self.loss = ((self.pos + self.neg) * contrib).sum()
 
   def forward(self):
     self.loss = torch.zeros(1).to(self.device)
@@ -991,10 +633,11 @@ class LearningModel(torch.nn.Module):
     self.negOK = torch.zeros(1).to(self.device)
 
     for step in range(len(self.rule_steps)):
-      self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
+      if self.rule_steps[step].item() == 52:
+        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]], self.rule_52_limits[step], self.device)
+      else:
+        self.vectors[self.ind_steps[step]] = self.deriv_mlps[str(self.rule_steps[step].item())](self.vectors[self.pars_ind_steps[step]])
 
-    # for i, id in enumerate(self.ids):
-    #   print("id: {},".format(id), self.vectors[i].data)
     self.contribute()
 
     return (self.loss, self.posOK, self.negOK)
@@ -1179,14 +822,11 @@ def load_one(filename, max_size = None):
   return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
 
 def prepare_signature(prob_data_list):
-  thax_sign = set()
   # sine_sign = set()
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight,_), (init,deriv,pars,_,_,axioms) in prob_data_list:
-    for id, thax in init:
-      thax_sign.add(thax)
+  for (_,probweight,_), (_,deriv,pars,_,_,_,_,axioms) in prob_data_list:
     # for id, (_,sine) in init:
     #   sine_sign.add(sine)
 
@@ -1204,22 +844,61 @@ def prepare_signature(prob_data_list):
     for id, ax in axioms.items():
       axiom_hist[ax] += probweight
 
-  return (thax_sign, deriv_arits, axiom_hist)
+  return (deriv_arits, axiom_hist)
+
+def pick_positive(prob_data_list):
+  for i, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
+    print()
+  
+    if True:
+      probweight = 1.0
+  
+    print(tot_pos, tot_neg)
     
-def axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list):
+    tot_pos = 0.0
+    tot_neg = 0.0
+
+    for id in pos_vals:
+      pos_vals[id] = 1.0
+      tot_pos += 1.0
+      if id in neg_vals:
+        del neg_vals[id]
+    for id in neg_vals:
+      neg_vals[id] = 1.0
+      tot_neg += 1.0
+
+    # new stuff -- normalize so that each abstracted clause in a problem has so much "voice" that tha whole problem has a sum of probweight
+    factor = probweight / (tot_pos + tot_neg)
+    for id in pos_vals:
+      pos_vals[id] *= factor
+    for id in neg_vals:
+      neg_vals[id] *= factor
+    tot_pos *= factor
+    tot_neg *= factor
+
+    print(tot_pos, tot_neg)
+
+    prob_data_list[i] = (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax))
+  return prob_data_list
+    
+def axiom_names_instead_of_thax(axiom_hist, prob_data_list):
   # (we didn't parse anything than 0 and -1 anyway:)
   # well, actually, in HOL/Sledgehammer we have both thax and user axioms
   # (and we treat all as user axioms (using a modified Vampire)
   
+  thax_sign = set()
   ax_idx = dict()
   thax_to_str = dict() 
   good_ax_cnt = 0
   for _, (ax, _) in enumerate(sorted(axiom_hist.items(),key = lambda x : -x[1])):
     good_ax_cnt += 1
-    ax_idx[ax] = good_ax_cnt
+    if good_ax_cnt <= HP.MAX_USED_AXIOM_CNT:
+      ax_idx[ax] = good_ax_cnt
+    else:
+      ax_idx[ax] = 0
     thax_to_str[good_ax_cnt] = ax
 
-  for i,(metainfo,(init,deriv,pars,selec,good,axioms)) in enumerate(prob_data_list):
+  for i,(metainfo,(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)) in enumerate(prob_data_list):
     new_init = []
     for id, thax in init:
       if thax == 0:
@@ -1228,94 +907,169 @@ def axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list):
       new_init.append((id,thax))
       thax_sign.add(thax)
     thax_sign.add(0)
-    prob_data_list[i] = metainfo,(new_init,deriv,pars,selec,good,axioms)
+    prob_data_list[i] = metainfo,(new_init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms)
 
   return thax_sign, prob_data_list, thax_to_str
 
-def get_subtree(start, match, pars):
-  persistent = deepcopy(start)
-  pers_len = len(persistent)
-  old_len = pers_len - 1
-  matches = {z for z, _ in match}
-  while pers_len > old_len:
-    persistent.update({y for x in persistent & matches for y in pars[x]})
-    old_len = pers_len
-    pers_len = len(persistent)
-  return persistent
+def setup_pos_vals_neg_vals(prob_data):
+  (probname, probweight, size), (init, deriv, pars, selec, good, axioms) = prob_data
+  print(probname, len(init), len(deriv), len(pars), len(selec), len(good), len(axioms))
 
-def set_zero(prob_data_list, thax_to_str):
-  thax_sign = set()
-  thax_to_str_out = {}
-  for i, ((probname, probweight, size), (init, deriv, pars, selec, good)) in enumerate(prob_data_list):
-    if HP.THAX_SOURCE == HP.ThaxSource_AXIOM_NAMES:
-      new_init = []
-      for id, thax in init:
-        if thax > HP.MAX_USED_AXIOM_CNT:
-          thax = 0
-        else:
-          if thax in thax_to_str:
-            thax_to_str_out[thax] = thax_to_str[thax]
-        
-        thax_sign.add(thax)
-        
-        new_init.append((id, thax))
+  pos_vals = {}
+  neg_vals = {}
+  tot_pos = 0.0
+  tot_neg = 0.0
+
+  # Longer proofs have correspondly less weight per clause (we are fair on the per problem level)
+  # one_clause_weigth = 1.0/len(selec)
+
+  # New strategy: Apply the recursive depth of a node as it's weight. So inititals get 1, children of depth max. n get 1/n, ... 
+
+  # depths = {}
+  # for id in [x for x, _ in init]:
+  #   depths[id] = 1
+  # for id in [x for x, _ in deriv]:
+  #   depths[id] = max(depths[id2] for id2 in pars[id]) + 1
+
+  for id in selec:
+    if id in good:
+      pos_vals[id] = 1.0
+      tot_pos += 1.0
+      # pos_vals[id] = one_clause_weigth
+      # tot_pos += one_clause_weigth
     else:
-      new_init = init
+      neg_vals[id] = 1.0
+      tot_neg += 1.0
+      # neg_vals[id] = one_clause_weigth
+      # tot_neg += one_clause_weigth
 
-    prob_data_list[i] = ((probname, probweight, size), (new_init, deriv, pars, selec, good))
-  return prob_data_list, thax_sign, thax_to_str_out
+  return ((probname,probweight,size),(init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,axioms))
 
-def adjust_ids_and_crop(prob, old2new, global_selec):
-  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
-  this_init = [(old2new[id], thax) for id, thax in init]
-  this_deriv = [(old2new[id], rule) for id, rule in deriv]
-  these_pars = {old2new[id]: [old2new[val] for val in vals] for id, vals in pars.items() if id in old2new}
+def adjust_ids_and_pos_neg_vals(prob_data_list, old2new, pos_vals, neg_vals, num_to_pos_vals, num_to_neg_vals):
+  for j in range(len(prob_data_list)):
+    print(j, flush=True)
+    (probname,probweight,_), (init,deriv,pars,_,_,_,_,_) = prob_data_list[j]
+    if not (j in num_to_pos_vals.keys() or j in num_to_neg_vals.keys()):
+      print("All pos_vals and neg_vals distributed. Emptying problem", j, "out of", len(prob_data_list), flush=True)
+      prob_data_list[j] = (("",1.0,0.0),([],[],{},{},{},0.0,0.0,{}))
+    print("Adjusting ids, init, deriv and pars for id", j, "out of", len(prob_data_list), flush=True)
+    this_init = [(old2new[j][id], thax) for id, thax in init]
+    this_deriv = [(old2new[j][id], rule) for id, rule in deriv]
+    these_pars = {old2new[j][id]: [old2new[j][val] for val in vals] for id, vals in pars.items()}
+    these_pos_vals = dict()
+    these_neg_vals = dict()
+    if j in num_to_pos_vals:
+      for id in num_to_pos_vals[j]:
+        these_pos_vals[id] = pos_vals[id]
+    if j in num_to_neg_vals:
+      for id in num_to_neg_vals[j]:
+        these_neg_vals[id] = neg_vals[id]
+    this_tot_pos = sum(these_pos_vals.values())
+    this_tot_neg = sum(these_neg_vals.values())
 
-  these_ids = {x for x, _ in this_init} | {x for x, _ in this_deriv}
-  persistent = get_subtree(these_ids & global_selec, this_deriv, these_pars)
-  this_init = [(id, thax) for id, thax in this_init if id in persistent]
-  this_deriv = [(id, rule) for id, rule in this_deriv if id in persistent]
-  these_pars = {id: vals for id, vals in these_pars.items() if id in persistent}
-  print("Reduced. Lengths before / after: {} / {}".format(len(init) + len(deriv), len(this_init) + len(this_deriv)), flush=True)
-  return ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, selec & persistent, good & persistent))
+    prob_data_list[j] = ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, these_pos_vals, these_neg_vals, this_tot_pos, this_tot_neg, {}))
+  return prob_data_list
 
-def crop(prob):
-  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
-  these_ids = {x for x, _ in init} | {x for x, _ in deriv}
-  persistent = get_subtree(these_ids & selec, deriv, pars)
-  this_init = [(id, thax) for id, thax in init if id in persistent]
-  this_deriv = [(id, rule) for id, rule in deriv if id in persistent]
-  these_pars = {id: vals for id, vals in pars.items() if id in persistent}
-  print("Reduced. Lengths before / after: {} / {}".format(len(init) + len(deriv), len(this_init) + len(this_deriv)), flush=True)
-  return [((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, selec & persistent, good & persistent))]
+def reduce_problems(prob_data_list):
+  for j in range(len(prob_data_list)):
+    a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, _) = prob_data_list[j]
+    print("Reducing problem. Lengths before: {}, {}, {}".format(len(init), len(deriv), len(init) + len(deriv)), flush=True)
+    persistent = set(pos_vals.keys()) | set(neg_vals.keys())
+    if len(persistent) == 0:
+      prob_data_list[j] = (("", 1.0, 0.0),([], [], {}, {}, {}, 0.0, 0.0, {}))
+      print("Reduced problem. Lengths after: 0.0, 0.0, 0.0", flush=True)
+    else:
+      pers_len = len(persistent)
+      old_len = pers_len - 1
+      while pers_len > old_len:
+        persistent = persistent | set([y for x in persistent & set([z for z, _ in deriv]) for y in pars[x]])
+        old_len = pers_len
+        pers_len = len(persistent)
+      this_init = [(x, y) for x, y in init if x in persistent]
+      this_deriv = [(x, y) for x, y in deriv if x in persistent]
+      these_pars = {x: y for x, y in pars.items() if x in persistent}
+
+      print(tot_pos, tot_neg, flush=True)
+
+      prob_data_list[j] = (a, (this_init, this_deriv, these_pars, pos_vals, neg_vals, tot_pos, tot_neg, {}))
+      print("Reduced problem. Lengths after: {}, {}, {}".format(len(this_init), len(this_deriv), len(this_init) + len(this_deriv)), flush=True)
+  return prob_data_list
+
+def distribute_weights(prob_data_list):
+  id_dict = {}
+  print("Getting ids, their problems and pos/neg vals.", flush=True)
+  for num, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
+    this_set = set([x for x, _ in init]) | set([x for x, _ in deriv])
+    for id in this_set:
+      if id not in id_dict:
+        id_dict[id] = {}
+      if "probs" not in id_dict[id]:
+        id_dict[id]["probs"] = set() 
+      id_dict[id]["probs"].add(num)
+      if id in pos_vals:
+        id_dict[id]["pos"] = pos_vals[id]
+      if id in neg_vals:
+        id_dict[id]["neg"] = neg_vals[id]
+
+  print("Distributing pos vals and neg vals.", flush=True)
+  for num, (a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)) in enumerate(prob_data_list):
+    print(num/len(prob_data_list), flush=True)
+    tot_pos = 0.0
+    tot_neg = 0.0
+    this_set = set([x for x, _ in init]) | set([x for x, _ in deriv])
+    for id in this_set & set(id_dict.keys()):
+      if "pos" in id_dict[id]:
+        pos_vals[id] = id_dict[id]["pos"] / len(id_dict[id]["probs"])
+        tot_pos += pos_vals[id]
+# Trying this, maybe avoiding pos and neg at the same time is crucial. 
+# Maybe even more so if we distribute the mean value over the instances. 
+        if "neg" in dict[id]:
+          del id_dict[id]["neg"]
+        if id in neg_vals:
+          del neg_vals[id]  
+      if "neg" in id_dict[id]:
+        neg_vals[id] = id_dict[id]["neg"] / len(id_dict[id]["probs"])
+        tot_neg += neg_vals[id]
+    prob_data_list[num] = a, (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, ax)
+
+  return prob_data_list
 
 def compress_prob_data_with_fixed_ids(some_probs):
   out_probname = ""
   out_probweight = 0.0
    
-  out_init = []
-  out_deriv = []
+  out_init = set()
+  out_deriv = set()
   out_pars = {}
-  out_selec = set()
-  out_good = set()
+  out_pos_vals = {}
+  out_neg_vals = {}
+  out_tot_pos = 0.0
+  out_tot_neg = 0.0
 
-  for ((probname, probweight, _), (init, deriv, pars, selec, good)) in some_probs:
+  for ((probname,probweight,_), (init,deriv,pars,pos_vals,neg_vals,tot_pos,tot_neg,_)) in some_probs:
   
     just_file = probname.split("/")[-1]
-    out_probname = f"{out_probname} + {just_file}" if out_probname else just_file
+    out_probname = f"{out_probname}+{just_file}" if out_probname else just_file
     out_probweight += probweight
 
-    out_init_set = set(out_init)
-    out_init.extend([x for x in init if x not in out_init_set])
-    out_deriv_set = set(out_deriv)
-    out_deriv.extend([x for x in deriv if x not in out_deriv_set])
-    out_pars.update(pars)
-    out_selec.update(selec)
-    out_good.update(good)
+    out_init.update(init)
+    out_deriv.update(deriv)
 
-  print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), flush=True)
+    out_pars.update((k, v) for k, v in pars.items() if k not in out_pars)
+
+    for k, v in pos_vals.items():
+      if v > 0.0:
+        out_pos_vals[k] = max(v, out_pos_vals.get(k, 0.0))
+    for k, v in neg_vals.items():
+      if v > 0.0:
+        out_neg_vals[k] = max(v, out_neg_vals.get(k, 0.0))
+
+    out_tot_pos += tot_pos
+    out_tot_neg += tot_neg
+
+  print("Compressed to",out_probname,len(out_init)+len(out_deriv),len(out_init),len(out_deriv),len(out_pars),len(pos_vals),len(neg_vals),out_tot_pos,out_tot_neg, flush=True)
   sys.stdout.flush()
-  return (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
+  return (out_probname,out_probweight,len(out_init)+len(out_deriv)), (out_init,out_deriv,out_pars,out_pos_vals,out_neg_vals,out_tot_pos,out_tot_neg,{})
 
 def compress_prob_data(some_probs, flag=False):
   id_cnt = 0
@@ -1324,17 +1078,27 @@ def compress_prob_data(some_probs, flag=False):
   
   abs2new = {} # maps (thax/rule,par_new_ids) to new_id (the structurally hashed one)
   
+  new_id_counter_pos = {}
+  new_id_counter_neg = {}
+
   out_init = []
   out_deriv = []
   out_pars = {}
-  out_selec = set()
-  out_good = set()
+  out_pos_vals = {}
+  out_neg_vals = {}
+  out_tot_pos = 0.0
+  out_tot_neg = 0.0
+
+  out_axioms = {}
 
   old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
+  if flag:
+    num_to_pos_vals = {}
+    num_to_neg_vals = {}
+    checklist_pos = set()
+    checklist_neg = set()
 
-  for i, ((probname, probweight, _), specs) in enumerate(some_probs):
-    init, deriv, pars, selec, good = specs
-
+  for i,((probname, probweight, _), (init, deriv, pars, pos_vals, neg_vals, tot_pos, tot_neg, axioms)) in enumerate(some_probs):
     # reset for evey problem in the list
     old2new[i] = {}
     just_file = probname.split("/")[-1]
@@ -1349,6 +1113,8 @@ def compress_prob_data(some_probs, flag=False):
         abs2new[features] = new_id
       old2new[i][old_id] = abs2new[features]
 
+    out_axioms.update(axioms)
+
     for old_id, features in deriv:
       new_pars = [old2new[i][par] for par in pars[old_id]]
       abskey = (features, *new_pars)
@@ -1360,16 +1126,51 @@ def compress_prob_data(some_probs, flag=False):
         abs2new[abskey] = new_id
       old2new[i][old_id] = abs2new[abskey]
 
-    for old_id in selec:
-      out_selec.add(old2new[i][old_id])
-    for old_id in good:
-      out_good.add(old2new[i][old_id])
+    for k, v in pos_vals.items():
+      if v > 0.0:
+        new_id = old2new[i][k]
+        if new_id not in new_id_counter_pos:
+          new_id_counter_pos[new_id] = 1
+        else:  
+          new_id_counter_pos[new_id] += 1
+        out_pos_vals[new_id] = out_pos_vals.get(new_id, 0.0) + v
 
-  print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(out_selec), len(out_good))
-  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
+    for k, v in neg_vals.items():
+      if v > 0.0:
+        new_id = old2new[i][k]
+        if new_id not in new_id_counter_neg:
+          new_id_counter_neg[new_id] = 1
+        else:  
+          new_id_counter_neg[new_id] += 1
+        out_neg_vals[new_id] = out_neg_vals.get(new_id, 0.0) + v
+
+    if flag:
+      for k, v in pos_vals.items():
+        if v > 0.0:
+          new_id = old2new[i][k]
+          if new_id not in checklist_pos:
+            checklist_pos.add(new_id)
+            num_to_pos_vals.setdefault(i, set()).add(new_id)
+      for k, v in neg_vals.items():
+        if v > 0.0:
+          new_id = old2new[i][k]
+          if new_id not in checklist_neg:
+            checklist_neg.add(new_id)
+            num_to_neg_vals.setdefault(i, set()).add(new_id)
+
+  # for k in out_pos_vals:
+  #   out_pos_vals[k] /= new_id_counter_pos[k]
+  # for k in out_neg_vals:
+  #   out_neg_vals[k] /= new_id_counter_neg[k]
+
+  out_tot_pos = sum(out_pos_vals.values())
+  out_tot_neg = sum(out_neg_vals.values())
+
+  print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(pos_vals), len(neg_vals), out_tot_pos, out_tot_neg)
+  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_pos_vals, out_neg_vals, out_tot_pos, out_tot_neg, out_axioms)
 
   if flag:
-    return result, old2new, out_selec, out_good
+    return result, old2new, out_pos_vals, out_neg_vals, num_to_pos_vals, num_to_neg_vals
   else:
     return result 
 
