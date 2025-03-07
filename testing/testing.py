@@ -42,4 +42,4 @@ print("Abs. error |greedy - old|: loss: {}, posOK: {}, negOK: {}".format(abs(los
 if loss_old.item() > 0 and posOK_old > 0 and negOK_old > 0:
   print("Rel. error |(greedy - old) / old|: loss: {}, posOK: {}, negOK: {}".format(abs((loss_greedy.item() - loss_old.item()) / (loss_old.item())), abs((posOK_greedy.item() - posOK_old) / (posOK_old)), abs((negOK_greedy.item() - negOK_old)/ (negOK_old))), flush=True)
 
-print("If the values are different: Don't forget to set Dropout = 0.0 in hyperparams.py (in both folders).")
+print("If the values are different: Don't forget to set Dropout = 0.0 in hyperparams.py (in the base folder).")
