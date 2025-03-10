@@ -8,25 +8,26 @@ torch.set_printoptions(precision=16)
 
 print("Don't forget to set Dropout = 0.0 in hyperparams.py.")
 
-# command1 = "python3 log_loader.py"
-# command2 = "python3 compressor.py mode=pre"
-# command3 = "python3 compressor.py mode=compress"
-# print("NEW CODE: Loading Log Files", flush=True)
-# subprocess.Popen(command1,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
-# print("NEW CODE: Pre-Compression", flush=True)
-# subprocess.Popen(command2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
-# print("NEW CODE: Compression", flush=True)
-# subprocess.Popen(command3,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+command1 = "python3 log_loader.py"
+command2 = "python3 compressor.py mode=pre"
+command3 = "python3 compressor.py mode=compress"
+print("NEW CODE: Loading Log Files", flush=True)
+subprocess.Popen(command1,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+print("NEW CODE: Pre-Compression", flush=True)
+subprocess.Popen(command2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+print("NEW CODE: Compression", flush=True)
+subprocess.Popen(command3,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
 
-# command_original1 = "python3 log_loader_original.py"
-# command_original2 = "python3 compressor_original.py"
-# print("ORIGINAL CODE: Loading Log Files", flush=True)
-# subprocess.Popen(command_original1,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
-# print("ORIGINAL CODE: Compression", flush=True)
-# subprocess.Popen(command_original2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+command_original1 = "python3 log_loader_original.py"
+command_original2 = "python3 compressor_original.py"
+print("ORIGINAL CODE: Loading Log Files", flush=True)
+subprocess.Popen(command_original1,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
+print("ORIGINAL CODE: Compression", flush=True)
+subprocess.Popen(command_original2,shell=True,universal_newlines=True, stdout=subprocess.PIPE).stdout.read()
 
 print("NEW CODE: Loading Problem Instance", flush=True)
 data_new = torch.load("pieces/piece0.pt.train",weights_only=False)
+print("Problem Size: {}".format(len(data_new["ids"])), flush=True)
 print("ORIGINAL CODE: Loading Problem Instance", flush=True)
 data_original = torch.load("pieces/piece0.pt",weights_only=False)
 
@@ -88,7 +89,7 @@ for _ in range(10):
 
 end_time = time.time()
 elapsed_time = end_time - start_time
-print(f"NEW CODE: Average time for Learning Model Generation, Frward + Backward Pass: {elapsed_time / 10:.6f} sec")
+print(f"NEW CODE: Average time for Learning Model Generation, Forward + Backward Pass, Optimizer Step: {elapsed_time / 10:.6f} sec")
 
 print("ORIGINAL CODE:", flush=True)
 master_parts_original_ = deepcopy(master_parts_original)
@@ -106,7 +107,7 @@ for _ in range(10):
 
 end_time = time.time()
 elapsed_time = end_time - start_time
-print(f"ORIGINAL CODE: Average time for Learning Model Generation, Frward + Backward Pass: {elapsed_time / 10:.6f} sec")
+print(f"ORIGINAL CODE: Average time for Learning Model Generation, Forward + Backward Pass, Optimizer Step: {elapsed_time / 10:.6f} sec")
 
 print("Performing Comparison of Time Duration for Steps on GPU.", flush=True)
 for part in master_parts_new:
@@ -129,4 +130,4 @@ end_event.record()
 torch.cuda.synchronize()  # Ensure computation is finished
 
 elapsed_time = start_event.elapsed_time(end_event)  # Time in milliseconds
-print(f"NEW CODE, GPU: Average time for Learning Model Generation, Frward + Backward Pass: {elapsed_time / 10:.3f} ms")
+print(f"NEW CODE, GPU: Average time for Learning Model Generation, Forward + Backward Pass, Optimizer Step: {elapsed_time / 10:.3f} ms")
