@@ -143,7 +143,7 @@ PRE_FOLDER = "strat1new_better/classes_testing_compress/"
 PRE_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 
 COM_FOLDER = "strat1new_better/classes_testing_compress/"
-COM_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt.train"
+COM_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 COM_ADD_MODE_1 = "train"
 
 TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
@@ -156,5 +156,5 @@ VALID_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
 VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
 
 EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt"
-EXP_NAME = "strat1new_better/models/greedy-500-e19-additive.pt"
-EXP_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch19.pt"
+EXP_NAME = "strat1new_better/models/greedy-500-e37-PerProblem_mixed.pt"
+EXP_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch37.pt"

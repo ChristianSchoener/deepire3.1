@@ -408,10 +408,6 @@ if __name__ == "__main__":
     exit()
 
   if args["mode"] == "compress":
-    assert hasattr(HP, "COM_FILE"), "Parameter COM_FILE in hyperparams.py not set. This file contains the prepared data of the preparation step, either for training or validation."
-    assert isinstance(HP.COM_FILE, str), "Parameter COM_FILE in hyperparams.py is not a string. This file contains the prepared data of the preparation step, either for training or validation."
-    assert os.path.isfile(HP.COM_FILE), "Parameter COM_FILE in hyperparams.py does not point to an existing file. This file contains the prepared data of the preparation step, either for training or validation."
-
     assert hasattr(HP, "COM_FOLDER"), "Parameter COM_FOLDER in hyperparams.py not set. This folder is the base folder of the project."
     assert isinstance(HP.COM_FOLDER, str), "Parameter COM_FOLDER in hyperparams.py is not a string. This folder is the base folder of the project."
     assert os.path.isdir(HP.COM_FOLDER), "Parameter COM_FOLDER in hyperparams.py does not point to an existing directory. This folder is the base folder of the project."
@@ -419,8 +415,13 @@ if __name__ == "__main__":
     assert hasattr(HP, "COM_ADD_MODE_1"), "Parameter COM_ADD_MODE_1 in hyperparams.py not set. This parameter takes values either train or valid an indicates, which of the data sets shall be compressed and further transformed to perform the computations."
     assert(HP.COM_ADD_MODE_1 == "train" or HP.COM_ADD_MODE_1 == "valid"), "Parameter COM_ADD_MODE_1 in hyperparams.py is not train or valid. This parameter indicates, which of the data sets shall be compressed and further transformed to perform the computations."
 
+    assert hasattr(HP, "COM_FILE"), "Parameter COM_FILE in hyperparams.py not set. This filename is the one created by log_loader and is suffixed with .valid or .train (done automatically)."
+    assert isinstance(HP.COM_FILE, str), "Parameter COM_FILE in hyperparams.py is not a string. This filename is the one created by log_loader and is suffixed with .valid or .train (done automatically)."
+    assert os.path.isfile(HP.COM_FILE + "." + HP.COM_ADD_MODE_1), "The string COM_FILE + \".\" + COM_ADD_MODE_1 does not point to an existing file. This file contains the prepared data of the preparation step, either for training or validation."
+
     print("Loading problem file, selec and good, and old2new and prob_names.", flush=True)
-    prob_data_list = torch.load(HP.COM_FILE, weights_only=False)
+    prob_data_list = torch.load(HP.COM_FILE + "." + HP.COM_ADD_MODE_1, weights_only=False)
+
     selec, good, neg = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
     prob_names = torch.load("{}/prob_names.pt".format(HP.PRE_FOLDER), weights_only=False)
 

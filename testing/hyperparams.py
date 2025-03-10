@@ -142,7 +142,7 @@ PRE_FOLDER = "."
 PRE_FILE = "raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 
 COM_FOLDER = "."
-COM_FILE = "raw_log_data_avF_thaxAxiomNames_useSineFalse.pt.train"
+COM_FILE = "raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 COM_ADD_MODE_1 = "train"
 
 TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
