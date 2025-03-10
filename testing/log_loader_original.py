@@ -60,11 +60,12 @@ if __name__ == "__main__":
 
   if True: # parallel
     tasks = []
-# for testing purposes
-    with open(HP.LOG_FILES_TXT,"r") as f:
+    with open(args["file"], "r") as f:
       for i,line in enumerate(f):
-        logname = line[:-1]
-        tasks.append((i,logname))
+        logname = line.strip()
+        if logname:
+          tasks.append((i, logname))
+          print(logname)        
 
     pool = Pool(processes=12) # number of cores to use
     results = pool.map(load_one, tasks, chunksize = 100)

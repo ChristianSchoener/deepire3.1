@@ -38,8 +38,10 @@ if __name__ == "__main__":
   tasks = []
   with open(args["file"], "r") as f:
     for i,line in enumerate(f):
-      logname = line[:-1]
-      tasks.append((i, logname))
+      logname = line.strip()
+      if logname:
+        tasks.append((i, logname))
+        print(logname)
 
   with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
     prob_data_list = list(filter(None, executor.map(load_one, tasks, chunksize=1000)))
