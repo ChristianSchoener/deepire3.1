@@ -980,13 +980,7 @@ class LearningModel(torch.nn.Module):
     self.negOK = (self.neg[self.mask] * (self.vals < 0.0)).sum()
 
     val_sigmoid = torch.clamp(torch.special.expit(self.vals), min=1.e-12, max=1.-1.e-12)
-    # val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
-    # val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
-
-    # val_sigmoid = torch.where(self.pos > 0, val_sigmoid_pos, val_sigmoid)
-    # val_sigmoid = torch.where(self.neg > 0, val_sigmoid_neg, val_sigmoid)
     contrib = -self.pos_weight * self.target[self.mask] * torch.log(val_sigmoid) - (1. - self.target[self.mask]) * torch.log(1. - val_sigmoid)
-    # contrib = self.criterion(self.vals, self.target[self.mask])
 
     self.loss = ((self.pos[self.mask] + self.neg[self.mask]) * contrib).sum()
 
@@ -1321,14 +1315,15 @@ def compress_prob_data(some_probs, specs_length, flag=False):
   out_probname = ""
   out_probweight = 0.0
   
-  abs2new_init = {} # maps (thax/rule,par_new_ids) to new_id (the structurally hashed one)
-  abs2new_deriv = {} # maps (thax/rule,par_new_ids) to new_id (the structurally hashed one)
+  abs2new_init = {}
+  abs2new_deriv = {}
   
   out_init = []
   out_deriv = []
   out_pars = {}
   out_selec = {}
   out_good = {}
+  out_neg = {}
 
   prob_names = {}
 
@@ -1354,7 +1349,6 @@ def compress_prob_data(some_probs, specs_length, flag=False):
         out_init.append((new_id, features))
         abs2new_init[features] = new_id
       old2new[i][old_id] = abs2new_init[features]
-      print(old_id, old2new[i][old_id], features, flush=True)
 
     for old_id, features in deriv:
       new_pars = [old2new[i][par] for par in pars[old_id]]
@@ -1366,22 +1360,30 @@ def compress_prob_data(some_probs, specs_length, flag=False):
         out_pars[new_id] = new_pars
         abs2new_deriv[abskey] = new_id
       old2new[i][old_id] = abs2new_deriv[abskey]
-      print(old_id, old2new[i][old_id], abskey, flush=True)
 
     if specs_length == "long":
       out_selec[i] = set()
-      out_good[i] = set()
+      out_good[i] = {}
+      out_neg[i] = {}
       for old_id in selec:
         out_selec[i].add(old2new[i][old_id])
-# Positive gets preferred over negative here
       for old_id in good:
-        out_good[i].add(old2new[i][old_id])
+        if old2new[i][old_id] in out_good[i]:
+          out_good[i][old2new[i][old_id]] += 1
+        else:
+          out_good[i][old2new[i][old_id]] = 1
+      neg = set(selec) - set(good)
+      for old_id in neg:
+        if old2new[i][old_id] in out_neg[i]:
+          out_neg[i][old2new[i][old_id]] += 1
+        else:
+          out_neg[i][old2new[i][old_id]] = 1
 
   print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(out_selec), len(out_good))
   result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars)
 
   if flag:
-    return result, old2new, out_selec, out_good, prob_names
+    return result, old2new, out_selec, out_good, out_neg, prob_names
   else:
     return result 
 

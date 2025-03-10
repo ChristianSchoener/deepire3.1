@@ -59,8 +59,7 @@ FAKE_CONST_SINE_LEVEL = -1
 # MODEL PARAMS:
 
 # a hyper-parameter of the future model
-# 2*4^3 = 128 EMBED_SIZE
-EMBEDDING_SIZE = 128
+EMBED_SIZE = 128
 
 NonLinKind_TANH = 1
 NonLinKind_RELU = 2
@@ -126,16 +125,16 @@ POS_WEIGHT_EXTRA = 1.0
 
 FRACTIONAL_CHECKPOINTING = 0 # 0 means disabled, 1 does not make sense
 
-ALL_ONCE = True
-
 FOCAL_LOSS = False
 
 CUDA = True
 
 NUM_STREAMS = 1
 
-LOG_FOLDER = "strat1new_better/classes_testing_compress_guided/"
-LOG_FILES_TXT = "loop0_guided.txt"
+WEIGHT_STRATEGY = "PerProblem_mixed"
+
+LOG_FOLDER = "strat1new_better/classes_testing_compress/"
+LOG_FILES_TXT = "loop0_logs.txt"
 
 ZERO_FOLDER = "strat1new_better/classes_testing_compress/"
 ZERO_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
@@ -150,24 +149,12 @@ COM_ADD_MODE_1 = "train"
 TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
 TRAIN_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
 TRAIN_USE_CHECKPOINT = False
-TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch2.pt"
+TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch18.pt"
 
 VALID_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
 VALID_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
 VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
 
-EXP_DATA_SIGN = "strat1new_better/classes_testing_compress/data_sign_full.pt"
 EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt"
-EXP_FILE = "strat1new_better/classes_testing_compress/full_tree_cropped_revealed_500.pt"
-EXP_NAME = "strat1new_better/models/zero-test.pt"
-EXP_MODEL_FOLDER = "/media/chris/8b23eee9-a098-4f74-8836-d5f49654310e/Projektarbeit_Vampire_dump/zero-test-models"
-EXP_PROBLEM_CONFIGURATIONS = "key_problemName_val_axiomNumberSet.pt"
-EXP_PROBLEM_FILES_ALL = "all.txt"
-EXP_PROBLEM_FILES = "all.txt"
-EXP_CHECKPOINT_FILE = ""
-EXP_AXIOM_NUMBER_MAPPING = "axiom2Number_number2Axiom.pt"
-EXP_SELEC_GOOD_FILE = "strat1new_better/classes_testing_compress/global_selec_and_good.pt"
-EXP_RESULTS_FOLDER = "results/zero-test-500"
-EXP_REVEAL = True
-EXP_LOAD_DERIV_ABSTRACTIONS = True
-EXP_LOAD_DERIV_ABSTRACTIONS_FILE = "strat1new_better/classes_testing_compress/deriv_abstractions_file.pt"
+EXP_NAME = "strat1new_better/models/greedy-500-e19-additive.pt"
+EXP_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch19.pt"

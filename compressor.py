@@ -8,42 +8,22 @@ import numpy as np
 import torch
 torch.set_printoptions(precision=16)
 torch.set_default_dtype(torch.float64)
-# torch.set_default_dtype(torch.float16)
-# from torch import Tensor
-
-# import heapq
-
-from functools import partial
 
 import argparse
 
-# import operator
+import time,random,math,os
 
-from itertools import combinations
-from bitarray import bitarray
+import sys,random
 
-import time,bisect,random,math,os,errno
+import gc
 
-# from typing import Dict, List, Tuple, Optional
-
-# from multiprocessing import shared_memory
-
-from collections import defaultdict
-# from collections import ChainMap
-
-import sys,random,itertools
-
-import multiprocessing
-# import asyncio
+from collections import Counter
 
 import threading
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import queue
 
-# import multiprocessing as mp
 torch.multiprocessing.set_sharing_strategy('file_system')
-
-from copy import deepcopy
 
 def parse_args():
 
@@ -122,8 +102,9 @@ class RuleWorker(threading.Thread):
     result = 1
     return result
 
-def greedy(data, global_selec, global_good, stop_early=0):
-  init, deriv, pars = data[1][:3] 
+def greedy(prob_data):
+  init, deriv, pars = prob_data[1][:3]
+  name = prob_data[0][0]
 
   ids = [id for id, _ in init]
   id_to_ind = {ids[i]: i for i in range(len(ids))}
@@ -155,13 +136,6 @@ def greedy(data, global_selec, global_good, stop_early=0):
   id_pool = ids
 
   while remaining_count > 0:
-    if stop_early > 0 and (len(rule_steps) == stop_early):
-      for rule in rules:
-        task_queues[rule].put(None)
-      for p in workers.values():
-        p.join()
-      return (0, 0, [None] * (stop_early + 1))
-
     print(remaining_count, end =" ", flush=True)
 
     for rule in rules:
@@ -228,21 +202,59 @@ def greedy(data, global_selec, global_good, stop_early=0):
   for p in workers.values():
     p.join()
 
-  this_good = global_good & set(ids)
-  this_neg = (global_selec - global_good) & set(ids)
+  return {"name": name, "thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "rule_52_limits": rule_52_limits}
 
-  pos = []
-  neg = []
-  for _, id in enumerate(ids):
-    if id in this_good:
-      pos.append(1)
-      neg.append(0)
-    elif id in this_neg:
-      pos.append(0)
-      neg.append(1)
-    else:
-      pos.append(0)
-      neg.append(0)
+def setup_weights(prob, selecs, goods, negs):
+
+  pos = [0.] * len(prob["ids"])
+  neg = [0.] * len(prob["ids"])
+
+  # print(selecs)
+  # print()
+  # print(goods)
+
+  if HP.WEIGHT_STRATEGY == "Simple":
+    this_good = set(k for inner_dict in goods.values() for k in inner_dict.keys())
+    this_neg = set.union(*selecs.values()) - this_good 
+    for num, id in enumerate(prob["ids"]):
+      if id.item() in this_good:
+        pos[num] = 1.
+      elif id in this_neg:
+        neg[num] = 1.
+# positive preferred over negative problem-wise, but not between merged problems
+  elif HP.WEIGHT_STRATEGY == "PerProblem":
+    for i, vals in selecs.items():
+      these_selec = vals
+      these_good = set(goods[i].keys())
+      these_neg = these_selec - these_good
+      factor = 1./len(these_selec)
+      for num, id in enumerate(prob["ids"]):
+        if id.item() in these_good:
+          pos[num] += factor
+        elif id.item() in these_neg:
+          neg[num] += factor
+# positive and negative equal problem-wise and between problems
+  elif HP.WEIGHT_STRATEGY == "PerProblem_mixed":
+    for i, _ in selecs.items():
+      these_good = set(goods[i].keys())
+      these_neg = set(negs[i].keys())
+      factor = 1. / len(these_good | these_neg)
+      for num, id in enumerate(prob["ids"]):
+        if id.item() in these_good:
+          pos[num] += factor * goods[i][id.item()] / (goods[i][id.item()] + negs[i].get(id.item(), 0))
+        if id.item() in these_neg:
+          neg[num] += factor * negs[i][id.item()] / (goods[i].get(id.item(), 0) + negs[i][id.item()])
+  elif HP.WEIGHT_STRATEGY == "Additive":
+    for i, vals in selecs.items():
+      these_selec = vals
+      these_good = goods[i]
+      these_neg = these_selec - these_good
+      factor = 1./len(these_selec)
+      for num, id in enumerate(prob["ids"]):
+        if id.item() in these_good:
+          pos[num] += factor
+        elif id.item() in these_neg:
+          neg[num] += factor
 
   pos = torch.tensor(pos, dtype=torch.float64)
   neg = torch.tensor(neg, dtype=torch.float64)
@@ -253,10 +265,16 @@ def greedy(data, global_selec, global_good, stop_early=0):
   target = pos / (pos + neg)
 
   mask = (pos > 0) | (neg > 0)
+  
+  prob["pos"] = pos
+  prob["neg"] = neg
+  prob["tot_pos"] = tot_pos
+  prob["tot_neg"] = tot_neg
+  prob["target"] = target
+  prob["mask"] = mask
 
-  print()
+  return prob
 
-  return {"thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "pos": pos, "neg": neg, "tot_pos": tot_pos, "tot_neg": tot_neg, "target": target, "rule_52_limits": rule_52_limits, "mask":mask}
 
 if __name__ == "__main__":
 
@@ -268,46 +286,47 @@ if __name__ == "__main__":
                           "2. mode=pre, preparing the raw data for compression by excluding large cases, setting all axioms to zero which aren't among the chosen number of most common ones, and cleaning up data a bit, as well as splitting into training and validation sets.\n" + \
                           "3. mode=compress, compressing the prepared files and splitting them up into individual training and validation instances."
 
-  if args["mode"] == "zero-test":
-    assert hasattr(HP, "ZERO_FILE"), "Parameter ZERO_FILE in hyperparams.py not set. This file is read in for producing the one big multi-tree."
-    assert isinstance(HP.ZERO_FILE, str), "Parameter ZERO_FILE in hyperparams.py is not a string. This file is read in for producing the one big multi-tree."
-    assert os.path.isfile(HP.ZERO_FILE), "Parameter ZERO_FILE in hyperparams.py does not point to an existing file. This file is read in for producing the one big multi-tree."
+  # if args["mode"] == "zero-test":
+  #   assert hasattr(HP, "ZERO_FILE"), "Parameter ZERO_FILE in hyperparams.py not set. This file is read in for producing the one big multi-tree."
+  #   assert isinstance(HP.ZERO_FILE, str), "Parameter ZERO_FILE in hyperparams.py is not a string. This file is read in for producing the one big multi-tree."
+  #   assert os.path.isfile(HP.ZERO_FILE), "Parameter ZERO_FILE in hyperparams.py does not point to an existing file. This file is read in for producing the one big multi-tree."
 
-    assert hasattr(HP, "ZERO_FOLDER"), "Parameter ZERO_FOLDER in hyperparams.py not set. This folder shall contain the raw data for producing the one big multi-tree."
-    assert isinstance(HP.ZERO_FOLDER, str), "Parameter ZERO_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data for producing the one big multi-tree."
-    assert os.path.isdir(HP.ZERO_FOLDER), "Parameter ZERO_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data for producing the one big multi-tree."
+  #   assert hasattr(HP, "ZERO_FOLDER"), "Parameter ZERO_FOLDER in hyperparams.py not set. This folder shall contain the raw data for producing the one big multi-tree."
+  #   assert isinstance(HP.ZERO_FOLDER, str), "Parameter ZERO_FOLDER in hyperparams.py is not a string. This folder shall contain the raw data for producing the one big multi-tree."
+  #   assert os.path.isdir(HP.ZERO_FOLDER), "Parameter ZERO_FOLDER in hyperparams.py does not point to an existing folder. This folder shall contain the raw data for producing the one big multi-tree."
 
-    print("Loading problem file.", flush=True)
-    prob_data_list = torch.load(HP.ZERO_FILE, weights_only=False)
+  #   print("Loading problem file.", flush=True)
+  #   prob_data_list = torch.load(HP.ZERO_FILE, weights_only=False)
 
-    print("Dropping axiom information, not needed anymore.")
-    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, _)) in prob_data_list]
+  #   print("Dropping axiom information, not needed anymore.")
+  #   prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good, _)) in prob_data_list]
 
-    print("Dropping large proofs (init+deriv > 30000).")
-    prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init) + len(deriv) < 30000]
+  #   print("Dropping large proofs (init+deriv > 30000).")
+  #   prob_data_list = [(metainfo, (init, deriv, pars, selec, good)) for (metainfo, (init, deriv, pars, selec, good)) in prob_data_list if len(init) + len(deriv) < 30000]
 
-    print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and updating thax number to name mapping.")
-    thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign_full.pt".format(HP.ZERO_FOLDER), weights_only=False)
-    prob_data_list, thax_sign, thax_to_str = IC.set_zero(prob_data_list, thax_to_str)
+  #   print("Setting axiom numbers to 0, if above MAX_USED_AXIOM_CNT, and updating thax number to name mapping.")
+  #   thax_sign, deriv_arits, thax_to_str = torch.load("{}/data_sign_full.pt".format(HP.ZERO_FOLDER), weights_only=False)
+  #   prob_data_list, thax_sign, thax_to_str = IC.set_zero(prob_data_list, thax_to_str)
 
-    print("Updating data signature.", flush=True)
-    torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.ZERO_FOLDER))
+  #   print("Updating data signature.", flush=True)
+  #   torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.ZERO_FOLDER))
 
-    print("Generating one multi-tree.", flush=True)
-    prob, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
-    torch.save((torch.tensor(list(selec), dtype=torch.int32), torch.tensor(list(good), dtype=torch.int32)), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
+  #   print("Generating one multi-tree.", flush=True)
+  #   prob, old2new, selec, good, prob_names = IC.compress_prob_data(prob_data_list, True)
+  #   torch.save((torch.tensor(list(selec), dtype=torch.int32), torch.tensor(list(good), dtype=torch.int32)), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
+  #   torch.save((old2new, prob_names), "{}/old2new_and_prob_names.pt".format(HP.PRE_FOLDER))
 
-    print("Cropping multitree to what is induced by the selection.", flush=True)
-    prob_data_list = IC.crop(prob)
+  #   # print("Cropping multitree to what is induced by the selection.", flush=True)
+  #   # prob_data_list = IC.crop(prob)
 
-    print("Computing Greedy Evaluation Scheme for fast processing on more efficient data structure.", flush=True)
-    tree_dict = greedy(prob_data_list[0], selec, good)
+  #   print("Computing Greedy Evaluation Scheme for fast processing on more efficient data structure.", flush=True)
+  #   tree_dict = greedy(prob_data_list[0], selec, good, old2new, prob_names)
 
-    print("Saving.", flush=True)
-    torch.save(tree_dict, "{}/full_tree_cropped_revealed_{}.pt".format(HP.ZERO_FOLDER, HP.MAX_USED_AXIOM_CNT))
+  #   print("Saving.", flush=True)
+  #   torch.save(tree_dict, "{}/full_tree_cropped_revealed_{}.pt".format(HP.ZERO_FOLDER, HP.MAX_USED_AXIOM_CNT))
 
-    print("Done.", flush=True)
-    exit()
+  #   print("Done.", flush=True)
+  #   exit()
 
   if args["mode"] == "pre":
     assert hasattr(HP, "PRE_FILE"), "Parameter PRE_FILE in hyperparams.py not set. This file contains the raw data from log_loading."
@@ -334,28 +353,28 @@ if __name__ == "__main__":
     print("Updating data signature.", flush=True)
     torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.PRE_FOLDER))
 
-    print("Compressing problems to get rid of several identical axioms and derivations form setting to zero.", flush=True)
-    prob_data_list = [IC.compress_prob_data([prob]) for prob in prob_data_list]
-
-    print("Generated old2new, selec, good from the modified data.", flush=True)
-    _, old2new, selec, good = IC.compress_prob_data(prob_data_list, True)
-    torch.save((torch.tensor(list(selec), dtype=torch.int32), torch.tensor(list(good), dtype=torch.int32)), "{}/global_selec_and_good.pt".format(HP.ZERO_FOLDER))
+    print("Generate old2new, selec, good and prob_names from the modified data.", flush=True)
+    _, old2new, selec, good, neg, prob_names = IC.compress_prob_data(prob_data_list, "long", True)
+    torch.save((selec, good, neg), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
+    torch.save(prob_names, "{}/prob_names.pt".format(HP.PRE_FOLDER))
 
     print("Assigning new ids to individual problems and cropping.", flush=True)
-    with ThreadPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
-      prob_data_list = list(executor.map(lambda j, prob: IC.adjust_ids_and_crop(prob, old2new[j], selec), 
-                                         range(len(prob_data_list)), prob_data_list))
+    def adjust_ids_and_crop_wrapper(args):
+      prob_index, prob_data = args
+      return IC.adjust_ids_and_crop(prob_data, old2new[prob_index])
+    with ThreadPoolExecutor() as executor:
+      prob_data_list = list(executor.map(adjust_ids_and_crop_wrapper, enumerate(prob_data_list)))
 
-    print("Extracting axiom-to-problem  and problem-to.axiom mappings to ensure, that every axiom is in the training. (And also having the data for swapping out uniformly, currently not implemented).", flush=True)
+    print("Extracting axiom-to-problem  and problem-to-axiom mappings to ensure, that every axiom is in the training. (And also having the data for swapping out uniformly, currently not implemented).", flush=True)
     ax_to_prob = dict()
-    for i,(_, (init, _, _, _, _)) in enumerate(prob_data_list):
+    for i,(_, (init, _, _)) in enumerate(prob_data_list):
       for _, thax in init:
         if thax not in ax_to_prob:
           ax_to_prob[thax] = {i}
         else:
           ax_to_prob[thax].add(i)
     torch.save(ax_to_prob, "{}/axiom_counts.pt".format(HP.PRE_FOLDER))
-    print("Saved axiom counts for uniformly distributed expectation SWAPOUT")
+    print("Saved axiom counts for uniformly distributed expectation SWAPOUT", flush=True)
     rev_ax_to_prob = dict()
     for key, vals in ax_to_prob.items():
       for val in vals:
@@ -363,16 +382,19 @@ if __name__ == "__main__":
           rev_ax_to_prob[val] = {key}
         else:
           rev_ax_to_prob[val].add(key)
+    print("Selecting problems for training to ensure that every axiom is in training.", flush=True)
     gather = set()
     train_data_list = []
-    to_delete = []
+    to_delete = set()
     train_length = math.ceil(len(prob_data_list) * HP.VALID_SPLIT_RATIO)
-    while len(set(ax_to_prob.keys() - gather)) > 0:
-      this_ax = list(set(ax_to_prob.keys() - gather))[0]
-      to_delete.append(list(ax_to_prob[this_ax])[0])
-      gather = gather | rev_ax_to_prob[list(ax_to_prob[this_ax])[0]]
+    while len(set(ax_to_prob.keys()) - gather) > 0:
+      this_ax = random.choice(list(set(ax_to_prob.keys()) - gather))
+      this_prob = random.choice(list(ax_to_prob[this_ax] - to_delete))
+      to_delete.add(this_prob)
+      gather = gather | rev_ax_to_prob[this_prob]
     train_data_list = [prob_data_list[i] for i in range(len(prob_data_list)) if i in to_delete] 
     prob_data_list = [prob_data_list[i] for i in range(len(prob_data_list)) if not i in to_delete]
+    print("Splitting the rest of the problems according to the split ratio.", flush=True)
     train_length -= len(train_data_list)
     train_length = max(train_length, 0)
     random.shuffle(prob_data_list)
@@ -397,9 +419,10 @@ if __name__ == "__main__":
     assert hasattr(HP, "COM_ADD_MODE_1"), "Parameter COM_ADD_MODE_1 in hyperparams.py not set. This parameter takes values either train or valid an indicates, which of the data sets shall be compressed and further transformed to perform the computations."
     assert(HP.COM_ADD_MODE_1 == "train" or HP.COM_ADD_MODE_1 == "valid"), "Parameter COM_ADD_MODE_1 in hyperparams.py is not train or valid. This parameter indicates, which of the data sets shall be compressed and further transformed to perform the computations."
 
-    print("Loading problem file and selec and good.", flush=True)
+    print("Loading problem file, selec and good, and old2new and prob_names.", flush=True)
     prob_data_list = torch.load(HP.COM_FILE, weights_only=False)
-    selec, good = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
+    selec, good, neg = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
+    prob_names = torch.load("{}/prob_names.pt".format(HP.PRE_FOLDER), weights_only=False)
 
     print("Compressing.", flush=True)
     compressed = []
@@ -417,16 +440,30 @@ if __name__ == "__main__":
         compressed.extend(to_compress)
       else:
         prob_data_list.extend(to_compress)
-    print("Compressed to {} many instances.".format(len(compressed)), flush=True)
+    print("Compressed to {} instances.".format(len(compressed)), flush=True)
     print("Done.", flush=True)
     prob_data_list.extend(compressed)
     del compressed
 
-    print("Computing Greedy Evaluation Schemes and setting pos vals and neg vals.", flush=True)
-    greedy_partial = partial(greedy, global_selec=set(selec.tolist()), global_good=set(good.tolist()))
+    print("Computing Greedy Evaluation Schemes.", flush=True)
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
-      prob_data_list = list(executor.map(greedy_partial, prob_data_list))
-    print("Done. Saving.", flush=True)
+      prob_data_list = list(executor.map(greedy, prob_data_list))
+
+    print()
+    print("Setting up weights.", flush=True)
+    inv_prob_names = {val: key for key, val in prob_names.items()}
+    # old2news = [{x: set(y.values()) for x, y in old2new.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
+    selecs = [{x: y for x, y in selec.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
+    goods = [{x: y for x, y in good.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
+    negs = [{x: y for x, y in neg.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
+    
+    def setup_weights_wrapper(args):
+      prob_index, prob_data = args
+      return setup_weights(prob_data, selecs[prob_index], goods[prob_index], negs[prob_index])
+    with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
+      prob_data_list = list(executor.map(setup_weights_wrapper, enumerate(prob_data_list)))
+    del selec, good, neg
+    print("Done.", flush=True)
 
     print("Saving Pieces.", flush=True)
     dir = "{}/pieces".format(HP.COM_FOLDER)

@@ -5,21 +5,12 @@ import inf_common as IC
 import hyperparams as HP
 
 import torch
-from torch import Tensor
 
 import time
 
-from typing import Dict, List, Tuple, Optional
+import gc
 
-from collections import defaultdict
-from collections import ChainMap
-
-import sys,random,itertools
-
-import argparse
-
-from multiprocessing import Pool
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
 def load_one(task):
   i, logname = task
@@ -30,28 +21,9 @@ def load_one(task):
   print("Took", time.time()-start_time, flush=True)
   if result:
     probdata,time_elapsed = result
-    # probdata = IC.setup_pos_vals_neg_vals(probdata)
-    # probdata = IC.replace_axioms(probdata)
-    # probdata = IC.compress_prob_data([probdata])
     return (logname,time_elapsed),probdata
   else:
     None
-
-# def parse_args():
-
-#   parser = argparse.ArgumentParser(description="Process command-line arguments with key=value format.")
-#   parser.add_argument("arguments", nargs="+", help="Arguments in key=value format (e.g., mode=pre folder=/path file=file.txt).")
-
-#   args_ = parser.parse_args()
-
-#   args = {}
-#   for arg in args_.arguments:
-#     if "=" not in arg:
-#       parser.error(f"Invalid argument format '{arg}'. Use key=value.")
-#     key, value = arg.split("=", 1)  # Split only on the first '='
-#     args[key] = value
-  
-#   return args
 
 if __name__ == "__main__":
 
@@ -68,31 +40,30 @@ if __name__ == "__main__":
     for i,line in enumerate(f):
       logname = line[:-1]
       tasks.append((i, logname))
-    
-  pool = Pool(processes = HP.NUMPROCESSES) # number of cores to use
-  results = pool.map(load_one, tasks, chunksize = 100)
-  pool.close()
-  pool.join()
-  del pool
-  prob_data_list = list(filter(None, results))
+
+  with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
+    prob_data_list = list(filter(None, executor.map(load_one, tasks, chunksize=1000)))
 
   print(len(prob_data_list),"problems loaded!")
+
+  gc.collect()
 
   # assign weights to problems, especially if prob_easiness file has been provided
   times = []
   sizes = []
   easies = []
 
-  for i,((logname,time_elapsed),((_,_,size),rest)) in enumerate(prob_data_list):
+  print(prob_data_list[0])
+
+  for i, ((logname, time_elapsed), ((_, _, size), rest)) in enumerate(prob_data_list):
     probname = IC.logname_to_probname(logname)
 
     probweight = 1.0    
     
-    prob_data_list[i] = (probname,probweight,size),rest
+    prob_data_list[i] = (probname, probweight, size), rest
     
     times.append(time_elapsed)
     sizes.append(size)
-
 
   thax_sign, deriv_arits, axiom_hist = IC.prepare_signature(prob_data_list)
 

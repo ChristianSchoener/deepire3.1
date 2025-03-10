@@ -204,7 +204,7 @@ def greedy(prob_data):
 
   return {"name": name, "thax": thax, "ids": torch.tensor(ids, dtype=torch.int32), "rule_steps": torch.tensor(rule_steps, dtype=torch.int32), "ind_steps": ind_steps, "pars_ind_steps": pars_ind_steps, "rule_52_limits": rule_52_limits}
 
-def setup_weights(prob, selecs, goods):
+def setup_weights(prob, selecs, goods, negs):
 
   pos = [0.] * len(prob["ids"])
   neg = [0.] * len(prob["ids"])
@@ -214,28 +214,36 @@ def setup_weights(prob, selecs, goods):
   # print(goods)
 
   if HP.WEIGHT_STRATEGY == "Simple":
-    this_good = set.union(*goods.values())
+    this_good = set(k for inner_dict in goods.values() for k in inner_dict.keys())
     this_neg = set.union(*selecs.values()) - this_good 
     for num, id in enumerate(prob["ids"]):
       if id.item() in this_good:
         pos[num] = 1.
       elif id in this_neg:
         neg[num] = 1.
+# positive preferred over negative problem-wise, but not between merged problems
   elif HP.WEIGHT_STRATEGY == "PerProblem":
     for i, vals in selecs.items():
       these_selec = vals
-      these_good = goods[i]
+      these_good = set(goods[i].keys())
       these_neg = these_selec - these_good
-      pos_counter = 0
-      neg_counter = 0
       factor = 1./len(these_selec)
       for num, id in enumerate(prob["ids"]):
         if id.item() in these_good:
           pos[num] += factor
-          pos_counter += 1
         elif id.item() in these_neg:
           neg[num] += factor
-          neg_counter += 1
+# positive and negative equal problem-wise and between problems
+  elif HP.WEIGHT_STRATEGY == "PerProblem_mixed":
+    for i, _ in selecs.items():
+      these_good = set(goods[i].keys())
+      these_neg = set(negs[i].keys())
+      factor = 1. / len(these_good | these_neg)
+      for num, id in enumerate(prob["ids"]):
+        if id.item() in these_good:
+          pos[num] += factor * goods[i][id.item()] / (goods[i][id.item()] + negs[i].get(id.item(), 0))
+        if id.item() in these_neg:
+          neg[num] += factor * negs[i][id.item()] / (goods[i].get(id.item(), 0) + negs[i][id.item()])
   elif HP.WEIGHT_STRATEGY == "Additive":
     for i, vals in selecs.items():
       these_selec = vals
@@ -346,10 +354,9 @@ if __name__ == "__main__":
     torch.save((thax_sign, deriv_arits, thax_to_str), "{}/data_sign.pt".format(HP.PRE_FOLDER))
 
     print("Generate old2new, selec, good and prob_names from the modified data.", flush=True)
-    _, old2new, selec, good, prob_names = IC.compress_prob_data(prob_data_list, "long", True)
-    torch.save((selec, good), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
+    _, old2new, selec, good, neg, prob_names = IC.compress_prob_data(prob_data_list, "long", True)
+    torch.save((selec, good, neg), "{}/global_selec_and_good.pt".format(HP.PRE_FOLDER))
     torch.save(prob_names, "{}/prob_names.pt".format(HP.PRE_FOLDER))
-    print(len(old2new[0]), flush=True)
 
     print("Assigning new ids to individual problems and cropping.", flush=True)
     def adjust_ids_and_crop_wrapper(args):
@@ -414,7 +421,7 @@ if __name__ == "__main__":
 
     print("Loading problem file, selec and good, and old2new and prob_names.", flush=True)
     prob_data_list = torch.load(HP.COM_FILE, weights_only=False)
-    selec, good = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
+    selec, good, neg = torch.load("{}/global_selec_and_good.pt".format(HP.COM_FOLDER))
     prob_names = torch.load("{}/prob_names.pt".format(HP.PRE_FOLDER), weights_only=False)
 
     print("Compressing.", flush=True)
@@ -442,18 +449,20 @@ if __name__ == "__main__":
     with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       prob_data_list = list(executor.map(greedy, prob_data_list))
 
+    print()
     print("Setting up weights.", flush=True)
     inv_prob_names = {val: key for key, val in prob_names.items()}
     # old2news = [{x: set(y.values()) for x, y in old2new.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
     selecs = [{x: y for x, y in selec.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
     goods = [{x: y for x, y in good.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
+    negs = [{x: y for x, y in neg.items() if inv_prob_names[x] in prob_data_list[i]["name"]} for i in range(len(prob_data_list))]
     
     def setup_weights_wrapper(args):
       prob_index, prob_data = args
-      return setup_weights(prob_data, selecs[prob_index], goods[prob_index])
-    with ThreadPoolExecutor() as executor:
+      return setup_weights(prob_data, selecs[prob_index], goods[prob_index], negs[prob_index])
+    with ProcessPoolExecutor(max_workers=HP.NUMPROCESSES) as executor:
       prob_data_list = list(executor.map(setup_weights_wrapper, enumerate(prob_data_list)))
-    del selec, good
+    del selec, good, neg
     print("Done.", flush=True)
 
     print("Saving Pieces.", flush=True)

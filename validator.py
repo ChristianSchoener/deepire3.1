@@ -93,7 +93,7 @@ def plot_summary_and_report_best(datapoints):
     negrates.append(negrate)
     negrates_devs.append(negrate_dev)
 
-  with open("{}/as_if_run_validate_{}".format(HP.VALID_TRAIN_FOLDER,IC.name_learning_regime_suffix()), 'w') as f:
+  with open("{}/as_if_run_validate_{}".format(HP.VALID_VALID_FOLDER,IC.name_learning_regime_suffix()), 'w') as f:
     for (model_num,loss,loss_dev,posrate,posrate_dev,negrate,negrate_dev) in sorted(datapoints):
       print(f"Epoch {model_num} finished at <fake_time>",file=f)
       print(f"Loss: {loss} +/- {loss_dev}",file=f)
@@ -104,7 +104,7 @@ def plot_summary_and_report_best(datapoints):
   print("Best validation loss model:",times[best_idx],end=" ")
   print("loss",losses[best_idx],"posrate",posrates[best_idx],"negrate",negrates[best_idx])
 
-  IC.plot_with_devs("{}/plot.png".format(HP.VALID_TRAIN_FOLDER),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
+  IC.plot_with_devs("{}/plot.png".format(HP.VALID_VALID_FOLDER),times,losses,losses_devs,posrates,posrates_devs,negrates,negrates_devs)
 
 if __name__ == "__main__":
   # Experiments with pytorch and torch script
@@ -128,7 +128,7 @@ if __name__ == "__main__":
   # This tool is meant to run in sync with training, so it will always look for the latest checkpoint it hasn't evaluated yet!
   
   # global redirect of prints to the just open "logfile"
-  log = open("{}/validate{}".format(HP.VALID_TRAIN_FOLDER,IC.name_learning_regime_suffix()), 'w')
+  log = open("{}/validate{}".format(HP.VALID_VALID_FOLDER,IC.name_learning_regime_suffix()), 'w')
   sys.stdout = log
   sys.stderr = log
   
@@ -235,12 +235,12 @@ if __name__ == "__main__":
       num_active_tasks -= 1
 
       print(time.time() - start_time,"job finished at on problem",piece_name,"started",time_start-start_time,"finished",time_end-start_time,"took",time_end-time_start,flush=True)
-      print("Of weight",tot_pos,tot_neg,tot_pos+tot_neg)
-      print("Loss,pos,neg:",loss_sum/(tot_pos+tot_neg),posOK_sum/tot_pos if tot_pos > 0.0 else 1.0,negOK_sum/tot_neg if tot_neg > 0.0 else 1.0)
+      print("Of weight",tot_pos.item(),tot_neg.item(),tot_pos.item()+tot_neg.item())
+      print("Loss,pos,neg:",loss_sum/(tot_pos.item()+tot_neg.item()),posOK_sum.item()/tot_pos.item() if tot_pos.item() > 0.0 else 1.0,negOK_sum.item()/tot_neg.item() if tot_neg.item() > 0.0 else 1.0)
       print()
 
-      stats[t] = (loss_sum,posOK_sum,negOK_sum)
-      weights[t] = (tot_pos,tot_neg)
+      stats[t] = (loss_sum,posOK_sum.item(),negOK_sum.item())
+      weights[t] = (tot_pos.item(),tot_neg.item())
       t += 1
 
     # finished inner loop
@@ -274,7 +274,7 @@ if __name__ == "__main__":
     evaluated_models.add(youngests_age)
     datapoints.append(datapoint)
 
-    datapoint_name = "{}/points/datapoint-{}.pt".format(HP.VALID_TRAIN_FOLDER,datapoint[0])
+    datapoint_name = "{}/points/datapoint-{}.pt".format(HP.VALID_VALID_FOLDER,datapoint[0])
     torch.save(datapoint,datapoint_name)
     
     plot_summary_and_report_best(datapoints)

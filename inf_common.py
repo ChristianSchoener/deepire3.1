@@ -5,6 +5,8 @@
 # import multiprocessing.spawn
 import os
 
+import ast
+
 import math
 
 from copy import deepcopy
@@ -969,18 +971,15 @@ class LearningModel(torch.nn.Module):
     self.tot_pos = data["tot_pos"].to(self.device)
     self.pos_weight = (HP.POS_WEIGHT_EXTRA * self.tot_neg / self.tot_pos if self.tot_pos > 0 else torch.tensor(1.0)).to(self.device)
 
+    # self.criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor([self.pos_weight]))
+
   def contribute(self):
     self.vals = self.eval_net(self.vectors[self.mask]).squeeze()
 
     self.posOK = (self.pos[self.mask] * (self.vals >= 0.0)).sum()
     self.negOK = (self.neg[self.mask] * (self.vals < 0.0)).sum()
 
-    val_sigmoid = torch.clamp(torch.special.expit(self.vals), min=1.e-7, max=1.-1.e-7)
-    # val_sigmoid_pos = torch.clamp(val_sigmoid, max=0.5) + 0.5 - 1.e-7
-    # val_sigmoid_neg = torch.clamp(val_sigmoid, min=0.5) - 0.5 + 1.e-7
-
-    # val_sigmoid = torch.where(self.pos > 0, val_sigmoid_pos, val_sigmoid)
-    # val_sigmoid = torch.where(self.neg > 0, val_sigmoid_neg, val_sigmoid)
+    val_sigmoid = torch.clamp(torch.special.expit(self.vals), min=1.e-12, max=1.-1.e-12)
     contrib = -self.pos_weight * self.target[self.mask] * torch.log(val_sigmoid) - (1. - self.target[self.mask]) * torch.log(1. - val_sigmoid)
 
     self.loss = ((self.pos[self.mask] + self.neg[self.mask]) * contrib).sum()
@@ -1069,7 +1068,7 @@ def load_one(filename, max_size = None):
   activation_limit_reached = False
   time_limit_reached = False
 
-  with open(filename, 'r') as f:
+  with open(filename, 'r', buffering=8192) as f:
     for line in f:
       if max_size and len(init)+len(deriv) > max_size:
         return None
@@ -1098,7 +1097,7 @@ def load_one(filename, max_size = None):
         return None
       spl = line.split()
       if spl[0] == "i:":
-        val = eval(spl[1])
+        val = ast.literal_eval(spl[1])
         assert(val[0] == 1)
         id = val[1]
         init.append((id,abstract_initial(val[2:])))
@@ -1110,7 +1109,7 @@ def load_one(filename, max_size = None):
           
       elif spl[0] == "d:":
         # d: [2,cl_id,age,weight,len,num_splits,rule,par1,par2,...]
-        val = eval(spl[1])
+        val = ast.literal_eval(spl[1])
         assert(val[0] == 2)
         deriv.append((val[1],abstract_deriv(tuple(val[2:7]))))
         id = val[1]
@@ -1122,7 +1121,7 @@ def load_one(filename, max_size = None):
       elif spl[0] == "a:":
         # a: [3,cl_id,age,weight,len,causal_parent or -1]
         # treat it as deriv (with one parent):
-        val = eval(spl[1])
+        val = ast.literal_eval(spl[1])
         assert(val[0] == 3)
         deriv.append((val[1],abstract_deriv((val[2],val[3],val[4],1,666)))) # 1 for num_splits, 666 for rule
         id = val[1]
@@ -1174,9 +1173,16 @@ def load_one(filename, max_size = None):
     print("Skipping, degenerate!")
     return None
 
-  print("init: {}, deriv: {}, select: {}, good: {}, axioms: {}, time: {}".format(len(init),len(deriv),len(selec),len(good),len(axioms),time_elapsed))
+  these_ids = {x for x, _ in init} | {x for x, _ in deriv}
+  these_ids = get_subtree(these_ids & selec, deriv, pars)
+  init = [(x, y) for x, y in init if x in these_ids]
+  deriv = [(x, y) for x, y in deriv if x in these_ids]
+  pars = {key: val for key, val in pars.items() if key in these_ids}
 
-  return (("",0.0,len(init)+len(deriv)),(init,deriv,pars,selec,good,axioms)),time_elapsed
+  print("init: {}, deriv: {}, select: {}, good: {}, axioms: {}, time: {}".format(len(init),len(deriv),len(selec),len(good),len(axioms),time_elapsed), flush=True)
+  sys.stdout.flush()
+
+  return (("", 0.0, len(init) + len(deriv)), (init, deriv, pars, list(selec), list(good), axioms)), time_elapsed
 
 def prepare_signature(prob_data_list):
   thax_sign = set()
@@ -1184,7 +1190,7 @@ def prepare_signature(prob_data_list):
   deriv_arits = {}
   axiom_hist = defaultdict(float)
 
-  for (_,probweight,_), (init,deriv,pars,_,_,axioms) in prob_data_list:
+  for (_, probweight, _), (init, deriv, pars, _, _, axioms) in prob_data_list:
     for id, thax in init:
       thax_sign.add(thax)
     # for id, (_,sine) in init:
@@ -1219,24 +1225,24 @@ def axiom_names_instead_of_thax(thax_sign, axiom_hist, prob_data_list):
     ax_idx[ax] = good_ax_cnt
     thax_to_str[good_ax_cnt] = ax
 
-  for i,(metainfo,(init,deriv,pars,selec,good,axioms)) in enumerate(prob_data_list):
+  for i, (metainfo, (init, deriv, pars, selec, good, axioms)) in enumerate(prob_data_list):
     new_init = []
     for id, thax in init:
       if thax == 0:
         if id in axioms and axioms[id] in ax_idx:
           thax = ax_idx[axioms[id]]
-      new_init.append((id,thax))
+      new_init.append((id, thax))
       thax_sign.add(thax)
     thax_sign.add(0)
-    prob_data_list[i] = metainfo,(new_init,deriv,pars,selec,good,axioms)
+    prob_data_list[i] = metainfo, (new_init, deriv, pars, selec, good, axioms)
 
   return thax_sign, prob_data_list, thax_to_str
 
-def get_subtree(start, match, pars):
-  persistent = deepcopy(start)
+def get_subtree(start, deriv, pars):
+  persistent = set(start)
   pers_len = len(persistent)
   old_len = pers_len - 1
-  matches = {z for z, _ in match}
+  matches = {z for z, _ in deriv}
   while pers_len > old_len:
     persistent.update({y for x in persistent & matches for y in pars[x]})
     old_len = pers_len
@@ -1265,29 +1271,20 @@ def set_zero(prob_data_list, thax_to_str):
     prob_data_list[i] = ((probname, probweight, size), (new_init, deriv, pars, selec, good))
   return prob_data_list, thax_sign, thax_to_str_out
 
-def adjust_ids_and_crop(prob, old2new, global_selec):
-  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
-  this_init = [(old2new[id], thax) for id, thax in init]
-  this_deriv = [(old2new[id], rule) for id, rule in deriv]
-  these_pars = {old2new[id]: [old2new[val] for val in vals] for id, vals in pars.items() if id in old2new}
+def adjust_ids_and_crop(prob, old2new):
+  (probname, probweight, _), (init, deriv, pars, _, _) = prob
+  for i, (id, thax) in enumerate(init):
+    init[i] = (old2new[id], thax)
+  seen = set()
+  init[:] = [x for x in init if not (x in seen or seen.add(x))]
+  for i, (id, rule) in enumerate(deriv):
+    deriv[i] = (old2new[id], rule)
+  seen = set()
+  deriv[:] = [x for x in deriv if not (x in seen or seen.add(x))]
+  pars = {old2new[id]: [old2new[par] for par in pars[id]] for id in pars}
 
-  these_ids = {x for x, _ in this_init} | {x for x, _ in this_deriv}
-  persistent = get_subtree(these_ids & global_selec, this_deriv, these_pars)
-  this_init = [(id, thax) for id, thax in this_init if id in persistent]
-  this_deriv = [(id, rule) for id, rule in this_deriv if id in persistent]
-  these_pars = {id: vals for id, vals in these_pars.items() if id in persistent}
-  print("Reduced. Lengths before / after: {} / {}".format(len(init) + len(deriv), len(this_init) + len(this_deriv)), flush=True)
-  return ((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, selec & persistent, good & persistent))
-
-def crop(prob):
-  (probname, probweight, _), (init, deriv, pars, selec, good) = prob
-  these_ids = {x for x, _ in init} | {x for x, _ in deriv}
-  persistent = get_subtree(these_ids & selec, deriv, pars)
-  this_init = [(id, thax) for id, thax in init if id in persistent]
-  this_deriv = [(id, rule) for id, rule in deriv if id in persistent]
-  these_pars = {id: vals for id, vals in pars.items() if id in persistent}
-  print("Reduced. Lengths before / after: {} / {}".format(len(init) + len(deriv), len(this_init) + len(this_deriv)), flush=True)
-  return [((probname, probweight, len(this_init)+len(this_deriv)), (this_init, this_deriv, these_pars, selec & persistent, good & persistent))]
+  print("Lengths after: {}".format(len(init) + len(deriv)), flush=True)
+  return ((probname, probweight, len(init)+len(deriv)), (init, deriv, pars))
 
 def compress_prob_data_with_fixed_ids(some_probs):
   out_probname = ""
@@ -1296,10 +1293,8 @@ def compress_prob_data_with_fixed_ids(some_probs):
   out_init = []
   out_deriv = []
   out_pars = {}
-  out_selec = set()
-  out_good = set()
 
-  for ((probname, probweight, _), (init, deriv, pars, selec, good)) in some_probs:
+  for ((probname, probweight, _), (init, deriv, pars)) in some_probs:
   
     just_file = probname.split("/")[-1]
     out_probname = f"{out_probname} + {just_file}" if out_probname else just_file
@@ -1310,66 +1305,85 @@ def compress_prob_data_with_fixed_ids(some_probs):
     out_deriv_set = set(out_deriv)
     out_deriv.extend([x for x in deriv if x not in out_deriv_set])
     out_pars.update(pars)
-    out_selec.update(selec)
-    out_good.update(good)
 
   print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), flush=True)
   sys.stdout.flush()
-  return (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
+  return (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars)
 
-def compress_prob_data(some_probs, flag=False):
+def compress_prob_data(some_probs, specs_length, flag=False):
   id_cnt = 0
   out_probname = ""
   out_probweight = 0.0
   
-  abs2new = {} # maps (thax/rule,par_new_ids) to new_id (the structurally hashed one)
+  abs2new_init = {}
+  abs2new_deriv = {}
   
   out_init = []
   out_deriv = []
   out_pars = {}
-  out_selec = set()
-  out_good = set()
+  out_selec = {}
+  out_good = {}
+  out_neg = {}
+
+  prob_names = {}
 
   old2new = {} # maps old_id to new_id (this is the not-necessarily-injective map)
 
   for i, ((probname, probweight, _), specs) in enumerate(some_probs):
-    init, deriv, pars, selec, good = specs
+    if specs_length == "long":
+      init, deriv, pars, selec, good = specs
+    elif specs_length == "short":
+      init, deriv, pars = specs
 
     # reset for evey problem in the list
     old2new[i] = {}
     just_file = probname.split("/")[-1]
+    prob_names[just_file] = i
     out_probname = f"{out_probname} + {just_file}" if out_probname else just_file
     out_probweight += probweight
 
     for old_id, features in init:
-      if features not in abs2new:
+      if features not in abs2new_init:
         new_id = id_cnt
         id_cnt += 1
         out_init.append((new_id, features))
-        abs2new[features] = new_id
-      old2new[i][old_id] = abs2new[features]
+        abs2new_init[features] = new_id
+      old2new[i][old_id] = abs2new_init[features]
 
     for old_id, features in deriv:
       new_pars = [old2new[i][par] for par in pars[old_id]]
-      abskey = (features, *new_pars)
-      if abskey not in abs2new:
+      abskey = tuple([features]+new_pars)
+      if abskey not in abs2new_deriv:
         new_id = id_cnt
         id_cnt += 1
         out_deriv.append((new_id, features))
         out_pars[new_id] = new_pars
-        abs2new[abskey] = new_id
-      old2new[i][old_id] = abs2new[abskey]
+        abs2new_deriv[abskey] = new_id
+      old2new[i][old_id] = abs2new_deriv[abskey]
 
-    for old_id in selec:
-      out_selec.add(old2new[i][old_id])
-    for old_id in good:
-      out_good.add(old2new[i][old_id])
+    if specs_length == "long":
+      out_selec[i] = set()
+      out_good[i] = {}
+      out_neg[i] = {}
+      for old_id in selec:
+        out_selec[i].add(old2new[i][old_id])
+      for old_id in good:
+        if old2new[i][old_id] in out_good[i]:
+          out_good[i][old2new[i][old_id]] += 1
+        else:
+          out_good[i][old2new[i][old_id]] = 1
+      neg = set(selec) - set(good)
+      for old_id in neg:
+        if old2new[i][old_id] in out_neg[i]:
+          out_neg[i][old2new[i][old_id]] += 1
+        else:
+          out_neg[i][old2new[i][old_id]] = 1
 
   print("Compressed to", out_probname, len(out_init) + len(out_deriv), len(out_init), len(out_deriv), len(out_pars), len(out_selec), len(out_good))
-  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars, out_selec, out_good)
+  result = (out_probname, out_probweight, len(out_init) + len(out_deriv)), (out_init, out_deriv, out_pars)
 
   if flag:
-    return result, old2new, out_selec, out_good
+    return result, old2new, out_selec, out_good, out_neg, prob_names
   else:
     return result 
 
