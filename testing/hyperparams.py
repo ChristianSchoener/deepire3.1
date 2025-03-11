@@ -6,7 +6,7 @@ import torch
 
 # multi_inf_paralels_config:
 
-SCRATCH = "/home/chris/Dokumente/Github/Projektarbeit_Vampire/strat1new_better/classes_testing_compress/pieces" # add /raid/. for dgx
+SCRATCH = "./pieces" # add /raid/. for dgx
 MAX_EPOCH = 100
 
 # DATA PREPARATION PARAMS:
@@ -145,18 +145,15 @@ COM_FOLDER = "."
 COM_FILE = "raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 COM_ADD_MODE_1 = "train"
 
-TRAIN_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
-TRAIN_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
+TRAIN_BASE_FOLDER = "my_projects/project_1/"
+TRAIN_TRAIN_FOLDER = "my_projects/project_1/run"
 TRAIN_USE_CHECKPOINT = False
-TRAIN_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch18.pt"
+TRAIN_CHECKPOINT_FILE = ""
 
-VALID_BASE_FOLDER = "strat1new_better/classes_testing_compress/"
-VALID_TRAIN_FOLDER = "strat1new_better/classes_testing_compress/run"
-VALID_VALID_FOLDER = "strat1new_better/classes_testing_compress/run-validate"
+VALID_BASE_FOLDER = "my_projects/project_1/"
+VALID_TRAIN_FOLDER = "my_projects/project_1/run"
+VALID_VALID_FOLDER = "my_projects/project_1/run-validate"
 
-EXP_DATA_SIGN_PREPARED = "strat1new_better/classes_testing_compress/data_sign.pt"
-EXP_NAME = "strat1new_better/models/greedy-500-e19-additive.pt"
-EXP_CHECKPOINT_FILE = "strat1new_better/classes_testing_compress/run/check-epoch19.pt"
-
-ZERO_FOLDER = "strat1new_better/classes_testing_compress/"
-ZERO_FILE = "strat1new_better/classes_testing_compress/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
+EXP_DATA_SIGN_PREPARED = "my_projects/project_1/data_sign.pt"
+EXP_NAME = "my_projects/models/greedy-500-e37-PerProblem_mixed.pt"
+EXP_CHECKPOINT_FILE = "my_projects/project_1/run/check-epoch37.pt"
