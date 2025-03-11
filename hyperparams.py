@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
 
-# a module of concepts common to the inference based model development
-
 import torch
 
-# multi_inf_paralels_config:
+# the folder containing the pieces. A subdirectory of your project folder
+SCRATCH = "./my_projects/project_1/pieces"
 
-SCRATCH = "./my_projects/project_1/pieces" # add /raid/. for dgx
 MAX_EPOCH = 100
 
-# DATA PREPARATION PARAMS:
-
+# Do not modify
 TreatAvatarEmpties_JUSTFINAL = 1
 TreatAvatarEmpties_INCLUDEALL = 2
 
@@ -35,30 +32,32 @@ THAX_SOURCE = ThaxSource_AXIOM_NAMES
 
 SPLIT_AT_ACTIVATION = False
 ONLY_GENERATING_PARENTS = False
+# Do not modify END
 
-# only take the first MAX_USED_AXIOM_CNT thax values to create embeddings for (all other will join 0)
-# this needs to be done before/during the compression phase
-# note that log-loading already introduced the axioms in the order of decreasing estimated usefulness
-# only makes sense for THAX_SOURCE = ThaxSource_AXIOM_NAMES
+
+# How many axioms to reveal? The most common this many will be represented individually, the rest collapsed to a single one, and derived clauses accordingly 
 MAX_USED_AXIOM_CNT = 500
 
+# Compress pieces, if size below threshold (may lead to pieces up to 2*(threshold-1))
 COMPRESSION_THRESHOLD = 20000
 
+# Split training to validation sets 9:1
 VALID_SPLIT_RATIO = 0.9
 
+# currently unused
 # these are now ignored in multi_inf_parallel_files_continuous.py
 WHAT_IS_BIG = 12000
 WHAT_IS_HUGE = 120000
 
+# currently unused
 # used for both training and model export (should be kept the same)
 USE_SINE = False
 
+# currently unused
 # any other value than -1 (which means "off") will get hardwired during export into the model
 FAKE_CONST_SINE_LEVEL = -1
 
-# MODEL PARAMS:
-
-# a hyper-parameter of the future model
+# The embedding size for the clauses and inference rules.
 EMBED_SIZE = 128
 
 NonLinKind_TANH = 1
@@ -69,24 +68,28 @@ def NonLinKindName(val):
     return "Tanh"
   elif val == NonLinKind_RELU:
     return "ReLU"
-
+# nonlinear activation = ReLU
 NONLIN = NonLinKind_RELU
 
+# Increases the dimension in a first linear layer of inference rules. This has probably some good effect.
 BOTTLENECK_EXPANSION_RATIO = 2 # is used halved for the eval layer (and sine layer?)
 
+# Layer-Norm finishing every inference rule
 LAYER_NORM = True
 
+# currently unused
 # These two should probably used exclusively,
 # also they are only imporant when we have (NONLIN == NonLinKind_RELU && LAYER_NORM == False)
 CLIP_GRAD_NORM = None # either None of the max_norm value to pass to clip_grad_norm_
 CLIP_GRAD_VAL = None  # either None of the clip_value value to pass to clip_grad_value_
 
+# Dropout for the inference rules and evaluation unit
 DROPOUT = 0.2
 
-# LEARNING PARAMS:
-
+# Number of processes to use for validation, and pre-processing. Can lead to high RAM usage. 6 ~ 50-60 GB max. @ pre-processing
 NUMPROCESSES = 6
 
+# currently unused
 TestRiskRegimen_VALIDATE = 1
 TestRiskRegimen_OVERFIT = 2
 
@@ -98,15 +101,22 @@ def TestRiskRegimenName(val):
 
 TRR = TestRiskRegimen_VALIDATE
 
+# currently unused
 SWAPOUT = 0.0
+
+# lr
 LEARN_RATE = 0.00005
+# currently unused
 MOMENTUM = 0.9 # only for SGD
 
+# If True, lr will increase linearly, reach lr at epoch 10 and 4*lr at epoch 40, then decay. Otherwise constant lr.
 NON_CONSTANT_10_50_250_LR = False
 
+# currently unused
 # Corresponds to L2 regularization
 WEIGHT_DECAY = 0.0
 
+# Optimizer
 Optimizer_SGD = 1
 Optimizer_ADAM = 2
 Optimizer_ADAMW = 3
@@ -119,39 +129,60 @@ def OptimizerName(val):
   elif val == Optimizer_ADAMW:
     return "AdamW"
 
+# currently unused - Adam hard-coded
 OPTIMIZER = Optimizer_ADAM
 
+# Additional factor to fine-tune class imbalance correction
 POS_WEIGHT_EXTRA = 1.0
 
+# currently not used 
 FRACTIONAL_CHECKPOINTING = 0 # 0 means disabled, 1 does not make sense
 
+# currently not used 
 FOCAL_LOSS = False
 
+# Train on CUDA? True/False
 CUDA = True
 
+# currently not used 
 NUM_STREAMS = 1
 
+# Available weighting strategies: "PerProblem", "PerProblem_mixed", "Simple", "Additive" 
 WEIGHT_STRATEGY = "PerProblem_mixed"
 
+# where to output files after log loading
 LOG_FOLDER = "my_projects/project_1/"
+# file listing the log files to read in
 LOG_FILES_TXT = "loop0_logs.txt"
 
+# where to output files after pre-compression and also read in some smaller one not listed here
 PRE_FOLDER = "my_projects/project_1/"
+# name of the file output by log loading. given the default folder, this will come out:
 PRE_FILE = "my_projects/project_1/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
 
+# where to output files after compression and also read in some smaller one not listed here
 COM_FOLDER = "my_projects/project_1/"
+# name of the file output by log loading. Will be suffixed ".train" or ".valid", depending on the value of COM_ADD_MODE_1
 COM_FILE = "my_projects/project_1/raw_log_data_avF_thaxAxiomNames_useSineFalse.pt"
+# "train" or "valid"
 COM_ADD_MODE_1 = "train"
 
+# base folder containing data signature, training and validation index
 TRAIN_BASE_FOLDER = "my_projects/project_1/"
+# run folder containing check-points, logs and plots.
 TRAIN_TRAIN_FOLDER = "my_projects/project_1/run"
+# Restart from a checkpoint file? True/False
 TRAIN_USE_CHECKPOINT = False
 TRAIN_CHECKPOINT_FILE = ""
 
+# Mutatis mutandis as for training
 VALID_BASE_FOLDER = "my_projects/project_1/"
 VALID_TRAIN_FOLDER = "my_projects/project_1/run"
 VALID_VALID_FOLDER = "my_projects/project_1/run-validate"
 
+# Data signature, as we have to map axiom numbers back to strings for the jit, since Vampire knows the strings 
 EXP_DATA_SIGN_PREPARED = "my_projects/project_1/data_sign.pt"
+# The name of the model file that shall be created
 EXP_NAME = "my_projects/models/greedy-500-e37-PerProblem_mixed.pt"
+# The name of the checkpoint file we want to convert into a model for guidance
 EXP_CHECKPOINT_FILE = "my_projects/project_1/run/check-epoch37.pt"
