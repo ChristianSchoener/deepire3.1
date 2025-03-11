@@ -6,7 +6,7 @@ If you're new, probably first check out the links and then the testing section.
 - Vampire in it's Deepire modification: [Deepire 3.1 commit @ github.com](https://github.com/vprover/vampire/commit/110f414207d632819dea4cf01a1ddaca86d0cca3)
 - libtorch to be compiled together with Vampire: [libtorch @ pytorch.org](https://download.pytorch.org/libtorch/cu102/libtorch-shared-with-deps-1.7.0.zip)
 - The original script files, containing also some information about how to  perform the guided runs with Vampire: [deepire-mizar-paper-supplementary-materials @ github.com](https://github.com/quickbeam123/deepire-mizar-paper-supplementary-materials)
-- The publication on the subject [Vampire with a brain is a good ITP hammer](https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11)
+- The publication on the subject: [Vampire with a brain is a good ITP hammer](https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11)
 
 ## Loading logs, compressing, running training, validation, exporting the model 
 - hyperparams.py: Configuration file. Read the comments in there! Many parameters are at the bottom. There are also some parameters we do not use/care about.
