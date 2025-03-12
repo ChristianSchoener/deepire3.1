@@ -3,7 +3,7 @@ If you're new, probably first check out the links and then the testing section.
 
 ## Important links for this repo:
 - The Mizar40 problem set in the TPTP format: [Mizar40 Problem-set @ cvut.cz](http://grid01.ciirc.cvut.cz/~mptp/7.13.01_4.181.1147/MPTP2/problems_small_consist.tar.gz)
-- Vampire in it's Deepire modification: [Deepire 3.1 commit @ github.com](https://github.com/vprover/vampire/commit/110f414207d632819dea4cf01a1ddaca86d0cca3)
+- Vampire with Deepire modifications: [Deepire 3.1 commit @ github.com](https://github.com/vprover/vampire/commit/110f414207d632819dea4cf01a1ddaca86d0cca3)
 - libtorch to be compiled together with Vampire: [libtorch @ pytorch.org](https://download.pytorch.org/libtorch/cu102/libtorch-shared-with-deps-1.7.0.zip)
 - The original script files, containing also some information about how to  perform the guided runs with Vampire: [deepire-mizar-paper-supplementary-materials @ github.com](https://github.com/quickbeam123/deepire-mizar-paper-supplementary-materials)
 - The publication on the subject: [Vampire with a brain is a good ITP hammer](https://link.springer.com/chapter/10.1007/978-3-030-86205-3_11)
