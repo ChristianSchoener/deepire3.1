@@ -65,7 +65,7 @@ if __name__ == "__main__":
         logname = line.strip()
         if logname:
           tasks.append((i, logname))
-          print(logname)        
+          print(logname)
 
     pool = Pool(processes=HP.NUMPROCESSES) # number of cores to use
     results = pool.map(load_one, tasks, chunksize = 100)
