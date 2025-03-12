@@ -17,7 +17,7 @@ If you're new, probably first check out the links and then the testing section.
 - compressor.py: Performs pre-compression and the compression leading to files used for the training and validation. Set the parameters in hyperparams.py, then run python3 compressor.py mode=pre, and afterwards python3 compressor.py mode=compress, the latter once with the setting train and once with valid in hyperparams.py.
 - inf_common.py: Contains most of the algorithms and models. Not called directly.
 - multi_inf_parallel_files_continuous.py: The function to perform the training. Call by python3 multi_inf_parallel_files_continuous.py.
-- validator.py: Runs the validation. Adjust the parameters in hyperparams.py to point to your project directory containing checkpoint files, and another folder for the validation results. Execute by running python3 validator.py.
+- validator.py: Runs the validation. Adjust the parameters in hyperparams.py to point to your project directory containing checkpoint files, and another folder for the validation results. Execute by running python3 validator.py. Watch out, this one runs on CPU, not GPU. So adjust the value for number of processes.
 - exporter.py: Exports checkpoint files to jit-scripted models used for the guidance of Vampire. Adjust the parameters in hyperparams.py to point to the desired checkpoint file and model file name. Execute by running python3 exporter.py.
 
 ## Testing
