@@ -843,24 +843,7 @@ def load_one(filename,max_size = None):
     total -= 1
   '''
 
-  these_ids = {x for x, _ in init} | {x for x, _ in deriv}
-  these_ids = get_subtree(these_ids & selec, deriv, pars)
-  init = [(x, y) for x, y in init if x in these_ids]
-  deriv = [(x, y) for x, y in deriv if x in these_ids]
-  pars = {key: val for key, val in pars.items() if key in these_ids}
-
   return (init,deriv,pars,selec,good,axioms),time_elapsed
-
-def get_subtree(start, deriv, pars):
-  persistent = set(start)
-  pers_len = len(persistent)
-  old_len = pers_len - 1
-  matches = {z for z, _ in deriv}
-  while pers_len > old_len:
-    persistent.update({y for x in persistent & matches for y in pars[x]})
-    old_len = pers_len
-    pers_len = len(persistent)
-  return persistent
 
 def prepare_signature(prob_data_list):
   thax_sign = set()
@@ -1014,7 +997,6 @@ def compress_prob_data(some_probs):
         new_id = abs2new_init[abskey]
 
       old2new[old_id] = new_id
-      print(old_id, old2new[old_id], abskey, flush=True)
 
     for old_id, features in deriv:
       new_pars = [old2new[par] for par in pars[old_id]]
@@ -1033,7 +1015,6 @@ def compress_prob_data(some_probs):
         new_id = abs2new_deriv[abskey]
 
       old2new[old_id] = new_id
-      print(old_id, old2new[old_id], abskey, flush=True)
 
     for old_id,val in pos_vals.items():
       out_pos_vals[old2new[old_id]] += val
