@@ -31,6 +31,6 @@ Be aware that execution of the scripts consumes quite some RAM (close to 60 GB, 
 In the models folder, there are two trained models, ready for guidance.
 They were both obtained from 500 revealed axioms and embedding dimension 128.
 - models/l0_500_e43_original.pt is a reference model from the original code.
-- models/greedy-500-e37-PerProblem_mixed.pt was generated with the greedy approach and the "PerProblem_mixed" weighting strategy, which takes into account positive and negative rating before collapsing axioms. The original code implements the "PerProblem" weigthting strategy, which doesn't do that.
+- models/greedy-500-e37-PerProblem_mixed.pt was generated with the greedy approach and the "PerProblem_mixed" weighting strategy, which takes into account positive and negative rating before collapsing axioms. The original code implements the "PerProblem" weigthting strategy, which doesn't do that. Furthermore, since unit resulting resolution (rule 52) is not in the training, we replaced its forward function by the sum of incoming vecotrs, which is cheap to compute (not like this in inf_common.py)
 
 We observe 20632 problems solved for unguided Vampire, 20415 for Vampire guided by the mentioned model from the original code, and 25909 problems solved by the modified weighting strategy from the new code.
