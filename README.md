@@ -1,5 +1,9 @@
 # Modifications for GPU-readiness
-If you're new, probably first check out the links and then the testing section.
+If you're new, probably first check out the requirements, then the links and then the testing section.
+
+## Requirements
+Other than what is listed in requirements.txt, Python 3.12.
+Obligatory CUDA.
 
 ## Important links for this repo:
 - The Mizar40 problem set in the TPTP format: [Mizar40 Problem-set @ cvut.cz](http://grid01.ciirc.cvut.cz/~mptp/7.13.01_4.181.1147/MPTP2/problems_small_consist.tar.gz)
