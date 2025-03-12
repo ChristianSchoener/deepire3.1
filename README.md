@@ -27,10 +27,10 @@ Be aware that execution of the scripts consumes quite some RAM (close to 60 GB, 
 - testing/testing_logs.txt: Contains the references to the log files in results/base_s4k, for which a comparison of the results between the original and the modified code shall be performed, and a computation speed comparison.
 - testing/loop0_logs.txt: Contains all references to the log files in results/base_s4k.
 
-  ## Models
-  In the models folder, there are two trained models, ready for guidance.
-  They were both obtained from 500 revealed axioms and embedding dimension 128.
-  - models/l0_500_e43_original.pt is a reference model from the original code.
-  - models/greedy-500-e37-PerProblem_mixed.pt was generated with the greedy approach and the "PerProblem_mixed" weighting strategy, which takes into account positive and negative rating before collapsing axioms. The original code implements the "PerProblem" weigthting strategy, which doesn't do that.
+## Models
+In the models folder, there are two trained models, ready for guidance.
+They were both obtained from 500 revealed axioms and embedding dimension 128.
+- models/l0_500_e43_original.pt is a reference model from the original code.
+- models/greedy-500-e37-PerProblem_mixed.pt was generated with the greedy approach and the "PerProblem_mixed" weighting strategy, which takes into account positive and negative rating before collapsing axioms. The original code implements the "PerProblem" weigthting strategy, which doesn't do that.
 
 We observe 20632 problems solved for unguided Vampire, 20415 for Vampire guided by the mentioned model from the original code, and 25909 problems solved by the modified weighting strategy from the new code.
